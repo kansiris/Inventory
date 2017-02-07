@@ -31,9 +31,9 @@ namespace Inventory.Service
         #endregion
 
         #region Authenticateuser
-        public static SqlDataReader Authenticateuser(string check, string Email_ID, string Password,string site)
+        public static SqlDataReader Authenticateuser(string check, string Email_ID, string Password,string site, long usertypeid)
         {
-            return LoginRepository.Authenticateuser(check,Email_ID, Password,site);
+            return LoginRepository.Authenticateuser(check,Email_ID, Password,site,usertypeid);
         }
         #endregion
 
@@ -46,9 +46,9 @@ namespace Inventory.Service
         #endregion
 
         #region GetUserType
-        public static object GetUserTypeId(string type)
+        public static object GetUserTypeId(string type,long id)
         {
-            return LoginRepository.GetUserTypeId(type);
+            return LoginRepository.GetUserTypeId(type,id);
         }
         #endregion
 

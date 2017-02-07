@@ -62,16 +62,16 @@ namespace Inventory.Repository
         }
         #endregion
         #region Authenticateuser
-        public static SqlDataReader Authenticateuser(string check,string Email_ID, string Password,string site)
+        public static SqlDataReader Authenticateuser(string check,string Email_ID, string Password,string site,long usertypeid)
         {
-            return SqlHelper.ExecuteReader(ConnectionString1, "Authenticateuser",check, Email_ID, Password,site);
+            return SqlHelper.ExecuteReader(ConnectionString1, "Authenticateuser",check, Email_ID, Password,site,usertypeid);
             //return SqlHelper.ExecuteReader(ConnectionString, "getuser", new SqlParameter("@Email_ID", Email_ID) , new SqlParameter("@Password", Password));
         }
         #endregion
         #region GetUserType
-        public static object GetUserTypeId(string type)
+        public static object GetUserTypeId(string type,long id)
         {
-            return SqlHelper.ExecuteScalar(ConnectionString1, "GetUserType", type);
+            return SqlHelper.ExecuteScalar(ConnectionString1, "GetUserType", type,id);
         }
         #endregion
 

@@ -84,7 +84,7 @@
                             @*<input type="email" class="form-control" placeholder="Email" required="" />*@
                         </div>
                         <div>
-                            @Html.TextBoxFor(Model => Model.EmailId, new {@id= "RegEmailId", placeholder = "Enter Email ID", required = "required" ,@class="form-control", @onchange = "check()" }) 
+                            @Html.TextBoxFor(Model => Model.EmailId, new {@id= "RegEmailId", placeholder = "Enter Email ID", required = "required" ,@class="form-control", @onchange = "check()" })
                             @*<input type="password" class="form-control" placeholder="Password" required="" />*@
                         </div>
                         <div>
@@ -135,7 +135,7 @@
             alert("Invalid Credentials");
         </script>
     }
-    
+
     <script>
         function check(e) {
             var emailid = $('#RegEmailId').val();//e.value;
@@ -150,7 +150,7 @@
             $.ajax({
                 url: '/Login/checkemail',
                 type: 'POST',
-                data: JSON.stringify({ emailid: emailid,site:site,type:type }),
+                data: JSON.stringify({ emailid: emailid, site: site, type: type }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {

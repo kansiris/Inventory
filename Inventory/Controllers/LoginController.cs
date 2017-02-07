@@ -35,7 +35,7 @@ namespace Inventory.Controllers
                 //    return RedirectToAction("Index", "Dashboard");
                 //else
                 //    ViewBag.invalid = "Invalid Credentials";
-                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, userMaster.Password,null);
+                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, userMaster.Password,null,0);
                 if (value.HasRows)
                 {
                     //var val = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
@@ -50,7 +50,7 @@ namespace Inventory.Controllers
             {
                 string DBname = userMaster.EmailId.Split('@')[0] + ".Inventory";
                 int Subscription = (int)LoginService.getsubscriptionid("Free Member");
-                int usertype = (int)LoginService.GetUserTypeId("Owner");
+                int usertype = (int)LoginService.GetUserTypeId("Owner",0);
                 int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone);
                 //createdb();
             }
@@ -59,7 +59,7 @@ namespace Inventory.Controllers
 
         public JsonResult checkemail(string emailid,string site,string type)
         {
-            var data = LoginService.Authenticateuser(type, emailid, null,site);
+            var data = LoginService.Authenticateuser(type, emailid, null,site,0);
             if (data.HasRows)
                 return Json("exists", JsonRequestBehavior.AllowGet); // if email ID already exists
             return Json("unique", JsonRequestBehavior.AllowGet); // if email ID is unique
