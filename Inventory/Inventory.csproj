@@ -233,6 +233,7 @@
     <Compile Include="Controllers\FormButtonsController.cs" />
     <Compile Include="Controllers\FormUploadController.cs" />
     <Compile Include="Controllers\FormValidationController.cs" />
+    <Compile Include="Controllers\FranchiseHomeController.cs" />
     <Compile Include="Controllers\GeneralElementsController.cs" />
     <Compile Include="Controllers\GeneralFormController.cs" />
     <Compile Include="Controllers\GlyphiconsController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TypographyController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
+    <Compile Include="Controllers\VendorHomeController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
     <Compile Include="Controllers\WizardFormController.cs" />
     <Compile Include="Global.asax.cs">
@@ -4589,6 +4591,8 @@
     <Content Include="Views\PricingTables\Index.cshtml" />
     <Content Include="Views\AvailableCompanies\Index.cshtml" />
     <Content Include="Views\UserHome\Index.cshtml" />
+    <Content Include="Views\VendorHome\Index.cshtml" />
+    <Content Include="Views\FranchiseHome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
