@@ -1,0 +1,178 @@
+﻿@model Inventory.Models.UserMaster
+@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella Alela! | </title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form method="post">
+                        <h1>Login Form</h1>
+                        <div>
+                            @Html.TextBoxFor(Model => Model.EmailId, new { @id = "LoginEmailId", placeholder = "Enter Email ID", required = "required", @class = "form-control" })
+                            @*<input type="text" class="form-control" placeholder="Username" required="" />*@
+                        </div>
+                        <div>
+                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
+                            @*<input type="password" class="form-control" placeholder="Password" required="" />*@
+                        </div>
+                        <div>
+                            <button type="submit" name="command" value="Authenticate" class="btn btn-default submit">Log in</button>
+                            @*<input type="submit" name="command" value="Log in" class="btn btn-default submit"/>*@
+                            @*<a class="btn btn-default submit" href="~/Dashboard">Log in</a>*@
+                            <a class="reset_pass" href="#">Lost your password?</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link">
+                                New to site?
+                                <a href="#signup" class="to_register"> Create Account </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div id="register" class="animate form registration_form">
+                <section class="login_content">
+                    <form method="post">
+                        <h1>Create Account</h1>
+                        <div>
+                            @Html.TextBoxFor(Model=>Model.First_Name,new { placeholder="Enter First Name", required = "required", @class = "form-control" })
+                            @*<input type="text" class="form-control" placeholder="Username" required="" />*@
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(Model => Model.Last_Name, new { placeholder = "Enter Last Name", required = "required", @class = "form-control" })
+                            @*<input type="email" class="form-control" placeholder="Email" required="" />*@
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(Model => Model.EmailId, new {@id= "RegEmailId", placeholder = "Enter Email ID", required = "required" ,@class="form-control", @onchange = "check()" }) 
+                            @*<input type="password" class="form-control" placeholder="Password" required="" />*@
+                        </div>
+                        <div>
+                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
+                            @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(Model => Model.CompanyName, new { placeholder = "Enter Company Name", required = "required", @class = "form-control" })
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(Model => Model.User_Site, new { placeholder = "Enter Site Address", required = "required", @class = "form-control", @onchange = "check()" })
+                            <p id="msg"></p>
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(Model => Model.Phone, new { placeholder = "Enter Phone Number", required = "required", @class = "form-control" })
+                        </div>
+                        <div>
+                            <button type="submit" name="command" value="Insert" class="btn btn-default submit">Start My Free Trial</button>
+                            @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link">
+                                Already a member ?
+                                <a href="#signin" class="to_register"> Log in </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
+    <script src="~/Scripts/jquery.js"></script>
+    @if (ViewBag.invalid != null)
+    {
+        <script>
+            alert("Invalid Credentials");
+        </script>
+    }
+    
+    <script>
+        function check(e) {
+            var emailid = $('#RegEmailId').val();//e.value;
+            var site = $('#User_Site').val();
+            var type = null;
+            if (site != "") {
+                type = 'usersite';
+            }
+            else {
+                type = 'email';
+            }
+            $.ajax({
+                url: '/Login/checkemail',
+                type: 'POST',
+                data: JSON.stringify({ emailid: emailid,site:site,type:type }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "exists") {
+                        if (type === 'email') {
+                            window.location.href = "#signin";
+                            $("#LoginEmailId").val(emailid);
+                            $("#RegEmailId").val("");
+                        }
+                        else {
+                            document.getElementById('msg').innerHTML = "Site Address Already taken!!! Try Another";
+                            $('#User_Site').focus();
+                        }
+                    }
+                    else {
+                        document.getElementById('msg').innerHTML = "";
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
+    </script>
+</body>
+</html>
