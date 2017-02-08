@@ -31,16 +31,37 @@ namespace Inventory.Controllers
             return View();
         }
 
-        public ActionResult Authenticate(string emailid, string password, string usertype)
+        [HttpPost]
+        public ActionResult Index(string email,string usertype,string loginpassword)
         {
             var type = LoginService.GetUserTypeId(null, long.Parse(usertype));
-            SqlDataReader value = LoginService.Authenticateuser("redirectuser", emailid, password, null, long.Parse(usertype));
-            string msg = "";
-            if (value.HasRows)
-                msg = "exists";
+            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+            string controller = "";
+            if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
+                controller = "UserHome";
             else
-                return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login');location.href='" + @Url.Action("Index", "AvailableCompanies")+ "'</script>");
-            return Json(new { type, msg }, JsonRequestBehavior.AllowGet);
+                controller = type.ToString() + "Home";
+            if (value.HasRows == false) //Failed Login
+                return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies",new { email = email}) + "'</script>"); // Stays in Same View
+            return RedirectToAction("Index", controller); // Redirects to Particular View
         }
+
+        //public ActionResult Authenticate(string emailid, string password, string usertype)
+        //{
+        //    var type = LoginService.GetUserTypeId(null, long.Parse(usertype));
+        //    SqlDataReader value = LoginService.Authenticateuser("redirectuser", emailid, password, null, long.Parse(usertype));
+        //    string controller = "";
+        //    if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
+        //        controller = "UserHome";
+        //    else
+        //        controller = type.ToString()+"Home";
+        //    if (value.HasRows == false) //Failed Login
+        //        return Content("<script language='javascript' type='text/javascript'>alert('Failed!');location.href='" + @Url.Action("Index", "AvailableCompanies") + "'</script>");
+        //    return RedirectToAction("Index", controller);
+        //    //return Content("<script language='javascript' type='text/javascript'>alert('Failed!');location.href='" + @Url.Action("Index", "AvailableCompanies") + "'</script>");
+        //    //return Json(new { msg = "InvalidLogin" }, JsonRequestBehavior.AllowGet); // Stays in Same View
+        //    //return Json(new { msg= "Redirect", controller }); // Redirects to Particular View
+        //    //url = Url.Action("Index", controller)
+        //}
     }
 }

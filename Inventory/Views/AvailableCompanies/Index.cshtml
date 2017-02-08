@@ -68,24 +68,24 @@
                                     <p>Media gallery design emelents</p>
                                     @foreach (var item in ViewBag.records)
                                     {
-                                        <div class="col-md-55" onclick="get(@item.UserTypeId)" align="center">
-                                            <div class="thumbnail">
-                                                <div class="image view view-first">
-                                                    <img style="width: 100%; display: block;" src="images/media.jpg" alt="image" />
-                                                    <div class="mask" data-toggle="modal" data-target=".bs-example-modal-sm">
-                                                        <p>@item.User_Site</p>
-                                                        <div class="tools tools-bottom">
-                                                            <a href="#"><i class="fa fa-link"></i></a>
-                                                            <a href="#"><i class="fa fa-pencil"></i></a>
-                                                            <a href="#"><i class="fa fa-times"></i></a>
-                                                        </div>
+                                    <div class="col-md-55" onclick="get(@item.UserTypeId)" align="center">
+                                        <div class="thumbnail">
+                                            <div class="image view view-first">
+                                                <img style="width: 100%; display: block;" src="images/media.jpg" alt="image" />
+                                                <div class="mask" data-toggle="modal" data-target=".bs-example-modal-sm">
+                                                    <p>@item.User_Site</p>
+                                                    <div class="tools tools-bottom">
+                                                        <a href="#"><i class="fa fa-link"></i></a>
+                                                        <a href="#"><i class="fa fa-pencil"></i></a>
+                                                        <a href="#"><i class="fa fa-times"></i></a>
                                                     </div>
                                                 </div>
-                                                <div class="caption">
-                                                    <button type="button" class="btn btn-default" onclick="get(@item.UserTypeId)" data-toggle="modal" data-target=".bs-example-modal-sm">@item.User_Site</button>
-                                                </div>
+                                            </div>
+                                            <div class="caption">
+                                                <button type="button" class="btn btn-default" onclick="get(@item.UserTypeId)" data-toggle="modal" data-target=".bs-example-modal-sm">@item.User_Site</button>
                                             </div>
                                         </div>
+                                    </div>
                                     }
                                 </div>
                             </div>
@@ -101,18 +101,19 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel2">Enter Password</h4><input type="hidden" id="usertype" />
+                            <h4 class="modal-title" id="myModalLabel2">Enter Password</h4><input type="hidden" id="usertype" name="usertype" />
                         </div>
                         <div class="modal-body">
-                            <input type="password" id="loginpassword" placeholder="Enter Password" class="form-control" required="required" />
+                            <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control" required="required" />
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" id="btnlogin" value="Authenticate" onclick="redirect()">Sign In</button>
+                            <button type="submit" class="btn btn-primary" id="btnlogin" value="Authenticate">Sign In</button>
                         </div>
                     </div>
                 </div>
 
             </div>
+
         </div>
     </form>
     <!-- jQuery -->
@@ -125,30 +126,6 @@
     <script src="../vendors/nprogress/nprogress.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <script>
-        function redirect() {
-            var password = $('#loginpassword').val();
-            var email = '@Request.QueryString["email"]';
-            var usertype = $('#usertype').val();
-            $.ajax({
-                url: '/AvailableCompanies/Authenticate',
-                type: 'POST',
-                data: JSON.stringify({ emailid: email, password: password, usertype: usertype }),
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data.msg == "exists") {
-                        if (data.type == "Owner" || data.type == "Staff")
-                            window.location.href = '/UserHome'
-                        else
-                            window.location.href = '/' + data.type + 'Home'
-                    }
-                },
-                error: function (data)
-                { alert("Something Went Wrong!!! Try Again"); }
-            });
-        }
-    </script>
     <script>
         function get(id) {
             $('#usertype').val(id);
