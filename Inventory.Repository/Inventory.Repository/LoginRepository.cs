@@ -55,9 +55,9 @@ namespace Inventory.Repository
 
 
         #region CreateUser
-        public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId,int UserTypeId,string User_Site,string CompanyName,string Phone)
+        public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId,int UserTypeId,string User_Site,string CompanyName,string Phone,DateTime? SubscriptionDate,int IsActive,string activationcode)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "createuser", EmailId, First_Name, Last_Name, DB_Name,  Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "createuser", EmailId, First_Name, Last_Name, DB_Name,  Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone,SubscriptionDate,IsActive,activationcode);
             return count;
         }
         #endregion
@@ -79,6 +79,14 @@ namespace Inventory.Repository
         public static object getsubscriptionid(string type)
         {
             return SqlHelper.ExecuteScalar(ConnectionString1, "getsubscriptionid", type);
+        }
+        #endregion
+
+        #region EmailActivation
+        public static int ActivateEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuser",email,usertype, IsActive, SubscriptionDate,activationcode);
+            return count;
         }
         #endregion
     }

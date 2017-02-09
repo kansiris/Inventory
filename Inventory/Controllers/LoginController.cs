@@ -30,16 +30,16 @@ namespace Inventory.Controllers
         {
             if (command == "Authenticate")
             {
+                //for API
                 //string check = valuesController1.Get(login.Email_ID, login.Password);
                 //if(check == "success")
                 //    return RedirectToAction("Index", "Dashboard");
                 //else
                 //    ViewBag.invalid = "Invalid Credentials";
-                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, userMaster.Password,null,0);
+                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, userMaster.Password, null, 0);
                 if (value.HasRows)
                 {
-                    //var val = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
-                    return RedirectToAction("Index", "AvailableCompanies",new { email = userMaster.EmailId } );
+                    return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
                 }
                 else
                 {
@@ -48,18 +48,27 @@ namespace Inventory.Controllers
             }
             if (command == "Insert")
             {
+                DateTime? SubscriptionDate = null;
+                string activationCode = Guid.NewGuid().ToString();
                 string DBname = userMaster.EmailId.Split('@')[0] + ".Inventory";
                 int Subscription = (int)LoginService.getsubscriptionid("Free Member");
-                int usertype = (int)LoginService.GetUserTypeId("Owner",0);
-                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone);
+                int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
+                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode);
+                if (count > 0)
+                {
+                    Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
+                    return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Activation email has been sent to your Email Address.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                }
+                return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 //createdb();
             }
             return View();
         }
 
-        public JsonResult checkemail(string emailid,string site,string type)
+        public JsonResult checkemail(string emailid, string site, string type)
         {
-            var data = LoginService.Authenticateuser(type, emailid, null,site,0);
+            int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
+            var data = LoginService.Authenticateuser(type, emailid, null, site, usertype);
             if (data.HasRows)
                 return Json("exists", JsonRequestBehavior.AllowGet); // if email ID already exists
             return Json("unique", JsonRequestBehavior.AllowGet); // if email ID is unique
@@ -75,5 +84,34 @@ namespace Inventory.Controllers
         //    //connection.Close();
         //    //return "";
         //}
+
+        public void Email(string First_Name, string Last_Name, string EmailId, string activationCode)
+        {
+            SendEmail abc = new SendEmail();
+            string body = "Hello " + First_Name + Last_Name + ",";
+            body += "<br /><br />Please click the following link to activate your account";
+            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace(Request.Url.AbsoluteUri, Request.Url.AbsoluteUri + "Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId) + "'>Click here to activate your account.</a>";
+            body += "<br /><br />Thanks";
+            string message = body;
+            abc.EmailAvtivation(EmailId, message, "Account Activation");
+        }
+
+        public ActionResult ActivateEmail(string ActivationCode, string Email)
+        {
+            if (ActivationCode != null && ActivationCode != "")
+            {
+                SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
+                if (value.Read())
+                {
+                    if (value["activationcode"].ToString() == ActivationCode)
+                    {
+                        int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
+                        if (activateemail > 0)
+                            return View();
+                    }
+                }
+            }
+            return View();
+        }
     }
 }

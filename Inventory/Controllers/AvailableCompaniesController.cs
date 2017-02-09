@@ -32,7 +32,7 @@ namespace Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string email,string usertype,string loginpassword)
+        public ActionResult Index(string email, string usertype, string loginpassword)
         {
             var type = LoginService.GetUserTypeId(null, long.Parse(usertype));
             SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
@@ -42,26 +42,25 @@ namespace Inventory.Controllers
             else
                 controller = type.ToString() + "Home";
             if (value.HasRows == false) //Failed Login
-                return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies",new { email = email}) + "'</script>"); // Stays in Same View
-            return RedirectToAction("Index", controller); // Redirects to Particular View
-        }
+                return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
 
-        //public ActionResult Authenticate(string emailid, string password, string usertype)
-        //{
-        //    var type = LoginService.GetUserTypeId(null, long.Parse(usertype));
-        //    SqlDataReader value = LoginService.Authenticateuser("redirectuser", emailid, password, null, long.Parse(usertype));
-        //    string controller = "";
-        //    if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
-        //        controller = "UserHome";
-        //    else
-        //        controller = type.ToString()+"Home";
-        //    if (value.HasRows == false) //Failed Login
-        //        return Content("<script language='javascript' type='text/javascript'>alert('Failed!');location.href='" + @Url.Action("Index", "AvailableCompanies") + "'</script>");
-        //    return RedirectToAction("Index", controller);
-        //    //return Content("<script language='javascript' type='text/javascript'>alert('Failed!');location.href='" + @Url.Action("Index", "AvailableCompanies") + "'</script>");
-        //    //return Json(new { msg = "InvalidLogin" }, JsonRequestBehavior.AllowGet); // Stays in Same View
-        //    //return Json(new { msg= "Redirect", controller }); // Redirects to Particular View
-        //    //url = Url.Action("Index", controller)
-        //}
+            DataTable dt = new DataTable();
+            dt.Load(value);
+            UserMaster userMaster = new UserMaster();
+            userMaster = (from DataRow row in dt.Rows
+                          select new UserMaster()
+                          {
+                              First_Name = row["First_Name"].ToString(),
+                              Last_Name = row["Last_Name"].ToString(),
+                              EmailId = row["EmailId"].ToString(),
+                              Created_Date = (DateTime)row["Created_Date"],
+                              CompanyName = row["CompanyName"].ToString(),
+                              Phone = row["Phone"].ToString(),
+                              User_Site = row["User_Site"].ToString(),
+                              UserTypeId = (int)row["UserTypeId"]
+                          }).FirstOrDefault();
+
+            return RedirectToAction("Index", controller, userMaster); // Redirects to Particular View
+        }
     }
 }
