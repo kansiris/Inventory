@@ -281,7 +281,7 @@
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Username.cs" />
+    <Compile Include="SendEmail.cs" />
     <Compile Include="ValuesController1.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4593,6 +4593,7 @@
     <Content Include="Views\UserHome\Index.cshtml" />
     <Content Include="Views\VendorHome\Index.cshtml" />
     <Content Include="Views\FranchiseHome\Index.cshtml" />
+    <Content Include="Views\Login\ActivateEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
