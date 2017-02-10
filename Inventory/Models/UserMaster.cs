@@ -37,5 +37,8 @@ namespace Inventory.Models
         public string CompanyName { get; set; }
 
         public string Phone { get; set; }
+        public DateTime? SubscriptionDate { get; set; }
+        public int IsActive { get; set; }
+        public string activationcode { get; set; }
     }
 }

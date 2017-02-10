@@ -57,7 +57,8 @@ namespace Inventory.Controllers
                               CompanyName = row["CompanyName"].ToString(),
                               Phone = row["Phone"].ToString(),
                               User_Site = row["User_Site"].ToString(),
-                              UserTypeId = (int)row["UserTypeId"]
+                              UserTypeId = (int)row["UserTypeId"],
+                              SubscriptionDate= (DateTime)row["SubscriptionDate"]
                           }).FirstOrDefault();
 
             return RedirectToAction("Index", controller, userMaster); // Redirects to Particular View
