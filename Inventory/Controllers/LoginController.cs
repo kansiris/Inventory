@@ -49,9 +49,9 @@ namespace Inventory.Controllers
             if (command == "Insert")
             {
                 DateTime? SubscriptionDate = null;
-                string activationCode = Guid.NewGuid().ToString();
-                string DBname = userMaster.EmailId.Split('@')[0] + ".Inventory";
-                int Subscription = (int)LoginService.getsubscriptionid("Free Member");
+                string activationCode = Guid.NewGuid().ToString();//Auto Generated code
+                string DBname = userMaster.EmailId.Split('@')[0] + ".Inventory"; //Assigning Particular DB Name
+                int Subscription = (int)LoginService.getsubscriptionid("Free Member"); 
                 int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
                 int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode);
                 if (count > 0)
@@ -87,6 +87,7 @@ namespace Inventory.Controllers
 
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode)
         {
+            // Designing Email Part
             SendEmail abc = new SendEmail();
             string body = "Hello " + First_Name + Last_Name + ",";
             body += "<br /><br />Please click the following link to activate your account";
@@ -98,6 +99,7 @@ namespace Inventory.Controllers
 
         public ActionResult ActivateEmail(string ActivationCode, string Email)
         {
+            //Checking Activation code
             if (ActivationCode != null && ActivationCode != "")
             {
                 SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);

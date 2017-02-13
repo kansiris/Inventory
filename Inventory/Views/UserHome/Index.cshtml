@@ -4,42 +4,57 @@
     //Layout = "~/Views/Shared/MainMaster.cshtml";
     Layout = null;
 }
-
+<!-- bootstrap-progressbar -->
+<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
 <html>
 <head>
 </head>
-<body>
-    <h2 align="center">Current User Details</h2>
-    <br/>
-    <table align="center" style="border-style:double;">
-        <tr>
-            <td>Full Name</td>
-            <td>@Model.First_Name @Model.Last_Name</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td>@Model.EmailId</td>
-        </tr>
-        <tr>
-            <td>Account Creation Date</td>
-            <td>@Model.Created_Date</td>
-        </tr>
-        <tr>
-            <td>User Site</td>
-            <td>@Model.User_Site</td>
-        </tr>
-        <tr>
-            <td>Company Name</td>
-            <td>@Model.CompanyName</td>
-        </tr>
-        <tr>
-            <td>Contact Number</td>
-            <td>@Model.Phone</td>
-        </tr>
-    </table>
-
-    <br/>
-
-    <text>Your Login Access is about to expire in @ViewBag.accessexpiry Days</text>
+<body style="background:#fff9f9">
+    <div class="">50%
+        <div class="progress progress_sm" style="width: 76%;">
+            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 50%;"></div> 
+        </div>
+    </div>
+    <form method="post">
+        <h2 align="center">Current User Details</h2>
+        <br />
+        <table align="center" style="border-style:double;">
+            <tr>
+                <td>Full Name</td>
+                <td>@Model.First_Name @Model.Last_Name</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Model.EmailId</td>
+            </tr>
+            <tr>
+                <td>Account Creation Date</td>
+                <td>@Model.Created_Date</td>
+            </tr>
+            <tr>
+                <td>User Site</td>
+                <td>@Model.User_Site</td>
+            </tr>
+            <tr>
+                <td>Company Name</td>
+                <td>@Model.CompanyName</td>
+            </tr>
+            <tr>
+                <td>Contact Number</td>
+                <td>@Model.Phone</td>
+            </tr>
+        </table>
+        <br />
+        <p align="center">Your Login Access is about to expire in @ViewBag.accessexpiry Days.</p>
+        <div align="center"> <a class="btn btn-default form-control" style="border:double" href="~/AvailableCompanies?email=@Model.EmailId">Log Out</a></div>
+    </form>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    @*<script src="../build/js/custom.min.js"></script>*@
 </body>
 </html>
