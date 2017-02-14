@@ -24,7 +24,34 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <style>
+        ::-ms-reveal {
+            display: none !important;
+        }
+
+        .hideShowPassword-toggle {
+            background-image: url('../../images/wink.svg');
+            background-position: 0 center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            height: 100%;
+            overflow: hidden;
+            text-indent: -9999em;
+            width: 44px;
+        }
+
+        .hideShowPassword-toggle-hide {
+            background-position: -44px center;
+        }
+
+        .hideShowPassword-toggle,
+        .my-toggle-class {
+            z-index: 3;
+        }
+    </style>
 </head>
+
 
 <body class="login">
     <div>
@@ -76,7 +103,7 @@
                     <form method="post">
                         <h1>Create Account</h1>
                         <div>
-                            @Html.TextBoxFor(Model=>Model.First_Name,new { placeholder="Enter First Name", required = "required", @class = "form-control" })
+                            @Html.TextBoxFor(Model => Model.First_Name, new { placeholder = "Enter First Name", required = "required", @class = "form-control" })
                             @*<input type="text" class="form-control" placeholder="Username" required="" />*@
                         </div>
                         <div>
@@ -84,13 +111,18 @@
                             @*<input type="email" class="form-control" placeholder="Email" required="" />*@
                         </div>
                         <div>
-                            @Html.TextBoxFor(Model => Model.EmailId, new {@id= "RegEmailId", placeholder = "Enter Email ID", required = "required" ,@class="form-control", @onchange = "check()" })
+                            @Html.TextBoxFor(Model => Model.EmailId, new { @id = "RegEmailId", placeholder = "Enter Email ID", required = "required", @class = "form-control", @onchange = "check()" })
                             @*<input type="password" class="form-control" placeholder="Password" required="" />*@
                         </div>
-                        <div>
-                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
+                        <div class="form-group">
+                                @Html.PasswordFor(Model => Model.Password, new { @id = "password-1", placeholder = "Enter Password", required = "required", @class = "form-control"})
                             @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
                         </div>
+                        @*<div class="form-group">
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="password-1" placeholder="Password">
+                                </div>
+                            </div>*@
                         <div>
                             @Html.TextBoxFor(Model => Model.CompanyName, new { placeholder = "Enter Company Name", required = "required", @class = "form-control" })
                         </div>
@@ -127,15 +159,22 @@
         </div>
     </div>
 
-    @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
-    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/hideShowPassword.min.js"></script>
+
     @if (ViewBag.invalid != null)
     {
         <script>
             alert("Invalid Credentials");
         </script>
     }
-
+    <script>
+        $(window).ready(function () {
+            $('#password-1').hideShowPassword({
+                innerToggle: true,
+            });
+        });
+    </script>
     <script>
         function check(e) {
             var emailid = $('#RegEmailId').val();//e.value;
