@@ -271,6 +271,7 @@
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Payment_Method_Types.cs" />
     <Compile Include="Models\Program.cs" />
+    <Compile Include="Models\ProgressBar.cs" />
     <Compile Include="Models\Purchase_Order.cs" />
     <Compile Include="Models\SQLHelper.cs" />
     <Compile Include="Models\Staff.cs" />
@@ -312,6 +313,7 @@
     <Content Include="images\prod-5.jpg" />
     <Content Include="images\user.png" />
     <Content Include="images\visa.png" />
+    <Content Include="images\wink.svg" />
     <Content Include="Models\Inventory.csproj" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -323,6 +325,7 @@
     <None Include="Properties\PublishProfiles\Inventory.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\maps\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Scripts\hideShowPassword.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -4597,6 +4600,7 @@
     <Content Include="Views\VendorHome\Index.cshtml" />
     <Content Include="Views\FranchiseHome\Index.cshtml" />
     <Content Include="Views\Login\ActivateEmail.cshtml" />
+    <Content Include="Views\Shared\UserMaster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
