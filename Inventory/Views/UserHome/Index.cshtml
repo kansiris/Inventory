@@ -11,12 +11,13 @@
 <html>
 <head>
 </head>
-<body style="background:#fff9f9">
-    <div class="">50%
+<body style="background:#ffffff;color:black">
+    @*<div class="">50%(Progress Bar Under Development......)
         <div class="progress progress_sm" style="width: 76%;">
             <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 50%;"></div> 
         </div>
-    </div>
+    </div>*@
+    <div id="progressbar" style="width:75%"></div>37%
     <form method="post">
         <h2 align="center">Current User Details</h2>
         <br />
@@ -51,10 +52,18 @@
         <div align="center"> <a class="btn btn-default form-control" style="border:double" href="~/AvailableCompanies?email=@Model.EmailId">Log Out</a></div>
     </form>
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    @*<script src="../vendors/jquery/dist/jquery.min.js"></script>*@
     <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    @*<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>*@
     <!-- Custom Theme Scripts -->
     @*<script src="../build/js/custom.min.js"></script>*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+  $( function() {
+      $( "#progressbar" ).progressbar({ value: 37});
+  });
+    </script>
 </body>
 </html>
