@@ -22,6 +22,12 @@ namespace Inventory.Controllers
         //LoginService loginService = new LoginService();
         public ActionResult Index()
         {
+            DateTime utcTime = DateTime.UtcNow;
+            TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi); // convert from utc to local
+            //ViewBag.country = RegionInfo.CurrentRegion.DisplayName;
+            ViewBag.country = localTime;
+            ViewBag.server = DateTime.UtcNow;
             return View();
         }
 
@@ -36,7 +42,7 @@ namespace Inventory.Controllers
                 //    return RedirectToAction("Index", "Dashboard");
                 //else
                 //    ViewBag.invalid = "Invalid Credentials";
-                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, userMaster.Password, null, 0);
+                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
                 if (value.HasRows)
                 {
                     return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });

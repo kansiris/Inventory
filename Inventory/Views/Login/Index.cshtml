@@ -68,9 +68,17 @@
                             @*<input type="text" class="form-control" placeholder="Username" required="" />*@
                         </div>
                         <div>
-                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
-                            @*<input type="password" class="form-control" placeholder="Password" required="" />*@
+                            <label>Server Time</label>
+                            <input type="text" value="@ViewBag.server" class="form-control"/>
                         </div>
+                        <div>
+                            <label>Server Time Converted to Local</label>
+                            <input type="text" value="@ViewBag.country" class="form-control" />
+                        </div>
+                        @*<div>
+                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
+                            @*<input type="password" class="form-control" placeholder="Password" required="" />
+                        </div>*@
                         <div>
                             <button type="submit" name="command" value="Authenticate" class="btn btn-default submit">Log in</button>
                             @*<input type="submit" name="command" value="Log in" class="btn btn-default submit"/>*@
