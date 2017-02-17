@@ -328,8 +328,6 @@
     <Content Include="images\wink.svg" />
     <Content Include="Models\finalscript.sql" />
     <Content Include="Models\Inventory.csproj" />
-    <Content Include="Models\inventoryscript.sql" />
-    <Content Include="Models\updatedscript.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
