@@ -67,14 +67,14 @@
                             @Html.TextBoxFor(Model => Model.EmailId, new { @id = "LoginEmailId", placeholder = "Enter Email ID", required = "required", @class = "form-control" })
                             @*<input type="text" class="form-control" placeholder="Username" required="" />*@
                         </div>
-                        <div>
+                        @*<div>
                             <label>Server Time</label>
                             <input type="text" value="@ViewBag.server" class="form-control"/>
                         </div>
                         <div>
                             <label>Server Time Converted to Local</label>
                             <input type="text" value="@ViewBag.country" class="form-control" />
-                        </div>
+                        </div>*@
                         @*<div>
                             @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
                             @*<input type="password" class="form-control" placeholder="Password" required="" />
@@ -142,7 +142,7 @@
                             @Html.TextBoxFor(Model => Model.Phone, new { placeholder = "Enter Phone Number", required = "required", @class = "form-control" })
                         </div>
                         <div>
-                            <button type="submit" name="command" value="Insert" class="btn btn-default submit">Start My Free Trial</button>
+                            <button id="btnsubmit" type="submit" name="command" value="Insert" class="btn btn-default submit">Start My Free Trial</button>
                             @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
                         </div>
                         <div class="clearfix"></div>
@@ -183,6 +183,7 @@
             });
         });
     </script>
+
     <script>
         function check(e) {
             var emailid = $('#RegEmailId').val();//e.value;
@@ -220,6 +221,15 @@
                 { alert("Failed!!!"); }
             });
         }
+    </script>
+
+    <script>
+        $(function () {
+            var plan = '@Request.QueryString["plan"]';
+            if (plan != '') {
+                $('#btnsubmit').text("Buy @Request.QueryString["plan"] plan");
+            }
+        });
     </script>
 </body>
 </html>

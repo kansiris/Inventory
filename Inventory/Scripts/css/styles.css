@@ -20,10 +20,11 @@
 .navbar-default{
 	background: none;
 	border: none;}
-.slide-image{
-	background: url(../images/home-header-back-2.jpg) top left;
-	background-size: cover;
-	margin-top: 80px;}
+.slide-image {
+    background: url('/images/home-header-back-2.jpg') top left;
+    background-size: cover;
+    margin-top: 80px;
+}
 .banner-content{
 	text-align: center;
 	color: #fff;

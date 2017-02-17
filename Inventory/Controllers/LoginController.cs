@@ -10,9 +10,10 @@ using System.Web.Routing;
 using System.Web.Caching;
 using System.Globalization;
 using Microsoft.Web.Administration;
-//using Micrososft.SqlServer.Management.Common;
-using System.Data.Entity;
 using Microsoft.SqlServer.Management.Smo;
+using System.IO;
+using Microsoft.SqlServer.Management.Common;
+using System.Data;
 
 namespace Inventory.Controllers
 {
@@ -22,6 +23,7 @@ namespace Inventory.Controllers
         //LoginService loginService = new LoginService();
         public ActionResult Index()
         {
+            createdb();
             DateTime utcTime = DateTime.UtcNow;
             TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
             DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi); // convert from utc to local
@@ -32,7 +34,7 @@ namespace Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(UserMaster userMaster, string command)
+        public ActionResult Index(UserMaster userMaster, string command, string plan)
         {
             if (command == "Authenticate")
             {
@@ -54,10 +56,14 @@ namespace Inventory.Controllers
             }
             if (command == "Insert")
             {
+                int Subscription;
                 DateTime? SubscriptionDate = null;
                 string activationCode = Guid.NewGuid().ToString();//Auto Generated code
                 string DBname = userMaster.EmailId.Split('@')[0] + ".Inventory"; //Assigning Particular DB Name
-                int Subscription = (int)LoginService.getsubscriptionid("Free Member"); 
+                if (plan != null)
+                    Subscription = (int)LoginService.getsubscriptionid(plan);
+                else
+                    Subscription = (int)LoginService.getsubscriptionid("Free Member");
                 int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
                 int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode);
                 if (count > 0)
@@ -80,16 +86,37 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet); // if email ID is unique
         }
 
-        //public string createdb()
-        //{
-        //    //string connLocal = "Data Source=XSIINDU;Database=InventoryMaster;Integrated Security=False;User ID=user_inv;Password=123456;"; //"Data Source=(local); Integrated Security=SSPI;"
-        //    //SqlConnection connection = new SqlConnection(connLocal);
-        //    //Server server = new Server(new ServerConnection(connection));
-        //    //Database db = new Database(server, "test");
-        //    //db.Create();
-        //    //connection.Close();
-        //    //return "";
-        //}
+        public void createdb()
+        {
+            //< add name = "APIContext" connectionString = "server=.;database=MaaAahwanam;Integrated Security=True; MultipleActiveResultSets=True;" providerName = "System.Data.SqlClient" />
+            string sqlConnectionString = @"Integrated Security=True;Initial Catalog=master;Data Source=.";
+            FileInfo File = new FileInfo("E:\\Project\\Inventory\\Inventory\\Inventory\\Models\\finalscript.sql");
+            string script = File.OpenText().ReadToEnd();
+            SqlConnection conn = new SqlConnection(sqlConnectionString);
+            Server server = new Server(new ServerConnection(conn));
+            var db = new Database(server, "sampledb");
+            db.Create();
+            db.ExecuteNonQuery(script);
+            //server.ConnectionContext.ExecuteNonQuery(script);
+            //script = script.Replace("DB_NAME_MDF", File).Replace("DB_NAME_LDF", appPathLog);
+            //ExecSql(script, sqlConnectionString, "sampledb");
+            //server.ConnectionContext.ExecuteNonQuery(script,sqlConnectionString,"sample");
+            //server.ConnectionContext.ex
+            //File.OpenText().Close();
+        }
+
+        public void ExecSql(string sql, string connectionString, string dataBaseNameToPrepend)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                Server server = new Server(new ServerConnection(conn));
+                var db = new Database(server, dataBaseNameToPrepend);
+                db.Create();
+                db.ExecuteNonQuery(sql);
+               
+            }
+        }
 
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode)
         {
@@ -123,3 +150,15 @@ namespace Inventory.Controllers
         }
     }
 }
+
+
+
+
+
+//string connLocal = "Data Source=.;Database=InventoryMaster;Integrated Security=False;User ID=user_inv;Password=123456;"; //"Data Source=(local); Integrated Security=SSPI;"
+//SqlConnection connection = new SqlConnection(connLocal);
+//Server server = new Server(new ServerConnection(connection));
+//Database db = new Database(server, "test");
+//db.Create();
+//connection.Close();
+//return "";
