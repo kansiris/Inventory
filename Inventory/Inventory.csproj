@@ -244,6 +244,7 @@
     <Compile Include="Controllers\IconsController.cs" />
     <Compile Include="Controllers\InboxController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\LocalizationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MediaGalleryController.cs" />
     <Compile Include="Controllers\MorisJSController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TypographyController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\VendorHomeController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
     <Compile Include="Controllers\WizardFormController.cs" />
@@ -3742,7 +3744,9 @@
     <Content Include="vendors\validator\index.html" />
     <Content Include="vendors\validator\multifield.js" />
     <Content Include="vendors\validator\validator.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -4632,6 +4636,8 @@
     <Content Include="Views\Shared\UserMaster.cshtml" />
     <Content Include="Views\Shared\DefaultMaster.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\Localization\Index.cshtml" />
+    <Content Include="Views\UserProfile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
