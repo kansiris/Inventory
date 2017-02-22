@@ -63,7 +63,7 @@
             <div class="animate form login_form">
                 <section class="login_content">
                     <form method="post">
-                        <h1>Login Form</h1>
+                        @*<h1>Login Form</h1>*@
                         <div>
                             @Html.TextBoxFor(Model => Model.EmailId, new { @id = "LoginEmailId", placeholder = "Enter Email ID", required = "required", @class = "form-control" })
                             @*<input type="text" class="form-control" placeholder="Username" required="" />*@
@@ -110,7 +110,7 @@
             <div id="register" class="animate form registration_form">
                 <section class="login_content">
                     <form method="post">
-                        <h1>Create Account</h1>
+                        @*<h1>Create Account</h1>*@
                         <div>
                             @Html.TextBoxFor(Model => Model.First_Name, new { placeholder = "Enter First Name", required = "required", @class = "form-control" })
                             @*<input type="text" class="form-control" placeholder="Username" required="" />*@
