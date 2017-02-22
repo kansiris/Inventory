@@ -67,7 +67,7 @@
 	background:#213345
 }
 .daterangepicker.picker_1 .calendar-table thead tr:first-child {
-	background:#1ABB9C
+	background:#0b9144
 }
 .daterangepicker.picker_1 .calendar-table td.off {
 	background:#34495E;
@@ -77,14 +77,14 @@
 	color:#34495E
 }
 .daterangepicker.picker_2 .calendar-table thead tr {
-	color:#1ABB9C
+	color:#0b9144
 }
 .daterangepicker.picker_2 .calendar-table thead tr:first-child {
 	color:#73879C
 }
 .daterangepicker.picker_3 .calendar-table thead tr:first-child {
 	color:#fff;
-	background:#1ABB9C
+	background:#0b9144
 }
 .daterangepicker.picker_4 .calendar-table thead tr:first-child {
 	color:#fff;
@@ -169,7 +169,7 @@
 	padding:10px 5px
 }
 .nav-sm .nav.child_menu li.active, .nav-sm .nav.side-menu li.active-sm {
-	border-right:5px solid #1ABB9C
+	border-right:5px solid #0b9144
 }
 .nav-sm ul.nav.child_menu ul, .nav-sm .nav.side-menu li.active-sm ul ul {
 	position:static;
@@ -177,7 +177,7 @@
 	background:none
 }
 .nav-sm>.nav.side-menu>li.active-sm>a {
-	color:#1ABB9C !important
+	color:#0b9144 !important
 }
 .nav-sm .nav.side-menu li a i.toggle-up {
 	display:none !important
@@ -374,7 +374,7 @@ body .container.body .right_col {
 	color:#9B59B6
 }
 .green {
-	color:#1ABB9C
+	color:#0b9144
 }
 .aero {
 	color:#9CC2CB
@@ -392,7 +392,7 @@ body .container.body .right_col {
 	border-color:#9B59B6 !important
 }
 .border-green {
-	border-color:#1ABB9C !important
+	border-color:#0b9144 !important
 }
 .border-aero {
 	border-color:#9CC2CB !important
@@ -409,8 +409,8 @@ body .container.body .right_col {
 	color:#73879C
 }
 .bg-green {
-	background:#1ABB9C !important;
-	border:1px solid #1ABB9C !important;
+	background:#0b9144 !important;
+	border:1px solid #0b9144 !important;
 	color:#fff
 }
 .bg-red {
@@ -672,7 +672,7 @@ a:hover, a:focus {
 	padding:13px 15px 12px
 }
 .nav.side-menu>li.current-page, .nav.side-menu>li.active {
-	border-right:5px solid #1ABB9C
+	border-right:5px solid #0b9144
 }
 .nav li.current-page {
 	background:rgba(255,255,255,0.05)
@@ -1232,7 +1232,7 @@ table.jambo_table tbody tr.selected td {
 	text-align:right
 }
 table.dataTable th.focus, table.dataTable td.focus {
-	outline:2px solid #1ABB9C !important;
+	outline:2px solid #0b9144 !important;
 	outline-offset:-1px
 }
 table.display {
@@ -2312,7 +2312,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .bs-glyphicons li:hover {
 	color:#fff;
-	background-color:#1ABB9C
+	background-color:#0b9144
 }
 @media (min-width: 768px) {
 .bs-glyphicons {
@@ -2338,7 +2338,7 @@ span.tag {
 	float:left;
 	padding:5px 9px;
 	text-decoration:none;
-	background:#1ABB9C;
+	background:#0b9144;
 	color:#F1F6F7;
 	margin-right:5px;
 	font-weight:500;
@@ -2464,7 +2464,7 @@ ul.timeline li {
 }
 .tag {
 	line-height:1;
-	background:#1ABB9C;
+	background:#0b9144;
 	color:#fff !important
 }
 .tag:after {
@@ -2478,7 +2478,7 @@ ul.timeline li {
 	pointer-events:none;
 	border-top:14px solid transparent;
 	border-bottom:14px solid transparent;
-	border-left:11px solid #1ABB9C
+	border-left:11px solid #0b9144
 }
 .timeline h2.title {
 	position:relative;
@@ -2544,7 +2544,7 @@ ul.social li {
 	border-radius:50%
 }
 .chat .status.online {
-	background:#1ABB9C
+	background:#0b9144
 }
 .chat .status.away {
 	background:#F39C12
@@ -2669,7 +2669,7 @@ ul.widget_profile_box li a {
 	padding:0px
 }
 ul.widget_profile_box li a:hover {
-	color:#1ABB9C !important;
+	color:#0b9144 !important;
 	border:1px solid #26b99a
 }
 ul.widget_profile_box li .profile_img {
@@ -2855,7 +2855,7 @@ ul.project_files li a i {
 	background:#fff
 }
 .pricing .title {
-	background:#1ABB9C;
+	background:#0b9144;
 	height:110px;
 	color:#fff;
 	padding:15px 0 0;
@@ -3416,14 +3416,14 @@ header {
 	width:100%
 }
 #nprogress .bar {
-	background:#1ABB9C
+	background:#0b9144
 }
 #nprogress .peg {
-	box-shadow:0 0 10px #1ABB9C, 0 0 5px #1ABB9C
+	box-shadow:0 0 10px #0b9144, 0 0 5px #0b9144
 }
 #nprogress .spinner-icon {
-	border-top-color:#1ABB9C;
-	border-left-color:#1ABB9C
+	border-top-color:#0b9144;
+	border-left-color:#0b9144
 }
 .editor-wrapper {
 	min-height:250px;
@@ -3680,7 +3680,7 @@ fieldset {
 	color:#fff
 }
 .wizard_horizontal ul.wizard_steps li a.done:before, .wizard_horizontal ul.wizard_steps li a.done .step_no {
-	background:#1ABB9C;
+	background:#0b9144;
 	color:#fff
 }
 .wizard_horizontal ul.wizard_steps li:first-child a:before {
@@ -3774,7 +3774,7 @@ fieldset {
 	color:#fff
 }
 .wizard_verticle ul.wizard_steps li a.done:before, .wizard_verticle ul.wizard_steps li a.done .step_no {
-	background:#1ABB9C;
+	background:#0b9144;
 	color:#fff
 }
 .wizard_verticle ul.wizard_steps li:first-child a:before {
@@ -3953,9 +3953,9 @@ ul.notifications {
 	height: 57px;}
 .navbar-default{
 	border-radius: 0;
-	background-color: #2383e5;}
+	background-color: #0483c6;}
 .navbar-brand{
-	background-color: #2383e5;}
+	background-color: #0483c6;}
 .nav.navbar-nav>li>a {
 	color:#fff !important;
 	font-weight: bold;
@@ -3973,7 +3973,7 @@ ul.notifications {
 	width: 10%;
 	margin-top: 16px;}
 .progress-bar{
-	background: #1ABB9C;
+	background: #0b9144;
 	width: 50%;}
 .profile-part{
 	margin: 20px 0;}
@@ -4009,7 +4009,7 @@ ul.notifications {
 	margin-top: 30px;}
 .profile-part > div:last-of-type > a{
 	float: right;
-	background: #2383e5;
+	background: #0483c6;
 	border-radius: 5px;
 	color: #fff;
 	padding: 10px;
@@ -4063,7 +4063,7 @@ font-size: 14px;}
 	border-top: none;
 	float: left;}
 .btn-primary, .btn-primary:hover{
-	background: #2383e5 !important;}
+	background: #0483c6 !important;}
 	
 /*================ Pricing Table===============*/
 .x_panel{
