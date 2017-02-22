@@ -60,7 +60,7 @@ namespace Inventory.Controllers
                               UserTypeId = (int)row["UserTypeId"],
                               SubscriptionDate= (DateTime)row["SubscriptionDate"]
                           }).FirstOrDefault();
-
+            
             return RedirectToAction("Index", controller, userMaster); // Redirects to Particular View
         }
     }
