@@ -13,48 +13,80 @@
 </head>
 <body style="background:#ffffff;color:black">
     @*<div class="">50%(Progress Bar Under Development......)
-        <div class="progress progress_sm" style="width: 76%;">
-            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 50%;"></div> 
-        </div>
-    </div>*@
+            <div class="progress progress_sm" style="width: 76%;">
+                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 50%;"></div>
+            </div>
+        </div>*@
     @*<div id="progressbar" style="width:75%"></div>37%*@
     <div align="center">
         <div class="progress" style="width:70px;height:20px">
             <div id="progressbar" class="" data-transitiongoal="95" aria-valuenow="95" style="font-size:12px"><text id="status"></text></div>
         </div>
     </div>
+    
     <form method="post">
-        <h2 align="center">Current User Details</h2>
-        <br />
-        <table align="center" style="border-style:double;">
-            <tr>
-                <td>Full Name</td>
-                <td>@Model.First_Name @Model.Last_Name</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>@Model.EmailId</td>
-            </tr>
-            <tr>
-                <td>Account Creation Date</td>
-                <td>@Model.Created_Date</td>
-            </tr>
-            <tr>
-                <td>User Site</td>
-                <td>@Model.User_Site</td>
-            </tr>
-            <tr>
-                <td>Company Name</td>
-                <td>@Model.CompanyName</td>
-            </tr>
-            <tr>
-                <td>Contact Number</td>
-                <td>@Model.Phone</td>
-            </tr>
-        </table>
-        <br />
-        <p align="center">Your Login Access is about to expire in @ViewBag.accessexpiry Days.</p>
-        <div align="center"> <a class="btn btn-default form-control" style="border:double" href="~/AvailableCompanies?email=@Model.EmailId">Log Out</a></div>
+        <div align="center">
+            <div id="localization">
+                <h2>Localization</h2>
+                <table class="pdTable" width="395" cellspacing="0" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td width="200"><span data-bind="text:app.tl('Date Format')+':'">Date Format:</span></td>
+                            <td>
+                                @Html.DropDownList("Country", new List<SelectListItem>
+   {
+     new SelectListItem { Text = "DD/MM/YYYY", Value = "1"},
+     new SelectListItem { Text = "MM/DD/YYYY", Value = "2"},
+     new SelectListItem {Text  = "YYYY/MM/DD",Value="3"}
+  }, "Select Date Format")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="odd" width="200"><span><!--ko text:app.tl('Time Zone')-->Time Zone<!--/ko-->:</span></td>
+                            <td>@Html.DropDownList("timeZoneInfo", new SelectList(ViewBag.timeZoneInfos), "Select Time Zone")</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="button" value="Skip" onclick="$('#localization').css('display', 'none')" />
+                <input type="button" value="Continue" />
+            </div>
+
+            <h2 align="center">Current User Details</h2>
+            <br />
+
+            <table align="center" style="border-style:double;">
+                <tr>
+                    <td>Full Name</td>
+                    <td>@Model.First_Name @Model.Last_Name</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>@Model.EmailId</td>
+                </tr>
+                <tr>
+                    <td>Account Creation Date</td>
+                    <td>@Model.Created_Date</td>
+                </tr>
+                <tr>
+                    <td>User Site</td>
+                    <td>@Model.User_Site</td>
+                </tr>
+                <tr>
+                    <td>Company Name</td>
+                    <td>@Model.CompanyName</td>
+                </tr>
+                <tr>
+                    <td>Contact Number</td>
+                    <td>@Model.Phone</td>
+                </tr>
+            </table>
+            <br />
+            <p align="center">Your Login Access is about to expire in @ViewBag.accessexpiry Days.</p>
+            <div align="center">
+                <a class="btn btn-default form-control" style="border:double" href="~/UserProfile?email=@Model.EmailId&&usertype=@Model.UserTypeId&&site=@Model.User_Site">Edit Profile</a>
+                <a class="btn btn-default form-control" style="border:double" href="~/AvailableCompanies?email=@Model.EmailId">Log Out</a>
+            </div>
+        </div>
     </form>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -63,18 +95,19 @@
     <!-- Custom Theme Scripts -->
     @*<script src="../build/js/custom.min.js"></script>*@
     @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-  $( function() {
-      $( "#progressbar" ).progressbar({ value: 37});
-  });
-    </script>*@
+          <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+          <script>
+        $( function() {
+            $( "#progressbar" ).progressbar({ value: 37});
+        });
+          </script>*@
     <script>
         $(document).ready(function () {
             var accountprogress = '@Inventory.Models.ProgressBar.Registration';
-            $("#progressbar").addClass("progress-bar progress-bar-danger").css('width',accountprogress);
+            $("#progressbar").addClass("progress-bar progress-bar-danger").css('width', accountprogress);
             document.getElementById('status').innerHTML = accountprogress;
+            //history.pushState(document.URL, null, document.URL.split('?')[0])
         });
     </script>
 </body>

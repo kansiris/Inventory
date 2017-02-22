@@ -14,6 +14,7 @@ using Microsoft.SqlServer.Management.Smo;
 using System.IO;
 using Microsoft.SqlServer.Management.Common;
 using System.Data;
+using System.Web.Hosting;
 
 namespace Inventory.Controllers
 {
@@ -23,13 +24,13 @@ namespace Inventory.Controllers
         //LoginService loginService = new LoginService();
         public ActionResult Index()
         {
-            createdb();
             DateTime utcTime = DateTime.UtcNow;
             TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
             DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi); // convert from utc to local
             //ViewBag.country = RegionInfo.CurrentRegion.DisplayName;
             ViewBag.country = localTime;
             ViewBag.server = DateTime.UtcNow;
+            //string url = (Request.Url.ToString()).TrimEnd(Request.RawUrl.ToCharArray());
             return View();
         }
 
@@ -69,10 +70,9 @@ namespace Inventory.Controllers
                 if (count > 0)
                 {
                     Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
-                    return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Activation email has been sent to your Email Address.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
-                //createdb();
             }
             return View();
         }
@@ -86,45 +86,31 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet); // if email ID is unique
         }
 
-        public void createdb()
+        public void createdb(string Email)
         {
-            //< add name = "APIContext" connectionString = "server=.;database=MaaAahwanam;Integrated Security=True; MultipleActiveResultSets=True;" providerName = "System.Data.SqlClient" />
-            string sqlConnectionString = @"Integrated Security=True;Initial Catalog=master;Data Source=.";
-            FileInfo File = new FileInfo("E:\\Project\\Inventory\\Inventory\\Inventory\\Models\\finalscript.sql");
+            string DBname = Email.Split('@')[0] + ".Inventory";
+            //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
+            //< add name = "DbConnection" connectionString = "Data Source=183.82.97.220;Database=Inventory;Integrated Security=False;User ID=user_inv;Password=123456;" providerName = "System.Data.SqlClient" />
+            string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
+            FileInfo File = new FileInfo(Server.MapPath("../Models/createdbscript.sql"));
             string script = File.OpenText().ReadToEnd();
             SqlConnection conn = new SqlConnection(sqlConnectionString);
             Server server = new Server(new ServerConnection(conn));
-            var db = new Database(server, "sampledb");
+            var db = new Database(server, DBname);
             db.Create();
-            db.ExecuteNonQuery(script);
-            //server.ConnectionContext.ExecuteNonQuery(script);
-            //script = script.Replace("DB_NAME_MDF", File).Replace("DB_NAME_LDF", appPathLog);
-            //ExecSql(script, sqlConnectionString, "sampledb");
-            //server.ConnectionContext.ExecuteNonQuery(script,sqlConnectionString,"sample");
-            //server.ConnectionContext.ex
-            //File.OpenText().Close();
+            //db.ExecuteNonQuery(script);
+            string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
+            SqlConnection conn1 = new SqlConnection(sqlConnectionString1);
+            Server server1 = new Server(new ServerConnection(conn1));
+            server1.ConnectionContext.ExecuteNonQuery(script);
         }
-
-        public void ExecSql(string sql, string connectionString, string dataBaseNameToPrepend)
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                Server server = new Server(new ServerConnection(conn));
-                var db = new Database(server, dataBaseNameToPrepend);
-                db.Create();
-                db.ExecuteNonQuery(sql);
-               
-            }
-        }
-
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode)
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
-            string body = "Hello " + First_Name + Last_Name + ",";
+            string body = "Hello " + First_Name +" "+ Last_Name + ",";
             body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace(Request.Url.AbsoluteUri, Request.Url.AbsoluteUri + "Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId) + "'>Click here to activate your account.</a>";
+            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace(Request.Url.AbsoluteUri, Request.Url.AbsoluteUri + "/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId) + "'>Click here to activate your account.</a>";
             body += "<br /><br />Thanks";
             string message = body;
             abc.EmailAvtivation(EmailId, message, "Account Activation");
@@ -140,6 +126,7 @@ namespace Inventory.Controllers
                 {
                     if (value["activationcode"].ToString() == ActivationCode)
                     {
+                        createdb(Email); //creating DB
                         int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
                         if (activateemail > 0)
                             return View();
@@ -150,15 +137,3 @@ namespace Inventory.Controllers
         }
     }
 }
-
-
-
-
-
-//string connLocal = "Data Source=.;Database=InventoryMaster;Integrated Security=False;User ID=user_inv;Password=123456;"; //"Data Source=(local); Integrated Security=SSPI;"
-//SqlConnection connection = new SqlConnection(connLocal);
-//Server server = new Server(new ServerConnection(connection));
-//Database db = new Database(server, "test");
-//db.Create();
-//connection.Close();
-//return "";

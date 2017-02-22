@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <table class="pdTable" width="395" cellspacing="0" cellpadding="5">
+            <tbody>
+                <tr>
+                    <td width="200"><span data-bind="text:app.tl('Date Format')+':'">Date Format:</span></td>
+                    <td>
+                        @Html.DropDownList("Country", new List<SelectListItem>
+   {
+     new SelectListItem { Text = "DD/MM/YYYY", Value = "1"},
+     new SelectListItem { Text = "MM/DD/YYYY", Value = "2"},
+     new SelectListItem {Text  = "YYYY/MM/DD",Value="3"}
+  }, "Select Date Format")
+                    </td>
+                </tr>
+                <tr>
+                    <td class="odd" width="200"><span><!--ko text:app.tl('Time Zone')-->Time Zone<!--/ko-->:</span></td>
+                    <td>@Html.DropDownList("timeZoneInfo", new SelectList(ViewBag.timeZoneInfos), "Select Time Zone")</td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="button" value="Skip" />
+        <input type="button" value="Continue" />
+    </div>
+</body>
+</html>
