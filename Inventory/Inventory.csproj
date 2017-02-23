@@ -452,6 +452,8 @@
     <Content Include="Scripts\js\jquery.bxslider.js" />
     <Content Include="Scripts\js\jquery.easing.1.3.js" />
     <Content Include="Scripts\js\jquery.fitvids.js" />
+    <Content Include="Scripts\js\main.js" />
+    <Content Include="Scripts\js\modernizr.js" />
     <Content Include="Scripts\js\moment\moment.min.js" />
     <Content Include="Scripts\js\npm.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -4724,8 +4726,8 @@
     <Content Include="Views\Shared\DefaultMaster.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Localization\Index.cshtml" />
-    <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\LandingPage\Index.cshtml" />
+    <Content Include="Views\UserProfile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
