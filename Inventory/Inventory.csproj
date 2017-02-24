@@ -255,6 +255,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Content\CustomPrinciple.cs" />
     <Compile Include="Controllers\AdvancedFormController.cs" />
     <Compile Include="Controllers\AvailableCompaniesController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
