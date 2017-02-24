@@ -15,6 +15,7 @@ namespace Inventory.Controllers
         // GET: LandingPage
         public ActionResult Index()
         {
+            //string url = Request.Url.ToString().Split('?')[0].Replace(Request.Url.AbsolutePath,"/");
             return View();
         }
 
@@ -51,7 +52,10 @@ namespace Inventory.Controllers
                                   SubscriptionDate= (DateTime)row["SubscriptionDate"]
                               }).FirstOrDefault();
 
-                return RedirectToAction("Index", controller, userMaster); // Redirects to Particular View
+                return RedirectToAction("Index", controller,  new { i = userMaster }  ); // Redirects to Particular View
+                //string url = Request.Url.ToString().Split('?')[0].Replace(Request.Url.AbsolutePath, "/");
+                //string finalurl = url + "Ramesh" + "/" + controller +"";
+                //return Redirect(finalurl);
             }
             return View();
         }

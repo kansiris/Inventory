@@ -11,7 +11,7 @@ namespace Inventory.Utility
     {
         public void CustomizeConnectionString(long userid)
         {
-            
+            //string dbname =  LoginService.Authenticateuser("getuserprofile",)
         }
     }
 }

@@ -115,27 +115,18 @@
         <div class="animate form login_form">
             <section class="login_content">
                 <form method="post">
-                    @*<h1>Login Form</h1>*@
+                    <!--<h1>Login Form</h1>-->
                     <div>
-                        @Html.TextBoxFor(Model => Model.EmailId, new { @id = "LoginEmailId", placeholder = "Email ID", required = "required", @class = "form-control" })
-                        @*<input type="text" class="form-control" placeholder="Username" required="" />*@
+                        @*<input type="text" class="form-control" placeholder="Username" required />*@
+                        @Html.TextBoxFor(Model => Model.EmailId, new { @id ="LoginEmailId", placeholder = "Email ID", required = "required", @class = "form-control" })
+                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
                     </div>
-                    @*<div>
-                            <label>Server Time</label>
-                            <input type="text" value="@ViewBag.server" class="form-control"/>
-                        </div>
-                        <div>
-                            <label>Server Time Converted to Local</label>
-                            <input type="text" value="@ViewBag.country" class="form-control" />
-                        </div>*@
-                    @*<div>
-                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
-                            @*<input type="password" class="form-control" placeholder="Password" required="" />
-                        </div>*@
+                    <!-- <div>
+                       <input type="password" class="form-control" placeholder="Password" required />
+                     </div>-->
                     <div>
+                        @*<a class="btn btn-default submit" href="index.html">Log in</a>*@
                         <button type="submit" name="command" value="Authenticate" class="btn btn-default submit">Log in</button>
-                        @*<input type="submit" name="command" value="Log in" class="btn btn-default submit"/>*@
-                        @*<a class="btn btn-default submit" href="~/Dashboard">Log in</a>*@
                         <a class="reset_pass" href="#">Lost your password?</a>
                     </div>
 
@@ -147,14 +138,7 @@
                             <a href="#signup" class="to_register"> Create Account </a>
                         </p>
 
-                        <div class="clearfix"></div>
-                        <br />
-
-                        @*<div>
-                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                            </div>*@
-                    </div>
+                        </div>
                 </form>
             </section>
         </div>
@@ -162,42 +146,48 @@
         <div id="register" class="animate form registration_form">
             <section class="login_content">
                 <form method="post">
-                    @*<h1>Create Account</h1>*@
+                    <!-- <h1>Create Account</h1>-->
                     <div>
+                        @*<input type="text" class="form-control" placeholder="Username" required />*@
                         @Html.TextBoxFor(Model => Model.First_Name, new { placeholder = "First Name", required = "required", @class = "form-control" })
-                        @*<input type="text" class="form-control" placeholder="Username" required="" />*@
+                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
                     </div>
                     <div>
+                        @*<input type="text" class="form-control" placeholder="Username" required />*@
                         @Html.TextBoxFor(Model => Model.Last_Name, new { placeholder = "Last Name", required = "required", @class = "form-control" })
-                        @*<input type="email" class="form-control" placeholder="Email" required="" />*@
+                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
                     </div>
                     <div>
+                        @*<input type="email" class="form-control" placeholder="Email" required />*@
                         @Html.TextBoxFor(Model => Model.EmailId, new { @id = "RegEmailId", placeholder = "Email ID", required = "required", @class = "form-control", @onchange = "check()" })
-                        @*<input type="password" class="form-control" placeholder="Password" required="" />*@
+                        <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
                     </div>
-                    <div class="form-group">
+                    <div>
+                        @*<input type="password" class="form-control" placeholder="Password" required />*@
                         @Html.PasswordFor(Model => Model.Password, new { @id = "password-1", placeholder = "Password", required = "required", @class = "form-control" })
-                        @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
+                        <i class="fa fa-eye-slash fa-2x" aria-hidden="true"></i>
                     </div>
-                    @*<div class="form-group">
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" id="password-1" placeholder="Password">
-                            </div>
-                        </div>*@
                     <div>
+                        @*<input type="text" class="form-control" placeholder="Company Name" required />*@
                         @Html.TextBoxFor(Model => Model.CompanyName, new { placeholder = "Company Name", required = "required", @class = "form-control" })
+                        <i class="fa fa-building-o fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div class="site-address">
+                        @*<input type="text" class="form-control" placeholder="Site Address" required />*@
+                        @Html.TextBoxFor(Model => Model.User_Site, new { placeholder = "Site Address", required = "required", @class = "form-control", @onchange = "check()" })<p id="msg"></p>
+                        <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                        <span>.xsilica.com</span>
                     </div>
                     <div>
-                        @Html.TextBoxFor(Model => Model.User_Site, new { placeholder = "Site Address", required = "required", @class = "form-control", @onchange = "check()" })
-                        <p id="msg"></p>
-                    </div>
-                    <div>
+                        @*<input type="text" class="form-control" placeholder="Phone Number(Optional)" />*@
                         @Html.TextBoxFor(Model => Model.Phone, new { placeholder = "Phone Number", required = "required", @class = "form-control" })
+                        <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
                     </div>
                     <div>
+                        @*<a class="btn btn-default submit" href="index.html">Start My Free Trail</a>*@
                         <button id="btnsubmit" type="submit" name="command" value="Insert" class="btn btn-default submit">Start My Free Trial</button>
-                        @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
                     </div>
+
                     <div class="clearfix"></div>
 
                     <div class="separator">
@@ -209,10 +199,10 @@
                         <div class="clearfix"></div>
                         <br />
 
-                        @*<div>
-                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                            </div>*@
+                        <!--<div>
+                          <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                          <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                        </div>-->
                     </div>
                 </form>
             </section>
@@ -242,7 +232,7 @@
             var emailid = $('#RegEmailId').val();//e.value;
             var site = $('#User_Site').val();
             var type = null;
-            if (site != "") {
+            if (site != "" && site != null) {
                 type = 'usersite';
             }
             else {
