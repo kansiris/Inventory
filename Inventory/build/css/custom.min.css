@@ -4219,3 +4219,70 @@ footer{
 	font-size: 16px;
 	color: #fff;
 	border: 1px solid #068bc4;}
+
+/*================ Login Page ================*/
+
+/*================ billing_form ================*/
+
+.right_col .container > form{
+	margin-top: 50px;}
+.form-group{
+	margin-bottom: 20px;}
+.form-group > label{
+	color: #333;
+	font-size: 13px;
+	font-weight: bold;
+	margin-bottom: 10px;}
+.form-title{
+	color: #333;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 20px;}
+.form-title a{
+	margin-left: 10px;
+	color: #0483c6;
+	font-size: 14px;}
+form .cd-tabs{
+	width: 100%;
+	max-width: 100%;
+	border: none;}
+form ul.cd-tabs-navigation{
+	background: #fff;}
+form ul.cd-tabs-navigation a{
+	text-align: center;}
+form .cd-tabs-content{
+	border: 1px solid #e6e6e6;}
+form .cd-tabs-navigation a.selected{
+	box-shadow: none;
+	border-radius: 5px 5px 0 0;}
+form .cd-tabs-navigation li{
+	width: auto;
+	border: 1px solid #e6e6e6;
+	border-bottom: none;
+	margin-right: 2px;
+	background: #e6e6e6;
+	border-radius: 5px 5px 0 0;}
+form .cd-tabs-navigation li a{
+	color: #333;}
+form .cd-tabs-content li{
+	padding: 15px;}
+form hr{
+	border-top: 1px solid #e6e6e6;}
+	
+@media (min-width:768px) {
+.right_col > .container {
+	width:750px;
+}
+}
+@media (min-width:992px) {
+.right_col > .container {
+	width:970px;
+}
+}
+@media (min-width:1200px) {
+.right_col > .container {
+	width:1170px;
+}
+}
+
+/*================ billing_form ================*/
