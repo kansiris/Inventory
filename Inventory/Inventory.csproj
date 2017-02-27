@@ -391,6 +391,7 @@
     <Content Include="Scripts\css\font-awesome.css" />
     <Content Include="Scripts\css\jquery.bxslider.css" />
     <Content Include="Scripts\css\maps\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Scripts\css\maps\Warehouse.css" />
     <Content Include="Scripts\css\styles.css" />
     <Content Include="Scripts\hideShowPassword.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -4681,10 +4682,11 @@
     <Content Include="Views\Localization\Index.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\LandingPage\Index.cshtml" />
+    <Content Include="Views\Warehouse\Index.cshtml" />
+    <Content Include="Views\Warehouse\WarehouseAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Warehouse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
