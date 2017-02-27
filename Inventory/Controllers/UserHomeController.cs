@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Inventory.Service;
 using Inventory.Models;
 using System.Web.Security;
-using Inventory.Content;
+//using Inventory.Content;
 
 namespace Inventory.Controllers
 {
