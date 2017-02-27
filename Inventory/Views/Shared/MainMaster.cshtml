@@ -39,263 +39,68 @@
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <!-- menu profile quick info -->
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                            <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-                        </div>
-                        <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>John Doe</h2>
-                        </div>
-                    </div>
-                    <!-- /menu profile quick info -->
-
-                    <br>
-
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        @*<div class="menu_section active">*@
-                        <div class="menu_section">
-                            <h3>General</h3>
-                            <ul class="nav side-menu" style="">
-                                @*<li class="active">*@
-                                <li>
-                                    <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu"> @* style="display: block;"*@
-                                        <li><a href="~/Dashboard">Dashboard</a></li> @*<li class="current-page">*@
-                                        <li><a href="~/Dashboard2">Dashboard2</a></li>
-                                        <li><a href="~/Dashboard3">Dashboard3</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="~/GeneralForm">General Form</a></li>
-                                        <li><a href="~/AdvancedForm">Advanced Components</a></li>
-                                        <li><a href="~/FormValidation">Form Validation</a></li>
-                                        <li><a href="~/WizardForm">Form Wizard</a></li>
-                                        <li><a href="~/FormUpload">Form Upload</a></li>
-                                        <li><a href="~/FormButtons">Form Buttons</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="~/GeneralElements">General Elements</a></li>
-                                        <li><a href="~/MediaGallery">Media Gallery</a></li>
-                                        <li><a href="~/Typography">Typography</a></li>
-                                        <li><a href="~/Icons">Icons</a></li>
-                                        <li><a href="~/Glyphicons">Glyphicons</a></li>
-                                        <li><a href="~/Widgets">Widgets</a></li>
-                                        <li><a href="~/Invoice">Invoice</a></li>
-                                        <li><a href="~/Inbox">Inbox</a></li>
-                                        <li><a href="~/Calendar">Calendar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="~/Tables">Tables</a></li>
-                                        <li><a href="~/TableDynamic">Table Dynamic</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="~/ChartJS">Chart JS</a></li>
-                                        <li><a href="~/ChartJS2">Chart JS2</a></li>
-                                        <li><a href="~/MorisJS">Moris JS</a></li>
-                                        <li><a href="~/ECharts">ECharts</a></li>
-                                        <li><a href="~/OtherCharts">Other Charts</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="~/FixedSidebar">Fixed Sidebar</a></li>
-                                        <li><a href="~/FixedFooter">Fixed Footer</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="menu_section">
-                            <h3>Live On</h3>
-                            <ul class="nav side-menu">
-                                <li>
-                                    <a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="~/ECommerce">E-commerce</a></li>
-                                        <li><a href="~/Projects">Projects</a></li>
-                                        <li><a href="~/ProjectDetail">Project Detail</a></li>
-                                        <li><a href="~/Contacts">Contacts</a></li>
-                                        <li><a href="~/Profile">Profile</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="~/Error403">403 Error</a></li>
-                                        <li><a href="~/Error404">404 Error</a></li>
-                                        <li><a href="~/Error500">500 Error</a></li>
-                                        <li><a href="~/PlainPage">Plain Page</a></li>
-                                        <li><a href="~/Login">Login Page</a></li>
-                                        <li><a href="~/PricingTables">Pricing Tables</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="#level1_1">Level One</a>
-                                        </li>
-                                        <li>
-                                            <a>Level One<span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li class="sub_menu">
-                                                    <a href="level2.html">Level Two</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#level2_1">Level Two</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#level2_2">Level Two</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#level1_2">Level One</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <!-- /sidebar menu -->
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- /menu footer buttons -->
-                </div>
-            </div>
+            
 
             <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <nav>
-                        <div class="nav toggle">
-                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                        </div>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        <a class="navbar-brand" href="#"> <img src="~/images/logo.jpg" alt="Logo" /> </a>
+                    </div>
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt="">John Doe
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Profile</a></li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="javascript:;">Help</a></li>
-                                    <li><a href="~/Login"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
                                 </ul>
                             </li>
-
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="images/img.jpg" alt=""> <span>John Doe</span> <span class=" fa fa-angle-down"></span> </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="javascript:;"> Profile</a></li>
+                                    <li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>
+                                    <li><a href="javascript:;">Help</a></li>
+                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                </ul>
+                            </li>
                             <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
+                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span class="badge bg-green">6</span> </a>
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                    <li> <a> <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                                    <li> <a> <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                                    <li> <a> <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                                    <li> <a> <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
                                     <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
+                                        <div class="text-center"> <a> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a> </div>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
-                    </nav>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                                <span class="sr-only">70% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.navbar-collapse -->
                 </div>
-            </div>
+                <!-- /.container-fluid -->
+            </nav>
             <!-- /top navigation -->
             <!-- page content -->
             <div>

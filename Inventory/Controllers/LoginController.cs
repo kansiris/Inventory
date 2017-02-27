@@ -24,6 +24,7 @@ namespace Inventory.Controllers
         //LoginService loginService = new LoginService();
         public ActionResult Index()
         {
+            
             DateTime utcTime = DateTime.UtcNow;
             TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
             DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi); // convert from utc to local
@@ -33,7 +34,6 @@ namespace Inventory.Controllers
             //string url = (Request.Url.ToString()).TrimEnd(Request.RawUrl.ToCharArray());
             return View();
         }
-
         [HttpPost]
         public ActionResult Index(UserMaster userMaster, string command, string plan)
         {

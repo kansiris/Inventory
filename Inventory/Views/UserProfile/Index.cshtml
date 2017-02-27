@@ -1,4 +1,4 @@
-﻿@model Inventory.Models.UserMaster
+﻿
 @{
     Layout = null;
 }
@@ -12,35 +12,6 @@
 </head>
 <body>
     <div> 
-        @foreach (var item in ViewBag.editrecord)
-        {
-            <table align="center" style="border-style:double;">
-                <tr>
-                    <td>Full Name</td>
-                    <td>@Html.TextBoxFor(model => model.First_Name, new { @Value = item.First_Name })</td>
-                </tr>
-                <tr>
-                    <td>Last Name</td>
-                    <td>@Html.TextBoxFor(model => model.Last_Name, new { @Value = item.Last_Name })</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>@Html.TextBoxFor(model => model.Last_Name, new { @Value = item.EmailId })</td>
-                </tr>
-                <tr>
-                    <td>Company Name</td>
-                    <td>@Html.TextBoxFor(model => model.Last_Name, new { @Value = item.CompanyName })</td>
-                </tr>
-                <tr>
-                    <td>Contact Number</td>
-                    <td>@Html.TextBoxFor(model => model.Last_Name, new { @Value = item.Phone })</td>
-                </tr>
-                <tr>
-                    <td><input type="button" value="Update" /></td>
-                    <td><input type="button" value="Cancel" /></td>
-                </tr>
-            </table>
-        }
     </div>
 </body>
 </html>
