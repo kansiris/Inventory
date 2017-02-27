@@ -1,0 +1,132 @@
+﻿@model Inventory.Models.Warehouse
+@{
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Website CSS style -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href="@Url.Content("~/Scripts/css/maps/Warehouse.css")" rel="stylesheet" type="text/css" />
+    <title>Inventory</title>
+   
+</head>
+<body>
+   
+        <div class="container">
+            <div class="row main">
+                <div class="main-login main-center">
+                    <h5>WareHouse Address.</h5>
+                    <form class="" method="post" action="#">
+
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Job Position</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Job_position, new { placeholder = "Enter jobposition", required = "required", @class = "tboxadd1" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">Phone</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.phone, new { placeholder = "Enter Phone Number", required = "required", @class = "tboxadd1", @maxlength = "11" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="cols-sm-2 control-label">Mobile</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Mobile, new { placeholder = "Enter Mobile", required = "required", @class = "tboxadd1", @maxlength = "11" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="cols-sm-2 control-label">EmailID</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter EmailId", required = "required", @class = "tboxadd1" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">Contact Person</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.conperson, new { placeholder = "Enter contactprson Name", required = "required", @class = "tboxadd1", })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">Notes</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Note, new { placeholder = "Enter notes", required = "required", @class = "tboxadd1" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">Billing Address</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.Billing_Address, new { placeholder = "Enter billing address", required = "required", @class = "tboxadd1"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">Shipping Address</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                   @Html.TextBoxFor(Model => Model.shipping_Address, new { placeholder = "Enter shipping address", required = "required", @class = "tboxadd1"})
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">other Address</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    @Html.TextBoxFor(Model => Model.other_Address, new { placeholder = "Enter Other address", required = "required", @class = "tboxadd1"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <button id="btnsubmit" command="Insert"  class="button-secondary">Submit</button>
+                            @*<a  target="_blank" type="button" id="button" command="Insert" class="btn btn-primary btn-lg btn-block login-button">Register Address</a>*@
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</body>
+</html>
+

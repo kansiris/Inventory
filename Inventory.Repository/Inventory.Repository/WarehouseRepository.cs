@@ -9,6 +9,7 @@ using Microsoft.ApplicationBlocks.Data;
 using System.Data;
 
 
+
 namespace Inventory.Repository
 {
    public class WarehouseRepository
@@ -18,7 +19,13 @@ namespace Inventory.Repository
 
         public static int warehouseinsert(string Wh_Name, string wh_Shortname)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse", Wh_Name, wh_Shortname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse",Wh_Name,wh_Shortname );
+            return count;
+        }
+
+        public static int WHaddressinsert(string jobposition,int phone,int mobile,string Email,string conperson,string Note,string Billing_Address,string Shipping_Address,string Other_Address)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertWH_address", jobposition, phone,mobile, Email, conperson, Note, Billing_Address, Shipping_Address, Other_Address);
             return count;
         }
     }

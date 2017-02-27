@@ -11,18 +11,24 @@ namespace Inventory.Models
 {
     public partial class Warehouse
     {
-        [StringLength(10)]
-        [Required]
-        public string wh_id { get; set; }
+       
         [StringLength(50)]
        
-        [Display(Name = "Warehouse Name")]
-        [Required(ErrorMessage = "Enter Warehouse Name")]
         public string wh_name { get; set; }
        
-        [Display(Name = "Warehouse ShortName")]
-        [Required(ErrorMessage = "Enter Warehouse Name")]
         [StringLength(50)]
         public string wh_Shortname { get; set; }
+
+        public string Job_position { get; set; }
+
+        public int phone { get; set; }
+        public int Mobile { get; set; }
+        public string Email { get; set; }
+        public string conperson { get; set; }
+        public string Note { get; set; }
+        public string Billing_Address { get; set; }
+        public string shipping_Address { get; set; }
+        public string other_Address { get; set; }
+
     }
 }
