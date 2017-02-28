@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Microsoft.ApplicationBlocks.Data;
 using System.Data;
+using Inventory;
 
 
 namespace Inventory.Repository
@@ -84,9 +85,9 @@ namespace Inventory.Repository
         #endregion
 
         #region EmailActivation
-        public static int ActivateEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode)
+        public static int ActivateEmail(string email, string activationcode)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuser",email,usertype, IsActive, SubscriptionDate,activationcode);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuser",email,activationcode);
             return count;
         }
         #endregion
@@ -94,6 +95,21 @@ namespace Inventory.Repository
         public static int ActivatesEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode,string DB_Name)
         {
             int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateusers", email, usertype, IsActive, SubscriptionDate, activationcode, DB_Name);
+            return count;
+        }
+        #endregion
+
+        #region getuserrecord
+        public static SqlDataReader getuserrecord(string email, string code)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "activateuser", email, code);
+        }
+        #endregion
+
+        #region timezone
+        public static int updatetimezone(string dateformat, string timezone,string id)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatetimezone", dateformat, timezone,id);
             return count;
         }
         #endregion
