@@ -32,7 +32,7 @@ namespace Inventory.Controllers
         {
             if (command == "updatetimezone")
             {
-
+                return RedirectToAction("Index", "UserHome");
             }
             return View();
         }
