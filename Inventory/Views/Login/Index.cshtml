@@ -1,8 +1,6 @@
-﻿@model Inventory.Models.UserMaster
-@{
-    Layout = null;
-}
-
+﻿<!DOCTYPE html>
+@model Inventory.Models.UserMaster
+    @{ Layout = null;}
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,9 +8,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
-
+    <title>Authenticate</title>
+   
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -24,124 +21,218 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/bootstrap.js"></script>
+
+    <style>
+        ::-ms-reveal {
+            display: none !important;
+        }
+
+        .hideShowPassword-toggle {
+            background-image: url('../../images/wink.svg');
+            background-position: 0 center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            height: 100%;
+            overflow: hidden;
+            text-indent: -9999em;
+            width: 44px;
+        }
+
+        .hideShowPassword-toggle-hide {
+            background-position: -44px center;
+        }
+
+        .hideShowPassword-toggle,
+        .my-toggle-class {
+            z-index: 3;
+        }
+    </style>
 </head>
 
 <body class="login">
-    <div>
-        <a class="hiddenanchor" id="signup"></a>
-        <a class="hiddenanchor" id="signin"></a>
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
 
-        <div class="login_wrapper">
-            <div class="animate form login_form">
-                <section class="login_content">
-                    <form method="post">
-                        <h1>Login Form</h1>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.EmailId, new { @id = "LoginEmailId", placeholder = "Enter Email ID", required = "required", @class = "form-control" })
-                            @*<input type="text" class="form-control" placeholder="Username" required="" />*@
-                        </div>
-                        <div>
-                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
-                            @*<input type="password" class="form-control" placeholder="Password" required="" />*@
-                        </div>
-                        <div>
-                            <button type="submit" name="command" value="Authenticate" class="btn btn-default submit">Log in</button>
-                            @*<input type="submit" name="command" value="Log in" class="btn btn-default submit"/>*@
-                            @*<a class="btn btn-default submit" href="~/Dashboard">Log in</a>*@
-                            <a class="reset_pass" href="#">Lost your password?</a>
-                        </div>
+    <div class="container-fluid header-bar-white">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        <a href="~/HomePage" class="navbar-brand"> <img src="images/logo.jpg" alt="Logo"> </a> 
+                    </div>
 
-                        <div class="clearfix"></div>
-
-                        <div class="separator">
-                            <p class="change_link">
-                                New to site?
-                                <a href="#signup" class="to_register"> Create Account </a>
-                            </p>
-
-                            <div class="clearfix"></div>
-                            <br />
-
-                            <div>
-                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </div>
-
-            <div id="register" class="animate form registration_form">
-                <section class="login_content">
-                    <form method="post">
-                        <h1>Create Account</h1>
-                        <div>
-                            @Html.TextBoxFor(Model=>Model.First_Name,new { placeholder="Enter First Name", required = "required", @class = "form-control" })
-                            @*<input type="text" class="form-control" placeholder="Username" required="" />*@
-                        </div>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.Last_Name, new { placeholder = "Enter Last Name", required = "required", @class = "form-control" })
-                            @*<input type="email" class="form-control" placeholder="Email" required="" />*@
-                        </div>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.EmailId, new {@id= "RegEmailId", placeholder = "Enter Email ID", required = "required" ,@class="form-control", @onchange = "check()" })
-                            @*<input type="password" class="form-control" placeholder="Password" required="" />*@
-                        </div>
-                        <div>
-                            @Html.PasswordFor(Model => Model.Password, new { placeholder = "Enter Password", required = "required", @class = "form-control" })
-                            @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
-                        </div>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.CompanyName, new { placeholder = "Enter Company Name", required = "required", @class = "form-control" })
-                        </div>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.User_Site, new { placeholder = "Enter Site Address", required = "required", @class = "form-control", @onchange = "check()" })
-                            <p id="msg"></p>
-                        </div>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.Phone, new { placeholder = "Enter Phone Number", required = "required", @class = "form-control" })
-                        </div>
-                        <div>
-                            <button type="submit" name="command" value="Insert" class="btn btn-default submit">Start My Free Trial</button>
-                            @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
-                        </div>
-                        <div class="clearfix"></div>
-
-                        <div class="separator">
-                            <p class="change_link">
-                                Already a member ?
-                                <a href="#signin" class="to_register"> Log in </a>
-                            </p>
-
-                            <div class="clearfix"></div>
-                            <br />
-
-                            <div>
-                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Link One</a></li>
+                                    <li><a href="#">Link Two</a></li>
+                                    <li><a href="#">Link Three</a></li>
+                                    <!--<li role="separator" class="divider"></li>-->
+                                    <li><a href="#">Link Four</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Company <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Link One</a></li>
+                                    <li><a href="#">Link Two</a></li>
+                                    <li><a href="#">Link Three</a></li>
+                                    <!--<li role="separator" class="divider"></li>-->
+                                    <li><a href="#">Link Four</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="~/PricingTables">Pricing</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                        <!-- <form class="navbar-form navbar-left">
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                          </div>
+                          <button type="submit" class="btn btn-default">Submit</button>
+                        </form>-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="~/Login">Login</a></li>
+                            <li><a href="~/Login#signup">Sign Up</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
         </div>
     </div>
 
-    @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
-    <script src="~/Scripts/jquery.js"></script>
-    @if (ViewBag.invalid != null)
-    {
-        <script>
-            alert("Invalid Credentials");
-        </script>
-    }
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form method="post">
+                    <!--<h1>Login Form</h1>-->
+                    <div>
+                        @*<input type="text" class="form-control" placeholder="Username" required />*@
+                        @Html.TextBoxFor(Model => Model.EmailId, new { @id ="LoginEmailId", placeholder = "Email ID", required = "required", @class = "form-control" })
+                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <!-- <div>
+                       <input type="password" class="form-control" placeholder="Password" required />
+                     </div>-->
+                    <div>
+                        @*<a class="btn btn-default submit" href="index.html">Log in</a>*@
+                        <button type="submit" name="command" value="Authenticate" class="btn btn-default submit">Log in</button>
+                        <a class="reset_pass" href="#">Lost your password?</a>
+                    </div>
 
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">
+                            New to site?
+                            <a href="#signup" class="to_register"> Create Account </a>
+                        </p>
+
+                        </div>
+                </form>
+            </section>
+        </div>
+
+        <div id="register" class="animate form registration_form">
+            <section class="login_content">
+                <form method="post">
+                    <!-- <h1>Create Account</h1>-->
+                    <div>
+                        @*<input type="text" class="form-control" placeholder="Username" required />*@
+                        @Html.TextBoxFor(Model => Model.First_Name, new { placeholder = "First Name", required = "required", @class = "form-control" })
+                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        @*<input type="text" class="form-control" placeholder="Username" required />*@
+                        @Html.TextBoxFor(Model => Model.Last_Name, new { placeholder = "Last Name", required = "required", @class = "form-control" })
+                        <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        @*<input type="email" class="form-control" placeholder="Email" required />*@
+                        @Html.TextBoxFor(Model => Model.EmailId, new { @id = "RegEmailId", placeholder = "Email ID", required = "required", @class = "form-control", @onchange = "check()" })
+                        <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        @*<input type="password" class="form-control" placeholder="Password" required />*@
+                        @Html.PasswordFor(Model => Model.Password, new { @id = "password-1", placeholder = "Password", required = "required", @class = "form-control" })
+                        <i class="fa fa-eye-slash fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        @*<input type="text" class="form-control" placeholder="Company Name" required />*@
+                        @Html.TextBoxFor(Model => Model.CompanyName, new { placeholder = "Company Name", required = "required", @class = "form-control" })
+                        <i class="fa fa-building-o fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div class="site-address">
+                        @*<input type="text" class="form-control" placeholder="Site Address" required />*@
+                        @Html.TextBoxFor(Model => Model.User_Site, new { placeholder = "Site Address", required = "required", @class = "form-control", @onchange = "check()" })<p id="msg"></p>
+                        <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                        <span>.xsilica.com</span>
+                    </div>
+                    <div>
+                        @*<input type="text" class="form-control" placeholder="Phone Number(Optional)" />*@
+                        @Html.TextBoxFor(Model => Model.Phone, new { placeholder = "Phone Number", required = "required", @class = "form-control" })
+                        <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        @*<a class="btn btn-default submit" href="index.html">Start My Free Trail</a>*@
+                        <button id="btnsubmit" type="submit" name="command" value="Insert" class="btn btn-default submit">Start My Free Trial</button>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">
+                            Already a member ?
+                            <a href="#signin" class="to_register"> Log in </a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <!--<div>
+                          <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                          <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                        </div>-->
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/hideShowPassword.min.js"></script>
+
+@if (ViewBag.invalid != null)
+{
     <script>
+            alert("Invalid Credentials");
+    </script>
+}
+<script>
+        $(window).ready(function () {
+            $('#password-1').hideShowPassword({
+                innerToggle: true,
+            });
+        });
+</script>
+
+<script>
         function check(e) {
             var emailid = $('#RegEmailId').val();//e.value;
             var site = $('#User_Site').val();
             var type = null;
-            if (site != "") {
+            if (site != "" && site != null) {
                 type = 'usersite';
             }
             else {
@@ -173,6 +264,15 @@
                 { alert("Failed!!!"); }
             });
         }
-    </script>
+</script>
+
+<script>
+        $(function () {
+            var plan = '@Request.QueryString["plan"]';
+            if (plan != '') {
+                $('#btnsubmit').text("Buy @Request.QueryString["plan"] plan");
+            }
+        });
+</script>
 </body>
 </html>

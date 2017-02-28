@@ -1,69 +1,989 @@
 ﻿@model Inventory.Models.UserMaster
 @{
-    ViewBag.Title = "Index";
-    //Layout = "~/Views/Shared/MainMaster.cshtml";
-    Layout = null;
+    ViewBag.Title = "User Home";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
 }
-<!-- bootstrap-progressbar -->
-<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-<html>
-<head>
-</head>
-<body style="background:#ffffff;color:black">
-    @*<div class="">50%(Progress Bar Under Development......)
-        <div class="progress progress_sm" style="width: 76%;">
-            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 50%;"></div> 
-        </div>
-    </div>*@
-    <div id="progressbar" style="width:75%"></div>37%
-    <form method="post">
-        <h2 align="center">Current User Details</h2>
-        <br />
-        <table align="center" style="border-style:double;">
-            <tr>
-                <td>Full Name</td>
-                <td>@Model.First_Name @Model.Last_Name</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>@Model.EmailId</td>
-            </tr>
-            <tr>
-                <td>Account Creation Date</td>
-                <td>@Model.Created_Date</td>
-            </tr>
-            <tr>
-                <td>User Site</td>
-                <td>@Model.User_Site</td>
-            </tr>
-            <tr>
-                <td>Company Name</td>
-                <td>@Model.CompanyName</td>
-            </tr>
-            <tr>
-                <td>Contact Number</td>
-                <td>@Model.Phone</td>
-            </tr>
-        </table>
-        <br />
-        <p align="center">Your Login Access is about to expire in @ViewBag.accessexpiry Days.</p>
-        <div align="center"> <a class="btn btn-default form-control" style="border:double" href="~/AvailableCompanies?email=@Model.EmailId">Log Out</a></div>
-    </form>
-    <!-- jQuery -->
-    @*<script src="../vendors/jquery/dist/jquery.min.js"></script>*@
+
+@section css{
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
-    @*<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>*@
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+}
+
+<div class="right_col" role="main">
+    <form method="post">
+        <!------------ Upload Image --------------->
+        @foreach (var item in ViewBag.record)
+        {
+            <div class="row profile-part">
+                <div class="col-md-6">
+                    <div class="top-button">
+                        @*<img src="/images/profilepic.png" alt="Profile Pic" />*@
+                        <input type="file" value="" id="fileupload" accept="image/gif, image/jpeg, image/png">
+                        <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
+                    </div>
+                    <p>@item.First_Name @item.Last_Name </p>
+                    <br /><br />
+                    <text style="font-size:medium">  (Your Login Access is about to expire in @ViewBag.accessexpiry Days.)</text>
+                </div>
+                <div class="col-md-6">
+                    @*<a href="/UserProfile?email=@Model.EmailId&&usertype=@Model.UserTypeId&&site=@Model.User_Site">*@
+                    <a href="#">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>Edit My Profile
+                    </a>
+                </div>
+            </div>
+
+    <!------------ Upload Image --------------->
+            <!------------ Toggle Action ------>
+            <div class="row toggle-area">
+                <div class="toggle-bar">
+                    <div class="col-md-6">
+                        <h3>Time Zone Management</h3>
+                    </div>
+                    <div class="toggle-button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="cross">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="toggle-content">
+                    <h2 align="center">Localization</h2>
+                    <table>
+                        <tr>
+                            <td><text class="form-control">Date Format</text></td>
+                            <td>
+                                @Html.DropDownListFor(Model=>Model.Date_Format, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY"},
+                                new SelectListItem { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY"},
+                                new SelectListItem {Text  = "YYYY/MM/DD",Value="YYYY/MM/DD"}
+                            }, "Select Date Format", new { @class = "form-control" })
+                            </td>
+                            <td>&nbsp; &nbsp; &nbsp;</td>
+                            <td><text class="form-control">Time Zone</text></td>
+                            @*<td>@Html.DropDownList("timeZoneInfo", new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control" })</td>*@
+                            <td>@Html.DropDownListFor(Model=>Model.Timezone,new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control" })</td>
+                            <td>&nbsp; &nbsp; &nbsp;</td>
+                            @*<td><input type="submit" value="Update TimeZone" class="btn btn-success" name="command"/></td>*@
+                            <td><button type="submit" value="updatetimezone" name="command" class="btn btn-success">Update TimeZone</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    <!------------ Toggle Action ------>
+        }
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="dashboard_graph">
+
+                    <!--------- Tab Section START ------------>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div class="cd-tabs">
+                            <nav>
+                                <ul class="cd-tabs-navigation">
+                                    <li><a data-content="inbox" class="selected" href="#0">Inbox</a></li>
+                                    <li><a data-content="new" href="#0">New</a></li>
+                                    <li><a data-content="gallery" href="#0">Gallery</a></li>
+                                    <li><a data-content="store" href="#0">Store</a></li>
+                                    <li><a data-content="settings" href="#0">Settings</a></li>
+                                    <li><a data-content="trash" href="#0">Trash</a></li>
+                                </ul>
+                                <!-- cd-tabs-navigation -->
+                            </nav>
+                            <ul class="cd-tabs-content">
+                                <li data-content="inbox" class="selected">
+                                    <p>Inbox Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum recusandae rem animi accusamus quisquam reprehenderit sed voluptates, numquam, quibusdam velit dolores repellendus tempora corrupti accusantium obcaecati voluptate totam eveniet laboriosam?</p>
+                                    <p>Inbox Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum recusandae rem animi accusamus quisquam reprehenderit sed voluptates, numquam, quibusdam velit dolores repellendus tempora corrupti accusantium obcaecati voluptate totam eveniet laboriosam?</p>
+                                </li>
+                                <li data-content="new">
+                                    <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
+                                    <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
+                                </li>
+                                <li data-content="gallery">
+                                    <p>Gallery Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque tenetur aut, cupiditate, libero eius rerum incidunt dolorem quo in officia.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ipsa vero, culpa doloremque voluptatum consectetur mollitia, atque expedita unde excepturi id, molestias maiores delectus quos molestiae. Ab iure provident adipisci eveniet quisquam ratione libero nam inventore error pariatur optio facilis assumenda sint atque cumque, omnis perspiciatis. Maxime minus quam voluptatum provident aliquam voluptatibus vel rerum. Soluta nulla tempora aspernatur maiores! Animi accusamus officiis neque exercitationem dolore ipsum maiores delectus asperiores reprehenderit pariatur placeat, quaerat sed illum optio qui enim odio temporibus, nulla nihil nemo quod dicta consectetur obcaecati vel. Perspiciatis animi corrupti quidem fugit deleniti, atque mollitia labore excepturi ut.</p>
+                                </li>
+                                <li data-content="store">
+                                    <p>Store Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum recusandae rem animi accusamus quisquam reprehenderit sed voluptates, numquam, quibusdam velit dolores repellendus tempora corrupti accusantium obcaecati voluptate totam eveniet laboriosam?</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, enim, pariatur. Ab assumenda, accusantium! Consequatur magni placeat quae eos dicta, cum expedita sunt facilis est impedit possimus dolorum sequi nostrum nobis sit praesentium molestias nulla laudantium fugit corporis nam ut saepe harum ipsam? Debitis accusantium, omnis repudiandae modi, distinctio illo voluptatibus aperiam odio veritatis, quam perferendis eaque ullam. Temporibus tempore ad voluptates explicabo ea sit deleniti ipsum quos dolores tempora odio, ab corporis molestiae, eaque optio, perferendis! Cumque libero quia modi! Totam magni rerum id iusto explicabo distinctio, magnam, labore sed nemo expedita velit quam, perspiciatis non temporibus sit minus voluptatum. Iste, cumque sunt suscipit facere iusto asperiores, ullam dolorum excepturi quidem ea quibusdam deserunt illo. Nesciunt voluptates repellat ipsam.</p>
+                                </li>
+                                <li data-content="settings">
+                                    <p>Settings Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam nam magni, ullam nihil a suscipit, ex blanditiis, adipisci tempore deserunt maiores. Nostrum officia, ratione enim eaque nihil quis ea, officiis iusto repellendus. Animi illo in hic, maxime deserunt unde atque a nesciunt? Non odio quidem deserunt animi quod impedit nam, voluptates eum, voluptate consequuntur sit vel, et exercitationem sint atque dolores libero dolorem accusamus ratione iste tenetur possimus excepturi. Accusamus vero, dignissimos beatae tempore mollitia officia voluptate quam animi vitae.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique ipsam eum reprehenderit minima at sapiente ad ipsum animi doloremque blanditiis unde omnis, velit molestiae voluptas placeat qui provident ab facilis.</p>
+                                </li>
+                                <li data-content="trash">
+                                    <p>Trash Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque a iure nostrum animi praesentium, numquam quidem, nemo, voluptatem, aspernatur incidunt. Fugiat aspernatur excepturi fugit aut, dicta reprehenderit temporibus, nobis harum consequuntur quo sed, illum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima doloremque optio tenetur, natus voluptatum error vel dolorem atque perspiciatis aliquam nemo id libero dicta est saepe laudantium provident tempore ipsa, accusamus similique laborum, consequatur quia, aut non maiores. Consectetur minus ipsum aliquam pariatur dolorem rerum laudantium minima perferendis in vero voluptatem suscipit cum labore nemo explicabo, itaque nobis debitis molestias officiis? Impedit corporis voluptates reiciendis deleniti, magnam, fuga eveniet! Velit ipsa quo labore molestias mollitia, quidem, alias nisi architecto dolor aliquid qui commodi tempore deleniti animi repellat delectus hic. Alias obcaecati fuga assumenda nihil aliquid sed vero, modi, voluptatem? Vitae voluptas aperiam nostrum quo harum numquam earum facilis sequi. Labore maxime laboriosam omnis delectus odit harum recusandae sint incidunt, totam iure commodi ducimus similique doloremque! Odio quaerat dolorum, alias nihil quam iure delectus repellendus modi cupiditate dolore atque quasi obcaecati quis magni excepturi vel, non nemo consequatur, mollitia rerum amet in. Nesciunt placeat magni, provident tempora possimus ut doloribus ullam!</p>
+                                </li>
+                            </ul>
+                            <!-- cd-tabs-content -->
+                        </div>
+                        <!-- cd-tabs -->
+
+                    </div>
+
+                    <!--------- Tab Section END ------------>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+                    <div class="x_title">
+                        <h2>Top Campaign Performance</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-6">
+                        <div>
+                            <p>Facebook Campaign</p>
+                            <div class="">
+                                <div class="progress progress_sm" style="width: 76%;">
+                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Twitter Campaign</p>
+                            <div class="">
+                                <div class="progress progress_sm" style="width: 76%;">
+                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-6">
+                        <div>
+                            <p>Conventional Media</p>
+                            <div class="">
+                                <div class="progress progress_sm" style="width: 76%;">
+                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Bill boards</p>
+                            <div class="">
+                                <div class="progress progress_sm" style="width: 76%;">
+                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel tile fixed_height_320">
+                    <div class="x_title">
+                        <h2>App Versions</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a> </li>
+                                    <li><a href="#">Settings 2</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <h4>App Usage across versions</h4>
+                        <div class="widget_summary">
+                            <div class="w_left w_25"> <span>0.1.5.2</span> </div>
+                            <div class="w_center w_55">
+                                <div class="progress">
+                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;"> <span class="sr-only">60% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div class="w_right w_20"> <span>123k</span> </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="widget_summary">
+                            <div class="w_left w_25"> <span>0.1.5.3</span> </div>
+                            <div class="w_center w_55">
+                                <div class="progress">
+                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"> <span class="sr-only">60% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div class="w_right w_20"> <span>53k</span> </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="widget_summary">
+                            <div class="w_left w_25"> <span>0.1.5.4</span> </div>
+                            <div class="w_center w_55">
+                                <div class="progress">
+                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"> <span class="sr-only">60% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div class="w_right w_20"> <span>23k</span> </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="widget_summary">
+                            <div class="w_left w_25"> <span>0.1.5.5</span> </div>
+                            <div class="w_center w_55">
+                                <div class="progress">
+                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;"> <span class="sr-only">60% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div class="w_right w_20"> <span>3k</span> </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="widget_summary">
+                            <div class="w_left w_25"> <span>0.1.5.6</span> </div>
+                            <div class="w_center w_55">
+                                <div class="progress">
+                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;"> <span class="sr-only">60% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div class="w_right w_20"> <span>1k</span> </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel tile fixed_height_320 overflow_hidden">
+                    <div class="x_title">
+                        <h2>Device Usage</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a> </li>
+                                    <li><a href="#">Settings 2</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="" style="width:100%">
+                            <tr>
+                                <th style="width:37%;">
+                                    <p>Top 5</p>
+                                </th>
+                                <th>
+                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                        <p class="">Device</p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <p class="">Progress</p>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td><canvas id="canvas1" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas></td>
+                                <td>
+                                    <table class="tile_info">
+                                        <tr>
+                                            <td><p><i class="fa fa-square blue"></i>IOS </p></td>
+                                            <td>30%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><i class="fa fa-square green"></i>Android </p></td>
+                                            <td>10%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><i class="fa fa-square purple"></i>Blackberry </p></td>
+                                            <td>20%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><i class="fa fa-square aero"></i>Symbian </p></td>
+                                            <td>15%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><i class="fa fa-square red"></i>Others </p></td>
+                                            <td>30%</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel tile fixed_height_320">
+                    <div class="x_title">
+                        <h2>Quick Settings</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a> </li>
+                                    <li><a href="#">Settings 2</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="dashboard-widget-content">
+                            <ul class="quick-list">
+                                <li><i class="fa fa-calendar-o"></i><a href="#">Settings</a> </li>
+                                <li><i class="fa fa-bars"></i><a href="#">Subscription</a> </li>
+                                <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
+                                <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a> </li>
+                                <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
+                                <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a> </li>
+                                <li><i class="fa fa-area-chart"></i><a href="#">Logout</a> </li>
+                            </ul>
+                            <div class="sidebar-widget">
+                                <h4>Profile Completion</h4>
+                                <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
+                                <div class="goal-wrapper"> <span class="gauge-value pull-left">$</span> <span id="gauge-text" class="gauge-value pull-left">3,200</span> <span id="goal-text" class="goal-value pull-right">$5,000</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Recent Activities <small>Sessions</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a> </li>
+                                    <li><a href="#">Settings 2</a> </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="dashboard-widget-content">
+                            <ul class="list-unstyled timeline widget">
+                                <li>
+                                    <div class="block">
+                                        <div class="block_content">
+                                            <h2 class="title"> <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a> </h2>
+                                            <div class="byline"> <span>13 hours ago</span> by <a>Jane Smith</a> </div>
+                                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a> </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="block">
+                                        <div class="block_content">
+                                            <h2 class="title"> <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a> </h2>
+                                            <div class="byline"> <span>13 hours ago</span> by <a>Jane Smith</a> </div>
+                                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a> </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="block">
+                                        <div class="block_content">
+                                            <h2 class="title"> <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a> </h2>
+                                            <div class="byline"> <span>13 hours ago</span> by <a>Jane Smith</a> </div>
+                                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a> </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="block">
+                                        <div class="block_content">
+                                            <h2 class="title"> <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a> </h2>
+                                            <div class="byline"> <span>13 hours ago</span> by <a>Jane Smith</a> </div>
+                                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a> </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Visitors location <small>geo-presentation</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a> </li>
+                                            <li><a href="#">Settings 2</a> </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="dashboard-widget-content">
+                                    <div class="col-md-4 hidden-small">
+                                        <h2 class="line_30">125.7k Views from 60 countries</h2>
+                                        <table class="countries_list">
+                                            <tbody>
+                                                <tr>
+                                                    <td>United States</td>
+                                                    <td class="fs15 fw700 text-right">33%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>France</td>
+                                                    <td class="fs15 fw700 text-right">27%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Germany</td>
+                                                    <td class="fs15 fw700 text-right">16%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Spain</td>
+                                                    <td class="fs15 fw700 text-right">11%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Britain</td>
+                                                    <td class="fs15 fw700 text-right">10%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="world-map-gdp" class="col-md-8 col-sm-12 col-xs-12" style="height:230px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- Start to do list -->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>To Do List <small>Sample tasks</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a> </li>
+                                            <li><a href="#">Settings 2</a> </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="">
+                                    <ul class="to_do">
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Schedule meeting with new client
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Create email address for new intern
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Have IT fix the network printer
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Copy backups to offsite location
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Food truck fixie locavors mcsweeney
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Food truck fixie locavors mcsweeney
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Create email address for new intern
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Have IT fix the network printer
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <input type="checkbox" class="flat">
+                                                Copy backups to offsite location
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End to do list -->
+                    <!-- start of weather widget -->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Daily active users <small>Sessions</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a> </li>
+                                            <li><a href="#">Settings 2</a> </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="temperature"><b>Monday</b>, 07:30 AM <span>F</span> <span><b>C</b></span> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="weather-icon">
+                                            <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="weather-text">
+                                            <h2>
+                                                Texas <br>
+                                                <i>Partly Cloudy Day</i>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="weather-text pull-right">
+                                        <h3 class="degrees">23</h3>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row weather-days">
+                                    <div class="col-sm-2">
+                                        <div class="daily-weather">
+                                            <h2 class="day">Mon</h2>
+                                            <h3 class="degrees">25</h3>
+                                            <canvas id="clear-day" width="32" height="32"></canvas>
+                                            <h5>15 <i>km/h</i></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="daily-weather">
+                                            <h2 class="day">Tue</h2>
+                                            <h3 class="degrees">25</h3>
+                                            <canvas height="32" width="32" id="rain"></canvas>
+                                            <h5>12 <i>km/h</i></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="daily-weather">
+                                            <h2 class="day">Wed</h2>
+                                            <h3 class="degrees">27</h3>
+                                            <canvas height="32" width="32" id="snow"></canvas>
+                                            <h5>14 <i>km/h</i></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="daily-weather">
+                                            <h2 class="day">Thu</h2>
+                                            <h3 class="degrees">28</h3>
+                                            <canvas height="32" width="32" id="sleet"></canvas>
+                                            <h5>15 <i>km/h</i></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="daily-weather">
+                                            <h2 class="day">Fri</h2>
+                                            <h3 class="degrees">28</h3>
+                                            <canvas height="32" width="32" id="wind"></canvas>
+                                            <h5>11 <i>km/h</i></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="daily-weather">
+                                            <h2 class="day">Sat</h2>
+                                            <h3 class="degrees">26</h3>
+                                            <canvas height="32" width="32" id="cloudy"></canvas>
+                                            <h5>10 <i>km/h</i></h5>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of weather widget -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="../vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="../vendors/Flot/jquery.flot.js"></script>
+    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="../vendors/Flot/jquery.flot.time.js"></script>
+    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="../vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
     <!-- Custom Theme Scripts -->
-    @*<script src="../build/js/custom.min.js"></script>*@
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../build/js/custom.min.js"></script>
+
+    <!-- Flot -->
     <script>
-  $( function() {
-      $( "#progressbar" ).progressbar({ value: 37});
-  });
+        $(document).ready(function () {
+            var data1 = [
+              [gd(2012, 1, 1), 17],
+              [gd(2012, 1, 2), 74],
+              [gd(2012, 1, 3), 6],
+              [gd(2012, 1, 4), 39],
+              [gd(2012, 1, 5), 20],
+              [gd(2012, 1, 6), 85],
+              [gd(2012, 1, 7), 7]
+            ];
+
+            var data2 = [
+              [gd(2012, 1, 1), 82],
+              [gd(2012, 1, 2), 23],
+              [gd(2012, 1, 3), 66],
+              [gd(2012, 1, 4), 9],
+              [gd(2012, 1, 5), 119],
+              [gd(2012, 1, 6), 6],
+              [gd(2012, 1, 7), 9]
+            ];
+            $("#canvas_dahs").length && $.plot($("#canvas_dahs"), [
+              data1, data2
+            ], {
+                series: {
+                    lines: {
+                        show: false,
+                        fill: true
+                    },
+                    splines: {
+                        show: true,
+                        tension: 0.4,
+                        lineWidth: 1,
+                        fill: 0.4
+                    },
+                    points: {
+                        radius: 0,
+                        show: true
+                    },
+                    shadowSize: 2
+                },
+                grid: {
+                    verticalLines: true,
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "#d5d5d5",
+                    borderWidth: 1,
+                    color: '#fff'
+                },
+                colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
+                xaxis: {
+                    tickColor: "rgba(51, 51, 51, 0.06)",
+                    mode: "time",
+                    tickSize: [1, "day"],
+                    //tickLength: 10,
+                    axisLabel: "Date",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Verdana, Arial',
+                    axisLabelPadding: 10
+                },
+                yaxis: {
+                    ticks: 8,
+                    tickColor: "rgba(51, 51, 51, 0.06)",
+                },
+                tooltip: false
+            });
+
+            function gd(year, month, day) {
+                return new Date(year, month - 1, day).getTime();
+            }
+        });
     </script>
-</body>
-</html>
+    <!-- /Flot -->
+    <!-- JQVMap -->
+    <script>
+        $(document).ready(function () {
+            $('#world-map-gdp').vectorMap({
+                map: 'world_en',
+                backgroundColor: null,
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#666666',
+                enableZoom: true,
+                showTooltip: true,
+                values: sample_data,
+                scaleColors: ['#E6F2F0', '#149B7E'],
+                normalizeFunction: 'polynomial'
+            });
+        });
+    </script>
+    <!-- /JQVMap -->
+    <!-- Skycons -->
+    <script>
+        $(document).ready(function () {
+            var icons = new Skycons({
+                "color": "#73879C"
+            }),
+              list = [
+                "clear-day", "clear-night", "partly-cloudy-day",
+                "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                "fog"
+              ],
+              i;
+
+            for (i = list.length; i--;)
+                icons.set(list[i], list[i]);
+
+            icons.play();
+        });
+    </script>
+    <!-- /Skycons -->
+    <!-- Doughnut Chart -->
+    <script>
+        $(document).ready(function () {
+            var options = {
+                legend: false,
+                responsive: false
+            };
+
+            new Chart(document.getElementById("canvas1"), {
+                type: 'doughnut',
+                tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+                data: {
+                    labels: [
+                      "Symbian",
+                      "Blackberry",
+                      "Other",
+                      "Android",
+                      "IOS"
+                    ],
+                    datasets: [{
+                        data: [15, 20, 30, 10, 30],
+                        backgroundColor: [
+                          "#BDC3C7",
+                          "#9B59B6",
+                          "#E74C3C",
+                          "#26B99A",
+                          "#3498DB"
+                        ],
+                        hoverBackgroundColor: [
+                          "#CFD4D8",
+                          "#B370CF",
+                          "#E95E4F",
+                          "#36CAAB",
+                          "#49A9EA"
+                        ]
+                    }]
+                },
+                options: options
+            });
+        });
+    </script>
+    <!-- /Doughnut Chart -->
+    <!-- bootstrap-daterangepicker -->
+    <script>
+        $(document).ready(function () {
+
+            var cb = function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            };
+
+            var optionSet1 = {
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Clear',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            };
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange').on('show.daterangepicker', function () {
+                console.log("show event fired");
+            });
+            $('#reportrange').on('hide.daterangepicker', function () {
+                console.log("hide event fired");
+            });
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+            });
+            $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+                console.log("cancel event fired");
+            });
+            $('#options1').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+            });
+            $('#options2').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+            });
+            $('#destroy').click(function () {
+                $('#reportrange').data('daterangepicker').remove();
+            });
+        });
+    </script>
+    <!-- /bootstrap-daterangepicker -->
+    <!-- gauge.js -->
+    <script>
+        var opts = {
+            lines: 12,
+            angle: 0,
+            lineWidth: 0.4,
+            pointer: {
+                length: 0.75,
+                strokeWidth: 0.042,
+                color: '#1D212A'
+            },
+            limitMax: 'false',
+            colorStart: '#1ABC9C',
+            colorStop: '#1ABC9C',
+            strokeColor: '#F0F3F3',
+            generateGradient: true
+        };
+        var target = document.getElementById('foo'),
+            gauge = new Gauge(target).setOptions(opts);
+
+        gauge.maxValue = 6000;
+        gauge.animationSpeed = 32;
+        gauge.set(3200);
+        gauge.setTextField(document.getElementById("gauge-text"));
+    </script>
+    <!-- /gauge.js -->
+    <!---- Toggle Function ---->
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $(".toggle-content").css("display", "none");
+            $(".cross").css("display", "none");
+            $(".toggle-bar").click(function () {
+                $(".toggle-content").slideDown("slow", function () {
+                    $(".toggle-button").css("display", "none");
+                    $(".cross").css("display", "block");
+                });
+                $(this).click(function () {
+                    $(".toggle-area").css("display", "none");
+                });
+            });
+        });
+    </script>
+    <!---- Toggle Function ---->
+}
