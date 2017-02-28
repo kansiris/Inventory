@@ -1,0 +1,101 @@
+﻿@model Inventory.Models.Vendor
+@{
+    
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella Alela! | </title>
+
+</head>
+<body style="background-color:aquamarine">
+     <form method="post">
+         <center>
+             <h1>Vendor</h1>
+             <table>
+                 <tr>
+                     <td>Contact Person1 FirstName</td>
+                     <td><input type="text" name="Contact_Person1Fname" /></td>
+
+                     <td>Contact person1 LastName</td>
+                     <td><input type="text" name="Contact_Person1Lname" /></td>
+                 </tr>
+                 <tr>
+                     <td>Address</td>
+                     <td><input type="text" name="Address" /> </td>
+                     <td>Bank Account Number</td>
+                     <td><input type="text" name="Bank_Acc_Number" /></td>
+                 </tr>
+
+                 <tr>
+                     <td>Paytym</td>
+                     <td><input type="text" name="Paytym_Number" /> </td>
+                     <td> Company Name</td>
+                     <td><input type="text" name="Company_Name" /> </td>
+                 </tr>
+
+                 <tr>
+                     <td> Mobile</td>
+                     <td><input type="text" name="Mobile_No"/></td>
+                     <td> Land Line</td>
+                     <td><input type="text" name="LandLine_Num" /> </td>
+                 </tr>
+
+                 <tr>
+                     <td>Bank Name</td>
+                     <td><input type="text" name="Bank_Name" /></td>
+                     <td>Bank Branch</td>
+                     <td><input type="text" name="Bank_Branch" /></td>
+                 </tr>
+
+                 <tr>
+                     <td>Remarks</td>
+                     <td><input type="text" name="Remarks" /></td>
+                     <td>EmailId</td>
+                     <td><input type="text" name="Email" /></td>
+                 </tr>
+                 <tr>
+                     <td>Contact Person2 FirstName</td>
+                     <td><input type="text" name="Contact_Person2Fname" /></td>
+                     <td>Contact Person2 LastName</td>
+                     <td><input type="text" name="Contact_Person2Lname" /></td>
+                 </tr>
+
+                 <tr>
+                     <td>Adhar Number</td>
+                     <td><input type="text" name="Adhar_Number" /></td>
+                     <td>Job Position</td>
+                     <td><input type="text" name="Job_position" /></td>
+                 </tr>
+
+                 <tr>
+                     <td>Note</td>
+                     <td><input type="text" name="Note" /></td>
+                     <td>Billing Address</td>
+                     <td><input type="text" name="Billing_Address" /></td>
+                 </tr>
+
+                 <tr>
+                     <td>Shipping Address</td>
+                     <td><input type="text" name="Shipping_Address" /></td>
+                     <td>Other Address</td>
+                     <td><input type="text" name="Other_Address" /></td>
+                 </tr>
+
+             </table>
+                        <input type="submit" value="Insert"/>
+                    </center>
+                        
+                </form>
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                
+</body>
+</html>
