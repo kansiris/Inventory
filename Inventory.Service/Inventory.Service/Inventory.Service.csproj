@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="LoginService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VendorService.cs" />
     <Compile Include="WHservice.cs" />
   </ItemGroup>
   <ItemGroup>
