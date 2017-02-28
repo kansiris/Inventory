@@ -16,6 +16,7 @@ using Microsoft.SqlServer.Management.Common;
 using System.Data;
 using System.Web.Hosting;
 
+
 namespace Inventory.Controllers
 {
     public class LoginController : Controller
@@ -52,7 +53,7 @@ namespace Inventory.Controllers
                 }
                 else
                 {
-                    ViewBag.invalid = "Invalid Credentials";
+                    ViewBag.invalid = "Confirm Your Email-ID then Login";
                 }
             }
             if (command == "Insert")
