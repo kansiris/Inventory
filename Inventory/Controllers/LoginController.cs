@@ -53,7 +53,11 @@ namespace Inventory.Controllers
                 string DBname = userMaster.EmailId.Split('@')[0] + ".Inventory"; //Assigning Particular DB Name
                 int Subscription = (int)LoginService.getsubscriptionid("Free Member"); 
                 int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
-                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode);
+                string Profile_Picture = null;
+                string Date_Format = null;
+                string Timezone = null;
+                string Currency = null;
+                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode,Profile_Picture, Date_Format, Timezone, Currency);
                 if (count > 0)
                 {
                     Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
@@ -102,15 +106,26 @@ namespace Inventory.Controllers
             //Checking Activation code
             if (ActivationCode != null && ActivationCode != "")
             {
+                
                 SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
+                string usertype= LoginService.GetUserTypeId("owner",0).ToString();
+                //string usertype = LoginService.GetUserTypeId(null, (long)value["UserTypeId"]).ToString();
                 if (value.Read())
                 {
-                    if (value["activationcode"].ToString() == ActivationCode)
+                    if (value["activationcode"].ToString() == ActivationCode && usertype=="owner")
                     {
                         int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
                         if (activateemail > 0)
                             return View();
                     }
+                    else
+                   
+                    {
+                        int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
+                        if (activateemail > 0)
+                            return View();
+                    }
+
                 }
             }
             return View();

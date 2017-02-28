@@ -38,9 +38,11 @@ namespace Inventory.Service
         #endregion
 
         #region CreateUser
-        public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId, int UserTypeId, string User_Site, string CompanyName, string Phone, DateTime? SubscriptionDate, int IsActive, string activationcode)
+        public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId, int UserTypeId, string User_Site, string CompanyName, string Phone, DateTime? SubscriptionDate, int IsActive, string activationcode,
+            string Profile_Picture,
+            string Date_Format, string Timezone, string Currency)
         {
-            int count = LoginRepository.CreateUser(EmailId, First_Name, Last_Name, DB_Name, Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone, SubscriptionDate, IsActive, activationcode);
+            int count = LoginRepository.CreateUser(EmailId, First_Name, Last_Name, DB_Name, Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone, SubscriptionDate, IsActive, activationcode, Profile_Picture, Date_Format, Timezone, Currency);
             return count;
         }
         #endregion
@@ -63,6 +65,13 @@ namespace Inventory.Service
         public static int ActivateEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode)
         {
             return LoginRepository.ActivateEmail(email, usertype, SubscriptionDate, IsActive, activationcode);
+        }
+        #endregion
+        #region EmailActivations
+        public static int ActivatesEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode, string DB_Name)
+        {
+            return LoginRepository.ActivatesEmail(email, usertype, SubscriptionDate, IsActive, activationcode, DB_Name);
+            
         }
         #endregion
     }
