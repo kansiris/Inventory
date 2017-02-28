@@ -315,9 +315,6 @@
     <Content Include="Models\Inventory.csproj" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Models\App.config" />
     <Content Include="Models\packages.config" />
     <None Include="Properties\PublishProfiles\Inventory.pubxml" />
@@ -4597,6 +4594,7 @@
     <Content Include="Views\VendorHome\Index.cshtml" />
     <Content Include="Views\FranchiseHome\Index.cshtml" />
     <Content Include="Views\Login\ActivateEmail.cshtml" />
+    <Content Include="Views\vendor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
