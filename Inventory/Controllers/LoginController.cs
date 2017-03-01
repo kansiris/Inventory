@@ -12,9 +12,10 @@ using System.Globalization;
 using Microsoft.Web.Administration;
 using Microsoft.SqlServer.Management.Smo;
 using System.IO;
-using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management;
 using System.Data;
 using System.Web.Hosting;
+using Microsoft.SqlServer.Management.Common;
 
 namespace Inventory.Controllers
 {
