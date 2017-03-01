@@ -388,10 +388,13 @@
     <None Include="Properties\PublishProfiles\Inventory.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\bootstrap.css" />
+    <Content Include="Scripts\css\dashboardstyles.css" />
     <Content Include="Scripts\css\font-awesome.css" />
     <Content Include="Scripts\css\jquery.bxslider.css" />
     <Content Include="Scripts\css\maps\jquery-jvectormap-2.0.3.css" />
     <Content Include="Scripts\css\maps\Warehouse.css" />
+    <Content Include="Scripts\css\OpenSans.css" />
+    <Content Include="Scripts\css\reset.css" />
     <Content Include="Scripts\css\styles.css" />
     <Content Include="Scripts\hideShowPassword.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -408,6 +411,8 @@
     <Content Include="Scripts\js\jquery.bxslider.js" />
     <Content Include="Scripts\js\jquery.easing.1.3.js" />
     <Content Include="Scripts\js\jquery.fitvids.js" />
+    <Content Include="Scripts\js\main.js" />
+    <Content Include="Scripts\js\modernizr.js" />
     <Content Include="Scripts\js\moment\moment.min.js" />
     <Content Include="Scripts\js\npm.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -4683,7 +4688,6 @@
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\LandingPage\Index.cshtml" />
     <Content Include="Views\Warehouse\Index.cshtml" />
-    <Content Include="Views\Warehouse\WarehouseAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
