@@ -1,77 +1,289 @@
 ﻿@model Inventory.Models.Warehouse
 @{
-    Layout = null;
+    ViewBag.Title = "Warehouse";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
 }
 
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section css{
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-    <title>Gentelella Alela! | </title>
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 
-    
+    <!--- Tabs in Graph Section ---->
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+}
+<div class="right_col" role="main">
+    <div class="container">
+        <form method="post" action="#">
+            <div class="row">
+                <div class="col-md-12 form-title">Warehouse Information</div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group col-md-4">
 
-    
-</head>
-
-
-<body>
-    @*<div>*@
-        
-
-     
-
-            <div id="register" class="animate form registration_form">
-                <section class="login_content">
-                    <form method="post">
-                        <h1>Create Account</h1>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Enter Warehousename", required = "required", @class = "form-control" })
-                            @*<input type="text" class="form-control" placeholder="Username" required="" />*@
+                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", required = "required", @class = "form-control" })
                         </div>
-                        <div>
-                            @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Enter Warehouse shortname", required = "required", @class = "form-control" })
-                            @*<input type="email" class="form-control" placeholder="Email" required="" />*@
+                        <div class="form-group col-md-5">
+                            @*<label>Warehouse ShortName</label>*@
+                            @*<input type="text" class="form-control">*@
+                            @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Warehouse ShortName", required = "required", @class = "form-control" })
                         </div>
-                       
-                        <div>
-                            <button id="btnsubmit" type="submit" name="command" value="Insert" class="btn btn-default submit">Start My Free Trial</button>
-                            @*<a class="btn btn-default submit" href="~/Dashboard">Submit</a>*@
-                        </div>
-                        <div class="clearfix"></div>
 
-                        <div class="separator">
-                            <p class="change_link">
-                                Already a member ?
-                                <a href="#signin" class="to_register"> Log in </a>
-                            </p>
+                    </div>
 
-                            <div class="clearfix"></div>
-                            <br />
+                </div>
 
-                            @*<div>
-                                    <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                                    <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                                </div>*@
-                        </div>
-                    </form>
-                </section>
             </div>
-        @*</div>
-    </div>*@
+            <div class="row">
+                <!--------- Tab Section START ------------>
+                <div class="col-md-12">
+                    <div class="cd-tabs">
+                        <nav>
+                            <ul class="cd-tabs-navigation">
+                                <li><a data-content="address" class="selected" href="#0">Address</a></li>
+                                <li><a data-content="notes" href="#0">Notes</a></li>
+                                <li><a data-content="contactinfo" href="#0">Contact&nbsp;info</a></li>
+                                @*<li><a data-content="paymentbilling" href="#0">Payment &amp; Billing</a></li>*@
+                            </ul>
+                            <!-- cd-tabs-navigation -->
+                        </nav>
+                        <ul class="cd-tabs-content">
+                            <li data-content="address" class="selected">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row col-md-12">
+                                            <h2 class="form-title">Billing address<a href="#">map</a></h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                @Html.TextBoxFor(Model => Model.bill_Street, new { placeholder = "Street", required = "required", @class = "form-control", @id = "txtbillstreet", Type = "text" })
+                                                @*<textarea class="form-control" rows="5" id="comment" placeholder="Street"></textarea>*@
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                @Html.TextBoxFor(Model => Model.bill_City, new { placeholder = "City", required = "required", @class = "form-control", @id = "txtbillcity", Type = "text" })
+                                                @*<input type="text" class="form-control" placeholder="City/Town">*@
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.TextBoxFor(Model => Model.bill_State, new { placeholder = "State", required = "required", @class = "form-control", @id = "txtbillstate", Type = "text" })
+                                                @*<input type="text" class="form-control" placeholder="State">*@
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                @Html.TextBoxFor(Model => Model.bill_Postalcode, new { placeholder = "Postal Code", required = "required", @class = "form-control", @id = "txtbillpc", Type = "text" })
+                                                @*<input type="text" class="form-control" placeholder="Postal Code">*@
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.TextBoxFor(Model => Model.bill_Country, new { placeholder = "Country", required = "required", @class = "form-control", @id = "txtbillcountry", Type = "text" })
+                                                @*<input type="text" class="form-control" placeholder="Country">*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
+                                            <div class="checkbox col-md-6">
+                                                <label>
+                                                    <input type="checkbox" id="chkaddress" name="chkaddress" value="chkaddress" onchange="CopyAdd(this);">
+                                                    Same as billing address
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                @Html.TextBoxFor(Model => Model.ship_Street, new { placeholder = "Street", required = "required", @class = "form-control", @id = "txtshipstreet", Type = "text" })
+                                                @*<textarea class="form-control" rows="5" id="comment" placeholder="Street"></textarea>*@
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                @*<input type="text" class="form-control" placeholder="City/Town">*@
+                                                @Html.TextBoxFor(Model => Model.ship_City, new { placeholder = "City", required = "required", @class = "form-control", @id = "txtshipcity", Type = "text" })
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.TextBoxFor(Model => Model.ship_State, new { placeholder = "State", required = "required", @class = "form-control", @id = "txtshipstate", Type = "text" })
+                                                @*<input type="text" class="form-control" placeholder="State">*@
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                @*<input type="text" class="form-control" placeholder="Postal Code">*@
+                                                @Html.TextBoxFor(Model => Model.ship_Postalcode, new { placeholder = "Postal Code", required = "required", @class = "form-control", @id = "txtshipPC", Type = "text" })
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @*<input type="text" class="form-control" placeholder="Country">*@
+                                                @Html.TextBoxFor(Model => Model.ship_Country, new { placeholder = "Country", required = "required", @class = "form-control", @id = "txtshipcountry", Type = "text" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="notes">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row col-md-12">
+                                            <h2 class="form-title">Notes</h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="5" id="comment" placeholder="Notes"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="contactinfo">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            @*<label for="email">Email</label>*@
+                                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter EmailId", required = "required", @class = "form-control" })
+                                            @*<input type="email" class="form-control" id="email">*@
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            @*<label>Phone</label>*@
 
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/hideShowPassword.min.js"></script>
+                                            @Html.TextBoxFor(Model => Model.phone, new { placeholder = "Enter Phone Number", required = "required", @class = "form-control", @maxlength = "11",@id="txtphone" })
+                                            @*<input type="text" class="form-control">*@
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @*<label>Mobile</label>*@
 
-    @*@if (ViewBag.invalid != null)
-    {
-        <script>
-            alert("Invalid Credentials");
-        </script>
-    }*@
-</body>
-</html>
+                                            @Html.TextBoxFor(Model => Model.Mobile, new { placeholder = "Enter Mobile", required = "required", @class = "form-control", @maxlength = "11",@id="txtmobile" })
+                                            @*<input type="text" class="form-control">*@
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @*<label>Contact Person</label>*@
+                                            @Html.TextBoxFor(Model => Model.conperson, new { placeholder = "ContactPerson Name", required = "required", @class = "form-control", })
+                                            @*<input type="text" class="form-control">*@
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            @*<label>Notes</label>*@
+
+                                            @Html.TextBoxFor(Model => Model.Note, new { placeholder = "Enter notes", required = "required", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @*<label>Job position</label>*@
+                                            @Html.TextBoxFor(Model => Model.Job_position, new { placeholder = "Job Position", required = "required", @class = "form-control" })
+                                            @*<input type="text" class="form-control">*@
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                        <!-- cd-tabs-content -->
+                    </div>
+                    <!-- cd-tabs -->
+
+                </div>
+
+                <!--------- Tab Section END ------------>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-default">Cancel</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary pull-right" id="button" command="Insert">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+
+    <script src="jquery.js"></script>
+    <script>
+        $(document).on("change", "input[name='chkaddress']", function () {
+            if ($("input[name='chkaddress']").is(':checked')) {
+                $("[id='txtshipstreet']").val($("[id='txtbillstreet']").val());
+                $("[id='txtshipcity']").val($("[id='txtbillcity']").val());
+                $("[id='txtshipstate']").val($("[id='txtbillstate']").val());
+                $("[id='txtshipPC']").val($("[id='txtbillpc']").val());
+                $("[id='txtshipcountry']").val($("[id='txtbillcountry']").val());
+            }
+        });
+    </script>
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $("#button").click(function () {
+                alert("clicked");
+                $("input[type=text]").val("");
+
+            });
+        });
+    </script>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txtphone").keydown(function (event) {
+                if (event.shiftKey) {
+                    event.preventDefault();
+                }
+                if (event.keyCode == 46 || event.keyCode == 8) {
+                }
+                else {
+                    if (event.keyCode < 95) {
+                        if (event.keyCode < 48 || event.keyCode > 57) {
+                            event.preventDefault();
+                        }
+                    }
+                    else {
+                        if (event.keyCode < 96 || event.keyCode > 105) {
+                            event.preventDefault();
+                        }
+                    }
+                }
+            });
+            $("#txtmobile").keydown(function (event) {
+                if (event.shiftKey) {
+                    event.preventDefault();
+                }
+                if (event.keyCode == 46 || event.keyCode == 8) {
+                }
+                else {
+                    if (event.keyCode < 95) {
+                        if (event.keyCode < 48 || event.keyCode > 57) {
+                            event.preventDefault();
+                        }
+                    }
+                    else {
+                        if (event.keyCode < 96 || event.keyCode > 105) {
+                            event.preventDefault();
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+
+
+

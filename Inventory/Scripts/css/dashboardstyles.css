@@ -17,7 +17,7 @@ body {
   font-size: 100%;
   font-family: "PT Sans", sans-serif;
   /*color: #f8f7ee;*/ /* By me */
-  background-color: #29324e;
+  background-color: #fff;
 }
 
 a {
@@ -106,7 +106,7 @@ header h1 {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: auto;
     box-shadow: inset -2px 0 3px rgba(203, 196, 130, 0.06);
     z-index: 1;
   }
