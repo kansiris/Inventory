@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-//using System.Web.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
 
-
-namespace Inventory
+namespace Inventory.Utility
 {
     public class SendEmail
     {

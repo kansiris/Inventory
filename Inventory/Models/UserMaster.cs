@@ -40,5 +40,10 @@ namespace Inventory.Models
         public DateTime? SubscriptionDate { get; set; }
         public int IsActive { get; set; }
         public string activationcode { get; set; }
+
+        public Byte[] Profile_Picture { get; set; }
+        public string Date_Format { get; set; }
+        public string Timezone { get; set; }
+        public string Currency { get; set; }
     }
 }

@@ -23,13 +23,14 @@ namespace Inventory.Models
         [StringLength(50)]
         public string Contact_Person1Fname { get; set; }
 
-        public int? Mobile_No { get; set; }
+        public int Mobile_No { get; set; }
 
         public string Address { get; set; }
 
-        public int? Bank_Acc_Number { get; set; }
 
-        public int? Paytym_Number { get; set; }
+        public int Bank_Acc_Number { get; set; }
+
+        public int Paytym_Number { get; set; }
 
         [StringLength(50)]
         public string Company_Name { get; set; }
@@ -37,7 +38,7 @@ namespace Inventory.Models
         [StringLength(50)]
         public string Contact_Person1Lname { get; set; }
 
-        public int? LandLine_Num { get; set; }
+        public int LandLine_Num { get; set; }
 
         [StringLength(50)]
         public string Bank_Name { get; set; }
@@ -62,6 +63,20 @@ namespace Inventory.Models
 
         [StringLength(50)]
         public string Adhar_Number { get; set; }
+        
+        [StringLength(50)]
+        public string Job_position { get; set; }
+        [StringLength(50)]
+        public string Note { get; set; }
+        [StringLength(50)]
+        public string Billing_Address { get; set; }
+        [StringLength(50)]
+        public string Shipping_Address { get; set; }
+        [StringLength(50)]
+        public string Other_Address { get; set; }
+
+        public string activationcode { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }

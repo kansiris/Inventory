@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Microsoft.ApplicationBlocks.Data;
 using System.Data;
+using Inventory;
 
 
 namespace Inventory.Repository
@@ -55,9 +56,10 @@ namespace Inventory.Repository
 
 
         #region CreateUser
-        public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId,int UserTypeId,string User_Site,string CompanyName,string Phone,DateTime? SubscriptionDate,int IsActive,string activationcode)
+        public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId,int UserTypeId,string User_Site,string CompanyName,string Phone,DateTime? SubscriptionDate,int IsActive,string activationcode, string Profile_Picture,
+            string Date_Format, string Timezone, string Currency)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "createuser", EmailId, First_Name, Last_Name, DB_Name,  Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone,SubscriptionDate,IsActive,activationcode);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "createuser", EmailId, First_Name, Last_Name, DB_Name,  Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone,SubscriptionDate,IsActive,activationcode, Profile_Picture, Date_Format, Timezone, Currency);
             return count;
         }
         #endregion
@@ -83,9 +85,31 @@ namespace Inventory.Repository
         #endregion
 
         #region EmailActivation
-        public static int ActivateEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode)
+        public static int ActivateEmail(string email, string activationcode)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuser",email,usertype, IsActive, SubscriptionDate,activationcode);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuser",email,activationcode);
+            return count;
+        }
+        #endregion
+        #region EmailActivations
+        public static int ActivatesEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode,string DB_Name)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateusers", email, usertype, IsActive, SubscriptionDate, activationcode, DB_Name);
+            return count;
+        }
+        #endregion
+
+        #region getuserrecord
+        public static SqlDataReader getuserrecord(string email, string code)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "activateuser", email, code);
+        }
+        #endregion
+
+        #region timezone
+        public static int updatetimezone(string dateformat, string timezone,string id)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatetimezone", dateformat, timezone,id);
             return count;
         }
         #endregion
