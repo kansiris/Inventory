@@ -12,10 +12,12 @@ using System.Globalization;
 using Microsoft.Web.Administration;
 using Microsoft.SqlServer.Management.Smo;
 using System.IO;
-using Microsoft.SqlServer.Management;
+using Microsoft.SqlServer.Management.Common;
 using System.Data;
 using System.Web.Hosting;
-using Microsoft.SqlServer.Management.Common;
+using Inventory.Utility;
+using System.Web.Security;
+using Inventory.Content;
 
 namespace Inventory.Controllers
 {
@@ -25,7 +27,6 @@ namespace Inventory.Controllers
         //LoginService loginService = new LoginService();
         public ActionResult Index()
         {
-            
             DateTime utcTime = DateTime.UtcNow;
             TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
             DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi); // convert from utc to local
@@ -53,7 +54,7 @@ namespace Inventory.Controllers
                 }
                 else
                 {
-                    ViewBag.invalid = "Invalid Credentials";
+                    ViewBag.invalid = "Confirm Your Email-ID then Login";
                 }
             }
             if (command == "Insert")
@@ -71,7 +72,7 @@ namespace Inventory.Controllers
                 string Date_Format = null;
                 string Timezone = null;
                 string Currency = null;
-                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode,Profile_Picture, Date_Format, Timezone, Currency);
+                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode, Profile_Picture, Date_Format, Timezone, Currency);
                 if (count > 0)
                 {
                     Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
@@ -81,7 +82,9 @@ namespace Inventory.Controllers
             }
             return View();
         }
-
+        
+       
+        int usertype = (int)LoginService.GetUserTypeId("owner", 0);//get owner user type id
         public JsonResult checkemail(string emailid, string site, string type)
         {
             int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
@@ -113,9 +116,10 @@ namespace Inventory.Controllers
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
-            string body = "Hello " + First_Name +" "+ Last_Name + ",";
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
+            string body = "Hello " + First_Name + " " + Last_Name + ",";
             body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace(Request.Url.AbsoluteUri, Request.Url.AbsoluteUri + "/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId) + "'>Click here to activate your account.</a>";
+            body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
             body += "<br /><br />Thanks";
             string message = body;
             abc.EmailAvtivation(EmailId, message, "Account Activation");
@@ -126,30 +130,37 @@ namespace Inventory.Controllers
             //Checking Activation code
             if (ActivationCode != null && ActivationCode != "")
             {
+                int activateemail = 0;
+                SqlDataReader value = LoginService.getuserrecord(Email, ActivationCode); //retrieves particular user record
                 
-                SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
-                string usertype= LoginService.GetUserTypeId("owner",0).ToString();
-                //string usertype = LoginService.GetUserTypeId(null, (long)value["UserTypeId"]).ToString();
+                
                 if (value.Read())
                 {
-                    if (value["activationcode"].ToString() == ActivationCode && usertype=="owner")
+                    if (value["activationcode"].ToString() == ActivationCode && (int)value["UserTypeId"] == usertype) // if usertype is owner
                     {
                         createdb(Email); //creating DB
-                        int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
-                        if (activateemail > 0)
-                            return View();
+                        activateemail = LoginService.ActivateEmail(Email, ActivationCode);
                     }
                     else
-                   
                     {
-                        int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
-                        if (activateemail > 0)
-                            return View();
+                        
+                        activateemail = LoginService.ActivateEmail(Email, ActivationCode); 
                     }
-
+                    if (activateemail < 0)
+                        return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
             }
             return View();
         }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Login");
+        }
+
     }
 }
+
+
+//&& usertype == (int)value["UserTypeId"]

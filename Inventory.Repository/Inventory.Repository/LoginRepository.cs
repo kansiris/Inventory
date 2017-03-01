@@ -92,9 +92,9 @@ namespace Inventory.Repository
         }
         #endregion
         #region EmailActivations
-        public static int ActivatesEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode,string DB_Name)
+        public static int ActivatesEmail(string email,string activationcode,string DB_Name)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateusers", email, usertype, IsActive, SubscriptionDate, activationcode, DB_Name);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateusers", email,activationcode, DB_Name);
             return count;
         }
         #endregion
@@ -103,6 +103,12 @@ namespace Inventory.Repository
         public static SqlDataReader getuserrecord(string email, string code)
         {
             return SqlHelper.ExecuteReader(ConnectionString1, "activateuser", email, code);
+        }
+        #endregion
+        #region getuserrecord
+        public static SqlDataReader getOwnerDb(string code)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "getOwnerDb", code);
         }
         #endregion
 
