@@ -150,5 +150,3 @@ namespace Inventory.Controllers
     }
 }
 
-
-//&& usertype == (int)value["UserTypeId"]
