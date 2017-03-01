@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Inventory.Service;
+using Inventory.Utility;
 
 namespace Inventory.Controllers
 {
@@ -54,9 +55,10 @@ namespace Inventory.Controllers
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
             string body = "Hello " + First_Name + Last_Name + ",";
             body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace(Request.Url.AbsoluteUri, Request.Url.AbsoluteUri + "Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId) + "'>Click here to activate your account.</a>";
+            body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
             body += "<br /><br />Thanks";
             string message = body;
             abc.EmailAvtivation(EmailId, message, "Account Activation");

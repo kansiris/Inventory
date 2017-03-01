@@ -62,9 +62,9 @@ namespace Inventory.Service
         #endregion
 
         #region EmailActivation
-        public static int ActivateEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode)
+        public static int ActivateEmail(string email, string activationcode)
         {
-            return LoginRepository.ActivateEmail(email, usertype, SubscriptionDate, IsActive, activationcode);
+            return LoginRepository.ActivateEmail(email, activationcode);
         }
         #endregion
         #region EmailActivations
@@ -72,6 +72,20 @@ namespace Inventory.Service
         {
             return LoginRepository.ActivatesEmail(email, usertype, SubscriptionDate, IsActive, activationcode, DB_Name);
             
+        }
+        #endregion
+
+        #region getuserrecord
+        public static SqlDataReader getuserrecord(string email, string code)
+        {
+            return LoginRepository.getuserrecord(email, code);
+        }
+        #endregion
+
+        #region timezone
+        public static int updatetimezone(string dateformat, string timezone, string id)
+        {
+            return LoginRepository.updatetimezone(dateformat, timezone, id);
         }
         #endregion
     }
