@@ -40,11 +40,11 @@
                     </div>
                     <p>@item.First_Name @item.Last_Name </p>@Html.HiddenFor(Model => Model.ID, new { Value = item.ID })
                     <br /><br />
-                    <text style="font-size:medium">  (Your Login Access is about to expire in @ViewBag.accessexpiry Days.)</text>
+                    <text style="font-size:medium">  (@ViewBag.accessexpiry)</text>
                 </div>
                 <div class="col-md-6">
                     @*<a href="/UserProfile?email=@Model.EmailId&&usertype=@Model.UserTypeId&&site=@Model.User_Site">*@
-                    <a href="#">
+                    <a href="~/UserProfile?id=@item.ID">
                         <i class="fa fa-pencil" aria-hidden="true"></i>Edit My Profile
                     </a>
                 </div>
@@ -62,8 +62,7 @@
                     </div>
                 </div>
             }
-            else
-            {
+            
                 <div class="row toggle-area">
                     <div class="toggle-bar">
                         <div class="col-md-6">
@@ -103,7 +102,6 @@
                         </table>
                     </div>
                 </div>
-            }
 
                         <!------------ Toggle Action ------>
         }

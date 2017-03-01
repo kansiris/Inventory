@@ -15,16 +15,15 @@ namespace Inventory.Controllers
         // GET: LandingPage
         public ActionResult Index()
         {
-            //string url = Request.Url.ToString().Split('?')[0].Replace(Request.Url.AbsolutePath,"/");
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(string command, string email, string usertype, string Site)
+        public ActionResult Index(string command, string email, string usertype, string User_Site)
         {
             if (command == "Project")
             {
-                SqlDataReader value = LoginService.Authenticateuser("getuserprofile", email, null, Site, long.Parse(usertype));
+                SqlDataReader value = LoginService.Authenticateuser("getuserprofile", email, null, User_Site, long.Parse(usertype));
                 var type = LoginService.GetUserTypeId(null, long.Parse(usertype));
                 string controller = "";
                 if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
@@ -33,31 +32,9 @@ namespace Inventory.Controllers
                     controller = type.ToString() + "Home";
                 if (value.HasRows == false) //Failed Login
                     return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
-                return RedirectToAction("Index", controller, new { email = email, site = Site, usertype = usertype });
+                return RedirectToAction("Index", controller, new { email = email, site = User_Site, usertype = usertype });
             }
             return View();
         }
     }
 }
-
-
-//DataTable dt = new DataTable();
-//dt.Load(value);
-//                UserMaster userMaster = new UserMaster();
-//userMaster = (from DataRow row in dt.Rows
-//              select new UserMaster()
-//{
-//    First_Name = row["First_Name"].ToString(),
-//                                  Last_Name = row["Last_Name"].ToString(),
-//                                  EmailId = row["EmailId"].ToString(),
-//                                  Created_Date = (DateTime)row["Created_Date"],
-//                                  CompanyName = row["CompanyName"].ToString(),
-//                                  Phone = row["Phone"].ToString(),
-//                                  User_Site = row["User_Site"].ToString(),
-//                                  UserTypeId = (int)row["UserTypeId"],
-//                                  SubscriptionDate = (DateTime)row["SubscriptionDate"]
-//                              }).FirstOrDefault();
-//return RedirectToAction("Index", controller, userMaster); // Redirects to Particular View
-//string url = Request.Url.ToString().Split('?')[0].Replace(Request.Url.AbsolutePath, "/");
-//string finalurl = url + "Ramesh" + "/" + controller +"";
-//return Redirect(finalurl);
