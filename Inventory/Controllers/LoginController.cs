@@ -17,23 +17,15 @@ using System.Data;
 using System.Web.Hosting;
 using Inventory.Utility;
 using System.Web.Security;
-using Inventory.Content;
+using Microsoft.AspNet.Identity;
+
 
 namespace Inventory.Controllers
 {
     public class LoginController : Controller
     {
-        ValuesController1 valuesController1 = new ValuesController1();
-        //LoginService loginService = new LoginService();
         public ActionResult Index()
         {
-            DateTime utcTime = DateTime.UtcNow;
-            TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-            DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi); // convert from utc to local
-            //ViewBag.country = RegionInfo.CurrentRegion.DisplayName;
-            ViewBag.country = localTime;
-            ViewBag.server = DateTime.UtcNow;
-            //string url = (Request.Url.ToString()).TrimEnd(Request.RawUrl.ToCharArray());
             return View();
         }
         [HttpPost]
@@ -41,12 +33,6 @@ namespace Inventory.Controllers
         {
             if (command == "Authenticate")
             {
-                //for API
-                //string check = valuesController1.Get(login.Email_ID, login.Password);
-                //if(check == "success")
-                //    return RedirectToAction("Index", "Dashboard");
-                //else
-                //    ViewBag.invalid = "Invalid Credentials";
                 SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
                 if (value.HasRows)
                 {
@@ -82,9 +68,7 @@ namespace Inventory.Controllers
             }
             return View();
         }
-        
-       
-        int usertype = (int)LoginService.GetUserTypeId("owner", 0);//get owner user type id
+
         public JsonResult checkemail(string emailid, string site, string type)
         {
             int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
@@ -132,8 +116,7 @@ namespace Inventory.Controllers
             {
                 int activateemail = 0;
                 SqlDataReader value = LoginService.getuserrecord(Email, ActivationCode); //retrieves particular user record
-                
-                
+                int usertype = (int)LoginService.GetUserTypeId("owner", 0);//get owner user type id
                 if (value.Read())
                 {
                     if (value["activationcode"].ToString() == ActivationCode && (int)value["UserTypeId"] == usertype) // if usertype is owner
@@ -143,8 +126,7 @@ namespace Inventory.Controllers
                     }
                     else
                     {
-                        
-                        activateemail = LoginService.ActivateEmail(Email, ActivationCode); 
+                        activateemail = LoginService.ActivateEmail(Email, ActivationCode);
                     }
                     if (activateemail < 0)
                         return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
@@ -159,8 +141,12 @@ namespace Inventory.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        [ChildActionOnly]
+        public PartialViewResult ProfileProgressPartial()
+        {
+            string id = HttpContext.User.Identity.Name;
+            return PartialView("ProfileProgressPartial");
+        }
     }
 }
 
-
-//&& usertype == (int)value["UserTypeId"]
