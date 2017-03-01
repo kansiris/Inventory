@@ -46,12 +46,6 @@
     <Compile Include="SendEmail.cs" />
     <Compile Include="ValidUser.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Inventory.Service\Inventory.Service\Inventory.Service.csproj">
-      <Project>{7b3699a7-9e4f-4d87-b9b7-f6b4daa90adf}</Project>
-      <Name>Inventory.Service</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
