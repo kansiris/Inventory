@@ -359,7 +359,6 @@
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
     <Content Include="Models\createdbscript.sql" />
-    <Content Include="Models\finalscript.sql" />
     <Content Include="Models\Inventory.csproj" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
