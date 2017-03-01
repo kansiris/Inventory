@@ -72,7 +72,7 @@ namespace Inventory.Controllers
                               Phone = row["Phone"].ToString(),
                               SubscriptionDate = (DateTime)row["SubscriptionDate"],
                               IsActive = (int)row["IsActive"],
-                              Profile_Picture = (byte[])row["Profile_Picture"],
+                              //Profile_Picture = (byte[])row["Profile_Picture"],
                               Date_Format = row["Date_Format"].ToString(),
                               Timezone = row["Timezone"].ToString(),
                               Currency=row["Currency"].ToString()
