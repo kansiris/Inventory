@@ -369,7 +369,6 @@
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
     <Content Include="Models\createdbscript.sql" />
-    <Content Include="Models\finalscript.sql" />
     <Content Include="Models\Inventory.csproj" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -4702,6 +4701,7 @@
     <Content Include="Views\Warehouse\WarehouseAddress.cshtml" />
     <Content Include="Views\Shared\DefaultMaster.cshtml" />
     <Content Include="Views\Shared\UserMaster.cshtml" />
+    <Content Include="Views\Login\ProfileProgressPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
