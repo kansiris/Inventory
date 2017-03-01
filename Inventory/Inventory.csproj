@@ -4688,7 +4688,6 @@
     <Content Include="Views\Localization\Index.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\Warehouse\Index.cshtml" />
-    <Content Include="Views\Warehouse\WarehouseAddress.cshtml" />
     <Content Include="Views\Login\ActivatesEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
