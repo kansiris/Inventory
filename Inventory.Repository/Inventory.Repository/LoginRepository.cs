@@ -12,7 +12,7 @@ using Inventory;
 namespace Inventory.Repository
 {
     public class LoginRepository
-    {
+    {        
         private static string ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ToString();
         private static string ConnectionString1 = ConfigurationManager.ConnectionStrings["DbConnection1"].ToString();
         #region FranchisesSelectAll
