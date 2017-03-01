@@ -293,7 +293,6 @@
     <Compile Include="Models\Warehouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="SendEmail.cs" />
     <Compile Include="ValuesController1.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4691,6 +4690,7 @@
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\Warehouse\Index.cshtml" />
     <Content Include="Views\Warehouse\WarehouseAddress.cshtml" />
+    <Content Include="Views\Login\ActivatesEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4719,6 +4719,10 @@
     <ProjectReference Include="..\Inventory.Service\Inventory.Service\Inventory.Service.csproj">
       <Project>{7b3699a7-9e4f-4d87-b9b7-f6b4daa90adf}</Project>
       <Name>Inventory.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventory.Utility\Inventory.Utility.csproj">
+      <Project>{ab410d86-13a6-412e-bbd1-8be053d2583d}</Project>
+      <Name>Inventory.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
