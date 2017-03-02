@@ -23,5 +23,9 @@ namespace Inventory.Service
                 phone, mobile, Email,Note, bill_street, bill_city, bill_state, bill_postalcode, bill_country, 
                 ship_street, ship_city, ship_state, ship_postalcode, ship_country,dbname);
         }
+        public static SqlDataReader getwarehousedtls(string dbname)
+        {
+            return WarehouseRepository.getwarehousedtls(dbname);
+        }
     }
 }

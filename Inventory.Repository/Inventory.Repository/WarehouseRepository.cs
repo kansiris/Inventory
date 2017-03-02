@@ -34,5 +34,11 @@ namespace Inventory.Repository
                 bill_city,bill_state,bill_postalcode,bill_country,ship_street,ship_city,ship_state,ship_postalcode,ship_country);
             return count;
         }
+        public static SqlDataReader getwarehousedtls(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "[dbo].[spGetwarehouseDtls]");
+        }
     }
 }
