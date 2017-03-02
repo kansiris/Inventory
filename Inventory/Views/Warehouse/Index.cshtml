@@ -154,7 +154,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-12">
                                             @*<label for="email">Email</label>*@
-                                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter EmailId", required = "required", @class = "form-control" })
+                                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter EmailId", required = "required", @class = "form-control",@id="txtemail", @onblur = "validateEmail(this)" })
                                             @*<input type="email" class="form-control" id="email">*@
                                         </div>
                                     </div>
@@ -162,13 +162,13 @@
                                         <div class="form-group col-md-4">
                                             @*<label>Phone</label>*@
 
-                                            @Html.TextBoxFor(Model => Model.phone, new { placeholder = "Enter Phone Number", required = "required", @class = "form-control", @maxlength = "11",@id="txtphone" })
+                                            @Html.TextBoxFor(Model => Model.phone, new { placeholder = "Enter Phone Number", required = "required", @class = "form-control", @maxlength = "11", @id = "txtphone" })
                                             @*<input type="text" class="form-control">*@
                                         </div>
                                         <div class="form-group col-md-4">
                                             @*<label>Mobile</label>*@
 
-                                            @Html.TextBoxFor(Model => Model.Mobile, new { placeholder = "Enter Mobile", required = "required", @class = "form-control", @maxlength = "11",@id="txtmobile" })
+                                            @Html.TextBoxFor(Model => Model.Mobile, new { placeholder = "Enter Mobile", required = "required", @class = "form-control", @maxlength = "11", @id = "txtmobile" })
                                             @*<input type="text" class="form-control">*@
                                         </div>
                                         <div class="form-group col-md-4">
@@ -222,24 +222,31 @@
     <script src="jquery.js"></script>
     <script>
         $(document).on("change", "input[name='chkaddress']", function () {
-            if ($("input[name='chkaddress']").is(':checked')) {
+            if ($("input[name='chkaddress']").is(':checked') == true) {
                 $("[id='txtshipstreet']").val($("[id='txtbillstreet']").val());
                 $("[id='txtshipcity']").val($("[id='txtbillcity']").val());
                 $("[id='txtshipstate']").val($("[id='txtbillstate']").val());
                 $("[id='txtshipPC']").val($("[id='txtbillpc']").val());
                 $("[id='txtshipcountry']").val($("[id='txtbillcountry']").val());
             }
+            if ($("input[name='chkaddress']").is(':checked') == false) {
+                $("[id='txtshipstreet']").val("");
+                $("[id='txtshipcity']").val("");
+                $("[id='txtshipstate']").val("");
+                $("[id='txtshipPC']").val("");
+                $("[id='txtshipcountry']").val("");
+            }
         });
     </script>
     @*<script type="text/javascript">
-        $(document).ready(function () {
-            $("#button").click(function () {
-                alert("clicked");
-                $("input[type=text]").val("");
+            $(document).ready(function () {
+                $("#button").click(function () {
+                    alert("clicked");
+                    $("input[type=text]").val("");
 
+                });
             });
-        });
-    </script>*@
+        </script>*@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#txtphone").keydown(function (event) {
@@ -282,6 +289,20 @@
             });
         });
     </script>
+
+    @*<script>
+        function validateEmail(txtemail) {
+            var reg = "^([a-zA-Z0-9_\.\-])+([a-zA-Z0-9]{2,4})+$";
+
+            if (reg.test(txtemail.value) == false) {
+                alert('Invalid Email Address');
+
+            }
+        }
+
+
+
+    </script>*@
 }
 
 
