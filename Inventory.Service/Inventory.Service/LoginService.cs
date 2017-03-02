@@ -101,5 +101,12 @@ namespace Inventory.Service
             return LoginRepository.GetProfileProgress(dbname);
         }
         #endregion
+
+        #region getuserprofile
+        public static SqlDataReader GetUserProfile(int id)
+        {
+            return LoginRepository.GetUserProfile(id);
+        }
+        #endregion
     }
 }

@@ -129,5 +129,12 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "sp_profileprogram");
         }
         #endregion
+
+        #region getuserprofile
+        public static SqlDataReader GetUserProfile(int id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
+        }
+        #endregion
     }
 }
