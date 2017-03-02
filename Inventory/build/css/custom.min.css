@@ -2030,8 +2030,9 @@ span.section {
 	border-bottom:1px solid #e5e5e5
 }
 .form-control {
-	border-radius:0;
-	width:100%
+	border-radius:2px;
+	width:100%;
+    height:30px
 }
 .form-horizontal .control-label {
 	padding-top:8px
@@ -4222,7 +4223,7 @@ footer{
 
 /*================ Login Page ================*/
 
-/*================ billing_form ================*/
+/*================ Customer Information ================*/
 
 .right_col .container > form{
 	margin-top: 50px;}
@@ -4257,12 +4258,20 @@ form .cd-tabs-navigation a.selected{
 	border-radius: 5px 5px 0 0;}
 form .cd-tabs-navigation li{
 	width: auto;
-	border: 1px solid #e6e6e6;
+	border: 1px solid #0483c6;
 	border-bottom: none;
-	margin-right: 2px;
-	background: #e6e6e6;
+	margin-right: 3px;
+	background: #0483c6;
 	border-radius: 5px 5px 0 0;}
 form .cd-tabs-navigation li a{
+	color: #fff;}
+form .cd-tabs-navigation li:hover{
+	transform: scale(1.01,1.01);
+	transition: 0.1s ease;
+	background: #fff;
+	border: 1px solid #0483c6;
+	border-bottom: none;}
+form .cd-tabs-navigation li:hover a{
 	color: #333;}
 form .cd-tabs-content li{
 	padding: 15px;}
@@ -4285,4 +4294,78 @@ form hr{
 }
 }
 
-/*================ billing_form ================*/
+/*================ Customer Information ================*/
+
+/*================ Customer Profile ================*/
+
+.info-title{
+	background: #e3e3e3;
+	padding: 10px 15px;
+	border-radius: 5px;
+	color: #333;
+	font-weight: bold;
+	line-height: 30px;}
+.info-title .btn-success{
+	background: #0b9144;
+	font-size: 12px;
+	margin-top: 5px;}
+form .customer-information ul.cd-tabs-navigation{
+	width: 100%;}
+form .customer-information .cd-tabs-navigation li{
+	width: 9%;}
+form .customer-information .cd-tabs-navigation a{
+	padding: 0 15px;}
+form .customer-information ul.cd-tabs-content .top-button,
+form .customer-information ul.cd-tabs-content .top-button + div{
+	float: left;}
+form .customer-information ul.cd-tabs-content .top-button + div{
+	width: 100%;
+	margin-top: 10px;}
+form .customer-information .btn-success{
+	background: #0b9144;}
+label.switch{
+	position: relative;
+	width: 40px;
+	height: 20px;
+	display: inline-block;}
+.slider{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	cursor: pointer;
+	background: #ccc;
+	border-radius: 34px;}
+label.switch > input[type="checkbox"]{
+	position: absolute;
+	z-index: 1;
+	display: none;}
+label.switch > input[type="checkbox"]:checked + div.slider{
+	background: #0483c6;}
+.slider:before{
+	content: '';
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	border-radius: 25px;
+	transition: 0.5s ease;
+	-o-transition: 0.5s ease;
+	-moz-transition: 0.5s ease;
+	-webkit-transition: 0.5s ease;}
+label.switch > input[type="checkbox"]:checked + .slider:before{
+	transform: translateX(20px);
+	-o-transform: translateX(20px);
+	-moz-transform: translateX(20px);
+	-webkit-transform: translateX(20px);}
+.font-password{
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;}
+.toggle-box{
+	display: none;}
+
+/*================ Customer Profile ================*/

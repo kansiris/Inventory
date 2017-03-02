@@ -16,7 +16,7 @@ namespace Inventory.Service
         }
 
         public static int WHaddressinsert(string WH_Name, string WH_ShortName, string contactperson, string jobposition,
-            int phone, int mobile, string Email, string Note, string bill_street, string bill_city, string bill_state, 
+            long phone, long mobile, string Email, string Note, string bill_street, string bill_city, string bill_state, 
             string bill_postalcode, string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
             return WarehouseRepository.WHaddressinsert(WH_Name,WH_ShortName,contactperson,jobposition, 
