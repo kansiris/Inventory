@@ -30,7 +30,7 @@ namespace Inventory.Controllers
                 vendor.Remarks, vendor.Contact_Person2Lname, vendor.Contact_Person2Fname, vendor.Email, vendor.Adhar_Number);
             //var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string DBName = null;
-           // string DBName = user.DbName;
+            // string DBName = user.DbName;
             string PassWord = Membership.GeneratePassword(12, 1);
             DateTime Created_Date = DateTime.Today;
             int SubscriptionId = 0;

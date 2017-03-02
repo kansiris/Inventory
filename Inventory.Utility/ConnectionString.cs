@@ -9,11 +9,11 @@ namespace Inventory.Utility
 {
     public class ConnectionString
     {
-        public void CustomizeConnectionString()
+        public void CustomizeConnectionString(string DbName)
         {
-            //var user = System.Web.HttpContext.Current.User;
+            //var user = (Inventory.Custom.CustomPrinciple)System.Web.HttpContext.Current.User;
             //string db = user.DbName;
-            //string sqlConnectionString = @"Integrated Security=False;Initial Catalog="+db+";Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
+            string sqlConnectionString = @"Integrated Security=False;Initial Catalog="+ DbName + ";Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
         }
     }
 }
