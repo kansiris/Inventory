@@ -63,17 +63,31 @@ namespace Inventory.Models
 
         [StringLength(50)]
         public string Adhar_Number { get; set; }
-        
+
+        //string Job_position,string Note,string bill_street,string bill_city,string bill_state,string bill_postalcode,
+        //    string bill_country,string ship_street,string ship_city,string ship_state,string ship_postalcode,string ship_country
+
         [StringLength(50)]
         public string Job_position { get; set; }
         [StringLength(50)]
         public string Note { get; set; }
         [StringLength(50)]
-        public string Billing_Address { get; set; }
+        public string bill_street { get; set; }
         [StringLength(50)]
-        public string Shipping_Address { get; set; }
+        public string bill_city { get; set; }
         [StringLength(50)]
-        public string Other_Address { get; set; }
+        public string bill_state { get; set; }
+        public string bill_postalcode { get; set; }
+        [StringLength(50)]
+        public string bill_country { get; set; }
+        [StringLength(50)]
+        public string ship_street { get; set; }
+        public string ship_city { get; set; }
+        [StringLength(50)]
+        public string ship_state { get; set; }
+        [StringLength(50)]
+        public string ship_postalcode { get; set; }
+        public string ship_country { get; set; }
 
         public string activationcode { get; set; }
 
