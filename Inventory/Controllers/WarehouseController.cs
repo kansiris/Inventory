@@ -23,6 +23,19 @@ namespace Inventory.Controllers
 
         public ActionResult Index()
         {
+
+            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
+            DataTable dt = new DataTable();
+            dt.Load(value);
+            List<Warehouse> warehouse = new List<Warehouse>();
+            warehouse = (from DataRow row in dt.Rows
+                         select new Warehouse()
+                         {
+                             wh_name = row["wh_name"].ToString(),
+                             wh_Shortname = row["wh_Shortname"].ToString()
+                         }).ToList();
+            ViewBag.records = warehouse;
             return View();
         }
 
