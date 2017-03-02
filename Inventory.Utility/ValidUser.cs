@@ -15,7 +15,7 @@ namespace Inventory.Utility
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
                 userId,
                 DateTime.Now,
-                DateTime.Now.AddMinutes(15),
+                DateTime.Now.AddMinutes(60),
                 false, //pass here true, if  want to implement remember me functionality
                 userResponse);     // the path for the cookie
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);

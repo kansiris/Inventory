@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using Microsoft.ApplicationBlocks.Data;
 using System.Data;
 using Inventory;
+using Inventory.Utility;
 
 
 namespace Inventory.Repository
@@ -105,7 +106,7 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "activateuser", email, code);
         }
         #endregion
-        #region getuserrecord
+        #region getOwnerDb
         public static SqlDataReader getOwnerDb(string code)
         {
             return SqlHelper.ExecuteReader(ConnectionString1, "getOwnerDb", code);
@@ -117,6 +118,15 @@ namespace Inventory.Repository
         {
             int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatetimezone", dateformat, timezone,id);
             return count;
+        }
+        #endregion
+
+        #region ProfileProgress
+        public static SqlDataReader GetProfileProgress(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "sp_profileprogram");
         }
         #endregion
     }

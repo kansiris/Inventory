@@ -28,8 +28,9 @@
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
 <div class="right_col" role="main">
-    <div class="container">
-        <form method="post">
+    <form method="post">
+        <div class="container">
+
             <div class="row">
                 <div class="col-md-12 form-title">Vendor Information</div>
                 <div class="col-md-6">
@@ -37,13 +38,13 @@
 
                         <div class="form-group col-md-6">
                             <label>Contact Person1 First Name</label>
-                           
+
                             <input type="text" class="form-control" name="Contact_Person1Fname">
                         </div>
 
                         <div class="form-group col-md-6">
                             <label>Contact Person1 Last Name</label>
-                           
+
                             <input type="text" class="form-control" name="Contact_Person1Lname">
                         </div>
 
@@ -75,270 +76,276 @@
                             <input type="text" class="form-control" name="Bank_Acc_Number">
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label>Bank Name</label>
+                        <input type="text" class="form-control" name="Bank_Name">
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-3">
-                            <label>Bank Name</label>
-                            <input type="text" class="form-control" name="Bank_Name">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Bank Branch</label>
-                            <input type="text" class="form-control" name="Bank_Branch">
-                        </div>
-                   
-                        <div class="form-group col-md-3">
-                            <label> Paytym </label>
-                            <input type="text" class="form-control" name="Paytym_Number">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>
-                                Remarks
-                            </label>
-                            <input type="text" class="form-control" name="Remarks">
-                        </div>
+                    <div class="form-group col-md-3">
+                        <label>Bank Branch</label>
+                        <input type="text" class="form-control" name="Bank_Branch">
                     </div>
-                
-                    <div class="row">
-                        <div class="form-group col-md-3">
-                            <label>
-                                Contact Person2 FirstName
-                            </label>
-                            <input type="text" class="form-control" name="Contact_Person2Fname">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>
-                                Contact Person2 LastName
-                            </label>
-                            <input type="text" class="form-control" name="Contact_Person2Lname">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>
-                                Adhar Number
-                            </label>
-                            <input type="text" class="form-control" name="Adhar_Number">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Logo</label>
-                            <input type="text" class="form-control" name="logo">
-                        </div>
+
+                    <div class="form-group col-md-3">
+                        <label> Paytym </label>
+                        <input type="text" class="form-control" name="Paytym_Number">
                     </div>
+                    <div class="form-group col-md-3">
+                        <label>
+                            Remarks
+                        </label>
+                        <input type="text" class="form-control" name="Remarks">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label>
+                            Contact Person2 FirstName
+                        </label>
+                        <input type="text" class="form-control" name="Contact_Person2Fname">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>
+                            Contact Person2 LastName
+                        </label>
+                        <input type="text" class="form-control" name="Contact_Person2Lname">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>
+                            Adhar Number
+                        </label>
+                        <input type="text" class="form-control" name="Adhar_Number">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Logo</label>
+                        <input type="text" class="form-control" name="logo">
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label> Job position </label>
                         <input type="text" class="form-control" name="Job_position">
                     </div>
                 </div>
-                </div>
             </div>
-            <div class="row">
-                <!--------- Tab Section START ------------>
-                <div class="col-md-12">
-                    <div class="cd-tabs">
-                        <nav>
-                            <ul class="cd-tabs-navigation">
-                                <li><a data-content="address" class="selected" href="#0">Address</a></li>
-                                <li><a data-content="notes" href="#0">Notes</a></li>
-                                <li><a data-content="taxinfo" href="#0">Tax&nbsp;info</a></li>
-                                <li><a data-content="paymentbilling" href="#0">Payment &amp; Billing</a></li>
-                            </ul>
-                            <!-- cd-tabs-navigation -->
-                        </nav>
-                        <ul class="cd-tabs-content">
-                            <li data-content="address" class="selected">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row col-md-12">
-                                            <h2 class="form-title">Billing address<a href="#">map</a></h2>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5" id="comment" placeholder="Street" name="bill_street"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="City/Town" name="bill_city">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="State" name="bill_state">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="Postal Code" name="bill_postalcode">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="Country" name="bill_country">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
-                                            <div class="checkbox col-md-6">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Same as billing address
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5" id="comment" placeholder="Street" name="ship_street"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="City/Town" name="ship_city">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="State" name="ship_state">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="Postal Code" name="ship_postalcode">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" placeholder="Country" name="ship_country">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li data-content="notes">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row col-md-12">
-                                            <h2 class="form-title">Notes</h2>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5" id="comment" placeholder="Notes" name="Note"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li data-content="taxinfo">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Tax Reg. No</label>
-                                                <input type="text" class="form-control" name="">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>PAN No.</label>
-                                                <input type="text" class="form-control" name="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="checkbox col-md-6">
-                                        <label>
-                                            <input type="checkbox">
-                                            Apply TDS for this Customer
-                                        </label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li data-content="paymentbilling">
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Preferred payment method</label>
-                                                <select class="form-control" id="sel1">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Preferred delivery method</label>
-                                                <select class="form-control" id="sel1">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Terms</label>
-                                                <select class="form-control" id="sel1">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>Opening Balance</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>as of</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label>This customer pays me with</label>
-                                                <select class="form-control" id="sel1">
-                                                    <option>INR Indian Rupee</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+        </div>
+        <div class="row">
+            <!--------- Tab Section START ------------>
+            <div class="col-md-12">
+                <div class="cd-tabs">
+                    <nav>
+                        <ul class="cd-tabs-navigation">
+                            <li><a data-content="address" class="selected" href="#0">Address</a></li>
+                            <li><a data-content="notes" href="#0">Notes</a></li>
+                            <li><a data-content="taxinfo" href="#0">Tax&nbsp;info</a></li>
+                            <li><a data-content="paymentbilling" href="#0">Payment &amp; Billing</a></li>
                         </ul>
-                        <!-- cd-tabs-content -->
-                    </div>
-                    <!-- cd-tabs -->
+                        <!-- cd-tabs-navigation -->
+                    </nav>
+                    <ul class="cd-tabs-content">
+                        <li data-content="address" class="selected">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row col-md-12">
+                                        <h2 class="form-title">Billing address<a href="#">map</a></h2>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control" rows="5" id="comment" placeholder="Street" name="bill_street"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="City/Town" name="bill_city">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="State" name="bill_state">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Postal Code" name="bill_postalcode">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Country" name="bill_country">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
+                                        <div class="checkbox col-md-6">
+                                            <label>
+                                                <input type="checkbox">
+                                                Same as billing address
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control" rows="5" id="comment" placeholder="Street" name="ship_street"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="City/Town" name="ship_city">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="State" name="ship_state">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Postal Code" name="ship_postalcode">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Country" name="ship_country">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-content="notes">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row col-md-12">
+                                        <h2 class="form-title">Notes</h2>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control" rows="5" id="comment" placeholder="Notes" name="Note"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-content="taxinfo">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Tax Reg. No</label>
+                                            <input type="text" class="form-control" name="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>PAN No.</label>
+                                            <input type="text" class="form-control" name="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkbox col-md-6">
+                                    <label>
+                                        <input type="checkbox">
+                                        Apply TDS for this Customer
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-content="paymentbilling">
+                            <div class="row">
 
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Preferred payment method</label>
+                                            <select class="form-control" id="sel1">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Preferred delivery method</label>
+                                            <select class="form-control" id="sel1">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Terms</label>
+                                            <select class="form-control" id="sel1">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Opening Balance</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>as of</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>This customer pays me with</label>
+                                            <select class="form-control" id="sel1">
+                                                <option>INR Indian Rupee</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- cd-tabs-content -->
                 </div>
+                <!-- cd-tabs -->
 
-                <!--------- Tab Section END ------------>
             </div>
-            <hr />
-            <div class="row">
-                <div class="col-md-6">
-                    <button type="button" class="btn btn-default">Cancel</button>
-                </div>
-                <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary pull-right">Save</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    @section scripts{
-        <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-        <script src="~/Scripts/js/main.js"></script>
-        <script src="~/Scripts/js/modernizr.js"></script>
-    }
 
+            <!--------- Tab Section END ------------>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-default">Cancel</button>
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary pull-right">Save</button>
+            </div>
+        </div>
+    </form>
 </div>
+@section scripts{
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+}
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 @*<script src="js/bootstrap.min.js"></script>*@
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 @*</body>
     </html>*@
 
