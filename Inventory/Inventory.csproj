@@ -302,6 +302,10 @@
     <Content Include="build\js\custom.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\logo.png" />
+    <Content Include="Content\mailer.html" />
+    <Content Include="Content\pic1.png" />
+    <Content Include="Content\top.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -358,8 +362,8 @@
     <Content Include="images\user.png" />
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
-    <Content Include="Models\createdbscript.sql" />
     <Content Include="Models\Inventory.csproj" />
+    <Content Include="Models\mar02.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\App.config" />
@@ -4689,6 +4693,9 @@
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\Warehouse\Index.cshtml" />
     <Content Include="Views\Login\ActivatesEmail.cshtml" />
+    <Content Include="Views\Login\ProfileProgressPartial.cshtml" />
+    <Content Include="Views\Shared\DefaultMaster.cshtml" />
+    <Content Include="Views\Shared\UserMaster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -94,5 +94,12 @@ namespace Inventory.Service
             return LoginRepository.updatetimezone(dateformat, timezone, id);
         }
         #endregion
+
+        #region ProfileProgress
+        public static SqlDataReader GetProfileProgress(string dbname)
+        {
+            return LoginRepository.GetProfileProgress(dbname);
+        }
+        #endregion
     }
 }

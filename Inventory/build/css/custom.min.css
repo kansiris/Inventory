@@ -4010,11 +4010,16 @@ ul.notifications {
 	color: #fff;
 	text-align: center;}
 .profile-part > div > p{
-	float: left;
-	line-height: 100px;
-	margin-left: 20px;
-	font-size: 30px;
-	color: #333;}
+float: left;}
+.profile-part > div > p:first-of-type{
+line-height: 100px;
+margin-left: 20px;
+font-size: 30px;
+color: #333;}
+.profile-part > div > p:last-of-type{
+position: absolute;
+right: 48%;
+bottom: 10px;}
 .profile-part > div:last-of-type{
 	margin-top: 30px;}
 .profile-part > div:last-of-type > a{

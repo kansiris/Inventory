@@ -25,9 +25,375 @@
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
+<!-- page content -->
 <div class="right_col" role="main">
-<h2>Edit Profile</h2>
+    <div class="container">
+        <form>
+            <div class="row info-title">
+                Ramesh Sai
+                <button type="button" class="btn btn-success btn-xs pull-right">Account</button>
+            </div>
+            <div class="row customer-information">
+                <!--------- Tab Section START ------------>
+                <div class="col-md-12">
+                    <div class="cd-tabs">
+                        <nav>
+                            <ul class="cd-tabs-navigation">
+                                <li><a data-content="essentials" class="selected" href="#0">Essentials</a></li>
+                                <li><a data-content="account" href="#0">Account</a></li>
+                                <li><a data-content="details" href="#0">Details</a></li>
+                                <li><a data-content="address" href="#0">Address</a></li>
+                                <li><a data-content="profile" href="#0">Profile</a></li>
+                                <li><a data-content="notes" href="#0">Notes</a></li>
+                                <li><a data-content="social" href="#0">Social</a></li>
+                                <li><a data-content="localization" href="#0">Localization</a></li>
+                            </ul>
+                            <!-- cd-tabs-navigation -->
+                        </nav>
+                        <ul class="cd-tabs-content">
+                            <li data-content="essentials" class="selected">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <input type="email" class="form-control" placeholder="E-Mail">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" placeholder="First Name">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <input type="text" class="form-control" placeholder="Company Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-push-3">
+                                        <div class="top-button">
+                                            <input type="file" value="">
+                                            <span>V</span>
+                                        </div>
+                                        <div>upload Image</div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="account">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="email" class="form-control" placeholder="E-mail">
+                                            </div>
+                                        </div>
+                                        <div class="row toggle-button">
+                                            <div class="col-md-2 font-password"> Change Password </div>
+                                            <div class="col-md-10">
+                                                <label class="switch">
+                                                    <input type="checkbox" id="checkbox1">
+                                                    <div class="slider round"></div>
+                                                </label>
+                                            </div>
+                                            <div class="form-group col-md-4 toggle-box">
+                                                <input type="password" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="form-group col-md-4 toggle-box">
+                                                <input type="password" class="form-control" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                                        <div class="row"> </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="details">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="text" class="form-control" placeholder="Job title">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="number" class="form-control" placeholder="Office Phone">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <input type="number" class="form-control" placeholder="Ext">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Select Country</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <input type="number" class="form-control" placeholder="Prefix">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <input type="number" class="form-control" placeholder="Number">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <input type="number" class="form-control" placeholder="Home Phone">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <input type="number" class="form-control" placeholder="Fax">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="address">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control" placeholder="Line 1">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control" placeholder="State/Country">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control" placeholder="Line 2">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control" placeholder="Zip/Postal Code">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control" placeholder="City">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Country</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="profile">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="notes">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="social">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="text" class="form-control" placeholder="Twitter">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="text" class="form-control" placeholder="Linkdin">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="text" class="form-control" placeholder="Google+">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="text" class="form-control" placeholder="Facebook">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <input type="text" class="form-control" placeholder="Website">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Choose Service</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <input type="text" class="form-control" placeholder="Messanger Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="localization">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Language</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Date Format</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Time Format</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Calender Start</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Time Zone</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-success pull-right">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- cd-tabs-content -->
+                    </div>
+                    <!-- cd-tabs -->
+
+                </div>
+
+                <!--------- Tab Section END ------------>
+            </div>
+        </form>
+    </div>
 </div>
+<!-- /page content -->
 @section scripts{
     <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/main.js"></script>
@@ -42,4 +408,21 @@
     <script src="../vendors/nprogress/nprogress.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+
+    <!-- Toogle Function -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#checkbox1").val($(this).is(':checked'));
+
+            $("#checkbox1").change(function () {
+                //alert("Checked");
+                if ($(this).is(":checked")) {
+                    $(".toggle-box").css("display", "block");
+                } else {
+                    $(".toggle-box").css("display", "none");
+                }
+
+            });
+        });
+    </script>
 }

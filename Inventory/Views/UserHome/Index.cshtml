@@ -40,7 +40,7 @@
                     </div>
                     <p>@item.First_Name @item.Last_Name </p>@Html.HiddenFor(Model => Model.ID, new { Value = item.ID })
                     <br /><br />
-                    <text style="font-size:medium">  (@ViewBag.accessexpiry)</text>
+                    <p style="font-size:medium">  (@ViewBag.accessexpiry)</p>
                 </div>
                 <div class="col-md-6">
                     @*<a href="/UserProfile?email=@Model.EmailId&&usertype=@Model.UserTypeId&&site=@Model.User_Site">*@
@@ -998,4 +998,15 @@
         });
     </script>
     <!---- Toggle Function ---->
+    <!------ Random Colors ------>
+<script type="text/javascript">
+ $(document).ready(function(e) {
+   $(".top-button").each(function(){
+var colors = ["#f4511e","#7e57c2","#455a64","#512da8","#c2185b","#5c6bc0","#0288d1","#f4511e","#ef6c00","#0097a7","#5c6bc0","#5d4037"];
+var len = colors.length;
+var rand = Math.floor(Math.random()*len);
+$(this).css("background", colors[rand]);});
+});
+</script>
+<!------ Random Colors ------>
 }
