@@ -15,23 +15,17 @@ using System.IO;
 using Microsoft.SqlServer.Management.Common;
 using System.Data;
 using System.Web.Hosting;
+using Inventory.Utility;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Inventory.Content;
 
 namespace Inventory.Controllers
 {
     public class LoginController : Controller
     {
-        ValuesController1 valuesController1 = new ValuesController1();
-        //LoginService loginService = new LoginService();
         public ActionResult Index()
         {
-            
-            DateTime utcTime = DateTime.UtcNow;
-            TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-            DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, tzi); // convert from utc to local
-            //ViewBag.country = RegionInfo.CurrentRegion.DisplayName;
-            ViewBag.country = localTime;
-            ViewBag.server = DateTime.UtcNow;
-            //string url = (Request.Url.ToString()).TrimEnd(Request.RawUrl.ToCharArray());
             return View();
         }
         [HttpPost]
@@ -39,12 +33,6 @@ namespace Inventory.Controllers
         {
             if (command == "Authenticate")
             {
-                //for API
-                //string check = valuesController1.Get(login.Email_ID, login.Password);
-                //if(check == "success")
-                //    return RedirectToAction("Index", "Dashboard");
-                //else
-                //    ViewBag.invalid = "Invalid Credentials";
                 SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
                 if (value.HasRows)
                 {
@@ -52,7 +40,7 @@ namespace Inventory.Controllers
                 }
                 else
                 {
-                    ViewBag.invalid = "Invalid Credentials";
+                    ViewBag.invalid = "Confirm Your Email-ID then Login";
                 }
             }
             if (command == "Insert")
@@ -70,7 +58,7 @@ namespace Inventory.Controllers
                 string Date_Format = null;
                 string Timezone = null;
                 string Currency = null;
-                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode,Profile_Picture, Date_Format, Timezone, Currency);
+                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode, Profile_Picture, Date_Format, Timezone, Currency);
                 if (count > 0)
                 {
                     Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
@@ -96,7 +84,7 @@ namespace Inventory.Controllers
             //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
             //< add name = "DbConnection" connectionString = "Data Source=183.82.97.220;Database=Inventory;Integrated Security=False;User ID=user_inv;Password=123456;" providerName = "System.Data.SqlClient" />
             string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
-            FileInfo File = new FileInfo(Server.MapPath("../Models/createdbscript.sql"));
+            FileInfo File = new FileInfo(Server.MapPath("../Models/mar02.sql"));
             string script = File.OpenText().ReadToEnd();
             SqlConnection conn = new SqlConnection(sqlConnectionString);
             Server server = new Server(new ServerConnection(conn));
@@ -112,11 +100,17 @@ namespace Inventory.Controllers
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
-            string body = "Hello " + First_Name +" "+ Last_Name + ",";
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
+            //string message = body;
+            //StreamReader reader = new StreamReader(Server.MapPath("../Content/mailer.html"));
+            //string readFile = reader.ReadToEnd();
+            FileInfo File = new FileInfo(Server.MapPath("/Content/mailer.html"));
+            string readFile = File.OpenText().ReadToEnd();
+            string body = "Hello " + First_Name + " " + Last_Name + ",";
             body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace(Request.Url.AbsoluteUri, Request.Url.AbsoluteUri + "/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId) + "'>Click here to activate your account.</a>";
+            body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
             body += "<br /><br />Thanks";
-            string message = body;
+            string message = readFile + body;
             abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
 
@@ -125,30 +119,59 @@ namespace Inventory.Controllers
             //Checking Activation code
             if (ActivationCode != null && ActivationCode != "")
             {
-                
-                SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
-                string usertype= LoginService.GetUserTypeId("owner",0).ToString();
-                //string usertype = LoginService.GetUserTypeId(null, (long)value["UserTypeId"]).ToString();
+                int activateemail = 0;
+                SqlDataReader value = LoginService.getuserrecord(Email, ActivationCode); //retrieves particular user record
+                int usertype = (int)LoginService.GetUserTypeId("owner", 0);//get owner user type id
                 if (value.Read())
                 {
-                    if (value["activationcode"].ToString() == ActivationCode && usertype=="owner")
+                    if (value["activationcode"].ToString() == ActivationCode && (int)value["UserTypeId"] == usertype) // if usertype is owner
                     {
                         createdb(Email); //creating DB
-                        int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
-                        if (activateemail > 0)
-                            return View();
+                        activateemail = LoginService.ActivateEmail(Email, ActivationCode);
                     }
                     else
-                   
                     {
-                        int activateemail = LoginService.ActivateEmail(Email, 0, DateTime.UtcNow, 1, null);
-                        if (activateemail > 0)
-                            return View();
+                        activateemail = LoginService.ActivateEmail(Email, ActivationCode);
                     }
-
+                    if (activateemail < 0)
+                        return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
             }
             return View();
         }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Login");
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ProfileProgressPartial()
+        {
+            //string id = HttpContext.User.Identity.Name;
+            int Warehouse = 0, Vendor = 0, Products = 0;
+            string Progress = null, colour = null;
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader record = LoginService.GetProfileProgress(user.DbName);
+            if (record.Read())
+            {
+                Warehouse = (int)record["W"];
+                Vendor = (int)record["v"];
+                Products = (int)record["i"];
+            }
+            if (Warehouse == 0 && Vendor == 0 && Products == 0)
+            { Progress = ProgressBar.Level1; colour = "Red"; }
+            if (Warehouse > 0 || Vendor > 0 || Products > 0)
+            { Progress = ProgressBar.Level2; colour = "Orange"; }
+            if (Warehouse > 0 && Vendor > 0 || Vendor > 0 && Products > 0 || Warehouse > 0 && Products > 0)
+            { Progress = ProgressBar.Level3; colour = "YellowGreen"; }
+            if (Warehouse > 0 && Vendor > 0 && Products > 0)
+            { Progress = ProgressBar.Level4; colour = "Green"; }
+            ViewBag.Progress = Progress;
+            ViewBag.color = colour;
+            return PartialView("ProfileProgressPartial");
+        }
     }
 }
+

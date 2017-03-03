@@ -62,16 +62,50 @@ namespace Inventory.Service
         #endregion
 
         #region EmailActivation
-        public static int ActivateEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode)
+        public static int ActivateEmail(string email, string activationcode)
         {
-            return LoginRepository.ActivateEmail(email, usertype, SubscriptionDate, IsActive, activationcode);
+            return LoginRepository.ActivateEmail(email, activationcode);
         }
         #endregion
         #region EmailActivations
-        public static int ActivatesEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode, string DB_Name)
+        public static int ActivatesEmail(string email,string activationcode, string DB_Name)
         {
-            return LoginRepository.ActivatesEmail(email, usertype, SubscriptionDate, IsActive, activationcode, DB_Name);
+            return LoginRepository.ActivatesEmail(email,activationcode, DB_Name);
             
+        }
+        #endregion
+
+        #region getuserrecord
+        public static SqlDataReader getuserrecord(string email, string code)
+        {
+            return LoginRepository.getuserrecord(email, code);
+        }
+        #endregion
+        #region getuserrecord
+        public static SqlDataReader getOwnerDb(string code)
+        {
+            return LoginRepository.getOwnerDb(code);
+        }
+        #endregion
+
+        #region timezone
+        public static int updatetimezone(string dateformat, string timezone, string id)
+        {
+            return LoginRepository.updatetimezone(dateformat, timezone, id);
+        }
+        #endregion
+
+        #region ProfileProgress
+        public static SqlDataReader GetProfileProgress(string dbname)
+        {
+            return LoginRepository.GetProfileProgress(dbname);
+        }
+        #endregion
+
+        #region getuserprofile
+        public static SqlDataReader GetUserProfile(int id)
+        {
+            return LoginRepository.GetUserProfile(id);
         }
         #endregion
     }

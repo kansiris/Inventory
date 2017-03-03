@@ -6,12 +6,14 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Microsoft.ApplicationBlocks.Data;
 using System.Data;
+using Inventory;
+using Inventory.Utility;
 
 
 namespace Inventory.Repository
 {
     public class LoginRepository
-    {
+    {        
         private static string ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ToString();
         private static string ConnectionString1 = ConfigurationManager.ConnectionStrings["DbConnection1"].ToString();
         #region FranchisesSelectAll
@@ -84,17 +86,54 @@ namespace Inventory.Repository
         #endregion
 
         #region EmailActivation
-        public static int ActivateEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode)
+        public static int ActivateEmail(string email, string activationcode)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuser",email,usertype, IsActive, SubscriptionDate,activationcode);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuser",email,activationcode);
             return count;
         }
         #endregion
         #region EmailActivations
-        public static int ActivatesEmail(string email, int usertype, DateTime? SubscriptionDate, int IsActive, string activationcode,string DB_Name)
+        public static int ActivatesEmail(string email,string activationcode,string DB_Name)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateusers", email, usertype, IsActive, SubscriptionDate, activationcode, DB_Name);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateusers", email,activationcode, DB_Name);
             return count;
+        }
+        #endregion
+
+        #region getuserrecord
+        public static SqlDataReader getuserrecord(string email, string code)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "activateuser", email, code);
+        }
+        #endregion
+        #region getOwnerDb
+        public static SqlDataReader getOwnerDb(string code)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "getOwnerDb", code);
+        }
+        #endregion
+
+        #region timezone
+        public static int updatetimezone(string dateformat, string timezone,string id)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatetimezone", dateformat, timezone,id);
+            return count;
+        }
+        #endregion
+
+        #region ProfileProgress
+        public static SqlDataReader GetProfileProgress(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "sp_profileprogram");
+        }
+        #endregion
+
+        #region getuserprofile
+        public static SqlDataReader GetUserProfile(int id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
         }
         #endregion
     }

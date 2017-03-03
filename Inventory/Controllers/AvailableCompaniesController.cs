@@ -7,6 +7,8 @@ using Inventory.Service;
 using System.Data.SqlClient;
 using System.Data;
 using Inventory.Models;
+using Newtonsoft.Json;
+using Inventory.Utility;
 
 namespace Inventory.Controllers
 {
@@ -35,44 +37,47 @@ namespace Inventory.Controllers
         public ActionResult Index(string email, string usertype, string loginpassword)
         {
             SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+            UserMaster userMaster = new UserMaster();
             if (value.HasRows)
             {
-                string Site = null;
-                while (value.Read())
+                userMaster = convert(value);
+                if (userMaster != null)
                 {
-                    Site = value["User_Site"].ToString();
+                    string userData = JsonConvert.SerializeObject(userMaster);
+                    ValidUser.SetAuthCookie(userData, userMaster.ID);
                 }
-                return RedirectToAction("Index", "LandingPage", new { email, usertype, Site });
+                return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
             }
             return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
-            //var type = LoginService.GetUserTypeId(null, long.Parse(usertype));
-            //SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
-            //string controller = "";
-            //if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
-            //    controller = "UserHome";
-            //else
-            //    controller = type.ToString() + "Home";
-            //if (value.HasRows == false) //Failed Login
-            //    return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+        }
 
-            //DataTable dt = new DataTable();
-            //dt.Load(value);
-            //UserMaster userMaster = new UserMaster();
-            //userMaster = (from DataRow row in dt.Rows
-            //              select new UserMaster()
-            //              {
-            //                  First_Name = row["First_Name"].ToString(),
-            //                  Last_Name = row["Last_Name"].ToString(),
-            //                  EmailId = row["EmailId"].ToString(),
-            //                  Created_Date = (DateTime)row["Created_Date"],
-            //                  CompanyName = row["CompanyName"].ToString(),
-            //                  Phone = row["Phone"].ToString(),
-            //                  User_Site = row["User_Site"].ToString(),
-            //                  UserTypeId = (int)row["UserTypeId"],
-            //                  SubscriptionDate= (DateTime)row["SubscriptionDate"]
-            //              }).FirstOrDefault();
-
-            //return RedirectToAction("Index", controller, userMaster); // Redirects to Particular View
+        public UserMaster convert(SqlDataReader sqlDataReader)
+        {
+            DataTable dt = new DataTable();
+            dt.Load(sqlDataReader);
+            UserMaster userMaster = new UserMaster();
+            userMaster = (from DataRow row in dt.Rows
+                          select new UserMaster()
+                          {
+                              ID = row["ID"].ToString(),
+                              EmailId = row["EmailId"].ToString(),
+                              First_Name = row["First_Name"].ToString(),
+                              Last_Name = row["Last_Name"].ToString(),
+                              DB_Name = row["DB_Name"].ToString(),
+                              Created_Date = (DateTime)row["Created_Date"],
+                              SubscriptionId = (int)row["SubscriptionId"],
+                              UserTypeId = (int)row["UserTypeId"],
+                              User_Site = row["User_Site"].ToString(),
+                              CompanyName = row["CompanyName"].ToString(),
+                              Phone = row["Phone"].ToString(),
+                              SubscriptionDate = (DateTime)row["SubscriptionDate"],
+                              IsActive = (int)row["IsActive"],
+                              //Profile_Picture = (byte[])row["Profile_Picture"],
+                              Date_Format = row["Date_Format"].ToString(),
+                              Timezone = row["Timezone"].ToString(),
+                              Currency=row["Currency"].ToString()
+                          }).FirstOrDefault();
+            return userMaster;
         }
     }
 }
