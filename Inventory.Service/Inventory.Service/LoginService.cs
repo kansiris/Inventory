@@ -81,10 +81,11 @@ namespace Inventory.Service
             return LoginRepository.getuserrecord(email, code);
         }
         #endregion
-        #region getuserrecord
-        public static SqlDataReader getOwnerDb(string code)
+        #region getusersite
+        public static SqlDataReader getusersite(string site)
         {
-            return LoginRepository.getOwnerDb(code);
+            return LoginRepository.getusersite(site);
+
         }
         #endregion
 
