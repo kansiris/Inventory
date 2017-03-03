@@ -4691,6 +4691,9 @@
     <Content Include="Views\Warehouse\Index.cshtml" />
     <Content Include="Views\Warehouse\WarehouseAddress.cshtml" />
     <Content Include="Views\Login\ActivatesEmail.cshtml" />
+    <Content Include="Views\Login\ProfileProgressPartial.cshtml" />
+    <Content Include="Views\Shared\DefaultMaster.cshtml" />
+    <Content Include="Views\Shared\UserMaster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -105,13 +105,13 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "activateuser", email, code);
         }
         #endregion
-        #region getuserrecord
-        public static SqlDataReader getOwnerDb(string code)
+
+        #region getusersite
+        public static SqlDataReader getusersite(string site)
         {
-            return SqlHelper.ExecuteReader(ConnectionString1, "getOwnerDb", code);
+            return SqlHelper.ExecuteReader(ConnectionString1, "getusersite", site);
         }
         #endregion
-
         #region timezone
         public static int updatetimezone(string dateformat, string timezone,string id)
         {
