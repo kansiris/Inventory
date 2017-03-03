@@ -21,11 +21,14 @@ namespace Inventory.Models
         public string wh_Shortname { get; set; }
 
         public string Job_position { get; set; }
-        [RegularExpression("([^[0-9]*$)")]
-        public int phone { get; set; }
-        [RegularExpression("([^[0-9]*$)")]
-        public int Mobile { get; set; }
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        //[RegularExpression("([^[0-9]*$)")]
+        public long phone { get; set; }
+        //[RegularExpression("([^[0-9]*$)")]
+        public long Mobile { get; set; }
+        //[Required(ErrorMessage = "Please Enter Email Address")]
+        //[Display(Name = "Email")]
+        [RegularExpression(@"^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$",
+         ErrorMessage = "Please Enter Correct Email Address")]
         public string Email { get; set; }
         public string conperson { get; set; }
         public string Note { get; set; }

@@ -12,6 +12,7 @@ using System.Globalization;
 using Microsoft.Web.Administration;
 using System.IO;
 using System.Data;
+using Inventory.Content;
 
 
 namespace Inventory.Controllers
@@ -22,19 +23,32 @@ namespace Inventory.Controllers
 
         public ActionResult Index()
         {
+
+            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
+            DataTable dt = new DataTable();
+            dt.Load(value);
+            List<Warehouse> warehouse = new List<Warehouse>();
+            warehouse = (from DataRow row in dt.Rows
+                         select new Warehouse()
+                         {
+                             wh_name = row["wh_name"].ToString(),
+                             wh_Shortname = row["wh_Shortname"].ToString()
+                         }).ToList();
+            ViewBag.records = warehouse;
             return View();
         }
-        //public ActionResult WarehouseAddress()
-        //{
-        //    return View();
-        //}
+
         [HttpPost]
         public ActionResult Index(Warehouse wh)
         {
-
-            int count = WHservice.WHaddressinsert(wh.wh_name, wh.wh_Shortname, wh.conperson, wh.Job_position, wh.phone, wh.Mobile, wh.Email, wh.Note, wh.bill_Street, wh.bill_City, wh.bill_State, wh.bill_Postalcode, wh.bill_Country, wh.ship_Street, wh.ship_City, wh.ship_State, wh.ship_Postalcode, wh.ship_Country);
-            Response.Write("<script language='javascript' type='text/javascript'>alert('Warehouse Registration successful.') </script>");
-            return View();
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            int count = WHservice.WHaddressinsert(wh.wh_name, wh.wh_Shortname, wh.conperson, wh.Job_position,
+                wh.phone, wh.Mobile, wh.Email, wh.Note, wh.bill_Street, wh.bill_City, wh.bill_State, wh.bill_Postalcode, wh.bill_Country,
+                wh.ship_Street, wh.ship_City, wh.ship_State, wh.ship_Postalcode, wh.ship_Country, user.DbName);
+            if (count > 0)
+                return Content("<script language='javascript' type='text/javascript'>alert('Warehouse Added successfully');location.href='" + @Url.Action("Index", "Warehouse") + "'</script>"); // Stays in Same View
+            return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Warehouse") + "'</script>"); // Stays in Same View
         }
     }
 }

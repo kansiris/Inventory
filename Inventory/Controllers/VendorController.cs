@@ -39,7 +39,7 @@ namespace Inventory.Controllers
             string Site = words[0];
             var data = LoginService.getusersite(Site);
             if (data.HasRows)
-                User_Site = Site + user.ID; //append owner id to user site
+                User_Site = Site + user.ID; //append owner id to user site 
             else
             User_Site = Site;
             DateTime? SubscriptionDate = null;

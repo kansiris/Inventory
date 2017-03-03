@@ -6,14 +6,14 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Microsoft.ApplicationBlocks.Data;
 using System.Data;
-using Inventory;
+using Inventory.Utility;
 
 
 namespace Inventory.Repository
 {
     public class LoginRepository
     {
-        private static string ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ToString();
+        private static string ConnectionString ;
         private static string ConnectionString1 = ConfigurationManager.ConnectionStrings["DbConnection1"].ToString();
         #region FranchisesSelectAll
         public static SqlDataReader FranchisesSelectAll()
@@ -117,6 +117,22 @@ namespace Inventory.Repository
         {
             int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatetimezone", dateformat, timezone,id);
             return count;
+        }
+        #endregion
+
+        #region ProfileProgress
+        public static SqlDataReader GetProfileProgress(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "sp_profileprogram");
+        }
+        #endregion
+
+        #region getuserprofile
+        public static SqlDataReader GetUserProfile(int id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
         }
         #endregion
     }

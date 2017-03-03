@@ -18,7 +18,7 @@ using System.Web.Hosting;
 using Inventory.Utility;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
-
+using Inventory.Content;
 
 namespace Inventory.Controllers
 {
@@ -84,7 +84,7 @@ namespace Inventory.Controllers
             //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
             //< add name = "DbConnection" connectionString = "Data Source=183.82.97.220;Database=Inventory;Integrated Security=False;User ID=user_inv;Password=123456;" providerName = "System.Data.SqlClient" />
             string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
-            FileInfo File = new FileInfo(Server.MapPath("../Models/createdbscript.sql"));
+            FileInfo File = new FileInfo(Server.MapPath("../Models/mar02.sql"));
             string script = File.OpenText().ReadToEnd();
             SqlConnection conn = new SqlConnection(sqlConnectionString);
             Server server = new Server(new ServerConnection(conn));
@@ -101,11 +101,16 @@ namespace Inventory.Controllers
             // Designing Email Part
             SendEmail abc = new SendEmail();
             string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
+            //string message = body;
+            //StreamReader reader = new StreamReader(Server.MapPath("../Content/mailer.html"));
+            //string readFile = reader.ReadToEnd();
+            FileInfo File = new FileInfo(Server.MapPath("/Content/mailer.html"));
+            string readFile = File.OpenText().ReadToEnd();
             string body = "Hello " + First_Name + " " + Last_Name + ",";
             body += "<br /><br />Please click the following link to activate your account";
             body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
             body += "<br /><br />Thanks";
-            string message = body;
+            string message = readFile + body;
             abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
 
@@ -144,7 +149,27 @@ namespace Inventory.Controllers
         [ChildActionOnly]
         public PartialViewResult ProfileProgressPartial()
         {
-            string id = HttpContext.User.Identity.Name;
+            //string id = HttpContext.User.Identity.Name;
+            int Warehouse = 0, Vendor = 0, Products = 0;
+            string Progress = null, colour = null;
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader record = LoginService.GetProfileProgress(user.DbName);
+            if (record.Read())
+            {
+                Warehouse = (int)record["W"];
+                Vendor = (int)record["v"];
+                Products = (int)record["i"];
+            }
+            if (Warehouse == 0 && Vendor == 0 && Products == 0)
+            { Progress = ProgressBar.Level1; colour = "Red"; }
+            if (Warehouse > 0 || Vendor > 0 || Products > 0)
+            { Progress = ProgressBar.Level2; colour = "Orange"; }
+            if (Warehouse > 0 && Vendor > 0 || Vendor > 0 && Products > 0 || Warehouse > 0 && Products > 0)
+            { Progress = ProgressBar.Level3; colour = "YellowGreen"; }
+            if (Warehouse > 0 && Vendor > 0 && Products > 0)
+            { Progress = ProgressBar.Level4; colour = "Green"; }
+            ViewBag.Progress = Progress;
+            ViewBag.color = colour;
             return PartialView("ProfileProgressPartial");
         }
     }
