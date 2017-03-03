@@ -4371,6 +4371,6 @@ label.switch > input[type="checkbox"]:checked + .slider:before{
 	font-weight: bold;
 	color: #333;}
 .toggle-box{
-	display: none;}
+	visibility: hidden;}
 
 /*================ Customer Profile ================*/

@@ -82,16 +82,16 @@
                                         <div class="col-md-3 col-md-push-3">
                                             <div class="top-button">
                                                 <input type="file" value="" id="fileupload" accept="image/gif, image/jpeg, image/png">
-                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
+                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                             </div>
-                                            <div>Upload New Pic</div>
+                                            <div>Upload New Logo</div>
                                         </div>
                                     </div>
                                     <hr />
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Essentials</button>
                                         </div>
                                     </div>
                                 </li>
@@ -104,7 +104,7 @@
                                                     @Html.TextBoxFor(Model => Model.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled" })
                                                 </div>
                                             </div>
-                                            <div class="row toggle-button">
+                                            <div class="row toggle-button" style="height:auto;">
                                                 <div class="col-md-2 font-password"> Change Password </div>
                                                 <div class="col-md-10">
                                                     <label class="switch">
@@ -112,11 +112,11 @@
                                                         <div class="slider round"></div>
                                                     </label>
                                                 </div>
-                                                <div class="form-group col-md-4 toggle-box">
+                                                <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
                                                     @*<input type="password" class="form-control" placeholder="Password">*@
                                                     @Html.TextBoxFor(Model => Model.Password, new { placeholder = "Password", @class = "form-control" })
                                                 </div>
-                                                <div class="form-group col-md-4 toggle-box">
+                                                <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
                                                     @*<input type="password" class="form-control" placeholder="Confirm Password">*@
                                                     @Html.TextBoxFor(Model => Model.Password, new { placeholder = "Confirm Password", @class = "form-control" })
                                                 </div>
@@ -128,7 +128,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Account</button>
                                         </div>
                                     </div>
                                 </li>
@@ -150,12 +150,13 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    <select class="form-control" id="sel1">
+                                                    @*<select class="form-control" id="sel1">
                                                         <option>Select Country</option>
                                                         <option>2</option>
                                                         <option>3</option>
                                                         <option>4</option>
-                                                    </select>
+                                                    </select>*@
+                                                    @Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <input type="number" class="form-control" placeholder="Prefix">
@@ -180,7 +181,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Details</button>
                                         </div>
                                     </div>
                                 </li>
@@ -193,6 +194,7 @@
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <input type="text" class="form-control" placeholder="State/Country">
+                                                    @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -208,12 +210,13 @@
                                                     <input type="text" class="form-control" placeholder="City">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <select class="form-control" id="sel1">
+                                                    @*<select class="form-control" id="sel1">
                                                         <option>Country</option>
                                                         <option>2</option>
                                                         <option>3</option>
                                                         <option>4</option>
-                                                    </select>
+                                                    </select>*@
+                                                    @Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
                                                 </div>
                                             </div>
                                         </div>
@@ -222,7 +225,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Address</button>
                                         </div>
                                     </div>
                                 </li>
@@ -247,7 +250,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Profile</button>
                                         </div>
                                     </div>
                                 </li>
@@ -272,7 +275,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Notes</button>
                                         </div>
                                     </div>
                                 </li>
@@ -323,7 +326,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Social</button>
                                         </div>
                                     </div>
                                 </li>
@@ -390,7 +393,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update</button>
+                                            <button type="button" class="btn btn-success pull-right">Update Localization</button>
                                         </div>
                                     </div>
                                 </li>
@@ -432,9 +435,9 @@
             $("#checkbox1").change(function () {
                 //alert("Checked");
                 if ($(this).is(":checked")) {
-                    $(".toggle-box").css("display", "block");
+                    $(".toggle-box").css("visibility", "visible");
                 } else {
-                    $(".toggle-box").css("display", "none");
+                    $(".toggle-box").css("visibility", "hidden");
                 }
 
             });
