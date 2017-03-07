@@ -81,10 +81,11 @@ namespace Inventory.Service
             return LoginRepository.getuserrecord(email, code);
         }
         #endregion
-        #region getuserrecord
-        public static SqlDataReader getOwnerDb(string code)
+        #region getusersite
+        public static SqlDataReader getusersite(string site)
         {
-            return LoginRepository.getOwnerDb(code);
+            return LoginRepository.getusersite(site);
+
         }
         #endregion
 
@@ -99,6 +100,13 @@ namespace Inventory.Service
         public static SqlDataReader GetProfileProgress(string dbname)
         {
             return LoginRepository.GetProfileProgress(dbname);
+        }
+        #endregion
+
+        #region getuserprofile
+        public static SqlDataReader GetUserProfile(int id)
+        {
+            return LoginRepository.GetUserProfile(id);
         }
         #endregion
     }

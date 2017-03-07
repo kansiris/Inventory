@@ -21,7 +21,7 @@ namespace Inventory.Models
         public string Vendor_Id { get; set; }
 
         [StringLength(50)]
-        public string Contact_Person1Fname { get; set; }
+        public string Contact_PersonFname { get; set; }
 
         public int Mobile_No { get; set; }
 
@@ -36,7 +36,7 @@ namespace Inventory.Models
         public string Company_Name { get; set; }
 
         [StringLength(50)]
-        public string Contact_Person1Lname { get; set; }
+        public string Contact_PersonLname { get; set; }
 
         public int LandLine_Num { get; set; }
 
@@ -53,12 +53,7 @@ namespace Inventory.Models
         public string Remarks { get; set; }
 
         [StringLength(50)]
-        public string Contact_Person2Lname { get; set; }
-
-        [StringLength(50)]
-        public string Contact_Person2Fname { get; set; }
-
-        [StringLength(50)]
+       
         public string Email { get; set; }
 
         [StringLength(50)]
@@ -90,6 +85,11 @@ namespace Inventory.Models
         public string ship_country { get; set; }
 
         public string activationcode { get; set; }
+
+        public int company_Id { get; set; }
+        
+        public string emailid { get; set; }
+       // public byte[] logo { get; set; }
 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

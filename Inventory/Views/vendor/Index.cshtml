@@ -27,307 +27,328 @@
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
+<!-- page content -->
 <div class="right_col" role="main">
-    <form method="post">
-        <div class="container">
-
+    <div class="container">
+        <form method="post">
             <div class="row">
                 <div class="col-md-12 form-title">Vendor Information</div>
                 <div class="col-md-6">
+                    
                     <div class="row">
-
                         <div class="form-group col-md-6">
-                            <label>Contact Person1 First Name</label>
-
-                            <input type="text" class="form-control" name="Contact_Person1Fname">
+                            <input type="text" class="form-control" placeholder="Company Name" name="Company_Name">
                         </div>
-
                         <div class="form-group col-md-6">
-                            <label>Contact Person1 Last Name</label>
-
-                            <input type="text" class="form-control" name="Contact_Person1Lname">
+                            <input type="email" class="form-control" placeholder="Email" name="Email">
                         </div>
-
+                        
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-12">
-                            <label>Email</label>
-                            <input type="text" class="form-control" name="Email">
-                        </div>
-                    </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary pull-right" value="submit0" name="submitbutton0">Save</button>
 
-                </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label>Company</label>
-                            <input type="text" class="form-control" name="Company_Name">
+                            <button type="button" class="btn btn-default pull-right">Cancel</button>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label>Land Line</label>
-                            <input type="text" class="form-control" name="LandLine_Num">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>Mobile</label>
-                            <input type="text" class="form-control" name="Mobile_No">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>Bank Account Number</label>
-                            <input type="text" class="form-control" name="Bank_Acc_Number">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label>Bank Name</label>
-                        <input type="text" class="form-control" name="Bank_Name">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Bank Branch</label>
-                        <input type="text" class="form-control" name="Bank_Branch">
-                    </div>
 
-                    <div class="form-group col-md-3">
-                        <label> Paytym </label>
-                        <input type="text" class="form-control" name="Paytym_Number">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>
-                            Remarks
-                        </label>
-                        <input type="text" class="form-control" name="Remarks">
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label>
-                            Contact Person2 FirstName
-                        </label>
-                        <input type="text" class="form-control" name="Contact_Person2Fname">
+                <div class="col-md-3 col-md-push-3">
+                    <div class="top-button">
+                        <input type="file">
+                        <span>V</span>
                     </div>
-                    <div class="form-group col-md-3">
-                        <label>
-                            Contact Person2 LastName
-                        </label>
-                        <input type="text" class="form-control" name="Contact_Person2Lname">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>
-                            Adhar Number
-                        </label>
-                        <input type="text" class="form-control" name="Adhar_Number">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Logo</label>
-                        <input type="text" class="form-control" name="logo">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label> Job position </label>
-                        <input type="text" class="form-control" name="Job_position">
-                    </div>
+                    <div>upload Company Logo</div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <!--------- Tab Section START ------------>
-            <div class="col-md-12">
-                <div class="cd-tabs">
-                    <nav>
-                        <ul class="cd-tabs-navigation">
-                            <li><a data-content="address" class="selected" href="#0">Address</a></li>
-                            <li><a data-content="notes" href="#0">Notes</a></li>
-                            <li><a data-content="taxinfo" href="#0">Tax&nbsp;info</a></li>
-                            <li><a data-content="paymentbilling" href="#0">Payment &amp; Billing</a></li>
+            <div class="row">
+                <!--------- Tab Section START ------------>
+                <div class="col-md-12">
+                    <div class="cd-tabs">
+                        <nav>
+                            <ul class="cd-tabs-navigation">
+                                <li><a data-content="address" class="selected" href="#0">Address</a></li>
+                                <li><a data-content="notes" href="#0">Notes</a></li>
+                                <li><a data-content="taxinfo" href="#0">Tax&nbsp;info</a></li>
+                                <li><a data-content="paymentbilling" href="#0">Payment &amp; Billing</a></li>
+                                <li><a data-content="contactperson" href="#0">Contact Person</a></li>
+                                <li><a data-content="details" href="#0">Details</a></li>
+                            </ul>
+                            <!-- cd-tabs-navigation -->
+                        </nav>
+                        <ul class="cd-tabs-content">
+                            <li data-content="address" class="selected">
+                                <div class="row">
+                                    <div class="col-md-6 padding-top padding-bottom">
+                                        <div class="row col-md-12">
+                                            <h2 class="form-title">Billing address<a href="#">map</a></h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="5" name="bill_street" id="bill_street" placeholder="Street"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="bill_city" id="bill_city"  placeholder="City/Town">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="bill_state" id="bill_state"  placeholder="State">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="bill_postalcode" id="bill_postalcode"  placeholder="Postal Code">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="bill_country" id="bill_country"  placeholder="Country">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 padding-top padding-bottom shipping">
+                                        <div class="row">
+                                            <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
+                                            <div class="checkbox col-md-6">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Same as billing address
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="5" name="ship_street" id="ship_street"  placeholder="Street"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="ship_city" id="ship_city"  placeholder="City/Town">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="ship_state" id="ship_state"  placeholder="State">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="ship_postalcode" id="ship_postalcode"  placeholder="Postal Code">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="ship_country" id="ship_country"  placeholder="Country">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" value="submit1" name="submitbutton1">Save</button>
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="notes">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row col-md-12">
+                                            <h2 class="form-title">Notes</h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="5" id="comment" placeholder="Notes"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" value="submit2" name="submitbutton2">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="taxinfo">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" placeholder="Tax Reg. No">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" placeholder="PAN No.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="checkbox col-md-6">
+                                        <label>
+                                            <input type="checkbox">
+                                            Apply TDS for this Customer
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" value="submit3" name="submitbutton3">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="paymentbilling">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Preferred payment method</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Preferred delivery method</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <select class="form-control" id="sel1">
+                                                    <option>Terms</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" placeholder="Opening Balance">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" placeholder="as of">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <select class="form-control" id="sel1">
+                                                    <option>INR Indian Rupee</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" value="submit4" name="submitbutton4">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="contactperson">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Contact_PersonFname" placeholder="Contactperson Fname">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Contact_PersonLname" placeholder="Contactperson Lname">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-5">
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile">
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <input type="text" class="form-control" name="emailid" placeholder="Email">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <input type="button" class="form-control" value="Invite" border="1" style="color:aquamarine">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="Adhar_Number" placeholder="AdharNumber">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="Job_position" placeholder="Job position">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" value="submit5" name="submitbutton5">Save</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="details">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Bank_Acc_Number" placeholder="Account Number">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Bank_Name" placeholder="Bank Name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Bank_Branch" placeholder="Bank Branch">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Paytym_Number" placeholder="Paytym number">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Remarks" placeholder="Remarks">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" value="submit6" name="submitbutton6">Save</button>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
-                        <!-- cd-tabs-navigation -->
-                    </nav>
-                    <ul class="cd-tabs-content">
-                        <li data-content="address" class="selected">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row col-md-12">
-                                        <h2 class="form-title">Billing address<a href="#">map</a></h2>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <textarea class="form-control" rows="5" id="comment" placeholder="Street" name="bill_street"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="City/Town" name="bill_city">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="State" name="bill_state">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="Postal Code" name="bill_postalcode">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="Country" name="bill_country">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
-                                        <div class="checkbox col-md-6">
-                                            <label>
-                                                <input type="checkbox">
-                                                Same as billing address
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <textarea class="form-control" rows="5" id="comment" placeholder="Street" name="ship_street"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="City/Town" name="ship_city">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="State" name="ship_state">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="Postal Code" name="ship_postalcode">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="Country" name="ship_country">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li data-content="notes">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row col-md-12">
-                                        <h2 class="form-title">Notes</h2>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <textarea class="form-control" rows="5" id="comment" placeholder="Notes" name="Note"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li data-content="taxinfo">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>Tax Reg. No</label>
-                                            <input type="text" class="form-control" name="">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>PAN No.</label>
-                                            <input type="text" class="form-control" name="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="checkbox col-md-6">
-                                    <label>
-                                        <input type="checkbox">
-                                        Apply TDS for this Customer
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-                        <li data-content="paymentbilling">
-                            <div class="row">
+                        <!-- cd-tabs-content -->
+                    </div>
+                    <!-- cd-tabs -->
 
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>Preferred payment method</label>
-                                            <select class="form-control" id="sel1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>Preferred delivery method</label>
-                                            <select class="form-control" id="sel1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>Terms</label>
-                                            <select class="form-control" id="sel1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>Opening Balance</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>as of</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>This customer pays me with</label>
-                                            <select class="form-control" id="sel1">
-                                                <option>INR Indian Rupee</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- cd-tabs-content -->
                 </div>
-                <!-- cd-tabs -->
 
+                <!--------- Tab Section END ------------>
             </div>
-
-            <!--------- Tab Section END ------------>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-6">
-                <button type="button" class="btn btn-default">Cancel</button>
-            </div>
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary pull-right">Save</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
+<!-- /page content --> 
 @section scripts{
     <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/main.js"></script>
@@ -338,6 +359,39 @@
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- Clone Shipping Address -->
+<script type="text/javascript">
+  $("input[type='checkbox']").change(function(){
+	  if($("input[type='checkbox']").is(':checked')){
+	      $("[id='ship_street']").val($("[id='bill_street']").val());
+	      $("[id='ship_city']").val($("[id='bill_city']").val());
+	      $("[id='ship_state']").val($("[id='bill_state']").val());
+	      $("[id='ship_postalcode']").val($("[id='bill_postalcode']").val());
+	      $("[id='ship_country']").val($("[id='bill_country']").val());
+	  }
+	  else {
+	      $("[id='ship_street']").val("");
+	      $("[id='ship_city']").val("");
+	      $("[id='ship_state']").val("");
+	      $("[id='ship_postalcode']").val("");
+	      $("[id='ship_country']").val("");
+	  }
+  });
+   
+</script>
+<!-- Clone Shipping Address -->
+<!------ Random Colors ------>
+<script type="text/javascript">
+  $(document).ready(function(e) {
+    $(".top-button").each(function(){
+		var colors = ["#f4511e","#7e57c2","#455a64","#512da8","#c2185b","#5c6bc0","#0288d1","#f4511e","#ef6c00","#0097a7","#5c6bc0","#5d4037"];
+        var len = colors.length;
+        var rand = Math.floor(Math.random()*len);
+        $(this).css("background", colors[rand]);
+		});
+});
+</script>
+<!------ Random Colors ------>
 }
 
 

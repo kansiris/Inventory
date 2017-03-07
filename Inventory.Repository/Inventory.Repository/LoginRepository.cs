@@ -6,15 +6,14 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Microsoft.ApplicationBlocks.Data;
 using System.Data;
-using Inventory;
 using Inventory.Utility;
 
 
 namespace Inventory.Repository
 {
     public class LoginRepository
-    {        
-        private static string ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ToString();
+    {
+        private static string ConnectionString ;
         private static string ConnectionString1 = ConfigurationManager.ConnectionStrings["DbConnection1"].ToString();
         #region FranchisesSelectAll
         public static SqlDataReader FranchisesSelectAll()
@@ -106,13 +105,13 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "activateuser", email, code);
         }
         #endregion
-        #region getOwnerDb
-        public static SqlDataReader getOwnerDb(string code)
+
+        #region getusersite
+        public static SqlDataReader getusersite(string site)
         {
-            return SqlHelper.ExecuteReader(ConnectionString1, "getOwnerDb", code);
+            return SqlHelper.ExecuteReader(ConnectionString1, "getusersite", site);
         }
         #endregion
-
         #region timezone
         public static int updatetimezone(string dateformat, string timezone,string id)
         {
@@ -127,6 +126,13 @@ namespace Inventory.Repository
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "sp_profileprogram");
+        }
+        #endregion
+
+        #region getuserprofile
+        public static SqlDataReader GetUserProfile(int id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
         }
         #endregion
     }
