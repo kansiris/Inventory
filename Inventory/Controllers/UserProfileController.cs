@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using Inventory.Service;
 using System.Data;
 using Inventory.Models;
+using System.Globalization;
 
 namespace Inventory.Controllers
 {
@@ -17,10 +18,9 @@ namespace Inventory.Controllers
         {
             ViewBag.profile = GetUserProfile(int.Parse(id));
             ViewBag.timeZoneInfos = TimeZoneInfo.GetSystemTimeZones().Select(m => m.DisplayName).ToList(); //Available Time Zones
+            ViewBag.country = CountryList();
             return View();
         }
-
-
         public List<UserMaster> GetUserProfile(int id)
         {
             SqlDataReader value = LoginService.GetUserProfile(id);
@@ -46,8 +46,28 @@ namespace Inventory.Controllers
                                   }).ToList();
             return userMaster;
         }
+        private List<string> CountryList()
+        {
+            List<string> cultureList = new List<string>();
+            CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+            if (getCultureInfo.Count() > 0)
+            {
+                foreach (CultureInfo cultureInfo in getCultureInfo)
+                {
+                    RegionInfo getRegionInfo = new RegionInfo(cultureInfo.LCID);
+                    if (cultureList.Contains(getRegionInfo.EnglishName) == false)
+                    {
+                        cultureList.Add(getRegionInfo.EnglishName);
+                    }
+                }
+            }
+            if (cultureList.Count > 0)
+                cultureList.Sort();
+            return cultureList;
+        }
     }
 }
+
 
 
 

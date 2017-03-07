@@ -288,6 +288,7 @@
     <Compile Include="Models\test.cs" />
     <Compile Include="Models\UnitOfMeasure.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAddress.cs" />
     <Compile Include="Models\UserMaster.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Models\Warehouse.cs" />
