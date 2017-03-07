@@ -3950,6 +3950,12 @@ ul.notifications {
 
 
 /*======================== MY STYLES ==================*/
+.border-left{
+	border-left: 1px solid #0483c6;}
+.padding-top{
+	padding-top: 10px;}
+.padding-bottom{
+	padding-bottom: 10px;}
 .navbar > .container-fluid{
 	padding-left: 0px;}
 .navbar-header > a{
@@ -4371,6 +4377,18 @@ label.switch > input[type="checkbox"]:checked + .slider:before{
 	font-weight: bold;
 	color: #333;}
 .toggle-box{
-	display: none;}
+	visibility: hidden;}
 
 /*================ Customer Profile ================*/
+
+/*================ Vendor Information ================*/
+
+form .top-button + div{
+	width: 100%;
+	float: left;
+	margin-top: 10px;}
+.shipping{
+	background: #e7e7e7;
+	border-radius: 5px;}
+
+/*================ Vendor Information ================*/
