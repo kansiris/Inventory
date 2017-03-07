@@ -4008,6 +4008,16 @@ ul.notifications {
 	top: 0;
 	left: 0;
 	opacity: 0;}
+#masterpic {
+    width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: #f29c13;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+}
 .top-button > span{
 	position: absolute;
 	top: 10%;
