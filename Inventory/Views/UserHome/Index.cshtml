@@ -52,9 +52,9 @@
 
     <!------------ Upload Image --------------->
             <!------------ Toggle Action ------>
-            if (item.Timezone != "" && item.Date_Format != "")
+            if (ViewBag.Timezone != "")
             {
-                <div id="changetimezone" onload="$('#Timezoneselection').hide()">@ViewBag.Timezone<a href="#">Change</a></div>
+                <div id="changetimezone">@ViewBag.Timezone<a href="#">Change</a></div>
                 //<script>$('#Timezoneselection').hide()</script>
                 //$('#Timezoneselection').css('display', 'none');
                 //$('#Timezoneselection').toggle();
@@ -1017,7 +1017,7 @@
     </script>
     <!------ Random Colors ------>
     <!------ Show/Hide ------>
-    <script>
+    @*<script>
         function showhide() {
             var div = $("Timezoneselection");
             if (div.css.display) {
@@ -1027,11 +1027,26 @@
                 div.css.display = "block";
             }
         }
-    </script>
+    </script>*@
     <!------ Show/Hide ------>
-<script>
+@*<script>
     $("#changetimezone").click(function () {
         $("#Timezoneselection").show();
     });
+</script>*@
+    <!------ Show/Hide Timezone ------>
+<script type="text/javascript">
+        $(document).ready(function (e) {
+            var v = $(".right_col > form > div:nth-of-type(2)").attr("id");
+            if (v == "changetimezone") {
+                $(".right_col >form >  .toggle-area").css("display", "none");
+            } else {
+                $(".right_col >form >  .toggle-area").css("display", "block");
+            }
+            $("#changetimezone a").click(function () {
+                $(".right_col > form > .toggle-area").css("display", "block");
+            });
+        });
 </script>
+    <!------ Show/Hide Timezone------>
 }
