@@ -135,5 +135,21 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
         }
         #endregion
+
+        #region Update User Address
+        public static int updateuseraddress(int userid,string Line1, string Line2, string city, string state,string postalcode,string country)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuseraddress", userid, Line1, Line2, city, state, postalcode, country);
+            return count;
+        }
+        #endregion
+
+        #region Update Company Address
+        public static int updatecompanyaddress(int userid, string Line1, string Line2, string city, string state, string postalcode, string country)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatecompanyaddress", userid, Line1, Line2, city, state, postalcode, country);
+            return count;
+        }
+        #endregion
     }
 }

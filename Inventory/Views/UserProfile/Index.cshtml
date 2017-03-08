@@ -1,446 +1,508 @@
-﻿@model Inventory.Models.UserMaster
-@{
-    ViewBag.Title = "User Home";
-    Layout = "~/Views/Shared/MainMaster.cshtml";
-}
+﻿@*@model Inventory.Models.UserMaster*@
+@model Tuple<Inventory.Models.UserMaster, Inventory.Models.UserAddress, Inventory.Models.OwnerCompanyAddress>
+   
+        @{
+            ViewBag.Title = "User Home";
+            Layout = "~/Views/Shared/MainMaster.cshtml";
+        }
 
-@section css{
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+            @section css{
+                <!-- Bootstrap -->
+                <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+                <!-- Font Awesome -->
+                <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+                <!-- NProgress -->
+                <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+                <!-- iCheck -->
+                <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+                <!-- bootstrap-progressbar -->
+                <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+                <!-- JQVMap -->
+                <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+                <!-- bootstrap-daterangepicker -->
+                <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
-    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
-    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
-}
-<!-- page content -->
-<div class="right_col" role="main">
-    <div class="container">
-        @foreach (var item in ViewBag.profile)
-        {
-            <form>
-                <div class="row info-title">
-                    @item.First_Name @item.Last_Name
-                    <button type="button" class="btn btn-success btn-xs pull-right">Account</button>
-                </div>
-                <div class="row customer-information">
-                    <!--------- Tab Section START ------------>
-                    <div class="col-md-12">
-                        <div class="cd-tabs">
-                            <nav>
-                                <ul class="cd-tabs-navigation">
-                                    <li><a data-content="essentials" class="selected" href="#0">Essentials</a></li>
-                                    <li><a data-content="account" href="#0">Account</a></li>
-                                    <li><a data-content="details" href="#0">Details</a></li>
-                                    <li><a data-content="address" href="#0">Address</a></li>
-                                    <li><a data-content="profile" href="#0">Profile</a></li>
-                                    <li><a data-content="notes" href="#0">Notes</a></li>
-                                    <li><a data-content="social" href="#0">Social</a></li>
-                                    <li><a data-content="localization" href="#0">Localization</a></li>
-                                </ul>
-                                <!-- cd-tabs-navigation -->
-                            </nav>
-                            <ul class="cd-tabs-content">
-                                <li data-content="essentials" class="selected">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    @*<input type="email" class="form-control" placeholder="E-Mail">*@
-                                                    @Html.TextBoxFor(Model => Model.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled" })
+                <!-- Custom Theme Style -->
+                <link href="../build/css/custom.min.css" rel="stylesheet">
+                <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+                <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+            }
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="container">
+                    @foreach (var item in ViewBag.profile)
+                    {
+                        <form>
+                            <div class="row info-title">
+                                @item.First_Name @item.Last_Name
+                                <button type="button" class="btn btn-success btn-xs pull-right">Account</button>
+                            </div>
+                            <div class="row customer-information">
+                                <!--------- Tab Section START ------------>
+                                <div class="col-md-12">
+                                    <div class="cd-tabs">
+                                        <nav>
+                                            <ul class="cd-tabs-navigation">
+                                                <li><a data-content="essentials" class="selected" href="#0">Essentials</a></li>
+                                                <li><a data-content="account" href="#0">Account</a></li>
+                                                <li><a data-content="details" href="#0">Details</a></li>
+                                                <li><a data-content="address" href="#0">Address</a></li>
+                                                <li><a data-content="caddress" href="#0">Company Address</a></li>
+                                                <li><a data-content="profile" href="#0">Profile</a></li>
+                                                <li><a data-content="notes" href="#0">Notes</a></li>
+                                                <li><a data-content="social" href="#0">Social</a></li>
+                                                <li><a data-content="localization" href="#0">Localization</a></li>
+                                            </ul>
+                                            <!-- cd-tabs-navigation -->
+                                        </nav>
+                                        <ul class="cd-tabs-content">
+                                            <li data-content="essentials" class="selected">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                @*<input type="email" class="form-control" placeholder="E-Mail">*@
+                                                                @Html.TextBoxFor(Model => Model.Item1.CompanyName, new { placeholder = "Company Name", @class = "form-control", Value = item.CompanyName })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                @*<input type="text" class="form-control" placeholder="First Name">*@
+                                                                @Html.TextBoxFor(Model => Model.Item1.First_Name, new { placeholder = "First Name", @class = "form-control", Value = item.First_Name })
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                @*<input type="text" class="form-control" placeholder="Last Name">*@
+                                                                @Html.TextBoxFor(Model => Model.Item1.Last_Name, new { placeholder = "Last Name", @class = "form-control", Value = item.Last_Name })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                @*<input type="text" class="form-control" placeholder="Company Name">*@
+                                                                @Html.TextBoxFor(Model => Model.Item1.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-md-push-3">
+                                                        <div class="top-button">
+                                                            <input type="file" value="" id="fileupload" accept="image/gif, image/jpeg, image/png">
+                                                            <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
+                                                        </div>
+                                                        <div>Upload Company Logo</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    @*<input type="text" class="form-control" placeholder="First Name">*@
-                                                    @Html.TextBoxFor(Model => Model.First_Name, new { placeholder = "First Name", @class = "form-control", Value = item.First_Name })
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Essentials</button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    @*<input type="text" class="form-control" placeholder="Last Name">*@
-                                                    @Html.TextBoxFor(Model => Model.Last_Name, new { placeholder = "Last Name", @class = "form-control", Value = item.Last_Name })
+                                            </li>
+                                            <li data-content="account">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                @*<input type="email" class="form-control" placeholder="E-mail">*@
+                                                                @Html.TextBoxFor(Model => Model.Item1.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row toggle-button" style="height:auto;">
+                                                            <div class="col-md-2 font-password"> Change Password </div>
+                                                            <div class="col-md-10">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" id="checkbox1">
+                                                                    <div class="slider round"></div>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
+                                                                @*<input type="password" class="form-control" placeholder="Password">*@
+                                                                @Html.TextBoxFor(Model => Model.Item1.Password, new { placeholder = "Password", @class = "form-control" })
+                                                            </div>
+                                                            <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
+                                                                @*<input type="password" class="form-control" placeholder="Confirm Password">*@
+                                                                @Html.TextBoxFor(Model => Model.Item1.Password, new { placeholder = "Confirm Password", @class = "form-control" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row"> </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    @*<input type="text" class="form-control" placeholder="Company Name">*@
-                                                    @Html.TextBoxFor(Model => Model.CompanyName, new { placeholder = "Company Name", @class = "form-control", Value = item.CompanyName })
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Account</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-md-push-3">
-                                            <div class="top-button">
-                                                <input type="file" value="" id="fileupload" accept="image/gif, image/jpeg, image/png">
-                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
-                                            </div>
-                                            <div>Upload New Logo</div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Essentials</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="account">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    @*<input type="email" class="form-control" placeholder="E-mail">*@
-                                                    @Html.TextBoxFor(Model => Model.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled" })
+                                            </li>
+                                            <li data-content="details">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-2">
+                                                                <input type="text" class="form-control" placeholder="Job title">
+                                                            </div>
+                                                            @*</div>
+                                                                <div class="row">*@
+                                                            <div class="form-group col-md-2">
+                                                                <input type="text" class="form-control" placeholder="Office Phone">
+                                                            </div>
+                                                            <div class="form-group col-md-1">
+                                                                <input type="text" class="form-control" placeholder="Ext">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-2">
+                                                                @*<select class="form-control" id="sel1">
+                                                                        <option>Select Country</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                    </select>*@
+                                                                @Html.DropDownListFor(Model => Model.Item1.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
+                                                            </div>
+                                                            <div class="form-group col-md-1">
+                                                                <input type="number" class="form-control" placeholder="Prefix" disabled>
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <input type="text" class="form-control" placeholder="Number">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-2">
+                                                                <input type="text" class="form-control" placeholder="Home Phone">
+                                                            </div>
+                                                            @*</div>
+                                                                <div class="row">*@
+                                                            <div class="form-group col-md-2">
+                                                                <input type="text" class="form-control" placeholder="Fax">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row toggle-button" style="height:auto;">
-                                                <div class="col-md-2 font-password"> Change Password </div>
-                                                <div class="col-md-10">
-                                                    <label class="switch">
-                                                        <input type="checkbox" id="checkbox1">
-                                                        <div class="slider round"></div>
-                                                    </label>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Details</button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
-                                                    @*<input type="password" class="form-control" placeholder="Password">*@
-                                                    @Html.TextBoxFor(Model => Model.Password, new { placeholder = "Password", @class = "form-control" })
+                                            </li>
+                                            <li data-content="address">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                @*<input type="text" class="form-control" placeholder="Line 1">*@
+                                                                @Html.TextBoxFor(Model => Model.Item2.Line1, new { placeholder = "Address Line1", @class = "form-control" })
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                @*<input type="text" class="form-control" placeholder="State/Country">*@
+                                                                @Html.TextBoxFor(Model => Model.Item2.state, new { placeholder = "State", @class = "form-control" })
+                                                                @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                @Html.TextBoxFor(Model => Model.Item2.Line2, new { placeholder = "Address Line2", @class = "form-control" })
+                                                                @*<input type="text" class="form-control" placeholder="Line 2">*@
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                 @Html.TextBoxFor(Model => Model.Item2.postalcode, new { placeholder = "Postal Code", @class = "form-control" })
+                                                                @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                @Html.TextBoxFor(Model => Model.Item2.city, new { placeholder = "City", @class = "form-control" })
+                                                                @*<input type="text" class="form-control" placeholder="City">*@
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                @Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
-                                                    @*<input type="password" class="form-control" placeholder="Confirm Password">*@
-                                                    @Html.TextBoxFor(Model => Model.Password, new { placeholder = "Confirm Password", @class = "form-control" })
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Address</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row"> </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Account</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="details">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <input type="text" class="form-control" placeholder="Job title">
+                                            </li>
+                                            <li data-content="caddress">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                @*<input type="text" class="form-control" placeholder="Line 1">*@
+                                                                @Html.TextBoxFor(Model => Model.Item3.Line1, new { placeholder = "Company Address Line1", @class = "form-control" })
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                @*<input type="text" class="form-control" placeholder="State/Country">*@
+                                                                @Html.TextBoxFor(Model => Model.Item3.state, new { placeholder = "Company State", @class = "form-control" })
+                                                                @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                @Html.TextBoxFor(Model => Model.Item3.Line2, new { placeholder = "Company Address Line2", @class = "form-control" })
+                                                                @*<input type="text" class="form-control" placeholder="Line 2">*@
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                @Html.TextBoxFor(Model => Model.Item3.postalcode, new { placeholder = "Company Postal Code", @class = "form-control" })
+                                                                @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                @Html.TextBoxFor(Model => Model.Item3.city, new { placeholder = "Company City", @class = "form-control" })
+                                                                @*<input type="text" class="form-control" placeholder="City">*@
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                @Html.DropDownListFor(Model => Model.Item3.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <input type="number" class="form-control" placeholder="Office Phone">
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Address</button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-2">
-                                                    <input type="number" class="form-control" placeholder="Ext">
+                                            </li>
+                                            <li data-content="profile">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    @*<select class="form-control" id="sel1">
-                                                        <option>Select Country</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>*@
-                                                    @Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Profile</button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-2">
-                                                    <input type="number" class="form-control" placeholder="Prefix">
+                                            </li>
+                                            <li data-content="notes">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <input type="number" class="form-control" placeholder="Number">
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Notes</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <input type="number" class="form-control" placeholder="Home Phone">
+                                            </li>
+                                            <li data-content="social">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                <input type="text" class="form-control" placeholder="Twitter">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                <input type="text" class="form-control" placeholder="Linkdin">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                <input type="text" class="form-control" placeholder="Google+">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                <input type="text" class="form-control" placeholder="Facebook">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                <input type="text" class="form-control" placeholder="Website">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                <select class="form-control" id="sel1">
+                                                                    <option>Choose Service</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <input type="text" class="form-control" placeholder="Messanger Name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <input type="number" class="form-control" placeholder="Fax">
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Social</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Details</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="address">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Line 1">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="State/Country">
-                                                    @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Line 2">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Zip/Postal Code">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="City">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    @*<select class="form-control" id="sel1">
-                                                        <option>Country</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>*@
-                                                    @Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Address</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="profile">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Profile</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="notes">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Notes</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="social">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <input type="text" class="form-control" placeholder="Twitter">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <input type="text" class="form-control" placeholder="Linkdin">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <input type="text" class="form-control" placeholder="Google+">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <input type="text" class="form-control" placeholder="Facebook">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <input type="text" class="form-control" placeholder="Website">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    <select class="form-control" id="sel1">
-                                                        <option>Choose Service</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Messanger Name">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Social</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="localization">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <select class="form-control" id="sel1">
-                                                        <option>Language</option>
-                                                        <option>English</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    @*<select class="form-control" id="sel1">
-                                                            <option>Date Format</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                        </select>*@
-                                                    @Html.DropDownListFor(Model => Model.Date_Format, new List<SelectListItem>
+                                            </li>
+                                            <li data-content="localization">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        @*<div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                <select class="form-control" id="sel1">
+                                                                    <option>Language</option>
+                                                                    <option>English</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>*@
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                @*<select class="form-control" id="sel1">
+                                                                        <option>Date Format</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                    </select>*@
+                                                                @Html.DropDownListFor(Model => Model.Item1.Date_Format, new List<SelectListItem>
                             {
                                 new SelectListItem { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY"},
                                 new SelectListItem { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY"},
                                 new SelectListItem {Text  = "YYYY/MM/DD",Value="YYYY/MM/DD"}
                             }, "Select Date Format", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                            @*<div class="row">
-                                                    <div class="form-group col-md-8">
-                                                        <select class="form-control" id="sel1">
-                                                            <option>Time Format</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                        </select>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="row">
+                                                                <div class="form-group col-md-8">
+                                                                    <select class="form-control" id="sel1">
+                                                                        <option>Time Format</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>*@
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                @*<select class="form-control" id="sel1">
+                                                                        <option>Time Zone</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                    </select>*@
+                                                                @Html.DropDownListFor(Model => Model.Item1.Timezone, new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control", Value = item.Timezone })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-8">
+                                                                @Html.DropDownListFor(Model => Model.Item1.Currency, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Dollar($)", Value = "Dollar"},
+                                new SelectListItem { Text = "Rupee(Rs.)", Value = "Rupee"}
+                            }, "Select Currency", new { @class = "form-control" })
+                                                                @*<select class="form-control" id="sel1">
+                                                                    <option>Currency</option>
+                                                                    <option>Dollar($)</option>
+                                                                    <option>Rupee(Rs.)</option>
+                                                                </select>*@
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>*@
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    @*<select class="form-control" id="sel1">
-                                                            <option>Time Zone</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                        </select>*@
-                                                    @Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control", Value = item.Timezone })
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <select class="form-control" id="sel1">
-                                                        <option>Currency</option>
-                                                        <option>Dollar($)</option>
-                                                        <option>Rupee(Rs.)</option>
-                                                    </select>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                                        <button type="button" class="btn btn-success pull-right">Update Localization</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </li>
+                                        </ul>
+                                        <!-- cd-tabs-content -->
                                     </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                            <button type="button" class="btn btn-success pull-right">Update Localization</button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- cd-tabs-content -->
-                        </div>
-                        <!-- cd-tabs -->
+                                    <!-- cd-tabs -->
 
-                    </div>
+                                </div>
 
-                    <!--------- Tab Section END ------------>
+                                <!--------- Tab Section END ------------>
+                            </div>
+                        </form>
+                    }
+
                 </div>
-            </form>
-        }
+            </div>
+            <!-- /page content -->
+            @section scripts{
+                <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+                <script src="~/Scripts/js/main.js"></script>
+                <script src="~/Scripts/js/modernizr.js"></script>
+                <!-- jQuery -->
+                <script src="../vendors/jquery/dist/jquery.min.js"></script>
+                <!-- Bootstrap -->
+                <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+                <!-- FastClick -->
+                <script src="../vendors/fastclick/lib/fastclick.js"></script>
+                <!-- NProgress -->
+                <script src="../vendors/nprogress/nprogress.js"></script>
+                <!-- Custom Theme Scripts -->
+                <script src="../build/js/custom.min.js"></script>
 
-    </div>
-</div>
-<!-- /page content -->
-@section scripts{
-    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/js/main.js"></script>
-    <script src="~/Scripts/js/modernizr.js"></script>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-
-    <!-- Toogle Function -->
-    <script type="text/javascript">
+                <!-- Toogle Function -->
+                <script type="text/javascript">
         $(document).ready(function () {
             $("#checkbox1").val($(this).is(':checked'));
 
             $("#checkbox1").change(function () {
-                //alert("Checked");
                 if ($(this).is(":checked")) {
                     $(".toggle-box").css("visibility", "visible");
                 } else {
                     $(".toggle-box").css("visibility", "hidden");
                 }
-
             });
         });
-    </script>
-}
+                </script>
+                <!-- Toogle Function -->
+                <!------ Random Colors ------>
+                <script type="text/javascript">
+        $(document).ready(function (e) {
+            $(".top-button").each(function () {
+                var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
+                var len = colors.length;
+                var rand = Math.floor(Math.random() * len);
+                $(this).css("background", colors[rand]);
+            });
+
+        });
+                </script>
+                <!------ Random Colors ------>
+            }

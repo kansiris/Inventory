@@ -109,5 +109,19 @@ namespace Inventory.Service
             return LoginRepository.GetUserProfile(id);
         }
         #endregion
+
+        #region Update User Address
+        public static int updateuseraddress(int userid, string Line1, string Line2, string city, string state, string postalcode, string country)
+        {
+            return LoginRepository.updateuseraddress(userid, Line1, Line2, city, state, postalcode, country);
+        }
+        #endregion
+
+        #region Update Company Address
+        public static int updatecompanyaddress(int userid, string Line1, string Line2, string city, string state, string postalcode, string country)
+        {
+            return LoginRepository.updatecompanyaddress(userid, Line1, Line2, city, state, postalcode, country);
+        }
+        #endregion
     }
 }
