@@ -1,6 +1,7 @@
 ﻿using Inventory.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,16 @@ namespace Inventory.Service
 {
   public  class VendorService
     {
-
+        public static SqlDataReader getcomapnies()
+        {
+            return VendorRepository.getcomapnies();
+        }
 
         #region CompanyInsertRow
-        public static int CompanyInsertRow(string Company_name, int Bank_Acc_Number, string Bank_Name, string Bank_Branch,
-                                              int Paytym_Number, string Email, byte[] Logo)
+        public static int CompanyInsertRow(string Company_name,string Email)
         {
-            return VendorRepository.CompanyInsertRow(Company_name, Bank_Acc_Number, Bank_Name, Bank_Branch, Paytym_Number, Email, Logo);
+            
+            return VendorRepository.CompanyInsertRow(Company_name, Email);
         }
 
 
@@ -51,5 +55,11 @@ namespace Inventory.Service
         }
 
         #endregion
+
+        public static SqlDataReader getcompanyId()
+        {
+
+            return VendorRepository.getcompanyId();
+        }
     }
 }

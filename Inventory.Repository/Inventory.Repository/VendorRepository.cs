@@ -1,6 +1,8 @@
 ﻿using Inventory.Utility;
 using Microsoft.ApplicationBlocks.Data;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Inventory.Repository
 {
@@ -10,13 +12,21 @@ namespace Inventory.Repository
         private static string ConnectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ToString();
         private static string ConnectionString1 = ConfigurationManager.ConnectionStrings["DbConnection1"].ToString();
 
+
+        public static SqlDataReader getcomapnies()
+        {
+            //GetConnectionString getConnectionString = new GetConnectionString();
+            //ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getcompany");
+        }
+
         #region CompanyInsertRow
 
-        public static int CompanyInsertRow(string Company_name,int Bank_Acc_Number,string Bank_Name,string Bank_Branch,int Paytym_Number,string Email,byte[] Logo)
+        public static int CompanyInsertRow(string Company_name,string Email)
         {
             
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertCompany", Company_name, Bank_Acc_Number, Bank_Name, Bank_Branch, Paytym_Number, Email, Logo);
-            //int id = SqlHelper
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertCompany", Company_name,Email);
+           
             return count;
         }
         #endregion
@@ -27,7 +37,7 @@ namespace Inventory.Repository
         public static int VendorInsertRow(string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, long LandLine_Num,
                          string Remarks, string Email, string Adhar_Number,string Job_position)
         {
-           
+            
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor", Contact_PersonFname, Contact_PersonLname, Mobile_No, LandLine_Num,Remarks, Email, Adhar_Number, Job_position);
             return count;
         }
@@ -56,6 +66,9 @@ namespace Inventory.Repository
             return count;
         }
         #endregion
-
+        public static SqlDataReader getcompanyId()
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getcompanyId");
+        }
     }
 }
