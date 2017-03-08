@@ -52,18 +52,23 @@
 
     <!------------ Upload Image --------------->
             <!------------ Toggle Action ------>
-            if (item.Timezone != null && item.Date_Format != null)
+            if (ViewBag.Timezone != "")
             {
-                <div class="row toggle-area">
-                    <div class="toggle-bar">
-                        <div class="col-md-6">
-                            <h3>@ViewBag.Timezone</h3>
+                <div id="changetimezone">@ViewBag.Timezone<a href="#">Change</a></div>
+                //<script>$('#Timezoneselection').hide()</script>
+                //$('#Timezoneselection').css('display', 'none');
+                //$('#Timezoneselection').toggle();
+                @*<div class="row toggle-area">
+                        <div class="toggle-bar">
+                            <div class="col-md-6">
+                                <p>@ViewBag.Timezone</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>*@
             }
             
-                <div class="row toggle-area">
+
+                <div class="row toggle-area" id="Timezoneselection">
                     <div class="toggle-bar">
                         <div class="col-md-6">
                             <h3>Time Zone Management</h3>
@@ -102,7 +107,7 @@
                         </table>
                     </div>
                 </div>
-
+            
                         <!------------ Toggle Action ------>
         }
         <div class="row">
@@ -999,14 +1004,49 @@
     </script>
     <!---- Toggle Function ---->
     <!------ Random Colors ------>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $(".top-button").each(function () {
+                var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
+                var len = colors.length;
+                var rand = Math.floor(Math.random() * len);
+                $(this).css("background", colors[rand]);
+            });
+            
+        });
+    </script>
+    <!------ Random Colors ------>
+    <!------ Show/Hide ------>
+    @*<script>
+        function showhide() {
+            var div = $("Timezoneselection");
+            if (div.css.display) {
+                div.css.display = "none";
+            }
+            else {
+                div.css.display = "block";
+            }
+        }
+    </script>*@
+    <!------ Show/Hide ------>
+@*<script>
+    $("#changetimezone").click(function () {
+        $("#Timezoneselection").show();
+    });
+</script>*@
+    <!------ Show/Hide Timezone ------>
 <script type="text/javascript">
- $(document).ready(function(e) {
-   $(".top-button").each(function(){
-var colors = ["#f4511e","#7e57c2","#455a64","#512da8","#c2185b","#5c6bc0","#0288d1","#f4511e","#ef6c00","#0097a7","#5c6bc0","#5d4037"];
-var len = colors.length;
-var rand = Math.floor(Math.random()*len);
-$(this).css("background", colors[rand]);});
-});
+        $(document).ready(function (e) {
+            var v = $(".right_col > form > div:nth-of-type(2)").attr("id");
+            if (v == "changetimezone") {
+                $(".right_col >form >  .toggle-area").css("display", "none");
+            } else {
+                $(".right_col >form >  .toggle-area").css("display", "block");
+            }
+            $("#changetimezone a").click(function () {
+                $(".right_col > form > .toggle-area").css("display", "block");
+            });
+        });
 </script>
-<!------ Random Colors ------>
+    <!------ Show/Hide Timezone------>
 }
