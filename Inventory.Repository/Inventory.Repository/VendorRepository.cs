@@ -29,26 +29,39 @@ namespace Inventory.Repository
         #endregion
 
         #region VendorInsertRow
-        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, long LandLine_Num,
-                         string Remarks, string Email, string Adhar_Number,string Job_position)
+        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+                         string Email, string Adhar_Number,string Job_position)
         {
-             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, LandLine_Num,Remarks, Email, Adhar_Number, Job_position);
+             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position);
+            return count;
+        }
+        
+            public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, 
+                         string Email, string Adhar_Number, string Job_position)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
             return count;
         }
         #endregion
         #region VendorAddressInsertRow
 
-        public static int VendorAddressInsertRow(string Vendor_Id,string bill_street, string bill_city, string bill_state, string bill_postalcode,
+        public static int VendorAddressInsertRow(int company_Id,string bill_street, string bill_city, string bill_state, string bill_postalcode,
             string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            int count1 = SqlHelper.ExecuteNonQuery(ConnectionString, "insertVendor_address", Vendor_Id, bill_street, bill_city, bill_state, bill_postalcode,
+            int count1 = SqlHelper.ExecuteNonQuery(ConnectionString, "insertVendor_address", company_Id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
             return count1;
         }
         #endregion
-
+        public static int VendorAddressUpdateRow(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
+            string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
+        {
+            int count1 = SqlHelper.ExecuteNonQuery(ConnectionString, "insertVendor_address", company_Id, bill_street, bill_city, bill_state, bill_postalcode,
+                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+            return count1;
+        }
         #region UpdateCompany
-                public static int UpdateCompany(int company_Id,int Bank_Acc_Number,string Bank_Name,string Bank_Branch,int Paytym_Number,string email)
+        public static int UpdateCompany(int company_Id,int Bank_Acc_Number,string Bank_Name,string Bank_Branch,int Paytym_Number,string email)
         {
                       int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, Paytym_Number, email);
             return count;
@@ -68,7 +81,16 @@ namespace Inventory.Repository
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getVendorId");
         }
-
+        public static SqlDataReader Authenticateemail(string check, string Email_ID)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "Authenticateemail", check, Email_ID);
+            //return SqlHelper.ExecuteReader(ConnectionString, "getuser", new SqlParameter("@Email_ID", Email_ID) , new SqlParameter("@Password", Password));
+        }
         
+            public static SqlDataReader getlastinsertedcompany(int company_Id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getLastInsertedcompany", company_Id);
+        }
+
     }
 }

@@ -34,54 +34,91 @@
             @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })
             @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })
             @*<input type="hidden" value="@ViewBag.company_Id " id="company_Id"/>*@
-            <button type="button" id="btnadd" class="btn btn-success">ADD COMPANY</button>
+            <button type="button" id="btnadd" class="btn btn-success" onclick="showcompany()">ADD COMPANY</button>
             <div class="table-responsive">
-                <table class="table  table-borderedtable-striped jambo_table bulk_action">
+                <table class="table  table-borderedtable-striped jambo_table bulk_action" id="vendortable">
                     <thead>
                         <tr>
                             <th>Company Name</th>
                             <th>Email</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in ViewBag.records)
                         {
-                            
+
                             <tr>
-                               <td><input type="hidden" value="@item.company_Id" /></td>
-                                <td> @item.Company_Name </td>
+                                @*<td><input type="hidden" value="@item.company_Id" /></td>*@
+                                <td>@*<input type="hidden" value="@item.company_Id" />*@ @item.Company_Name </td>
                                 <td>@item.Email </td>
-                                <td><button type="button" id="btninvite" class="btn btn-success">Invite</button></td>
-                               <td><button type="button" id="btnedit" class="btn btn-success">EDIT</button></td>
-                                <td><button type="button" id="btndel" class="btn btn-danger">DELETE</button></td>
+                                @*<td><button type="button" id="btninvite" class="btn btn-success">Invite</button></td>
+                                    <td><button type="button" id="btnedit" class="btn btn-success">EDIT</button></td>
+                                     <td><button type="button" id="btndel" class="btn btn-danger">DELETE</button></td>*@
+                                <td>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Action <span class="caret"></span> </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <button type="button" id="btnedit" class="btn btn-success">EDIT Vendor</button> @*<a href="#">EDIT</a>*@
+                                            </li>
+                                            <li>
+                                                <button type="button" id="btndel" class="btn btn-danger">DELETE Vendor</button>@*<a href="#">DELETE</a>*@
+                                            </li>
+                                            <li>
+                                                <a href="#">Dropdown link 3</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                         }
-                        </tbody>
-                        </table>
-</div>
+                    </tbody>
+                </table>
+                <div id="nav" class="btn"></div>
+            </div>
             <br /><br />
 
-            <div class="row" style="display:none">
+            <div class="row" id="company">
                 <div class="col-md-12 form-title">Vendor Information</div>
+
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control" })
-                        </div>
-                        <div class="form-group col-md-5">
-                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control" })
-                        </div>
-                        <div class="form-group col-md-4">
-                            <button type="button" class="btn btn-default pull-right">Cancel</button>
-                            <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
-                        </div>
+                        @if (ViewBag.company != null)
+                        {
+                            
+                                <div class="form-group col-md-4">
+                                    @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
+                                </div>
+                                <div class="form-group col-md-5">
+                                    @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", Value = ViewBag.email, @onchnage = "check()" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                    <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
+                                </div>
+                            
+                        }
+                        else
+                        {
+                            <div class="form-group col-md-4">
+                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-5">
+                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", @onchnage = "check()" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
+                            </div>
+                        }
                     </div>
-
+                    <a href="#" id="additon">Add Additional Inforamtion</a>
                 </div>
 
             </div>
 
-            <div class="row" style="display:none">
+            <div class="row" style="display:none" id="additional">
                 <!--------- Tab Section START ------------>
                 <div class="col-md-12">
                     <div class="cd-tabs">
@@ -90,8 +127,6 @@
                                 <li><a data-content="address" class="selected" href="#0">Address</a></li>
                                 <li><a data-content="contactperson" href="#0">Contact Person</a></li>
                                 <li><a data-content="details" href="#0">Bank Details</a></li>
-                                @*<li><a data-content="paymentbilling" href="#0">Payment &amp; Billing</a></li>*@
-                                
                                 <li><a data-content="notes" href="#0">Notes</a></li>
                             </ul>
                         </nav>
@@ -161,7 +196,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="insertaddress" id="btnclose2">Update Address</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updateaddress" id="btnclose2">Update Address</button>
 
                                     </div>
                                 </div>
@@ -184,7 +219,7 @@
                                             <div class="form-group col-md-6">
                                                 <input type="text" class="form-control" name="emailid" placeholder="Email">
                                             </div>
-                                           
+
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
@@ -197,11 +232,11 @@
                                     </div>
 
                                 </div>
-                               
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcontact" id="btnclose3">Update Contacts</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecontact" id="btnclose3">Update Contacts</button>
                                     </div>
                                 </div>
                             </li>
@@ -232,7 +267,7 @@
                                     </div>
 
                                 </div>
-                               
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right">Cancel</button>
@@ -240,7 +275,7 @@
                                     </div>
                                 </div>
                             </li>
-                            
+
                             <li data-content="notes">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -254,16 +289,16 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="insertNote" id="btnclose6">Update notes</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatenote" id="btnclose6">Update notes</button>
                                     </div>
                                 </div>
                             </li>
                         </ul>
-<!-- cd-tabs-content -->
+                        <!-- cd-tabs-content -->
                     </div>
                     <!-- cd-tabs -->
                 </div>
@@ -307,27 +342,18 @@
     <!-- Clone Shipping Address -->
 
     <script>
-        $("#btnadd").click(function () {
-            $(".row").css('display', 'block');
-        })
-        $("#btnclose2").click(function () {
-            $(".row").css('display', 'none');
-        })
-        $("#btnclose3").click(function () {
-            $(".row").css('display', 'none');
-        })
-        $("#btnclose4").click(function () {
-            $(".row").css('display', 'none');
-        })
-        $("#btnclose5").click(function () {
-            $(".row").css('display', 'none');
-        })
-        $("#btnclose6").click(function () {
-            $(".row").css('display', 'none');
-        })
+        $('#btnadd').click(function () {
+            $('#company').css('display', 'block');
+        });
+        $('#additon').click(function () {
+            $('#additional').css('display', 'block');
+        });
+        
     </script>
+
     <!------ Random Colors ------>
     <script type="text/javascript">
+
         $(document).ready(function (e) {
             $(".top-button").each(function () {
                 var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
@@ -335,7 +361,67 @@
                 var rand = Math.floor(Math.random() * len);
                 $(this).css("background", colors[rand]);
             });
+
+            var tel = document.URL.split('=')[1];
+            if (tel != 'complete')
+            {
+                $('#company').css('display', 'none');
+                $('#additional').css('display', 'none');
+            }
+            
+
+            //Table Pagination
+            $('#vendortable').after('<div id="nav"></div>');
+            var rowsShown = 3;
+            var rowsTotal = $('#vendortable tbody tr').length;
+            var numPages = rowsTotal / rowsShown;
+            for (i = 0; i < numPages; i++) {
+                var pageNum = i + 1;
+                $('#nav').append('<a href="#" class="btn btn-success" rel="' + i + '">' + pageNum + '</a> ');
+            }
+            $('#vendortable tbody tr').hide();
+            $('#vendortable tbody tr').slice(0, rowsShown).show();
+            $('#nav a:first').addClass('active');
+            $('#nav a').bind('click', function () {
+
+                $('#nav a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+                        css('display', 'table-row').animate({ opacity: 1 }, 300);
+            });
         });
+    </script>
+
+    <script>
+        function check(e) {
+            var emailid = $('#Email').val();//e.value;
+            //var site = $('#User_Site').val();
+            //var type = null;
+            //if (site != "" && site != null) {
+            //    type = 'usersite';
+            //}
+            //else {
+            //    type = 'email';
+            //}
+            $.ajax({
+                url: '/Vendor/checkemail',
+                type: 'POST',
+                data: JSON.stringify({ emailid: emailid }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "exists") {
+                        document.getElementById('msg').innerHTML = "Email alredy taken !!! Try Another";
+                        $('#Email').focus();
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
     </script>
     <!------ Random Colors ------>
 }
