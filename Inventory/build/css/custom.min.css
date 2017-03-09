@@ -4323,7 +4323,7 @@ form hr{
 form .customer-information ul.cd-tabs-navigation{
 	width: 100%;}
 form .customer-information .cd-tabs-navigation li{
-	width: 9%;}
+	width: auto;}
 form .customer-information .cd-tabs-navigation a{
 	padding: 0 15px;}
 form .customer-information ul.cd-tabs-content .top-button,
