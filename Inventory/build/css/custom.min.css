@@ -4391,6 +4391,16 @@ background: #e7e7e7;
 border-radius: 5px;}
 
 /*================ Vendor Information ================*/
+#clone-content:last-of-type{
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid #0483c6;}
+.thead-inverse{
+	background: #0288d1;
+	color: #fff;
+	border-radius: 5px 5px 0 0;}
+.table tbody > tr:nth-child(odd){
+	background: #eee;}
 /*================ Media Gallery ================*/
 .x_content > div.row > div:first-of-type .media-gallery{
 	background: #01aef0;}

@@ -33,6 +33,7 @@ namespace Inventory.Models
         public int Paytym_Number { get; set; }
 
         [StringLength(50)]
+
         public string Company_Name { get; set; }
 
         [StringLength(50)]

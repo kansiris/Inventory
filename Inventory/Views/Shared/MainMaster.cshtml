@@ -1,24 +1,11 @@
 ﻿<!DOCTYPE html>
 
-<html lang="en" class="">
+<html lang="en" class=" ">
 @using Inventory.Content;
 @{
     var user = (CustomPrinciple)HttpContext.Current.User;
-    //CustomPrinciple user = null;
-    //if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-    //{
-    //    user = (CustomPrinciple)HttpContext.Current.User;
-    //}
-    //else
-    //{
-    //    Response.Redirect("~/Login/Logout");
-    //}
 }
 
-@*<head>
-        <meta name="viewport" content="width=device-width" />
-        <title>@ViewBag.Title</title>
-    </head>*@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -27,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Gentelella Alela! | </title>
-        @RenderSection("css", required: false)
+    @RenderSection("css", required: false)
     @*<!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
