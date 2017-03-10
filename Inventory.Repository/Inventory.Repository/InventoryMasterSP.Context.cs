@@ -66,7 +66,7 @@ namespace Inventory.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Authenticateuser_Result>("Authenticateuser", checkParameter, emailIdParameter, passwordParameter, siteParameter, usertypeidParameter);
         }
     
-        public virtual int createuser(string emailId, string first_Name, string last_Name, string dB_Name, Nullable<System.DateTime> created_Date, string password, Nullable<int> subscriptionId, Nullable<int> userTypeId, string user_Site, string companyName, string phone, Nullable<System.DateTime> subscriptionDate, Nullable<int> isActive, string activationcode, byte[] profile_Picture, string date_Format, string timezone, string currency)
+        public virtual int createuser(string emailId, string first_Name, string last_Name, string dB_Name, Nullable<System.DateTime> created_Date, string password, Nullable<int> subscriptionId, Nullable<int> userTypeId, string user_Site, string companyName, string phone, Nullable<System.DateTime> subscriptionDate, Nullable<int> isActive, string activationcode, byte[] profile_Picture, string date_Format, string timezone, string currency, byte[] companylogo)
         {
             var emailIdParameter = emailId != null ?
                 new ObjectParameter("EmailId", emailId) :
@@ -140,7 +140,11 @@ namespace Inventory.Repository
                 new ObjectParameter("Currency", currency) :
                 new ObjectParameter("Currency", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("createuser", emailIdParameter, first_NameParameter, last_NameParameter, dB_NameParameter, created_DateParameter, passwordParameter, subscriptionIdParameter, userTypeIdParameter, user_SiteParameter, companyNameParameter, phoneParameter, subscriptionDateParameter, isActiveParameter, activationcodeParameter, profile_PictureParameter, date_FormatParameter, timezoneParameter, currencyParameter);
+            var companylogoParameter = companylogo != null ?
+                new ObjectParameter("companylogo", companylogo) :
+                new ObjectParameter("companylogo", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("createuser", emailIdParameter, first_NameParameter, last_NameParameter, dB_NameParameter, created_DateParameter, passwordParameter, subscriptionIdParameter, userTypeIdParameter, user_SiteParameter, companyNameParameter, phoneParameter, subscriptionDateParameter, isActiveParameter, activationcodeParameter, profile_PictureParameter, date_FormatParameter, timezoneParameter, currencyParameter, companylogoParameter);
         }
     
         public virtual ObjectResult<string> getOwnerDb(string code)

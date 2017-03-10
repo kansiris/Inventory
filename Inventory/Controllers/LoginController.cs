@@ -48,7 +48,7 @@ namespace Inventory.Controllers
                 int Subscription;
                 DateTime? SubscriptionDate = null;
                 string activationCode = Guid.NewGuid().ToString();//Auto Generated code
-                string DBname = userMaster.EmailId.Split('@')[0] + ".Inventory"; //Assigning Particular DB Name
+                string DBname = userMaster.User_Site + ".Inventory"; //Assigning Particular DB Name
                 if (plan != null)
                     Subscription = (int)LoginService.getsubscriptionid(plan);
                 else
@@ -77,7 +77,10 @@ namespace Inventory.Controllers
 
         public void createdb(string Email)
         {
-            string DBname = Email.Split('@')[0] + ".Inventory";
+            string DBname = null;
+            SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
+            if (value.Read())
+            { DBname = value["User_Site"].ToString() + ".Inventory"; }   //Email.Split('@')[0] + ".Inventory";
             //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
             //< add name = "DbConnection" connectionString = "Data Source=183.82.97.220;Database=Inventory;Integrated Security=False;User ID=user_inv;Password=123456;" providerName = "System.Data.SqlClient" />
             string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server

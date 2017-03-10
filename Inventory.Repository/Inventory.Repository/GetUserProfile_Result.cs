@@ -33,17 +33,17 @@ namespace Inventory.Repository
         public string Timezone { get; set; }
         public string Currency { get; set; }
         public byte[] company_logo { get; set; }
-        public Nullable<int> ULine1 { get; set; }
-        public Nullable<int> ULine2 { get; set; }
-        public Nullable<int> Ucity { get; set; }
-        public Nullable<int> Ustate { get; set; }
-        public Nullable<int> Upostalcode { get; set; }
-        public Nullable<int> Ucountry { get; set; }
-        public Nullable<int> CLine1 { get; set; }
-        public Nullable<int> CLine2 { get; set; }
-        public Nullable<int> Ccity { get; set; }
-        public Nullable<int> Cstate { get; set; }
-        public Nullable<int> Cpostalcode { get; set; }
-        public Nullable<int> Ccountry { get; set; }
+        public string ULine1 { get; set; }
+        public string ULine2 { get; set; }
+        public string Ucity { get; set; }
+        public string Ustate { get; set; }
+        public string Upostalcode { get; set; }
+        public string Ucountry { get; set; }
+        public string CLine1 { get; set; }
+        public string CLine2 { get; set; }
+        public string Ccity { get; set; }
+        public string Cstate { get; set; }
+        public string Cpostalcode { get; set; }
+        public string Ccountry { get; set; }
     }
 }

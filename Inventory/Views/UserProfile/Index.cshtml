@@ -8,22 +8,22 @@
 
 @section css{
     <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <link href="~/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
-    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <link href="~/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
     <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
@@ -32,7 +32,7 @@
     <div class="container">
         @foreach (var item in ViewBag.profile)
         {
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="row info-title">
                     @item.First_Name @item.Last_Name
                     <button type="button" class="btn btn-success btn-xs pull-right">Account</button>
@@ -44,10 +44,10 @@
                             <nav>
                                 <ul class="cd-tabs-navigation">
                                     <li><a data-content="essentials" class="selected" href="#0">Essentials</a></li>
+                                    <li><a data-content="caddress" href="#0">Company Address</a></li>
                                     <li><a data-content="account" href="#0">Account</a></li>
                                     <li><a data-content="details" href="#0">Details</a></li>
-                                    <li><a data-content="address" href="#0">Address</a></li>
-                                    <li><a data-content="caddress" href="#0">Company Address</a></li>
+                                    <li><a data-content="address" href="#0">User Address</a></li>
                                     <li><a data-content="profile" href="#0">Profile</a></li>
                                     <li><a data-content="notes" href="#0">Notes</a></li>
                                     <li><a data-content="social" href="#0">Social</a></li>
@@ -56,6 +56,8 @@
                                 <!-- cd-tabs-navigation -->
                             </nav>
                             <ul class="cd-tabs-content">
+                                @*@Html.HiddenFor(Model => Model.Item1.EmailId, new { Value = item.EmailId })
+                                    @Html.HiddenFor(Model => Model.Item1.CompanyName, new { Value = item.CompanyName })*@
                                 <li data-content="essentials" class="selected">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -84,7 +86,8 @@
                                         </div>
                                         <div class="col-md-3 col-md-push-3">
                                             <div class="top-button">
-                                                <input type="file" value="" id="fileupload" accept="image/gif, image/jpeg, image/png">
+                                                <img id="companypic" />
+                                                <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png">
                                                 <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                             </div>
                                             <div>Upload Company Logo</div>
@@ -94,12 +97,56 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="submit" class="btn btn-success pull-right" name="command" value="update">Update Essentials</button>
+                                            <button type="submit" class="btn btn-success pull-right" name="command" value="Essentials">Update Essentials</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li data-content="caddress">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    @*<input type="text" class="form-control" placeholder="Line 1">*@
+                                                    @Html.TextBoxFor(Model => Model.Item3.Line1, new { placeholder = "Company Address Line1", @class = "form-control", Value = item.CLine1 })
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    @*<input type="text" class="form-control" placeholder="State/Country">*@
+                                                    @Html.TextBoxFor(Model => Model.Item3.state, new { placeholder = "Company State", @class = "form-control", Value = item.Cstate })
+                                                    @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    @Html.TextBoxFor(Model => Model.Item3.Line2, new { placeholder = "Company Address Line2", @class = "form-control", Value = item.CLine2 })
+                                                    @*<input type="text" class="form-control" placeholder="Line 2">*@
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    @Html.TextBoxFor(Model => Model.Item3.postalcode, new { placeholder = "Company Postal Code", @class = "form-control", Value = item.Cpostalcode })
+                                                    @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    @Html.TextBoxFor(Model => Model.Item3.city, new { placeholder = "Company City", @class = "form-control", Value = item.Ccity })
+                                                    @*<input type="text" class="form-control" placeholder="City">*@
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    @Html.DropDownListFor(Model => Model.Item3.country, new SelectList(ViewBag.companycountry), "Select country", new { @class = "form-control", Value = item.Ccountry })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
+                                            <button type="submit" class="btn btn-success pull-right" name="command" value="companyaddress">Update Company Address</button>
                                         </div>
                                     </div>
                                 </li>
                                 <li data-content="account">
-                                    <div class="row">@Html.HiddenFor(Model => Model.Item1.Password, new { Value = item.Password })
+                                    <div class="row">
+                                        @*@Html.HiddenFor(Model => Model.Item1.Password, new { Value = item.Password })*@
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="form-group col-md-8">
@@ -131,7 +178,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" name="command" value="update">Update Account</button>
+                                            <button type="submit" class="btn btn-success pull-right" name="command" value="Account">Update Account</button>
                                         </div>
                                     </div>
                                 </li>
@@ -159,7 +206,8 @@
                                                             <option>3</option>
                                                             <option>4</option>
                                                         </select>*@
-                                                    @Html.DropDownListFor(Model => Model.Item1.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
+                                                    @*     @Html.DropDownList("CountryCodes", new SelectList(ViewBag.country), "select Country",new { @class="form-control"})*@
+                                                    @*@Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
                                                 </div>
                                                 <div class="form-group col-md-1">
                                                     <input type="number" class="form-control" placeholder="Prefix" disabled>
@@ -194,31 +242,31 @@
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     @*<input type="text" class="form-control" placeholder="Line 1">*@
-                                                    @Html.TextBoxFor(Model => Model.Item2.Line1, new { placeholder = "Address Line1", @class = "form-control" })
+                                                    @Html.TextBoxFor(Model => Model.Item2.Line1, new { placeholder = "Address Line1", @class = "form-control", Value = item.ULine1 })
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     @*<input type="text" class="form-control" placeholder="State/Country">*@
-                                                    @Html.TextBoxFor(Model => Model.Item2.state, new { placeholder = "State", @class = "form-control" })
+                                                    @Html.TextBoxFor(Model => Model.Item2.state, new { placeholder = "State", @class = "form-control", Value = item.Ustate })
                                                     @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item2.Line2, new { placeholder = "Address Line2", @class = "form-control" })
+                                                    @Html.TextBoxFor(Model => Model.Item2.Line2, new { placeholder = "Address Line2", @class = "form-control", Value = item.ULine2 })
                                                     @*<input type="text" class="form-control" placeholder="Line 2">*@
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item2.postalcode, new { placeholder = "Postal Code", @class = "form-control" })
+                                                    @Html.TextBoxFor(Model => Model.Item2.postalcode, new { placeholder = "Postal Code", @class = "form-control", Value = item.Upostalcode })
                                                     @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item2.city, new { placeholder = "City", @class = "form-control" })
+                                                    @Html.TextBoxFor(Model => Model.Item2.city, new { placeholder = "City", @class = "form-control", Value = item.Ucity })
                                                     @*<input type="text" class="form-control" placeholder="City">*@
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    @Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
+                                                    @Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control", Value = item.Ucountry })
                                                 </div>
                                             </div>
                                         </div>
@@ -227,53 +275,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" name="command" value="useraddress">Update Address</button>
+                                            <button type="submit" class="btn btn-success pull-right" name="command" value="useraddress">Update Address</button>
                                         </div>
                                     </div>
                                 </li>
-                                <li data-content="caddress">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    @*<input type="text" class="form-control" placeholder="Line 1">*@
-                                                    @Html.TextBoxFor(Model => Model.Item3.Line1, new { placeholder = "Company Address Line1", @class = "form-control" })
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    @*<input type="text" class="form-control" placeholder="State/Country">*@
-                                                    @Html.TextBoxFor(Model => Model.Item3.state, new { placeholder = "Company State", @class = "form-control" })
-                                                    @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item3.Line2, new { placeholder = "Company Address Line2", @class = "form-control" })
-                                                    @*<input type="text" class="form-control" placeholder="Line 2">*@
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item3.postalcode, new { placeholder = "Company Postal Code", @class = "form-control" })
-                                                    @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item3.city, new { placeholder = "Company City", @class = "form-control" })
-                                                    @*<input type="text" class="form-control" placeholder="City">*@
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    @Html.DropDownListFor(Model => Model.Item3.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" name="companyaddress">Update Company Address</button>
-                                        </div>
-                                    </div>
-                                </li>
+
                                 <li data-content="profile">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -387,6 +393,7 @@
                                                     </div>
                                                 </div>*@
                                             <div class="row">
+                                                @*@Html.HiddenFor(Model => Model.Item1.Date_Format, new { Value = item.Date_Format })*@
                                                 <div class="form-group col-md-8">
                                                     @*<select class="form-control" id="sel1">
                                                             <option>Date Format</option>
@@ -413,6 +420,7 @@
                                                     </div>
                                                 </div>*@
                                             <div class="row">
+                                                @*@Html.HiddenFor(Model => Model.Item1.Timezone, new { Value = item.Timezone })*@
                                                 <div class="form-group col-md-8">
                                                     @*<select class="form-control" id="sel1">
                                                             <option>Time Zone</option>
@@ -425,6 +433,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                @*@Html.HiddenFor(Model => Model.Item1.Currency, new { Value = item.Currency })*@
                                                 <div class="form-group col-md-8">
                                                     @Html.DropDownListFor(Model => Model.Item1.Currency, new List<SelectListItem>
                             {
@@ -444,7 +453,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" name="command" value="update">Update Localization</button>
+                                            <button type="submit" class="btn btn-success pull-right" name="command" value="Localization">Update Localization</button>
                                         </div>
                                     </div>
                                 </li>
@@ -468,15 +477,15 @@
     <script src="~/Scripts/js/main.js"></script>
     <script src="~/Scripts/js/modernizr.js"></script>
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="~/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="~/vendors/nprogress/nprogress.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="~/build/js/custom.min.js"></script>
 
     <!-- Toogle Function -->
     <script type="text/javascript">
@@ -506,4 +515,43 @@
         });
     </script>
     <!------ Random Colors ------>
+    <!------ Image Upload ------>
+    @*<script>
+        $("#fileupload").change(function (e) {
+            var data = new FormData();
+            var files = this.files[0];
+            if (files.length > 0) {
+                data.append("MyImages", files[0]);
+            }
+            var value = $("#fileupload").val();
+            var id = @Request.QueryString["id"];
+            $.ajax({
+                url: window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/UserProfile/UpdateCompanyPic?path=' + files+'&&id='+id,
+                //url: "/Dashboard/UpdateDP",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    var base64Data = toBase64(response);
+                    img.src = "data:image/jpg;base64," + base64Data;
+                    //$("#companypic").attr("src","data:image/;base64,"+response);
+
+                    //$('#companypic').attr('src',imgSrc);
+                    //code after success
+                    //$("#txtImg").val(response);
+                    //$("#imgPreview").attr('src','../Content/UserDPs/' +response);
+                    //$("#imgPreview").attr('src', '/Content/UserDPs/' + response);
+                    //$("#imgPreviewsmall").attr('src', '/Content/UserDPs/' + response);
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+
+
+    </script>*@
+    <!------ Image Upload ------>
 }

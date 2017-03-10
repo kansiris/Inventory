@@ -160,9 +160,9 @@ namespace Inventory.Repository
         #endregion
 
         #region Update User Profile
-        public static int updateuserprofile(int id,string FirstName, string LastName, string Password, long Phone, string ProfilePicture, string DateFormat, string Timezone,string Currency,string companylogo)
+        public static int updateuserprofile(string type,int id,string FirstName, string LastName, string Password, byte[] ProfilePicture, string DateFormat, string Timezone,string Currency,byte[] companylogo)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuserprofile",id, FirstName, LastName, Password, Phone, ProfilePicture, DateFormat, Timezone, Currency, companylogo);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuserprofile", type ,id, FirstName, LastName, Password, ProfilePicture, DateFormat, Timezone, Currency, companylogo);
             return count;
         }
         #endregion
