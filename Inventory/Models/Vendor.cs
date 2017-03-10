@@ -23,14 +23,14 @@ namespace Inventory.Models
         [StringLength(50)]
         public string Contact_PersonFname { get; set; }
 
-        public int Mobile_No { get; set; }
+        public long Mobile_No { get; set; }
 
         public string Address { get; set; }
 
 
-        public int Bank_Acc_Number { get; set; }
+        public long Bank_Acc_Number { get; set; }
 
-        public int Paytym_Number { get; set; }
+        public long Paytym_Number { get; set; }
 
         [StringLength(50)]
 
@@ -39,7 +39,7 @@ namespace Inventory.Models
         [StringLength(50)]
         public string Contact_PersonLname { get; set; }
 
-        public int LandLine_Num { get; set; }
+        public long LandLine_Num { get; set; }
 
         [StringLength(50)]
         public string Bank_Name { get; set; }
@@ -59,15 +59,11 @@ namespace Inventory.Models
 
         [StringLength(50)]
         public string Adhar_Number { get; set; }
-
-        //string Job_position,string Note,string bill_street,string bill_city,string bill_state,string bill_postalcode,
-        //    string bill_country,string ship_street,string ship_city,string ship_state,string ship_postalcode,string ship_country
-
-        [StringLength(50)]
+        
         public string Job_position { get; set; }
-        [StringLength(50)]
+       
         public string Note { get; set; }
-        [StringLength(50)]
+       
         public string bill_street { get; set; }
         [StringLength(50)]
         public string bill_city { get; set; }
@@ -92,7 +88,7 @@ namespace Inventory.Models
 
         public string emailid { get; set; }
        // public byte[] logo { get; set; }
-      
+      public string IFSC_No { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }

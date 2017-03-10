@@ -54,10 +54,10 @@ namespace Inventory.Service
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
         }
         #region UpdateCompany
-        public static int UpdateCompany(int company_Id,int Bank_Acc_Number, string Bank_Name, string Bank_Branch, int Paytym_Number, string email)
+        public static int UpdateCompany(int company_Id,long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No, string email)
         {
 
-            return VendorRepository.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, Paytym_Number, email);
+            return VendorRepository.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No, email);
         }
 
         #endregion
@@ -75,10 +75,10 @@ namespace Inventory.Service
         {
             return VendorRepository.getvendorId();
         }
-        public static SqlDataReader Authenticateemail(string check, string Email_ID)
-        {
-            return VendorRepository.Authenticateemail(check, Email_ID);
-        }
+        //public static SqlDataReader Authenticateemail(string check, string Email_ID)
+        //{
+        //    return VendorRepository.Authenticateemail(check, Email_ID);
+        //}
        
             public static SqlDataReader getlastinsertedcompany(int company_Id)
         {
