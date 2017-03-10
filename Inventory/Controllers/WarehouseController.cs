@@ -20,7 +20,7 @@ namespace Inventory.Controllers
     public class WarehouseController : Controller
     {
         // GET: Warehouse
-
+        Warehouse wh = new Warehouse();
         public ActionResult Index()
         {
 
@@ -33,7 +33,9 @@ namespace Inventory.Controllers
                          select new Warehouse()
                          {
                              wh_name = row["wh_name"].ToString(),
-                             wh_Shortname = row["wh_Shortname"].ToString()
+                             wh_Shortname = row["wh_Shortname"].ToString(),
+                             conperson = row["Contact_person"].ToString(),
+                             Email = row["Email"].ToString()
                          }).ToList();
             ViewBag.records = warehouse;
             return View();
@@ -50,5 +52,11 @@ namespace Inventory.Controllers
                 return Content("<script language='javascript' type='text/javascript'>alert('Warehouse Added successfully');location.href='" + @Url.Action("Index", "Warehouse") + "'</script>"); // Stays in Same View
             return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Warehouse") + "'</script>"); // Stays in Same View
         }
+
+        //public JsonResult getjobpositions(string id)
+        //{
+        //    var jobpositions=this.getjobpositions
+        //}
+        //private IList<Warehouse>
     }
 }

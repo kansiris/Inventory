@@ -42,6 +42,7 @@ namespace Inventory.Models
         public string ship_State { get; set; }
         public string ship_Postalcode { get; set; }
         public string ship_Country { get; set; }
-        
+        public int JpId { get; set; }
+        public string JpName { get; set; }
     }
 }

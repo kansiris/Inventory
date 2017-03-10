@@ -38,8 +38,10 @@
                 <table class="table  table-borderedtable-striped jambo_table bulk_action">
                     <thead>
                         <tr>
-                            <th>WareHouse Name</th>
-                            <th> Short Name</th>
+                            <th>WareHouse</th>
+                            <th>Short Name</th>
+                            <th>Contact Person</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,7 +50,13 @@
                             <tr>
                                 <td> @item.wh_name </td>
                                 <td>@item.wh_Shortname </td>
+                                <td>@item.conperson</td>
+                                <td>@item.Email</td>
+                                <td><input type="button" value="Edit" name="rowButton" class="btn-success" /></td>
+                                <td><input type="button" value="Payment" name="rowButton1" class="btn-default" /></td>
+                                <td><input type="checkbox" id="checkedItem" name="checkedItem" class="alert-success"></td>
                             </tr>
+                           
                         }
                     </tbody>
                 </table>
@@ -60,12 +68,12 @@
                     <div class="row">
                         <div class="form-group col-md-4">
 
-                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", required = "required", @class = "form-control" })
+                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", required = "required", @class = "form-control", @id = "txtwhname" })
                         </div>
                         <div class="form-group col-md-5">
                             @*<label>Warehouse ShortName</label>*@
                             @*<input type="text" class="form-control">*@
-                            @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Warehouse ShortName", required = "required", @class = "form-control" })
+                            @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Warehouse ShortName", required = "required", @class = "form-control", @id = "txtwhsname" })
                         </div>
 
                     </div>
@@ -95,7 +103,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                @Html.TextBoxFor(Model => Model.bill_Street, new { placeholder = "Street",  @class = "form-control", @id = "txtbillstreet", Type = "text" })
+                                                @Html.TextBoxFor(Model => Model.bill_Street, new { placeholder = "Street", @class = "form-control", @id = "txtbillstreet", Type = "text" })
                                                 @*<textarea class="form-control" rows="5" id="comment" placeholder="Street"></textarea>*@
                                             </div>
                                         </div>
@@ -111,11 +119,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.bill_Postalcode, new { placeholder = "Postal Code",  @class = "form-control", @id = "txtbillpc", Type = "text" })
+                                                @Html.TextBoxFor(Model => Model.bill_Postalcode, new { placeholder = "Postal Code", @class = "form-control", @id = "txtbillpc", Type = "text" })
                                                 @*<input type="text" class="form-control" placeholder="Postal Code">*@
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.bill_Country, new { placeholder = "Country",  @class = "form-control", @id = "txtbillcountry", Type = "text" })
+                                                @Html.TextBoxFor(Model => Model.bill_Country, new { placeholder = "Country", @class = "form-control", @id = "txtbillcountry", Type = "text" })
                                                 @*<input type="text" class="form-control" placeholder="Country">*@
                                             </div>
                                         </div>
@@ -139,21 +147,21 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="City/Town">*@
-                                                @Html.TextBoxFor(Model => Model.ship_City, new { placeholder = "City",  @class = "form-control", @id = "txtshipcity", Type = "text" })
+                                                @Html.TextBoxFor(Model => Model.ship_City, new { placeholder = "City", @class = "form-control", @id = "txtshipcity", Type = "text" })
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.ship_State, new { placeholder = "State",  @class = "form-control", @id = "txtshipstate", Type = "text" })
+                                                @Html.TextBoxFor(Model => Model.ship_State, new { placeholder = "State", @class = "form-control", @id = "txtshipstate", Type = "text" })
                                                 @*<input type="text" class="form-control" placeholder="State">*@
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="Postal Code">*@
-                                                @Html.TextBoxFor(Model => Model.ship_Postalcode, new { placeholder = "Postal Code",  @class = "form-control", @id = "txtshipPC", Type = "text" })
+                                                @Html.TextBoxFor(Model => Model.ship_Postalcode, new { placeholder = "Postal Code", @class = "form-control", @id = "txtshipPC", Type = "text" })
                                             </div>
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="Country">*@
-                                                @Html.TextBoxFor(Model => Model.ship_Country, new { placeholder = "Country",  @class = "form-control", @id = "txtshipcountry", Type = "text" })
+                                                @Html.TextBoxFor(Model => Model.ship_Country, new { placeholder = "Country", @class = "form-control", @id = "txtshipcountry", Type = "text" })
                                             </div>
                                         </div>
                                     </div>
@@ -192,7 +200,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-12">
                                             @*<label for="email">Email</label>*@
-                                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter EmailId",  @class = "form-control", @id = "txtemail", @onblur = "validateEmail(this)" })
+                                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter EmailId", @class = "form-control", @id = "txtemail", @onblur = "validateEmail(this)" })
                                             @*@Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-control" })*@
                                             @*<input type="email" class="form-control" id="email">*@
                                         </div>
@@ -201,18 +209,18 @@
                                         <div class="form-group col-md-4">
                                             @*<label>Phone</label>*@
 
-                                            @Html.TextBoxFor(Model => Model.phone, new { placeholder = "Enter Phone Number",  @class = "form-control", @maxlength = "11", @id = "txtphone" })
+                                            @Html.TextBoxFor(Model => Model.phone, new { placeholder = "Enter Phone Number", @class = "form-control", @maxlength = "11", @id = "txtphone" })
                                             @*<input type="text" class="form-control">*@
                                         </div>
                                         <div class="form-group col-md-4">
                                             @*<label>Mobile</label>*@
 
-                                            @Html.TextBoxFor(Model => Model.Mobile, new { placeholder = "Enter Mobile",  @class = "form-control", @maxlength = "11", @id = "txtmobile" })
+                                            @Html.TextBoxFor(Model => Model.Mobile, new { placeholder = "Enter Mobile", @class = "form-control", @maxlength = "11", @id = "txtmobile" })
                                             @*<input type="text" class="form-control">*@
                                         </div>
                                         <div class="form-group col-md-4">
                                             @*<label>Contact Person</label>*@
-                                            @Html.TextBoxFor(Model => Model.conperson, new { placeholder = "ContactPerson Name",  @class = "form-control", })
+                                            @Html.TextBoxFor(Model => Model.conperson, new { placeholder = "ContactPerson Name", @class = "form-control", })
                                             @*<input type="text" class="form-control">*@
                                         </div>
                                     </div>
@@ -220,11 +228,12 @@
                                         <div class="form-group col-md-6">
                                             @*<label>Notes</label>*@
 
-                                            @Html.TextBoxFor(Model => Model.Note, new { placeholder = "Remarks",  @class = "form-control" })
+                                            @Html.TextBoxFor(Model => Model.Note, new { placeholder = "Remarks", @class = "form-control" })
                                         </div>
                                         <div class="form-group col-md-6">
                                             @*<label>Job position</label>*@
-                                            @Html.TextBoxFor(Model => Model.Job_position, new { placeholder = "Job Position",  @class = "form-control" })
+                                            @Html.TextBoxFor(Model => Model.Job_position, new { placeholder = "Job Position", @class = "form-control" })
+
                                             @*<input type="text" class="form-control">*@
                                         </div>
                                     </div>
@@ -261,6 +270,15 @@
         $("#btnadd").click(function () {
             $(".row").css('display', 'block');
         })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("tbody td").click(function (e) {
+                var currentCellText = $(this).text();
+                $("#txtwhname").text('')
+                 .append(currentCellText)
+            });
+        });
     </script>
     <script>
         $("#btnclose1").click(function () {
@@ -333,6 +351,7 @@
             });
         });
     </script>
+
 }
 
 
