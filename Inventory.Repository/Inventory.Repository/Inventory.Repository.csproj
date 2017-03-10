@@ -30,14 +30,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.ApplicationBlocks.Data.2.0.0\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +57,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="activateuser_Result.cs">
+      <DependentUpon>InventoryMasterSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Authenticateuser_Result.cs">
+      <DependentUpon>InventoryMasterSP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Franchises.cs" />
+    <Compile Include="GetUserProfile_Result.cs">
+      <DependentUpon>InventoryMasterSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getusersite_Result.cs">
+      <DependentUpon>InventoryMasterSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMasterSP.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryMasterSP.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMasterSP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryMasterSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMasterSP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryMasterSP.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Invoice.cs" />
     <Compile Include="InvoiceDetails.cs" />
     <Compile Include="Items.cs" />
@@ -58,6 +96,14 @@
     <Compile Include="WarehouseRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="InventoryMasterSP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InventoryMasterSP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="InventoryMasterSP.edmx.diagram">
+      <DependentUpon>InventoryMasterSP.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +111,21 @@
       <Project>{ab410d86-13a6-412e-bbd1-8be053d2583d}</Project>
       <Name>Inventory.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InventoryMasterSP.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventoryMasterSP.edmx</DependentUpon>
+      <LastGenOutput>InventoryMasterSP.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="InventoryMasterSP.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventoryMasterSP.edmx</DependentUpon>
+      <LastGenOutput>InventoryMasterSP.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

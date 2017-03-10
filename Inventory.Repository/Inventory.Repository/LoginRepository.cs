@@ -13,6 +13,7 @@ namespace Inventory.Repository
 {
     public class LoginRepository
     {
+        InventoryMasterEntities inventoryMasterEntities=new InventoryMasterEntities();
         private static string ConnectionString ;
         private static string ConnectionString1 = ConfigurationManager.ConnectionStrings["DbConnection1"].ToString();
         #region FranchisesSelectAll
@@ -57,9 +58,9 @@ namespace Inventory.Repository
 
         #region CreateUser
         public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId,int UserTypeId,string User_Site,string CompanyName,string Phone,DateTime? SubscriptionDate,int IsActive,string activationcode, string Profile_Picture,
-            string Date_Format, string Timezone, string Currency)
+            string Date_Format, string Timezone, string Currency, string companylogo)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "createuser", EmailId, First_Name, Last_Name, DB_Name,  Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone,SubscriptionDate,IsActive,activationcode, Profile_Picture, Date_Format, Timezone, Currency);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "createuser", EmailId, First_Name, Last_Name, DB_Name,  Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone,SubscriptionDate,IsActive,activationcode, Profile_Picture, Date_Format, Timezone, Currency, companylogo);
             return count;
         }
         #endregion
@@ -130,9 +131,39 @@ namespace Inventory.Repository
         #endregion
 
         #region getuserprofile
-        public static SqlDataReader GetUserProfile(int id)
+        //public static SqlDataReader GetUserProfile(int id)
+        //{
+        //    //return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
+        //    return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
+        //}
+        public  List<GetUserProfile_Result> GetUserProfile(int id)
         {
-            return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
+            return inventoryMasterEntities.GetUserProfile(id).ToList();
+            //return SqlHelper.ExecuteReader(ConnectionString1, "GetUserProfile", id);
+        }
+        #endregion
+
+        #region Update User Address
+        public static int updateuseraddress(int userid,string Line1, string Line2, string city, string state,string postalcode,string country)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuseraddress", userid, Line1, Line2, city, state, postalcode, country);
+            return count;
+        }
+        #endregion
+
+        #region Update Company Address
+        public static int updatecompanyaddress(int userid, string Line1, string Line2, string city, string state, string postalcode, string country)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatecompanyaddress", userid, Line1, Line2, city, state, postalcode, country);
+            return count;
+        }
+        #endregion
+
+        #region Update User Profile
+        public static int updateuserprofile(int id,string FirstName, string LastName, string Password, long Phone, string ProfilePicture, string DateFormat, string Timezone,string Currency,string companylogo)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updateuserprofile",id, FirstName, LastName, Password, Phone, ProfilePicture, DateFormat, Timezone, Currency, companylogo);
+            return count;
         }
         #endregion
     }

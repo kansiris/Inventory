@@ -45,5 +45,6 @@ namespace Inventory.Models
         public string Date_Format { get; set; }
         public string Timezone { get; set; }
         public string Currency { get; set; }
+        public Byte[] company_logo { get; set; }
     }
 }

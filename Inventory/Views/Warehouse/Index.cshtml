@@ -31,7 +31,7 @@
     <div class="container">
 
 
-        <form method="post" action="#">
+        <form method="post">
             <button type="button" id="btnadd" class="btn btn-success">ADD</button>
             @*<button type="button" id="btnclose" class="btn btn-danger">Close</button>*@
             <div class="table-responsive">
@@ -264,8 +264,13 @@
     <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/main.js"></script>
     <script src="~/Scripts/js/modernizr.js"></script>
-
-    <script src="jquery.js"></script>
+    <!-- jQuery -->
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="../build/js/custom.min.js"></script>
+    @*<script src="jquery.js"></script>*@
     <script>
         $("#btnadd").click(function () {
             $(".row").css('display', 'block');

@@ -11,6 +11,7 @@ namespace Inventory.Service
 {
     public class LoginService
     {
+        LoginRepository loginRepository = new LoginRepository();
         #region UserSelectRow
         public static SqlDataReader UserSelectRow(string Email_ID, string Password)
         {
@@ -39,10 +40,9 @@ namespace Inventory.Service
 
         #region CreateUser
         public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId, int UserTypeId, string User_Site, string CompanyName, string Phone, DateTime? SubscriptionDate, int IsActive, string activationcode,
-            string Profile_Picture,
-            string Date_Format, string Timezone, string Currency)
+            string Profile_Picture,string Date_Format, string Timezone, string Currency, string companylogo)
         {
-            int count = LoginRepository.CreateUser(EmailId, First_Name, Last_Name, DB_Name, Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone, SubscriptionDate, IsActive, activationcode, Profile_Picture, Date_Format, Timezone, Currency);
+            int count = LoginRepository.CreateUser(EmailId, First_Name, Last_Name, DB_Name, Created_Date, Password, SubscriptionId, UserTypeId, User_Site, CompanyName, Phone, SubscriptionDate, IsActive, activationcode, Profile_Picture, Date_Format, Timezone, Currency,companylogo);
             return count;
         }
         #endregion
@@ -104,9 +104,35 @@ namespace Inventory.Service
         #endregion
 
         #region getuserprofile
-        public static SqlDataReader GetUserProfile(int id)
+        //public static SqlDataReader GetUserProfile(int id)
+        //{
+        //    return LoginRepository.GetUserProfile(id);
+        //}
+
+        public List<GetUserProfile_Result> GetUserProfile(int id)
         {
-            return LoginRepository.GetUserProfile(id);
+            return loginRepository.GetUserProfile(id);
+        }
+        #endregion
+
+        #region Update User Address
+        public static int updateuseraddress(int userid, string Line1, string Line2, string city, string state, string postalcode, string country)
+        {
+            return LoginRepository.updateuseraddress(userid, Line1, Line2, city, state, postalcode, country);
+        }
+        #endregion
+
+        #region Update Company Address
+        public static int updatecompanyaddress(int userid, string Line1, string Line2, string city, string state, string postalcode, string country)
+        {
+            return LoginRepository.updatecompanyaddress(userid, Line1, Line2, city, state, postalcode, country);
+        }
+        #endregion
+
+        #region Update User Profile
+        public static int updateuserprofile(int id,string FirstName, string LastName, string Password, long Phone, string ProfilePicture, string DateFormat, string Timezone, string Currency, string companylogo)
+        {
+            return LoginRepository.updateuserprofile(id,FirstName, LastName, Password, Phone, ProfilePicture, DateFormat, Timezone, Currency, companylogo);
         }
         #endregion
     }

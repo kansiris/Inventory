@@ -4323,7 +4323,7 @@ form hr{
 form .customer-information ul.cd-tabs-navigation{
 	width: 100%;}
 form .customer-information .cd-tabs-navigation li{
-	width: 9%;}
+	width: auto;}
 form .customer-information .cd-tabs-navigation a{
 	padding: 0 15px;}
 form .customer-information ul.cd-tabs-content .top-button,
@@ -4391,3 +4391,38 @@ background: #e7e7e7;
 border-radius: 5px;}
 
 /*================ Vendor Information ================*/
+#clone-content:last-of-type{
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid #0483c6;}
+.thead-inverse{
+	background: #0288d1;
+	color: #fff;
+	border-radius: 5px 5px 0 0;}
+.table tbody > tr:nth-child(odd){
+	background: #eee;}
+/*================ Media Gallery ================*/
+.x_content > div.row > div:first-of-type .media-gallery{
+	background: #01aef0;}
+.x_content > div.row > div:nth-of-type(2) .media-gallery{
+	background: #8086c2;}
+.x_content > div.row > div:nth-of-type(3) .media-gallery{
+	background: #3160ae;}
+.x_content > div.row > div:last-of-type .media-gallery{
+	background: #00a79d;}
+.x_content > div.row > div > .media-gallery{
+    height: auto;}
+.x_content > div.row > div > .media-gallery i{
+	color:#fff;
+    text-align: center;
+    width: 100%;
+    font-size: 96px;
+    padding: 30px 0;}
+.x_content > div.row > div > .media-gallery .caption{
+	background-color: transparent;
+    color:#fff;
+    font-weight:bold;
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 18px;}
+/*================ Media Gallery ================*/

@@ -52,62 +52,51 @@
 
     <!------------ Upload Image --------------->
             <!------------ Toggle Action ------>
-            if (item.Timezone != "" && item.Date_Format != "")
+            if (ViewBag.Timezone != "")
             {
-                <div id="changetimezone" onload="$('#Timezoneselection').hide()">@ViewBag.Timezone<a href="#">Change</a></div>
-                //<script>$('#Timezoneselection').hide()</script>
-                //$('#Timezoneselection').css('display', 'none');
-                //$('#Timezoneselection').toggle();
-                @*<div class="row toggle-area">
-                        <div class="toggle-bar">
-                            <div class="col-md-6">
-                                <p>@ViewBag.Timezone</p>
-                            </div>
-                        </div>
-                    </div>*@
+                <div id="changetimezone">@ViewBag.Timezone<a href="#">Change</a></div>
             }
-            
 
-                <div class="row toggle-area" id="Timezoneselection">
-                    <div class="toggle-bar">
-                        <div class="col-md-6">
-                            <h3>Time Zone Management</h3>
-                        </div>
-                        <div class="toggle-button">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="cross">
-                            <span></span>
-                            <span></span>
-                        </div>
+            <div class="row toggle-area" id="Timezoneselection">
+                <div class="toggle-bar">
+                    <div class="col-md-6">
+                        <h3>Time Zone Management</h3>
                     </div>
-                    <div class="toggle-content">
-                        <h2 align="center">Localization</h2>
-                        <table>
-                            <tr>
-                                <td><text class="form-control">Date Format</text></td>
-                                <td>
-                                    @Html.DropDownListFor(Model => Model.Date_Format, new List<SelectListItem>
+                    <div class="toggle-button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="cross">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="toggle-content">
+                    <h2 align="center">Localization</h2>
+                    <table>
+                        <tr>
+                            <td><text class="form-control">Date Format</text></td>
+                            <td>
+                                @Html.DropDownListFor(Model => Model.Date_Format, new List<SelectListItem>
                             {
                                 new SelectListItem { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY"},
                                 new SelectListItem { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY"},
                                 new SelectListItem {Text  = "YYYY/MM/DD",Value="YYYY/MM/DD"}
                             }, "Select Date Format", new { @class = "form-control" })
-                                </td>
-                                <td>&nbsp; &nbsp; &nbsp;</td>
-                                <td><text class="form-control">Time Zone</text></td>
-                                @*<td>@Html.DropDownList("timeZoneInfo", new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control" })</td>*@
-                                <td>@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control" })</td>
-                                <td>&nbsp; &nbsp; &nbsp;</td>
-                                @*<td><input type="submit" value="Update TimeZone" class="btn btn-success" name="command"/></td>*@
-                                <td><button type="submit" value="updatetimezone" name="command" class="btn btn-success">Update TimeZone</button></td>
-                            </tr>
-                        </table>
-                    </div>
+                            </td>
+                            <td>&nbsp; &nbsp; &nbsp;</td>
+                            <td><text class="form-control">Time Zone</text></td>
+                            @*<td>@Html.DropDownList("timeZoneInfo", new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control" })</td>*@
+                            <td>@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.timeZoneInfos), "Select Time Zone", new { @class = "form-control" })</td>
+                            <td>&nbsp; &nbsp; &nbsp;</td>
+                            @*<td><input type="submit" value="Update TimeZone" class="btn btn-success" name="command"/></td>*@
+                            <td><button type="submit" value="updatetimezone" name="command" class="btn btn-success">Update TimeZone</button></td>
+                        </tr>
+                    </table>
                 </div>
-            
+            </div>
+
                         <!------------ Toggle Action ------>
         }
         <div class="row">
@@ -1012,26 +1001,23 @@
                 var rand = Math.floor(Math.random() * len);
                 $(this).css("background", colors[rand]);
             });
-            
+
         });
     </script>
     <!------ Random Colors ------>
-    <!------ Show/Hide ------>
-    <script>
-        function showhide() {
-            var div = $("Timezoneselection");
-            if (div.css.display) {
-                div.css.display = "none";
+    <!------ Show/Hide Timezone ------>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            var v = $(".right_col > form > div:nth-of-type(2)").attr("id");
+            if (v == "changetimezone") {
+                $(".right_col >form >  .toggle-area").css("display", "none");
+            } else {
+                $(".right_col >form >  .toggle-area").css("display", "block");
             }
-            else {
-                div.css.display = "block";
-            }
-        }
+            $("#changetimezone a").click(function () {
+                $(".right_col > form > .toggle-area").css("display", "block");
+            });
+        });
     </script>
-    <!------ Show/Hide ------>
-<script>
-    $("#changetimezone").click(function () {
-        $("#Timezoneselection").show();
-    });
-</script>
+    <!------ Show/Hide Timezone------>
 }

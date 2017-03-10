@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InventoryMasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="activateuser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="activationcode" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="Authenticateuser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="check" Type="varchar" Mode="In" />
+          <Parameter Name="EmailId" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="site" Type="varchar" Mode="In" />
+          <Parameter Name="usertypeid" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="createuser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailId" Type="nvarchar" Mode="In" />
+          <Parameter Name="First_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Last_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="DB_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Created_Date" Type="date" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="SubscriptionId" Type="int" Mode="In" />
+          <Parameter Name="UserTypeId" Type="int" Mode="In" />
+          <Parameter Name="User_Site" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompanyName" Type="nchar" Mode="In" />
+          <Parameter Name="Phone" Type="nchar" Mode="In" />
+          <Parameter Name="SubscriptionDate" Type="date" Mode="In" />
+          <Parameter Name="IsActive" Type="int" Mode="In" />
+          <Parameter Name="activationcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Profile_Picture" Type="binary" Mode="In" />
+          <Parameter Name="Date_Format" Type="nvarchar" Mode="In" />
+          <Parameter Name="Timezone" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Currency" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="getOwnerDb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="code" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="getsubscriptionid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetUserProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="getusersite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="site" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetUserType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertcompanyaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Line1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Line2" Type="nvarchar" Mode="In" />
+          <Parameter Name="city" Type="nvarchar" Mode="In" />
+          <Parameter Name="state" Type="nvarchar" Mode="In" />
+          <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+          <Parameter Name="country" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="insertuseraddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Line1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Line2" Type="nvarchar" Mode="In" />
+          <Parameter Name="city" Type="nvarchar" Mode="In" />
+          <Parameter Name="state" Type="nvarchar" Mode="In" />
+          <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+          <Parameter Name="country" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="updatecompanyaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
+          <Parameter Name="Line1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Line2" Type="nvarchar" Mode="In" />
+          <Parameter Name="city" Type="nvarchar" Mode="In" />
+          <Parameter Name="state" Type="nvarchar" Mode="In" />
+          <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+          <Parameter Name="country" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="updatetimezone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dateformat" Type="nvarchar" Mode="In" />
+          <Parameter Name="Timezone" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="id" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updateuser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Emailid" Type="varchar" Mode="In" />
+          <Parameter Name="activationcode" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="updateuseraddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
+          <Parameter Name="Line1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Line2" Type="nvarchar" Mode="In" />
+          <Parameter Name="city" Type="nvarchar" Mode="In" />
+          <Parameter Name="state" Type="nvarchar" Mode="In" />
+          <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+          <Parameter Name="country" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="updateusers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Emailid" Type="varchar" Mode="In" />
+          <Parameter Name="activationcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DB_Name" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="InventoryMasterModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InventoryMasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="InventoryMasterEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="activateuser" ReturnType="Collection(InventoryMasterModel.activateuser_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="activationcode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Authenticateuser" ReturnType="Collection(InventoryMasterModel.Authenticateuser_Result)">
+            <Parameter Name="check" Mode="In" Type="String" />
+            <Parameter Name="EmailId" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="usertypeid" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="createuser">
+            <Parameter Name="EmailId" Mode="In" Type="String" />
+            <Parameter Name="First_Name" Mode="In" Type="String" />
+            <Parameter Name="Last_Name" Mode="In" Type="String" />
+            <Parameter Name="DB_Name" Mode="In" Type="String" />
+            <Parameter Name="Created_Date" Mode="In" Type="DateTime" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="SubscriptionId" Mode="In" Type="Int32" />
+            <Parameter Name="UserTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="User_Site" Mode="In" Type="String" />
+            <Parameter Name="CompanyName" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="SubscriptionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="IsActive" Mode="In" Type="Int32" />
+            <Parameter Name="activationcode" Mode="In" Type="String" />
+            <Parameter Name="Profile_Picture" Mode="In" Type="Binary" />
+            <Parameter Name="Date_Format" Mode="In" Type="String" />
+            <Parameter Name="Timezone" Mode="In" Type="String" />
+            <Parameter Name="Currency" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getOwnerDb" ReturnType="Collection(String)">
+          <Parameter Name="code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getsubscriptionid" ReturnType="Collection(Int32)">
+          <Parameter Name="type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getusersite" ReturnType="Collection(InventoryMasterModel.getusersite_Result)">
+          <Parameter Name="site" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetUserType" ReturnType="Collection(Int32)">
+            <Parameter Name="type" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertcompanyaddress">
+            <Parameter Name="Line1" Mode="In" Type="String" />
+            <Parameter Name="Line2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="postalcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertuseraddress">
+            <Parameter Name="Line1" Mode="In" Type="String" />
+            <Parameter Name="Line2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="postalcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updatecompanyaddress">
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="Line1" Mode="In" Type="String" />
+            <Parameter Name="Line2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="postalcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updatetimezone">
+            <Parameter Name="dateformat" Mode="In" Type="String" />
+            <Parameter Name="Timezone" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateuser">
+            <Parameter Name="Emailid" Mode="In" Type="String" />
+            <Parameter Name="activationcode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateuseraddress">
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="Line1" Mode="In" Type="String" />
+            <Parameter Name="Line2" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="postalcode" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateusers">
+            <Parameter Name="Emailid" Mode="In" Type="String" />
+            <Parameter Name="activationcode" Mode="In" Type="String" />
+            <Parameter Name="DB_Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetUserProfile" ReturnType="Collection(InventoryMasterModel.GetUserProfile_Result)">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="activateuser_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="First_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Last_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="DB_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Created_Date" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubscriptionId" Nullable="true" />
+          <Property Type="Int32" Name="UserTypeId" Nullable="true" />
+          <Property Type="String" Name="User_Site" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="SubscriptionDate" Nullable="true" />
+          <Property Type="Int32" Name="IsActive" Nullable="true" />
+          <Property Type="Guid" Name="activationcode" Nullable="true" />
+          <Property Type="Binary" Name="Profile_Picture" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Date_Format" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Timezone" Nullable="true" />
+          <Property Type="String" Name="Currency" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="company_logo" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="Authenticateuser_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="First_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Last_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="DB_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Created_Date" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubscriptionId" Nullable="true" />
+          <Property Type="Int32" Name="UserTypeId" Nullable="true" />
+          <Property Type="String" Name="User_Site" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="SubscriptionDate" Nullable="true" />
+          <Property Type="Int32" Name="IsActive" Nullable="true" />
+          <Property Type="Guid" Name="activationcode" Nullable="true" />
+          <Property Type="Binary" Name="Profile_Picture" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Date_Format" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Timezone" Nullable="true" />
+          <Property Type="String" Name="Currency" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="company_logo" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="getusersite_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="First_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Last_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="DB_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Created_Date" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubscriptionId" Nullable="true" />
+          <Property Type="Int32" Name="UserTypeId" Nullable="true" />
+          <Property Type="String" Name="User_Site" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="SubscriptionDate" Nullable="true" />
+          <Property Type="Int32" Name="IsActive" Nullable="true" />
+          <Property Type="Guid" Name="activationcode" Nullable="true" />
+          <Property Type="Binary" Name="Profile_Picture" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Date_Format" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Timezone" Nullable="true" />
+          <Property Type="String" Name="Currency" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="company_logo" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="GetUserProfile_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="First_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Last_Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="DB_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Created_Date" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SubscriptionId" Nullable="true" />
+          <Property Type="Int32" Name="UserTypeId" Nullable="true" />
+          <Property Type="String" Name="User_Site" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="SubscriptionDate" Nullable="true" />
+          <Property Type="Int32" Name="IsActive" Nullable="true" />
+          <Property Type="Guid" Name="activationcode" Nullable="true" />
+          <Property Type="Binary" Name="Profile_Picture" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Date_Format" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Timezone" Nullable="true" />
+          <Property Type="String" Name="Currency" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="company_logo" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="ULine1" Nullable="true" />
+          <Property Type="Int32" Name="ULine2" Nullable="true" />
+          <Property Type="Int32" Name="Ucity" Nullable="true" />
+          <Property Type="Int32" Name="Ustate" Nullable="true" />
+          <Property Type="Int32" Name="Upostalcode" Nullable="true" />
+          <Property Type="Int32" Name="Ucountry" Nullable="true" />
+          <Property Type="Int32" Name="CLine1" Nullable="true" />
+          <Property Type="Int32" Name="CLine2" Nullable="true" />
+          <Property Type="Int32" Name="Ccity" Nullable="true" />
+          <Property Type="Int32" Name="Cstate" Nullable="true" />
+          <Property Type="Int32" Name="Cpostalcode" Nullable="true" />
+          <Property Type="Int32" Name="Ccountry" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InventoryMasterModelStoreContainer" CdmEntityContainer="InventoryMasterEntities" >
+          <FunctionImportMapping FunctionImportName="activateuser" FunctionName="InventoryMasterModel.Store.activateuser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryMasterModel.activateuser_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="DB_Name" ColumnName="DB_Name" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="User_Site" ColumnName="User_Site" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="activationcode" ColumnName="activationcode" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
+                <ScalarProperty Name="Date_Format" ColumnName="Date_Format" />
+                <ScalarProperty Name="Timezone" ColumnName="Timezone" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="company_logo" ColumnName="company_logo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Authenticateuser" FunctionName="InventoryMasterModel.Store.Authenticateuser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryMasterModel.Authenticateuser_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="DB_Name" ColumnName="DB_Name" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="User_Site" ColumnName="User_Site" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="activationcode" ColumnName="activationcode" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
+                <ScalarProperty Name="Date_Format" ColumnName="Date_Format" />
+                <ScalarProperty Name="Timezone" ColumnName="Timezone" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="company_logo" ColumnName="company_logo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="createuser" FunctionName="InventoryMasterModel.Store.createuser" />
+          <FunctionImportMapping FunctionImportName="getOwnerDb" FunctionName="InventoryMasterModel.Store.getOwnerDb" />
+          <FunctionImportMapping FunctionImportName="getsubscriptionid" FunctionName="InventoryMasterModel.Store.getsubscriptionid" />
+          <FunctionImportMapping FunctionImportName="getusersite" FunctionName="InventoryMasterModel.Store.getusersite">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryMasterModel.getusersite_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="DB_Name" ColumnName="DB_Name" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="User_Site" ColumnName="User_Site" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="activationcode" ColumnName="activationcode" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
+                <ScalarProperty Name="Date_Format" ColumnName="Date_Format" />
+                <ScalarProperty Name="Timezone" ColumnName="Timezone" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="company_logo" ColumnName="company_logo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUserType" FunctionName="InventoryMasterModel.Store.GetUserType" />
+          <FunctionImportMapping FunctionImportName="insertcompanyaddress" FunctionName="InventoryMasterModel.Store.insertcompanyaddress" />
+          <FunctionImportMapping FunctionImportName="insertuseraddress" FunctionName="InventoryMasterModel.Store.insertuseraddress" />
+          <FunctionImportMapping FunctionImportName="updatecompanyaddress" FunctionName="InventoryMasterModel.Store.updatecompanyaddress" />
+          <FunctionImportMapping FunctionImportName="updatetimezone" FunctionName="InventoryMasterModel.Store.updatetimezone" />
+          <FunctionImportMapping FunctionImportName="updateuser" FunctionName="InventoryMasterModel.Store.updateuser" />
+          <FunctionImportMapping FunctionImportName="updateuseraddress" FunctionName="InventoryMasterModel.Store.updateuseraddress" />
+          <FunctionImportMapping FunctionImportName="updateusers" FunctionName="InventoryMasterModel.Store.updateusers" />
+          <FunctionImportMapping FunctionImportName="GetUserProfile" FunctionName="InventoryMasterModel.Store.GetUserProfile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryMasterModel.GetUserProfile_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="DB_Name" ColumnName="DB_Name" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="User_Site" ColumnName="User_Site" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="activationcode" ColumnName="activationcode" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
+                <ScalarProperty Name="Date_Format" ColumnName="Date_Format" />
+                <ScalarProperty Name="Timezone" ColumnName="Timezone" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="company_logo" ColumnName="company_logo" />
+                <ScalarProperty Name="ULine1" ColumnName="ULine1" />
+                <ScalarProperty Name="ULine2" ColumnName="ULine2" />
+                <ScalarProperty Name="Ucity" ColumnName="Ucity" />
+                <ScalarProperty Name="Ustate" ColumnName="Ustate" />
+                <ScalarProperty Name="Upostalcode" ColumnName="Upostalcode" />
+                <ScalarProperty Name="Ucountry" ColumnName="Ucountry" />
+                <ScalarProperty Name="CLine1" ColumnName="CLine1" />
+                <ScalarProperty Name="CLine2" ColumnName="CLine2" />
+                <ScalarProperty Name="Ccity" ColumnName="Ccity" />
+                <ScalarProperty Name="Cstate" ColumnName="Cstate" />
+                <ScalarProperty Name="Cpostalcode" ColumnName="Cpostalcode" />
+                <ScalarProperty Name="Ccountry" ColumnName="Ccountry" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
