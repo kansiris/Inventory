@@ -52,15 +52,13 @@
                                 @*<td><input type="hidden" value="@item.company_Id" /></td>*@
                                 <td>@*<input type="hidden" value="@item.company_Id" />*@ @item.Company_Name </td>
                                 <td>@item.Email </td>
-                                @*<td><button type="button" id="btninvite" class="btn btn-success">Invite</button></td>
-                                    <td><button type="button" id="btnedit" class="btn btn-success">EDIT</button></td>
-                                     <td><button type="button" id="btndel" class="btn btn-danger">DELETE</button></td>*@
+                               
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Action <span class="caret"></span> </button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <button type="button" id="btnedit" class="btn btn-success">EDIT Vendor</button> @*<a href="#">EDIT</a>*@
+                                                <button type="button" id="btnedit" class="btn btn-success" onclick="">EDIT Vendor</button> @*<a href="#">EDIT</a>*@
                                             </li>
                                             <li>
                                                 <button type="button" id="btndel" class="btn btn-danger">DELETE Vendor</button>@*<a href="#">DELETE</a>*@
@@ -94,7 +92,7 @@
                                     @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", Value = ViewBag.email, @onchnage = "check()" })
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                    <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
                                     <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
                                 </div>
                             
@@ -108,7 +106,7 @@
                                 @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", @onchnage = "check()" })
                             </div>
                             <div class="form-group col-md-4">
-                                <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                <button type="button" class="btn btn-default pull-right" id="btnclose2">Cancel</button>
                                 <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
                             </div>
                         }
@@ -195,8 +193,8 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updateaddress" id="btnclose2">Update Address</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclose3">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updateaddress">Update Address</button>
 
                                     </div>
                                 </div>
@@ -223,10 +221,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="Adhar_Number" placeholder="AdharNumber">
+                                                <input type="text" class="form-control" name="Adhar_Number" placeholder="AdharNumber">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" id="Job_position" placeholder="Job position">
+                                                <input type="text" class="form-control" name="Job_position" placeholder="Job position">
                                             </div>
                                         </div>
                                     </div>
@@ -235,8 +233,8 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecontact" id="btnclose3">Update Contacts</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclose4">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecontact">Update Contacts</button>
                                     </div>
                                 </div>
                             </li>
@@ -256,7 +254,7 @@
                                                 <input type="text" class="form-control" name="Bank_Branch" placeholder="Bank Branch">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Paytym_Number" placeholder="Paytym number">
+                                                <input type="text" class="form-control" name="IFSC_No" placeholder="IFSC Code">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -270,8 +268,8 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecompany" id="btnclose4">Update BankDetails</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclose5">Cancel</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecompany">Update BankDetails</button>
                                     </div>
                                 </div>
                             </li>
@@ -284,7 +282,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5" id="comment" placeholder="Notes" name="command" value="updatenote"></textarea>
+                                                <textarea class="form-control" rows="5" id="comment" placeholder="Notes" name="Note"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -292,7 +290,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right">Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclose6">Cancel</button>
                                         <button type="submit" class="btn btn-primary pull-right" name="command" value="updatenote" id="btnclose6">Update notes</button>
                                     </div>
                                 </div>
@@ -350,7 +348,26 @@
         });
         
     </script>
-
+    <script>
+        $("#btnclose1").click(function () {
+            $(".row").css('display', 'none');
+        })
+        $("#btnclose2").click(function () {
+            $(".row").css('display', 'none');
+        })
+        $("#btnclose3").click(function () {
+            $(".row").css('display', 'none');
+        })
+        $("#btnclose4").click(function () {
+            $(".row").css('display', 'none');
+        })
+        $("#btnclose5").click(function () {
+            $(".row").css('display', 'none');
+        })
+        $("#btnclose6").click(function () {
+            $(".row").css('display', 'none');
+        })
+    </script>
     <!------ Random Colors ------>
     <script type="text/javascript">
 
@@ -396,32 +413,7 @@
     </script>
 
     <script>
-        function check(e) {
-            var emailid = $('#Email').val();//e.value;
-            //var site = $('#User_Site').val();
-            //var type = null;
-            //if (site != "" && site != null) {
-            //    type = 'usersite';
-            //}
-            //else {
-            //    type = 'email';
-            //}
-            $.ajax({
-                url: '/Vendor/checkemail',
-                type: 'POST',
-                data: JSON.stringify({ emailid: emailid }),
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data == "exists") {
-                        document.getElementById('msg').innerHTML = "Email alredy taken !!! Try Another";
-                        $('#Email').focus();
-                    }
-                },
-                error: function (data)
-                { alert("Failed!!!"); }
-            });
-        }
+       
     </script>
     <!------ Random Colors ------>
 }

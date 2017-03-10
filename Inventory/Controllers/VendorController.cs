@@ -48,7 +48,7 @@ namespace Inventory.Controllers
         public ActionResult Index(Vendor vendor, string command)
         {
 
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;//to get loged owner dbname
+           // var user = (CustomPrinciple)System.Web.HttpContext.Current.User;//to get loged owner dbname
 
             if (command=="insertcompany") { 
               int count = VendorService.CompanyInsertRow(vendor.Company_Name, vendor.Email);
@@ -88,12 +88,12 @@ namespace Inventory.Controllers
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
             }
-
+                                                                                                                                                                             
 
             if (command == "updatecompany")
             {
                 int county = VendorService.UpdateCompany(vendor.company_Id, vendor.Bank_Acc_Number, vendor.Bank_Name,
-                    vendor.Bank_Branch, vendor.Paytym_Number, vendor.emailid);
+                    vendor.Bank_Branch, vendor.IFSC_No, vendor.emailid);
                 if (county > 0)
                 {
                     return Content("<script language='javascript' type='text/javascript'>alert('Bankdetails updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
@@ -114,14 +114,7 @@ namespace Inventory.Controllers
             return View();
        }
 
-        public JsonResult checkemail(string emailid)
-        {
-            //int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
-            var data = VendorService.Authenticateemail(null,emailid);
-            if (data.HasRows)
-                return Json("exists", JsonRequestBehavior.AllowGet); // if email ID already exists
-            return Json("unique", JsonRequestBehavior.AllowGet); // if email ID is unique
-        }
+       
         
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
         {

@@ -61,9 +61,9 @@ namespace Inventory.Repository
             return count1;
         }
         #region UpdateCompany
-        public static int UpdateCompany(int company_Id,int Bank_Acc_Number,string Bank_Name,string Bank_Branch,int Paytym_Number,string email)
+        public static int UpdateCompany(long company_Id,long Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No, string email)
         {
-                      int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, Paytym_Number, email);
+                      int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No, email);
             return count;
         }
         #endregion
@@ -81,11 +81,11 @@ namespace Inventory.Repository
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getVendorId");
         }
-        public static SqlDataReader Authenticateemail(string check, string Email_ID)
-        {
-            return SqlHelper.ExecuteReader(ConnectionString1, "Authenticateemail", check, Email_ID);
-            //return SqlHelper.ExecuteReader(ConnectionString, "getuser", new SqlParameter("@Email_ID", Email_ID) , new SqlParameter("@Password", Password));
-        }
+        //public static SqlDataReader Authenticateemail(string check, string Email_ID)
+        //{
+        //    return SqlHelper.ExecuteReader(ConnectionString1, "Authenticateemail", check, Email_ID);
+        //    //return SqlHelper.ExecuteReader(ConnectionString, "getuser", new SqlParameter("@Email_ID", Email_ID) , new SqlParameter("@Password", Password));
+        //}
         
             public static SqlDataReader getlastinsertedcompany(int company_Id)
         {
