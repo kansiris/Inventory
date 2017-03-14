@@ -24,16 +24,16 @@ namespace Inventory.Controllers
             dt.Load(value);
             List<Vendor> vendor = new List<Vendor>();
             vendor = (from DataRow row in dt.Rows
-                         select new Vendor()
-                         {
-                             company_Id=int.Parse(row["company_Id"].ToString()),
-                             Company_Name = row["Company_Name"].ToString(),
-                             Email = row["Email"].ToString()
-                         }).OrderByDescending(m=>m.company_Id).ToList();
+                      select new Vendor()
+                      {
+                          company_Id = int.Parse(row["company_Id"].ToString()),
+                          Company_Name = row["Company_Name"].ToString(),
+                          Email = row["Email"].ToString()
+                      }).OrderByDescending(m => m.company_Id).ToList();
             ViewBag.records = vendor;
             ViewBag.company_Id = getMaxCompanyID();
             ViewBag.vendor_Id = getMaxVendorID();
-           
+
             var company = getlastinsertedcompany();
             if (status != null)
             {
@@ -42,25 +42,23 @@ namespace Inventory.Controllers
                 ViewBag.email = company.Email;
             }
             return View();
-            
+
         }
         [HttpPost]
         public ActionResult Index(Vendor vendor, string command)
         {
+            // var user = (CustomPrinciple)System.Web.HttpContext.Current.User;//to get loged owner dbname
+            if (command == "insertcompany")
+            {
+                int count = VendorService.CompanyInsertRow(vendor.Company_Name, vendor.Email);
 
-           // var user = (CustomPrinciple)System.Web.HttpContext.Current.User;//to get loged owner dbname
-
-            if (command=="insertcompany") { 
-              int count = VendorService.CompanyInsertRow(vendor.Company_Name, vendor.Email);
-
-                VendorService.VendorInsertRow(vendor.company_Id, vendor.Contact_PersonFname, vendor.Contact_PersonLname, vendor.Mobile_No,
-                        vendor.Email, vendor.Adhar_Number, vendor.Job_position);
-
-                VendorService.VendorAddressInsertRow(vendor.company_Id, vendor.bill_street, vendor.bill_city, vendor.bill_state, vendor.bill_postalcode,
-                vendor.bill_country, vendor.ship_street, vendor.ship_city, vendor.ship_state, vendor.ship_postalcode, vendor.ship_country);
-                
                 if (count > 0)
                 {
+                    ViewBag.company_Id = getMaxCompanyID();
+                    ViewBag.vendor_Id = getMaxVendorID();
+                    var company = getlastinsertedcompany();
+                   int count1 = VendorService.VendorInsertRow(company.company_Id, null, null, 0, null, null, null);
+                    int count2 = VendorService.VendorAddressInsertRow(company.company_Id, null, null, null, null, null, null, null, null, null, null);
                     return Content("<script language='javascript' type='text/javascript'>alert('Company Added successfully!!!!click on Additional fields');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
@@ -70,9 +68,9 @@ namespace Inventory.Controllers
             {
                 int counts = VendorService.VendorUpdateContact(vendor.company_Id, vendor.Contact_PersonFname, vendor.Contact_PersonLname, vendor.Mobile_No,
                         vendor.emailid, vendor.Adhar_Number, vendor.Job_position);
-                if (counts>0)
+                if (counts > 0)
                 {
-                    return Content("<script language='javascript' type='text/javascript'>alert('contact person updated successfully');location.href='" + @Url.Action("Index", "Vendor",new { status = "complete" }) + "'</script>");
+                    return Content("<script language='javascript' type='text/javascript'>alert('contact person updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
             }
@@ -88,12 +86,13 @@ namespace Inventory.Controllers
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
             }
-                                                                                                                                                                             
+
 
             if (command == "updatecompany")
             {
+
                 int county = VendorService.UpdateCompany(vendor.company_Id, vendor.Bank_Acc_Number, vendor.Bank_Name,
-                    vendor.Bank_Branch, vendor.IFSC_No, vendor.emailid);
+                    vendor.Bank_Branch, vendor.IFSC_No, vendor.Email);
                 if (county > 0)
                 {
                     return Content("<script language='javascript' type='text/javascript'>alert('Bankdetails updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
@@ -104,18 +103,19 @@ namespace Inventory.Controllers
 
             if (command == "updatenote")
             {
+                
                 int countyy = VendorService.UpdateNotes(vendor.company_Id, vendor.Note);
                 if (countyy > 0)
                 {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Notes updated successfully');location.href='" + @Url.Action("Index", "Vendor" ,new { status="complete"}) + "'</script>");
+                    return Content("<script language='javascript' type='text/javascript'>alert('Notes updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
             }
             return View();
-       }
+        }
 
-       
-        
+
+
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
         {
             // Designing Email Part
@@ -144,13 +144,13 @@ namespace Inventory.Controllers
         }
         private int getMaxCompanyID()
         {
-            int company_Id=0;
+            int company_Id = 0;
             SqlDataReader exec = VendorService.getcompanyId();
             if (exec.Read())
             {
                 company_Id = (int)exec["company_Id"];
-                            }
-                       return company_Id;
+            }
+            return company_Id;
         }
 
         private string getMaxVendorID()
@@ -160,12 +160,12 @@ namespace Inventory.Controllers
             if (exec.Read())
             {
                 vendor_Id = exec["vendor_Id"].ToString();
-           }
-                        return vendor_Id;
+            }
+            return vendor_Id;
         }
         private Vendor getlastinsertedcompany()
         {
-           int company_Id  = ViewBag.company_Id;
+            int company_Id = ViewBag.company_Id;
             SqlDataReader value = VendorService.getlastinsertedcompany(company_Id);
             DataTable dt = new DataTable();
             dt.Load(value);

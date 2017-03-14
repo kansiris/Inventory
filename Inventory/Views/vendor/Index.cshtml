@@ -30,11 +30,11 @@
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="container">
-        <form method="post" action="#">
+        <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })
             @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })
             @*<input type="hidden" value="@ViewBag.company_Id " id="company_Id"/>*@
-            <button type="button" id="btnadd" class="btn btn-success" onclick="showcompany()">ADD COMPANY</button>
+            <button type="button" id="btnadd" class="btn btn-success">ADD COMPANY</button>
             <div class="table-responsive">
                 <table class="table  table-borderedtable-striped jambo_table bulk_action" id="vendortable">
                     <thead>
@@ -47,12 +47,9 @@
                     <tbody>
                         @foreach (var item in ViewBag.records)
                         {
-
                             <tr>
-                                @*<td><input type="hidden" value="@item.company_Id" /></td>*@
-                                <td>@*<input type="hidden" value="@item.company_Id" />*@ @item.Company_Name </td>
+                                <td> @item.Company_Name </td>
                                 <td>@item.Email </td>
-                               
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Action <span class="caret"></span> </button>
@@ -89,7 +86,8 @@
                                     @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
                                 </div>
                                 <div class="form-group col-md-5">
-                                    @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", Value = ViewBag.email, @onchnage = "check()" })
+
+                                    @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email" ,@id = "Email", required = "required", @class = "form-control", Value = ViewBag.email})
                                 </div>
                                 <div class="form-group col-md-4">
                                     <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
@@ -103,11 +101,14 @@
                                 @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control" })
                             </div>
                             <div class="form-group col-md-5">
-                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", @onchnage = "check()" })
+                                
+                                @*@Html.TextBoxFor(model => model.Email, new{@class = "popinputbox",placeholder = "Email",required = "required",type = "email"})*@
+
+                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email",id = "Email", required = "required", @class = "form-control"})
                             </div>
                             <div class="form-group col-md-4">
                                 <button type="button" class="btn btn-default pull-right" id="btnclose2">Cancel</button>
-                                <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
+                                <button type="submit" class="btn btn-primary pull-right" id="command" name="command" value="insertcompany">Save</button>
                             </div>
                         }
                     </div>
@@ -212,7 +213,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile">
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <input type="text" class="form-control" name="emailid" placeholder="Email">
@@ -313,6 +314,7 @@
     <script src="~/Scripts/js/modernizr.js"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
@@ -338,7 +340,7 @@
 
     </script>
     <!-- Clone Shipping Address -->
-
+   
     <script>
         $('#btnadd').click(function () {
             $('#company').css('display', 'block');
@@ -350,24 +352,50 @@
     </script>
     <script>
         $("#btnclose1").click(function () {
-            $(".row").css('display', 'none');
+            $('#company').css('display', 'none');
         })
         $("#btnclose2").click(function () {
-            $(".row").css('display', 'none');
+            $('#company').css('display', 'none');
         })
         $("#btnclose3").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
         $("#btnclose4").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
         $("#btnclose5").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
         $("#btnclose6").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
     </script>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Mobile_No").keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+    });
+
+            </script>*@
+    
     <!------ Random Colors ------>
     <script type="text/javascript">
 
@@ -385,7 +413,7 @@
                 $('#company').css('display', 'none');
                 $('#additional').css('display', 'none');
             }
-            
+
 
             //Table Pagination
             $('#vendortable').after('<div id="nav"></div>');
@@ -409,16 +437,16 @@
                 $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
                         css('display', 'table-row').animate({ opacity: 1 }, 300);
             });
+
+            $("#myform").validate({
+                rules: {Email: {required: true,email: true},},
+                messages: { Email: {required: "Please enter your email Id "},},
+            });
         });
-    </script>
-
-    <script>
-       
-    </script>
-    <!------ Random Colors ------>
-}
-
-
+</script>
+  
+     <!------ Random Colors ------>
+    }
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
