@@ -35,6 +35,7 @@
           <Parameter Name="Date_Format" Type="nvarchar" Mode="In" />
           <Parameter Name="Timezone" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Currency" Type="nvarchar" Mode="In" />
+          <Parameter Name="companylogo" Type="binary" Mode="In" />
         </Function>
         <Function Name="getOwnerDb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="code" Type="nvarchar" Mode="In" />
@@ -136,6 +137,7 @@
             <Parameter Name="Date_Format" Mode="In" Type="String" />
             <Parameter Name="Timezone" Mode="In" Type="String" />
             <Parameter Name="Currency" Mode="In" Type="String" />
+            <Parameter Name="companylogo" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="getOwnerDb" ReturnType="Collection(String)">
           <Parameter Name="code" Mode="In" Type="String" />
@@ -289,18 +291,18 @@
           <Property Type="String" Name="Timezone" Nullable="true" />
           <Property Type="String" Name="Currency" Nullable="true" MaxLength="50" />
           <Property Type="Binary" Name="company_logo" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="ULine1" Nullable="true" />
-          <Property Type="Int32" Name="ULine2" Nullable="true" />
-          <Property Type="Int32" Name="Ucity" Nullable="true" />
-          <Property Type="Int32" Name="Ustate" Nullable="true" />
-          <Property Type="Int32" Name="Upostalcode" Nullable="true" />
-          <Property Type="Int32" Name="Ucountry" Nullable="true" />
-          <Property Type="Int32" Name="CLine1" Nullable="true" />
-          <Property Type="Int32" Name="CLine2" Nullable="true" />
-          <Property Type="Int32" Name="Ccity" Nullable="true" />
-          <Property Type="Int32" Name="Cstate" Nullable="true" />
-          <Property Type="Int32" Name="Cpostalcode" Nullable="true" />
-          <Property Type="Int32" Name="Ccountry" Nullable="true" />
+          <Property Type="String" Name="ULine1" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="ULine2" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Ucity" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Ustate" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Upostalcode" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Ucountry" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="CLine1" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="CLine2" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Ccity" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Cstate" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Cpostalcode" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Ccountry" Nullable="false" MaxLength="1" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
