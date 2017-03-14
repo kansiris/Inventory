@@ -84,6 +84,14 @@ namespace Inventory.Service
         {
             return VendorRepository.getlastinsertedcompany(company_Id);
         }
-
+        public static SqlDataReader getcontactdetail(int company_Id)
+        {
+            return VendorRepository.getcontactdetail(company_Id);
+        }
+        
+            public static SqlDataReader getEditDetails(int company_Id)
+        {
+            return VendorRepository.getEditDetails(company_Id);
+        }
     }
 }

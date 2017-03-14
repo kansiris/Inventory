@@ -31,7 +31,7 @@
 <div class="right_col" role="main">
     <div class="container">
         <form method="post" action="#" id="myform">
-            @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })
+           @* @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })*@
             @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })
             @*<input type="hidden" value="@ViewBag.company_Id " id="company_Id"/>*@
             <button type="button" id="btnadd" class="btn btn-success">ADD COMPANY</button>
@@ -45,6 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                       
                         @foreach (var item in ViewBag.records)
                         {
                             <tr>
@@ -55,7 +56,7 @@
                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Action <span class="caret"></span> </button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <button type="button" id="btnedit" class="btn btn-success" onclick="">EDIT Vendor</button> @*<a href="#">EDIT</a>*@
+                                                <button type="button" id="btnedit" class="btn btn-success" onclick="getEditDetails(@item.company_Id)">EDIT Vendor</button> @*<a href="#">EDIT</a>*@
                                             </li>
                                             <li>
                                                 <button type="button" id="btndel" class="btn btn-danger">DELETE Vendor</button>@*<a href="#">DELETE</a>*@
@@ -83,7 +84,7 @@
                         {
                             
                                 <div class="form-group col-md-4">
-                                    @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
+                                    @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name",@id= "Company_Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
                                 </div>
                                 <div class="form-group col-md-5">
 
@@ -201,6 +202,30 @@
                                 </div>
                             </li>
                             <li data-content="contactperson">
+                                <div class="table-responsive">
+                                    <table class="table  table-borderedtable-striped jambo_table bulk_action" id="contacttable">
+                                        <thead>
+                                            <tr>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.contact1)
+                                            {
+                                                <tr>
+                                                    <td> @item.Contact_PersonFname </td>
+                                                    <td> @item.Contact_PersonLname </td>
+                                                    <td>@item.emailid </td>
+                                                   
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div id="nav" class="btn"></div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="row">
@@ -235,7 +260,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right" id="btnclose4">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecontact">Update Contacts</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcontact">Update Contacts</button>
                                     </div>
                                 </div>
                             </li>
@@ -443,6 +468,55 @@
                 messages: { Email: {required: "Please enter your email Id "},},
             });
         });
+</script>
+
+<script type="text/javascript">
+	var xmlhttp;
+	function xmlObject() {
+
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+			alert("xml");
+		} else if (window.ActiveXObject) {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+	function gotDetails() {
+	    alert(sai);
+		if (xmlhttp.readyState == 4) {
+			var val = xmlhttp.responseText;
+			getTimes(val);
+			return val;
+		}
+	}
+	function getTimes(val) {
+		var a = val;
+		alert(a);
+		var s = new Array();
+		s = a.split(':');
+		document.getElementById("Company_Name").value = s[1];
+		document.getElementById("Email").value = s[2];
+		
+	}
+	function getEditDetails(id) {
+	    alert(id);
+	    $("#btnedit").click(function () {
+	        $("#company").css('display', 'none');
+	    })
+	    $("#btnedit").txt="update";
+			xmlObject();
+			var url = '/Vendor/getlastinsertedcompany&company_Id='
+					+ id;
+			alert(url);
+			xmlhttp.open("post", url, true);
+			xmlhttp.send();
+			xmlhttp.onreadystatechange = gotDetails;
+			alert(hello);
+			return true;
+		
+	}
+
 </script>
   
      <!------ Random Colors ------>

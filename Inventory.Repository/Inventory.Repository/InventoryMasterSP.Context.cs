@@ -366,5 +366,6 @@ namespace Inventory.Repository
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUserProfile_Result>("GetUserProfile", idParameter);
         }
+        
     }
 }

@@ -31,9 +31,12 @@ namespace Inventory.Controllers
                           Email = row["Email"].ToString()
                       }).OrderByDescending(m => m.company_Id).ToList();
             ViewBag.records = vendor;
-            ViewBag.company_Id = getMaxCompanyID();
+            ViewBag.company_Id1 = getMaxCompanyID();
             ViewBag.vendor_Id = getMaxVendorID();
 
+            ViewBag.contact = vendor;
+            ViewBag.contact1  = getcontactDetail();
+           
             var company = getlastinsertedcompany();
             if (status != null)
             {
@@ -54,20 +57,23 @@ namespace Inventory.Controllers
 
                 if (count > 0)
                 {
-                    ViewBag.company_Id = getMaxCompanyID();
+                    ViewBag.company_Id1 = getMaxCompanyID();
                     ViewBag.vendor_Id = getMaxVendorID();
                     var company = getlastinsertedcompany();
-                   int count1 = VendorService.VendorInsertRow(company.company_Id, null, null, 0, null, null, null);
                     int count2 = VendorService.VendorAddressInsertRow(company.company_Id, null, null, null, null, null, null, null, null, null, null);
                     return Content("<script language='javascript' type='text/javascript'>alert('Company Added successfully!!!!click on Additional fields');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
             }
 
-            if (command == "updatecontact")
+            if (command == "insertcontact")
             {
-                int counts = VendorService.VendorUpdateContact(vendor.company_Id, vendor.Contact_PersonFname, vendor.Contact_PersonLname, vendor.Mobile_No,
-                        vendor.emailid, vendor.Adhar_Number, vendor.Job_position);
+                ViewBag.company_Id1 = getMaxCompanyID();
+                ViewBag.vendor_Id = getMaxVendorID();
+                var company = getlastinsertedcompany();
+                int counts = VendorService.VendorInsertRow(ViewBag.company_Id, vendor.Contact_PersonFname, vendor.Contact_PersonLname, vendor.Mobile_No,
+                         vendor.emailid, vendor.Adhar_Number, vendor.Job_position);
+                
                 if (counts > 0)
                 {
                     return Content("<script language='javascript' type='text/javascript'>alert('contact person updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
@@ -165,7 +171,7 @@ namespace Inventory.Controllers
         }
         private Vendor getlastinsertedcompany()
         {
-            int company_Id = ViewBag.company_Id;
+            int company_Id = ViewBag.company_Id1;
             SqlDataReader value = VendorService.getlastinsertedcompany(company_Id);
             DataTable dt = new DataTable();
             dt.Load(value);
@@ -181,7 +187,44 @@ namespace Inventory.Controllers
 
             return vendor;
         }
+
+        private List<Vendor> getcontactDetail()
+        {
+            int company_Id = ViewBag.company_Id1;
+            SqlDataReader value = VendorService.getcontactdetail(company_Id);
+            DataTable dt = new DataTable();
+            dt.Load(value);
+            List<Vendor> contact = new List<Vendor>();
+            VendorService.getcontactdetail(company_Id);
+            contact = (from DataRow row in dt.Rows
+                      select new Vendor()
+                      {
+                          Contact_PersonFname = row["Contact_PersonFname"].ToString(),
+                          Contact_PersonLname = row["Contact_PersonLname"].ToString(),
+                          emailid = row["emailid"].ToString()
+                      }).ToList();
+  return contact;
+        }
+        
+        //    private List<Vendor> getEditDetails()
+        //{
+        //    int company_Id = int.Parse(Request.QueryString["param.1"]);
+        //    SqlDataReader value = VendorService.getcontactdetail(company_Id);
+        //    DataTable dt = new DataTable();
+        //    dt.Load(value);
+        //    List<Vendor> detail = new List<Vendor>();
+        //    detail = (from DataRow row in dt.Rows
+        //               select new Vendor()
+        //               {
+        //                   Contact_PersonFname = row["Contact_PersonFname"].ToString(),
+        //                   Contact_PersonLname = row["Contact_PersonLname"].ToString(),
+        //                   emailid = row["emailid"].ToString()
+        //               }).ToList();
+        //    return detail;
+        //}
+
     }
+    
 }
 
 

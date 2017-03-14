@@ -1,7 +1,9 @@
 ﻿using Inventory.Utility;
 using Microsoft.ApplicationBlocks.Data;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 
 namespace Inventory.Repository
@@ -90,6 +92,18 @@ namespace Inventory.Repository
             public static SqlDataReader getlastinsertedcompany(int company_Id)
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getLastInsertedcompany", company_Id);
+        }
+
+        public static SqlDataReader getcontactdetail(int company_Id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getContactByCompany", company_Id);
+           
+        }
+        
+            public static SqlDataReader getEditDetails(int company_Id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getEditDetails", company_Id);
+
         }
 
     }
