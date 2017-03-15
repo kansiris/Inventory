@@ -23,14 +23,14 @@ namespace Inventory.Models
         [StringLength(50)]
         public string Contact_PersonFname { get; set; }
 
-        public long Mobile_No { get; set; }
+        public int Mobile_No { get; set; }
 
         public string Address { get; set; }
 
 
-        public long Bank_Acc_Number { get; set; }
+        public int Bank_Acc_Number { get; set; }
 
-        public long Paytym_Number { get; set; }
+        public int Paytym_Number { get; set; }
 
         [StringLength(50)]
 
@@ -39,7 +39,7 @@ namespace Inventory.Models
         [StringLength(50)]
         public string Contact_PersonLname { get; set; }
 
-        public long LandLine_Num { get; set; }
+        public int LandLine_Num { get; set; }
 
         [StringLength(50)]
         public string Bank_Name { get; set; }

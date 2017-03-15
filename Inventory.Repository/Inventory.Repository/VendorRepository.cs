@@ -1,7 +1,9 @@
 ﻿using Inventory.Utility;
 using Microsoft.ApplicationBlocks.Data;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 
 namespace Inventory.Repository
@@ -29,14 +31,14 @@ namespace Inventory.Repository
         #endregion
 
         #region VendorInsertRow
-        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
                          string Email, string Adhar_Number,string Job_position)
         {
              int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position);
             return count;
         }
         
-            public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, 
+            public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No, 
                          string Email, string Adhar_Number, string Job_position)
         {
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
@@ -61,7 +63,7 @@ namespace Inventory.Repository
             return count1;
         }
         #region UpdateCompany
-        public static int UpdateCompany(long company_Id,long Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No, string email)
+        public static int UpdateCompany(long company_Id, int Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No, string email)
         {
                       int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No, email);
             return count;
@@ -90,6 +92,25 @@ namespace Inventory.Repository
             public static SqlDataReader getlastinsertedcompany(int company_Id)
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getLastInsertedcompany", company_Id);
+        }
+
+        public static SqlDataReader getcontactdetail(int company_Id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getContactByCompany", company_Id);
+           
+        }
+        
+            public static SqlDataReader getAllDetails(int company_Id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getAllDetailsByCompany_Id", company_Id);
+
+        }
+
+        
+             public static int UpdateCompany1(int company_Id,string Company_Name, string Email)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatecompany1", company_Id, Company_Name, Email);
+            return count;
         }
 
     }

@@ -30,11 +30,11 @@
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="container">
-        <form method="post" action="#">
+        <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })
             @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })
             @*<input type="hidden" value="@ViewBag.company_Id " id="company_Id"/>*@
-            <button type="button" id="btnadd" class="btn btn-success" onclick="showcompany()">ADD COMPANY</button>
+            <button type="button" id="btnadd" class="btn btn-success">ADD COMPANY</button>
             <div class="table-responsive">
                 <table class="table  table-borderedtable-striped jambo_table bulk_action" id="vendortable">
                     <thead>
@@ -45,20 +45,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                         @foreach (var item in ViewBag.records)
                         {
-
                             <tr>
-                                @*<td><input type="hidden" value="@item.company_Id" /></td>*@
-                                <td>@*<input type="hidden" value="@item.company_Id" />*@ @item.Company_Name </td>
+                                <td> @item.Company_Name </td>
                                 <td>@item.Email </td>
-
+                               
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Action <span class="caret"></span> </button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <button type="button" id="btnedit" class="btn btn-success" onclick="">EDIT Vendor</button> @*<a href="#">EDIT</a>*@
+                                                <button type="button" id="btnedit" class="btn btn-success" onclick="getEditDetails(@item.company_Id)">EDIT Vendor</button> @*<a href="#">EDIT</a>*@
                                             </li>
                                             <li>
                                                 <button type="button" id="btndel" class="btn btn-danger">DELETE Vendor</button>@*<a href="#">DELETE</a>*@
@@ -71,6 +70,7 @@
                                 </td>
                             </tr>
                         }
+                       
                     </tbody>
                 </table>
                 <div id="nav" class="btn"></div>
@@ -84,18 +84,19 @@
                     <div class="row">
                         @if (ViewBag.company != null)
                         {
-
-                            <div class="form-group col-md-4">
-                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
-                            </div>
-                                <div class="form-group col-md-5">
-                                    @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", Value = ViewBag.email, @onchnage = "check()" })
-                                </div>
+                            
                                 <div class="form-group col-md-4">
+                                    @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
+                                </div>
+                                <div class="form-group col-md-5">
+
+                                    @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email" ,@id = "Email", required = "required", @class = "form-control", Value = ViewBag.email})
+                                </div>
+                                @*<div class="form-group col-md-4">
                                     <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
                                     <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
                                 </div>
-
+                            
                         }
                         else
                         {
@@ -103,13 +104,17 @@
                                 @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control" })
                             </div>
                             <div class="form-group col-md-5">
-                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", @onchnage = "check()" })
-                            </div>
-                            <div class="form-group col-md-4">
-                                <button type="button" class="btn btn-default pull-right" id="btnclose2">Cancel</button>
-                                <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
+                                
+                                @*@Html.TextBoxFor(model => model.Email, new{@class = "popinputbox",placeholder = "Email",required = "required",type = "email"})*@
+
+                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email",id = "Email", required = "required", @class = "form-control"})
                             </div>
                         }
+                            <div class="form-group col-md-4">
+                                <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
+                                <input type="submit" class="btn btn-primary pull-right" id="mySubmit" name="command" value="Save"/>
+                            </div>
+                       
                     </div>
                     <a href="#" id="additon">Add Additional Inforamtion</a>
                 </div>
@@ -194,37 +199,61 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right" id="btnclose3">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updateaddress">Update Address</button>
-
+                                        @*<button type="submit" class="btn btn-primary pull-right" name="command" value="saveaddress"></button>*@
+                                        <input type="submit" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" />
                                     </div>
                                 </div>
                             </li>
                             <li data-content="contactperson">
+                                <div class="table-responsive">
+                                    <table class="table  table-borderedtable-striped jambo_table bulk_action" id="contacttable">
+                                        <thead>
+                                            <tr>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.contact1)
+                                            {
+                                                <tr>
+                                                    <td> @item.Contact_PersonFname </td>
+                                                    <td> @item.Contact_PersonLname </td>
+                                                    <td>@item.emailid </td>
+                                                   
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div id="nav" class="btn"></div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Contact_PersonFname" placeholder="First Name">
+                                                <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Contact_PersonLname" placeholder="Last name">
+                                                <input type="text" class="form-control" name="Contact_PersonLname" id="Contact_PersonLname" placeholder="Last name">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile">
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="emailid" placeholder="Email">
+                                                <input type="text" class="form-control" name="emailid" id="emailid" placeholder="Email">
                                             </div>
 
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Adhar_Number" placeholder="AdharNumber">
+                                                <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="AdharNumber">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Job_position" placeholder="Job position">
+                                                <input type="text" class="form-control" name="Job_position" id="Job_position" placeholder="Job position">
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +263,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right" id="btnclose4">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecontact">Update Contacts</button>
+                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcontact">Update Contacts</button>
                                     </div>
                                 </div>
                             </li>
@@ -243,25 +272,25 @@
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Bank_Acc_Number" placeholder="Account Number">
+                                                <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Bank_Name" placeholder="Bank Name">
+                                                <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Bank_Branch" placeholder="Bank Branch">
+                                                <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="IFSC_No" placeholder="IFSC Code">
+                                                <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        @*<div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Remarks" placeholder="Remarks">
+                                                <input type="text" class="form-control" name="Remarks" id="Remarks" placeholder="Remarks">
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
 
                                 </div>
@@ -282,7 +311,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5" id="comment" placeholder="Notes" name="Note"></textarea>
+                                                <textarea class="form-control" rows="5"placeholder="Notes" id="Note" name="Note"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -313,6 +342,7 @@
     <script src="~/Scripts/js/modernizr.js"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
@@ -338,7 +368,7 @@
 
     </script>
     <!-- Clone Shipping Address -->
-
+   
     <script>
         $('#btnadd').click(function () {
             $('#company').css('display', 'block');
@@ -350,24 +380,50 @@
     </script>
     <script>
         $("#btnclose1").click(function () {
-            $(".row").css('display', 'none');
+            $('#company').css('display', 'none');
         })
         $("#btnclose2").click(function () {
-            $(".row").css('display', 'none');
+            $('#company').css('display', 'none');
         })
         $("#btnclose3").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
         $("#btnclose4").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
         $("#btnclose5").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
         $("#btnclose6").click(function () {
-            $(".row").css('display', 'none');
+            $("#additional").css('display', 'none');
         })
     </script>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Mobile_No").keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+    });
+
+            </script>*@
+    
     <!------ Random Colors ------>
     <script type="text/javascript">
 
@@ -409,16 +465,93 @@
                 $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
                         css('display', 'table-row').animate({ opacity: 1 }, 300);
             });
+
+            $("#myform").validate({
+                rules: {Email: {required: true,email: true},},
+                messages: { Email: {required: "Please enter your email Id "},},
+            });
         });
-    </script>
+</script>
 
-    <script>
 
-    </script>
-    <!------ Random Colors ------>
+<script>
+        $('#btnadd').click(function () {
+            $('#company').css('display', 'block');
+        });
+        $('#additon').click(function () {
+            $('#additional').css('display', 'block');
+        });
+
+</script>
+<script>
+function myFunction() {
+    document.getElementById("mySubmit").value = "Update";
 }
+</script>
+<script>
 
+    function getEditDetails(id) {
+        alert(id);
+        
+        $('#mySubmit').val("update").text("update");
+        $('#mySubmit1').val("updateaddress").text("updateaddress");
+        
+        //myFunction();
+        $('#btnedit').click(function () {
+            $('#company').css('display', 'none');
+        });
+        
+            $.ajax({
+                url: '/Vendor/getAllDetails?company_Id=' + id,
+                type: 'POST',
+                data: JSON.stringify({company_Id:id}),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "unique") {
+                        alert("sai");
+                    }
+                    else {
+                        alert(data);
+                        var array = JSON.parse(data);
+                        alert("SSSSS"+array);
+                        $('#company').css('display', 'block');
+                        $('#company_Id').c
+                        $('#Company_Name').val(array.Company_Name);
+                        $('#Email').val(array.Email);
+                        $('#bill_street').val(array.bill_street);
+                        $('#bill_city').val(array.bill_city);
+                        $('#bill_state').val(array.bill_state);
+                        $('#bill_postalcode').val(array.bill_postalcode);
+                        $('#bill_country').val(array.bill_country);
+                        $('#ship_street').val(array.ship_street);
+                        $('#ship_city').val(array.ship_city);
+                        $('#ship_state').val(array.ship_state);
+                        $('#ship_postalcode').val(array.ship_postalcode);
+                        $('#ship_country').val(array.ship_country);
+                        $('#Contact_PersonFname').val(array.Contact_PersonFname);
+                        $('#Contact_PersonLname').val(array.Contact_PersonLname);
+                        $('#Mobile_No').val(array.Mobile_No);
+                        $('#emailid').val(array.emailid);
+                        $('#Adhar_Number').val(array.Adhar_Number);
+                        $('#Job_position').val(array.Job_position);
+                        $('#Bank_Acc_Number').val(array.Bank_Acc_Number);
+                        $('#Bank_Name').val(array.Bank_Name);
+                        $('#Bank_Branch').val(array.Bank_Branch);
+                        $('#IFSC_No').val(array.IFSC_No);
+                        //$('#Remarks').val(array.Remarks);
+                        $('#Note').val(array.Note);
 
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
+</script>
+  
+     <!------ Random Colors ------>
+    }
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
 <!-- Include all compiled plugins (below), or include individual files as needed -->

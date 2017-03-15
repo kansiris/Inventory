@@ -3546,4 +3546,26 @@ jQuery.each([ "Height", "Width" ], function(i, name){
 				num(this, "margin" + tl) + num(this, "margin" + br) : 0);
 	};
 
-});})();
+});
+})();
+
+
+$(document).ready(function () {
+
+    $("#myform").validate({
+        rules: {
+            Email: {
+                required: true,
+                email: true
+            },
+                    },
+        messages: {
+            
+            Email: {
+                required: "Please enter your email Id "
+            },
+            
+        },
+    });
+
+});
