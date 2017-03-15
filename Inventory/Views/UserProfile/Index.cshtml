@@ -516,39 +516,58 @@
     </script>
     <!------ Random Colors ------>
     <!------ Image Upload ------>
+@*<script>
+$(document).ready(function () {
+$('input[type=file]').change(function () {
+var val = $(this).val().toLowerCase();
+var regex = new RegExp("(.*?)\.(docx|doc|pdf|xml|bmp|ppt|xls)$");
+ if(!(regex.test(val))) {
+$(this).val('');
+alert('Please select correct file format');
+} }); });
+</script>*@ 
     @*<script>
         $("#fileupload").change(function (e) {
-            var data = new FormData();
-            var files = this.files[0];
-            if (files.length > 0) {
-                data.append("MyImages", files[0]);
+
+            var val = $(this).val().toLowerCase();
+            var regex = new RegExp("(.*?)\.(docx|doc|pdf|xml|bmp|ppt|xls)$");
+            if(!(regex.test(val))) {
+                $(this).val('');
+                alert('Invalid File Format');
             }
-            var value = $("#fileupload").val();
-            var id = @Request.QueryString["id"];
-            $.ajax({
-                url: window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/UserProfile/UpdateCompanyPic?path=' + files+'&&id='+id,
-                //url: "/Dashboard/UpdateDP",
-                type: "POST",
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function (response) {
-                    var base64Data = toBase64(response);
-                    img.src = "data:image/jpg;base64," + base64Data;
-                    //$("#companypic").attr("src","data:image/;base64,"+response);
-
-                    //$('#companypic').attr('src',imgSrc);
-                    //code after success
-                    //$("#txtImg").val(response);
-                    //$("#imgPreview").attr('src','../Content/UserDPs/' +response);
-                    //$("#imgPreview").attr('src', '/Content/UserDPs/' + response);
-                    //$("#imgPreviewsmall").attr('src', '/Content/UserDPs/' + response);
-                },
-                error: function (er) {
-                    alert(er);
+            else{
+                var data = new FormData();
+                var files = this.files[0];
+                if (files.length > 0) {
+                    data.append("MyImages", files[0]);
                 }
+                var value = $("#fileupload").val();
+                var id = @Request.QueryString["id"];
+                $.ajax({
+                    url: window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/UserProfile/UpdateCompanyPic?path=' + $(this).val()+'&&id='+id,
+                    //url: "/Dashboard/UpdateDP",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        //var base64Data = toBase64(response);
+                        //img.src = "data:image/jpg;base64," + base64Data;
+                        //$("#companypic").attr("src","data:image/;base64,"+response);
+                        alert("hi");
+                        //$('#companypic').attr('src',imgSrc);
+                        //code after success
+                        //$("#txtImg").val(response);
+                        //$("#imgPreview").attr('src','../Content/UserDPs/' +response);
+                        //$("#imgPreview").attr('src', '/Content/UserDPs/' + response);
+                        //$("#imgPreviewsmall").attr('src', '/Content/UserDPs/' + response);
+                    },
+                    error: function (er) {
+                        alert(er);
+                    }
 
-            });
+                });
+            }
         });
 
 

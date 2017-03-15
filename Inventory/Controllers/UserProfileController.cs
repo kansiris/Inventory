@@ -77,14 +77,18 @@ namespace Inventory.Controllers
         public JsonResult UpdateCompanyPic(string path,string id)
         {
             //byte[] bfoo = Convert.ToBase64String(path);
-            string file = path.Split('\\')[2];
-            var myArray = Encoding.UTF8.GetBytes(path);
-            Byte[] array = new Byte[64];
-            Array.Clear(array, 0, array.Length);
-            byte[] companypic = myArray;byte[] profilepic = array;
-            //int userid = int.Parse(Request.Form["id"]);
-            int count = LoginService.updateuserprofile("Company",int.Parse(id), null, null, null, profilepic, null, null, null, companypic);
-            return Json(companypic);
+            if (id != "1")
+            {
+                string file = path.Split('\\')[2];
+                var myArray = Encoding.UTF8.GetBytes(path);
+                Byte[] array = new Byte[64];
+                Array.Clear(array, 0, array.Length);
+                byte[] companypic = myArray; byte[] profilepic = array;
+                //int userid = int.Parse(Request.Form["id"]);
+                int count = LoginService.updateuserprofile("Company", int.Parse(id), null, null, null, profilepic, null, null, null, companypic);
+                return Json(companypic);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

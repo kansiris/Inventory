@@ -52,7 +52,7 @@
                                 @*<td><input type="hidden" value="@item.company_Id" /></td>*@
                                 <td>@*<input type="hidden" value="@item.company_Id" />*@ @item.Company_Name </td>
                                 <td>@item.Email </td>
-                               
+
                                 <td>
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Action <span class="caret"></span> </button>
@@ -84,10 +84,10 @@
                     <div class="row">
                         @if (ViewBag.company != null)
                         {
-                            
-                                <div class="form-group col-md-4">
-                                    @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
-                                </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
+                            </div>
                                 <div class="form-group col-md-5">
                                     @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", required = "required", @class = "form-control", Value = ViewBag.email, @onchnage = "check()" })
                                 </div>
@@ -95,7 +95,7 @@
                                     <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
                                     <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcompany">Save</button>
                                 </div>
-                            
+
                         }
                         else
                         {
@@ -346,7 +346,7 @@
         $('#additon').click(function () {
             $('#additional').css('display', 'block');
         });
-        
+
     </script>
     <script>
         $("#btnclose1").click(function () {
@@ -385,7 +385,7 @@
                 $('#company').css('display', 'none');
                 $('#additional').css('display', 'none');
             }
-            
+
 
             //Table Pagination
             $('#vendortable').after('<div id="nav"></div>');
@@ -413,7 +413,7 @@
     </script>
 
     <script>
-       
+
     </script>
     <!------ Random Colors ------>
 }

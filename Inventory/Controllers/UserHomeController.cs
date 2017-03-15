@@ -8,13 +8,13 @@ using Inventory.Models;
 using System.Web.Security;
 using System.Data.SqlClient;
 using System.Data;
+using System.Diagnostics;
 
 namespace Inventory.Controllers
 {
     public class UserHomeController : Controller
     {
         // GET: UserHome
-
         public ActionResult Index(string email, string usertype, string Site)
         {
             string date = DateTime.Now.AddDays(15).ToShortDateString();
@@ -67,6 +67,20 @@ namespace Inventory.Controllers
                           }).ToList();
             return userMaster;
         }
+
+        //protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        //{
+        //    base.OnActionExecuting(filterContext);
+        //    Debug.Print("Host:" + Request.Url.Host); // Accessible here
+        //    if (Request.Url.Host == "localhost")
+        //    {
+        //        // do what you want for localhost
+        //        //Request.Url.
+        //        //Request.Url.AbsolutePath.Replace("/UserHome", "Ramesh/UserHome");
+        //        ////Request.Url.OriginalString.Replace();
+        //        //var url = Request.Url;
+        //    }
+        //}
     }
 }
 
