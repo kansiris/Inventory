@@ -470,53 +470,45 @@
         });
 </script>
 
-<script type="text/javascript">
-	var xmlhttp;
-	function xmlObject() {
 
-		if (window.XMLHttpRequest) {
-			xmlhttp = new XMLHttpRequest();
-			alert("xml");
-		} else if (window.ActiveXObject) {
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		return xmlhttp;
-	}
-	function gotDetails() {
-	    alert(sai);
-		if (xmlhttp.readyState == 4) {
-			var val = xmlhttp.responseText;
-			getTimes(val);
-			return val;
-		}
-	}
-	function getTimes(val) {
-		var a = val;
-		alert(a);
-		var s = new Array();
-		s = a.split(':');
-		document.getElementById("Company_Name").value = s[1];
-		document.getElementById("Email").value = s[2];
-		
-	}
-	function getEditDetails(id) {
-	    alert(id);
-	    $("#btnedit").click(function () {
-	        $("#company").css('display', 'none');
-	    })
-	    $("#btnedit").txt="update";
-			xmlObject();
-			var url = '/Vendor/getlastinsertedcompany&company_Id='
-					+ id;
-			alert(url);
-			xmlhttp.open("post", url, true);
-			xmlhttp.send();
-			xmlhttp.onreadystatechange = gotDetails;
-			alert(hello);
-			return true;
-		
-	}
+<script>
+        $('#btnadd').click(function () {
+            $('#company').css('display', 'block');
+        });
+        $('#additon').click(function () {
+            $('#additional').css('display', 'block');
+        });
 
+</script>
+<script>
+
+    function getEditDetails(id) {
+        alert(id);
+        $('#btnedit').click(function () {
+            $('#company').css('display', 'none');
+        });
+            $.ajax({
+                url: '/Vendor/getEditDetails?company_Id='+id,
+                type: 'POST',
+                data: JSON.stringify({company_Id:id}),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "unique") {
+                        alert("sai");
+                    }
+                    else {
+                        //alert(data);
+                        var array = JSON.parse(data);
+                        $('#company').css('display', 'block');
+                        $('#Company_Name').val(array.Company_Name);
+                        $('#Email').val(array.Email);
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
 </script>
   
      <!------ Random Colors ------>

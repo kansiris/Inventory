@@ -10,6 +10,7 @@ using Inventory.Utility;
 using System.Web.Security;
 using Inventory.Content;
 using System.Data;
+using Newtonsoft.Json;
 
 namespace Inventory.Controllers
 {
@@ -71,7 +72,7 @@ namespace Inventory.Controllers
                 ViewBag.company_Id1 = getMaxCompanyID();
                 ViewBag.vendor_Id = getMaxVendorID();
                 var company = getlastinsertedcompany();
-                int counts = VendorService.VendorInsertRow(ViewBag.company_Id, vendor.Contact_PersonFname, vendor.Contact_PersonLname, vendor.Mobile_No,
+                int counts = VendorService.VendorInsertRow(ViewBag.company_Id1, vendor.Contact_PersonFname, vendor.Contact_PersonLname, vendor.Mobile_No,
                          vendor.emailid, vendor.Adhar_Number, vendor.Job_position);
                 
                 if (counts > 0)
@@ -205,24 +206,21 @@ namespace Inventory.Controllers
                       }).ToList();
   return contact;
         }
-        
-        //    private List<Vendor> getEditDetails()
-        //{
-        //    int company_Id = int.Parse(Request.QueryString["param.1"]);
-        //    SqlDataReader value = VendorService.getcontactdetail(company_Id);
-        //    DataTable dt = new DataTable();
-        //    dt.Load(value);
-        //    List<Vendor> detail = new List<Vendor>();
-        //    detail = (from DataRow row in dt.Rows
-        //               select new Vendor()
-        //               {
-        //                   Contact_PersonFname = row["Contact_PersonFname"].ToString(),
-        //                   Contact_PersonLname = row["Contact_PersonLname"].ToString(),
-        //                   emailid = row["emailid"].ToString()
-        //               }).ToList();
-        //    return detail;
-        //}
 
+        public JsonResult getEditDetails(int company_Id)
+        {
+            
+            var data = VendorService.getlastinsertedcompany(company_Id);
+            
+            if (data.Read())
+            {
+                Vendor vs = new Vendor { Company_Name = data["Company_Name"].ToString(), Email = data["Email"].ToString() };
+                string json = JsonConvert.SerializeObject(vs);
+                return Json(json);//new { vs.Company_Name, vs.Email }
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        
     }
     
 }
