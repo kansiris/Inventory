@@ -100,10 +100,17 @@ namespace Inventory.Repository
            
         }
         
-            public static SqlDataReader getEditDetails(int company_Id)
+            public static SqlDataReader getAllDetails(int company_Id)
         {
-            return SqlHelper.ExecuteReader(ConnectionString, "getEditDetails", company_Id);
+            return SqlHelper.ExecuteReader(ConnectionString, "getAllDetailsByCompany_Id", company_Id);
 
+        }
+
+        
+             public static int UpdateCompany1(int company_Id,string Company_Name, string Email)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatecompany1", company_Id, Company_Name, Email);
+            return count;
         }
 
     }
