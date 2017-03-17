@@ -28,11 +28,11 @@ namespace Inventory.Repository
         public Nullable<System.DateTime> SubscriptionDate { get; set; }
         public Nullable<int> IsActive { get; set; }
         public Nullable<System.Guid> activationcode { get; set; }
-        public byte[] Profile_Picture { get; set; }
+        public string Profile_Picture { get; set; }
         public string Date_Format { get; set; }
         public string Timezone { get; set; }
         public string Currency { get; set; }
-        public byte[] company_logo { get; set; }
+        public string company_logo { get; set; }
         public string ULine1 { get; set; }
         public string ULine2 { get; set; }
         public string Ucity { get; set; }

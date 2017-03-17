@@ -41,11 +41,11 @@ namespace Inventory.Models
         public int IsActive { get; set; }
         public string activationcode { get; set; }
 
-        public Byte[] Profile_Picture { get; set; }
+        public string Profile_Picture { get; set; }
         public string Date_Format { get; set; }
         public string Timezone { get; set; }
         public string Currency { get; set; }
-        public Byte[] company_logo { get; set; }
+        public string company_logo { get; set; }
         
     }
 }

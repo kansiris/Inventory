@@ -66,7 +66,7 @@ namespace Inventory.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Authenticateuser_Result>("Authenticateuser", checkParameter, emailIdParameter, passwordParameter, siteParameter, usertypeidParameter);
         }
     
-        public virtual int createuser(string emailId, string first_Name, string last_Name, string dB_Name, Nullable<System.DateTime> created_Date, string password, Nullable<int> subscriptionId, Nullable<int> userTypeId, string user_Site, string companyName, string phone, Nullable<System.DateTime> subscriptionDate, Nullable<int> isActive, string activationcode, byte[] profile_Picture, string date_Format, string timezone, string currency, byte[] companylogo)
+        public virtual int createuser(string emailId, string first_Name, string last_Name, string dB_Name, Nullable<System.DateTime> created_Date, string password, Nullable<int> subscriptionId, Nullable<int> userTypeId, string user_Site, string companyName, string phone, Nullable<System.DateTime> subscriptionDate, Nullable<int> isActive, string activationcode, string profile_Picture, string date_Format, string timezone, string currency, string companylogo)
         {
             var emailIdParameter = emailId != null ?
                 new ObjectParameter("EmailId", emailId) :
@@ -126,7 +126,7 @@ namespace Inventory.Repository
     
             var profile_PictureParameter = profile_Picture != null ?
                 new ObjectParameter("Profile_Picture", profile_Picture) :
-                new ObjectParameter("Profile_Picture", typeof(byte[]));
+                new ObjectParameter("Profile_Picture", typeof(string));
     
             var date_FormatParameter = date_Format != null ?
                 new ObjectParameter("Date_Format", date_Format) :
@@ -142,7 +142,7 @@ namespace Inventory.Repository
     
             var companylogoParameter = companylogo != null ?
                 new ObjectParameter("companylogo", companylogo) :
-                new ObjectParameter("companylogo", typeof(byte[]));
+                new ObjectParameter("companylogo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("createuser", emailIdParameter, first_NameParameter, last_NameParameter, dB_NameParameter, created_DateParameter, passwordParameter, subscriptionIdParameter, userTypeIdParameter, user_SiteParameter, companyNameParameter, phoneParameter, subscriptionDateParameter, isActiveParameter, activationcodeParameter, profile_PictureParameter, date_FormatParameter, timezoneParameter, currencyParameter, companylogoParameter);
         }
@@ -366,6 +366,5 @@ namespace Inventory.Repository
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUserProfile_Result>("GetUserProfile", idParameter);
         }
-        
     }
 }

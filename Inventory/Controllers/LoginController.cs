@@ -160,10 +160,13 @@ namespace Inventory.Controllers
         [ChildActionOnly]
         public PartialViewResult ProfileProgressPartial()
         {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            LoginService loginService = new LoginService();
             //string id = HttpContext.User.Identity.Name;
+            var profilepic = loginService.GetUserProfile(int.Parse(user.ID));
+            ViewBag.profilepic = profilepic[0].Profile_Picture;
             int Warehouse = 0, Vendor = 0, Products = 0;
             string Progress = null, colour = null;
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             SqlDataReader record = LoginService.GetProfileProgress(user.DbName);
             if (record.Read())
             {

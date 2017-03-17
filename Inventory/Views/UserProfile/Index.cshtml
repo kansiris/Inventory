@@ -64,35 +64,45 @@
                                             <div class="row">
                                                 <div class="form-group col-md-12">
                                                     @*<input type="email" class="form-control" placeholder="E-Mail">*@
-                                                    @Html.TextBoxFor(Model => Model.Item1.CompanyName, new { placeholder = "Company Name", @class = "form-control", Value = item.CompanyName, disabled = "disabled" })
+                                                    @Html.TextBoxFor(Model => Model.Item1.CompanyName, new { placeholder = "Company Name", @class = "form-control", Value = item.CompanyName, disabled = "disabled", required = "required" })
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     @*<input type="text" class="form-control" placeholder="First Name">*@
-                                                    @Html.TextBoxFor(Model => Model.Item1.First_Name, new { placeholder = "First Name", @class = "form-control", Value = item.First_Name })
+                                                    @Html.TextBoxFor(Model => Model.Item1.First_Name, new { placeholder = "First Name", @class = "form-control", Value = item.First_Name, required = "required" })
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     @*<input type="text" class="form-control" placeholder="Last Name">*@
-                                                    @Html.TextBoxFor(Model => Model.Item1.Last_Name, new { placeholder = "Last Name", @class = "form-control", Value = item.Last_Name })
+                                                    @Html.TextBoxFor(Model => Model.Item1.Last_Name, new { placeholder = "Last Name", @class = "form-control", Value = item.Last_Name, required = "required" })
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-12">
                                                     @*<input type="text" class="form-control" placeholder="Company Name">*@
-                                                    @Html.TextBoxFor(Model => Model.Item1.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled" })
+                                                    @Html.TextBoxFor(Model => Model.Item1.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled", required = "required" })
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-md-push-3">
-                                            <div class="top-button">
-                                                <img id="companypic" />
-                                                <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png">
-                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
-                                            </div>
+
+                                            @if (item.company_logo != null)
+                                            {
+                                                <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
+                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" />
+                                            }
+                                            else
+                                            {
+                                                <div class="top-button">
+                                                    <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
+                                                    <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
+                                                </div>
+                                            }
+
                                             <div>Upload Company Logo</div>
                                         </div>
                                     </div>
+                                    @*<textarea cols="80" rows="10"></textarea>*@
                                     <hr />
                                     <div class="row">
                                         <div class="col-md-12">
@@ -107,31 +117,31 @@
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     @*<input type="text" class="form-control" placeholder="Line 1">*@
-                                                    @Html.TextBoxFor(Model => Model.Item3.Line1, new { placeholder = "Company Address Line1", @class = "form-control", Value = item.CLine1 })
+                                                    @Html.TextBoxFor(Model => Model.Item3.Line1, new { placeholder = "Company Address Line1", @class = "form-control", Value = item.CLine1, required = "required" })
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     @*<input type="text" class="form-control" placeholder="State/Country">*@
-                                                    @Html.TextBoxFor(Model => Model.Item3.state, new { placeholder = "Company State", @class = "form-control", Value = item.Cstate })
+                                                    @Html.TextBoxFor(Model => Model.Item3.state, new { placeholder = "Company State", @class = "form-control", Value = item.Cstate, required = "required" })
                                                     @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item3.Line2, new { placeholder = "Company Address Line2", @class = "form-control", Value = item.CLine2 })
+                                                    @Html.TextBoxFor(Model => Model.Item3.Line2, new { placeholder = "Company Address Line2", @class = "form-control", Value = item.CLine2, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="Line 2">*@
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item3.postalcode, new { placeholder = "Company Postal Code", @class = "form-control", Value = item.Cpostalcode })
+                                                    @Html.TextBoxFor(Model => Model.Item3.postalcode, new { placeholder = "Company Postal Code", @class = "form-control", Value = item.Cpostalcode, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item3.city, new { placeholder = "Company City", @class = "form-control", Value = item.Ccity })
+                                                    @Html.TextBoxFor(Model => Model.Item3.city, new { placeholder = "Company City", @class = "form-control", Value = item.Ccity, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="City">*@
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    @Html.DropDownListFor(Model => Model.Item3.country, new SelectList(ViewBag.companycountry), "Select country", new { @class = "form-control", Value = item.Ccountry })
+                                                    @Html.DropDownListFor(Model => Model.Item3.country, new SelectList(ViewBag.companycountry), "Select country", new { @class = "form-control", Value = item.Ccountry, required = "required" })
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +161,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-8">
                                                     @*<input type="email" class="form-control" placeholder="E-mail">*@
-                                                    @Html.TextBoxFor(Model => Model.Item1.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled" })
+                                                    @Html.TextBoxFor(Model => Model.Item1.EmailId, new { placeholder = "E-Mail ID", @class = "form-control", Value = item.EmailId, disabled = "disabled", required = "required" })
                                                 </div>
                                             </div>
                                             <div class="row toggle-button" style="height:auto;">
@@ -164,11 +174,11 @@
                                                 </div>
                                                 <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
                                                     @*<input type="password" class="form-control" placeholder="Password">*@
-                                                    @Html.TextBoxFor(Model => Model.Item1.Password, new { placeholder = "Password", @class = "form-control" })
+                                                    @Html.TextBoxFor(Model => Model.Item1.Password, new { placeholder = "Password", @class = "form-control", required = "required" })
                                                 </div>
                                                 <div class="form-group col-md-4 toggle-box" style="margin-top: 20px;">
                                                     @*<input type="password" class="form-control" placeholder="Confirm Password">*@
-                                                    @Html.TextBoxFor(Model => Model.Item1.Password, new { placeholder = "Confirm Password", @class = "form-control" })
+                                                    @Html.TextBoxFor(Model => Model.Item1.Password, new { placeholder = "Confirm Password", @class = "form-control", required = "required" })
                                                 </div>
                                             </div>
                                             <div class="row"> </div>
@@ -242,31 +252,31 @@
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     @*<input type="text" class="form-control" placeholder="Line 1">*@
-                                                    @Html.TextBoxFor(Model => Model.Item2.Line1, new { placeholder = "Address Line1", @class = "form-control", Value = item.ULine1 })
+                                                    @Html.TextBoxFor(Model => Model.Item2.Line1, new { placeholder = "Address Line1", @class = "form-control", Value = item.ULine1, required = "required" })
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     @*<input type="text" class="form-control" placeholder="State/Country">*@
-                                                    @Html.TextBoxFor(Model => Model.Item2.state, new { placeholder = "State", @class = "form-control", Value = item.Ustate })
+                                                    @Html.TextBoxFor(Model => Model.Item2.state, new { placeholder = "State", @class = "form-control", Value = item.Ustate, required = "required" })
                                                     @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item2.Line2, new { placeholder = "Address Line2", @class = "form-control", Value = item.ULine2 })
+                                                    @Html.TextBoxFor(Model => Model.Item2.Line2, new { placeholder = "Address Line2", @class = "form-control", Value = item.ULine2, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="Line 2">*@
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item2.postalcode, new { placeholder = "Postal Code", @class = "form-control", Value = item.Upostalcode })
+                                                    @Html.TextBoxFor(Model => Model.Item2.postalcode, new { placeholder = "Postal Code", @class = "form-control", Value = item.Upostalcode, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    @Html.TextBoxFor(Model => Model.Item2.city, new { placeholder = "City", @class = "form-control", Value = item.Ucity })
+                                                    @Html.TextBoxFor(Model => Model.Item2.city, new { placeholder = "City", @class = "form-control", Value = item.Ucity, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="City">*@
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    @Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control", Value = item.Ucountry })
+                                                    @Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control", Value = item.Ucountry, required = "required" })
                                                 </div>
                                             </div>
                                         </div>
@@ -283,10 +293,14 @@
                                 <li data-content="profile">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="row">
+                                            @*<div class="row">
                                                 <div class="form-group col-md-12">
                                                     <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
                                                 </div>
+                                            </div>*@
+                                            <div class="top-button">
+                                                <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
+                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -516,61 +530,76 @@
     </script>
     <!------ Random Colors ------>
     <!------ Image Upload ------>
-@*<script>
-$(document).ready(function () {
-$('input[type=file]').change(function () {
-var val = $(this).val().toLowerCase();
-var regex = new RegExp("(.*?)\.(docx|doc|pdf|xml|bmp|ppt|xls)$");
- if(!(regex.test(val))) {
-$(this).val('');
-alert('Please select correct file format');
-} }); });
-</script>*@ 
-    @*<script>
-        $("#fileupload").change(function (e) {
 
-            var val = $(this).val().toLowerCase();
-            var regex = new RegExp("(.*?)\.(docx|doc|pdf|xml|bmp|ppt|xls)$");
-            if(!(regex.test(val))) {
-                $(this).val('');
-                alert('Invalid File Format');
+    <script>
+        function upload() {
+            var ext = $('#fileupload').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('Invalid File Type');
             }
-            else{
+            else {
+                var file = $("#fileupload").get(0).files;
+                //alert('This file size is: ' + this.files.size/1024/1024 + "MB");
+                 @*var id = @Request.QueryString["id"];
                 var data = new FormData();
-                var files = this.files[0];
+                var files = $("#fileupload").get(0).files;
                 if (files.length > 0) {
-                    data.append("MyImages", files[0]);
+                    data.append("helpSectionImages", files[0]);
                 }
-                var value = $("#fileupload").val();
-                var id = @Request.QueryString["id"];
                 $.ajax({
-                    url: window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/UserProfile/UpdateCompanyPic?path=' + $(this).val()+'&&id='+id,
-                    //url: "/Dashboard/UpdateDP",
+                    url: '/UserProfile/UpdateCompanyPic?id='+id,
                     type: "POST",
                     processData: false,
                     contentType: false,
                     data: data,
                     success: function (response) {
-                        //var base64Data = toBase64(response);
-                        //img.src = "data:image/jpg;base64," + base64Data;
-                        //$("#companypic").attr("src","data:image/;base64,"+response);
-                        alert("hi");
-                        //$('#companypic').attr('src',imgSrc);
-                        //code after success
-                        //$("#txtImg").val(response);
-                        //$("#imgPreview").attr('src','../Content/UserDPs/' +response);
-                        //$("#imgPreview").attr('src', '/Content/UserDPs/' + response);
-                        //$("#imgPreviewsmall").attr('src', '/Content/UserDPs/' + response);
+                        $("#companypic").attr("src","data:image/;base64,"+response);
+                        alert("uploaded");
                     },
                     error: function (er) {
-                        alert(er);
+                        alert("error");
                     }
-
-                });
+                });*@
             }
-        });
+            //var validExts = new Array(".gif", ".jpg", ".png", ".jpeg");
+            //var fileExt = sender.value;
+            //fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+            //if (validExts.indexOf(fileExt) < 0) {
+            //    alert("Invalid file selected, valid files are of " +
+            //             validExts.toString() + " types.");
+            //    return false;
+            //}
+            //else return true;
+            //var filetype = ['gif', 'jpg', 'png', 'jpeg'];
+            //var dots = this.form.file.value.split(".");
+            ////get the part AFTER the LAST period.
+            //fileType = "." + dots[dots.length-1];
 
+            //return (fileTypes.join(".").indexOf(fileType) != -1) ?
+            //alert('That file is OK!') : 
+            //alert("Please only upload files that end in types: \n\n" + (fileTypes.join(" .")) + "\n\nPlease select a new file and try again.");
 
-    </script>*@
+            @*var id = @Request.QueryString["id"];
+            var data = new FormData();
+            var files = $("#fileupload").get(0).files;
+            if (files.length > 0) {
+                data.append("helpSectionImages", files[0]);
+            }
+            $.ajax({
+                url: '/UserProfile/UpdateCompanyPic?id='+id,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    $("#companypic").attr("src","data:image/;base64,"+response);
+                    alert("uploaded");
+                },
+                error: function (er) {
+                    alert("error");
+                }
+            });*@
+        }
+    </script>
     <!------ Image Upload ------>
 }

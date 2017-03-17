@@ -67,23 +67,5 @@ namespace Inventory.Controllers
                           }).ToList();
             return userMaster;
         }
-
-        //protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        //{
-        //    base.OnActionExecuting(filterContext);
-        //    Debug.Print("Host:" + Request.Url.Host); // Accessible here
-        //    if (Request.Url.Host == "localhost")
-        //    {
-        //        // do what you want for localhost
-        //        //Request.Url.
-        //        //Request.Url.AbsolutePath.Replace("/UserHome", "Ramesh/UserHome");
-        //        ////Request.Url.OriginalString.Replace();
-        //        //var url = Request.Url;
-        //    }
-        //}
     }
 }
-
-
-//string command, string email, string usertype, string Site
-//var userId = (CustomPrinciple)System.Web.HttpContext.Current.User;

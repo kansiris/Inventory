@@ -35,10 +35,7 @@ namespace Inventory.Controllers
             int count = 0;
             if (command == "Localization" || command == "Account" || command == "Essentials")
             {
-                Byte[] array = new Byte[64];
-                Array.Clear(array, 0, array.Length);
-                userMaster.company_logo = userMaster.Profile_Picture = array;
-                count = LoginService.updateuserprofile(command, int.Parse(id), userMaster.First_Name, userMaster.Last_Name, userMaster.Password, userMaster.Profile_Picture.ToArray(), userMaster.Date_Format, userMaster.Timezone, userMaster.Currency, userMaster.company_logo.ToArray());
+                count = LoginService.updateuserprofile(command, int.Parse(id), userMaster.First_Name, userMaster.Last_Name, userMaster.Password, userMaster.Profile_Picture, userMaster.Date_Format, userMaster.Timezone, userMaster.Currency, userMaster.company_logo);
             }
             if (command == "useraddress")
             {
@@ -74,51 +71,20 @@ namespace Inventory.Controllers
             return cultureList;
         }
 
-        public JsonResult UpdateCompanyPic(string path,string id)
+        [HttpPost]
+        public ActionResult UpdateCompanyPic(HttpPostedFileBase helpSectionImages, string id)
         {
-            //byte[] bfoo = Convert.ToBase64String(path);
-            if (id != "1")
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
-                string file = path.Split('\\')[2];
-                var myArray = Encoding.UTF8.GetBytes(path);
-                Byte[] array = new Byte[64];
-                Array.Clear(array, 0, array.Length);
-                byte[] companypic = myArray; byte[] profilepic = array;
-                //int userid = int.Parse(Request.Form["id"]);
-                int count = LoginService.updateuserprofile("Company", int.Parse(id), null, null, null, profilepic, null, null, null, companypic);
-                return Json(companypic);
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] companypic = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(companypic);
+                int count = LoginService.updateuserprofile("Company", int.Parse(id), null, null, null, null, null, null, null, base64String);
+                return Json(base64String);
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }
-
-
-
-
-//public List<UserMaster> GetUserProfile(int id)
-//{
-//    ViewBag.userprofile = loginService.GetUserProfilesample(id);
-//    SqlDataReader value = LoginService.GetUserProfile(id);
-//    DataTable dt = new DataTable();
-//    dt.Load(value);
-//    List<UserMaster> userMaster = new List<UserMaster>();
-//    userMaster = (from DataRow row in dt.Rows
-//                          select new UserMaster()
-//                          {
-//                              ID = row["ID"].ToString(),
-//                              First_Name = row["First_Name"].ToString(),
-//                              Last_Name = row["Last_Name"].ToString(),
-//                              EmailId = row["EmailId"].ToString(),
-//                              DB_Name =row["DB_Name"].ToString(),
-//                              Created_Date = (DateTime)row["Created_Date"],
-//                              CompanyName = row["CompanyName"].ToString(),
-//                              Phone = row["Phone"].ToString(),
-//                              User_Site = row["User_Site"].ToString(),
-//                              UserTypeId = (int)row["UserTypeId"],
-//                              SubscriptionDate = (DateTime)row["SubscriptionDate"],
-//                              Timezone = row["Timezone"].ToString(),
-//                              Date_Format = row["Date_Format"].ToString()
-//                          }).ToList();
-//    return userMaster;
-//}
