@@ -8,13 +8,13 @@ using Inventory.Models;
 using System.Web.Security;
 using System.Data.SqlClient;
 using System.Data;
+using System.Diagnostics;
 
 namespace Inventory.Controllers
 {
     public class UserHomeController : Controller
     {
         // GET: UserHome
-
         public ActionResult Index(string email, string usertype, string Site)
         {
             string date = DateTime.Now.AddDays(15).ToShortDateString();
@@ -69,7 +69,3 @@ namespace Inventory.Controllers
         }
     }
 }
-
-
-//string command, string email, string usertype, string Site
-//var userId = (CustomPrinciple)System.Web.HttpContext.Current.User;

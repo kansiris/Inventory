@@ -10,15 +10,17 @@ using System.Web.Routing;
 using System.Web.Caching;
 using System.Globalization;
 using Microsoft.Web.Administration;
-using Microsoft.SqlServer.Management.Smo;
+//using Microsoft.SqlServer.Management.Smo;
 using System.IO;
-using Microsoft.SqlServer.Management.Common;
+//using Microsoft.SqlServer.Management.Common;
 using System.Data;
 using System.Web.Hosting;
 using Inventory.Utility;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Inventory.Content;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Common;
 
 namespace Inventory.Controllers
 {
@@ -48,7 +50,7 @@ namespace Inventory.Controllers
                 int Subscription;
                 DateTime? SubscriptionDate = null;
                 string activationCode = Guid.NewGuid().ToString();//Auto Generated code
-                string DBname = userMaster.User_Site + ".Inventory"; //Assigning Particular DB Name
+                string DBname = userMaster.User_Site + "_Inventory"; //Assigning Particular DB Name
                 if (plan != null)
                     Subscription = (int)LoginService.getsubscriptionid(plan);
                 else
@@ -77,25 +79,34 @@ namespace Inventory.Controllers
 
         public void createdb(string Email)
         {
-            string DBname = null;
-            SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
-            if (value.Read())
-            { DBname = value["User_Site"].ToString() + ".Inventory"; }   //Email.Split('@')[0] + ".Inventory";
-            //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
-            //< add name = "DbConnection" connectionString = "Data Source=183.82.97.220;Database=Inventory;Integrated Security=False;User ID=user_inv;Password=123456;" providerName = "System.Data.SqlClient" />
-            string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
-            FileInfo File = new FileInfo(Server.MapPath("../Models/mar02.sql"));
-            string script = File.OpenText().ReadToEnd();
-            SqlConnection conn = new SqlConnection(sqlConnectionString);
-            Server server = new Server(new ServerConnection(conn));
-            var db = new Database(server, DBname);
-            db.Create();
-            //db.ExecuteNonQuery(script);
-            string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=123456;"; //for server
-            SqlConnection conn1 = new SqlConnection(sqlConnectionString1);
-            Server server1 = new Server(new ServerConnection(conn1));
-            server1.ConnectionContext.ExecuteNonQuery(script);
+            try
+            {
+                string DBname = null;
+                SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
+                if (value.Read())
+                DBname = value["User_Site"].ToString() + "_Inventory"; 
+                //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user123;"; //for local
+                string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; //for server
+                FileInfo File = new FileInfo(Server.MapPath("../Models/mar14.sql"));
+                string script = File.OpenText().ReadToEnd();
+                SqlConnection conn = new SqlConnection(sqlConnectionString);
+                Server server = new Server(new ServerConnection(conn));
+                var db = new Database(server, DBname);
+                db.Create();
+                //db.ExecuteNonQuery(script); for local
+                //string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
+                //for server 
+                string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; 
+                SqlConnection conn1 = new SqlConnection(sqlConnectionString1); 
+                Server server1 = new Server(new ServerConnection(conn1));
+                server1.ConnectionContext.ExecuteNonQuery(script);
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
         }
+
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode)
         {
             // Designing Email Part
@@ -149,10 +160,13 @@ namespace Inventory.Controllers
         [ChildActionOnly]
         public PartialViewResult ProfileProgressPartial()
         {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            LoginService loginService = new LoginService();
             //string id = HttpContext.User.Identity.Name;
+            var profilepic = loginService.GetUserProfile(int.Parse(user.ID));
+            ViewBag.profilepic = profilepic[0].Profile_Picture;
             int Warehouse = 0, Vendor = 0, Products = 0;
             string Progress = null, colour = null;
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             SqlDataReader record = LoginService.GetProfileProgress(user.DbName);
             if (record.Read())
             {

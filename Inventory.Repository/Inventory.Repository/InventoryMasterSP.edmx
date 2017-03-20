@@ -31,11 +31,11 @@
           <Parameter Name="SubscriptionDate" Type="date" Mode="In" />
           <Parameter Name="IsActive" Type="int" Mode="In" />
           <Parameter Name="activationcode" Type="varchar(max)" Mode="In" />
-          <Parameter Name="Profile_Picture" Type="binary" Mode="In" />
+          <Parameter Name="Profile_Picture" Type="varchar(max)" Mode="In" />
           <Parameter Name="Date_Format" Type="nvarchar" Mode="In" />
           <Parameter Name="Timezone" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Currency" Type="nvarchar" Mode="In" />
-          <Parameter Name="companylogo" Type="binary" Mode="In" />
+          <Parameter Name="companylogo" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="getOwnerDb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="code" Type="nvarchar" Mode="In" />
@@ -133,11 +133,11 @@
             <Parameter Name="SubscriptionDate" Mode="In" Type="DateTime" />
             <Parameter Name="IsActive" Mode="In" Type="Int32" />
             <Parameter Name="activationcode" Mode="In" Type="String" />
-            <Parameter Name="Profile_Picture" Mode="In" Type="Binary" />
+            <Parameter Name="Profile_Picture" Mode="In" Type="String" />
             <Parameter Name="Date_Format" Mode="In" Type="String" />
             <Parameter Name="Timezone" Mode="In" Type="String" />
             <Parameter Name="Currency" Mode="In" Type="String" />
-            <Parameter Name="companylogo" Mode="In" Type="Binary" />
+            <Parameter Name="companylogo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getOwnerDb" ReturnType="Collection(String)">
           <Parameter Name="code" Mode="In" Type="String" />
@@ -286,11 +286,11 @@
           <Property Type="DateTime" Name="SubscriptionDate" Nullable="true" />
           <Property Type="Int32" Name="IsActive" Nullable="true" />
           <Property Type="Guid" Name="activationcode" Nullable="true" />
-          <Property Type="Binary" Name="Profile_Picture" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Profile_Picture" Nullable="true" />
           <Property Type="String" Name="Date_Format" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Timezone" Nullable="true" />
           <Property Type="String" Name="Currency" Nullable="true" MaxLength="50" />
-          <Property Type="Binary" Name="company_logo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="company_logo" Nullable="true" />
           <Property Type="String" Name="ULine1" Nullable="false" MaxLength="1" />
           <Property Type="String" Name="ULine2" Nullable="false" MaxLength="1" />
           <Property Type="String" Name="Ucity" Nullable="false" MaxLength="1" />
