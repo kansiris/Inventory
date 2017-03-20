@@ -33,7 +33,7 @@
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })
             @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })
-            @*<input type="hidden" value="@ViewBag.company_Id " id="company_Id"/>*@
+            @*<input type="hidden" id="company_Id"/>*@
             <button type="button" id="btnadd" class="btn btn-success">ADD COMPANY</button>
             <div class="table-responsive">
                 <table class="table  table-borderedtable-striped jambo_table bulk_action" id="vendortable">
@@ -45,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         @foreach (var item in ViewBag.records)
                         {
                             <tr>
@@ -69,7 +69,7 @@
                                 </td>
                             </tr>
                         }
-                       
+
                     </tbody>
                 </table>
                 <div id="nav" class="btn"></div>
@@ -83,19 +83,14 @@
                     <div class="row">
                         @if (ViewBag.company != null)
                         {
-                            
-                                <div class="form-group col-md-4">
-                                    @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name",@id= "Company_Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
-                                </div>
-                                <div class="form-group col-md-5">
 
-                                    @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email" ,@id = "Email", required = "required", @class = "form-control", Value = ViewBag.email})
-                                </div>
-                                @*<div class="form-group col-md-4">
-                                    <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
-                                    <button type="submit" class="btn btn-primary pull-right" id="mySubmit" name="command" value="insertcompany1">Save</button>
-                                </div>*@
-                            
+                            <div class="form-group col-md-4">
+                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
+                            </div>
+                            <div class="form-group col-md-5">
+
+                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", @id = "Email", required = "required", @class = "form-control", Value = ViewBag.email })
+                            </div>
                         }
                         else
                         {
@@ -103,17 +98,17 @@
                                 @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", required = "required", @class = "form-control" })
                             </div>
                             <div class="form-group col-md-5">
-                                
-                                @*@Html.TextBoxFor(model => model.Email, new{@class = "popinputbox",placeholder = "Email",required = "required",type = "email"})*@
 
-                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email",id = "Email", required = "required", @class = "form-control"})
+                                @*@Html.TextBoxFor(model => model.Email, new{@class = "popinputbox",placeholder = "Email", pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$", required = "required",type = "email"})*@
+
+                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", id = "Email", required = "required", @class = "form-control" })
                             </div>
                         }
-                            <div class="form-group col-md-4">
-                                <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
-                                <input type="submit" class="btn btn-primary pull-right" id="mySubmit" name="command" value="Save"/>
-                            </div>
-                       
+                        <div id="savebutton" class="form-group col-md-4">
+                            <button type="button" class="btn btn-default pull-right" id="btnclose1">Cancel</button>
+                            <input type="button" class="btn btn-primary pull-right" id="mySubmit" name="command" value="Save" onclick="editcompany(this.value)" />
+                        </div>
+
                     </div>
                     <a href="#" id="additon">Add Additional Inforamtion</a>
                 </div>
@@ -198,8 +193,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right" id="btnclose3">Cancel</button>
-                                        @*<button type="submit" class="btn btn-primary pull-right" name="command" value="saveaddress"></button>*@
-                                        <input type="submit" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" />
+                                        <input type="button" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" onclick="editcompanyaddress(this.value)" />
                                     </div>
                                 </div>
                             </li>
@@ -211,7 +205,7 @@
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
                                                 <th>Email</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -221,7 +215,7 @@
                                                     <td> @item.Contact_PersonFname </td>
                                                     <td> @item.Contact_PersonLname </td>
                                                     <td>@item.emailid </td>
-                                                   
+
                                                 </tr>
                                             }
                                         </tbody>
@@ -240,7 +234,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No">
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No" maxlength="11">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <input type="text" class="form-control" name="emailid" id="emailid" placeholder="Email">
@@ -262,7 +256,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right" id="btnclose4">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="insertcontact">Update Contacts</button>
+                                        <input type="button" class="btn btn-primary pull-right" name="command" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"/>
                                     </div>
                                 </div>
                             </li>
@@ -285,11 +279,7 @@
                                                 <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
                                             </div>
                                         </div>
-                                        @*<div class="row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Remarks" id="Remarks" placeholder="Remarks">
-                                            </div>
-                                        </div>*@
+
                                     </div>
 
                                 </div>
@@ -297,7 +287,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right" id="btnclose5">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatecompany">Update BankDetails</button>
+                                        <input type="button" class="btn btn-primary pull-right" id="bankid" name="command" value="savebankdetails" onclick="editcompanybankdetails(this.value)" />
                                     </div>
                                 </div>
                             </li>
@@ -310,7 +300,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5"placeholder="Notes" id="Note" name="Note"></textarea>
+                                                <textarea class="form-control" rows="5" placeholder="Notes" id="Note" name="Note"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +309,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-default pull-right" id="btnclose6">Cancel</button>
-                                        <button type="submit" class="btn btn-primary pull-right" name="command" value="updatenote" id="btnclose6">Update notes</button>
+                                        <input type="button" class="btn btn-primary pull-right" name="command" value="Save Note" id="notebutton" onclick="updatecompanynote(this.value)" />
                                     </div>
                                 </div>
                             </li>
@@ -341,7 +331,7 @@
     <script src="~/Scripts/js/modernizr.js"></script>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    
+
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
@@ -367,7 +357,7 @@
 
     </script>
     <!-- Clone Shipping Address -->
-   
+
     <script>
         $('#btnadd').click(function () {
             $('#company').css('display', 'block');
@@ -375,7 +365,7 @@
         $('#additon').click(function () {
             $('#additional').css('display', 'block');
         });
-        
+
     </script>
     <script>
         $("#btnclose1").click(function () {
@@ -398,31 +388,7 @@
         })
     </script>
 
-@*<script type="text/javascript">
-    $(document).ready(function () {
-        $("#Mobile_No").keydown(function (event) {
-            if (event.shiftKey) {
-                event.preventDefault();
-            }
-            if (event.keyCode == 46 || event.keyCode == 8) {
-            }
-            else {
-                if (event.keyCode < 95) {
-                    if (event.keyCode < 48 || event.keyCode > 57) {
-                        event.preventDefault();
-                    }
-                }
-                else {
-                    if (event.keyCode < 96 || event.keyCode > 105) {
-                        event.preventDefault();
-                    }
-                }
-            }
-        });
-    });
 
-            </script>*@
-    
     <!------ Random Colors ------>
     <script type="text/javascript">
 
@@ -435,8 +401,7 @@
             });
 
             var tel = document.URL.split('=')[1];
-            if (tel != 'complete')
-            {
+            if (tel != 'complete') {
                 $('#company').css('display', 'none');
                 $('#additional').css('display', 'none');
             }
@@ -464,16 +429,11 @@
                 $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
                         css('display', 'table-row').animate({ opacity: 1 }, 300);
             });
-
-            $("#myform").validate({
-                rules: {Email: {required: true,email: true},},
-                messages: { Email: {required: "Please enter your email Id "},},
-            });
         });
-</script>
+    </script>
 
 
-<script>
+    <script>
         $('#btnadd').click(function () {
             $('#company').css('display', 'block');
         });
@@ -481,29 +441,56 @@
             $('#additional').css('display', 'block');
         });
 
-</script>
-<script>
-function myFunction() {
-    document.getElementById("mySubmit").value = "Update";
-}
-</script>
-<script>
+    </script>
 
-    function getEditDetails(id) {
-        alert(id);
-        
-        $('#mySubmit').val("update").text("update");
-        $('#mySubmit1').val("updateaddress").text("updateaddress");
-        
-        //myFunction();
-        $('#btnedit').click(function () {
-            $('#company').css('display', 'none');
-        });
-        
+    <script>
+        function editFunction(array) {
+
+            $('#company').css('display', 'block');
+            $('#company_Id').val(array.company_Id);
+            $('#Company_Name').val(array.Company_Name);
+            $('#Email').val(array.Email);
+            $('#bill_street').val(array.bill_street);
+            $('#bill_city').val(array.bill_city);
+            $('#bill_state').val(array.bill_state);
+            $('#bill_postalcode').val(array.bill_postalcode);
+            $('#bill_country').val(array.bill_country);
+            $('#ship_street').val(array.ship_street);
+            $('#ship_city').val(array.ship_city);
+            $('#ship_state').val(array.ship_state);
+            $('#ship_postalcode').val(array.ship_postalcode);
+            $('#ship_country').val(array.ship_country);
+            $('#Contact_PersonFname').val(array.Contact_PersonFname);
+            $('#Contact_PersonLname').val(array.Contact_PersonLname);
+            $('#Mobile_No').val(array.Mobile_No);
+            $('#emailid').val(array.emailid);
+            $('#Adhar_Number').val(array.Adhar_Number);
+            $('#Job_position').val(array.Job_position);
+            $('#Bank_Acc_Number').val(array.Bank_Acc_Number);
+            $('#Bank_Name').val(array.Bank_Name);
+            $('#Bank_Branch').val(array.Bank_Branch);
+            $('#IFSC_No').val(array.IFSC_No);
+            $('#Note').val(array.Note);
+        }
+    </script>
+    <script>
+
+        function getEditDetails(id) {
+            alert(id);
+            $('#mySubmit').val("update").text("update");
+            $('#mySubmit1').val("updateaddress").text("updateaddress");
+            $('#bankid').val("updatebankdetails").text("updatebankdetails");
+            $('#notebutton').val("updatenote").text("updatenote"); 
+            $('#contactbutton').val("updatecontact").text("updatecontact");
+
+            $('#btnedit').click(function () {
+                $('#company').css('display', 'none');
+            });
+
             $.ajax({
                 url: '/Vendor/getAllDetails?company_Id=' + id,
                 type: 'POST',
-                data: JSON.stringify({company_Id:id}),
+                data: JSON.stringify({ company_Id: id }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
@@ -511,46 +498,350 @@ function myFunction() {
                         alert("sai");
                     }
                     else {
-                        alert(data);
                         var array = JSON.parse(data);
-                        alert("SSSSS"+array);
-                        $('#company').css('display', 'block');
-                        $('#company_Id').c
-                        $('#Company_Name').val(array.Company_Name);
-                        $('#Email').val(array.Email);
-                        $('#bill_street').val(array.bill_street);
-                        $('#bill_city').val(array.bill_city);
-                        $('#bill_state').val(array.bill_state);
-                        $('#bill_postalcode').val(array.bill_postalcode);
-                        $('#bill_country').val(array.bill_country);
-                        $('#ship_street').val(array.ship_street);
-                        $('#ship_city').val(array.ship_city);
-                        $('#ship_state').val(array.ship_state);
-                        $('#ship_postalcode').val(array.ship_postalcode);
-                        $('#ship_country').val(array.ship_country);
-                        $('#Contact_PersonFname').val(array.Contact_PersonFname);
-                        $('#Contact_PersonLname').val(array.Contact_PersonLname);
-                        $('#Mobile_No').val(array.Mobile_No);
-                        $('#emailid').val(array.emailid);
-                        $('#Adhar_Number').val(array.Adhar_Number);
-                        $('#Job_position').val(array.Job_position);
-                        $('#Bank_Acc_Number').val(array.Bank_Acc_Number);
-                        $('#Bank_Name').val(array.Bank_Name);
-                        $('#Bank_Branch').val(array.Bank_Branch);
-                        $('#IFSC_No').val(array.IFSC_No);
-                        //$('#Remarks').val(array.Remarks);
-                        $('#Note').val(array.Note);
-
+                        editFunction(array);
                     }
                 },
                 error: function (data)
                 { alert("Failed!!!"); }
             });
         }
+    </script>
+
+    <script>
+        function editcompany(clickedvalue) {
+            alert(clickedvalue);
+
+            $('#update').click(function () {
+                $('#company').css('display', 'none');
+            });
+            $('#update').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            company_Id = $('#company_Id').val();
+            Company_Name = $('#Company_Name').val();
+            Email = $('#Email').val();
+            if (clickedvalue == 'update') {
+                $.ajax({
+                    url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
+                    type: 'POST',
+                    data: JSON.stringify({ company_Id, Company_Name, Email }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            alert("Company Updated sucessfully");
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'Save') {
+
+                $.ajax({
+                    url: '/Vendor/savecompany?Company_Name=' + Company_Name + '& Email=' + Email,
+                    type: 'POST',
+                    data: JSON.stringify({ Company_Name, Email }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            alert("company saved sucessfully");
+                        }
+                        else {
+                            alert("not saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+    </script>
+
+    <script>
+        function editcompanyaddress(clickedvalue) {
+            alert(clickedvalue);
+            $('#updateaddress').click(function () {
+                $('#company').css('display', 'none');
+            });
+            $('#updateaddress').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            company_Id = $('#company_Id').val();
+            bill_street = $('#bill_street').val();
+            bill_city = $('#bill_city').val();
+            bill_state = $('#bill_state').val();
+            bill_postalcode = $('#bill_postalcode').val();
+            bill_country = $('#bill_country').val();
+            ship_street = $('#ship_street').val();
+            ship_city = $('#ship_city').val();
+            ship_state = $('#ship_state').val();
+            ship_postalcode = $('#ship_postalcode').val();
+            ship_country = $('#ship_country').val();
+           
+            if (clickedvalue == 'updateaddress') {
+                $.ajax({
+                    url: '/Vendor/updatecompanyaddress?company_Id=' + company_Id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state +'& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city +'& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
+                    type: 'POST',
+                    data: JSON.stringify({company_Id, bill_street, bill_city, bill_state, bill_postalcode,bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country}),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+
+                            alert("Updated sucessfully");
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'saveaddress') {
+              
+                $.ajax({
+                    url: '/Vendor/savecompanyaddress?company_Id=' + company_Id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state +
+                           '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city +
+                           '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
+                    type: 'POST',
+                    data: JSON.stringify({
+                        company_Id, bill_street, bill_city, bill_state, bill_postalcode,
+                        bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+
+                            alert("Address Saved sucessfully");
+                        }
+                        else {
+                            alert("not Saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+    </script>
+    <script>
+        function editcompanybankdetails(clickedvalue) {
+            alert(clickedvalue);
+            $('#updatebakdetails').click(function () {
+                $('#company').css('display', 'none');
+            });
+            $('#updatebakdetails').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            company_Id = $('#company_Id').val();
+            Bank_Acc_Number = $('#Bank_Acc_Number').val();
+            Bank_Name = $('#Bank_Name').val();
+            Bank_Branch = $('#Bank_Branch').val();
+            IFSC_No = $('#IFSC_No').val();
+            if (clickedvalue == 'updatebankdetails') {
+            $.ajax({
+                url: '/Vendor/updatecompanybankdetails?company_Id=' + company_Id + '&Bank_Acc_Number=' + Bank_Acc_Number + '&Bank_Name=' + Bank_Name + '&Bank_Branch=' + Bank_Branch + '&IFSC_No=' + IFSC_No,
+                type: 'POST',
+                data: JSON.stringify({ company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "sucess") {
+                        $('#savebutton').hide();
+
+                        alert("Updated sucessfully");
+                    }
+                    else {
+                        alert("not updated");
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+
+            });
+            }
+            if (clickedvalue == 'savebankdetails') {
+                $.ajax({
+                    url: '/Vendor/savecompanybankdetails?company_Id=' + company_Id + '&Bank_Acc_Number=' + Bank_Acc_Number + '&Bank_Name=' + Bank_Name + '&Bank_Branch=' + Bank_Branch + '&IFSC_No=' + IFSC_No,
+                    type: 'POST',
+                    data: JSON.stringify({ company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No}),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+
+                            alert("Bank details saved sucessfully");
+                        }
+                        else {
+                            alert("not saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+
+                });
+            }
+        }
+
+    </script>
+
+    <script>
+        function updatecompanynote(clickedvalue) {
+            alert(clickedvalue);
+            $('#updatenote').click(function () {
+                $('#company').css('display', 'none');
+            });
+            $('#updatenote').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            company_Id = $('#company_Id').val();
+            Note = $('#Note').val();
+            if (clickedvalue == 'updatenote') { 
+            $.ajax({
+                url: '/Vendor/updatecompanynote?company_Id=' + company_Id + '&Note=' + Note,
+                type: 'POST',
+                data: JSON.stringify({ company_Id, Note }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "sucess") {
+                        $('#savebutton').hide();
+
+                        alert("Updated sucessfully");
+                    }
+                    else {
+                        alert("not updated");
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+            } 
+            if (clickedvalue == 'Save Note') {
+                $.ajax({
+                    url: '/Vendor/savecompanynote?company_Id=' + company_Id + '&Note=' + Note,
+                    type: 'POST',
+                    data: JSON.stringify({ company_Id, Note }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            alert("Saved sucessfully");
+                        }
+                        else {
+                            alert("not Saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+
+    </script>
+    
+<script>
+    function UpdateContact(clickedvalue) {
+            alert(clickedvalue);
+            $('#updatecontact').click(function () {
+                $('#company').css('display', 'none');
+            });
+            $('#updatecontact').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            company_Id = $('#company_Id').val();
+            Contact_PersonFname=$('#Contact_PersonFname').val();
+            Contact_PersonLname=$('#Contact_PersonLname').val();
+            Mobile_No=$('#Mobile_No').val();
+            emailid = $('#emailid').val();
+            Adhar_Number=$('#Adhar_Number').val();
+            Job_position=$('#Job_position').val();
+            if (clickedvalue == 'savecontact') {
+                $.ajax({
+                url: '/Vendor/savecontactdetails?company_Id=' + company_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Contact_PersonLname=' + Contact_PersonLname + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid + '&Adhar_Number=' + Adhar_Number + '&Job_position=' + Job_position,
+                type: 'POST',
+                data: JSON.stringify({ company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "sucess") {
+                        $('#savebutton').hide();
+
+                        alert("saved sucessfully");
+                    }
+                    else {
+                        alert("not saved");
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+            }
+            if (clickedvalue == 'updatecontact') {
+                $.ajax({
+                    url: '/Vendor/updatecontactdetails?company_Id=' + company_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Contact_PersonLname=' + Contact_PersonLname + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid + '&Adhar_Number=' + Adhar_Number + '&Job_position=' + Job_position,
+                    type: 'POST',
+                    data: JSON.stringify({ company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            alert("updated sucessfully");
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+
 </script>
-  
-     <!------ Random Colors ------>
-    }
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#Mobile_No").keydown(function (event) {
+                if (event.shiftKey) {
+                    event.preventDefault();
+                }
+                if (event.keyCode == 46 || event.keyCode == 8) {
+                }
+                else {
+                    if (event.keyCode < 95) {
+                        if (event.keyCode < 48 || event.keyCode > 57) {
+                            event.preventDefault();
+                        }
+                    }
+                    else {
+                        if (event.keyCode < 96 || event.keyCode > 105) {
+                            event.preventDefault();
+                        }
+                    }
+                }
+            });
+            
+
+        });
+</script>
+
+    <!------ Random Colors ------>
+}
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
 <!-- Include all compiled plugins (below), or include individual files as needed -->

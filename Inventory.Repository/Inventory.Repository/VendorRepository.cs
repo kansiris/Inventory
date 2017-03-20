@@ -32,16 +32,16 @@ namespace Inventory.Repository
 
         #region VendorInsertRow
         public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
-                         string Email, string Adhar_Number,string Job_position)
+                         string emailid, string Adhar_Number,string Job_position)
         {
-             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position);
+             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             return count;
         }
         
             public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No, 
-                         string Email, string Adhar_Number, string Job_position)
+                         string emailid, string Adhar_Number, string Job_position)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             return count;
         }
         #endregion
@@ -58,20 +58,20 @@ namespace Inventory.Repository
         public static int VendorAddressUpdateRow(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
             string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            int count1 = SqlHelper.ExecuteNonQuery(ConnectionString, "insertVendor_address", company_Id, bill_street, bill_city, bill_state, bill_postalcode,
+            int count1 = SqlHelper.ExecuteNonQuery(ConnectionString, "updateVendor_address", company_Id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
             return count1;
         }
         #region UpdateCompany
-        public static int UpdateCompany(long company_Id, int Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No, string email)
+        public static int UpdateCompany(int company_Id, int Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No)
         {
-                      int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No, email);
+                      int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No);
             return count;
         }
         #endregion
-        public static int UpdateNotes(int company_Id,string notes)
+        public static int UpdateNotes(int company_Id,string Note)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateNotes", company_Id, notes);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateNotes", company_Id, Note);
             return count;
         }
         

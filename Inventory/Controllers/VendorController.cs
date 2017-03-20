@@ -35,116 +35,21 @@ namespace Inventory.Controllers
             ViewBag.vendor_Id = getMaxVendorID();
             ViewBag.contact1  = getcontactDetail();
            
-            var company = getlastinsertedcompany();
+            var company = getlastinsertedcompany(ViewBag.company_Id);
             if (status == "complete")
             {
                 ViewBag.company = 1;
                 ViewBag.companyname = company.Company_Name;
                 ViewBag.email = company.Email;
             }
-
+                    
             return View();
-
         }
         [HttpPost]
         public ActionResult Index(Vendor vendor, string command)
         {
- 
-//company insertion           
-            if (command == "Save")
-            {
-                int count = VendorService.CompanyInsertRow(vendor.Company_Name, vendor.Email);
-                if (count > 0)
-                {
-                    ViewBag.company_Id = getMaxCompanyID();
-                    ViewBag.vendor_Id = getMaxVendorID();
-                    var company = getlastinsertedcompany();
-                    int count2 = VendorService.VendorAddressInsertRow(company.company_Id, null, null, null, null, null, null, null, null, null, null);
-                    return Content("<script language='javascript' type='text/javascript'>alert('Company Added successfully!!!!click on Additional fields');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-                }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-            }
-
- //contact person insertion
-            if (command == "insertcontact")
-            {
-                ViewBag.company_Id = getMaxCompanyID();
-                ViewBag.vendor_Id = getMaxVendorID();
-                var company = getlastinsertedcompany();
-                int counts = VendorService.VendorInsertRow(ViewBag.company_Id, vendor.Contact_PersonFname, vendor.Contact_PersonLname, vendor.Mobile_No,
-                         vendor.emailid, vendor.Adhar_Number, vendor.Job_position);
-                if (counts > 0)
-                {
-                    return Content("<script language='javascript' type='text/javascript'>alert('contact person updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-                }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-            }
-            
-//address insertion
-            if (command == "saveaddress")
-            {
-                int countng = VendorService.VendorAddressupdateRow(vendor.company_Id, vendor.bill_street, vendor.bill_city, vendor.bill_state, vendor.bill_postalcode,
-                vendor.bill_country, vendor.ship_street, vendor.ship_city, vendor.ship_state, vendor.ship_postalcode, vendor.ship_country);
-                if (countng > 0)
-                {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Address updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-                }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-            }
-
-//bankdetails insertion
-            if (command == "updatecompany")
-            {
-
-                int county = VendorService.UpdateCompany(vendor.company_Id, vendor.Bank_Acc_Number, vendor.Bank_Name,
-                    vendor.Bank_Branch, vendor.IFSC_No, vendor.Email);
-                if (county > 0)
-                {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Bankdetails updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-                }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-            }
-
-//note insertion
-            if (command == "updatenote")
-            {
-
-                int countyy = VendorService.UpdateNotes(vendor.company_Id, vendor.Note);
-                if (countyy > 0)
-                {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Notes updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-                }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-            }
-
- //updating company on edit click 
-            if (command == "update")
-            {
-
-                int county = VendorService.UpdateCompany1(vendor.company_Id, vendor.Company_Name, vendor.Email);
-                if (county > 0)
-                {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Bankdetails updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-                }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "complete" }) + "'</script>");
-            }
-            
-
- // updating address on edit click   
- if (command == "updateaddress")
-            {
-
-                int countng = VendorService.VendorAddressupdateRow(vendor.company_Id, vendor.bill_street, vendor.bill_city, vendor.bill_state, vendor.bill_postalcode,
-                vendor.bill_country, vendor.ship_street, vendor.ship_city, vendor.ship_state, vendor.ship_postalcode, vendor.ship_country);
-                if (countng > 0)
-                {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Address updated successfully');location.href='" + @Url.Action("Index", "Vendor", new { status = "" }) + "'</script>");
-                }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Vendor", new { status = "" }) + "'</script>");
-            }
-
-            return View();
-        }
+                        return View();
+      }
 
     // used methods        
     public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
@@ -195,9 +100,9 @@ namespace Inventory.Controllers
             }
             return vendor_Id;
         }
-        private Vendor getlastinsertedcompany()
+        private Vendor getlastinsertedcompany(int company_Id)
         {
-            int company_Id = ViewBag.company_Id;
+            //int company_Id = ViewBag.company_Id;
             SqlDataReader value = VendorService.getlastinsertedcompany(company_Id);
             DataTable dt = new DataTable();
             dt.Load(value);
@@ -241,7 +146,7 @@ namespace Inventory.Controllers
             if (data.Read())            
             {
                 Vendor vs = new Vendor {
-                    company_Id=int.Parse(data["company_Id"].ToString()),
+                    company_Id = int.Parse(data["company_Id"].ToString()),
                     Company_Name = data["Company_Name"].ToString(),
                     Email = data["Email"].ToString(),
                     bill_street =data["bill_street"].ToString(),
@@ -272,9 +177,176 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+        public JsonResult updatecompany(int company_Id,string Company_Name,string Email)
+        {
+           
+            var data = VendorService.UpdateCompany1(company_Id,Company_Name,Email);
+            if (data>0) {
+               
+                ViewBag.company_Id = company_Id;
+                ViewBag.Company_Name = Company_Name;
+                ViewBag.Email = Email;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult updatecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
+            string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
+        {
 
+            var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
+                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+            if (data > 0)
+            {
+                List<Vendor> vendor = new List<Vendor>();
+                ViewBag.company_Id = company_Id;
+                ViewBag.bill_street = bill_street;
+                ViewBag.bill_city = bill_city;
+                ViewBag.bill_state = bill_state;
+                ViewBag.bill_postalcode = bill_postalcode;
+                ViewBag.bill_country = bill_country;
+                ViewBag.ship_street = ship_street;
+                ViewBag.ship_city = ship_city;
+                ViewBag.ship_state = ship_state;
+                ViewBag.ship_postalcode = ship_postalcode;
+                ViewBag.ship_country = ship_country;
+               
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult updatecompanybankdetails(int company_Id, int Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
+        {
+
+            var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No);
+            if (data > 0)
+            {
+                ViewBag.company_Id = company_Id;
+                ViewBag.Bank_Acc_Number = Bank_Acc_Number;
+                ViewBag.Bank_Name = Bank_Name;
+                ViewBag.Bank_Branch = Bank_Branch;
+                ViewBag.IFSC_No = IFSC_No;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult updatecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
+                          string emailid, string Adhar_Number, string Job_position)
+        {
+            var data = VendorService.VendorUpdateContact(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            if (data > 0)
+            {
+                ViewBag.company_Id = company_Id;
+                ViewBag.Contact_PersonFname = Contact_PersonFname;
+                ViewBag.Contact_PersonLname = Contact_PersonLname;
+                ViewBag.Mobile_No = Mobile_No;
+                ViewBag.emailid = emailid;
+                ViewBag.Adhar_Number = Adhar_Number;
+                ViewBag.Job_position = Job_position;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult updatecompanynote(int company_Id, string Note)
+        {
+            var data = VendorService.UpdateNotes(company_Id, Note);
+            if (data > 0)
+            {
+              ViewBag.company_Id = company_Id;
+                ViewBag.Note = Note;
+                 return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult savecompany(string Company_Name, string Email)
+        {
+
+            var data = VendorService.CompanyInsertRow(Company_Name, Email);
+            if (data > 0)
+            {
+                ViewBag.Company_Name = Company_Name;
+                ViewBag.Email = Email;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult savecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
+                string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
+        {
+            company_Id = getMaxCompanyID();
+            var data = VendorService.VendorAddressInsertRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
+                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+            if (data > 0)
+            {
+                ViewBag.company_Id = company_Id;
+                ViewBag.bill_street = bill_street;
+                ViewBag.bill_city = bill_city;
+                ViewBag.bill_state = bill_state;
+                ViewBag.bill_postalcode = bill_postalcode;
+                ViewBag.bill_country = bill_country;
+                ViewBag.ship_street = ship_street;
+                ViewBag.ship_city = ship_city;
+                ViewBag.ship_state = ship_state;
+                ViewBag.ship_postalcode = ship_postalcode;
+                ViewBag.ship_country = ship_country;
+
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult savecompanynote(int company_Id, string Note)
+        {
+            company_Id = getMaxCompanyID();
+            var data = VendorService.UpdateNotes(company_Id, Note);
+            if (data > 0)
+            {
+                //ViewBag.company_Id =getMaxCompanyID();
+                ViewBag.company_Id = company_Id;
+                ViewBag.Note = Note;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult savecompanybankdetails(int company_Id, int Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
+        {
+            company_Id = getMaxCompanyID();
+            var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No);
+            if (data > 0)
+            {
+                ViewBag.company_Id = company_Id;
+                ViewBag.Bank_Acc_Number = Bank_Acc_Number;
+                ViewBag.Bank_Name = Bank_Name;
+                ViewBag.Bank_Branch = Bank_Branch;
+                ViewBag.IFSC_No = IFSC_No;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
+                          string emailid, string Adhar_Number, string Job_position)
+        {
+            company_Id = getMaxCompanyID();
+            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            if (data > 0)
+            {
+                ViewBag.company_Id = company_Id;
+                ViewBag.Contact_PersonFname = Contact_PersonFname;
+                ViewBag.Contact_PersonLname = Contact_PersonLname;
+                ViewBag.Mobile_No = Mobile_No;
+                ViewBag.emailid = emailid;
+                ViewBag.Adhar_Number = Adhar_Number;
+                ViewBag.Job_position = Job_position;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
     }
-
-}
+    
+    }
 
 

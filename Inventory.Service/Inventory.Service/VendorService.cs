@@ -26,17 +26,17 @@ namespace Inventory.Service
         
         #region VendorInsertRow
         public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, int Mobile_No, 
-                          string Email, string Adhar_Number, string Job_position)
+                          string emailid, string Adhar_Number, string Job_position)
         {
-            return VendorRepository.VendorInsertRow(company_Id,Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
+            return VendorRepository.VendorInsertRow(company_Id,Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
         }
 
         #endregion
 
             public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No, 
-                          string Email, string Adhar_Number, string Job_position)
+                          string emailid, string Adhar_Number, string Job_position)
         {
-            return VendorRepository.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position);
+            return VendorRepository.VendorUpdateContact(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
         }
         #region VendorAddressInsertRow
         public static int VendorAddressInsertRow(int company_Id,string bill_street, string bill_city, string bill_state, string bill_postalcode,
@@ -50,22 +50,22 @@ namespace Inventory.Service
         public static int VendorAddressupdateRow(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
             string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            return VendorRepository.VendorAddressInsertRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
+            return VendorRepository.VendorAddressUpdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
         }
         #region UpdateCompany
-        public static int UpdateCompany(int company_Id,int Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No, string email)
+        public static int UpdateCompany(int company_Id,int Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
 
-            return VendorRepository.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No, email);
+            return VendorRepository.UpdateCompany(company_Id,Bank_Acc_Number,Bank_Name,Bank_Branch,IFSC_No);
         }
 
         #endregion
         
-            public static int UpdateNotes(int company_Id, string notes)
+            public static int UpdateNotes(int company_Id, string Note)
         {
 
-            return VendorRepository.UpdateNotes(company_Id, notes);
+            return VendorRepository.UpdateNotes(company_Id, Note);
         }
         public static SqlDataReader getcompanyId()
         {
@@ -75,11 +75,7 @@ namespace Inventory.Service
         {
             return VendorRepository.getvendorId();
         }
-        //public static SqlDataReader Authenticateemail(string check, string Email_ID)
-        //{
-        //    return VendorRepository.Authenticateemail(check, Email_ID);
-        //}
-       
+        
             public static SqlDataReader getlastinsertedcompany(int company_Id)
         {
             return VendorRepository.getlastinsertedcompany(company_Id);
