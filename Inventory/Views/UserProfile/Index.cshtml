@@ -29,10 +29,10 @@
 }
 <!-- page content -->
 <div class="right_col" role="main">
-    <div class="container">
+    <div class="container" id="profilediv">
         @foreach (var item in ViewBag.profile)
         {
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" id="userprofile">
                 <div class="row info-title">
                     @item.First_Name @item.Last_Name
                     <button type="button" class="btn btn-success btn-xs pull-right">Account</button>
@@ -42,13 +42,13 @@
                     <div class="col-md-12">
                         <div class="cd-tabs">
                             <nav>
-                                <ul class="cd-tabs-navigation">
+                                <ul class="cd-tabs-navigation" id="tabsection">
                                     <li><a data-content="essentials" class="selected" href="#0">Essentials</a></li>
                                     <li><a data-content="caddress" href="#0">Company Address</a></li>
                                     <li><a data-content="account" href="#0">Account</a></li>
-                                    <li><a data-content="details" href="#0">Details</a></li>
-                                    <li><a data-content="address" href="#0">User Address</a></li>
-                                    <li><a data-content="profile" href="#0">Profile</a></li>
+                                    <li><a data-content="details" href="#0">My Users</a></li>
+                                    <li><a data-content="address" href="#0">My Address</a></li>
+                                    <li><a data-content="profile" href="#0">My Profile</a></li>
                                     <li><a data-content="notes" href="#0">Notes</a></li>
                                     <li><a data-content="social" href="#0">Social</a></li>
                                     <li><a data-content="localization" href="#0">Localization</a></li>
@@ -89,25 +89,25 @@
                                             @if (item.company_logo != null)
                                             {
                                                 <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
-                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" />
-                                            }
-                                            else
-                                            {
+                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;"/>
+                                                }
+                                                else
+                                                {
                                                 <div class="top-button">
                                                     <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
                                                     <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                                 </div>
-                                            }
+                                                }
 
-                                            <div>Upload Company Logo</div>
-                                        </div>
+                                                <div>Upload Company Logo</div>
+                                            </div>
                                     </div>
                                     @*<textarea cols="80" rows="10"></textarea>*@
                                     <hr />
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="submit" class="btn btn-success pull-right" name="command" value="Essentials">Update Essentials</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Essentials" onclick="updatevales(this.value)">Update Essentials</button>
                                         </div>
                                     </div>
                                 </li>
@@ -150,7 +150,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="submit" class="btn btn-success pull-right" name="command" value="companyaddress">Update Company Address</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="companyaddress" onclick="updatevales(this.value)">Update Company Address</button>
                                         </div>
                                     </div>
                                 </li>
@@ -188,7 +188,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="submit" class="btn btn-success pull-right" name="command" value="Account">Update Account</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Account" onclick="updatevales(this.value)">Update Account</button>
                                         </div>
                                     </div>
                                 </li>
@@ -242,7 +242,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" name="command" value="update">Update Details</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="update" onclick="updatevales(this.value)">Update Details</button>
                                         </div>
                                     </div>
                                 </li>
@@ -285,7 +285,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="submit" class="btn btn-success pull-right" name="command" value="useraddress">Update Address</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="useraddress" onclick="updatevales(this.value)">Update Address</button>
                                         </div>
                                     </div>
                                 </li>
@@ -294,30 +294,45 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             @*<div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
-                                                </div>
-                                            </div>*@
-                                            <div class="top-button">
+                                                    <div class="form-group col-md-12">
+                                                        <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
+                                                    </div>
+                                                </div>*@
+                                            @*<div class="top-button">
                                                 <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
                                                 <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
-                                            </div>
+                                            </div>*@
+
+                                            @if (item.Profile_Picture != null)
+                                            {
+                                                <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
+                                                <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                            }
+                                            else
+                                            {
+                                                <div class="top-button">
+                                                    <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
+                                                    <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
+                                                </div>
+                                            }
+
+
                                         </div>
-                                        <div class="col-md-6">
+                                        @*<div class="col-md-6">
                                             <div class="row">
                                                 <div class="form-group col-md-12">
                                                     <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                     <hr />
-                                    <div class="row">
+                                    @*<div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
                                             <button type="button" class="btn btn-success pull-right">Update Profile</button>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </li>
                                 <li data-content="notes">
                                     <div class="row">
@@ -340,7 +355,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right">Update Notes</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Note" onclick="updatevales(this.value)">Update Notes</button>
                                         </div>
                                     </div>
                                 </li>
@@ -391,7 +406,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right">Update Social</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Social" onclick="updatevales(this.value)">Update Social</button>
                                         </div>
                                     </div>
                                 </li>
@@ -467,7 +482,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="submit" class="btn btn-success pull-right" name="command" value="Localization">Update Localization</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Localization" onclick="updatevales(this.value)">Update Localization</button>
                                         </div>
                                     </div>
                                 </li>
@@ -525,6 +540,11 @@
                 var rand = Math.floor(Math.random() * len);
                 $(this).css("background", colors[rand]);
             });
+            var profileurl = '@Request.QueryString["type"]';
+            if (profileurl == 'upload') {
+                $(".cd-tabs-navigation li a[data-content='essentials'], ul.cd-tabs-content li[data-content='essentials']").removeClass("selected");
+                $(".cd-tabs-navigation li a[data-content='profile'], ul.cd-tabs-content li[data-content='profile']").addClass("selected");
+            }
 
         });
     </script>
@@ -539,8 +559,7 @@
             }
             else {
                 var file = $("#fileupload").get(0).files;
-                //alert('This file size is: ' + this.files.size/1024/1024 + "MB");
-                 @*var id = @Request.QueryString["id"];
+                var id = @Request.QueryString["id"];
                 var data = new FormData();
                 var files = $("#fileupload").get(0).files;
                 if (files.length > 0) {
@@ -557,49 +576,176 @@
                         alert("uploaded");
                     },
                     error: function (er) {
-                        alert("error");
+                        alert("Failed To Upload Pic!!! Try Again");
                     }
-                });*@
+                });
             }
-            //var validExts = new Array(".gif", ".jpg", ".png", ".jpeg");
-            //var fileExt = sender.value;
-            //fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
-            //if (validExts.indexOf(fileExt) < 0) {
-            //    alert("Invalid file selected, valid files are of " +
-            //             validExts.toString() + " types.");
-            //    return false;
-            //}
-            //else return true;
-            //var filetype = ['gif', 'jpg', 'png', 'jpeg'];
-            //var dots = this.form.file.value.split(".");
-            ////get the part AFTER the LAST period.
-            //fileType = "." + dots[dots.length-1];
+        }
+    </script>
 
-            //return (fileTypes.join(".").indexOf(fileType) != -1) ?
-            //alert('That file is OK!') : 
-            //alert("Please only upload files that end in types: \n\n" + (fileTypes.join(" .")) + "\n\nPlease select a new file and try again.");
 
-            @*var id = @Request.QueryString["id"];
-            var data = new FormData();
-            var files = $("#fileupload").get(0).files;
-            if (files.length > 0) {
-                data.append("helpSectionImages", files[0]);
+<script>
+        function upload1() {
+            var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('Invalid File Type');
+            }
+            else {
+                var file = $("#fileupload1").get(0).files;
+                var id = @Request.QueryString["id"];
+                var data = new FormData();
+                var files = $("#fileupload1").get(0).files;
+                if (files.length > 0) {
+                    data.append("helpSectionImages", files[0]);
+                }
+                $.ajax({
+                    url: '/UserProfile/UpdateProfilePic?id='+id,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        $("#smallprofilepic").attr("src","data:image/;base64,"+response);
+                        $("#profilepic").attr("src","data:image/;base64,"+response);
+                        //alert("uploaded");
+                    },
+                    error: function (er) {
+                        alert("Failed To Upload Pic!!! Try Again");
+                    }
+                });
+            }
+        }
+</script>
+
+    <!------ Image Upload ------>
+
+    <script>
+        function updatevales(val) {
+            var id = @Request.QueryString["id"];
+            var usermaster = {
+                First_Name:$('#Item1_First_Name').val(),
+                Last_Name:$('#Item1_Last_Name').val(),
+                Password:$('#Item1_Password').val(),
+                Date_Format:$('#Item1_Date_Format').val(),
+                Timezone:$('#Item1_Timezone').val(),
+                Currency:$('#Item1_Currency').val()
+            }
+            var userAddress={
+                Line1:$('#Item2_Line1').val(),
+                Line2:$('#Item2_Line2').val(),
+                city:$('#Item2_city').val(),
+                state:$('#Item2_state').val(),
+                postalcode:$('#Item2_postalcode').val(),
+                country:$('#Item2_country').val(),
+            }
+            var ownerCompanyAddress={
+                Line1:$('#Item3_Line1').val(),
+                Line2:$('#Item3_Line2').val(),
+                city:$('#Item3_city').val(),
+                state:$('#Item3_state').val(),
+                postalcode:$('#Item3_postalcode').val(),
+                country:$('#Item3_country').val(),
             }
             $.ajax({
-                url: '/UserProfile/UpdateCompanyPic?id='+id,
+                url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
                 type: "POST",
-                processData: false,
-                contentType: false,
-                data: data,
+                datatype: "json",
+                data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress },
                 success: function (response) {
-                    $("#companypic").attr("src","data:image/;base64,"+response);
-                    alert("uploaded");
+                    if (response == 'success') {
+                       
+                        $('#profilediv').toggle().toggle();
+                        alert("Profile updated SuccessFully");
+                    }
+                    else {
+                        alert("Failed To Update Profile");
+                    }
                 },
                 error: function (er) {
                     alert("error");
                 }
-            });*@
+            });
         }
     </script>
-    <!------ Image Upload ------>
+
+
+    @*<script>
+        $(document).ready(function () {
+            $('#userprofile').validate({
+                rules: {
+                    name: {
+                        minlength: 2,
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    message: {
+                        minlength: 2,
+                        required: true
+                    }
+                },
+                highlight: function (element) {
+                    $(element).closest('.control-group').removeClass('success').addClass('error');
+                },
+                success: function (element) {
+                    element.text('OK!').addClass('valid')
+                        .closest('.control-group').removeClass('error').addClass('success');
+                }
+            });
+        });
+    </script>*@
+
+
+    @*<script>
+        $('#btnupdate').on('click',function(){
+            var id = @Request.QueryString["id"];
+            var btnvalue = $('#btnupdate').val();
+            var usermaster = {
+                First_Name:$('#Item1_First_Name').val(),
+                Last_Name:$('#Item1_Last_Name').val(),
+                Password:$('#Item1_Password').val(),
+                Date_Format:$('#Item1_Date_Format').val(),
+                Timezone:$('#Item1_Timezone').val(),
+                Currency:$('#Item1_Currency').val()
+            }
+            var userAddress={
+                Line1:$('#Item2_Line1').val(),
+                Line2:$('#Item2_Line2').val(),
+                city:$('#Item2_city').val(),
+                state:$('#Item2_state').val(),
+                postalcode:$('#Item2_postalcode').val(),
+                country:$('#Item2_country').val(),
+            }
+            var ownerCompanyAddress={
+                Line1:$('#Item3_Line1').val(),
+                Line2:$('#Item3_Line2').val(),
+                city:$('#Item3_city').val(),
+                state:$('#Item3_state').val(),
+                postalcode:$('#Item3_postalcode').val(),
+                country:$('#Item3_country').val(),
+            }
+            $.ajax({
+                url: '/UserProfile/UpdateUserProfile?command='+btnvalue+'&&id='+id,
+                type: "POST",
+                datatype: "json",
+                data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress },
+                success: function (response) {
+                    if (response == 'success') {
+                        //$('#profilediv').load('UserProfile',{id:id});
+                        $('#profilediv').toggle().toggle();
+                        alert("Profile updated SuccessFully");
+                    }
+                    else {
+                        alert("Failed To Update Profile");
+                    }
+                },
+                error: function (er) {
+                    alert("error");
+                }
+            });
+        });
+    </script>*@
 }
+

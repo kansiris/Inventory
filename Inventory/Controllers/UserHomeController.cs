@@ -63,7 +63,8 @@ namespace Inventory.Controllers
                               UserTypeId = (int)row["UserTypeId"],
                               SubscriptionDate = (DateTime)row["SubscriptionDate"],
                               Timezone = row["Timezone"].ToString(),
-                              Date_Format = row["Date_Format"].ToString()
+                              Date_Format = row["Date_Format"].ToString(),
+                              Profile_Picture = row["Profile_Picture"].ToString()
                           }).ToList();
             return userMaster;
         }

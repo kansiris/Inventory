@@ -14,7 +14,7 @@ Primary style
 }
 
 body {
-  font-size: 100%;
+  font-size: 14px;
   font-family: "PT Sans", sans-serif;
   /*color: #f8f7ee;*/ /* By me */
   background-color: #fff;
@@ -264,7 +264,8 @@ header h1 {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: #8493bf;
+  /*color: #8493bf;*/ /*By Me*/
+  color: #000; /*By Me*/
   margin-bottom: 2em;
 }
 @media only screen and (min-width: 768px) {
@@ -283,8 +284,8 @@ header h1 {
     padding: 3em;
   }
   .cd-tabs-content li p {
-    font-size: 16px;
-    font-size: 1rem;
+    font-size: 14px;
+    /*font-size: 1rem;*/
   }
 }
 
