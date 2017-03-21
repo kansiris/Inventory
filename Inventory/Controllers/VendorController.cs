@@ -84,7 +84,7 @@ namespace Inventory.Controllers
             SqlDataReader exec = VendorService.getcompanyId();
             if (exec.Read())
             {
-                company_Id = (int)exec["company_Id"];
+                company_Id = int.Parse(exec["company_Id"].ToString());
             }
 
             return company_Id;
@@ -140,39 +140,57 @@ namespace Inventory.Controllers
 
         public JsonResult getAllDetails(int company_Id)
         {
+                        
             VendorService.getlastinsertedcompany(company_Id);
             var data = VendorService.getAllDetails(company_Id);
-
+            int set;
+            int set1;
+            int set2;
             if (data.Read())
             {
+                if (data["Bank_Acc_Number"].ToString() == "")
+                    set = 0;
+                else
+                    set = int.Parse(data["Bank_Acc_Number"].ToString());
+                if(data["company_Id"].ToString() == "")
+                     set1 = 0;
+                    else
+                    set1 = int.Parse(data["company_Id"].ToString());
+                    if(data["Mobile_No"].ToString() == "")
+                    set2 = 0;
+                    else
+                    set2 = int.Parse(data["Mobile_No"].ToString());
+                        
                 Vendor vs = new Vendor
                 {
-                    company_Id = int.Parse(data["company_Id"].ToString()),
+                    company_Id = set1,
                     Company_Name = data["Company_Name"].ToString(),
                     Email = data["Email"].ToString(),
-                    bill_street = data["bill_street"].ToString(),
-                    bill_city = data["bill_city"].ToString(),
-                    bill_state = data["bill_state"].ToString(),
-                    bill_postalcode = data["bill_postalcode"].ToString(),
-                    bill_country = data["bill_country"].ToString(),
-                    ship_street = data["ship_street"].ToString(),
-                    ship_city = data["ship_city"].ToString(),
-                    ship_state = data["ship_state"].ToString(),
-                    ship_postalcode = data["ship_postalcode"].ToString(),
-                    ship_country = data["ship_country"].ToString(),
+                    Bank_Acc_Number = set,//int.Parse(data["Bank_Acc_Number"].ToString()),
+                    Bank_Branch = data["Bank_Branch"].ToString(),
+                    Bank_Name = data["Bank_Name"].ToString(),
+                    IFSC_No = data["IFSC_No"].ToString(),
+                    Note = data["Note"].ToString(),
                     Contact_PersonFname = data["Contact_PersonFname"].ToString(),
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
-                    Mobile_No = int.Parse(data["Mobile_No"].ToString()),
                     emailid = data["emailid"].ToString(),
-                    Adhar_Number = data["Adhar_Number"].ToString(),
                     Job_position = data["Job_position"].ToString(),
-                    Bank_Acc_Number = int.Parse(data["Bank_Acc_Number"].ToString()),
-                    Bank_Name = data["Bank_Name"].ToString(),
-                    Bank_Branch = data["Bank_Branch"].ToString(),
-                    IFSC_No = data["IFSC_No"].ToString(),
-                    //Remarks = data["Remarks"].ToString(),
-                    Note = data["Note"].ToString(),
+                    Mobile_No = set2,//int.Parse(data["Mobile_No"].ToString()),
+                    Adhar_Number = data["Adhar_Number"].ToString(),
+                    Vendor_Id =data["Vendor_Id"].ToString(),
+                    bill_city = data["bill_city"].ToString(),
+                    bill_country = data["bill_country"].ToString(),
+                    bill_street = data["bill_street"].ToString(),
+                    bill_state = data["bill_state"].ToString(),
+                    bill_postalcode = data["bill_postalcode"].ToString(),
+                    ship_city = data["ship_city"].ToString(),
+                    ship_country = data["ship_country"].ToString(),
+                    ship_state = data["ship_state"].ToString(),
+                    ship_street = data["ship_street"].ToString(),
+                    ship_postalcode = data["ship_postalcode"].ToString(),
+
                 };
+                
                 string json = JsonConvert.SerializeObject(vs);
                 return Json(json);//new { vs.Company_Name, vs.Email }
             }
@@ -184,7 +202,6 @@ namespace Inventory.Controllers
             var data = VendorService.UpdateCompany1(company_Id, Company_Name, Email);
             if (data > 0)
             {
-
                 ViewBag.company_Id = company_Id;
                 ViewBag.Company_Name = Company_Name;
                 ViewBag.Email = Email;
@@ -192,15 +209,11 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult updatecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
-            string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
+        public JsonResult updatecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-
-            var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
-                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+                       var data = VendorService.VendorAddressupdateRow(company_Id,bill_street,bill_city,bill_state,bill_postalcode,bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
             if (data > 0)
             {
-                List<Vendor> vendor = new List<Vendor>();
                 ViewBag.company_Id = company_Id;
                 ViewBag.bill_street = bill_street;
                 ViewBag.bill_city = bill_city;
@@ -279,7 +292,7 @@ namespace Inventory.Controllers
                 string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
             company_Id = getMaxCompanyID();
-            var data = VendorService.VendorAddressInsertRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
+            var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
             if (data > 0)
             {
@@ -333,7 +346,7 @@ namespace Inventory.Controllers
                           string emailid, string Adhar_Number, string Job_position)
         {
             company_Id = getMaxCompanyID();
-            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            var data = VendorService.VendorUpdateContact(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
