@@ -63,13 +63,13 @@ namespace Inventory.Repository
             return count1;
         }
         #region UpdateCompany
-        public static int UpdateCompany(long company_Id, int Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No, string email)
+        public static int UpdateCompany(long company_Id, int Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No)
         {
-                      int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No, email);
+                      int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateCompany", company_Id, Bank_Acc_Number, Bank_Name,Bank_Branch, IFSC_No);
             return count;
         }
         #endregion
-        public static int UpdateNotes(int company_Id,string notes)
+        public static int UpdateNotes(int company_Id,string Note)
         {
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateNotes", company_Id, Note);
             return count;

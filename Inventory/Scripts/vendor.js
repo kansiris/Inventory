@@ -1,19 +1,23 @@
 ﻿//<!---------- Display Vendor Information and reset all forms --------------->
 //<script type="text/javascript">
 
- $("#add-vendor").click(function(){
-     $("#vendor-information").css("display","block");
-     $("#vendor-information input, .cd-tabs input, .cd-tabs textarea").val("");
- });
-$("#vendor-information-cancel").click(function(){
+$("#add-vendor").click(function () {
+    $("#vendor-information").css("display", "block");
+    $("#vendor-information input, .cd-tabs input, .cd-tabs textarea").val("");
+});
+$("#vendor-information-cancel").click(function () {
     $("#vendor-information input").val("");
+});
+
+$("#vendor-information1-cancel").click(function () {
+    $("#vendor-information1 input").val("");
 });
 $("#save-reset").click(function () {
     $(".contactperson input").val("");
 });
 //</script>
 //<!---------- Display Vendor Information and reset all forms --------------->
-    
+
 //<!-- Clone Shipping Address -->
 //<script type="text/javascript">
 $("input[type='checkbox']").change(function () {
@@ -36,132 +40,153 @@ $("input[type='checkbox']").change(function () {
 //<!-- Clone Shipping Address -->
 //<!------ Random Colors ------>
 //<script type="text/javascript">
-  $(document).ready(function(e) {
-      $(".top-button").each(function(){
-          var colors = ["#f4511e","#7e57c2","#455a64","#512da8","#c2185b","#5c6bc0","#0288d1","#f4511e","#ef6c00","#0097a7","#5c6bc0","#5d4037"];
-          var len = colors.length;
-          var rand = Math.floor(Math.random()*len);
-          $(this).css("background", colors[rand]);
-      });
+$(document).ready(function (e) {
+    $("#Mobile_No").keydown(function (event) {
+        if (event.shiftKey) {
+            event.preventDefault();
+        }
+        if (event.keyCode == 46 || event.keyCode == 8) {
+        }
+        else {
+            if (event.keyCode < 95) {
+                if (event.keyCode < 48 || event.keyCode > 57) {
+                    event.preventDefault();
+                }
+            }
+            else {
+                if (event.keyCode < 96 || event.keyCode > 105) {
+                    event.preventDefault();
+                }
+            }
+        }
+    });
+    
+    $(".top-button").each(function () {
+        var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
+        var len = colors.length;
+        var rand = Math.floor(Math.random() * len);
+        $(this).css("background", colors[rand]);
+    });
 
-		
 
-      $('#vendortable').after('<div id="nav"></div>');
-      var rowsShown = 3;
-      var rowsTotal = $('#vendortable tbody tr').length;
-      var numPages = rowsTotal / rowsShown;
-      for (i = 0; i < numPages; i++) {
-          var pageNum = i + 1;
-          $('#nav').append('<a href="#" class="btn btn-success" rel="' + i + '">' + pageNum + '</a> ');
-      }
-      $('#vendortable tbody tr').hide();
-      $('#vendortable tbody tr').slice(0, rowsShown).show();
-      $('#nav a:first').addClass('active');
-      $('#nav a').bind('click', function () {
 
-          $('#nav a').removeClass('active');
-          $(this).addClass('active');
-          var currPage = $(this).attr('rel');
-          var startItem = currPage * rowsShown;
-          var endItem = startItem + rowsShown;
-          $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
-                  css('display', 'table-row').animate({ opacity: 1 }, 300);
-      });
+    $('#vendortable').after('<div id="nav"></div>');
+    var rowsShown = 3;
+    var rowsTotal = $('#vendortable tbody tr').length;
+    var numPages = rowsTotal / rowsShown;
+    for (i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        $('#nav').append('<a href="#" class="btn btn-success" rel="' + i + '">' + pageNum + '</a> ');
+    }
+    $('#vendortable tbody tr').hide();
+    $('#vendortable tbody tr').slice(0, rowsShown).show();
+    $('#nav a:first').addClass('active');
+    $('#nav a').bind('click', function () {
 
-			
-      $(".cd-tabs").css("display","none");
-      //$("button.save").click(function(){
-      //    $(".cd-tabs").css("display","block");
-      //});
-      $("#additon").click(function () {
-          $(".cd-tabs").css("display", "block");
-      });
-		
-  });
+        $('#nav a').removeClass('active');
+        $(this).addClass('active');
+        var currPage = $(this).attr('rel');
+        var startItem = currPage * rowsShown;
+        var endItem = startItem + rowsShown;
+        $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+                css('display', 'table-row').animate({ opacity: 1 }, 300);
+    });
+
+
+    $(".cd-tabs").css("display", "none");
+    //$("button.save").click(function(){
+    //    $(".cd-tabs").css("display","block");
+    //});
+    $("#additon").click(function () {
+        $(".cd-tabs").css("display", "block");
+    });
+
+});
 //</script>
 //<!------ Random Colors ------>
 //<!------ Cloning contact person ------>
 //<script type="text/javascript">
-  $("#add").click(function(e) {
-      var len = $(".contactperson #clone-content").length;
-      if(len < 2){
-          var v = $("li.contactperson > div.row:first-of-type > div:last-of-type");
-          $("#clone-content").clone().appendTo(v);
-      }
-  });
+$("#add").click(function (e) {
+    var len = $(".contactperson #clone-content").length;
+    if (len < 2) {
+        var v = $("li.contactperson > div.row:first-of-type > div:last-of-type");
+        $("#clone-content").clone().appendTo(v);
+    }
+});
 //</script>
 //<!------ Cloning contact person ------>
 //<!------ Contact Person Pop Up Job Position ------->
 //<script type="text/javascript">
-function textval(){
-    $(".display-positions .positions1").click(function(){
+function textval() {
+    $(".display-positions .positions1").click(function () {
         var c = $(this).text();
         $("input.selected-position").val(c);
-        $(".display-positions").css("display","none");
+        $(".display-positions").css("display", "none");
     });
 }
 
-$(".positions1 > i").click(function(){
+$(".positions1 > i").click(function () {
     $(this).parent(".positions1").remove();
 });
 
-$(".selected-position").click(function(){
-    $(".display-positions").css("display","block");
+$(".selected-position").click(function () {
+    $(".display-positions").css("display", "block");
     return textval();
 });
 
 $(".display-positions .position").click(function () {
-    $(".add-position").css("display","block");
+    $(".add-position").css("display", "block");
 
-    $(".add-position .add-button").click(function(){
+    $(".add-position .add-button").click(function () {
         var v = $(".add-position input[type='text']").val();
         var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
         $(".form-group .display-positions").append(value);
-        $(".positions1 > i").click(function(){
+        $(".positions1 > i").click(function () {
             $(this).parent(".positions1").remove();
         });
         return textval();
     });
 
-    $(".close-button").click(function(){
-        $(".add-position").css("display","none");
+    $(".close-button").click(function () {
+        $(".add-position").css("display", "none");
     });
 
 });
 
 //</script>
-    
+
 //<!------ Contact Person Pop Up Job Position ------->
- 
+
 //Assigning values to inputs
 function editFunction(array) {
-
     $('#vendor-information').css('display', 'block');
     $(".cd-tabs").css("display", "block");
-    $('#company_Id').val(array.company_Id);
-    $('#Company_Name').val(array.Company_Name);
-    $('#Email').val(array.Email);
-    $('#bill_street').val(array.bill_street);
-    $('#bill_city').val(array.bill_city);
-    $('#bill_state').val(array.bill_state);
-    $('#bill_postalcode').val(array.bill_postalcode);
-    $('#bill_country').val(array.bill_country);
-    $('#ship_street').val(array.ship_street);
-    $('#ship_city').val(array.ship_city);
-    $('#ship_state').val(array.ship_state);
-    $('#ship_postalcode').val(array.ship_postalcode);
-    $('#ship_country').val(array.ship_country);
-    $('#Contact_PersonFname').val(array.Contact_PersonFname);
-    $('#Contact_PersonLname').val(array.Contact_PersonLname);
-    $('#Mobile_No').val(array.Mobile_No);
-    $('#emailid').val(array.emailid);
-    $('#Adhar_Number').val(array.Adhar_Number);
-    $('#Job_position').val(array.Job_position);
-    $('#Bank_Acc_Number').val(array.Bank_Acc_Number);
-    $('#Bank_Name').val(array.Bank_Name);
-    $('#Bank_Branch').val(array.Bank_Branch);
-    $('#IFSC_No').val(array.IFSC_No);
-    $('#Note').val(array.Note);
+            $('#company_Id').val(array.company_Id);
+            $('#Company_Name').val(array.Company_Name);
+            $('#Email').val(array.Email);
+            $('#Bank_Acc_Number').val(array.Bank_Acc_Number);
+            $('#Bank_Name').val(array.Bank_Name);
+            $('#Bank_Branch').val(array.Bank_Branch);
+            $('#IFSC_No').val(array.IFSC_No);
+            $('#Note').val(array.Note);
+            $('#Contact_PersonFname').val(array.Contact_PersonFname);
+            $('#Contact_PersonLname').val(array.Contact_PersonLname);
+            $('#emailid').val(array.emailid);
+            $('#Job_position').val(array.Job_position);
+            $('#Mobile_No').val(array.Mobile_No);
+            $('#Adhar_Number').val(array.Adhar_Number);
+            $('#Vendor_Id').val(array.Vendor_Id);
+            $('#bill_city').val(array.bill_city);
+            $('#bill_country').val(array.bill_country);
+            $('#bill_state').val(array.bill_state);
+            $('#bill_street').val(array.bill_street);
+            $('#bill_postalcode').val(array.bill_postalcode);
+            $('#ship_city').val(array.ship_city);
+            $('#ship_country').val(array.ship_country);
+            $('#ship_state').val(array.ship_state);
+            $('#ship_street').val(array.ship_street);
+            $('#ship_postalcode').val(array.ship_postalcode);
+
 }
 
 //Get Particular Vendor Record
@@ -190,6 +215,7 @@ function getEditDetails(id) {
             else {
                 var array = JSON.parse(data);
                 editFunction(array);
+                
             }
         },
         error: function (data)
@@ -209,7 +235,15 @@ function editcompany(clickedvalue) {
     });
     company_Id = $('#company_Id').val();
     Company_Name = $('#Company_Name').val();
+    alert(Company_Name);
     Email = $('#Email').val();
+    if ((Company_Name == "") || (Email == "")) {
+        if (Company_Name == "")
+            alert("Please Enter Company Name");
+        else
+            alert("Please Enter Email");
+    }
+    else{
     if (clickedvalue == 'update') {
         $.ajax({
             url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
@@ -220,6 +254,7 @@ function editcompany(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
+                    $('#company').toggle().toggle();
                     alert("Company Updated sucessfully");
                 }
                 else {
@@ -231,7 +266,6 @@ function editcompany(clickedvalue) {
         });
     }
     if (clickedvalue == 'Save') {
-
         $.ajax({
             url: '/Vendor/savecompany?Company_Name=' + Company_Name + '& Email=' + Email,
             type: 'POST',
@@ -250,6 +284,7 @@ function editcompany(clickedvalue) {
             error: function (data)
             { alert("Failed!!!"); }
         });
+    }
     }
 }
 
