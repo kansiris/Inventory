@@ -3,6 +3,8 @@
 
 $("#add-vendor").click(function () {
     $("#vendor-information").css("display", "block");
+    $("#contacttable").css("display", "none");
+    //$("#contacttable input").val("");
     $("#vendor-information input, .cd-tabs input, .cd-tabs textarea").val("");
 });
 $("#vendor-information-cancel").click(function () {
@@ -81,6 +83,8 @@ $(document).ready(function (e) {
     $('#vendortable tbody tr').hide();
     $('#vendortable tbody tr').slice(0, rowsShown).show();
     $('#nav a:first').addClass('active');
+   
+
     $('#nav a').bind('click', function () {
 
         $('#nav a').removeClass('active');
@@ -160,6 +164,7 @@ $(".display-positions .position").click(function () {
 //Assigning values to inputs
 function editFunction(array) {
     $('#vendor-information').css('display', 'block');
+    $("#contacttable").css("display", "block");
     $(".cd-tabs").css("display", "block");
             $('#company_Id').val(array.company_Id);
             $('#Company_Name').val(array.Company_Name);
@@ -191,7 +196,7 @@ function editFunction(array) {
 
 //Get Particular Vendor Record
 function getEditDetails(id) {
-    alert(id);
+    //alert(id);
     $('#mySubmit').val("update").text("Update Company");
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
@@ -225,7 +230,7 @@ function getEditDetails(id) {
 
 //Particular Vendor
 function editcompany(clickedvalue) {
-    alert(clickedvalue);
+    //alert(clickedvalue);
 
     $('#update').click(function () {
         $('#company').css('display', 'none');
@@ -235,7 +240,7 @@ function editcompany(clickedvalue) {
     });
     company_Id = $('#company_Id').val();
     Company_Name = $('#Company_Name').val();
-    alert(Company_Name);
+    
     Email = $('#Email').val();
     if ((Company_Name == "") || (Email == "")) {
         if (Company_Name == "")
@@ -254,7 +259,7 @@ function editcompany(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    $('#company').toggle().toggle();
+                   
                     alert("Company Updated sucessfully");
                 }
                 else {
@@ -275,6 +280,7 @@ function editcompany(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
+                   
                     alert("company saved sucessfully");
                 }
                 else {
@@ -290,7 +296,7 @@ function editcompany(clickedvalue) {
 
 //Particular vendor Company Address
 function editcompanyaddress(clickedvalue) {
-    alert(clickedvalue);
+    //alert(clickedvalue);
     $('#updateaddress').click(function () {
         $('#company').css('display', 'none');
     });
@@ -298,6 +304,7 @@ function editcompanyaddress(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     company_Id = $('#company_Id').val();
+    //alert(company_Id);
     bill_street = $('#bill_street').val();
     bill_city = $('#bill_city').val();
     bill_state = $('#bill_state').val();
@@ -320,7 +327,7 @@ function editcompanyaddress(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Updated sucessfully");
+                    alert("Address Updated sucessfully");
                 }
                 else {
                     alert("not updated");
@@ -361,7 +368,7 @@ function editcompanyaddress(clickedvalue) {
 
 //Vendor Bank Details
 function editcompanybankdetails(clickedvalue) {
-    alert(clickedvalue);
+   // alert(clickedvalue);
     $('#updatebakdetails').click(function () {
         $('#company').css('display', 'none');
     });
@@ -384,7 +391,7 @@ function editcompanybankdetails(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Updated sucessfully");
+                    alert("Bank details Updated sucessfully");
                 }
                 else {
                     alert("not updated");
@@ -405,7 +412,6 @@ function editcompanybankdetails(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-
                     alert("Bank details saved sucessfully");
                 }
                 else {
@@ -421,7 +427,7 @@ function editcompanybankdetails(clickedvalue) {
 
 //Vendor Note
 function updatecompanynote(clickedvalue) {
-    alert(clickedvalue);
+    //alert(clickedvalue);
     $('#updatenote').click(function () {
         $('#company').css('display', 'none');
     });
@@ -441,7 +447,7 @@ function updatecompanynote(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Updated sucessfully");
+                    alert("Notes Updated sucessfully");
                 }
                 else {
                     alert("not updated");
@@ -461,7 +467,7 @@ function updatecompanynote(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("Saved sucessfully");
+                    alert("Notes Saved sucessfully");
                 }
                 else {
                     alert("not Saved");
@@ -475,7 +481,7 @@ function updatecompanynote(clickedvalue) {
 
 //Contact Person
 function UpdateContact(clickedvalue) {
-    alert(clickedvalue);
+    //alert(clickedvalue);
     $('#updatecontact').click(function () {
         $('#company').css('display', 'none');
     });
@@ -483,24 +489,26 @@ function UpdateContact(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     company_Id = $('#company_Id').val();
+    //alert(company_Id);
     Contact_PersonFname = $('#Contact_PersonFname').val();
     Contact_PersonLname = $('#Contact_PersonLname').val();
     Mobile_No = $('#Mobile_No').val();
     emailid = $('#emailid').val();
     Adhar_Number = $('#Adhar_Number').val();
     Job_position = $('#Job_position').val();
+    //alert(Adhar_Number);
     if (clickedvalue == 'savecontact') {
         $.ajax({
             url: '/Vendor/savecontactdetails?company_Id=' + company_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Contact_PersonLname=' + Contact_PersonLname + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid + '&Adhar_Number=' + Adhar_Number + '&Job_position=' + Job_position,
             type: 'POST',
-            data: JSON.stringify({ company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position }),
+            data: JSON.stringify({company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position}),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("saved sucessfully");
+                    alert("Contact Details saved sucessfully");
                 }
                 else {
                     alert("not saved");
@@ -520,7 +528,7 @@ function UpdateContact(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("updated sucessfully");
+                    alert("Contact Details updated sucessfully");
                 }
                 else {
                     alert("not updated");

@@ -38,8 +38,7 @@ namespace Inventory.Repository
             return count;
         }
         
-            public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No, 
-                         string Email, string Adhar_Number, string Job_position)
+            public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No, string Email, string Adhar_Number, string Job_position)
         {
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
             return count;
