@@ -73,8 +73,8 @@
                 <div class="col-md-12 form-title">Warehouse Information</div>
                 <div class="col-md-6">
                     <div class="row">
-                       
-
+                       @if (ViewBag.Warehouse != null)
+                       {
                             <div class="form-group col-md-4">
                                 @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
                             </div>
@@ -82,7 +82,17 @@
 
                                 @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
                             </div>
-                       
+                       }
+                       else
+                       {
+                        <div class="form-group col-md-4">
+                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
+                        </div>
+                            <div class="form-group col-md-5">
+
+                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
+                            </div>
+                       }
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -484,7 +494,7 @@
         //Get Particular warehouse Record
         function getEditDetails(id) {
             alert(id);
-            $('#mySubmit').val("update").text("Update Company");
+            $('#mySubmit').val("update").text("Update Warehouse");
             $('#mySubmit1').val("updateaddress").text("Update Address");
             $('#notebutton').val("updatenote").text("Update Note");
             $('#contactbutton').val("updatecontact").text("Update Contact");
@@ -513,7 +523,7 @@
             });
         }
         //Particular Warehouse
-        function editcompany(clickedvalue) {
+        function editwh(clickedvalue) {
             alert(clickedvalue);
 
             $('#update').click(function () {
@@ -533,7 +543,7 @@
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        if (data == "sucess") {
+                        if (data == "success") {
                             $('#savebutton').hide();
                             alert("Warehouse Updated sucessfully");
                         }
@@ -554,7 +564,7 @@
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        if (data == "sucess") {
+                        if (data == "success") {
                             $('#savebutton').hide();
                             alert("Warehouse saved sucessfully");
                         }
@@ -568,7 +578,7 @@
             }
         }
         //Particular Warehouse Address
-        function editcompanyaddress(clickedvalue) {
+        function editwhaddress(clickedvalue) {
             alert(clickedvalue);
             $('#updateaddress').click(function () {
                 $('#warehouse').css('display', 'none');
@@ -639,7 +649,7 @@
         }
 
         //warehouse Note
-        function updatecompanynote(clickedvalue) {
+        function updatewhnote(clickedvalue) {
             alert(clickedvalue);
             $('#updatenote').click(function () {
                 $('#warehouse').css('display', 'none');
@@ -692,7 +702,7 @@
             }
         }
         //Contact Person
-        function UpdateContact(clickedvalue) {
+        function UpdatewhContact(clickedvalue) {
             alert(clickedvalue);
             $('#updatecontact').click(function () {
                 $('#warehouse').css('display', 'none');
@@ -700,7 +710,7 @@
             $('#updatecontact').click(function () {
                 $('#additional').css('display', 'none');
             });
-            company_Id = $('#wh_id').val();
+            wh_id = $('#wh_id').val();
             Contact_PersonFname = $('#Contact_PersonFname').val();
             Phone= $('#Phone').val();
             Mobile_No = $('#Mobile_No').val();
