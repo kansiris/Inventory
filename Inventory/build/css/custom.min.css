@@ -1726,8 +1726,8 @@ ul.msg_list li {
     margin-top: 0;
     border: 1px solid #D9DEE4;
     -webkit-box-shadow: none;
-    right: 0;
-    left: auto;
+    left: 0;
+    /*left: auto;*/
     width: 220px;
 }
 
