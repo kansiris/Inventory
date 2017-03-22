@@ -515,7 +515,7 @@
     <script src="~/vendors/nprogress/nprogress.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="~/build/js/custom.min.js"></script>
-
+<script src="~/Scripts/jquery.validate.min.js"></script>
     <!-- Toogle Function -->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -573,7 +573,6 @@
                     data: data,
                     success: function (response) {
                         $("#companypic").attr("src","data:image/;base64,"+response);
-                        alert("uploaded");
                     },
                     error: function (er) {
                         alert("Failed To Upload Pic!!! Try Again");
@@ -607,7 +606,6 @@
                     success: function (response) {
                         $("#smallprofilepic").attr("src","data:image/;base64,"+response);
                         $("#profilepic").attr("src","data:image/;base64,"+response);
-                        //alert("uploaded");
                     },
                     error: function (er) {
                         alert("Failed To Upload Pic!!! Try Again");
@@ -621,50 +619,56 @@
 
     <script>
         function updatevales(val) {
-            var id = @Request.QueryString["id"];
-            var usermaster = {
-                First_Name:$('#Item1_First_Name').val(),
-                Last_Name:$('#Item1_Last_Name').val(),
-                Password:$('#Item1_Password').val(),
-                Date_Format:$('#Item1_Date_Format').val(),
-                Timezone:$('#Item1_Timezone').val(),
-                Currency:$('#Item1_Currency').val()
-            }
-            var userAddress={
-                Line1:$('#Item2_Line1').val(),
-                Line2:$('#Item2_Line2').val(),
-                city:$('#Item2_city').val(),
-                state:$('#Item2_state').val(),
-                postalcode:$('#Item2_postalcode').val(),
-                country:$('#Item2_country').val(),
-            }
-            var ownerCompanyAddress={
-                Line1:$('#Item3_Line1').val(),
-                Line2:$('#Item3_Line2').val(),
-                city:$('#Item3_city').val(),
-                state:$('#Item3_state').val(),
-                postalcode:$('#Item3_postalcode').val(),
-                country:$('#Item3_country').val(),
-            }
-            $.ajax({
-                url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
-                type: "POST",
-                datatype: "json",
-                data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress },
-                success: function (response) {
-                    if (response == 'success') {
-                       
-                        $('#profilediv').toggle().toggle();
-                        alert("Profile updated SuccessFully");
-                    }
-                    else {
-                        alert("Failed To Update Profile");
-                    }
-                },
-                error: function (er) {
-                    alert("error");
+            //if (val == "Essentials") {
+            //    var test = $("#userprofile").validate().element("#Item1_First_Name");//true or false
+            //    $("Item1_First_Name").focus();
+            //}
+            //else {           
+                var id = @Request.QueryString["id"];
+                var usermaster = {
+                    First_Name:$('#Item1_First_Name').val(),
+                    Last_Name:$('#Item1_Last_Name').val(),
+                    Password:$('#Item1_Password').val(),
+                    Date_Format:$('#Item1_Date_Format').val(),
+                    Timezone:$('#Item1_Timezone').val(),
+                    Currency:$('#Item1_Currency').val()
                 }
-            });
+                var userAddress={
+                    Line1:$('#Item2_Line1').val(),
+                    Line2:$('#Item2_Line2').val(),
+                    city:$('#Item2_city').val(),
+                    state:$('#Item2_state').val(),
+                    postalcode:$('#Item2_postalcode').val(),
+                    country:$('#Item2_country').val(),
+                }
+                var ownerCompanyAddress={
+                    Line1:$('#Item3_Line1').val(),
+                    Line2:$('#Item3_Line2').val(),
+                    city:$('#Item3_city').val(),
+                    state:$('#Item3_state').val(),
+                    postalcode:$('#Item3_postalcode').val(),
+                    country:$('#Item3_country').val(),
+                }
+                $.ajax({
+                    url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
+                    type: "POST",
+                    datatype: "json",
+                    data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress },
+                    success: function (response) {
+                        if (response == 'success') {                       
+                            //$('#profilediv').toggle().toggle();
+                            alert("Profile updated SuccessFully");
+                            $.post("UserProfile/Index",{id:id},function(result){});
+                        }
+                        else {
+                            alert("Failed To Update Profile");
+                        }
+                    },
+                    error: function (er) {
+                        alert("error");
+                    }
+                });
+           // }
         }
     </script>
 
