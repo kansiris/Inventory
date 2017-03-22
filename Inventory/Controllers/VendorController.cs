@@ -140,7 +140,7 @@ namespace Inventory.Controllers
 
         public JsonResult getAllDetails(int company_Id)
         {
-                        
+
             VendorService.getlastinsertedcompany(company_Id);
             var data = VendorService.getAllDetails(company_Id);
             int set;
@@ -152,15 +152,15 @@ namespace Inventory.Controllers
                     set = 0;
                 else
                     set = int.Parse(data["Bank_Acc_Number"].ToString());
-                if(data["company_Id"].ToString() == "")
-                     set1 = 0;
-                    else
+                if (data["company_Id"].ToString() == "")
+                    set1 = 0;
+                else
                     set1 = int.Parse(data["company_Id"].ToString());
-                    if(data["Mobile_No"].ToString() == "")
+                if (data["Mobile_No"].ToString() == "")
                     set2 = 0;
-                    else
+                else
                     set2 = int.Parse(data["Mobile_No"].ToString());
-                        
+
                 Vendor vs = new Vendor
                 {
                     company_Id = set1,
@@ -177,7 +177,7 @@ namespace Inventory.Controllers
                     Job_position = data["Job_position"].ToString(),
                     Mobile_No = set2,//int.Parse(data["Mobile_No"].ToString()),
                     Adhar_Number = data["Adhar_Number"].ToString(),
-                    Vendor_Id =data["Vendor_Id"].ToString(),
+                    Vendor_Id = data["Vendor_Id"].ToString(),
                     bill_city = data["bill_city"].ToString(),
                     bill_country = data["bill_country"].ToString(),
                     bill_street = data["bill_street"].ToString(),
@@ -190,7 +190,7 @@ namespace Inventory.Controllers
                     ship_postalcode = data["ship_postalcode"].ToString(),
 
                 };
-                
+
                 string json = JsonConvert.SerializeObject(vs);
                 return Json(json);//new { vs.Company_Name, vs.Email }
             }
@@ -209,9 +209,9 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult updatecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
+        public JsonResult updatecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode, string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-                       var data = VendorService.VendorAddressupdateRow(company_Id,bill_street,bill_city,bill_state,bill_postalcode,bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+            var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -231,7 +231,7 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult updatecompanybankdetails(int company_Id, int Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
+        public JsonResult updatecompanybankdetails(int company_Id, long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
 
             var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No);
@@ -246,7 +246,7 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult updatecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
+        public JsonResult updatecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                           string emailid, string Adhar_Number, string Job_position)
         {
             var data = VendorService.VendorUpdateContact(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
@@ -326,7 +326,7 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult savecompanybankdetails(int company_Id, int Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
+        public JsonResult savecompanybankdetails(int company_Id, long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
             company_Id = getMaxCompanyID();
             var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No);
@@ -342,7 +342,7 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
+        public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                           string emailid, string Adhar_Number, string Job_position)
         {
             company_Id = getMaxCompanyID();
@@ -360,6 +360,7 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+        
     }
 
 }

@@ -9,6 +9,8 @@ $("#add-vendor").click(function () {
 });
 $("#vendor-information-cancel").click(function () {
     $("#vendor-information input").val("");
+    $("#vendor-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+    //$("#vendor-information1").css("display", "none");
 });
 
 $("#vendor-information1-cancel").click(function () {
@@ -280,7 +282,6 @@ function editcompany(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                   
                     alert("company saved sucessfully");
                 }
                 else {
@@ -318,9 +319,9 @@ function editcompanyaddress(clickedvalue) {
 
     if (clickedvalue == 'updateaddress') {
         $.ajax({
-            url: '/Vendor/updatecompanyaddress?company_Id=' + company_Id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state + '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city + '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
+            url: '/Vendor/updatecompanyaddress',
             type: 'POST',
-            data: JSON.stringify({ company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country }),
+            data: JSON.stringify({ company_Id: company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -340,14 +341,9 @@ function editcompanyaddress(clickedvalue) {
     if (clickedvalue == 'saveaddress') {
 
         $.ajax({
-            url: '/Vendor/savecompanyaddress?company_Id=' + company_Id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state +
-                   '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city +
-                   '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
+            url: '/Vendor/savecompanyaddress',
             type: 'POST',
-            data: JSON.stringify({
-                company_Id, bill_street, bill_city, bill_state, bill_postalcode,
-                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country
-            }),
+            data: JSON.stringify({ company_Id: company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -382,9 +378,9 @@ function editcompanybankdetails(clickedvalue) {
     IFSC_No = $('#IFSC_No').val();
     if (clickedvalue == 'updatebankdetails') {
         $.ajax({
-            url: '/Vendor/updatecompanybankdetails?company_Id=' + company_Id + '&Bank_Acc_Number=' + Bank_Acc_Number + '&Bank_Name=' + Bank_Name + '&Bank_Branch=' + Bank_Branch + '&IFSC_No=' + IFSC_No,
+            url: '/Vendor/updatecompanybankdetails',
             type: 'POST',
-            data: JSON.stringify({ company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No }),
+            data: JSON.stringify({ company_Id: company_Id, Bank_Acc_Number: Bank_Acc_Number, Bank_Name: Bank_Name, Bank_Branch: Bank_Branch, IFSC_No: IFSC_No }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -404,9 +400,9 @@ function editcompanybankdetails(clickedvalue) {
     }
     if (clickedvalue == 'savebankdetails') {
         $.ajax({
-            url: '/Vendor/savecompanybankdetails?company_Id=' + company_Id + '&Bank_Acc_Number=' + Bank_Acc_Number + '&Bank_Name=' + Bank_Name + '&Bank_Branch=' + Bank_Branch + '&IFSC_No=' + IFSC_No,
+            url: '/Vendor/savecompanybankdetails',
             type: 'POST',
-            data: JSON.stringify({ company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No }),
+            data: JSON.stringify({ company_Id: company_Id, Bank_Acc_Number: Bank_Acc_Number, Bank_Name: Bank_Name, Bank_Branch: Bank_Branch, IFSC_No: IFSC_No }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -479,6 +475,7 @@ function updatecompanynote(clickedvalue) {
     }
 }
 
+
 //Contact Person
 function UpdateContact(clickedvalue) {
     //alert(clickedvalue);
@@ -499,9 +496,9 @@ function UpdateContact(clickedvalue) {
     //alert(Adhar_Number);
     if (clickedvalue == 'savecontact') {
         $.ajax({
-            url: '/Vendor/savecontactdetails?company_Id=' + company_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Contact_PersonLname=' + Contact_PersonLname + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid + '&Adhar_Number=' + Adhar_Number + '&Job_position=' + Job_position,
+            url: '/Vendor/savecontactdetails',
             type: 'POST',
-            data: JSON.stringify({company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position}),
+            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -520,9 +517,9 @@ function UpdateContact(clickedvalue) {
     }
     if (clickedvalue == 'updatecontact') {
         $.ajax({
-            url: '/Vendor/updatecontactdetails?company_Id=' + company_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Contact_PersonLname=' + Contact_PersonLname + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid + '&Adhar_Number=' + Adhar_Number + '&Job_position=' + Job_position,
+            url: '/Vendor/updatecontactdetails',
             type: 'POST',
-            data: JSON.stringify({ company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position }),
+            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
