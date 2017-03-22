@@ -241,6 +241,47 @@
                         </div>
                     </div>
                    @*--------------------------------contactinfo table-----------------------------------------------*@
+                                <div class="row" id="contactdiv">
+                                    <div class="col-md-12 table-responsive table-hover">
+                                        <table class="table" id="contacttable">
+                                            <thead class="thead-inverse">
+                                                <tr>
+                                                    @*<th>S.No</th>*@
+                                                    <th>First Name</th>
+                                                  
+                                                    <th>Mobile Number</th>
+                                                    <th>E-Mail</th>
+                                                    
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in ViewBag.contact)
+                                                {
+                                                    <tr>
+                                                        @*<th scope="row">1</th>*@
+                                                        <td>@item.conperson</td>
+                                                        
+                                                        <td>@item.Mobile</td>
+                                                        <td>@item.Email</td>
+                                                        
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
+                                                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                     </li>
 
                     <li data-content="notes">

@@ -40,6 +40,7 @@ namespace Inventory.Controllers
                          }).ToList();
             ViewBag.records = warehouse;
            ViewBag.wh_id = getMaxwhid();
+            ViewBag.contact = getcontactdetails();
             return View();
         }
 
@@ -261,6 +262,6 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        
+       
     }
 }
