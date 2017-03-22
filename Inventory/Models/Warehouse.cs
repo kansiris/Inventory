@@ -12,7 +12,9 @@ namespace Inventory.Models
 {
     public partial class Warehouse
     {
-       
+        [Key]
+        [StringLength(10)]
+        public string wh_Id { get; set; }
         [StringLength(50)]
        
         public string wh_name { get; set; }

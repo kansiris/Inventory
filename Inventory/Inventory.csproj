@@ -436,12 +436,12 @@
     <Content Include="Scripts\js\moment\moment.min.js" />
     <Content Include="Scripts\js\npm.js" />
     <Content Include="Scripts\js\utils.js" />
+    <Content Include="Scripts\js\Warehouse.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\validations.js" />
     <Content Include="Scripts\vendor.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="src\js\custom.js" />
     <Content Include="src\js\helpers\smartresize.js" />
     <Content Include="vendors\animate.css\animate.css" />
