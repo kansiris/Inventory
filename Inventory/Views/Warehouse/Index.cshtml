@@ -28,7 +28,7 @@
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
 <div class="right_col" role="main">
-    <div class="container">
+    <div class="container" id="warehouse">
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.wh_Id, new { Value = @ViewBag.wh_id })
 
@@ -110,7 +110,7 @@
                     <div>Upload warehouse Logo</div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="wh-information1">
                 <!--------- Tab Section START ------------>
                 <div class="col-md-12">
                     <div class="cd-tabs">
@@ -246,7 +246,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-default pull-right" id= "wh-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                             <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                         </div>
                     </div>
@@ -346,11 +346,16 @@
     <script>
       
         $("#add-wh").click(function () {
-            $("#wh-information").css('display', 'block');
+            $("#wh-information").css("display", "block");
+            $("#contacttable").css("display", "none");
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
         });
         $("#wh-information-cancel").click(function () {
             $("#wh-information input").val("");
+            $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+        });
+        $("#wh-information1-cancel").click(function () {
+            $("#wh-information1 input").val("");
         });
         $("#save-reset").click(function () {
             $(".contactperson input").val("");
@@ -469,6 +474,7 @@
         function editFunction(array) {
 
             $('#wh-information').css('display', 'block');
+            $("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
             $('#wh_id').val(array.wh_id);
             $('#wh_Name').val(array.wh_Name);

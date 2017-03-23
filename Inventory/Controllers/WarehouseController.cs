@@ -37,21 +37,25 @@ namespace Inventory.Controllers
                              wh_Shortname = row["wh_Shortname"].ToString(),
                              conperson = row["Contact_person"].ToString(),
                              Email = row["Email"].ToString()
-                         }).ToList();
+                         }).OrderByDescending(m => m.wh_Id).ToList();
             ViewBag.records = warehouse;
-           //ViewBag.wh_id = getMaxwhid();
-            //ViewBag.contact = getcontactdetails();
-            //var wh = getlastinsertedwarehouse(ViewBag.wh_id);
-            //if(status == "complete")
-            //{
-            //    ViewBag.Warehouse = 1;
-            //    ViewBag.wh_name = wh.wh_name;
-            //    ViewBag.wh_sname = wh.wh_Shortname;
-            //}
+            ViewBag.wh_id = getMaxwhid();
+            ViewBag.contact = getcontactdetails();
+            var wh = getlastinsertedwarehouse(ViewBag.wh_id);
+            if (status == "complete")
+            {
+                ViewBag.Warehouse = 1;
+                ViewBag.wh_name = wh.wh_name;
+                ViewBag.wh_sname = wh.wh_Shortname;
+            }
 
             return View();
         }
-
+        [HttpPost]
+        public ActionResult Index(Warehouse wh, string command)
+        {
+            return View();
+        }
         //[HttpPost]
         //public ActionResult Index(Warehouse wh)
         //{
