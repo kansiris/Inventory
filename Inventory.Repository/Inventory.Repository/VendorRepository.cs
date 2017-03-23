@@ -31,7 +31,7 @@ namespace Inventory.Repository
         #endregion
 
         #region VendorInsertRow
-        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
+        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                          string Email, string Adhar_Number,string Job_position)
         {
              int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position);
@@ -111,6 +111,13 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatecompany1", company_Id, Company_Name, Email);
             return count;
         }
+        
+            public static int deleteRecord(int company_Id)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteRecord", company_Id);
+            return count;
+        }
+
 
     }
 }
