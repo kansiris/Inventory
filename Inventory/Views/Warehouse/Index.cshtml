@@ -58,7 +58,7 @@
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                             <ul class="dropdown-menu">
-                                                <li> <a href="#" ><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="getEditDetails(@item.wh_Id)"></i>Edit Warehouse</a> </li>
+                                                <li> <a href="#" onclick="getEditDetails(@item.wh_Id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
                                                 <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
                                             </ul>
                                         </div>
@@ -395,7 +395,7 @@
                 $(this).css("background", colors[rand]);
             });
 
-
+            $("#wh-information").css("display", "none");
 
             $('#whtable').after('<div id="nav"></div>');
             var rowsShown = 3;
