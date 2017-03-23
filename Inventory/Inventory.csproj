@@ -283,6 +283,8 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\OwnerCompanyAddress.cs" />
+    <Compile Include="Models\OwnerStaff.cs" />
+    <Compile Include="Models\OwnerStaffStatus.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Payment_Method_Types.cs" />
     <Compile Include="Models\Program.cs" />
