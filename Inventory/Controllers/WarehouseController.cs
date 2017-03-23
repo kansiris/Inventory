@@ -40,7 +40,7 @@ namespace Inventory.Controllers
                          }).OrderByDescending(m => m.wh_Id).ToList();
             ViewBag.records = warehouse;
             ViewBag.wh_id = getMaxwhid();
-            ViewBag.contact = getcontactdetails();
+            //ViewBag.contact = getcontactdetails();
             var wh = getlastinsertedwarehouse(ViewBag.wh_id);
             if (status == "complete")
             {
@@ -56,7 +56,7 @@ namespace Inventory.Controllers
         {
             return View();
         }
-      
+
         private string getMaxwhid()
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -123,8 +123,8 @@ namespace Inventory.Controllers
                     conperson = data["Contact_person"].ToString(),
                     Job_position = data["Job_position"].ToString(),
                     Email = data["Email"].ToString(),
-                    phone = long.Parse(data["Phone"].ToString()),
-                    Mobile = long.Parse(data["Mobile"].ToString()),
+                    phone = 9502340393,//long.Parse(data["Phone"].ToString()),
+                    Mobile = 9502340393,//long.Parse(data["Mobile"].ToString()),
                     Note = data["Note"].ToString(),
                     bill_Street = data["bill_street"].ToString(),
                     bill_City = data["bill_city"].ToString(),
@@ -133,7 +133,7 @@ namespace Inventory.Controllers
                     bill_Country = data["bill_country"].ToString(),
                     ship_Street = data["ship_street"].ToString(),
                     ship_City = data["ship_city"].ToString(),
-                    ship_State = data["ship_state"].ToString(),
+                    ship_State = "TS",//data["ship_state"].ToString(),
                     ship_Postalcode = data["ship_postalcode"].ToString(),
                     ship_Country = data["ship_country"].ToString(),
 
@@ -228,6 +228,7 @@ namespace Inventory.Controllers
             string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
             wh_id = getMaxwhid();
+            wh_id = wh_id.TrimEnd();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = WHservice.insertwhaddress(user1.DbName, wh_id, bill_street, bill_city, bill_state, bill_postalcode,
                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
