@@ -37,32 +37,25 @@ namespace Inventory.Controllers
                              wh_Shortname = row["wh_Shortname"].ToString(),
                              conperson = row["Contact_person"].ToString(),
                              Email = row["Email"].ToString()
-                         }).ToList();
+                         }).OrderByDescending(m => m.wh_Id).ToList();
             ViewBag.records = warehouse;
-           //ViewBag.wh_id = getMaxwhid();
+            ViewBag.wh_id = getMaxwhid();
             //ViewBag.contact = getcontactdetails();
-            //var wh = getlastinsertedwarehouse(ViewBag.wh_id);
-            //if(status == "complete")
-            //{
-            //    ViewBag.Warehouse = 1;
-            //    ViewBag.wh_name = wh.wh_name;
-            //    ViewBag.wh_sname = wh.wh_Shortname;
-            //}
+            var wh = getlastinsertedwarehouse(ViewBag.wh_id);
+            if (status == "complete")
+            {
+                ViewBag.Warehouse = 1;
+                ViewBag.wh_name = wh.wh_name;
+                ViewBag.wh_sname = wh.wh_Shortname;
+            }
 
             return View();
         }
-
-        //[HttpPost]
-        //public ActionResult Index(Warehouse wh)
-        //{
-        //    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-        //    int count = WHservice.WHaddressinsert(wh.wh_name, wh.wh_Shortname, wh.conperson, wh.Job_position,
-        //        wh.phone, wh.Mobile, wh.Email, wh.Note, wh.bill_Street, wh.bill_City, wh.bill_State, wh.bill_Postalcode, wh.bill_Country,
-        //        wh.ship_Street, wh.ship_City, wh.ship_State, wh.ship_Postalcode, wh.ship_Country, user.DbName);
-        //    if (count > 0)
-        //        return Content("<script language='javascript' type='text/javascript'>alert('Warehouse Added successfully');location.href='" + @Url.Action("Index", "Warehouse") + "'</script>"); // Stays in Same View
-        //    return Content("<script language='javascript' type='text/javascript'>alert('Failed!!!');location.href='" + @Url.Action("Index", "Warehouse") + "'</script>"); // Stays in Same View
-        //}
+        [HttpPost]
+        public ActionResult Index(Warehouse wh, string command)
+        {
+            return View();
+        }
 
         private string getMaxwhid()
         {
@@ -124,14 +117,14 @@ namespace Inventory.Controllers
             {
                 Warehouse wh = new Warehouse
                 {
-                    //wh_Id = data["wh_id"].ToString(),
+                    wh_Id = wh_id,//data["wh_id"].ToString(),
                     wh_name = data["wh_name"].ToString(),
                     wh_Shortname = data["wh_Shortname"].ToString(),
                     conperson = data["Contact_person"].ToString(),
                     Job_position = data["Job_position"].ToString(),
                     Email = data["Email"].ToString(),
-                    phone = long.Parse(data["Phone"].ToString()),
-                    Mobile = long.Parse(data["Mobile"].ToString()),
+                    phone = 9502340393,//long.Parse(data["Phone"].ToString()),
+                    Mobile = 9502340393,//long.Parse(data["Mobile"].ToString()),
                     Note = data["Note"].ToString(),
                     bill_Street = data["bill_street"].ToString(),
                     bill_City = data["bill_city"].ToString(),
@@ -140,7 +133,7 @@ namespace Inventory.Controllers
                     bill_Country = data["bill_country"].ToString(),
                     ship_Street = data["ship_street"].ToString(),
                     ship_City = data["ship_city"].ToString(),
-                    ship_State = data["ship_state"].ToString(),
+                    ship_State = "TS",//data["ship_state"].ToString(),
                     ship_Postalcode = data["ship_postalcode"].ToString(),
                     ship_Country = data["ship_country"].ToString(),
 
@@ -235,6 +228,7 @@ namespace Inventory.Controllers
             string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
             wh_id = getMaxwhid();
+            wh_id = wh_id.TrimEnd();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = WHservice.insertwhaddress(user1.DbName, wh_id, bill_street, bill_city, bill_state, bill_postalcode,
                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
