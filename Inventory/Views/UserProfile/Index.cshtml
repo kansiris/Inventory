@@ -1,5 +1,5 @@
 ﻿@*@model Inventory.Models.UserMaster*@
-@model Tuple<Inventory.Models.UserMaster, Inventory.Models.UserAddress, Inventory.Models.OwnerCompanyAddress>
+@model Tuple<Inventory.Models.UserMaster, Inventory.Models.UserAddress, Inventory.Models.OwnerCompanyAddress, Inventory.Models.OwnerStaff>
 
 @{
             ViewBag.Title = "User Home";
@@ -34,8 +34,8 @@
         {
             <form method="post" enctype="multipart/form-data" id="userprofile">
                 <div class="row info-title">
-                    @item.First_Name @item.Last_Name Profile
-                    <button type="button" class="btn btn-success btn-xs pull-right">Account</button>
+                    @item.First_Name @item.Last_Name
+                    <button type="button" class="btn btn-success btn-xs pull-right">Profile</button>
                 </div>
                 <div class="row customer-information">
                     <!--------- Tab Section START ------------>
@@ -89,18 +89,18 @@
                                             @if (item.company_logo != null)
                                             {
                                                 <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
-                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;"/>
-                                                }
-                                                else
-                                                {
+                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                            }
+                                            else
+                                            {
                                                 <div class="top-button">
                                                     <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
                                                     <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                                 </div>
-                                                }
+                                            }
 
-                                                <div>Upload Company Logo</div>
-                                            </div>
+                                            <div>Upload Company Logo</div>
+                                        </div>
                                     </div>
                                     @*<textarea cols="80" rows="10"></textarea>*@
                                     <hr />
@@ -194,57 +194,83 @@
                                 </li>
                                 <li data-content="details">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="row">
-                                                <div class="form-group col-md-2">
-                                                    <input type="text" class="form-control" placeholder="Job title">
+                                                <div class="form-group col-md-6">
+                                                    @*<input type="text" class="form-control" placeholder="Line 1">*@
+                                                    @Html.TextBoxFor(Model => Model.Item4.First_Name, new { placeholder = "First Name", @class = "form-control", required = "required" })
                                                 </div>
-                                                @*</div>
-                                                    <div class="row">*@
-                                                <div class="form-group col-md-2">
-                                                    <input type="text" class="form-control" placeholder="Office Phone">
-                                                </div>
-                                                <div class="form-group col-md-1">
-                                                    <input type="text" class="form-control" placeholder="Ext">
+                                                <div class="form-group col-md-6">
+                                                    @*<input type="text" class="form-control" placeholder="State/Country">*@
+                                                    @Html.TextBoxFor(Model => Model.Item4.Last_Name, new { placeholder = "Last Name", @class = "form-control", required = "required" })
+                                                    @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-md-2">
-                                                    @*<select class="form-control" id="sel1">
-                                                            <option>Select Country</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                        </select>*@
-                                                    @*     @Html.DropDownList("CountryCodes", new SelectList(ViewBag.country), "select Country",new { @class="form-control"})*@
-                                                    @*@Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
+                                                <div class="form-group col-md-6">
+                                                    @Html.TextBoxFor(Model => Model.Item4.Mobile_No, new { placeholder = "Mobile Number", @class = "form-control", required = "required" })
+                                                    @*<input type="text" class="form-control" placeholder="Line 2">*@
                                                 </div>
-                                                <div class="form-group col-md-1">
-                                                    <input type="number" class="form-control" placeholder="Prefix" disabled>
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <input type="text" class="form-control" placeholder="Number">
+                                                <div class="form-group col-md-6">
+                                                    @Html.TextBoxFor(Model => Model.Item4.Email, new { placeholder = "Email ID", @class = "form-control", required = "required" })
+                                                    @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-md-2">
-                                                    <input type="text" class="form-control" placeholder="Home Phone">
+                                                <div class="form-group col-md-6">
+                                                    @Html.TextBoxFor(Model => Model.Item4.Job_position, new { placeholder = "Job Position", @class = "form-control", required = "required" })
+                                                    @*<input type="text" class="form-control" placeholder="City">*@
                                                 </div>
-                                                @*</div>
-                                                    <div class="row">*@
-                                                <div class="form-group col-md-2">
-                                                    <input type="text" class="form-control" placeholder="Fax">
+                                                <div class="form-group col-md-6">
+                                                    <div class="col-md-6 font-password"> Allow permissions </div>
+                                                    <div class="col-md-6">
+                                                        <label class="switch pull-right">
+                                                            <input type="checkbox" id="allowaccess">
+                                                            <div class="slider round"></div>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div id="permissionsarea" style="visibility:hidden">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-4 font-password"> Can Create Vendor </div>
+                                                    <div class="col-md-4">
+                                                        <label class="switch pull-right">
+                                                            <input type="checkbox" id="checkbox1">
+                                                            <div class="slider round"></div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-4 font-password"> Can Create Customer </div>
+                                                    <div class="col-md-4">
+                                                        <label class="switch pull-right">
+                                                            <input type="checkbox" id="checkbox1">
+                                                            <div class="slider round"></div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
+                                        <button type="button" class="btn btn-success pull-right" id="btnupdate" value="update" onclick="updatevales(this.value)">Add User</button>
                                     </div>
                                     <hr />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="update" onclick="updatevales(this.value)">Update Details</button>
-                                        </div>
-                                    </div>
+                                    @*<div class="row">
+                                            <div class="col-md-12">
+                                                <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
+                                                <button type="button" class="btn btn-success pull-right" id="btnupdate" value="update" onclick="updatevales(this.value)">Add Users</button>
+                                            </div>
+                                        </div>*@
                                 </li>
                                 <li data-content="address">
                                     <div class="row">
@@ -280,25 +306,25 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                            <div class="col-md-3 col-md-push-3">
 
-                                                @if (item.Profile_Picture != null)
+                                        <div class="col-md-3 col-md-push-3">
+
+                                            @if (item.Profile_Picture != null)
                                                 {
-                                                    <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
-                                                    <img id="companypic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
+                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
                                                 }
                                                 else
                                                 {
-                                                    <div class="top-button">
-                                                        <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload()">
-                                                        <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.Profile_Picture.Substring(0, 1)</span>
-                                                    </div>
+                                                <div class="top-button">
+                                                    <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
+                                                    <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
+                                                </div>
                                                 }
 
-                                                <div>Upload New Pic</div>
-                                            </div>
-                                        
+                                            <div>Upload New Pic</div>
+                                        </div>
+
 
                                     </div>
                                     <hr />
@@ -319,40 +345,40 @@
                                                     </div>
                                                 </div>*@
                                             @*<div class="top-button">
-                                                <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
-                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
-                                            </div>*@
+                                                    <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
+                                                    <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
+                                                </div>*@
 
                                             @*@if (item.Profile_Picture != null)
-                                            {
-                                                <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
-                                                <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
-                                            }
-                                            else
-                                            {
-                                                <div class="top-button">
-                                                    <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
-                                                    <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
-                                                </div>
-                                            }*@
+                                                {
+                                                    <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
+                                                    <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                }
+                                                else
+                                                {
+                                                    <div class="top-button">
+                                                        <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
+                                                        <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
+                                                    </div>
+                                                }*@
 
 
                                         </div>
                                         @*<div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>*@
+                                            </div>*@
                                     </div>
                                     <hr />
                                     @*<div class="row">
-                                        <div class="col-md-12">
-                                            <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right">Update Profile</button>
-                                        </div>
-                                    </div>*@
+                                            <div class="col-md-12">
+                                                <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
+                                                <button type="button" class="btn btn-success pull-right">Update Profile</button>
+                                            </div>
+                                        </div>*@
                                 </li>
                                 <li data-content="notes">
                                     <div class="row">
@@ -364,12 +390,12 @@
                                             </div>
                                         </div>
                                         @*<div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>*@
+                                            </div>*@
                                     </div>
                                     <hr />
                                     <div class="row">
@@ -451,17 +477,17 @@
                                                             <option>4</option>
                                                         </select>*@
 
-                                                    @Html.DropDownListFor(Model => Model.Item1.Date_Format, new SelectList(new List<Object> { new { Text = "Select Date Format", Value = "" }, new { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY" }, new { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY" }, new { Text = "YYYY/MM/DD", Value = "YYYY/MM/DD" } }, "value", "text", item.Date_Format), new { @class = "form-control" }) @*, @style = "width: 50%;"*@ 
-                                                    </div>
+                                                    @Html.DropDownListFor(Model => Model.Item1.Date_Format, new SelectList(new List<Object> { new { Text = "Select Date Format", Value = "" }, new { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY" }, new { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY" }, new { Text = "YYYY/MM/DD", Value = "YYYY/MM/DD" } }, "value", "text", item.Date_Format), new { @class = "form-control" }) @*, @style = "width: 50%;"*@
+                                                </div>
                                                 <div class="form-group col-md-4">
                                                     @Html.DropDownListFor(Model => Model.Item1.Currency, new SelectList(new List<Object> { new { Text = "Select Currency", Value = "" }, new { Text = "Dollar($)", Value = "Dollar" }, new { Text = "Rupee(₹)", Value = "Rupee" } }, "value", "text", item.Currency), new { @class = "form-control" })
 
                                                     @*@Html.DropDownListFor(Model => Model.Item1.Date_Format, new List<SelectListItem>
-            {
-                new SelectListItem { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY"},
-                new SelectListItem { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY"},
-                new SelectListItem {Text  = "YYYY/MM/DD",Value="YYYY/MM/DD"}
-            }, "Select Date Format", new { @class = "form-control", Value = item.Date_Format })*@
+                                                        {
+                                                            new SelectListItem { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY"},
+                                                            new SelectListItem { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY"},
+                                                            new SelectListItem {Text  = "YYYY/MM/DD",Value="YYYY/MM/DD"}
+                                                        }, "Select Date Format", new { @class = "form-control", Value = item.Date_Format })*@
                                                 </div>
                                             </div>
                                             @*<div class="row">
@@ -537,17 +563,26 @@
     <script src="~/vendors/nprogress/nprogress.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="~/build/js/custom.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <!-- Toogle Function -->
     <script type="text/javascript">
         $(document).ready(function () {
             $("#checkbox1").val($(this).is(':checked'));
+            $("#allowaccess").val($(this).is(':checked'));
 
             $("#checkbox1").change(function () {
                 if ($(this).is(":checked")) {
                     $(".toggle-box").css("visibility", "visible");
                 } else {
                     $(".toggle-box").css("visibility", "hidden");
+                }
+            });
+            //Permissions Area
+            $("#allowaccess").change(function () {
+                if ($(this).is(":checked")) {
+                    $("#permissionsarea").css("visibility", "visible");
+                } else {
+                    $("#permissionsarea").css("visibility", "hidden");
                 }
             });
         });
@@ -565,7 +600,7 @@
             var profileurl = '@Request.QueryString["type"]';
             if (profileurl == 'upload') {
                 $(".cd-tabs-navigation li a[data-content='essentials'], ul.cd-tabs-content li[data-content='essentials']").removeClass("selected");
-                $(".cd-tabs-navigation li a[data-content='profile'], ul.cd-tabs-content li[data-content='profile']").addClass("selected");
+                $(".cd-tabs-navigation li a[data-content='address'], ul.cd-tabs-content li[data-content='address']").addClass("selected");
             }
 
         });
@@ -605,7 +640,7 @@
     </script>
 
 
-<script>
+    <script>
         function upload1() {
             var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
             if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
@@ -635,99 +670,13 @@
                 });
             }
         }
-</script>
+    </script>
 
     <!------ Image Upload ------>
 
     <script>
         function updatevales(val) {
-            //if (val == "Essentials") {
-            //    var test = $("#userprofile").validate().element("#Item1_First_Name");//true or false
-            //    $("Item1_First_Name").focus();
-            //}
-            //else {           
-                var id = @Request.QueryString["id"];
-                var usermaster = {
-                    First_Name:$('#Item1_First_Name').val(),
-                    Last_Name:$('#Item1_Last_Name').val(),
-                    Password:$('#Item1_Password').val(),
-                    Date_Format:$('#Item1_Date_Format').val(),
-                    Timezone:$('#Item1_Timezone').val(),
-                    Currency:$('#Item1_Currency').val()
-                }
-                var userAddress={
-                    Line1:$('#Item2_Line1').val(),
-                    Line2:$('#Item2_Line2').val(),
-                    city:$('#Item2_city').val(),
-                    state:$('#Item2_state').val(),
-                    postalcode:$('#Item2_postalcode').val(),
-                    country:$('#Item2_country').val(),
-                }
-                var ownerCompanyAddress={
-                    Line1:$('#Item3_Line1').val(),
-                    Line2:$('#Item3_Line2').val(),
-                    city:$('#Item3_city').val(),
-                    state:$('#Item3_state').val(),
-                    postalcode:$('#Item3_postalcode').val(),
-                    country:$('#Item3_country').val(),
-                }
-                $.ajax({
-                    url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
-                    type: "POST",
-                    datatype: "json",
-                    data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress },
-                    success: function (response) {
-                        if (response == 'success') {                       
-                            //$('#profilediv').toggle().toggle();
-                            alert("Profile updated SuccessFully");
-                            $.post("UserProfile/Index",{id:id},function(result){});
-                        }
-                        else {
-                            alert("Failed To Update Profile");
-                        }
-                    },
-                    error: function (er) {
-                        alert("error");
-                    }
-                });
-           // }
-        }
-    </script>
-
-
-    @*<script>
-        $(document).ready(function () {
-            $('#userprofile').validate({
-                rules: {
-                    name: {
-                        minlength: 2,
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    message: {
-                        minlength: 2,
-                        required: true
-                    }
-                },
-                highlight: function (element) {
-                    $(element).closest('.control-group').removeClass('success').addClass('error');
-                },
-                success: function (element) {
-                    element.text('OK!').addClass('valid')
-                        .closest('.control-group').removeClass('error').addClass('success');
-                }
-            });
-        });
-    </script>*@
-
-
-    @*<script>
-        $('#btnupdate').on('click',function(){
             var id = @Request.QueryString["id"];
-            var btnvalue = $('#btnupdate').val();
             var usermaster = {
                 First_Name:$('#Item1_First_Name').val(),
                 Last_Name:$('#Item1_Last_Name').val(),
@@ -753,14 +702,14 @@
                 country:$('#Item3_country').val(),
             }
             $.ajax({
-                url: '/UserProfile/UpdateUserProfile?command='+btnvalue+'&&id='+id,
+                url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
                 type: "POST",
                 datatype: "json",
                 data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress },
                 success: function (response) {
                     if (response == 'success') {
-                        //$('#profilediv').load('UserProfile',{id:id});
-                        $('#profilediv').toggle().toggle();
+                        //$('#profilediv').toggle().toggle();
+                        $('#partialpage').load("@Url.Action("ProfileProgressPartial", "Login")");
                         alert("Profile updated SuccessFully");
                     }
                     else {
@@ -771,7 +720,7 @@
                     alert("error");
                 }
             });
-        });
-    </script>*@
+        }
+    </script>
 }
 

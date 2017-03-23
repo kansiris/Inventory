@@ -45,5 +45,12 @@ namespace Inventory.Repository
         public string Cstate { get; set; }
         public string Cpostalcode { get; set; }
         public string Ccountry { get; set; }
+        public string Sfirstname { get; set; }
+        public string Slastname { get; set; }
+        public int Smobile { get; set; }
+        public int Svendoraccess { get; set; }
+        public int Scustomeracccess { get; set; }
+        public string Sjob { get; set; }
+        public string Semail { get; set; }
     }
 }
