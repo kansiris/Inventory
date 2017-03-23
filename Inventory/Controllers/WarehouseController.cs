@@ -128,7 +128,7 @@ namespace Inventory.Controllers
             {
                 Warehouse wh = new Warehouse
                 {
-                    //wh_Id = data["wh_id"].ToString(),
+                    wh_Id = data["wh_id"].ToString(),
                     wh_name = data["wh_name"].ToString(),
                     wh_Shortname = data["wh_Shortname"].ToString(),
                     conperson = data["Contact_person"].ToString(),

@@ -348,18 +348,24 @@
         $("#add-wh").click(function () {
             $("#wh-information").css("display", "block");
             $("#contacttable").css("display", "none");
+           
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
         });
         $("#wh-information-cancel").click(function () {
             $("#wh-information input").val("");
             $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+            
         });
+
         $("#wh-information1-cancel").click(function () {
+            $("#wh-information1").css("display", "none");
             $("#wh-information1 input").val("");
         });
         $("#save-reset").click(function () {
             $(".contactperson input").val("");
         });
+
+       
     </script>
     <script>
        
