@@ -34,7 +34,7 @@
         {
             <form method="post" enctype="multipart/form-data" id="userprofile">
                 <div class="row info-title">
-                    @item.First_Name @item.Last_Name
+                    @item.First_Name @item.Last_Name Profile
                     <button type="button" class="btn btn-success btn-xs pull-right">Account</button>
                 </div>
                 <div class="row customer-information">
@@ -46,9 +46,9 @@
                                     <li><a data-content="essentials" class="selected" href="#0">Essentials</a></li>
                                     <li><a data-content="caddress" href="#0">Company Address</a></li>
                                     <li><a data-content="account" href="#0">Account</a></li>
+                                    <li><a data-content="address" href="#0">My Details</a></li>
                                     <li><a data-content="details" href="#0">My Users</a></li>
-                                    <li><a data-content="address" href="#0">My Address</a></li>
-                                    <li><a data-content="profile" href="#0">My Profile</a></li>
+                                    @*<li><a data-content="profile" href="#0">My Profile</a></li>*@
                                     <li><a data-content="notes" href="#0">Notes</a></li>
                                     <li><a data-content="social" href="#0">Social</a></li>
                                     <li><a data-content="localization" href="#0">Localization</a></li>
@@ -248,38 +248,58 @@
                                 </li>
                                 <li data-content="address">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     @*<input type="text" class="form-control" placeholder="Line 1">*@
                                                     @Html.TextBoxFor(Model => Model.Item2.Line1, new { placeholder = "Address Line1", @class = "form-control", Value = item.ULine1, required = "required" })
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     @*<input type="text" class="form-control" placeholder="State/Country">*@
                                                     @Html.TextBoxFor(Model => Model.Item2.state, new { placeholder = "State", @class = "form-control", Value = item.Ustate, required = "required" })
                                                     @*@Html.DropDownListFor(Model => Model.Timezone, new SelectList(ViewBag.country), "Select country", new { @class = "form-control" })*@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     @Html.TextBoxFor(Model => Model.Item2.Line2, new { placeholder = "Address Line2", @class = "form-control", Value = item.ULine2, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="Line 2">*@
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     @Html.TextBoxFor(Model => Model.Item2.postalcode, new { placeholder = "Postal Code", @class = "form-control", Value = item.Upostalcode, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="Zip/Postal Code">*@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     @Html.TextBoxFor(Model => Model.Item2.city, new { placeholder = "City", @class = "form-control", Value = item.Ucity, required = "required" })
                                                     @*<input type="text" class="form-control" placeholder="City">*@
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     @Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control", Value = item.Ucountry, required = "required" })
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                            <div class="col-md-3 col-md-push-3">
+
+                                                @if (item.Profile_Picture != null)
+                                                {
+                                                    <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
+                                                    <img id="companypic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                }
+                                                else
+                                                {
+                                                    <div class="top-button">
+                                                        <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload()">
+                                                        <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.Profile_Picture.Substring(0, 1)</span>
+                                                    </div>
+                                                }
+
+                                                <div>Upload New Pic</div>
+                                            </div>
+                                        
+
                                     </div>
                                     <hr />
                                     <div class="row">
@@ -303,7 +323,7 @@
                                                 <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                             </div>*@
 
-                                            @if (item.Profile_Picture != null)
+                                            @*@if (item.Profile_Picture != null)
                                             {
                                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
                                                 <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
@@ -314,7 +334,7 @@
                                                     <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
                                                     <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
                                                 </div>
-                                            }
+                                            }*@
 
 
                                         </div>
@@ -336,20 +356,20 @@
                                 </li>
                                 <li data-content="notes">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="row">
                                                 <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="10" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
+                                                    <textarea class="form-control" rows="5" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        @*<div class="col-md-6">
                                             <div class="row">
                                                 <div class="form-group col-md-12">
                                                     <textarea class="form-control" rows="10" id="comment" placeholder="Preview(Mark Down)"></textarea>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                     <hr />
                                     <div class="row">
@@ -412,7 +432,7 @@
                                 </li>
                                 <li data-content="localization">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-8">
                                             @*<div class="row">
                                                     <div class="form-group col-md-8">
                                                         <select class="form-control" id="sel1">
@@ -423,19 +443,25 @@
                                                 </div>*@
                                             <div class="row">
                                                 @*@Html.HiddenFor(Model => Model.Item1.Date_Format, new { Value = item.Date_Format })*@
-                                                <div class="form-group col-md-8">
+                                                <div class="form-group col-md-4">
                                                     @*<select class="form-control" id="sel1">
                                                             <option>Date Format</option>
                                                             <option>2</option>
                                                             <option>3</option>
                                                             <option>4</option>
                                                         </select>*@
-                                                    @Html.DropDownListFor(Model => Model.Item1.Date_Format, new List<SelectListItem>
-                            {
-                                new SelectListItem { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY"},
-                                new SelectListItem { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY"},
-                                new SelectListItem {Text  = "YYYY/MM/DD",Value="YYYY/MM/DD"}
-                            }, "Select Date Format", new { @class = "form-control", Value = item.Date_Format })
+
+                                                    @Html.DropDownListFor(Model => Model.Item1.Date_Format, new SelectList(new List<Object> { new { Text = "Select Date Format", Value = "" }, new { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY" }, new { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY" }, new { Text = "YYYY/MM/DD", Value = "YYYY/MM/DD" } }, "value", "text", item.Date_Format), new { @class = "form-control" }) @*, @style = "width: 50%;"*@ 
+                                                    </div>
+                                                <div class="form-group col-md-4">
+                                                    @Html.DropDownListFor(Model => Model.Item1.Currency, new SelectList(new List<Object> { new { Text = "Select Currency", Value = "" }, new { Text = "Dollar($)", Value = "Dollar" }, new { Text = "Rupee(₹)", Value = "Rupee" } }, "value", "text", item.Currency), new { @class = "form-control" })
+
+                                                    @*@Html.DropDownListFor(Model => Model.Item1.Date_Format, new List<SelectListItem>
+            {
+                new SelectListItem { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY"},
+                new SelectListItem { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY"},
+                new SelectListItem {Text  = "YYYY/MM/DD",Value="YYYY/MM/DD"}
+            }, "Select Date Format", new { @class = "form-control", Value = item.Date_Format })*@
                                                 </div>
                                             </div>
                                             @*<div class="row">
@@ -464,11 +490,7 @@
                                             <div class="row">
                                                 @*@Html.HiddenFor(Model => Model.Item1.Currency, new { Value = item.Currency })*@
                                                 <div class="form-group col-md-8">
-                                                    @Html.DropDownListFor(Model => Model.Item1.Currency, new List<SelectListItem>
-                            {
-                                new SelectListItem { Text = "Dollar($)", Value = "Dollar"},
-                                new SelectListItem { Text = "Rupee(Rs.)", Value = "Rupee"}
-                            }, "Select Currency", new { @class = "form-control", Value = item.Currency })
+                                                    @*@Html.DropDownListFor(Model => Model.Item1.Currency, new SelectList(new List<Object> { new { Text = "Select Currency", Value = "" }, new { Text = "Dollar($)", Value = "Dollar" },new { Text = "Rupee(₹)", Value = "Rupee" } }, "value", "text",item.Currency),new { @class = "form-control" })*@
                                                     @*<select class="form-control" id="sel1">
                                                             <option>Currency</option>
                                                             <option>Dollar($)</option>
