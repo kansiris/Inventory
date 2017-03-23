@@ -29,139 +29,157 @@
 }
 <div class="right_col" role="main">
     <div class="container">
+        <form method="post" action="#" id="myform">
+            @Html.HiddenFor(Model => Model.wh_Id, new { Value = @ViewBag.wh_id })
 
-
-        <form method="post">
-            <button type="button" id="btnadd" class="btn btn-success">ADD</button>
-            @*<button type="button" id="btnclose" class="btn btn-danger">Close</button>*@
-            <div class="table-responsive">
-                <table class="table  table-borderedtable-striped jambo_table bulk_action">
-                    <thead>
-                        <tr>
-                            <th>WareHouse</th>
-                            <th>Short Name</th>
-                            <th>Contact Person</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.records)
-                        {
-                            <tr>
-                                <td> @item.wh_name </td>
-                                <td>@item.wh_Shortname </td>
-                                <td>@item.conperson</td>
-                                <td>@item.Email</td>
-                                <td><input type="button" value="Edit" name="rowButton" class="btn-success" /></td>
-                                <td><input type="button" value="Payment" name="rowButton1" class="btn-default" /></td>
-                                <td><input type="checkbox" id="checkedItem" name="checkedItem" class="alert-success"></td>
-                            </tr>
-                           
-                        }
-                    </tbody>
-                </table>
+            <div class="row">
+                <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>
             </div>
-            <br /><br />
-            <div class="row" style="display:none">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table  table-borderedtable-striped bulk_action" id="whtable">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Warehouse Name</th>
+                                <th>Shortname</th>
+                                <th>Contact Person</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.records)
+                            {
+                                <tr>
+                                    <td> @item.wh_name </td>
+                                    <td> @item.wh_Shortname </td>
+                                    <td>@item.conperson</td>
+                                    <td>@item.Email</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                            <ul class="dropdown-menu">
+                                                <li> <a href="#" ><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="getEditDetails(@item.wh_Id)"></i>Edit Warehouse</a> </li>
+                                                <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" id="wh-information">
                 <div class="col-md-12 form-title">Warehouse Information</div>
                 <div class="col-md-6">
                     <div class="row">
+                       @if (ViewBag.Warehouse != null)
+                       {
+                            <div class="form-group col-md-4">
+                                @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
+                            </div>
+                            <div class="form-group col-md-5">
+
+                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
+                            </div>
+                       }
+                       else
+                       {
                         <div class="form-group col-md-4">
-
-                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", required = "required", @class = "form-control", @id = "txtwhname" })
+                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
                         </div>
-                        <div class="form-group col-md-5">
-                            @*<label>Warehouse ShortName</label>*@
-                            @*<input type="text" class="form-control">*@
-                            @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Warehouse ShortName", required = "required", @class = "form-control", @id = "txtwhsname" })
-                        </div>
+                            <div class="form-group col-md-5">
 
+                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
+                            </div>
+                       }
                     </div>
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default pull-right" id="wh-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editwh(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                        </div>
+                    </div>
+                    <a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a>
                 </div>
-
+                <div class="col-md-3 col-md-push-3">
+                    <div class="top-button">
+                        <input type="file">
+                        <span>W</span>
+                    </div>
+                    <div>Upload warehouse Logo</div>
+                </div>
             </div>
-            <div class="row" style="display:none">
+            <div class="row">
                 <!--------- Tab Section START ------------>
                 <div class="col-md-12">
                     <div class="cd-tabs">
                         <nav>
                             <ul class="cd-tabs-navigation">
                                 <li><a data-content="address" class="selected" href="#0">Address</a></li>
+                                <li><a data-content="contactperson" href="#0">Contact Person</a></li>
                                 <li><a data-content="notes" href="#0">Notes</a></li>
-                                <li><a data-content="contactinfo" href="#0">Contact&nbsp;info</a></li>
-                                @*<li><a data-content="paymentbilling" href="#0">Payment &amp; Billing</a></li>*@
                             </ul>
                             <!-- cd-tabs-navigation -->
                         </nav>
                         <ul class="cd-tabs-content">
                             <li data-content="address" class="selected">
                                 <div class="row">
-                                    <div class="col-md-6 padding-top padding-bottom ">
+                                    <div class="col-md-6 padding-top padding-bottom">
                                         <div class="row col-md-12">
                                             <h2 class="form-title">Billing address<a href="#">map</a></h2>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                @Html.TextBoxFor(Model => Model.bill_Street, new { placeholder = "Street", @class = "form-control", @id = "txtbillstreet", Type = "text" })
-                                                @*<textarea class="form-control" rows="5" id="comment" placeholder="Street"></textarea>*@
+                                                <textarea class="form-control" rows="5" name="bill_street" id="bill_street" placeholder="Street"></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.bill_City, new { placeholder = "City", @class = "form-control", @id = "txtbillcity", Type = "text" })
-                                                @*<input type="text" class="form-control" placeholder="City/Town">*@
+                                                <input type="text" class="form-control" name="bill_city" id="bill_city" placeholder="City/Town">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.bill_State, new { placeholder = "State", @class = "form-control", @id = "txtbillstate", Type = "text" })
-                                                @*<input type="text" class="form-control" placeholder="State">*@
+                                                <input type="text" class="form-control" name="bill_state" id="bill_state" placeholder="State">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.bill_Postalcode, new { placeholder = "Postal Code", @class = "form-control", @id = "txtbillpc", Type = "text" })
-                                                @*<input type="text" class="form-control" placeholder="Postal Code">*@
+                                                <input type="text" class="form-control" name="bill_postalcode" id="bill_postalcode" placeholder="Postal Code">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.bill_Country, new { placeholder = "Country", @class = "form-control", @id = "txtbillcountry", Type = "text" })
-                                                @*<input type="text" class="form-control" placeholder="Country">*@
+                                                <input type="text" class="form-control" name="bill_country" id="bill_country" placeholder="Country">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 padding-top padding-bottom shipping ">
+                                    <div class="col-md-6 padding-top padding-bottom shipping">
                                         <div class="row">
                                             <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
                                             <div class="checkbox col-md-6">
                                                 <label>
-                                                    <input type="checkbox" id="chkaddress" name="chkaddress" value="chkaddress" onchange="CopyAdd(this);">
+                                                    <input type="checkbox">
                                                     Same as billing address
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                @Html.TextBoxFor(Model => Model.ship_Street, new { placeholder = "Street", @class = "form-control", @id = "txtshipstreet", Type = "text" })
-                                                @*<textarea class="form-control" rows="5" id="comment" placeholder="Street"></textarea>*@
+                                                <textarea class="form-control" rows="5" name="ship_street" id="ship_street" placeholder="Street"></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="City/Town">*@
-                                                @Html.TextBoxFor(Model => Model.ship_City, new { placeholder = "City", @class = "form-control", @id = "txtshipcity", Type = "text" })
+                                                <input type="text" class="form-control" name="ship_city" id="ship_city" placeholder="City/Town">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @Html.TextBoxFor(Model => Model.ship_State, new { placeholder = "State", @class = "form-control", @id = "txtshipstate", Type = "text" })
-                                                @*<input type="text" class="form-control" placeholder="State">*@
+                                                <input type="text" class="form-control" name="ship_state" id="ship_state" placeholder="State">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="Postal Code">*@
-                                                @Html.TextBoxFor(Model => Model.ship_Postalcode, new { placeholder = "Postal Code", @class = "form-control", @id = "txtshipPC", Type = "text" })
+                                                <input type="text" class="form-control" name="ship_postalcode" id="ship_postalcode" placeholder="Postal Code">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="Country">*@
-                                                @Html.TextBoxFor(Model => Model.ship_Country, new { placeholder = "Country", @class = "form-control", @id = "txtshipcountry", Type = "text" })
+                                                <input type="text" class="form-control" name="ship_country" id="ship_country" placeholder="Country">
                                             </div>
                                         </div>
                                     </div>
@@ -169,195 +187,582 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-default pull-right" type="button" id="btnclose2">Close</button>
-                                        <button type="submit" command="Insert" class="btn btn-primary pull-right">Save</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclose3">Cancel</button>
+                                        <button type="button" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" onclick="editwhaddress(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Address</button>
                                     </div>
                                 </div>
                             </li>
-                            <li data-content="notes">
+
+                            <li data-content="contactperson" class="contactperson">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row col-md-12">
-                                            <h2 class="form-title">Notes</h2>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                @*<input type="text" class="form-control" placeholder="First Name">*@
+                                                <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
+                                            </div>
+
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5" id="comment" placeholder="Notes"></textarea>
+                                            <div class="form-group col-md-6">
+                                                @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No">
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="btnclose3">Close</button>
-                                        <button type="submit" command="Insert" class="btn btn-primary pull-right">Save</button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li data-content="contactinfo">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            @*<label for="email">Email</label>*@
-                                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter EmailId", @class = "form-control", @id = "txtemail", @onblur = "validateEmail(this)" })
-                                            @*@Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-control" })*@
-                                            @*<input type="email" class="form-control" id="email">*@
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            @*<label>Phone</label>*@
-
-                                            @Html.TextBoxFor(Model => Model.phone, new { placeholder = "Enter Phone Number", @class = "form-control", @maxlength = "11", @id = "txtphone" })
-                                            @*<input type="text" class="form-control">*@
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @*<label>Mobile</label>*@
-
-                                            @Html.TextBoxFor(Model => Model.Mobile, new { placeholder = "Enter Mobile", @class = "form-control", @maxlength = "11", @id = "txtmobile" })
-                                            @*<input type="text" class="form-control">*@
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @*<label>Contact Person</label>*@
-                                            @Html.TextBoxFor(Model => Model.conperson, new { placeholder = "ContactPerson Name", @class = "form-control", })
-                                            @*<input type="text" class="form-control">*@
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            @*<label>Notes</label>*@
-
-                                            @Html.TextBoxFor(Model => Model.Note, new { placeholder = "Remarks", @class = "form-control" })
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                                <input type="text" class="form-control" name="Phone" placeholder="Phone" id="Phone">
+                                            </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            @*<label>Job position</label>*@
-                                            @Html.TextBoxFor(Model => Model.Job_position, new { placeholder = "Job Position", @class = "form-control" })
-
-                                            @*<input type="text" class="form-control">*@
+                                            @*<input type="text" class="form-control" placeholder="E-mail">*@
+                                            <input type="text" class="form-control" name="emailid" id="emailid" placeholder="Email">
                                         </div>
                                     </div>
+                                    <div class="row">
 
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="btnclose1">Close</button>
-                                        <button type="submit" command="Insert" class="btn btn-primary pull-right">Save</button>
+                                        <div class="form-group col-md-6">
+                                            @*<input type="text" class="form-control selected-position" placeholder="Job Position">*@
+                                            <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
+                                            <div class="display-positions">
+                                                <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>One</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row add-position">
+                                        <div class="row">
+                                            <input type="text" class="form-control" placeholder="Enter Position">
+                                            <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                            <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                        </div>
+                                        <div class="row positions"></div>
                                     </div>
                                 </div>
-                            </li>
-
-                        </ul>
-                        <!-- cd-tabs-content -->
+                    
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
+                        </div>
                     </div>
-                    <!-- cd-tabs -->
+                   @*--------------------------------contactinfo table-----------------------------------------------*@
+                                <div class="row" id="contactdiv">
+                                    <div class="col-md-12 table-responsive table-hover">
+                                        <table class="table" id="contacttable">
+                                            <thead class="thead-inverse">
+                                                <tr>
+                                                    @*<th>S.No</th>*@
+                                                    <th>First Name</th>
+                                                  
+                                                    <th>Mobile Number</th>
+                                                    <th>E-Mail</th>
+                                                    
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
+                                                @foreach (var item in ViewBag.contact)
+                                                {
+                                                    <tr>
+                                                        @*<th scope="row">1</th>*@
+                                                        <td>@item.conperson</td>
+                                                        
+                                                        <td>@item.Mobile</td>
+                                                        <td>@item.Email</td>
+                                                        
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
+                                                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                    </li>
+
+                    <li data-content="notes">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        @*<textarea class="form-control" rows="5" id="comment" placeholder="Notes"></textarea>*@
+                                        <textarea class="form-control" rows="5" placeholder="Notes" id="Note" name="Note"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatewhnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+
+                    </ul>
+                    <!-- cd-tabs-content -->
                 </div>
+                <!-- cd-tabs -->
 
-                <!--------- Tab Section END ------------>
             </div>
-        </form>
+
+            <!--------- Tab Section END ------------>
     </div>
+    </form>
 </div>
+</div>
+
+
 @section scripts{
     <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/main.js"></script>
     <script src="~/Scripts/js/modernizr.js"></script>
     <!-- jQuery -->
-<script src="../vendors/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Custom Theme Scripts -->
-<script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
     @*<script src="jquery.js"></script>*@
     <script>
-        $("#btnadd").click(function () {
-            $(".row").css('display', 'block');
-        })
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("tbody td").click(function (e) {
-                var currentCellText = $(this).text();
-                $("#txtwhname").text('')
-                 .append(currentCellText)
-            });
+      
+        $("#add-wh").click(function () {
+            $("#wh-information").css('display', 'block');
+            $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
+        });
+        $("#wh-information-cancel").click(function () {
+            $("#wh-information input").val("");
+        });
+        $("#save-reset").click(function () {
+            $(".contactperson input").val("");
         });
     </script>
     <script>
-        $("#btnclose1").click(function () {
-            $(".row").css('display', 'none');
-        })
-        $("#btnclose2").click(function () {
-            $(".row").css('display', 'none');
-        })
-        $("#btnclose3").click(function () {
-            $(".row").css('display', 'none');
-        })
-    </script>
-    <script>
-        $(document).on("change", "input[name='chkaddress']", function () {
-            if ($("input[name='chkaddress']").is(':checked') == true) {
-                $("[id='txtshipstreet']").val($("[id='txtbillstreet']").val());
-                $("[id='txtshipcity']").val($("[id='txtbillcity']").val());
-                $("[id='txtshipstate']").val($("[id='txtbillstate']").val());
-                $("[id='txtshipPC']").val($("[id='txtbillpc']").val());
-                $("[id='txtshipcountry']").val($("[id='txtbillcountry']").val());
+       
+        $("input[type='checkbox']").change(function () {
+            if ($("input[type='checkbox']").is(':checked')) {
+                $("[id='ship_street']").val($("[id='bill_street']").val());
+                $("[id='ship_city']").val($("[id='bill_city']").val());
+                $("[id='ship_state']").val($("[id='bill_state']").val());
+                $("[id='ship_postalcode']").val($("[id='bill_postalcode']").val());
+                $("[id='ship_country']").val($("[id='bill_country']").val());
             }
-            if ($("input[name='chkaddress']").is(':checked') == false) {
-                $("[id='txtshipstreet']").val("");
-                $("[id='txtshipcity']").val("");
-                $("[id='txtshipstate']").val("");
-                $("[id='txtshipPC']").val("");
-                $("[id='txtshipcountry']").val("");
+            else {
+                $("[id='ship_street']").val("");
+                $("[id='ship_city']").val("");
+                $("[id='ship_state']").val("");
+                $("[id='ship_postalcode']").val("");
+                $("[id='ship_country']").val("");
             }
         });
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#txtphone").keydown(function (event) {
-                if (event.shiftKey) {
-                    event.preventDefault();
-                }
-                if (event.keyCode == 46 || event.keyCode == 8) {
-                }
-                else {
-                    if (event.keyCode < 95) {
-                        if (event.keyCode < 48 || event.keyCode > 57) {
-                            event.preventDefault();
-                        }
-                    }
-                    else {
-                        if (event.keyCode < 96 || event.keyCode > 105) {
-                            event.preventDefault();
-                        }
-                    }
-                }
+    <script>
+        $(document).ready(function (e) {
+            $(".top-button").each(function () {
+                var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
+                var len = colors.length;
+                var rand = Math.floor(Math.random() * len);
+                $(this).css("background", colors[rand]);
             });
-            $("#txtmobile").keydown(function (event) {
-                if (event.shiftKey) {
-                    event.preventDefault();
-                }
-                if (event.keyCode == 46 || event.keyCode == 8) {
-                }
-                else {
-                    if (event.keyCode < 95) {
-                        if (event.keyCode < 48 || event.keyCode > 57) {
-                            event.preventDefault();
-                        }
-                    }
-                    else {
-                        if (event.keyCode < 96 || event.keyCode > 105) {
-                            event.preventDefault();
-                        }
-                    }
-                }
-            });
-        });
-    </script>
 
+
+
+            $('#whtable').after('<div id="nav"></div>');
+            var rowsShown = 3;
+            var rowsTotal = $('#whtable tbody tr').length;
+            var numPages = rowsTotal / rowsShown;
+            for (i = 0; i < numPages; i++) {
+                var pageNum = i + 1;
+                $('#nav').append('<a href="#" class="btn btn-success" rel="' + i + '">' + pageNum + '</a> ');
+            }
+            $('#whtable tbody tr').hide();
+            $('#whtable tbody tr').slice(0, rowsShown).show();
+            $('#nav a:first').addClass('active');
+            $('#nav a').bind('click', function () {
+
+                $('#nav a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#whtable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+                        css('display', 'table-row').animate({ opacity: 1 }, 300);
+            });
+
+
+            $(".cd-tabs").css("display", "none");
+            //$("button.save").click(function(){
+            //    $(".cd-tabs").css("display","block");
+            //});
+            $("#additon").click(function () {
+                $(".cd-tabs").css("display", "block");
+            });
+
+        });
+    </script>
+    <script>
+        $("#add").click(function (e) {
+            var len = $(".contactperson #clone-content").length;
+            if (len < 2) {
+                var v = $("li.contactperson > div.row:first-of-type > div:last-of-type");
+                $("#clone-content").clone().appendTo(v);
+            }
+        });
+        </script>
+    <script>
+        function textval() {
+            $(".display-positions .positions1").click(function () {
+                var c = $(this).text();
+                $("input.selected-position").val(c);
+                $(".display-positions").css("display", "none");
+            });
+        }
+
+        $(".positions1 > i").click(function () {
+            $(this).parent(".positions1").remove();
+        });
+
+        $(".selected-position").click(function () {
+            $(".display-positions").css("display", "block");
+            return textval();
+        });
+
+        $(".display-positions .position").click(function () {
+            $(".add-position").css("display", "block");
+
+            $(".add-position .add-button").click(function () {
+                var v = $(".add-position input[type='text']").val();
+                var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
+                $(".form-group .display-positions").append(value);
+                $(".positions1 > i").click(function () {
+                    $(this).parent(".positions1").remove();
+                });
+                return textval();
+            });
+
+            $(".close-button").click(function () {
+                $(".add-position").css("display", "none");
+            });
+
+        });
+    </script>
+    <script>
+        function editFunction(array) {
+
+            $('#wh-information').css('display', 'block');
+            $(".cd-tabs").css("display", "block");
+            $('#wh_id').val(array.wh_id);
+            $('#wh_Name').val(array.wh_Name);
+            $('#wh_sname').val(array.wh_sname);
+            $('#bill_street').val(array.bill_street);
+            $('#bill_city').val(array.bill_city);
+            $('#bill_state').val(array.bill_state);
+            $('#bill_postalcode').val(array.bill_postalcode);
+            $('#bill_country').val(array.bill_country);
+            $('#ship_street').val(array.ship_street);
+            $('#ship_city').val(array.ship_city);
+            $('#ship_state').val(array.ship_state);
+            $('#ship_postalcode').val(array.ship_postalcode);
+            $('#ship_country').val(array.ship_country);
+            $('#Contact_PersonFname').val(array.Contact_PersonFname);
+            $('#Phone').val(array.Phone);
+            $('#Mobile_No').val(array.Mobile_No);
+            $('#emailid').val(array.emailid);
+            $('#Job_position').val(array.Job_position);
+            $('#Note').val(array.Note);
+        }
+
+        //Get Particular warehouse Record
+        function getEditDetails(id) {
+            alert(id);
+            $('#mySubmit').val("update").text("Update Warehouse");
+            $('#mySubmit1').val("updateaddress").text("Update Address");
+            $('#notebutton').val("updatenote").text("Update Note");
+            $('#contactbutton').val("updatecontact").text("Update Contact");
+
+            $('#btnedit').click(function () {
+                $('#warehouse').css('display', 'none');
+            });
+
+            $.ajax({
+                url: '/Warehouse/getallwhdetails?wh_id=' + id,
+                type: 'POST',
+                data: JSON.stringify({ wh_id: id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "unique") {
+                        alert("Success");
+                    }
+                    else {
+                        var array = JSON.parse(data);
+                        editFunction(array);
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
+        //Particular Warehouse
+        function editwh(clickedvalue) {
+            alert(clickedvalue);
+
+            $('#update').click(function () {
+                $('#warehouse').css('display', 'none');
+            });
+            $('#update').click(function () {
+                $('#additional').css('display', 'none');
+            });
+           wh_id = $('#wh_id').val();
+            wh_Name = $('#wh_Name').val();
+            wh_sname = $('#wh_sname').val();
+            if (clickedvalue == 'update') {
+                $.ajax({
+                    url: '/Warehouse/updatewarehouse?wh_id=' + wh_id + '&wh_Name=' + wh_Name + '& wh_sname=' + wh_sname,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_id, wh_Name, wh_sname }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "success") {
+                            $('#savebutton').hide();
+                            alert("Warehouse Updated sucessfully");
+                        }
+                        else {
+                            alert("Warehouse not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'Save') {
+
+                $.ajax({
+                    url: '/Warehouse/insertwhdtls?wh_name=' + wh_name + '& wh_sname=' + wh_sname,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_name, wh_sname }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "success") {
+                            $('#savebutton').hide();
+                            alert("Warehouse saved sucessfully");
+                        }
+                        else {
+                            alert("Warehouse not saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+        //Particular Warehouse Address
+        function editwhaddress(clickedvalue) {
+            alert(clickedvalue);
+            $('#updateaddress').click(function () {
+                $('#warehouse').css('display', 'none');
+            });
+            $('#updateaddress').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            wh_id = $('#wh_id').val();
+            bill_street = $('#bill_street').val();
+            bill_city = $('#bill_city').val();
+            bill_state = $('#bill_state').val();
+            bill_postalcode = $('#bill_postalcode').val();
+            bill_country = $('#bill_country').val();
+            ship_street = $('#ship_street').val();
+            ship_city = $('#ship_city').val();
+            ship_state = $('#ship_state').val();
+            ship_postalcode = $('#ship_postalcode').val();
+            ship_country = $('#ship_country').val();
+
+            if (clickedvalue == 'updateaddress') {
+                $.ajax({
+                    url: '/Warehouse/updatewhaddress?wh_id=' + wh_id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state + '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city + '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+
+                            alert("Updated sucessfully");
+                        }
+                        else {
+                            alert("Adress  not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'saveaddress') {
+
+                $.ajax({
+                    url: '/Warehouse/insertwhaddress?wh_id=' + wh_id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state +
+                           '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city +
+                           '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
+                    type: 'POST',
+                    data: JSON.stringify({
+                        wh_id, bill_street, bill_city, bill_state, bill_postalcode,
+                        bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+
+                            alert("Address Saved sucessfully");
+                        }
+                        else {
+                            alert("not Saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+
+        //warehouse Note
+        function updatewhnote(clickedvalue) {
+            alert(clickedvalue);
+            $('#updatenote').click(function () {
+                $('#warehouse').css('display', 'none');
+            });
+            $('#updatenote').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            wh_id = $('#wh_id').val();
+            Note = $('#Note').val();
+            if (clickedvalue == 'updatenote') {
+                $.ajax({
+                    url: '/Warehouse/updatewhnotes?wh_id=' + wh_id + '&Note=' + Note,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_id, Note }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+
+                            alert("Updated sucessfully");
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'Save Note') {
+                $.ajax({
+                    url: '/Warehouse/insertwhnotes?wh_id=' + wh_id + '&Note=' + Note,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_id, Note }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            alert("Saved sucessfully");
+                        }
+                        else {
+                            alert("Notes not Saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+        //Contact Person
+        function UpdatewhContact(clickedvalue) {
+            alert(clickedvalue);
+            $('#updatecontact').click(function () {
+                $('#warehouse').css('display', 'none');
+            });
+            $('#updatecontact').click(function () {
+                $('#additional').css('display', 'none');
+            });
+            wh_id = $('#wh_id').val();
+            Contact_PersonFname = $('#Contact_PersonFname').val();
+            Phone= $('#Phone').val();
+            Mobile_No = $('#Mobile_No').val();
+            emailid = $('#emailid').val();
+            Job_position = $('#Job_position').val();
+            if (clickedvalue == 'savecontact') {
+                $.ajax({
+                    url: '/Warehouse/insertwhcontact?wh_id=' + wh_id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid +  '&Job_position=' + Job_position,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, emailid , Job_position }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+
+                            alert("saved sucessfully");
+                        }
+                        else {
+                            alert("not saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'updatecontact') {
+                $.ajax({
+                    url: '/Warehouse/insertwhcontact?wh_id=' + wh_id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid +  '&Job_position=' + Job_position,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, emailid , Job_position }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            alert("updated sucessfully");
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
+       </script>
+    
 }
+
+
 
 
 
