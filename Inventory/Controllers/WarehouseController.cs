@@ -39,15 +39,15 @@ namespace Inventory.Controllers
                              Email = row["Email"].ToString()
                          }).ToList();
             ViewBag.records = warehouse;
-           ViewBag.wh_id = getMaxwhid();
-            ViewBag.contact = getcontactdetails();
-            var wh = getlastinsertedwarehouse(ViewBag.wh_id);
-            if(status == "complete")
-            {
-                ViewBag.Warehouse = 1;
-                ViewBag.wh_name = wh.wh_name;
-                ViewBag.wh_sname = wh.wh_Shortname;
-            }
+           //ViewBag.wh_id = getMaxwhid();
+            //ViewBag.contact = getcontactdetails();
+            //var wh = getlastinsertedwarehouse(ViewBag.wh_id);
+            //if(status == "complete")
+            //{
+            //    ViewBag.Warehouse = 1;
+            //    ViewBag.wh_name = wh.wh_name;
+            //    ViewBag.wh_sname = wh.wh_Shortname;
+            //}
 
             return View();
         }
