@@ -17,7 +17,7 @@ namespace Inventory.Controllers
     public class VendorController : Controller
     {
         // GET: Vendor
-        public ActionResult Index(string status, string cid)
+        public ActionResult Index()
         {
             SqlDataReader value = VendorService.getcomapnies();
             DataTable dt = new DataTable();
@@ -35,21 +35,21 @@ namespace Inventory.Controllers
             ViewBag.vendor_Id = getMaxVendorID();
             ViewBag.contact1 = getcontactDetail();
 
-            var company = getlastinsertedcompany(ViewBag.company_Id);
-            if (status == "complete")
-            {
-                ViewBag.company = 1;
-                ViewBag.companyname = company.Company_Name;
-                ViewBag.email = company.Email;
-            }
+            //var company = getlastinsertedcompany(ViewBag.company_Id);
+            //if (status == "complete")
+            //{
+            //    ViewBag.company = 1;
+            //    ViewBag.companyname = company.Company_Name;
+            //    ViewBag.email = company.Email;
+            //}
 
             return View();
         }
-        [HttpPost]
-        public ActionResult Index(Vendor vendor, string command)
-        {
-            return View();
-        }
+        //[HttpPost]
+        //public ActionResult Index(Vendor vendor, string command)
+        //{
+        //    return View();
+        //}
 
         // used methods        
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
@@ -127,9 +127,11 @@ namespace Inventory.Controllers
             dt.Load(value);
             List<Vendor> contact = new List<Vendor>();
             VendorService.getcontactdetail(company_Id);
+
             contact = (from DataRow row in dt.Rows
                        select new Vendor()
                        {
+                           Vendor_Id = row["Vendor_Id"].ToString(),
                            Contact_PersonFname = row["Contact_PersonFname"].ToString(),
                            Contact_PersonLname = row["Contact_PersonLname"].ToString(),
                            emailid = row["emailid"].ToString()
@@ -137,36 +139,56 @@ namespace Inventory.Controllers
             return contact;
         }
 
+        //     public JsonResult getcontactdetails(int company_Id)
+        //{
+
+        //    var data = VendorService.getcontactdetail(company_Id);
+        //      if (data.Read())
+        //    {
+        //        Vendor vs = new Vendor
+        //        {
+        //            Contact_PersonFname = data["Contact_PersonFname"].ToString(),
+        //            Contact_PersonLname = data["Contact_PersonLname"].ToString(),
+        //            emailid = data["emailid"].ToString(),
+        //            Vendor_Id = data["Vendor_Id"].ToString(),
+
+        //        };
+
+        //        string json = JsonConvert.SerializeObject(vs);
+        //        return Json(json);//new { vs.Company_Name, vs.Email }
+        //    }
+        //    return Json("unique", JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult getAllDetails(int company_Id)
         {
 
             VendorService.getlastinsertedcompany(company_Id);
             var data = VendorService.getAllDetails(company_Id);
-            int set;
-            int set1;
-            int set2;
+            long set;
+            long set1;
+            long set2;
             if (data.Read())
             {
                 if (data["Bank_Acc_Number"].ToString() == "")
                     set = 0;
                 else
-                    set = int.Parse(data["Bank_Acc_Number"].ToString());
+                    set = long.Parse(data["Bank_Acc_Number"].ToString());
                 if (data["company_Id"].ToString() == "")
                     set1 = 0;
                 else
-                    set1 = int.Parse(data["company_Id"].ToString());
+                    set1 = long.Parse(data["company_Id"].ToString());
                 if (data["Mobile_No"].ToString() == "")
                     set2 = 0;
                 else
-                    set2 = int.Parse(data["Mobile_No"].ToString());
+                    set2 = long.Parse(data["Mobile_No"].ToString());
 
                 Vendor vs = new Vendor
                 {
-                    company_Id = set1,
+                    company_Id = (int)set1,
                     Company_Name = data["Company_Name"].ToString(),
                     Email = data["Email"].ToString(),
-                    Bank_Acc_Number = set,//int.Parse(data["Bank_Acc_Number"].ToString()),
+                    Bank_Acc_Number = (int)set,//int.Parse(data["Bank_Acc_Number"].ToString()),
                     Bank_Branch = data["Bank_Branch"].ToString(),
                     Bank_Name = data["Bank_Name"].ToString(),
                     IFSC_No = data["IFSC_No"].ToString(),
@@ -175,7 +197,7 @@ namespace Inventory.Controllers
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
                     emailid = data["emailid"].ToString(),
                     Job_position = data["Job_position"].ToString(),
-                    Mobile_No = set2,//int.Parse(data["Mobile_No"].ToString()),
+                    Mobile_No = (int)set2,//int.Parse(data["Mobile_No"].ToString()),
                     Adhar_Number = data["Adhar_Number"].ToString(),
                     Vendor_Id = data["Vendor_Id"].ToString(),
                     bill_city = data["bill_city"].ToString(),
@@ -346,7 +368,7 @@ namespace Inventory.Controllers
                           string emailid, string Adhar_Number, string Job_position)
         {
             company_Id = getMaxCompanyID();
-            var data = VendorService.VendorUpdateContact(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -360,7 +382,21 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        
+
+            public JsonResult deleteRecord(int company_Id)
+        {
+            
+            var data = VendorService.deleteRecord(company_Id);
+            if (data > 0)
+            {
+                ViewBag.company_Id = company_Id;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 
 }

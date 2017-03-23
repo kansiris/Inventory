@@ -25,7 +25,7 @@ namespace Inventory.Service
         #endregion
 
         #region VendorInsertRow
-        public static int VendorInsertRow(int company_Id, string Contact_PersonFname, string Contact_PersonLname, int Mobile_No,
+        public static int VendorInsertRow(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                           string emailid, string Adhar_Number, string Job_position)
         {
             return VendorRepository.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
@@ -93,6 +93,11 @@ namespace Inventory.Service
         {
 
             return VendorRepository.UpdateCompany1(company_Id, Company_Name, Email);
+        }
+        public static int deleteRecord(int company_Id)
+        {
+
+            return VendorRepository.deleteRecord(company_Id);
         }
     }
 }
