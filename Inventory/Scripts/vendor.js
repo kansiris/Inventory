@@ -14,6 +14,7 @@ $("#vendor-information-cancel").click(function () {
 });
 
 $("#vendor-information1-cancel").click(function () {
+    $("#vendor-information1").css("display", "none");
     $("#vendor-information1 input").val("");
 });
 $("#save-reset").click(function () {
@@ -162,7 +163,37 @@ $(".display-positions .position").click(function () {
 //</script>
 
 //<!------ Contact Person Pop Up Job Position ------->
+//Deleting particular company based on id
 
+function deleteRecord(id) {
+    alert(id);
+    var retVal = confirm("Do you want to delete record...!");
+    if( retVal == true ){
+        $.ajax({
+            url: '/Vendor/deleteRecord',
+            type: 'POST',
+            data: JSON.stringify({ company_Id: id }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    alert("sai");
+                }
+                else {
+                    alert("Company Deleted sucessfully");
+                    $("#vendortable").load(" #vendortable");
+                }
+            },
+            error: function (data)
+            { alert("Failed!!!"); }
+        });
+        return true;
+    }
+    else{
+        //document.write ("User does not want to continue!");
+        return false;
+    }
+}
 //Assigning values to inputs
 function editFunction(array) {
     $('#vendor-information').css('display', 'block');
@@ -176,12 +207,12 @@ function editFunction(array) {
             $('#Bank_Branch').val(array.Bank_Branch);
             $('#IFSC_No').val(array.IFSC_No);
             $('#Note').val(array.Note);
-            $('#Contact_PersonFname').val(array.Contact_PersonFname);
-            $('#Contact_PersonLname').val(array.Contact_PersonLname);
-            $('#emailid').val(array.emailid);
-            $('#Job_position').val(array.Job_position);
-            $('#Mobile_No').val(array.Mobile_No);
-            $('#Adhar_Number').val(array.Adhar_Number);
+            //$('#Contact_PersonFname').val(array.Contact_PersonFname);
+            //$('#Contact_PersonLname').val(array.Contact_PersonLname);
+           // $('#emailid').val(array.emailid);
+           // $('#Job_position').val(array.Job_position);
+            //$('#Mobile_No').val(array.Mobile_No);
+            //$('#Adhar_Number').val(array.Adhar_Number);
             $('#Vendor_Id').val(array.Vendor_Id);
             $('#bill_city').val(array.bill_city);
             $('#bill_country').val(array.bill_country);
@@ -208,7 +239,7 @@ function getEditDetails(id) {
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
     });
-
+    
     $.ajax({
         url: '/Vendor/getAllDetails?company_Id=' + id,
         type: 'POST',
@@ -240,6 +271,7 @@ function editcompany(clickedvalue) {
     $('#update').click(function () {
         $('#additional').css('display', 'none');
     });
+    
     company_Id = $('#company_Id').val();
     Company_Name = $('#Company_Name').val();
     
@@ -261,7 +293,7 @@ function editcompany(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                   
+                    $("#vendortable").load(" #vendortable");
                     alert("Company Updated sucessfully");
                 }
                 else {
@@ -281,9 +313,12 @@ function editcompany(clickedvalue) {
             contentType: 'application/json',
             success: function (data) {
                 if (data == "sucess") {
+                    //$("#vendortable").post("Vendor/Index", function () { });
+                    $("#vendortable").load(" #vendortable");
                     $('#savebutton').hide();
                     alert("company saved sucessfully");
-                }
+                    //$.post("Vendor/Index", function () { });
+                    }
                 else {
                     alert("not saved");
                 }
@@ -306,6 +341,9 @@ function editcompanyaddress(clickedvalue) {
     });
     company_Id = $('#company_Id').val();
     //alert(company_Id);
+  
+    Company_Name = $('#Company_Name').val();
+    Email = $('#Email').val();
     bill_street = $('#bill_street').val();
     bill_city = $('#bill_city').val();
     bill_state = $('#bill_state').val();
@@ -317,6 +355,13 @@ function editcompanyaddress(clickedvalue) {
     ship_postalcode = $('#ship_postalcode').val();
     ship_country = $('#ship_country').val();
 
+    if ((Company_Name == "") || (Email == "")) {
+        if (Company_Name == "")
+            alert("Please Enter Company Name");
+        else
+            alert("Please Enter Email");
+    }
+    else{
     if (clickedvalue == 'updateaddress') {
         $.ajax({
             url: '/Vendor/updatecompanyaddress',
@@ -361,7 +406,7 @@ function editcompanyaddress(clickedvalue) {
         });
     }
 }
-
+}
 //Vendor Bank Details
 function editcompanybankdetails(clickedvalue) {
    // alert(clickedvalue);
@@ -477,6 +522,27 @@ function updatecompanynote(clickedvalue) {
 
 
 //Contact Person
+//function getContactDetails() {
+//    $.ajax({
+//        url: '/Vendor/getcontactdetails',
+//        type: 'POST',
+//        data: JSON.stringify({ company_Id: company_Id}),
+//        dataType: 'json',
+//        contentType: 'application/json',
+//        success: function (data) {
+//            if (data == "sucess") {
+                
+//                alert("Contact Details saved sucessfully");
+//            }
+//            else {
+//                alert("not saved");
+//            }
+//        },
+//        error: function (data)
+//        { alert("Failed!!!"); }
+//    });
+//}
+
 function UpdateContact(clickedvalue) {
     //alert(clickedvalue);
     $('#updatecontact').click(function () {

@@ -36,7 +36,7 @@
             <div class="row">
                 <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Vendor </button>
             </div>
-            <div class="row">
+            <div class="row" id="company1">
                 <div class="table-responsive">
                     <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                         <thead class="thead-inverse">
@@ -57,7 +57,7 @@
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                             <ul class="dropdown-menu">
                                                 <li> <a href="#" onclick="getEditDetails(@item.company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
-                                                <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
+                                                <li> <a href="#" onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
                                             </ul>
                                         </div>
                                     </td>
@@ -252,19 +252,17 @@
                                         <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
-                                
+                                @if (ViewBag.contact1 != null)
+                                {
                                 <div class="row" id="contactdiv">
                                     <div class="col-md-12 table-responsive table-hover">
                                         <table class="table" id="contacttable">
                                             <thead class="thead-inverse">
                                                 <tr>
-                                                    @*<th>S.No</th>*@
+                                                    <th>Id</th>
                                                     <th>First Name</th>
                                                     <th>Last Name</th>
-                                                    <th>Mobile Number</th>
                                                     <th>E-Mail</th>
-                                                    <th>Aadhar Number</th>
-                                                    <th>Job Position</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -273,19 +271,18 @@
                                                 @foreach (var item in ViewBag.contact1)
                                                 {
                                                     <tr>
-                                                        @*<th scope="row">1</th>*@
+                                                        
+                                                        <td>@item.Vendor_Id</td>
                                                         <td>@item.Contact_PersonFname</td>
                                                         <td>@item.Contact_PersonLname</td>
-                                                        <td>9000123456</td>
                                                         <td>@item.emailid</td>
-                                                        <td>12345678910</td>
-                                                        <td>UI Designer</td>
+                                                       
                                                         <td>
                                                             <div class="btn-group">
                                                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
-                                                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
+                                                                    <li> <a href="#" onclick="getEditContactDetails(@item.company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit ContactPerson</a> </li>
+                                                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete ContactPerson</a> </li>
                                                                 </ul>
                                                             </div>
                                                         </td>
@@ -296,7 +293,7 @@
                                         </table>
                                     </div>
                                 </div>
-                               
+                                }
                             </li>
                                 
                             <li data-content="details">
@@ -304,21 +301,20 @@
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" id="city1" placeholder="Dummy">*@
                                                 <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" id="state1" placeholder="Dummy">*@
+                                             
                                                 <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" id="postal1" placeholder="Dummy">*@
+                                               
                                                 <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" id="country1" placeholder="Dummy">*@
+                                               
                                                 <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
                                             </div>
                                         </div>
@@ -352,100 +348,6 @@
                                     </div>
                                 </div>
                             </li>
-
-                            @*<li data-content="taxinfo">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" class="form-control" placeholder="Tax Reg. No">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" class="form-control" placeholder="PAN No.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="checkbox col-md-6">
-                                            <label>
-                                                <input type="checkbox">
-                                                Apply TDS for this Customer
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                                            <button type="button" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-content="paymentbilling">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <select class="form-control" id="sel1">
-                                                        <option>Preferred payment method</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <select class="form-control" id="sel1">
-                                                        <option>Preferred delivery method</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <select class="form-control" id="sel1">
-                                                        <option>Terms</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" class="form-control" placeholder="Opening Balance">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" class="form-control" placeholder="as of">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <select class="form-control" id="sel1">
-                                                        <option>INR Indian Rupee</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                                            <button type="button" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
-                                        </div>
-                                    </div>
-                                </li>*@
-
 
                         </ul>
                         <!-- cd-tabs-content -->
