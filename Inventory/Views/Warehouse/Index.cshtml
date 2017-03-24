@@ -312,7 +312,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                <button type="button" class="btn btn-default pull-right" id="btnclosenote"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                 <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatewhnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
                             </div>
                         </div>
@@ -359,10 +359,18 @@
         $("#wh-information-cancel").click(function () {
             $("#wh-information input").val("");
             $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
-            
+            $("#wh-information").css("display", "none");
         });
 
         $("#wh-information1-cancel").click(function () {
+            $("#wh-information1").css("display", "none");
+            $("#wh-information1 input").val("");
+        });
+        $("#btnclose3").click(function () {
+            $("#wh-information1").css("display", "none");
+            $("#wh-information1 input").val("");
+        });
+        $("#btnclosenote").click(function () {
             $("#wh-information1").css("display", "none");
             $("#wh-information1 input").val("");
         });
