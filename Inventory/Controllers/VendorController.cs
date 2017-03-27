@@ -33,7 +33,7 @@ namespace Inventory.Controllers
             ViewBag.records = vendor;
             ViewBag.company_Id = getMaxCompanyID();
             ViewBag.vendor_Id = getMaxVendorID();
-            ViewBag.contact1 = getcontactDetail();
+            //ViewBag.contact1 = getcontactDetail();
 
             //var company = getlastinsertedcompany(ViewBag.company_Id);
             //if (status == "complete")
@@ -119,9 +119,9 @@ namespace Inventory.Controllers
             return vendor;
         }
 
-        private List<Vendor> getcontactDetail()
+        public List<Vendor> getcontactDetail(int company_Id)
         {
-            int company_Id = ViewBag.company_Id;
+            //int company_Id = ViewBag.company_Id;
             SqlDataReader value = VendorService.getcontactdetail(company_Id);
             DataTable dt = new DataTable();
             dt.Load(value);
@@ -139,26 +139,7 @@ namespace Inventory.Controllers
             return contact;
         }
 
-        //     public JsonResult getcontactdetails(int company_Id)
-        //{
-
-        //    var data = VendorService.getcontactdetail(company_Id);
-        //      if (data.Read())
-        //    {
-        //        Vendor vs = new Vendor
-        //        {
-        //            Contact_PersonFname = data["Contact_PersonFname"].ToString(),
-        //            Contact_PersonLname = data["Contact_PersonLname"].ToString(),
-        //            emailid = data["emailid"].ToString(),
-        //            Vendor_Id = data["Vendor_Id"].ToString(),
-
-        //        };
-
-        //        string json = JsonConvert.SerializeObject(vs);
-        //        return Json(json);//new { vs.Company_Name, vs.Email }
-        //    }
-        //    return Json("unique", JsonRequestBehavior.AllowGet);
-        //}
+       
 
         public JsonResult getAllDetails(int company_Id)
         {
@@ -368,21 +349,53 @@ namespace Inventory.Controllers
                           string emailid, string Adhar_Number, string Job_position)
         {
             company_Id = getMaxCompanyID();
+            List<Vendor> contact = new List<Vendor>();
             var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             if (data > 0)
             {
-                ViewBag.company_Id = company_Id;
-                ViewBag.Contact_PersonFname = Contact_PersonFname;
-                ViewBag.Contact_PersonLname = Contact_PersonLname;
-                ViewBag.Mobile_No = Mobile_No;
-                ViewBag.emailid = emailid;
-                ViewBag.Adhar_Number = Adhar_Number;
-                ViewBag.Job_position = Job_position;
-                return Json("sucess");
-            }
-            return Json("unique", JsonRequestBehavior.AllowGet);
-        }
+                //SqlDataReader value = VendorService.getcontactdetail(company_Id);
+                //DataTable dt = new DataTable();
+                //dt.Load(value);
+                
+                var data2 = VendorService.getcontactdetail(company_Id);
 
+                //contact = (from DataRow row in dt.Rows
+                //           select new Vendor()
+                //           {
+                //               Vendor_Id = row["Vendor_Id"].ToString(),
+                //               Contact_PersonFname = row["Contact_PersonFname"].ToString(),
+                //               Contact_PersonLname = row["Contact_PersonLname"].ToString(),
+                //               emailid = row["emailid"].ToString()
+                //           }).ToList();
+                //return (contact, JsonRequestBehavior.AllowGet);
+                string json = null;
+                Vendor vs1 = new Vendor();
+                while(data2.Read())
+                {
+                    vs1.Contact_PersonFname = data2["Contact_PersonFname"].ToString();
+                    vs1.Contact_PersonLname = data2["Contact_PersonLname"].ToString();
+                    vs1.emailid = data2["emailid"].ToString();
+                    vs1.Vendor_Id = data2["Vendor_Id"].ToString();
+                    json = JsonConvert.SerializeObject(vs1);
+                }
+                
+                return Json(json);
+
+                    //    ViewBag.company_Id = company_Id;
+                    //ViewBag.Contact_PersonFname = Contact_PersonFname;
+                    //ViewBag.Contact_PersonLname = Contact_PersonLname;
+                    //ViewBag.Mobile_No = Mobile_No;
+                    //ViewBag.emailid = emailid;
+                    //ViewBag.Adhar_Number = Adhar_Number;
+                    //ViewBag.Job_position = Job_position;
+                    //vendorcontact();
+                    //return Json("sucess", JsonRequestBehavior.AllowGet);
+                   
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
+            
+        }
+        
             public JsonResult deleteRecord(int company_Id)
         {
             
@@ -395,7 +408,25 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult vendorcontact()
+        {
+            int company_Id = getMaxCompanyID();
+            SqlDataReader value = VendorService.getcontactdetail(company_Id);
+            DataTable dt = new DataTable();
+             List<Vendor> contact = new List<Vendor>();
+            contact = (from DataRow row in dt.Rows
+                       select new Vendor()
+                       {
+                           Vendor_Id = row["Vendor_Id"].ToString(),
+                           Contact_PersonFname = row["Contact_PersonFname"].ToString(),
+                           Contact_PersonLname = row["Contact_PersonLname"].ToString(),
+                           emailid = row["emailid"].ToString()
+                       }).ToList();
+            ViewBag.contact = contact;
+            return PartialView("vendorcontact", ViewBag);
 
+        }
 
     }
 

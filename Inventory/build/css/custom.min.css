@@ -1726,8 +1726,8 @@ ul.msg_list li {
     margin-top: 0;
     border: 1px solid #D9DEE4;
     -webkit-box-shadow: none;
-    left: 0;
-    /*left: auto;*/
+    right: 0;
+    left: auto;
     width: 220px;
 }
 
@@ -4768,6 +4768,36 @@ ul.notifications {
 
 
 /*======================== MY STYLES ==================*/
+.top-bar{
+	margin-bottom: 18px;
+	line-height: 37px;}
+.top-bar h1{
+	font-size: 24px;
+	font-weight: 700;}
+.top-bar .icons{
+	margin-right: 15px;
+	color: #0483c6;}
+.top-bar .icons i{
+	margin: 0 5px;
+	cursor: pointer;}
+.blocks{
+	margin-bottom: 15px;}
+.blocks div .content{
+	padding: 10px;
+	border-radius: 2px;
+	color: #fff;
+	font-size: 16px;}
+.blocks div .content h2{
+	font-weight: 400;
+	margin-bottom: 5px;}
+.blocks div:first-child .content{
+	background: #01aef0;}
+.blocks div:nth-child(2) .content{
+	background: #8086c2;}
+.blocks div:nth-child(3) .content{
+	background: #3160ae;}
+.blocks div:last-child .content{
+	background: #00a79d;}
 .border-left {
     border-left: 1px solid #0483c6;
 }
@@ -5472,12 +5502,12 @@ form .top-button + div {
     font-weight: bold;
 }
 
-.invite, .position {
+.position {
     /*padding: 0;*/
     margin: 0 0 18px;
 }
 
-    .invite i, .position i {
+.invite i, .position i {
         margin-right: 2px;
     }
 
@@ -5600,32 +5630,79 @@ ul.dropdown-menu li {
 }
 
 /*================ Contact Person POP UP ================*/
+.profile_details{
+	transform: scale(0.9,0.9);
+	-o-transform: scale(0.9,0.9);
+	-moz-transform: scale(0.9,0.9);
+	-webkit-transform: scale(0.9,0.9);
+	transition: 0.5s ease-in;
+	-o-transition: 0.5s ease-in;
+	-moz-transition: 0.5s ease-in;
+	-webkit-transition: 0.5s ease-in;
+	background: #fff;
+	border: 5px;}
+.profile_details:nth-child(3n){
+	clear: none;}
+.well{
+	border: 2px solid #e3e3e3;}
+.profile_details:hover .well{
+	border: 1px solid #e3e3e3;}
+.profile_details:hover{
+	transform: scale(1,1);
+	-o-transform: scale(1,1);
+	-moz-transform: scale(1,1);
+	-webkit-transform: scale(1,1);
+	transition: 0.5s ease-in;
+	-o-transition: 0.5s ease-in;
+	-moz-transition: 0.5s ease-in;
+	-webkit-transition: 0.5s ease-in;}
+.profile_details .profile_view .brief{
+	font-weight: bold;}
+.profile_details .profile_view h2{
+	font-size: 18px;
+	font-weight: 400;}
+.profile_details .profile_view .left p{
+	margin-bottom: 10px;}
+.profile_details .profile_view .left ul li{
+	margin-bottom: 10px;}
+strong{
+	font-weight: 700 !important;}
+#vendortable1{
+	display: none;
+	width: 100%;}
+#vendortable, #vendortable1{
+	transition: 1s ease-in;
+	-o-transition: 1s ease-in;
+	-moz-transition: 1s ease-in;
+	-webkit-transition: 1s ease-in;}
+#nav{
+	margin-bottom: 15px;}
 
 /*================ Vendor Information ================*/
 
 /*================ Media Gallery ================*/
-.x_content > div.row > div:first-of-type .media-gallery {
-    background: #01aef0;
+.x_content > div.row > div:first-of-type i {
+    color: #01aef0;
 }
 
-.x_content > div.row > div:nth-of-type(2) .media-gallery {
-    background: #8086c2;
+.x_content > div.row > div:nth-of-type(2) i {
+    color: #8086c2;
 }
 
-.x_content > div.row > div:nth-of-type(3) .media-gallery {
-    background: #3160ae;
+.x_content > div.row > div:nth-of-type(3) i {
+    color: #3160ae;
 }
 
-.x_content > div.row > div:last-of-type .media-gallery {
-    background: #00a79d;
+.x_content > div.row > div:last-of-type i {
+    color: #00a79d;
 }
 
 .x_content > div.row > div > .media-gallery {
     height: auto;
+    background: #fff;
 }
 
     .x_content > div.row > div > .media-gallery i {
-        color: #fff;
         text-align: center;
         width: 100%;
         font-size: 96px;
@@ -5634,7 +5711,7 @@ ul.dropdown-menu li {
 
     .x_content > div.row > div > .media-gallery .caption {
         background-color: transparent;
-        color: #fff;
+        color: #000;
         font-weight: bold;
         text-align: center;
         padding-bottom: 30px;
@@ -5654,16 +5731,9 @@ ul.dropdown-menu li {
     -webkit-transform: scale(0,0);
 }
 
-.scale-one {
-    transform: scale(1,1) !important;
-    -o-transform: scale(1,1) !important;
-    -moz-transform: scale(1,1) !important;
-    -webkit-transform: scale(1,1) !important;
-    transition: 1s ease;
-    -o-transition: 1s ease;
-    -moz-transition: 1s ease;
-    -webkit-transition: 1s ease;
-}
+.x_content > div.row .thumbnail.media-gallery:hover{
+	box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 50px rgba(0,0,0,.24);}
+
 /*================ Media Gallery ================*/
 
 /*================ Table Styles ================*/

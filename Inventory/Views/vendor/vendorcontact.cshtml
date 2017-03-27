@@ -1,0 +1,41 @@
+﻿
+<div class="row" id="contactdiv">
+    <div class="col-md-12 table-responsive table-hover">
+
+        @if (ViewBag.contact != null && ViewBag.contact != "")
+        {
+        <table class="table" id="contacttable">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Vendor_Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>E-Mail</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach (var item in ViewBag.contact)
+                {
+                    <tr>
+                       <td>@item.Vendor_Id</td>
+                        <td>@item.Contact_PersonFname</td>
+                        <td>@item.Contact_PersonLname</td>
+                        <td>@item.emailid</td>
+                        <td>
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                <ul class="dropdown-menu">
+                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit ContactPerson</a> </li>
+                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete ContactPerson</a> </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
+    </div>
+</div>

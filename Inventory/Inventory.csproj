@@ -4712,6 +4712,7 @@
     <Content Include="Views\Login\ProfileProgressPartial.cshtml" />
     <Content Include="Views\Shared\DefaultMaster.cshtml" />
     <Content Include="Views\Shared\UserMaster.cshtml" />
+    <Content Include="Views\vendor\vendorcontact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
