@@ -761,19 +761,28 @@
         }
         //Contact Person
         function UpdateContact(clickedvalue) {
-            alert(clickedvalue);
+            //alert(clickedvalue);
             $('#updatecontact').click(function () {
                 $('#warehouse').css('display', 'none');
             });
             $('#updatecontact').click(function () {
                 $('#additional').css('display', 'none');
             });
-            wh_Id = $('#wh_Id').val();
-            Contact_PersonFname = $('#Contact_PersonFname').val();
-            Phone= $('#Phone').val();
-            Mobile_No = $('#Mobile_No').val();
-            EmailId = $('#EmailId').val();
-            Job_position = $('#Job_position').val();
+            var warehouse ={
+                wh_id : $('#wh_Id').val(),
+            conperson : $('#Contact_PersonFname').val(),
+            Phone: $('#Phone').val(),
+            Mobile : $('#Mobile_No').val(),
+            Email : $('#EmailId').val(),
+            Job_position : $('#Job_position').val(),
+            }
+            
+            //wh_Id = $('#wh_Id').val();
+            //Contact_PersonFname = $('#Contact_PersonFname').val();
+            //Phone= $('#Phone').val();
+            //Mobile_No = $('#Mobile_No').val();
+            //EmailId = $('#EmailId').val();
+            //Job_position = $('#Job_position').val();
             if (clickedvalue == 'savecontact') {
                 $.ajax({
                     url: '/Warehouse/insertwhcontact?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId +  '&Job_position=' + Job_position,
@@ -797,9 +806,9 @@
             }
             if (clickedvalue == 'updatecontact') {
                 $.ajax({
-                    url: '/Warehouse/updatewhcontact',
+                    url: '/Warehouse/updatewhcontact',  //?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId +  '&Job_position=' + Job_position,
                     type: 'POST',
-                    data: JSON.stringify({ wh_Id: wh_Id, Contact_PersonFname: Contact_PersonFname, Phone: Phone, Mobile_No: Mobile_No, EmailId: EmailId, Job_position:Job_position }),
+                    data:  JSON.stringify({warehouse:warehouse}), //JSON.stringify({ wh_Id, Contact_PersonFname,Phone, Mobile_No, EmailId , Job_position }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {

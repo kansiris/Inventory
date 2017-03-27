@@ -225,22 +225,23 @@ namespace Inventory.Controllers
 
         }
 
-        public JsonResult updatewhcontact(string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        public JsonResult updatewhcontact(string wh_id, Warehouse warehouse)  //string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhcontact(user1.DbName, wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            var data = WHservice.updatewhcontact(user1.DbName, warehouse.wh_Id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
             if (data > 0)
             {
                 List<Warehouse> wh = new List<Warehouse>();
-                ViewBag.wh_id = wh_id;
-                ViewBag.Contact_PersonFname = Contact_Person;
-                ViewBag.Phone = phone;
-                ViewBag.Mobile = Mobile;
-                ViewBag.Email = Email;
-                ViewBag.Job_position = job_position;
+                ViewBag.wh_id = warehouse.wh_Id;
+                ViewBag.Contact_PersonFname = warehouse.conperson;
+                ViewBag.Phone = warehouse.phone;
+                ViewBag.Mobile = warehouse.Mobile;
+                ViewBag.Email = warehouse.Email;
+                ViewBag.Job_position = warehouse.Job_position;
                 return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
+            
         }
         public JsonResult updatewhnotes(string wh_id, string Note)
         {
