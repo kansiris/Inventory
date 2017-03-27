@@ -59,7 +59,7 @@
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                             <ul class="dropdown-menu">
                                                 <li> <a href="#" onclick="getEditDetails(@item.wh_Id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
-                                                <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
+                                                <li> <a href="#" onclick="deletewhdtls(@item.wh_Id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
                                             </ul>
                                         </div>
                                     </td>
@@ -201,32 +201,32 @@
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="First Name">*@
+                                               
                                                 <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
                                             </div>
 
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                               
                                                 <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                               
                                                 <input type="text" class="form-control" name="Phone" placeholder="Phone" id="Phone">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            @*<input type="text" class="form-control" placeholder="E-mail">*@
-                                            <input type="text" class="form-control" name="emailid" id="emailid" placeholder="Email">
+                                            
+                                            <input type="text" class="form-control" name="EmailId" id="EmailId" placeholder="Email" onchange="check()">
                                         </div>
                                     </div>
                                     <div class="row">
 
                                         <div class="form-group col-md-6">
-                                            @*<input type="text" class="form-control selected-position" placeholder="Job Position">*@
+                                            
                                             <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
                                             <div class="display-positions">
                                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
@@ -346,6 +346,7 @@
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <script src="~/Scripts/Warehouse.js"></script>
+    <script src="~/Scripts/validations.js"></script>
     @*<script src="jquery.js"></script>*@
     <script>
       
@@ -509,7 +510,7 @@
             $('#Contact_PersonFname').val(array.conperson);
             $('#Phone').val(array.phone);
             $('#Mobile_No').val(array.Mobile);
-            $('#emailid').val(array.Email);
+            $('#EmailId').val(array.Email);
             $('#Job_position').val(array.Job_position);
             $('#Note').val(array.Note);
         }
@@ -545,6 +546,30 @@
                 { alert("Failed!!!"); }
             });
         }
+
+        //delete warehouse
+        function deletewhdtls(id){
+            alert(id);
+            $.ajax({
+                url: '/Warehouse/deletewarehouse?wh_Id=' +id  ,
+                type: 'POST',
+                data: JSON.stringify({ wh_Id:id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "success") {
+                        
+                        alert("Warehouse Deleted sucessfully");
+                    }
+                    else {
+                        alert("Warehouse not Deleted");
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
+
         //Particular Warehouse
         function editwh(clickedvalue) {
             alert(clickedvalue);
@@ -747,13 +772,13 @@
             Contact_PersonFname = $('#Contact_PersonFname').val();
             Phone= $('#Phone').val();
             Mobile_No = $('#Mobile_No').val();
-            emailid = $('#emailid').val();
+            EmailId = $('#EmailId').val();
             Job_position = $('#Job_position').val();
             if (clickedvalue == 'savecontact') {
                 $.ajax({
-                    url: '/Warehouse/insertwhcontact?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid +  '&Job_position=' + Job_position,
+                    url: '/Warehouse/insertwhcontact?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId +  '&Job_position=' + Job_position,
                     type: 'POST',
-                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, emailid , Job_position }),
+                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, EmailId , Job_position }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
@@ -774,7 +799,7 @@
                 $.ajax({
                     url: '/Warehouse/updatewhcontact',
                     type: 'POST',
-                    data: JSON.stringify({ wh_Id: wh_Id, Contact_PersonFname: Contact_PersonFname, Phone: Phone, Mobile_No: Mobile_No, emailid: emailid, Job_position:Job_position }),
+                    data: JSON.stringify({ wh_Id: wh_Id, Contact_PersonFname: Contact_PersonFname, Phone: Phone, Mobile_No: Mobile_No, EmailId: EmailId, Job_position:Job_position }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {

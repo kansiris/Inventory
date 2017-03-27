@@ -188,7 +188,17 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult deletewarehouse(string wh_id)
+        {
+            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = WHservice.deletewarehouse(user1.DbName, wh_id);
+            if(data > 0)
+            {
+                ViewBag.wh_id = wh_id;
+                return Json("success");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
         public JsonResult updatewhaddress(string wh_id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
             string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
