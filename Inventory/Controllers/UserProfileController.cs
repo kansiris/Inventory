@@ -22,9 +22,10 @@ namespace Inventory.Controllers
         {
             var profile = loginService.GetUserProfile(int.Parse(id)); //Get's User Profile
             ViewBag.timeZoneInfos = new SelectList(TimeZoneInfo.GetSystemTimeZones(), "DisplayName", "DisplayName", profile[0].Timezone); //Available Time Zones
-            ViewBag.usercountry = new SelectList(CountryList(), "EnglishName", "EnglishName", profile[0].Ucountry); //CountryList(); 
-            ViewBag.companycountry = CountryList();//new SelectList(CountryList(), "EnglishName", "EnglishName", profile[0].Ccountry); //CountryList(); 
-            ViewBag.country = CountryList();
+            ViewBag.usercountry = new SelectList(CountryList(),"Value", "Text", profile[0].Ucountry); //CountryList(); 
+            ViewBag.companycountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ccountry);//CountryList();//new SelectList(CountryList(), "EnglishName", "EnglishName", profile[0].Ccountry); //CountryList(); 
+            //ViewBag.country = CountryList();
+            //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
             ViewBag.profile = profile; //current user record
             return View();
         }
@@ -51,23 +52,19 @@ namespace Inventory.Controllers
         //    //return View();
         //}
 
-        private List<string> CountryList()
+        private List<SelectListItem> CountryList()
         {
-            List<string> cultureList = new List<string>();
+            List<SelectListItem> cultureList = new List<SelectListItem>();
             CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
             if (getCultureInfo.Count() > 0)
             {
                 foreach (CultureInfo cultureInfo in getCultureInfo)
                 {
                     RegionInfo getRegionInfo = new RegionInfo(cultureInfo.LCID);
-                    if (cultureList.Contains(getRegionInfo.EnglishName) == false)
-                    {
-                        cultureList.Add(getRegionInfo.EnglishName);
-                    }
+                    var newitem = new SelectListItem { Text = getRegionInfo.EnglishName, Value = getRegionInfo.EnglishName };
+                    cultureList.Add(newitem);
                 }
             }
-            if (cultureList.Count > 0)
-                cultureList.Sort();
             return cultureList;
         }
 
@@ -103,7 +100,7 @@ namespace Inventory.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateUserProfile(string command, string id, UserMaster usermaster, UserAddress userAddress, OwnerCompanyAddress ownerCompanyAddress)
+        public JsonResult UpdateUserProfile(string command, string id, UserMaster usermaster, UserAddress userAddress, OwnerCompanyAddress ownerCompanyAddress,OwnerStaff ownerStaff)
         {
             int count = 0;
             if (command == "Localization" || command == "Account" || command == "Essentials")
@@ -118,9 +115,27 @@ namespace Inventory.Controllers
             {
                 count = LoginService.updatecompanyaddress(int.Parse(id), ownerCompanyAddress.Line1, ownerCompanyAddress.Line2, ownerCompanyAddress.city, ownerCompanyAddress.state, ownerCompanyAddress.postalcode, ownerCompanyAddress.country);
             }
+            if (command == "addstaff")
+            {
+                count = LoginService.CreateStaff(int.Parse(id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position);
+                return Json("staffadded");
+            }
+            if (command == "updatestaff")
+            {
+                //count = LoginService.UpdateStaff(int.Parse(id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position);
+            }
             if (count > 0)
                 return Json("success");
             return Json("Failed");
         }
+
+        //public PartialViewResult GetStaffRecords(string id)
+        //{
+        //    LoginService loginService = new LoginService();
+        //    var records = loginService.GetUserProfile(int.Parse(id)).Select(m => new { m.Sstaff_id , m.SOwner_id , m.Sfirstname , m.Slastname , m.Smobile , m.Semail , m.Status_ID , m.Svendoraccess , m.Scustomeracccess , m.Sjob }).ToList();
+        //    //var staff = 
+        //    ViewBag.records = records;
+        //    return PartialView("StaffRecords", ViewBag.records);
+        //}
     }
 }

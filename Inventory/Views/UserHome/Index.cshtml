@@ -68,11 +68,12 @@
 
     <!------------ Upload Image --------------->
             <!------------ Toggle Action ------>
-            if (ViewBag.Timezone != "")
+            @*if (ViewBag.Timezone != "")
             {
                 <div id="changetimezone">@ViewBag.Timezone<a href="#">Change</a></div>
-            }
-
+            }*@
+        if (ViewBag.Timezone == "")
+        {
             <div class="row toggle-area" id="Timezoneselection">
                 <div class="toggle-bar">
                     <div class="col-md-6">
@@ -112,7 +113,7 @@
                     </table>
                 </div>
             </div>
-
+        }
                         <!------------ Toggle Action ------>
         }
         <div class="row">
@@ -1001,6 +1002,7 @@
                     $(".toggle-button").css("display", "none");
                     $(".cross").css("display", "block");
                 });
+
                 $(this).click(function () {
                     $(".toggle-area").css("display", "none");
                 });
@@ -1022,7 +1024,7 @@
     </script>
     <!------ Random Colors ------>
     <!------ Show/Hide Timezone ------>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).ready(function (e) {
             var v = $(".right_col > form > div:nth-of-type(2)").attr("id");
             if (v == "changetimezone") {
@@ -1034,7 +1036,7 @@
                 $(".right_col > form > .toggle-area").css("display", "block");
             });
         });
-    </script>
+    </script>*@
     <!------ Show/Hide Timezone------>
 
     <script>

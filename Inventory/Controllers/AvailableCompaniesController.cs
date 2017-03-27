@@ -27,7 +27,8 @@ namespace Inventory.Controllers
                           {
                               ID = row["ID"].ToString(),
                               User_Site = row["User_Site"].ToString(),
-                              UserTypeId = (int)row["UserTypeId"]
+                              UserTypeId = (int)row["UserTypeId"],
+                              company_logo = row["company_logo"].ToString()
                           }).ToList();
             ViewBag.records = userMaster;
             return View();

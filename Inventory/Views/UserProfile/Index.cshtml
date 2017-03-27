@@ -33,10 +33,12 @@
         @foreach (var item in ViewBag.profile)
         {
             <form method="post" enctype="multipart/form-data" id="userprofile">
-                <div class="row info-title">
+                <div class="row info-title" http-equiv="refresh" content="0">
+                    @*<meta http-equiv="refresh" content="5">*@
                     @item.First_Name @item.Last_Name
                     <button type="button" class="btn btn-success btn-xs pull-right">Profile</button>
                 </div>
+
                 <div class="row customer-information">
                     <!--------- Tab Section START ------------>
                     <div class="col-md-12">
@@ -141,7 +143,7 @@
                                                     @*<input type="text" class="form-control" placeholder="City">*@
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    @Html.DropDownListFor(Model => Model.Item3.country, new SelectList(ViewBag.companycountry), "Select country", new { @class = "form-control", Value = item.Ccountry, required = "required" })
+                                                    @Html.DropDownListFor(Model => Model.Item3.country, (SelectList)ViewBag.companycountry, "Select country", new { @class = "form-control", required = "required" })
                                                 </div>
                                             </div>
                                         </div>
@@ -239,7 +241,7 @@
                                                     <div class="col-md-4 font-password"> Can Create Vendor </div>
                                                     <div class="col-md-4">
                                                         <label class="switch pull-right">
-                                                            <input type="checkbox" id="checkbox1">
+                                                            <input type="checkbox" id="Vendor_Access">
                                                             <div class="slider round"></div>
                                                         </label>
                                                     </div>
@@ -251,7 +253,7 @@
                                                     <div class="col-md-4 font-password"> Can Create Customer </div>
                                                     <div class="col-md-4">
                                                         <label class="switch pull-right">
-                                                            <input type="checkbox" id="checkbox1">
+                                                            <input type="checkbox" id="Customer_Access">
                                                             <div class="slider round"></div>
                                                         </label>
                                                     </div>
@@ -262,8 +264,11 @@
                                     </div>
                                     <div class="col-md-12">
                                         <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                        <button type="button" class="btn btn-success pull-right" id="btnupdate" value="update" onclick="updatevales(this.value)">Add User</button>
+                                        <button type="button" class="btn btn-success pull-right" id="btnupdate" value="addstaff" onclick="updatevales(this.value)">Add User</button>
                                     </div>
+                                    @*<div>
+                                        @{ Html.RenderAction("GetStaffRecords", "UserProfile");}
+                                    </div>*@
                                     <hr />
                                     @*<div class="row">
                                             <div class="col-md-12">
@@ -302,7 +307,7 @@
                                                     @*<input type="text" class="form-control" placeholder="City">*@
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    @Html.DropDownListFor(Model => Model.Item2.country, new SelectList(ViewBag.country), "Select country", new { @class = "form-control", Value = item.Ucountry, required = "required" })
+                                                    @Html.DropDownListFor(Model => Model.Item2.country, (SelectList)ViewBag.usercountry, "Select country", new { @class = "form-control", required = "required" })
                                                 </div>
                                             </div>
                                         </div>
@@ -310,17 +315,17 @@
                                         <div class="col-md-3 col-md-push-3">
 
                                             @if (item.Profile_Picture != null)
-                                                {
+                                            {
                                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
                                                 <img id="companypic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
-                                                }
-                                                else
-                                                {
+                                            }
+                                            else
+                                            {
                                                 <div class="top-button">
                                                     <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
                                                     <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
                                                 </div>
-                                                }
+                                            }
 
                                             <div>Upload New Pic</div>
                                         </div>
@@ -544,7 +549,7 @@
                     <!--------- Tab Section END ------------>
                 </div>
             </form>
-        }
+                                            }
 
     </div>
 </div>
@@ -701,16 +706,30 @@
                 postalcode:$('#Item3_postalcode').val(),
                 country:$('#Item3_country').val(),
             }
+            var staff={
+                First_Name:$('#Item4_First_Name').val(),
+                Last_Name:$('#Item4_Last_Name').val(),
+                Mobile_No:$('#Item4_Mobile_No').val(),
+                Email:$('#Item4_Email').val(),
+                Job_position:$('#Item4_Job_position').val(),
+                Vendor_Access:$('#Vendor_Access').val(),
+                Customer_Access:$('#Customer_Access').val(),
+            }
             $.ajax({
                 url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
                 type: "POST",
                 datatype: "json",
-                data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress },
+                data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress ,ownerStaff : staff },
                 success: function (response) {
                     if (response == 'success') {
                         //$('#profilediv').toggle().toggle();
                         $('#partialpage').load("@Url.Action("ProfileProgressPartial", "Login")");
                         alert("Profile updated SuccessFully");
+                    }
+                    else if(response == 'staffadded')
+                    {
+                        //$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        alert("User Added SuccessFully!!!");
                     }
                     else {
                         alert("Failed To Update Profile");

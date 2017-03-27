@@ -47,10 +47,13 @@ namespace Inventory.Repository
         public string Ccountry { get; set; }
         public string Sfirstname { get; set; }
         public string Slastname { get; set; }
-        public int Smobile { get; set; }
+        public Nullable<long> Smobile { get; set; }
         public int Svendoraccess { get; set; }
         public int Scustomeracccess { get; set; }
         public string Sjob { get; set; }
         public string Semail { get; set; }
+        public int Sstaff_id { get; set; }
+        public int SOwner_id { get; set; }
+        public int Status_ID { get; set; }
     }
 }

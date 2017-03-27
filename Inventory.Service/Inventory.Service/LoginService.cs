@@ -135,5 +135,28 @@ namespace Inventory.Service
             return LoginRepository.updateuserprofile(type,id, FirstName, LastName, Password, ProfilePicture, DateFormat, Timezone, Currency, companylogo);
         }
         #endregion
+
+
+        #region Create Staff
+        public static int CreateStaff(int ownerid, string firstname, string lastname, long mobile, string email, int vendoraccess, int customeraccess, string jobposition)
+        {
+            return LoginRepository.CreateStaff(ownerid, firstname, lastname, mobile, email, vendoraccess, customeraccess, jobposition);
+        }
+        #endregion
+
+        #region Update Staff
+        public static int UpdateStaff(int staffid, int ownerid, string firstname, string lastname, long mobile, string email, int statusid, int vendoraccess, int customeraccess, string jobposition)
+        {
+            return LoginRepository.UpdateStaff(staffid, ownerid, firstname, lastname, mobile, email, statusid, vendoraccess, customeraccess, jobposition);
+        }
+        #endregion
+
+        #region Get Staff Status
+        public static SqlDataReader GetStaffStatus(string description)
+        {
+            return LoginRepository.GetStaffStatus(description);
+        }
+        #endregion
+
     }
 }
