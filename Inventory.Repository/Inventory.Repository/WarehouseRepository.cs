@@ -133,5 +133,11 @@ namespace Inventory.Repository
             return count;
 
         }
+        public static SqlDataReader getwhcondtls(string dbname, string wh_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getwhcontactdtls", wh_id);
+        }
     }
 }

@@ -81,6 +81,9 @@ namespace Inventory.Service
         {
             return WarehouseRepository.deletewarehouse(dbname, wh_Id);
         }
-
+        public static SqlDataReader getwhcondtls(string dbname, string wh_id)
+        {
+            return WarehouseRepository.getwhcondtls(dbname, wh_id);
+        }
     }
 }

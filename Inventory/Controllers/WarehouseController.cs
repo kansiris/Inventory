@@ -175,6 +175,40 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+        public JsonResult getwhcondtls(string wh_id)
+        {
+            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
+            var data = WHservice.getwhcondtls(user1.DbName, wh_id);
+            long phn;
+            long Mob;
+            if (data.Read())
+            {
+                if (data["Phone"].ToString() == "")
+                    phn = 0;
+                else
+                    phn = long.Parse(data["Phone"].ToString());
+                if (data["Mobile"].ToString() == "")
+                    Mob = 0;
+                else
+                    Mob = long.Parse(data["Mobile"].ToString());
+                Warehouse wh = new Warehouse
+                {
+                    wh_Id = wh_id,//data["wh_id"].ToString(),
+                   
+                    conperson = data["Contact_person"].ToString(),
+                    Job_position = data["Job_position"].ToString(),
+                    Email = data["Email"].ToString(),
+                    phone = phn,//long.Parse(data["Phone"].ToString()),
+                    Mobile = Mob,//long.Parse(data["Mobile"].ToString()),
+                    
+                };
+
+                string json = JsonConvert.SerializeObject(wh);
+                return Json(json);
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
         public JsonResult updatewarehouse(string wh_id, string wh_name, string wh_sname)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
