@@ -283,8 +283,6 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\OwnerCompanyAddress.cs" />
-    <Compile Include="Models\OwnerStaff.cs" />
-    <Compile Include="Models\OwnerStaffStatus.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Payment_Method_Types.cs" />
     <Compile Include="Models\Program.cs" />
@@ -4714,7 +4712,7 @@
     <Content Include="Views\Login\ProfileProgressPartial.cshtml" />
     <Content Include="Views\Shared\DefaultMaster.cshtml" />
     <Content Include="Views\Shared\UserMaster.cshtml" />
-    <Content Include="Views\UserProfile\StaffRecords.cshtml" />
+    <Content Include="Views\vendor\vendorcontact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
