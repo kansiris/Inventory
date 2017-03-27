@@ -303,6 +303,16 @@
           <Property Type="String" Name="Cstate" Nullable="false" MaxLength="1" />
           <Property Type="String" Name="Cpostalcode" Nullable="false" MaxLength="1" />
           <Property Type="String" Name="Ccountry" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Sfirstname" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Slastname" Nullable="false" MaxLength="1" />
+          <Property Type="Int64" Name="Smobile" Nullable="true" />
+          <Property Type="Int32" Name="Svendoraccess" Nullable="false" />
+          <Property Type="Int32" Name="Scustomeracccess" Nullable="false" />
+          <Property Type="String" Name="Sjob" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Semail" Nullable="false" MaxLength="1" />
+          <Property Type="Int32" Name="Sstaff_id" Nullable="false" />
+          <Property Type="Int32" Name="SOwner_id" Nullable="false" />
+          <Property Type="Int32" Name="Status_ID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -434,6 +444,16 @@
                 <ScalarProperty Name="Cstate" ColumnName="Cstate" />
                 <ScalarProperty Name="Cpostalcode" ColumnName="Cpostalcode" />
                 <ScalarProperty Name="Ccountry" ColumnName="Ccountry" />
+                <ScalarProperty Name="Sfirstname" ColumnName="Sfirstname" />
+                <ScalarProperty Name="Slastname" ColumnName="Slastname" />
+                <ScalarProperty Name="Smobile" ColumnName="Smobile" />
+                <ScalarProperty Name="Svendoraccess" ColumnName="Svendoraccess" />
+                <ScalarProperty Name="Scustomeracccess" ColumnName="Scustomeracccess" />
+                <ScalarProperty Name="Sjob" ColumnName="Sjob" />
+                <ScalarProperty Name="Semail" ColumnName="Semail" />
+                <ScalarProperty Name="Sstaff_id" ColumnName="Sstaff_id" />
+                <ScalarProperty Name="SOwner_id" ColumnName="SOwner_id" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

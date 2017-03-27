@@ -1,0 +1,47 @@
+﻿@if (ViewBag.records != "" && ViewBag.records != null)
+{
+    <div class="row">
+        <div class="col-md-12 table-responsive table-hover">
+            <table class="table" id="contacttable">
+                <thead class="thead-inverse">
+                    <tr>
+                        
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Mobile No</th>
+                        <th>E-Mail ID</th>
+                        <th>Job position</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var item in ViewBag.records)
+                {
+                        <tr>
+
+                            <td>@item.Sfirstname</td>
+                            <td>@item.Slastname</td>
+                            <td>@item.Smobile</td>
+                            <td>@item.Semail</td>
+                            <td>@item.Sjob</td>
+                            
+                            <td>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li> <a href="#" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Staff</a> </li>
+                                        <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Staff</a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+}
+

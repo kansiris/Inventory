@@ -39,7 +39,7 @@
                         <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>*@
 
                         <a href="~/UserProfile?id=@item.ID&&type=upload">
-                            @if (item.Profile_Picture != null)
+                            @if (item.Profile_Picture != "")
                             {
                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" disabled="disabled">
                                 <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 100px;height: 100px;" />
@@ -47,7 +47,7 @@
                             else
                             {
                                 <div class="top-button">
-                                    <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
+                                    <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" disabled="disabled">
                                     <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
                                 </div>
                             }
@@ -68,11 +68,12 @@
 
     <!------------ Upload Image --------------->
             <!------------ Toggle Action ------>
-            if (ViewBag.Timezone != "")
+            @*if (ViewBag.Timezone != "")
             {
                 <div id="changetimezone">@ViewBag.Timezone<a href="#">Change</a></div>
-            }
-
+            }*@
+        if (ViewBag.Timezone == "")
+        {
             <div class="row toggle-area" id="Timezoneselection">
                 <div class="toggle-bar">
                     <div class="col-md-6">
@@ -112,7 +113,7 @@
                     </table>
                 </div>
             </div>
-
+        }
                         <!------------ Toggle Action ------>
         }
         <div class="row">
@@ -1001,6 +1002,7 @@
                     $(".toggle-button").css("display", "none");
                     $(".cross").css("display", "block");
                 });
+
                 $(this).click(function () {
                     $(".toggle-area").css("display", "none");
                 });
@@ -1022,7 +1024,7 @@
     </script>
     <!------ Random Colors ------>
     <!------ Show/Hide Timezone ------>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).ready(function (e) {
             var v = $(".right_col > form > div:nth-of-type(2)").attr("id");
             if (v == "changetimezone") {
@@ -1034,12 +1036,12 @@
                 $(".right_col > form > .toggle-area").css("display", "block");
             });
         });
-    </script>
+    </script>*@
     <!------ Show/Hide Timezone------>
 
-    @*<script>
+    <script>
         $('#fileupload1').on('click',function () {
             window.location.href = '~/UserProfile?id=@Request.QueryString["id"]&&type=upload';
         });
-    </script>*@
+    </script>
 }

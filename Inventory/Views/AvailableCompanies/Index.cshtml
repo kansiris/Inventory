@@ -28,7 +28,7 @@
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                            <a class="navbar-brand" href="#"> <img src="images/logo.jpg" alt="Logo"> </a>
+                            <a class="navbar-brand" href="/HomePage"> <img src="images/logo.jpg" alt="Logo"> </a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -127,7 +127,7 @@
                                 <div class="x_panel">
                                     <div class="x_title">
                                         <h2>Select Your Company</h2>
-                                        <ul class="nav navbar-right panel_toolbox">
+                                        @*<ul class="nav navbar-right panel_toolbox">
                                             <li>
                                                 <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                             </li>
@@ -145,21 +145,30 @@
                                             <li>
                                                 <a class="close-link"><i class="fa fa-close"></i></a>
                                             </li>
-                                        </ul>
+                                        </ul>*@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
 
                                         <div class="row">
 
-                                            <p>Media gallery design emelents</p>
+                                            @*<p>Media gallery design emelents</p>*@
                                             @foreach (var item in ViewBag.records)
                                         { <div class="col-md-3 col-sm-6">
                                                 <div class="thumbnail media-gallery">
-                                                    <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+                                                    @if (item.company_logo != null && item.company_logo !="")
+                                                    {<img src="data:image;base64,@item.company_logo" alt="Img" /> }
+                                                    else
+                                                    {<img src="/images/user.png" alt="Img" /> }
+                                                    @*<i class="fa fa-user fa-lg" aria-hidden="true"></i>*@
                                                     <div class="caption">
-                                                        <button type="button" class="btn btn-default" onclick="get(@item.UserTypeId)" data-toggle="modal" data-target=".bs-example-modal-sm">@item.User_Site</button>
+                                                        @item.User_Site
                                                     </div>
+                                                        <button type="button" class="btn btn-default" onclick="get(@item.UserTypeId)" data-toggle="modal" data-target=".bs-example-modal-sm">Select</button>
+                                                    @*<div id="password @item.UserTypeId" style="display:none">*@
+                                                        @*<input type="hidden" id="usertype" name="usertype" />
+                                                        <input type="password" id="loginpassword @item.UserTypeId" name="loginpassword" placeholder="Enter Password" class="form-control" required="required"/>*@
+                                                    @*</div>*@
                                                 </div>
                                             </div>
                                         }
@@ -263,12 +272,16 @@
     <script src="../build/js/custom.min.js"></script>
     <script>
         function get(id) {
+            var id1 = $('#loginpassword ' + id + '');
+            $('#loginpassword ' + id + '').css('visibility', 'hidden');  //.css('visibility', 'visibility');
             $('#usertype').val(id);
         }
     </script>
     <!------ scale thumbnails --------->
     <script type="text/javascript" language="javascript">
- $(document).ready(function(){
+        $(document).ready(function () {
+           // $('#loginpassword ' + id + '').css('visibility', 'visibility');
+            $("input[name='loginpassword']").css('visibility', 'visibility');  //.hide(); //.css('visibility', 'hidden');
  $(".thumbnail.media-gallery").addClass(" scale-one")
  });
     </script>

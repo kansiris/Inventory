@@ -28,7 +28,8 @@ namespace Inventory.Controllers
                 ViewBag.accessexpiry = "Your Login Access is about to expire in " + diff.Days + " Days";
             ViewBag.timeZoneInfos = TimeZoneInfo.GetSystemTimeZones().Select(m => m.DisplayName).ToList(); //Available Time Zones
             ViewBag.record = userMaster;
-            ViewBag.Timezone = "Your selected Timezone is " + userMaster[0].Timezone + " and Date Format is " + userMaster[0].Date_Format + "";
+            if (userMaster[0].Timezone != null && userMaster[0].Date_Format!=null)
+            ViewBag.Timezone = "1";
             return View();
         }
 

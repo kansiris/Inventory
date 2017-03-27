@@ -8,9 +8,10 @@ namespace Inventory.Models
 {
     public class ProgressBar
     {
-        public static string Level1 = "25%";
-        public static string Level2 = "50%";
-        public static string Level3 = "75%";
-        public static string Level4 = "100%";
+        public static string Level1 = "20%";
+        public static string Level2 = "40%";
+        public static string Level3 = "60%";
+        public static string Level4 = "80%";
+        public static string Level5 = "100%";
     }
 }

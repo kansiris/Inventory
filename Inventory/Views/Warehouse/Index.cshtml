@@ -28,9 +28,9 @@
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
 <div class="right_col" role="main">
-    <div class="container">
+    <div class="container" id="warehouse">
         <form method="post" action="#" id="myform">
-            @Html.HiddenFor(Model => Model.wh_Id, new { Value = @ViewBag.wh_id })
+            @Html.HiddenFor(Model => Model.wh_Id, new { Value = @ViewBag.wh_Id })
 
             <div class="row">
                 <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>
@@ -58,8 +58,8 @@
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                             <ul class="dropdown-menu">
-                                                <li> <a href="#" ><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="getEditDetails(@item.wh_Id)"></i>Edit Warehouse</a> </li>
-                                                <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
+                                                <li> <a href="#" onclick="getEditDetails(@item.wh_Id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
+                                                <li> <a href="#" onclick="deletewhdtls(@item.wh_Id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
                                             </ul>
                                         </div>
                                     </td>
@@ -100,8 +100,11 @@
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editwh(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
-                    <a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a>
+                    
+                   
+                        
                 </div>
+                <div id="addinfo"><a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a></div>
                 <div class="col-md-3 col-md-push-3">
                     <div class="top-button">
                         <input type="file">
@@ -110,7 +113,7 @@
                     <div>Upload warehouse Logo</div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="wh-information1">
                 <!--------- Tab Section START ------------>
                 <div class="col-md-12">
                     <div class="cd-tabs">
@@ -198,32 +201,32 @@
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="First Name">*@
+                                               
                                                 <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
                                             </div>
 
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                               
                                                 <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                @*<input type="text" class="form-control" placeholder="Mobile Number">*@
+                                               
                                                 <input type="text" class="form-control" name="Phone" placeholder="Phone" id="Phone">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            @*<input type="text" class="form-control" placeholder="E-mail">*@
-                                            <input type="text" class="form-control" name="emailid" id="emailid" placeholder="Email">
+                                            
+                                            <input type="text" class="form-control" name="EmailId" id="EmailId" placeholder="Email" onchange="check()">
                                         </div>
                                     </div>
                                     <div class="row">
 
                                         <div class="form-group col-md-6">
-                                            @*<input type="text" class="form-control selected-position" placeholder="Job Position">*@
+                                            
                                             <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
                                             <div class="display-positions">
                                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
@@ -246,7 +249,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-default pull-right" id= "wh-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                             <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                         </div>
                     </div>
@@ -256,7 +259,7 @@
                                         <table class="table" id="contacttable">
                                             <thead class="thead-inverse">
                                                 <tr>
-                                                    @*<th>S.No</th>*@
+                                                   
                                                     <th>First Name</th>
                                                   
                                                     <th>Mobile Number</th>
@@ -280,7 +283,7 @@
                                                             <div class="btn-group">
                                                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
+                                                                    <li> <a href="#"  onclick="getEditContactDetails(@item.wh_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
                                                                     <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
                                                                 </ul>
                                                             </div>
@@ -309,7 +312,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-default pull-right"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                <button type="button" class="btn btn-default pull-right" id="btnclosenote"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                 <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatewhnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
                             </div>
                         </div>
@@ -342,19 +345,41 @@
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script src="~/Scripts/Warehouse.js"></script>
+    <script src="~/Scripts/validations.js"></script>
     @*<script src="jquery.js"></script>*@
     <script>
       
         $("#add-wh").click(function () {
-            $("#wh-information").css('display', 'block');
+            $("#wh-information").css("display", "block");
+            $("#contacttable").css("display", "none");
+           
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
+            $("#addinfo").hide();
         });
         $("#wh-information-cancel").click(function () {
             $("#wh-information input").val("");
+            $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+            $("#wh-information").css("display", "none");
+        });
+
+        $("#wh-information1-cancel").click(function () {
+            $("#wh-information1").css("display", "none");
+            $("#wh-information1 input").val("");
+        });
+        $("#btnclose3").click(function () {
+            $("#wh-information1").css("display", "none");
+            $("#wh-information1 input").val("");
+        });
+        $("#btnclosenote").click(function () {
+            $("#wh-information1").css("display", "none");
+            $("#wh-information1 input").val("");
         });
         $("#save-reset").click(function () {
             $(".contactperson input").val("");
         });
+
+       
     </script>
     <script>
        
@@ -384,7 +409,7 @@
                 $(this).css("background", colors[rand]);
             });
 
-
+            $("#wh-information").css("display", "none");
 
             $('#whtable').after('<div id="nav"></div>');
             var rowsShown = 3;
@@ -410,9 +435,7 @@
 
 
             $(".cd-tabs").css("display", "none");
-            //$("button.save").click(function(){
-            //    $(".cd-tabs").css("display","block");
-            //});
+           
             $("#additon").click(function () {
                 $(".cd-tabs").css("display", "block");
             });
@@ -469,26 +492,35 @@
         function editFunction(array) {
 
             $('#wh-information').css('display', 'block');
+            $("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
-            $('#wh_id').val(array.wh_id);
-            $('#wh_Name').val(array.wh_Name);
-            $('#wh_sname').val(array.wh_sname);
-            $('#bill_street').val(array.bill_street);
-            $('#bill_city').val(array.bill_city);
-            $('#bill_state').val(array.bill_state);
-            $('#bill_postalcode').val(array.bill_postalcode);
-            $('#bill_country').val(array.bill_country);
-            $('#ship_street').val(array.ship_street);
-            $('#ship_city').val(array.ship_city);
-            $('#ship_state').val(array.ship_state);
-            $('#ship_postalcode').val(array.ship_postalcode);
-            $('#ship_country').val(array.ship_country);
-            $('#Contact_PersonFname').val(array.Contact_PersonFname);
-            $('#Phone').val(array.Phone);
-            $('#Mobile_No').val(array.Mobile_No);
-            $('#emailid').val(array.emailid);
+            $('#wh_Id').val(array.wh_Id);
+            $('#wh_Name').val(array.wh_name);
+            $('#wh_sname').val(array.wh_Shortname);
+            $('#bill_street').val(array.bill_Street);
+            $('#bill_city').val(array.bill_City);
+            $('#bill_state').val(array.bill_State);
+            $('#bill_postalcode').val(array.bill_Postalcode);
+            $('#bill_country').val(array.bill_Country);
+            $('#ship_street').val(array.ship_Street);
+            $('#ship_city').val(array.ship_City);
+            $('#ship_state').val(array.ship_State);
+            $('#ship_postalcode').val(array.ship_Postalcode);
+            $('#ship_country').val(array.ship_Country);
+            $('#Contact_PersonFname').val(array.conperson);
+            $('#Phone').val(array.phone);
+            $('#Mobile_No').val(array.Mobile);
+            $('#EmailId').val(array.Email);
             $('#Job_position').val(array.Job_position);
             $('#Note').val(array.Note);
+        }
+        function getcondtls(array1) {
+            $('#wh_Id').val(array.wh_Id);
+            $('#Contact_PersonFname').val(array1.conperson);
+            $('#Phone').val(array1.phone);
+            $('#Mobile_No').val(array1.Mobile);
+            $('#EmailId').val(array1.Email);
+            $('#Job_position').val(array1.Job_position);
         }
 
         //Get Particular warehouse Record
@@ -504,9 +536,9 @@
             });
 
             $.ajax({
-                url: '/Warehouse/getallwhdetails?wh_id=' + id,
+                url: '/Warehouse/getallwhdetails?wh_Id=' + id,
                 type: 'POST',
-                data: JSON.stringify({ wh_id: id }),
+                data: JSON.stringify({ wh_Id: id }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
@@ -522,6 +554,54 @@
                 { alert("Failed!!!"); }
             });
         }
+
+        //function getEditContactDetails(id)
+        //{
+        //    alert(id);
+        //    $('#contactbutton').val("updatecontact").text("Update Contact");
+        //    $.ajax({
+        //        url: '/Warehouse/getwhcondtls?wh_Id=' + id,
+        //        type: 'POST',
+        //        data: JSON.stringify({ wh_Id: id }),
+        //        dataType: 'json',
+        //        contentType: 'application/json',
+        //        success: function (data) {
+        //            if (data == "unique") {
+        //                alert("Success");
+        //            }
+        //            else {
+        //                var array = JSON.parse(data);
+        //                getcondtls(array1);
+        //            }
+        //        },
+        //        error: function (data)
+        //        { alert("Failed!!!"); }
+        //    });
+        //}
+
+        //delete warehouse
+        function deletewhdtls(id){
+            alert(id);
+            $.ajax({
+                url: '/Warehouse/deletewarehouse?wh_Id=' +id  ,
+                type: 'POST',
+                data: JSON.stringify({ wh_Id:id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "success") {
+                        
+                        alert("Warehouse Deleted sucessfully");
+                    }
+                    else {
+                        alert("Warehouse not Deleted");
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
+
         //Particular Warehouse
         function editwh(clickedvalue) {
             alert(clickedvalue);
@@ -532,49 +612,59 @@
             $('#update').click(function () {
                 $('#additional').css('display', 'none');
             });
-           wh_id = $('#wh_id').val();
+            wh_Id = $('#wh_Id').val();
             wh_Name = $('#wh_Name').val();
             wh_sname = $('#wh_sname').val();
-            if (clickedvalue == 'update') {
-                $.ajax({
-                    url: '/Warehouse/updatewarehouse?wh_id=' + wh_id + '&wh_Name=' + wh_Name + '& wh_sname=' + wh_sname,
-                    type: 'POST',
-                    data: JSON.stringify({ wh_id, wh_Name, wh_sname }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (data == "success") {
-                            $('#savebutton').hide();
-                            alert("Warehouse Updated sucessfully");
-                        }
-                        else {
-                            alert("Warehouse not updated");
-                        }
-                    },
-                    error: function (data)
-                    { alert("Failed!!!"); }
-                });
+            if ((wh_Name == "") || (wh_sname == "")) {
+                if (wh_Name == "")
+                    alert("Please Enter Warehouse Name");
+                else
+                    alert("Please Enter Shortname");
             }
-            if (clickedvalue == 'Save') {
+            else {
 
-                $.ajax({
-                    url: '/Warehouse/insertwhdtls?wh_name=' + wh_name + '& wh_sname=' + wh_sname,
-                    type: 'POST',
-                    data: JSON.stringify({ wh_name, wh_sname }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (data == "success") {
-                            $('#savebutton').hide();
-                            alert("Warehouse saved sucessfully");
-                        }
-                        else {
-                            alert("Warehouse not saved");
-                        }
-                    },
-                    error: function (data)
-                    { alert("Failed!!!"); }
-                });
+                if (clickedvalue == 'update') {
+                    $.ajax({
+                        url: '/Warehouse/updatewarehouse?wh_Id=' + wh_Id + '&wh_Name=' + wh_Name + '& wh_sname=' + wh_sname,
+                        type: 'POST',
+                        data: JSON.stringify({ wh_Id, wh_Name, wh_sname }),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data == "success") {
+                                $('#savebutton').hide();
+                                alert("Warehouse Updated sucessfully");
+                            }
+                            else {
+                                alert("Warehouse not updated");
+                            }
+                        },
+                        error: function (data)
+                        { alert("Failed!!!"); }
+                    });
+                }
+                if (clickedvalue == 'Save') {
+
+                    $.ajax({
+                        url: '/Warehouse/insertwhdtls?wh_Name=' + wh_Name + '& wh_sname=' + wh_sname,
+                        type: 'POST',
+                        data: JSON.stringify({ wh_Name, wh_sname }),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data == "success") {
+                                $("#whtable").load(" #whtable");
+                                $('#savebutton').hide();
+                                alert("Warehouse saved sucessfully");
+                            }
+                            else {
+                                alert("Warehouse not saved");
+                            }
+                        },
+                        error: function (data)
+                        { alert("Failed!!!"); }
+                    });
+                }
             }
         }
         //Particular Warehouse Address
@@ -586,7 +676,7 @@
             $('#updateaddress').click(function () {
                 $('#additional').css('display', 'none');
             });
-            wh_id = $('#wh_id').val();
+            wh_Id = $('#wh_Id').val();
             bill_street = $('#bill_street').val();
             bill_city = $('#bill_city').val();
             bill_state = $('#bill_state').val();
@@ -600,13 +690,13 @@
 
             if (clickedvalue == 'updateaddress') {
                 $.ajax({
-                    url: '/Warehouse/updatewhaddress?wh_id=' + wh_id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state + '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city + '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
+                    url: '/Warehouse/updatewhaddress?wh_Id=' + wh_Id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state + '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city + '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
                     type: 'POST',
-                    data: JSON.stringify({ wh_id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country }),
+                    data: JSON.stringify({ wh_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        if (data == "sucess") {
+                        if (data == "success") {
                             $('#savebutton').hide();
 
                             alert("Updated sucessfully");
@@ -622,7 +712,7 @@
             if (clickedvalue == 'saveaddress') {
 
                 $.ajax({
-                    url: '/Warehouse/insertwhaddress?wh_id=' + wh_id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state +
+                    url: '/Warehouse/insertwhaddress?wh_Id=' + wh_Id + '&bill_street=' + bill_street + '& bill_city=' + bill_city + '&bill_state=' + bill_state +
                            '& bill_postalcode=' + bill_postalcode + '&bill_country=' + bill_country + '& ship_street=' + ship_street + '&ship_city=' + ship_city +
                            '& ship_state=' + ship_state + '&ship_postalcode=' + ship_postalcode + '& ship_country=' + ship_country,
                     type: 'POST',
@@ -657,17 +747,17 @@
             $('#updatenote').click(function () {
                 $('#additional').css('display', 'none');
             });
-            wh_id = $('#wh_id').val();
+            wh_Id = $('#wh_Id').val();
             Note = $('#Note').val();
             if (clickedvalue == 'updatenote') {
                 $.ajax({
-                    url: '/Warehouse/updatewhnotes?wh_id=' + wh_id + '&Note=' + Note,
+                    url: '/Warehouse/updatewhnotes?wh_Id=' + wh_Id + '&Note=' + Note,
                     type: 'POST',
-                    data: JSON.stringify({ wh_id, Note }),
+                    data: JSON.stringify({ wh_Id, Note }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        if (data == "sucess") {
+                        if (data == "success") {
                             $('#savebutton').hide();
 
                             alert("Updated sucessfully");
@@ -682,7 +772,7 @@
             }
             if (clickedvalue == 'Save Note') {
                 $.ajax({
-                    url: '/Warehouse/insertwhnotes?wh_id=' + wh_id + '&Note=' + Note,
+                    url: '/Warehouse/insertwhnotes?wh_Id=' + wh_Id + '&Note=' + Note,
                     type: 'POST',
                     data: JSON.stringify({ wh_id, Note }),
                     dataType: 'json',
@@ -702,25 +792,34 @@
             }
         }
         //Contact Person
-        function UpdatewhContact(clickedvalue) {
-            alert(clickedvalue);
+        function UpdateContact(clickedvalue) {
+            //alert(clickedvalue);
             $('#updatecontact').click(function () {
                 $('#warehouse').css('display', 'none');
             });
             $('#updatecontact').click(function () {
                 $('#additional').css('display', 'none');
             });
-            wh_id = $('#wh_id').val();
-            Contact_PersonFname = $('#Contact_PersonFname').val();
-            Phone= $('#Phone').val();
-            Mobile_No = $('#Mobile_No').val();
-            emailid = $('#emailid').val();
-            Job_position = $('#Job_position').val();
+            var warehouse ={
+                wh_id : $('#wh_Id').val(),
+            conperson : $('#Contact_PersonFname').val(),
+            Phone: $('#Phone').val(),
+            Mobile : $('#Mobile_No').val(),
+            Email : $('#EmailId').val(),
+            Job_position : $('#Job_position').val(),
+            }
+            
+            //wh_Id = $('#wh_Id').val();
+            //Contact_PersonFname = $('#Contact_PersonFname').val();
+            //Phone= $('#Phone').val();
+            //Mobile_No = $('#Mobile_No').val();
+            //EmailId = $('#EmailId').val();
+            //Job_position = $('#Job_position').val();
             if (clickedvalue == 'savecontact') {
                 $.ajax({
-                    url: '/Warehouse/insertwhcontact?wh_id=' + wh_id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid +  '&Job_position=' + Job_position,
+                    url: '/Warehouse/insertwhcontact?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId +  '&Job_position=' + Job_position,
                     type: 'POST',
-                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, emailid , Job_position }),
+                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, EmailId , Job_position }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
@@ -739,15 +838,15 @@
             }
             if (clickedvalue == 'updatecontact') {
                 $.ajax({
-                    url: '/Warehouse/insertwhcontact?wh_id=' + wh_id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&emailid=' + emailid +  '&Job_position=' + Job_position,
+                    url: '/Warehouse/updatewhcontact',  //?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId +  '&Job_position=' + Job_position,
                     type: 'POST',
-                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, emailid , Job_position }),
+                    data:  JSON.stringify({warehouse:warehouse}), //JSON.stringify({ wh_Id, Contact_PersonFname,Phone, Mobile_No, EmailId , Job_position }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        if (data == "sucess") {
+                        if (data == "success") {
                             $('#savebutton').hide();
-                            alert("updated sucessfully");
+                            alert("Contact Details updated sucessfully");
                         }
                         else {
                             alert("not updated");

@@ -42,7 +42,8 @@ namespace Inventory.Controllers
                 }
                 else
                 {
-                    ViewBag.invalid = "Confirm Your Email-ID then Login";
+                    return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    //ViewBag.invalid = "Confirm Your Email-ID then Login";
                 }
             }
             if (command == "Insert")
@@ -157,35 +158,60 @@ namespace Inventory.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        [ChildActionOnly]
+        [HttpGet]
         public PartialViewResult ProfileProgressPartial()
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             LoginService loginService = new LoginService();
-            //string id = HttpContext.User.Identity.Name;
             var profilepic = loginService.GetUserProfile(int.Parse(user.ID));
-            ViewBag.profilepic = profilepic[0].Profile_Picture;
-            int Warehouse = 0, Vendor = 0, Products = 0;
+            //ViewBag.profilepic = profilepic[0].Profile_Picture;
+            int basic = 0, caddress = 0, uaddress = 0, users = 0, localization = 0;
+            //int Warehouse = 0, Vendor = 0, Products = 0;
             string Progress = null, colour = null;
-            SqlDataReader record = LoginService.GetProfileProgress(user.DbName);
-            if (record.Read())
+            if (profilepic[0].First_Name != null && profilepic[0].Last_Name != null)
             {
-                Warehouse = (int)record["W"];
-                Vendor = (int)record["v"];
-                Products = (int)record["i"];
+                basic = 1;
             }
-            if (Warehouse == 0 && Vendor == 0 && Products == 0)
-            { Progress = ProgressBar.Level1; colour = "Red"; }
-            if (Warehouse > 0 || Vendor > 0 || Products > 0)
-            { Progress = ProgressBar.Level2; colour = "Orange"; }
-            if (Warehouse > 0 && Vendor > 0 || Vendor > 0 && Products > 0 || Warehouse > 0 && Products > 0)
-            { Progress = ProgressBar.Level3; colour = "YellowGreen"; }
-            if (Warehouse > 0 && Vendor > 0 && Products > 0)
-            { Progress = ProgressBar.Level4; colour = "Green"; }
+            if (profilepic[0].CLine1 != null && profilepic[0].CLine2 != null && profilepic[0].Ccity != null && profilepic[0].Cstate != null && profilepic[0].Cpostalcode != null && profilepic[0].Ccountry != null)
+            {
+                caddress = 1; 
+            }
+            if (profilepic[0].ULine1 != null && profilepic[0].ULine2 != null && profilepic[0].Ucity != null && profilepic[0].Ustate != null && profilepic[0].Upostalcode != null && profilepic[0].Ucountry != null)
+            {
+                uaddress = 1; 
+            }
+            if (profilepic[0].Date_Format != null && profilepic[0].Timezone != null && profilepic[0].Currency != null)
+            {
+                localization = 1;
+            }
+            if (profilepic[0].Sfirstname != null && profilepic[0].Slastname != null && profilepic[0].Smobile != 0 && profilepic[0].Svendoraccess != 0 && profilepic[0].Scustomeracccess != 0 && profilepic[0].Sjob != null && profilepic[0].Semail != null)
+            {
+                users = 1;
+            }
+            if (basic > 0) { Progress = ProgressBar.Level1; colour = "Red"; }
+            if (basic > 0 && caddress > 0 || basic > 0 && uaddress > 0 || basic > 0 && users > 0 || basic > 0 && localization > 0) { Progress = ProgressBar.Level2; colour = "Blue"; }
+            if (basic > 0 && caddress > 0 && uaddress > 0 || basic > 0 && uaddress > 0 && localization > 0 || basic > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && users > 0) { Progress = ProgressBar.Level3; colour = "Orange"; }
+            if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || basic > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+            if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level5; colour = "Green"; }
             ViewBag.Progress = Progress;
             ViewBag.color = colour;
-            return PartialView("ProfileProgressPartial");
+            return PartialView("ProfileProgressPartial",profilepic);
         }
     }
 }
 
+//SqlDataReader record = LoginService.GetProfileProgress(user.DbName);
+//if (record.Read())
+//{
+//    Warehouse = (int)record["W"];
+//    Vendor = (int)record["v"];
+//    Products = (int)record["i"];
+//}
+//if (Warehouse == 0 && Vendor == 0 && Products == 0)
+//{ Progress = ProgressBar.Level1; colour = "Red"; }
+//if (Warehouse > 0 || Vendor > 0 || Products > 0)
+//{ Progress = ProgressBar.Level2; colour = "Orange"; }
+//if (Warehouse > 0 && Vendor > 0 || Vendor > 0 && Products > 0 || Warehouse > 0 && Products > 0)
+//{ Progress = ProgressBar.Level3; colour = "YellowGreen"; }
+//if (Warehouse > 0 && Vendor > 0 && Products > 0)
+//{ Progress = ProgressBar.Level3; colour = "YellowGreen"; }
