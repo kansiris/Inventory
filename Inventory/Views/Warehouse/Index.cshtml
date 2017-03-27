@@ -507,19 +507,20 @@
             $('#ship_state').val(array.ship_State);
             $('#ship_postalcode').val(array.ship_Postalcode);
             $('#ship_country').val(array.ship_Country);
-            //$('#Contact_PersonFname').val(array.conperson);
-            //$('#Phone').val(array.phone);
-            //$('#Mobile_No').val(array.Mobile);
-            //$('#EmailId').val(array.Email);
-            //$('#Job_position').val(array.Job_position);
-            $('#Note').val(array.Note);
-        }
-        function getcondtls(array1){
             $('#Contact_PersonFname').val(array.conperson);
             $('#Phone').val(array.phone);
             $('#Mobile_No').val(array.Mobile);
             $('#EmailId').val(array.Email);
             $('#Job_position').val(array.Job_position);
+            $('#Note').val(array.Note);
+        }
+        function getcondtls(array1) {
+            $('#wh_Id').val(array.wh_Id);
+            $('#Contact_PersonFname').val(array1.conperson);
+            $('#Phone').val(array1.phone);
+            $('#Mobile_No').val(array1.Mobile);
+            $('#EmailId').val(array1.Email);
+            $('#Job_position').val(array1.Job_position);
         }
 
         //Get Particular warehouse Record
@@ -554,29 +555,29 @@
             });
         }
 
-        function getEditContactDetails(id)
-        {
-            alert(id);
-            $('#contactbutton').val("updatecontact").text("Update Contact");
-            $.ajax({
-                url: '/Warehouse/getwhcondtls?wh_Id=' + id,
-                type: 'POST',
-                data: JSON.stringify({ wh_Id: id }),
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data == "unique") {
-                        alert("Success");
-                    }
-                    else {
-                        var array = JSON.parse(data);
-                        getcondtls(array1);
-                    }
-                },
-                error: function (data)
-                { alert("Failed!!!"); }
-            });
-        }
+        //function getEditContactDetails(id)
+        //{
+        //    alert(id);
+        //    $('#contactbutton').val("updatecontact").text("Update Contact");
+        //    $.ajax({
+        //        url: '/Warehouse/getwhcondtls?wh_Id=' + id,
+        //        type: 'POST',
+        //        data: JSON.stringify({ wh_Id: id }),
+        //        dataType: 'json',
+        //        contentType: 'application/json',
+        //        success: function (data) {
+        //            if (data == "unique") {
+        //                alert("Success");
+        //            }
+        //            else {
+        //                var array = JSON.parse(data);
+        //                getcondtls(array1);
+        //            }
+        //        },
+        //        error: function (data)
+        //        { alert("Failed!!!"); }
+        //    });
+        //}
 
         //delete warehouse
         function deletewhdtls(id){
