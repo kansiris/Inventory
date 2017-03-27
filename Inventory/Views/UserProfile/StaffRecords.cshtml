@@ -1,4 +1,4 @@
-﻿@if (ViewBag.records != "" && ViewBag.records != null)
+﻿@if (ViewBag.records != null)
 {
     <div class="row">
         <div class="col-md-12 table-responsive table-hover">
@@ -20,11 +20,11 @@
                 {
                         <tr>
 
-                            <td>@item.Sfirstname</td>
-                            <td>@item.Slastname</td>
-                            <td>@item.Smobile</td>
-                            <td>@item.Semail</td>
-                            <td>@item.Sjob</td>
+                            <td>@item.First_Name</td>
+                            <td>@item.Last_Name</td>
+                            <td>@item.Mobile_No</td>
+                            <td>@item.Email</td>
+                            <td>@item.Job_position</td>
                             
                             <td>
                                 <div class="btn-group">

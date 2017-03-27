@@ -188,5 +188,12 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "getstaffstatus",description);
         }
         #endregion
+
+        #region Get Staff
+        public static SqlDataReader GetStaff(int id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "GetStaff", id);
+        }
+        #endregion
     }
 }

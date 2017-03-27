@@ -158,5 +158,11 @@ namespace Inventory.Service
         }
         #endregion
 
+        #region Get Staff
+        public static SqlDataReader GetStaff(int id)
+        {
+            return LoginRepository.GetStaff(id);
+        }
+        #endregion
     }
 }
