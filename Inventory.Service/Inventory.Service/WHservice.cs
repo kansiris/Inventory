@@ -76,5 +76,14 @@ namespace Inventory.Service
         {
             return WarehouseRepository.insertwhcontact(dbname, wh_id, Contact_Person, phone, Mobile, Email, job_position);
         }
+
+        public static int deletewarehouse(string dbname, string wh_Id)
+        {
+            return WarehouseRepository.deletewarehouse(dbname, wh_Id);
+        }
+        public static SqlDataReader getwhcondtls(string dbname, string wh_id)
+        {
+            return WarehouseRepository.getwhcondtls(dbname, wh_id);
+        }
     }
 }

@@ -125,5 +125,19 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse1", wh_id, Contact_Person, phone, Mobile, Email, job_position);
             return count;
         }
+        public  static int deletewarehouse(string dbname,string wh_Id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "spdeletewhdtls", wh_Id);
+            return count;
+
+        }
+        public static SqlDataReader getwhcondtls(string dbname, string wh_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getwhcontactdtls", wh_id);
+        }
     }
 }
