@@ -109,7 +109,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Essentials" onclick="updatevales(this.value)">Update Essentials</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnEssentials" value="Essentials" onclick="updatevales(this.value)">Update Essentials</button>
                                         </div>
                                     </div>
                                 </li>
@@ -152,7 +152,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="companyaddress" onclick="updatevales(this.value)">Update Company Address</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btncompanyaddress" value="companyaddress" onclick="updatevales(this.value)">Update Company Address</button>
                                         </div>
                                     </div>
                                 </li>
@@ -190,7 +190,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Account" onclick="updatevales(this.value)">Update Account</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnAccount" value="Account" onclick="updatevales(this.value)">Update Account</button>
                                         </div>
                                     </div>
                                 </li>
@@ -265,9 +265,10 @@
                                     </div>
                                     <div class="col-md-12">
                                         <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                        <button type="button" class="btn btn-success pull-right" id="btnupdate" value="addstaff" onclick="updatevales(this.value)">Add User</button>
+                                        <button type="button" class="btn btn-success pull-right" id="btnaddstaff" value="addstaff" onclick="updatevales(this.value)">Add User</button>
+                                        <button type="button" class="btn btn-success pull-right" id="btnupdatestaff" value="updatestaff" onclick="updatevales(this.value)" style="display:none">Update User</button>
                                     </div>
-                                    <div>
+                                    <div id="staffrecords">
                                         @{ Html.RenderAction("GetStaffRecords", "UserProfile");}
                                     </div>
                                     <hr />
@@ -318,7 +319,7 @@
                                             @if (item.Profile_Picture != null)
                                             {
                                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
-                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
                                             }
                                             else
                                             {
@@ -337,7 +338,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="useraddress" onclick="updatevales(this.value)">Update Address</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnuseraddress" value="useraddress" onclick="updatevales(this.value)">Update Address</button>
                                         </div>
                                     </div>
                                 </li>
@@ -407,7 +408,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Note" onclick="updatevales(this.value)">Update Notes</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnNote" value="Note" onclick="updatevales(this.value)">Update Notes</button>
                                         </div>
                                     </div>
                                 </li>
@@ -458,7 +459,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Social" onclick="updatevales(this.value)">Update Social</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnSocial" value="Social" onclick="updatevales(this.value)">Update Social</button>
                                         </div>
                                     </div>
                                 </li>
@@ -536,7 +537,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="UserHome?email=@item.EmailId&site=@item.User_Site&usertype=@item.UserTypeId" class="btn btn-default pull-right">Cancel</a>
-                                            <button type="button" class="btn btn-success pull-right" id="btnupdate" value="Localization" onclick="updatevales(this.value)">Update Localization</button>
+                                            <button type="button" class="btn btn-success pull-right" id="btnLocalization" value="Localization" onclick="updatevales(this.value)">Update Localization</button>
                                         </div>
                                     </div>
                                 </li>
@@ -689,10 +690,11 @@
                 datatype: "json",
                 data: staffid,
                 success: function (data) {
-                    if (response == 'unique') {
+                    if (data == 'unique') {
                         alert("Failed To Fetch User Details");
                     }
                     else {
+                        $('#btnupdatestaff').show();
                         $('#Item4_Staff_Id').val(staffid);
                         $('#Item4_First_Name').val(data.First_Name);
                         $('#Item4_Last_Name').val(data.Last_Name);
@@ -708,6 +710,8 @@
                             $('#allowaccess').prop('checked', false);
                             $("#permissionsarea").css("visibility", "hidden");
                         }
+                        //var resetbutton = document.getElementById('btnupdatestaff').style.display;
+                        //alert(resetbutton);
                     }
                 },
                 error: function (er) {
@@ -745,6 +749,7 @@
                 country:$('#Item3_country').val(),
             }
             var staff={
+                Staff_Id:$('#Item4_Staff_Id').val(),
                 First_Name:$('#Item4_First_Name').val(),
                 Last_Name:$('#Item4_Last_Name').val(),
                 Mobile_No:$('#Item4_Mobile_No').val(),
@@ -753,6 +758,7 @@
                 Vendor_Access:$('#Vendor_Access').val(),
                 Customer_Access:$('#Customer_Access').val(),
             }
+
             $.ajax({
                 url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
                 type: "POST",
@@ -766,8 +772,12 @@
                     }
                     else if(response == 'staffadded')
                     {
-                        @*$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");*@
+                        $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
                         alert("User Added SuccessFully!!!");
+                    }
+                    else if (response == 'staffupdated') {
+                        $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        alert("User Updated SuccessFully!!!");
                     }
                     else {
                         alert("Failed To Update Profile");

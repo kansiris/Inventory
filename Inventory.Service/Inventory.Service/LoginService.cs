@@ -145,9 +145,9 @@ namespace Inventory.Service
         #endregion
 
         #region Update Staff
-        public static int UpdateStaff(int staffid, int ownerid, string firstname, string lastname, long mobile, string email, int statusid, int vendoraccess, int customeraccess, string jobposition)
+        public static int UpdateStaff(int staffid, string firstname, string lastname, long mobile, string email,  int vendoraccess, int customeraccess, string jobposition)
         {
-            return LoginRepository.UpdateStaff(staffid, ownerid, firstname, lastname, mobile, email, statusid, vendoraccess, customeraccess, jobposition);
+            return LoginRepository.UpdateStaff(staffid,  firstname, lastname, mobile, email, vendoraccess, customeraccess, jobposition);
         }
         #endregion
 

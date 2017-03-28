@@ -175,9 +175,9 @@ namespace Inventory.Repository
         #endregion
 
         #region Update Staff
-        public static int UpdateStaff(int staffid, int ownerid, string firstname, string lastname, long mobile, string email, int statusid,int vendoraccess, int customeraccess, string jobposition)
+        public static int UpdateStaff(int staffid,  string firstname, string lastname, long mobile, string email, int vendoraccess, int customeraccess, string jobposition)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatestaff", staffid, ownerid, firstname, lastname, mobile,email, statusid, vendoraccess, customeraccess, jobposition);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatestaff", staffid, firstname, lastname, mobile,email, vendoraccess, customeraccess, jobposition);
             return count;
         }
         #endregion
