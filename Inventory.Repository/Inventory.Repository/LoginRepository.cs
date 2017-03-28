@@ -190,9 +190,9 @@ namespace Inventory.Repository
         #endregion
 
         #region Get Staff
-        public static SqlDataReader GetStaff(int id)
+        public static SqlDataReader GetStaff(int id, string command)
         {
-            return SqlHelper.ExecuteReader(ConnectionString1, "GetStaff", id);
+            return SqlHelper.ExecuteReader(ConnectionString1, "GetStaff", id,command);
         }
         #endregion
     }

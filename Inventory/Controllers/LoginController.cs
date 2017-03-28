@@ -164,7 +164,7 @@ namespace Inventory.Controllers
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             LoginService loginService = new LoginService();
             var profilepic = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
-            var ownerstaff = LoginService.GetStaff(int.Parse(user.ID));
+            var ownerstaff = LoginService.GetStaff(int.Parse(user.ID),"");
             //ViewBag.profilepic = profilepic[0].Profile_Picture;
             int basic = 0, caddress = 0, uaddress = 0, users = 0, localization = 0;
             //int Warehouse = 0, Vendor = 0, Products = 0;

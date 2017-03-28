@@ -159,9 +159,9 @@ namespace Inventory.Service
         #endregion
 
         #region Get Staff
-        public static SqlDataReader GetStaff(int id)
+        public static SqlDataReader GetStaff(int id, string command)
         {
-            return LoginRepository.GetStaff(id);
+            return LoginRepository.GetStaff(id,command);
         }
         #endregion
     }

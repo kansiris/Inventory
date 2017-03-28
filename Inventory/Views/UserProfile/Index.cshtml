@@ -198,6 +198,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">
+                                                @Html.HiddenFor(Model => Model.Item4.Staff_Id)
                                                 <div class="form-group col-md-6">
                                                     @*<input type="text" class="form-control" placeholder="Line 1">*@
                                                     @Html.TextBoxFor(Model => Model.Item4.First_Name, new { placeholder = "First Name", @class = "form-control", required = "required" })
@@ -679,6 +680,43 @@
 
     <!------ Image Upload ------>
 
+
+<script>
+        function AssignStaff(staffid) {
+            $.ajax({
+                url: '/UserProfile/GetParticularStaff?id='+staffid+'&&command=particular',
+                type: "POST",
+                datatype: "json",
+                data: staffid,
+                success: function (data) {
+                    if (response == 'unique') {
+                        alert("Failed To Fetch User Details");
+                    }
+                    else {
+                        $('#Item4_Staff_Id').val(staffid);
+                        $('#Item4_First_Name').val(data.First_Name);
+                        $('#Item4_Last_Name').val(data.Last_Name);
+                        $('#Item4_Mobile_No').val(data.Mobile_No);
+                        $('#Item4_Email').val(data.Email);
+                        $('#Item4_Job_position').val(data.Job_position);
+                        if(data.Vendor_Access > 0 || data.Customer_Access > 0)
+                        {
+                            $('#allowaccess').prop('checked', true);
+                            $("#permissionsarea").css("visibility", "visible");
+                        }
+                        else {
+                            $('#allowaccess').prop('checked', false);
+                            $("#permissionsarea").css("visibility", "hidden");
+                        }
+                    }
+                },
+                error: function (er) {
+                    alert("error");
+                }
+            });
+        }
+</script>
+
     <script>
         function updatevales(val) {
             var id = @Request.QueryString["id"];
@@ -728,7 +766,7 @@
                     }
                     else if(response == 'staffadded')
                     {
-                        //$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        @*$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");*@
                         alert("User Added SuccessFully!!!");
                     }
                     else {
@@ -741,5 +779,8 @@
             });
         }
     </script>
+
+    
+    
 }
 
