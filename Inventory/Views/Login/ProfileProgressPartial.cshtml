@@ -1,27 +1,27 @@
-﻿@foreach (var item in Model)
-{
+﻿@if(Model != null)
+{ 
 <ul class="nav navbar-nav navbar-right">
     <li class="">
         @*<img src="/images/img.jpg" alt="">*@
         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             @*<div  class="top-button" id="masterpic"></div>*@
 
-            @if (item.Profile_Picture != null )
+            @if (Model.Profile_Picture != null )
             {
-                <img src="data:image;base64,@item.Profile_Picture" alt="" id="smallprofilepic">
+                <img src="data:image;base64,@Model.Profile_Picture" alt="" id="smallprofilepic">
             }
             else
             {
                 <div class="top-button" id="masterpic" style="width: 25px;height: 25px">
-                    <span id="userprofilepic" style="font-size:20px;top:-10%">@item.First_Name.Substring(0, 1)</span>
+                    <span id="userprofilepic" style="font-size:20px;top:-10%">@Model.First_Name.Substring(0, 1)</span>
                 </div>
             }
            
-                <span>@item.First_Name @item.Last_Name</span> <span class="fa fa-angle-down"></span>
+                <span>@Model.First_Name @Model.Last_Name</span> <span class="fa fa-angle-down"></span>
             
         </a>
         <ul class="dropdown-menu dropdown-usermenu pull-right">
-            <li><a href="~/UserProfile?id=@item.ID"> Profile</a></li>
+            <li><a href="~/UserProfile?id=@Model.ID"> Profile</a></li>
             <li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>
             <li><a href="javascript:;">Help</a></li>
             <li><a href="~/Login/Logout"><i class="fa fa-sign-out pull-right"></i>Sign Out </a></li>
@@ -41,7 +41,7 @@
     </li>
 </ul>
 <div class="progress">
-    <a href="~/UserProfile?id=@item.ID">
+    <a href="~/UserProfile?id=@Model.ID">
         <div class="progress-bar" id="profileprogress" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Progress;background:@ViewBag.color">
             <span>@ViewBag.Progress</span>
         </div>

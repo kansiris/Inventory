@@ -129,13 +129,32 @@ namespace Inventory.Controllers
             return Json("Failed");
         }
 
-        //public PartialViewResult GetStaffRecords(string id)
-        //{
-        //    LoginService loginService = new LoginService();
-        //    var records = loginService.GetUserProfile(int.Parse(id)).Select(m => new { m.Sstaff_id , m.SOwner_id , m.Sfirstname , m.Slastname , m.Smobile , m.Semail , m.Status_ID , m.Svendoraccess , m.Scustomeracccess , m.Sjob }).ToList();
-        //    //var staff = 
-        //    ViewBag.records = records;
-        //    return PartialView("StaffRecords", ViewBag.records);
-        //}
+        public PartialViewResult GetStaffRecords(string id)
+        {
+            LoginService loginService = new LoginService();
+            // var records = loginService.GetUserProfile(int.Parse(id)).Select(m => new { m.Sstaff_id, m.SOwner_id, m.Sfirstname, m.Slastname, m.Smobile, m.Semail, m.Status_ID, m.Svendoraccess, m.Scustomeracccess, m.Sjob }).ToList();
+            //var staff = 
+            var records = LoginService.GetStaff(int.Parse(id));
+            var dt = new DataTable();
+            dt.Load(records);
+            //List<DataRow> dr = dt.AsEnumerable().ToList();
+            List<OwnerStaff> ownerStaff = new List<OwnerStaff>();
+            ownerStaff = (from DataRow row in dt.Rows
+                      select new OwnerStaff()
+                      {
+                          Staff_Id = row["Staff_Id"].ToString(),
+                          Owner_id = int.Parse(row["Owner_id"].ToString()),
+                          First_Name = row["First_Name"].ToString(),
+                          Last_Name = row["Last_Name"].ToString(),
+                          Mobile_No = long.Parse(row["Mobile_No"].ToString()),
+                          Email = row["Email"].ToString(),
+                          Status_ID = int.Parse(row["Status_ID"].ToString()),
+                          Vendor_Access = int.Parse(row["Vendor_Access"].ToString()),
+                          Customer_Access = int.Parse(row["Customer_Access"].ToString()),
+                          Job_position = row["Job_position"].ToString()
+                      }).OrderByDescending(m => m.Staff_Id).ToList();
+            ViewBag.records = ownerStaff;
+            return PartialView("StaffRecords", ViewBag.records);
+        }
     }
 }

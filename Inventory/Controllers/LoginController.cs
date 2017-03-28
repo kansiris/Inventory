@@ -163,28 +163,29 @@ namespace Inventory.Controllers
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             LoginService loginService = new LoginService();
-            var profilepic = loginService.GetUserProfile(int.Parse(user.ID));
+            var profilepic = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
+            var ownerstaff = LoginService.GetStaff(int.Parse(user.ID));
             //ViewBag.profilepic = profilepic[0].Profile_Picture;
             int basic = 0, caddress = 0, uaddress = 0, users = 0, localization = 0;
             //int Warehouse = 0, Vendor = 0, Products = 0;
             string Progress = null, colour = null;
-            if (profilepic[0].First_Name != null && profilepic[0].Last_Name != null)
+            if (profilepic.First_Name != null && profilepic.Last_Name != null)
             {
                 basic = 1;
             }
-            if (profilepic[0].CLine1 != null && profilepic[0].CLine2 != null && profilepic[0].Ccity != null && profilepic[0].Cstate != null && profilepic[0].Cpostalcode != null && profilepic[0].Ccountry != null)
+            if (profilepic.CLine1 != null && profilepic.CLine2 != null && profilepic.Ccity != null && profilepic.Cstate != null && profilepic.Cpostalcode != null && profilepic.Ccountry != null)
             {
                 caddress = 1; 
             }
-            if (profilepic[0].ULine1 != null && profilepic[0].ULine2 != null && profilepic[0].Ucity != null && profilepic[0].Ustate != null && profilepic[0].Upostalcode != null && profilepic[0].Ucountry != null)
+            if (profilepic.ULine1 != null && profilepic.ULine2 != null && profilepic.Ucity != null && profilepic.Ustate != null && profilepic.Upostalcode != null && profilepic.Ucountry != null)
             {
                 uaddress = 1; 
             }
-            if (profilepic[0].Date_Format != null && profilepic[0].Timezone != null && profilepic[0].Currency != null)
+            if (profilepic.Date_Format != null && profilepic.Timezone != null && profilepic.Currency != null)
             {
                 localization = 1;
             }
-            if (profilepic[0].Sfirstname != null && profilepic[0].Slastname != null && profilepic[0].Smobile != 0 && profilepic[0].Svendoraccess != 0 && profilepic[0].Scustomeracccess != 0 && profilepic[0].Sjob != null && profilepic[0].Semail != null)
+            if (ownerstaff.Read())
             {
                 users = 1;
             }
