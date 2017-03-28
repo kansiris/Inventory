@@ -398,6 +398,21 @@ namespace Inventory.Controllers
             //return PartialView("VendorRecords", ViewBag.records);
             return PartialView("VendorRecords",null);
         }
+
+
+        //Ramesh Sai Code
+        //public JsonResult UpdateVendor(Vendor vendor,string command)
+        //{
+        //    if (command == "Save")
+        //    {
+        //        var data = VendorService.CompanyInsertRow(vendor.Company_Name, vendor.Email);
+        //        if (data > 0)
+        //        {
+        //            return Json("companyadded");
+        //        }
+        //    }
+        //    return Json(JsonRequestBehavior.AllowGet);
+        //}
     }
 
 }
