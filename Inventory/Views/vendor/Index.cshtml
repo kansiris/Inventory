@@ -348,7 +348,7 @@
                         else
                         {
                             <div class="form-group col-md-4">
-                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control"})
+                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control" })
                             </div>
                             <div class="form-group col-md-5">
 
@@ -459,10 +459,11 @@
                             </li>
 
                             <li data-content="contactperson" class="contactperson">
-                                
+
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="row">
+                                            <input type="hidden" id="newcompanyid" value="@ViewBag.id" />
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="First Name">*@
                                                 <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
@@ -475,7 +476,7 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="Mobile Number">*@
-                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No" maxlength = "12">
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No" maxlength="12">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="E-mail">*@
@@ -515,118 +516,196 @@
                                         <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="updateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
-                                @*<div>
-                                    @{ Html.RenderPartial("vendorcontact","Vendor");}
-                                </div>*@
-                                @*<div class="row" id="contactdiv">
-                                    <div class="col-md-12 table-responsive table-hover">
-                                        <table class="table" id="contacttable">
-                                            <thead class="thead-inverse">
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>E-Mail</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            @*<tbody>
-                                                    <tr>*@
-                                                        
-                                                            @*<div id="actionele" class="btn-group">
-                                                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                                <ul class="dropdown-menu">
-                                                                    <li> <a href="#" onclick="getEditContactDetails()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit ContactPerson</a> </li>
-                                                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete ContactPerson</a> </li>
-                                                                </ul>
-                                                            </div>*@
-                                                        @*</td>
-                                                         </tr>
-                                            </tbody>*@
-                                        </table>
+                                @*@if (ViewBag.sample != null&& ViewBag.sample != "")
+                                {*@
+                                    <div id="vendorrecords">
+                                        @{ Html.RenderAction("VendorContact", "Vendor");}
                                     </div>
-                                </div>*@
-                               
-                            </li>
-                                
-                            <li data-content="details">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                             
-                                                <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                               
-                                                <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                               
-                                                <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                                        <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
-                                    </div>
-                                </div>
-                            </li>
+                                @*}*@
 
-                            <li data-content="notes">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <textarea class="form-control" rows="5" placeholder="Notes" id="Note" name="Note"></textarea>
+                                            @*<div>
+                                                    @{ Html.RenderPartial("vendorcontact","Vendor");}
+                                                </div>*@
+                                            @*<div class="row" id="contactdiv">
+                                                <div class="col-md-12 table-responsive table-hover">
+                                                    <table class="table" id="contacttable">
+                                                        <thead class="thead-inverse">
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>First Name</th>
+                                                                <th>Last Name</th>
+                                                                <th>E-Mail</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        @*<tbody>
+                                                                <tr>*@
+
+                                            @*<div id="actionele" class="btn-group">
+                                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li> <a href="#" onclick="getEditContactDetails()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit ContactPerson</a> </li>
+                                                        <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete ContactPerson</a> </li>
+                                                    </ul>
+                                                </div>*@
+                                            @*</td>
+                                                             </tr>
+                                                </tbody>*@
+                                            @*</table>
+                                                    </div>
+                                                </div>*@
+
+                                        </li>
+
+                                        <li data-content="details">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+
+                                                            <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+
+                                                            <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+
+                                                            <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                                        <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatecompanynote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
-                                    </div>
-                                </div>
-                            </li>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                                    <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
+                                                </div>
+                                            </div>
+                                        </li>
 
-                        </ul>
-                        <!-- cd-tabs-content -->
-                    </div>
-                    <!-- cd-tabs -->
+                                        <li data-content="notes">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <textarea class="form-control" rows="5" placeholder="Notes" id="Note" name="Note"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                                    <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatecompanynote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
+                                                </div>
+                                            </div>
+                                        </li>
 
+                                    </ul>
+                                    <!-- cd-tabs-content -->
+                                </div>
+                                <!-- cd-tabs -->
+
+                            </div>
+
+                            <!--------- Tab Section END ------------>
+                        </div>
+                    </form>
                 </div>
-
-                <!--------- Tab Section END ------------>
             </div>
-        </form>
-    </div>
-</div>
-<!-- /page content -->
-@section scripts{
-    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/js/main.js"></script>
-    <script src="~/Scripts/js/modernizr.js"></script>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+            <!-- /page content -->
+            <script>
+                function updateContact(clickedvalue) {
+                    //alert(clickedvalue);
+                    $('#updatecontact').click(function () {
+                        $('#company').css('display', 'none');
+                    });
+                    $('#updatecontact').click(function () {
+                        $('#additional').css('display', 'none');
+                    });
+                    company_Id = $('#company_Id').val();
+                    //alert(company_Id);
+                    Contact_PersonFname = $('#Contact_PersonFname').val();
+                    Contact_PersonLname = $('#Contact_PersonLname').val();
+                    Mobile_No = $('#Mobile_No').val();
+                    emailid = $('#emailid').val();
+                    Adhar_Number = $('#Adhar_Number').val();
+                    Job_position = $('#Job_position').val();
+                    if (clickedvalue == 'savecontact') {
+                        $.ajax({
+                            url: '/Vendor/savecontactdetails',
+                            type: 'POST',
+                            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (data == "unique") {
+                                    alert("not saved");
+                                }
+                                else {
+                                    $('#savebutton').hide();
+                                    alert(data.company_Id);
+                                    var url = '@Url.Action("VendorContact", "Vendor", new {id="replaceToken"})';
+                                    url = url.replace("replaceToken", company_Id);
+                                    $('#vendorrecords').load(url);
+                                    alert("Contact Details saved sucessfully");
+                                }
+                                @*else if (data == "vendorrecords") {
+                        alert(data);
+                        $('#vendorrecords').load("@Url.Action("VendorContact", "Vendor", new { id = Request.QueryString["company_Id"] })");
+                        alert("contact Added SuccessFully!!!");
+                    }*@
+                            },
+                            error: function (json)
+                            { alert("Failed!!!"); }
+                        });
+                    }
+                    if (clickedvalue == 'updatecontact') {
+                        $.ajax({
+                            url: '/Vendor/savecontactdetails',
+                            type: 'POST',
+                            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (data == "sucess") {
+                                    $('#savebutton').hide();
+                                    alert("Contact Details updated sucessfully");
+                                }
+                                else {
+                                    alert("not updated");
+                                }
+                            },
+                            error: function (data)
+                            { alert("Failed!!!"); }
+                        });
+                    }
 
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Custom Theme Scripts -->edit
-    <script src="../build/js/custom.min.js"></script>
+                }
 
-    <script src="~/Scripts/vendor.js"></script>
 
-}
+            </script>
+            @section scripts{
+                <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+                <script src="~/Scripts/js/main.js"></script>
+                <script src="~/Scripts/js/modernizr.js"></script>
+                <!-- jQuery -->
+                <script src="../vendors/jquery/dist/jquery.min.js"></script>
+
+                <!-- Bootstrap -->
+                <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+                <!-- Custom Theme Scripts -->edit
+                <script src="../build/js/custom.min.js"></script>
+
+                <script src="~/Scripts/vendor.js"></script>
+
+            }

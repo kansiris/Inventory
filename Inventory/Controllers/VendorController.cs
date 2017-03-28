@@ -119,14 +119,14 @@ namespace Inventory.Controllers
             return vendor;
         }
 
-        public List<Vendor> getcontactDetail(int company_Id)
+        public List<Vendor> getcontactDetail(DataTable dt)
         {
             //int company_Id = ViewBag.company_Id;
-            SqlDataReader value = VendorService.getcontactdetail(company_Id);
-            DataTable dt = new DataTable();
-            dt.Load(value);
+           // SqlDataReader value = VendorService.getcontactdetail(company_Id);
+            //DataTable dt = new DataTable();
+            //dt.Load(value);
             List<Vendor> contact = new List<Vendor>();
-            VendorService.getcontactdetail(company_Id);
+            //VendorService.getcontactdetail(company_Id);
 
             contact = (from DataRow row in dt.Rows
                        select new Vendor()
@@ -135,7 +135,7 @@ namespace Inventory.Controllers
                            Contact_PersonFname = row["Contact_PersonFname"].ToString(),
                            Contact_PersonLname = row["Contact_PersonLname"].ToString(),
                            emailid = row["emailid"].ToString()
-                       }).ToList();
+                       }).OrderByDescending(m => m.Vendor_Id).ToList();
             return contact;
         }
 
@@ -349,23 +349,25 @@ namespace Inventory.Controllers
                           string emailid, string Adhar_Number, string Job_position)
         {
             company_Id = getMaxCompanyID();
+            ViewBag.id = company_Id;
             List<Vendor> contact = new List<Vendor>();
-            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            var data = VendorService.VendorInsertRow(company_Id , Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             if (data > 0)
             {
+                //ViewBag.sample = "1";
                 //SqlDataReader value = VendorService.getcontactdetail(company_Id);
                 //DataTable dt = new DataTable();
                 //dt.Load(value);
                 //  var data2 = VendorService.getcontactdetail(company_Id);
-                 //List<Vendor> _List = new List<Vendor>();
+                //List<Vendor> _List = new List<Vendor>();
                 //while (data2.Read())
                 //{
                 //    _List.Add(new Vendor() { Contact_PersonFname = data2["Contact_PersonFname"].ToString(), Contact_PersonLname = data2["Contact_PersonLname"].ToString(), emailid = data2["emailid"].ToString(), Vendor_Id = data2["Vendor_Id"].ToString()});
-                 //}
+                //}
 
                 //return Json(_List, JsonRequestBehavior.AllowGet);
-                               
-                return Json("sucess", JsonRequestBehavior.AllowGet);
+
+                return Json("sucess", company_Id.ToString());
 
             }
                 return Json("unique", JsonRequestBehavior.AllowGet);
@@ -384,26 +386,18 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        [ChildActionOnly]
-        public PartialViewResult vendorcontact()
+       
+        public PartialViewResult VendorContact(string companyId)
         {
-            int company_Id = getMaxCompanyID();
-            SqlDataReader value = VendorService.getcontactdetail(company_Id);
-            DataTable dt = new DataTable();
-             List<Vendor> contact = new List<Vendor>();
-            contact = (from DataRow row in dt.Rows
-                       select new Vendor()
-                       {
-                           Vendor_Id = row["Vendor_Id"].ToString(),
-                           Contact_PersonFname = row["Contact_PersonFname"].ToString(),
-                           Contact_PersonLname = row["Contact_PersonLname"].ToString(),
-                           emailid = row["emailid"].ToString()
-                       }).ToList();
-            ViewBag.contact = contact;
-            return PartialView("vendorcontact", ViewBag);
-
+            // string id = getMaxCompanyID().ToString();
+            //var records = VendorService.getcontactdetail(int.Parse(id));
+            // var dt = new DataTable();
+            // dt.Load(records);
+            // ViewBag.records = getcontactDetail(dt);
+            // ViewBag.id = id;
+            //return PartialView("VendorRecords", ViewBag.records);
+            return PartialView("VendorRecords",null);
         }
-
     }
 
 }
