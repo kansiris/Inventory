@@ -123,7 +123,8 @@ namespace Inventory.Controllers
             }
             if (command == "updatestaff")
             {
-                //count = LoginService.UpdateStaff(int.Parse(id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position);
+                count = LoginService.UpdateStaff(int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position);
+                return Json("staffupdated");
             }
             if (count > 0)
                 return Json("success");
@@ -147,7 +148,8 @@ namespace Inventory.Controllers
                 var dt = new DataTable();
                 dt.Load(record);
                 var data = StaffDetails(dt);
-                return Json( JsonConvert.SerializeObject(data));
+                return Json(data.FirstOrDefault());
+                //return Json( JsonConvert.SerializeObject(data));
             }
             return Json("unique");
         }
