@@ -773,6 +773,7 @@
                     else if(response == 'staffadded')
                     {
                         $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        $('input[id^=Item4]').val('');
                         alert("User Added SuccessFully!!!");
                     }
                     else if (response == 'staffupdated') {
