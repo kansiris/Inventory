@@ -73,8 +73,8 @@
                 <div class="col-md-12 form-title">Warehouse Information</div>
                 <div class="col-md-6">
                     <div class="row">
-                       @if (ViewBag.Warehouse != null)
-                       {
+                        @if (ViewBag.Warehouse != null)
+                        {
                             <div class="form-group col-md-4">
                                 @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
                             </div>
@@ -82,17 +82,17 @@
 
                                 @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
                             </div>
-                       }
-                       else
-                       {
-                        <div class="form-group col-md-4">
-                            @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="form-group col-md-4">
+                                @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
+                            </div>
                             <div class="form-group col-md-5">
 
                                 @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
                             </div>
-                       }
+                        }
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -100,18 +100,18 @@
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editwh(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
-                    
-                   
-                        
+
+
+
                 </div>
                 <div id="addinfo"><a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a></div>
-                <div class="col-md-3 col-md-push-3">
-                    <div class="top-button">
-                        <input type="file">
-                        <span>W</span>
-                    </div>
-                    <div>Upload warehouse Logo</div>
-                </div>
+                @*<div class="col-md-3 col-md-push-3">
+                        <div class="top-button">
+                            <input type="file">
+                            <span>W</span>
+                        </div>
+                        <div>Upload warehouse Logo</div>
+                    </div>*@
             </div>
             <div class="row" id="wh-information1">
                 <!--------- Tab Section START ------------>
@@ -122,6 +122,7 @@
                                 <li><a data-content="address" class="selected" href="#0">Address</a></li>
                                 <li><a data-content="contactperson" href="#0">Contact Person</a></li>
                                 <li><a data-content="notes" href="#0">Notes</a></li>
+                                <li><a data-content="Gallery" href="#0">Gallery</a></li>
                             </ul>
                             <!-- cd-tabs-navigation -->
                         </nav>
@@ -201,32 +202,32 @@
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                               
+
                                                 <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
                                             </div>
 
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                               
+
                                                 <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                               
+
                                                 <input type="text" class="form-control" name="Phone" placeholder="Phone" id="Phone">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            
+
                                             <input type="text" class="form-control" name="EmailId" id="EmailId" placeholder="Email" onchange="check()">
                                         </div>
                                     </div>
                                     <div class="row">
 
                                         <div class="form-group col-md-6">
-                                            
+
                                             <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
                                             <div class="display-positions">
                                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
@@ -245,27 +246,27 @@
                                         <div class="row positions"></div>
                                     </div>
                                 </div>
-                    
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-default pull-right" id= "wh-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                            <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
-                        </div>
-                    </div>
-                   @*--------------------------------contactinfo table-----------------------------------------------*@
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="wh-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
+                                    </div>
+                                </div>
+                                @*--------------------------------contactinfo table-----------------------------------------------*@
                                 <div class="row" id="contactdiv">
                                     <div class="col-md-12 table-responsive table-hover">
                                         <table class="table" id="contacttable">
                                             <thead class="thead-inverse">
                                                 <tr>
-                                                   
+
                                                     <th>First Name</th>
-                                                  
+
                                                     <th>Mobile Number</th>
                                                     <th>E-Mail</th>
-                                                    
-                                                    
+
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -275,15 +276,15 @@
                                                     <tr>
                                                         @*<th scope="row">1</th>*@
                                                         <td>@item.conperson</td>
-                                                        
+
                                                         <td>@item.Mobile</td>
                                                         <td>@item.Email</td>
-                                                        
+
                                                         <td>
                                                             <div class="btn-group">
                                                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li> <a href="#"  onclick="getEditContactDetails(@item.wh_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
+                                                                    <li> <a href="#" onclick="getEditContactDetails(@item.wh_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
                                                                     <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
                                                                 </ul>
                                                             </div>
@@ -295,43 +296,53 @@
                                         </table>
                                     </div>
                                 </div>
-                    </li>
+                            </li>
 
-                    <li data-content="notes">
-                        <div class="row">
-                            <div class="col-md-12">
-
+                            <li data-content="notes">
                                 <div class="row">
-                                    <div class="form-group col-md-12">
-                                        @*<textarea class="form-control" rows="5" id="comment" placeholder="Notes"></textarea>*@
-                                        <textarea class="form-control" rows="5" placeholder="Notes" id="Note" name="Note"></textarea>
+                                    <div class="col-md-12">
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                @*<textarea class="form-control" rows="5" id="comment" placeholder="Notes"></textarea>*@
+                                                <textarea class="form-control" rows="5" placeholder="Notes" id="Note" name="Note"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-default pull-right" id="btnclosenote"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                                <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatewhnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
-                            </div>
-                        </div>
-                    </li>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="btnclosenote"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatewhnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-content="Gallery">
+
+                                <div align="center">
+                                    <div class="top-button">
+                                        <input type="file">
+                                        <span>W</span>
+                                    </div>
+                                    <div>Upload warehouse Logo</div>
+                                </div>
+                            </li>
 
 
 
 
-                    </ul>
-                    <!-- cd-tabs-content -->
+                        </ul>
+                        <!-- cd-tabs-content -->
+                    </div>
+                    <!-- cd-tabs -->
+
                 </div>
-                <!-- cd-tabs -->
 
+                <!--------- Tab Section END ------------>
             </div>
-
-            <!--------- Tab Section END ------------>
+        </form>
     </div>
-    </form>
-</div>
 </div>
 
 
@@ -349,11 +360,11 @@
     <script src="~/Scripts/validations.js"></script>
     @*<script src="jquery.js"></script>*@
     <script>
-      
+
         $("#add-wh").click(function () {
             $("#wh-information").css("display", "block");
             $("#contacttable").css("display", "none");
-           
+
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
             $("#addinfo").hide();
         });
@@ -379,10 +390,10 @@
             $(".contactperson input").val("");
         });
 
-       
+
     </script>
     <script>
-       
+
         $("input[type='checkbox']").change(function () {
             if ($("input[type='checkbox']").is(':checked')) {
                 $("[id='ship_street']").val($("[id='bill_street']").val());
@@ -435,7 +446,7 @@
 
 
             $(".cd-tabs").css("display", "none");
-           
+
             $("#additon").click(function () {
                 $(".cd-tabs").css("display", "block");
             });
@@ -450,7 +461,7 @@
                 $("#clone-content").clone().appendTo(v);
             }
         });
-        </script>
+    </script>
     <script>
         function textval() {
             $(".display-positions .positions1").click(function () {
@@ -580,17 +591,17 @@
         //}
 
         //delete warehouse
-        function deletewhdtls(id){
+        function deletewhdtls(id) {
             alert(id);
             $.ajax({
-                url: '/Warehouse/deletewarehouse?wh_Id=' +id  ,
+                url: '/Warehouse/deletewarehouse?wh_Id=' + id,
                 type: 'POST',
-                data: JSON.stringify({ wh_Id:id }),
+                data: JSON.stringify({ wh_Id: id }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
                     if (data == "success") {
-                        
+
                         alert("Warehouse Deleted sucessfully");
                     }
                     else {
@@ -800,15 +811,15 @@
             $('#updatecontact').click(function () {
                 $('#additional').css('display', 'none');
             });
-            var warehouse ={
-                wh_id : $('#wh_Id').val(),
-            conperson : $('#Contact_PersonFname').val(),
-            Phone: $('#Phone').val(),
-            Mobile : $('#Mobile_No').val(),
-            Email : $('#EmailId').val(),
-            Job_position : $('#Job_position').val(),
+            var warehouse = {
+                wh_id: $('#wh_Id').val(),
+                conperson: $('#Contact_PersonFname').val(),
+                Phone: $('#Phone').val(),
+                Mobile: $('#Mobile_No').val(),
+                Email: $('#EmailId').val(),
+                Job_position: $('#Job_position').val(),
             }
-            
+
             //wh_Id = $('#wh_Id').val();
             //Contact_PersonFname = $('#Contact_PersonFname').val();
             //Phone= $('#Phone').val();
@@ -817,9 +828,9 @@
             //Job_position = $('#Job_position').val();
             if (clickedvalue == 'savecontact') {
                 $.ajax({
-                    url: '/Warehouse/insertwhcontact?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId +  '&Job_position=' + Job_position,
+                    url: '/Warehouse/insertwhcontact?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' + Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId + '&Job_position=' + Job_position,
                     type: 'POST',
-                    data: JSON.stringify({ wh_id, Contact_PersonFname,Phone, Mobile_No, EmailId , Job_position }),
+                    data: JSON.stringify({ wh_id, Contact_PersonFname, Phone, Mobile_No, EmailId, Job_position }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
@@ -840,7 +851,7 @@
                 $.ajax({
                     url: '/Warehouse/updatewhcontact',  //?wh_Id=' + wh_Id + '&Contact_PersonFname=' + Contact_PersonFname + '&Phone=' +Phone + '&Mobile_No=' + Mobile_No + '&EmailId=' + EmailId +  '&Job_position=' + Job_position,
                     type: 'POST',
-                    data:  JSON.stringify({warehouse:warehouse}), //JSON.stringify({ wh_Id, Contact_PersonFname,Phone, Mobile_No, EmailId , Job_position }),
+                    data: JSON.stringify({ warehouse: warehouse }), //JSON.stringify({ wh_Id, Contact_PersonFname,Phone, Mobile_No, EmailId , Job_position }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
@@ -857,8 +868,8 @@
                 });
             }
         }
-       </script>
-    
+    </script>
+
 }
 
 
