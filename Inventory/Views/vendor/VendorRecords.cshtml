@@ -1,9 +1,7 @@
-﻿
-<div class="row" id="contactdiv">
+﻿@if (ViewBag.records != null)
+{
+<div class="row">
     <div class="col-md-12 table-responsive table-hover">
-
-        @if (ViewBag.contact != null && ViewBag.contact != "")
-        {
         <table class="table" id="contacttable">
             <thead class="thead-inverse">
                 <tr>
@@ -16,7 +14,7 @@
             </thead>
             <tbody>
                 
-                @foreach (var item in ViewBag.contact)
+                @foreach (var item in ViewBag.records)
                 {
                     <tr>
                        <td>@item.Vendor_Id</td>
@@ -27,8 +25,8 @@
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu">
-                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit ContactPerson</a> </li>
-                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete ContactPerson</a> </li>
+                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
+                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
                                 </ul>
                             </div>
                         </td>
@@ -36,6 +34,7 @@
                 }
             </tbody>
         </table>
-        }
+      
     </div>
 </div>
+}
