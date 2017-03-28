@@ -583,24 +583,23 @@ function updateContact(clickedvalue) {
             data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
             dataType: 'json',
             contentType: 'application/json',
-            success: function (json) {
-                if (json == "unique") {
+            success: function (data) {
+                if (data == "unique") {
                     alert("not saved");
                 }
                 else {
                     $('#savebutton').hide();
-                    //$("#vendorcontact").html(data);
-                    alert(json);
-                    var tr;
-                    //for (var i = 0; i < json.length; i++) {
-                        alert("hi");
-                        tr = $('<tr/>');
-                       tr.append("<td>" + json.Vendor_Id + "</td>");
-                        tr.append("<td>" + json.Contact_PersonFname + "</td>");
-                        tr.append("<td>" + json.Contact_PersonLname + "</td>");
-                       tr.append("<td>" + json.emailid + "</td>");
-                       $('contacttable').append(tr);
-                    //}
+                    alert(data);
+                    //$.each(data, function (i, value) {
+                    //    //Create new row for each record
+                    //    var row = $("<tr></tr>").appendTo('#contacttable');
+                    //    $("<td></td>").text(value.Vendor_Id).appendTo(row);
+                    //    $("<td></td>").text(value.Contact_PersonFname).appendTo(row);
+                    //    $("<td></td>").text(value.Contact_PersonLname).appendTo(row);
+                    //    $("<td></td>").text(value.emailid).appendTo(row);
+                    //    $("<td></td>").text(value.emailid).appendTo(row);
+                    //});
+                    
                     alert("Contact Details saved sucessfully");
                 }
             },

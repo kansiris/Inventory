@@ -356,42 +356,18 @@ namespace Inventory.Controllers
                 //SqlDataReader value = VendorService.getcontactdetail(company_Id);
                 //DataTable dt = new DataTable();
                 //dt.Load(value);
-                
-                var data2 = VendorService.getcontactdetail(company_Id);
+                //  var data2 = VendorService.getcontactdetail(company_Id);
+                 //List<Vendor> _List = new List<Vendor>();
+                //while (data2.Read())
+                //{
+                //    _List.Add(new Vendor() { Contact_PersonFname = data2["Contact_PersonFname"].ToString(), Contact_PersonLname = data2["Contact_PersonLname"].ToString(), emailid = data2["emailid"].ToString(), Vendor_Id = data2["Vendor_Id"].ToString()});
+                 //}
 
-                //contact = (from DataRow row in dt.Rows
-                //           select new Vendor()
-                //           {
-                //               Vendor_Id = row["Vendor_Id"].ToString(),
-                //               Contact_PersonFname = row["Contact_PersonFname"].ToString(),
-                //               Contact_PersonLname = row["Contact_PersonLname"].ToString(),
-                //               emailid = row["emailid"].ToString()
-                //           }).ToList();
-                //return (contact, JsonRequestBehavior.AllowGet);
-                string json = null;
-                Vendor vs1 = new Vendor();
-                while(data2.Read())
-                {
-                    vs1.Contact_PersonFname = data2["Contact_PersonFname"].ToString();
-                    vs1.Contact_PersonLname = data2["Contact_PersonLname"].ToString();
-                    vs1.emailid = data2["emailid"].ToString();
-                    vs1.Vendor_Id = data2["Vendor_Id"].ToString();
-                    json = JsonConvert.SerializeObject(vs1);
-                }
-                
-                return Json(json);
+                //return Json(_List, JsonRequestBehavior.AllowGet);
+                               
+                return Json("sucess", JsonRequestBehavior.AllowGet);
 
-                    //    ViewBag.company_Id = company_Id;
-                    //ViewBag.Contact_PersonFname = Contact_PersonFname;
-                    //ViewBag.Contact_PersonLname = Contact_PersonLname;
-                    //ViewBag.Mobile_No = Mobile_No;
-                    //ViewBag.emailid = emailid;
-                    //ViewBag.Adhar_Number = Adhar_Number;
-                    //ViewBag.Job_position = Job_position;
-                    //vendorcontact();
-                    //return Json("sucess", JsonRequestBehavior.AllowGet);
-                   
-                }
+            }
                 return Json("unique", JsonRequestBehavior.AllowGet);
             
         }
