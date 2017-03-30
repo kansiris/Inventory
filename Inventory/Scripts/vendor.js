@@ -298,6 +298,8 @@ function getEditDetails(id) {
             }
             else {
                 var array = JSON.parse(data);
+                var url = 'Vendor/VendorContact?id=' + array.company_Id + '';
+                $('#vendorrecords').load(url);
                 editFunction(array);
             }
         },
@@ -358,10 +360,11 @@ function editcompany(clickedvalue) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                if (data == "sucess") {
+                if (data.Result == "sucess") {
                     $('#savebutton').hide();
-                    //$('#company1').load('@Url.Action("savecompany", "Vendor")');
-                    //location.reload();
+                    alert(data.Result);
+                    $('#company_Id').val(data.ID);
+                   // alert(company_Id);
                     $("#vendortable").load(" #vendortable");
                     alert("company saved sucessfully");
                     }
@@ -565,77 +568,82 @@ function updatecompanynote(clickedvalue) {
 }
 
 
-//function updateContact(clickedvalue) {
-//    //alert(clickedvalue);
-//    $('#updatecontact').click(function () {
-//        $('#company').css('display', 'none');
-//    });
-//    $('#updatecontact').click(function () {
-//        $('#additional').css('display', 'none');
-//    });
-//    company_Id = $('#company_Id').val();
-//    //alert(company_Id);
-//    Contact_PersonFname = $('#Contact_PersonFname').val();
-//    Contact_PersonLname = $('#Contact_PersonLname').val();
-//    Mobile_No = $('#Mobile_No').val();
-//    emailid = $('#emailid').val();
-//    Adhar_Number = $('#Adhar_Number').val();
-//    Job_position = $('#Job_position').val();
-//    if (clickedvalue == 'savecontact') {
-//        $.ajax({
-//            url: '/Vendor/savecontactdetails',
-//            type: 'POST',
-//            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
-//            dataType: 'json',
-//            contentType: 'application/json',
-//            success: function (data) {
-//                if (data == "unique") {
-//                    alert("not saved");
-//                }
-//                else if (data == "sucess") {
-//                    $('#savebutton').hide();
-//                    alert(data);
-//                    //$.each(data, function (i, value) {
-//                    //    //Create new row for each record
-//                    //    var row = $("<tr></tr>").appendTo('#contacttable');
-//                    //    $("<td></td>").text(value.Vendor_Id).appendTo(row);
-//                    //    $("<td></td>").text(value.Contact_PersonFname).appendTo(row);
-//                    //    $("<td></td>").text(value.Contact_PersonLname).appendTo(row);
-//                    //    $("<td></td>").text(value.emailid).appendTo(row);
-//                    //    $("<td></td>").text(value.emailid).appendTo(row);
-//                    //});
-                    
-//                    alert("Contact Details saved sucessfully");
-//                }
-//                else if (data == "vendorrecords") {
-//                    alert(data);
-//                    $('#vendorrecords').load(calling());
-//                    alert("contact Added SuccessFully!!!");
-//                }
-//            },
-//            error: function (json)
-//            { alert("Failed!!!"); }
-//        });
-//    }
-//    if (clickedvalue == 'updatecontact') {
-//        $.ajax({
-//            url: '/Vendor/savecontactdetails',
-//            type: 'POST',
-//            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
-//            dataType: 'json',
-//            contentType: 'application/json',
-//            success: function (data) {
-//                if (data == "sucess") {
-//                    $('#savebutton').hide();
-//                    alert("Contact Details updated sucessfully");
-//                }
-//                else {
-//                    alert("not updated");
-//                }
-//            },
-//            error: function (data)
-//            { alert("Failed!!!"); }
-//        });
-//    }
+function updateContact(clickedvalue) {
+    //alert(clickedvalue);
+    $('#updatecontact').click(function () {
+        $('#company').css('display', 'none');
+    });
+    $('#updatecontact').click(function () {
+        $('#additional').css('display', 'none');
+    });
+    company_Id = $('#company_Id').val();
+    alert(company_Id);
+    Contact_PersonFname = $('#Contact_PersonFname').val();
+    Contact_PersonLname = $('#Contact_PersonLname').val();
+    Mobile_No = $('#Mobile_No').val();
+    emailid = $('#emailid').val();
+    Adhar_Number = $('#Adhar_Number').val();
+    Job_position = $('#Job_position').val();
+    if (clickedvalue == 'savecontact') {
+        $.ajax({
+            url: '/Vendor/savecontactdetails',
+            type: 'POST',
+            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    alert("not saved");
+                }
+                else {
+                    $('#savebutton').hide();
+                    company_Id = $('#company_Id').val();
+                    alert(company_Id);
+                    //var url = '@Url.Action("VendorContact", "Vendor", new {id="replaceToken"})';
+                    //url = url.replace("replaceToken", company_Id);
+                    var url = 'Vendor/VendorContact?id=' + company_Id + '';
+                    $('#vendorrecords').load(url);
+                    alert(url);
+                    //$('#vendorrecords').load(url);
+                    alert("Contact Details saved sucessfully");
+                    $("[id='Contact_PersonFname']").val("");
+                    $("[id='Contact_PersonLname']").val("");
+                    $("[id='Mobile_No']").val("");
+                    $("[id='emailid']").val("");
+                    $("[id='Adhar_Number']").val("");
+                    $("[id='Job_position']").val("");
 
-//}
+                }
+            },
+            error: function (json)
+            { alert("Failed!!!"); }
+        });
+    }
+    if (clickedvalue == 'updatecontact') {
+        $.ajax({
+            url: '/Vendor/savecontactdetails',
+            type: 'POST',
+            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "sucess") {
+                    $('#savebutton').hide();
+                    company_Id = $('#company_Id').val();
+                    alert(company_Id);
+                    var url = '@Url.Action("VendorContact", "Vendor", new {id="replaceToken"})';
+                    url = url.replace("replaceToken", company_Id);
+                    alert(url);
+                    $('#vendorrecords').load(url);
+                    alert("Contact Details updated sucessfully");
+                }
+                else {
+                    alert("not updated");
+                }
+            },
+            error: function (data)
+            { alert("Failed!!!"); }
+        });
+    }
+
+}

@@ -71,6 +71,10 @@ namespace Inventory.Service
         {
             return VendorRepository.getcompanyId();
         }
+        public static int getcompanyIdlatest()
+        {
+            return VendorRepository.getcompanyIdlatest();
+        }
         public static SqlDataReader getvendorId()
         {
             return VendorRepository.getvendorId();

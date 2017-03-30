@@ -73,7 +73,11 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateNotes", company_Id, Note);
             return count;
         }
-
+        public static int getcompanyIdlatest()
+        {
+            int count=SqlHelper.ExecuteNonQuery(ConnectionString, "getMaxCompanyid");
+            return count;
+        }
         public static SqlDataReader getcompanyId()
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getMaxCompanyid");
