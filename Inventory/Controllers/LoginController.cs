@@ -36,13 +36,16 @@ namespace Inventory.Controllers
             if (command == "Authenticate")
             {
                 SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
-                if (value.HasRows)
+                if (value.Read())
                 {
-                    return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
+                    int active = int.Parse(value["IsActive"].ToString());
+                    if (active > 0)
+                        return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
+                    return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
                 {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                     //ViewBag.invalid = "Confirm Your Email-ID then Login";
                 }
             }

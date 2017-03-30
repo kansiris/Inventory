@@ -90,15 +90,15 @@
 
                                             @if (item.company_logo != null)
                                             {
-                                                <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
-                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                            <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
+                                            <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;" />
                                             }
                                             else
                                             {
-                                                <div class="top-button">
-                                                    <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
-                                                    <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
-                                                </div>
+                                            <div class="top-button">
+                                                <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
+                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
+                                            </div>
                                             }
 
                                             <div>Upload Company Logo</div>
@@ -242,7 +242,8 @@
                                                     <div class="col-md-4 font-password"> Can Create Vendor </div>
                                                     <div class="col-md-4">
                                                         <label class="switch pull-right">
-                                                            <input type="checkbox" id="Vendor_Access">
+                                                            <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox"/>
+                                                            @*<input type="checkbox" id="Vendor_Access">*@
                                                             <div class="slider round"></div>
                                                         </label>
                                                     </div>
@@ -254,7 +255,8 @@
                                                     <div class="col-md-4 font-password"> Can Create Customer </div>
                                                     <div class="col-md-4">
                                                         <label class="switch pull-right">
-                                                            <input type="checkbox" id="Customer_Access">
+                                                            <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox" />
+                                                            @*<input type="checkbox" id="Customer_Access">*@
                                                             <div class="slider round"></div>
                                                         </label>
                                                     </div>
@@ -318,15 +320,15 @@
 
                                             @if (item.Profile_Picture != null)
                                             {
-                                                <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
-                                                <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                            <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
+                                            <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
                                             }
                                             else
                                             {
-                                                <div class="top-button">
-                                                    <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
-                                                    <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
-                                                </div>
+                                            <div class="top-button">
+                                                <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
+                                                <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
+                                            </div>
                                             }
 
                                             <div>Upload New Pic</div>
@@ -682,7 +684,7 @@
     <!------ Image Upload ------>
 
 
-<script>
+    <script>
         function AssignStaff(staffid) {
             $.ajax({
                 url: '/UserProfile/GetParticularStaff?id='+staffid+'&&command=particular',
@@ -695,6 +697,7 @@
                     }
                     else {
                         $('#btnupdatestaff').show();
+                        $('#btnaddstaff').hide();
                         $('#Item4_Staff_Id').val(staffid);
                         $('#Item4_First_Name').val(data.First_Name);
                         $('#Item4_Last_Name').val(data.Last_Name);
@@ -719,7 +722,7 @@
                 }
             });
         }
-</script>
+    </script>
 
     <script>
         function updatevales(val) {
@@ -773,11 +776,15 @@
                     else if(response == 'staffadded')
                     {
                         $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        $('input[id^=Item4]').val('');
                         alert("User Added SuccessFully!!!");
                     }
                     else if (response == 'staffupdated') {
                         $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        $('input[id^=Item4]').val('');
                         alert("User Updated SuccessFully!!!");
+                        $('#btnupdatestaff').hide();
+                        $('#btnaddstaff').show();
                     }
                     else {
                         alert("Failed To Update Profile");
@@ -789,8 +796,5 @@
             });
         }
     </script>
-
-    
-    
 }
 
