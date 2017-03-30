@@ -353,8 +353,6 @@
                             </div>
                             <div class="form-group col-md-5">
 
-                                @*@Html.TextBoxFor(model => model.Email, new{@class = "popinputbox",placeholder = "Email",required = "required",type = "email"})*@
-
                                 @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", id = "Email", required = "required", @class = "form-control" })
                             </div>
                         }
@@ -363,7 +361,6 @@
                         <div class="col-md-12">
                             <button type="button" class="btn btn-default pull-right" id="vendor-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editcompany(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
-                           @* <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="updatevendor(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>*@
                         </div>
                     </div>
                     <a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a>
@@ -514,51 +511,15 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information2-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                         <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="updateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
-                                @*@if (ViewBag.sample != null&& ViewBag.sample != "")
-                                {*@
+                                
                                     <div id="vendorrecords">
                                         @{ Html.RenderAction("VendorContact", "Vendor");}
                                     </div>
-                                @*}*@
-
-                                            @*<div>
-                                                    @{ Html.RenderPartial("vendorcontact","Vendor");}
-                                                </div>*@
-                                            @*<div class="row" id="contactdiv">
-                                                <div class="col-md-12 table-responsive table-hover">
-                                                    <table class="table" id="contacttable">
-                                                        <thead class="thead-inverse">
-                                                            <tr>
-                                                                <th>Id</th>
-                                                                <th>First Name</th>
-                                                                <th>Last Name</th>
-                                                                <th>E-Mail</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        @*<tbody>
-                                                                <tr>*@
-
-                                            @*<div id="actionele" class="btn-group">
-                                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                    <ul class="dropdown-menu">
-                                                        <li> <a href="#" onclick="getEditContactDetails()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit ContactPerson</a> </li>
-                                                        <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete ContactPerson</a> </li>
-                                                    </ul>
-                                                </div>*@
-                                            @*</td>
-                                                             </tr>
-                                                </tbody>*@
-                                            @*</table>
-                                                    </div>
-                                                </div>*@
-
                                         </li>
-
                             <li data-content="details">
                                 <div class="row">
                                     <div class="col-md-8">
@@ -587,7 +548,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                         <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
                                     </div>
                                 </div>
@@ -606,7 +567,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information4-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                         <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatecompanynote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
                                     </div>
                                 </div>
@@ -625,77 +586,7 @@
                 </div>
             </div>
             <!-- /page content -->
-            <script>
-                function updateContact(clickedvalue) {
-                    //alert(clickedvalue);
-                    $('#updatecontact').click(function () {
-                        $('#company').css('display', 'none');
-                    });
-                    $('#updatecontact').click(function () {
-                        $('#additional').css('display', 'none');
-                    });
-                    company_Id = $('#company_Id').val();
-                    //alert(company_Id);
-                    Contact_PersonFname = $('#Contact_PersonFname').val();
-                    Contact_PersonLname = $('#Contact_PersonLname').val();
-                    Mobile_No = $('#Mobile_No').val();
-                    emailid = $('#emailid').val();
-                    Adhar_Number = $('#Adhar_Number').val();
-                    Job_position = $('#Job_position').val();
-                    if (clickedvalue == 'savecontact') {
-                        $.ajax({
-                            url: '/Vendor/savecontactdetails',
-                            type: 'POST',
-                            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            success: function (data) {
-                                if (data == "unique") {
-                                    alert("not saved");
-                                }
-                                else {
-                                    $('#savebutton').hide();
-                                    alert(data.company_Id);
-                                    var url = '@Url.Action("VendorContact", "Vendor", new {id="replaceToken"})';
-                                    url = url.replace("replaceToken", company_Id);
-                                    $('#vendorrecords').load(url);
-                                    alert("Contact Details saved sucessfully");
-                                }
-                                @*else if (data == "vendorrecords") {
-                        alert(data);
-                        $('#vendorrecords').load("@Url.Action("VendorContact", "Vendor", new { id = Request.QueryString["company_Id"] })");
-                        alert("contact Added SuccessFully!!!");
-                    }*@
-                            },
-                            error: function (json)
-                            { alert("Failed!!!"); }
-                        });
-                    }
-                    if (clickedvalue == 'updatecontact') {
-                        $.ajax({
-                            url: '/Vendor/savecontactdetails',
-                            type: 'POST',
-                            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            success: function (data) {
-                                if (data == "sucess") {
-                                    $('#savebutton').hide();
-                                    alert("Contact Details updated sucessfully");
-                                }
-                                else {
-                                    alert("not updated");
-                                }
-                            },
-                            error: function (data)
-                            { alert("Failed!!!"); }
-                        });
-                    }
-
-                }
-
-
-            </script>
+            
             @section scripts{
                 <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
                 <script src="~/Scripts/js/main.js"></script>
@@ -705,7 +596,7 @@
 
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Custom Theme Scripts -->edit
+   
     <script src="../build/js/custom.min.js"></script>
 
     <script src="~/Scripts/vendor.js"></script>
