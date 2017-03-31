@@ -25,8 +25,8 @@
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu">
-                                    <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
+                                    <li> <a href="#"  onclick="editcontactperson(@item.Vendor_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
+                                    <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
                                 </ul>
                             </div>
                         </td>
@@ -38,3 +38,57 @@
     </div>
 </div>
 }
+@*<script>
+    //vendor contatc details editing based on vendor id
+    function editcontactFunction(array) {
+        $('#Vendor_Id').val(array.Vendor_Id);
+        $('#Contact_PersonFname').val(array.Contact_PersonFname);
+        $('#Contact_PersonLname').val(array.Contact_PersonLname);
+        $('#Mobile_No').val(array.Mobile_No);
+        $('#emailid').val(array.emailid);
+        $('#Adhar_Number').val(array.Adhar_Number);
+        $('#Job_position').val(array.Job_position);
+    }
+    function editcontactperson(id) {
+        alert(id);
+        //$('#mySubmit').val("update").text("Update Company");
+        //$('#mySubmit1').val("updateaddress").text("Update Address");
+        //$('#bankid').val("updatebankdetails").text("Update Bank Details");
+        //$('#notebutton').val("updatenote").text("Update Note");
+        //$('#contactbutton').val("updatecontact").text("Update Contact");
+
+        //$('#btnedit').click(function () {
+        //    $('#company').css('display', 'none');
+        //});
+
+        $.ajax({
+            url: '/Vendor/getVendorContact?Vendor_Id=' + id,
+            type: 'POST',
+            data: JSON.stringify({ Vendor_Id: id }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    alert("sai");
+                }
+                else {
+                    var array = JSON.parse(data);
+                    //var url = 'Vendor/getVendorContact?id=' + array.Vendor_Id + '';
+                    //$('#vendorrecords').load(url);
+                    $('#Vendor_Id').val(array.Vendor_Id);
+                    $('#Contact_PersonFname').val(array.Contact_PersonFname);
+                    $('#Contact_PersonLname').val(array.Contact_PersonLname);
+                    $('#Mobile_No').val(array.Mobile_No);
+                    $('#emailid').val(array.emailid);
+                    $('#Adhar_Number').val(array.Adhar_Number);
+                    $('#Job_position').val(array.Job_position);
+                    //editcontactFunction(array);
+                }
+            },
+            error: function (data)
+            { alert("Failed!!!"); }
+        });
+
+    }
+
+</script>*@

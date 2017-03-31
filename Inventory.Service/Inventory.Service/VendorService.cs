@@ -33,10 +33,10 @@ namespace Inventory.Service
 
         #endregion
 
-        public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                       string emailid, string Adhar_Number, string Job_position)
         {
-            return VendorRepository.VendorUpdateContact(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            return VendorRepository.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
         }
         #region VendorAddressInsertRow
         public static int VendorAddressInsertRow(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
@@ -103,5 +103,21 @@ namespace Inventory.Service
 
             return VendorRepository.deleteRecord(company_Id);
         }
+        
+            public static int deleteVendor(string Vendor_Id)
+        {
+
+            return VendorRepository.deleteVendor(Vendor_Id);
+        }
+        public static SqlDataReader getVendorContact(string Vendor_Id)
+        {
+            return VendorRepository.getVendorContact(Vendor_Id);
+        }
+        //company pic upload
+        public static int updatecompanyprofile(int id, string companylogo)
+        {
+            return VendorRepository.updatecompanyprofile(id, companylogo);
+        }
+        
     }
 }

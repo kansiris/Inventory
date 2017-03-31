@@ -107,6 +107,7 @@ $(document).ready(function (e) {
                 }
             }
         }
+        
     });
     
     $(".top-button").each(function () {
@@ -264,6 +265,7 @@ function editFunction(array) {
             $('#Bank_Branch').val(array.Bank_Branch);
             $('#IFSC_No').val(array.IFSC_No);
             $('#Note').val(array.Note);
+            //$('#logo').val(array.logo);
             $('#Vendor_Id').val(array.Vendor_Id);
             $('#bill_city').val(array.bill_city);
             $('#bill_country').val(array.bill_country);
@@ -580,6 +582,8 @@ function updateContact(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     company_Id = $('#company_Id').val();
+    Vendor_Id = $('#Vendor_Id').val();
+    //alert(Vendor_Id);
     Contact_PersonFname = $('#Contact_PersonFname').val();
     Contact_PersonLname = $('#Contact_PersonLname').val();
     Mobile_No = $('#Mobile_No').val();
@@ -618,19 +622,24 @@ function updateContact(clickedvalue) {
     }
     if (clickedvalue == 'updatecontact') {
         $.ajax({
-            url: '/Vendor/savecontactdetails',
+            url: '/Vendor/updatecontactdetails',
             type: 'POST',
-            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
+            data: JSON.stringify({ Vendor_Id: Vendor_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
                     company_Id = $('#company_Id').val();
-                    var url = '@Url.Action("VendorContact", "Vendor", new {id="replaceToken"})';
-                    url = url.replace("replaceToken", company_Id);
+                    var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
                     alert("Contact Details updated sucessfully");
+                    $("[id='Contact_PersonFname']").val("");
+                    $("[id='Contact_PersonLname']").val("");
+                    $("[id='Mobile_No']").val("");
+                    $("[id='emailid']").val("");
+                    $("[id='Adhar_Number']").val("");
+                    $("[id='Job_position']").val("");
                 }
                 else {
                     alert("not updated");
@@ -642,3 +651,102 @@ function updateContact(clickedvalue) {
     }
 
 }
+//vendor contatc details editing based on vendor id
+
+function editcontactperson(id){
+    alert(id);
+    $('#contactbutton').val("updatecontact").text("Update Contact");
+    $.ajax({
+        url: '/Vendor/getVendorContact?Vendor_Id=' + id,
+        type: 'POST',
+        data: JSON.stringify({ Vendor_Id: id }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique") {
+                alert("sai");
+            }
+            else {
+                var array = JSON.parse(data);
+                $('#Vendor_Id').val(array.Vendor_Id);
+                $('#Contact_PersonFname').val(array.Contact_PersonFname);
+                $('#Contact_PersonLname').val(array.Contact_PersonLname);
+                $('#Mobile_No').val(array.Mobile_No);
+                $('#emailid').val(array.emailid);
+                $('#Adhar_Number').val(array.Adhar_Number);
+                $('#Job_position').val(array.Job_position);
+            }
+        },
+        error: function (data)
+        { alert("Failed!!!"); }
+    });
+
+}
+
+//vendor deleting
+
+function deleteVendor(id) {
+    alert(id);
+    var retVal = confirm("Do you want to delete record...!");
+    if (retVal == true) {
+        $.ajax({
+            url: '/Vendor/deleteVendor',
+            type: 'POST',
+            data: JSON.stringify({ Vendor_Id: id }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    alert("sai");
+                }
+                else {
+                    company_Id = $('#company_Id').val();
+                    var url = 'Vendor/VendorContact?id=' + company_Id + '';
+                    $('#vendorrecords').load(url);
+                    alert("Vendor Deleted sucessfully");
+                    //$("#vendortable").load(" #vendortable");
+                }
+            },
+            error: function (data)
+            { alert("Failed!!!"); }
+        });
+        return true;
+    }
+
+    else {
+        return false;
+    }
+}
+
+//<!------ Image Upload ------>
+       function upload() {
+           var ext = $('#fileupload').val().split('.').pop().toLowerCase();
+           company_Id = $('#company_Id').val();
+           alert(company_Id);
+           if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+               alert('Invalid File Type');
+           }
+           else {
+               var file = $("#fileupload").get(0).files;
+               //var id = @Request.QueryString["id"];
+               var data = new FormData();
+               var files = $("#fileupload").get(0).files;
+               if (files.length > 0) {
+                   data.append("helpSectionImages", files[0]);
+               }
+               $.ajax({
+                   url: '/Vendor/UpdateCompanyPic?company_Id=' + company_Id,
+                   type: "POST",
+                   processData: false,
+                   contentType: false,
+                   data: data,
+                   success: function (response) {
+                       $("#companypic").attr("src","data:image/;base64,"+response);
+                   },
+                   error: function (er) {
+                       alert("Failed To Upload Pic!!! Try Again");
+                   }
+               });
+           }
+       }
+   
