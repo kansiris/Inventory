@@ -21,28 +21,10 @@ namespace Inventory.Controllers
         // GET: Vendor
         public ActionResult Index()
         {
-            SqlDataReader value = VendorService.getcomapnies();
-            DataTable dt = new DataTable();
-            dt.Load(value);
-            List<Vendor> vendor = new List<Vendor>();
-            vendor = (from DataRow row in dt.Rows
-                      select new Vendor()
-                      {
-                          company_Id = int.Parse(row["company_Id"].ToString()),
-                          Company_Name = row["Company_Name"].ToString(),
-                          Email = row["Email"].ToString(),
-                          logo = row["logo"].ToString()
-                      }).OrderByDescending(m => m.company_Id).ToList();
-            ViewBag.records = vendor;
-            //ViewBag.country = new SelectList(CountryList(), "Value", "Text", vendor[0].country);
             ViewBag.vendor_Id = getMaxVendorID();
-
             return View();
         }
-
-
         //companypic upload
-
         [HttpPost]
         public ActionResult UpdateCompanyPic(HttpPostedFileBase helpSectionImages, string company_Id)
         {
@@ -53,7 +35,7 @@ namespace Inventory.Controllers
                 ImageConverter _imageConverter = new ImageConverter();
                 byte[] companypic = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
                 string base64String = Convert.ToBase64String(companypic);
-                int count = VendorService.updatecompanyprofile(int.Parse(company_Id), base64String);
+                //int count = VendorService.updatecompanyprofile(int.Parse(company_Id), base64String);
                 return Json(base64String);
             }
             return Json(JsonRequestBehavior.AllowGet);
@@ -148,13 +130,7 @@ namespace Inventory.Controllers
 
         public List<Vendor> getcontactDetail(DataTable dt)
         {
-            //int company_Id = ViewBag.company_Id;
-            // SqlDataReader value = VendorService.getcontactdetail(company_Id);
-            //DataTable dt = new DataTable();
-            //dt.Load(value);
             List<Vendor> contact = new List<Vendor>();
-            //VendorService.getcontactdetail(company_Id);
-
             contact = (from DataRow row in dt.Rows
                        select new Vendor()
                        {
@@ -199,7 +175,7 @@ namespace Inventory.Controllers
                     Bank_Name = data["Bank_Name"].ToString(),
                     IFSC_No = data["IFSC_No"].ToString(),
                     Note = data["Note"].ToString(),
-                    //logo=data["logo"].ToString(),
+                    logo=data["logo"].ToString(),
                     Contact_PersonFname = data["Contact_PersonFname"].ToString(),
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
                     emailid = data["emailid"].ToString(),
@@ -430,7 +406,6 @@ namespace Inventory.Controllers
         }
         public PartialViewResult VendorContact(string id)
         {
-            // string id = getMaxCompanyID().ToString();
             if (id == null)
             {
                 return PartialView("VendorRecords", null);
@@ -477,21 +452,24 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-
-
-        //Ramesh Sai Code
-        //public JsonResult UpdateVendor(Vendor vendor,string command)
-        //{
-        //    if (command == "Save")
-        //    {
-        //        var data = VendorService.CompanyInsertRow(vendor.Company_Name, vendor.Email);
-        //        if (data > 0)
-        //        {
-        //            return Json("companyadded");
-        //        }
-        //    }
-        //    return Json(JsonRequestBehavior.AllowGet);
-        //}
+        public PartialViewResult VendorCompany()
+        {
+            var records = VendorService.getcomapnies();
+            var dt = new DataTable();
+            dt.Load(records);
+            List<Vendor> vendor = new List<Vendor>();
+            vendor = (from DataRow row in dt.Rows
+                      select new Vendor()
+                      {
+                          company_Id = int.Parse(row["company_Id"].ToString()),
+                          Company_Name = row["Company_Name"].ToString(),
+                          Email = row["Email"].ToString(),
+                          logo = row["logo"].ToString()
+                      }).OrderByDescending(m => m.company_Id).ToList();
+            ViewBag.records = vendor;
+            return PartialView("VendorCompany", ViewBag.records);
+            }
+               
     }
 
 }
