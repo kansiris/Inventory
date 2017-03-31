@@ -85,5 +85,9 @@ namespace Inventory.Service
         {
             return WarehouseRepository.getwhcondtls(dbname, wh_id);
         }
+        public static int updatewhimage(string wh_id, string wh_image)
+        {
+            return WarehouseRepository.updatewhimage( wh_id, wh_image);
+        }
     }
 }

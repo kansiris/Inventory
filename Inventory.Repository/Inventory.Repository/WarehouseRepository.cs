@@ -94,6 +94,7 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhcontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
             return count;
         }
+
         public static int updatewhnotes(string dbname, string wh_id,string Note)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
@@ -138,6 +139,12 @@ namespace Inventory.Repository
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getwhcontactdtls", wh_id);
+        }
+
+        public static int updatewhimage(string wh_id,string wh_image)
+        {
+            
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhlogo", wh_id,wh_image);
         }
     }
 }
