@@ -90,15 +90,15 @@
 
                                             @if (item.company_logo != null)
                                             {
-                                            <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
-                                            <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
+                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;" />
                                             }
                                             else
                                             {
-                                            <div class="top-button">
-                                                <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
-                                                <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
-                                            </div>
+                                                <div class="top-button">
+                                                    <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
+                                                    <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
+                                                </div>
                                             }
 
                                             <div>Upload Company Logo</div>
@@ -234,34 +234,83 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div id="permissionsarea" style="visibility:hidden">
+                                                <div class="form-group col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-4 font-password"> Can Create Vendor </div>
+                                                        <div class="col-md-4">
+                                                            <label class="switch pull-right">
+                                                                <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox" />
+                                                                @*<input type="checkbox" id="Vendor_Access">*@
+                                                                <div class="slider round"></div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-4 font-password"> Can Create Customer </div>
+                                                        <div class="col-md-4">
+                                                            <label class="switch pull-right">
+                                                                <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox" />
+                                                                @*<input type="checkbox" id="Customer_Access">*@
+                                                                <div class="slider round"></div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div id="permissionsarea" style="visibility:hidden">
-                                            <div class="form-group col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-4 font-password"> Can Create Vendor </div>
-                                                    <div class="col-md-4">
-                                                        <label class="switch pull-right">
-                                                            <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox"/>
-                                                            @*<input type="checkbox" id="Vendor_Access">*@
-                                                            <div class="slider round"></div>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                        @*<div id="permissionsarea" style="visibility:hidden">
+                                                <div class="form-group col-md-3">
+                                                    <div class="row">
+                                                        <div class="col-md-4 font-password"> Can Create Vendor </div>
+                                                        <div class="col-md-4">
+                                                            <label class="switch pull-right">
+                                                                <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox"/>
 
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-4 font-password"> Can Create Customer </div>
-                                                    <div class="col-md-4">
-                                                        <label class="switch pull-right">
-                                                            <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox" />
-                                                            @*<input type="checkbox" id="Customer_Access">*@
-                                                            <div class="slider round"></div>
-                                                        </label>
+                                                                <div class="slider round"></div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <div class="row">
+                                                        <div class="col-md-4 font-password"> Can Create Customer </div>
+                                                        <div class="col-md-4">
+                                                            <label class="switch pull-right">
+                                                                <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox" />
+
+                                                                <div class="slider round"></div>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
+
+                                        @*<div id="userpicarea">
+                                                <div class="form-group col-md-3">
+                                                    <div class="row">
+                                                        <div class="col-md-4 font-password"> Can Create Vendor </div>
+                                                        <div class="col-md-4">
+                                                            <label class="switch pull-right">
+                                                                <input id="Item4.Vendor_Access" name="Item4.Vendor_Access" type="checkbox" />
+
+                                                                <div class="slider round"></div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>*@
+
+                                        <div class="col-md-3 col-md-push-3">
+                                            <input type="file" name="file" id="fileupload2" accept=".gif, .jpeg, .png" onchange="upload2()" style="display:none">
+                                            <img id="staffprofilepic" onclick="javascript: document.getElementById('fileupload2').click();" src="~/images/user.png" style="border-radius: 50%;width: 100px;height: 100px;" />
+                                            <div>Upload New Pic</div>
                                         </div>
 
                                     </div>
@@ -320,15 +369,15 @@
 
                                             @if (item.Profile_Picture != null)
                                             {
-                                            <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
-                                            <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
+                                                <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />
                                             }
                                             else
                                             {
-                                            <div class="top-button">
-                                                <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
-                                                <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
-                                            </div>
+                                                <div class="top-button">
+                                                    <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
+                                                    <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
+                                                </div>
                                             }
 
                                             <div>Upload New Pic</div>
@@ -576,6 +625,7 @@
     <!-- Toogle Function -->
     <script type="text/javascript">
         $(document).ready(function () {
+            Pagination();
             $("#checkbox1").val($(this).is(':checked'));
             $("#allowaccess").val($(this).is(':checked'));
 
@@ -624,7 +674,6 @@
                 alert('Invalid File Type');
             }
             else {
-                var file = $("#fileupload").get(0).files;
                 var id = @Request.QueryString["id"];
                 var data = new FormData();
                 var files = $("#fileupload").get(0).files;
@@ -681,6 +730,72 @@
         }
     </script>
 
+    @*<script>
+        function upload2() {
+            var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('Invalid File Type');
+            }
+            else {
+                var id =$('#Item4_Staff_Id').val();
+                var data = new FormData();
+                var files = $("#fileupload2").get(0).files;
+                if (files.length > 0) {
+                    data.append("helpSectionImages", files[0]);
+                }
+                $.ajax({
+                    url: '/UserProfile/UpdateStaffProfilePic?id='+id,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        $("#staffprofilepic").attr("src","data:image/;base64,"+response);
+                        $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        alert("Pic Uploaded");
+                        Pagination();
+                    },
+                    error: function (er) {
+                        alert("Failed To Upload Pic!!! Try Again");
+                    }
+                });
+            }
+        }
+    </script>*@
+
+<script>
+        function upload2() {
+            var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('Invalid File Type');
+            }
+            else {
+                var id =$('#Item4_Staff_Id').val();
+                var data = new FormData();
+                var files = $("#fileupload2").get(0).files;
+                if (files.length > 0) {
+                    data.append("helpSectionImages", files[0]);
+                }
+                $.ajax({
+                    url: '/UserProfile/UpdateStaffProfilePic?id='+id,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        $("#staffprofilepic").attr("src","data:image/;base64,"+response);
+                        //$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        //alert("Pic Uploaded");
+                        //Pagination();
+                    },
+                    error: function (er) {
+                        alert("Failed To Upload Pic!!! Try Again");
+                    }
+                });
+            }
+        }
+</script>
+
     <!------ Image Upload ------>
 
 
@@ -713,8 +828,10 @@
                             $('#allowaccess').prop('checked', false);
                             $("#permissionsarea").css("visibility", "hidden");
                         }
-                        //var resetbutton = document.getElementById('btnupdatestaff').style.display;
-                        //alert(resetbutton);
+                        if(data.UserPic != '')
+                            $("#staffprofilepic").attr("src","data:image/;base64,"+data.UserPic);
+                        else
+                            $("#staffprofilepic").attr("src","/images/user.png");
                     }
                 },
                 error: function (er) {
@@ -760,6 +877,7 @@
                 Job_position:$('#Item4_Job_position').val(),
                 Vendor_Access:$('#Vendor_Access').val(),
                 Customer_Access:$('#Customer_Access').val(),
+                UserPic: $('#staffprofilepic').attr('src').replace('data:image/;base64,',''),
             }
 
             $.ajax({
@@ -776,12 +894,16 @@
                     else if(response == 'staffadded')
                     {
                         $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        Pagination();
                         $('input[id^=Item4]').val('');
+                        $("#staffprofilepic").attr("src","/images/user.png");
                         alert("User Added SuccessFully!!!");
                     }
                     else if (response == 'staffupdated') {
                         $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        Pagination();
                         $('input[id^=Item4]').val('');
+                        $("#staffprofilepic").attr("src","/images/user.png");
                         alert("User Updated SuccessFully!!!");
                         $('#btnupdatestaff').hide();
                         $('#btnaddstaff').show();
@@ -795,6 +917,32 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        function Pagination() {
+            $('#contacttable').after('<div id="nav"></div>');
+            var rowsShown = 3;
+            var rowsTotal = $('#contacttable tbody tr').length;
+            var numPages = rowsTotal / rowsShown;
+            for (i = 0; i < numPages; i++) {
+                var pageNum = i + 1;
+                $('#nav').append('<a class="btn btn-success" rel="' + i + '">' + pageNum + '</a> ');
+            }
+            $('#contacttable tbody tr').hide();
+            $('#contacttable tbody tr').slice(0, rowsShown).show();
+            $('#nav a:first').addClass('active');
+            $('#nav a').bind('click', function () {
+
+                $('#nav a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('#contacttable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+                        css('display', 'table-row').animate({ opacity: 1 }, 300);
+            });
+        };
     </script>
 }
 

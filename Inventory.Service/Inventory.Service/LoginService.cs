@@ -138,16 +138,16 @@ namespace Inventory.Service
 
 
         #region Create Staff
-        public static int CreateStaff(int ownerid, string firstname, string lastname, long mobile, string email, int vendoraccess, int customeraccess, string jobposition)
+        public static int CreateStaff(int ownerid, string firstname, string lastname, long mobile, string email, int vendoraccess, int customeraccess, string jobposition, string userpic)
         {
-            return LoginRepository.CreateStaff(ownerid, firstname, lastname, mobile, email, vendoraccess, customeraccess, jobposition);
+            return LoginRepository.CreateStaff(ownerid, firstname, lastname, mobile, email, vendoraccess, customeraccess, jobposition,userpic);
         }
         #endregion
 
         #region Update Staff
-        public static int UpdateStaff(int staffid, string firstname, string lastname, long mobile, string email,  int vendoraccess, int customeraccess, string jobposition)
+        public static int UpdateStaff(string type,int staffid, string firstname, string lastname, long mobile, string email,  int vendoraccess, int customeraccess, string jobposition,string userpic)
         {
-            return LoginRepository.UpdateStaff(staffid,  firstname, lastname, mobile, email, vendoraccess, customeraccess, jobposition);
+            return LoginRepository.UpdateStaff(type,staffid,  firstname, lastname, mobile, email, vendoraccess, customeraccess, jobposition,userpic);
         }
         #endregion
 
