@@ -16,10 +16,10 @@ namespace Inventory.Service
         }
 
         #region CompanyInsertRow
-        public static int CompanyInsertRow(string Company_name, string Email)
+        public static int CompanyInsertRow(string Company_name, string Email,string logo)
         {
 
-            return VendorRepository.CompanyInsertRow(Company_name, Email);
+            return VendorRepository.CompanyInsertRow(Company_name, Email,logo);
         }
 
         #endregion
