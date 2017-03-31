@@ -23,9 +23,9 @@ namespace Inventory.Repository
         }
 
         #region CompanyInsertRow
-        public static int CompanyInsertRow(string Company_name, string Email)
+        public static int CompanyInsertRow(string Company_name, string Email,string logo)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertCompany", Company_name, Email);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertCompany", Company_name, Email,logo);
             return count;
         }
         #endregion
@@ -38,9 +38,9 @@ namespace Inventory.Repository
             return count;
         }
         
-            public static int VendorUpdateContact(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, string Email, string Adhar_Number, string Job_position)
+            public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, string Email, string Adhar_Number, string Job_position)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor", Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
             return count;
         }
         #endregion
@@ -73,7 +73,11 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updateNotes", company_Id, Note);
             return count;
         }
-
+        public static int getcompanyIdlatest()
+        {
+            int count=SqlHelper.ExecuteNonQuery(ConnectionString, "getMaxCompanyid");
+            return count;
+        }
         public static SqlDataReader getcompanyId()
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getMaxCompanyid");
@@ -105,6 +109,11 @@ namespace Inventory.Repository
 
         }
 
+        public static SqlDataReader getVendorContact(string Vendor_Id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getvendorcontact", Vendor_Id);
+        }
+
 
         public static int UpdateCompany1(int company_Id, string Company_Name, string Email)
         {
@@ -117,7 +126,17 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteRecord", company_Id);
             return count;
         }
-
-
+        
+             public static int deleteVendor(string Vendor_Id)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteVendor", Vendor_Id);
+            return count;
+        }
+        //company pic upload
+        public static int updatecompanyprofile(int id,string companylogo)
+        {
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "companyProfilePic",id, companylogo);
+            return count;
+        }
     }
 }

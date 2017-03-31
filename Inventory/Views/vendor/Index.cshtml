@@ -334,6 +334,7 @@
                 <div class="col-md-12 form-title">Vendor Information</div>
                 <div class="col-md-6">
                     <div class="row">
+                        @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id})
                         @if (ViewBag.company != null)
                         {
 
@@ -348,11 +349,9 @@
                         else
                         {
                             <div class="form-group col-md-4">
-                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control"})
+                                @Html.TextBoxFor(Model => Model.Company_Name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control" })
                             </div>
                             <div class="form-group col-md-5">
-
-                                @*@Html.TextBoxFor(model => model.Email, new{@class = "popinputbox",placeholder = "Email",required = "required",type = "email"})*@
 
                                 @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Email", id = "Email", required = "required", @class = "form-control" })
                             </div>
@@ -366,13 +365,23 @@
                     </div>
                     <a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a>
                 </div>
+                @*companylogo code start*@
                 <div class="col-md-3 col-md-push-3">
-                    <div class="top-button">
-                        <input type="file">
-                        <span>V</span>
-                    </div>
+
+                   @*@if(ViewBag.logo!=null && ViewBag.logo != "")
+                   {*@
+                        <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" style="display:none">
+                        <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,companypic" style="border-radius: 50%;width: 150px;height: 150px;" />
+                    @*}*@
+                    @*else{
+                        <div class="top-button">
+                            <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
+                            <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@ViewBag.Company_Name.Substring(0, 1)</span>
+                        </div>
+                    }*@
                     <div>Upload Company Logo</div>
                 </div>
+                @*companylogo code end*@
             </div>
             <div class="row" id="vendor-information1">
                 <!--------- Tab Section START ------------>
@@ -459,10 +468,11 @@
                             </li>
 
                             <li data-content="contactperson" class="contactperson">
-                                
+
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="row">
+                                            <input type="hidden" id="newcompanyid" value="@ViewBag.id" />
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="First Name">*@
                                                 <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
@@ -475,7 +485,7 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="Mobile Number">*@
-                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No" maxlength = "12">
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No" maxlength="12">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control" placeholder="E-mail">*@
@@ -487,6 +497,11 @@
                                                 @*<input type="text" class="form-control" placeholder="Aadhar Number">*@
                                                 <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="AdharNumber">
                                             </div>
+
+                                            @*<div class="form-group col-md-4">
+                                                @Html.DropDownListFor(Model => Model.country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
+                                            </div>*@
+
                                             <div class="form-group col-md-6">
                                                 @*<input type="text" class="form-control selected-position" placeholder="Job Position">*@
                                                 <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
@@ -511,44 +526,15 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information2-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                         <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="updateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
-                                @*<div>
-                                    @{ Html.RenderPartial("vendorcontact","Vendor");}
-                                </div>*@
-                                <div class="row" id="contactdiv">
-                                    <div class="col-md-12 table-responsive table-hover">
-                                        <table class="table" id="contacttable">
-                                            <thead class="thead-inverse">
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>E-Mail</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            @*</thead>
-                                            <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                                <ul class="dropdown-menu">
-                                                                    <li> <a href="#" onclick="getEditContactDetails()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit ContactPerson</a> </li>
-                                                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete ContactPerson</a> </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                         </tr>
-                                            </tbody>*@
-                                        </table>
-                                    </div>
-                                </div>
-                               
-                            </li>
                                 
+                                    <div id="vendorrecords">
+                                        @{ Html.RenderAction("VendorContact", "Vendor");}
+                                    </div>
+                                        </li>
                             <li data-content="details">
                                 <div class="row">
                                     <div class="col-md-8">
@@ -557,27 +543,27 @@
                                                 <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">
                                             </div>
                                             <div class="form-group col-md-6">
-                                             
+
                                                 <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                               
+
                                                 <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
                                             </div>
                                             <div class="form-group col-md-6">
-                                               
+
                                                 <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                         <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
                                     </div>
                                 </div>
@@ -596,7 +582,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information4-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
                                         <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatecompanynote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
                                     </div>
                                 </div>
@@ -609,22 +595,23 @@
 
                 </div>
 
-                <!--------- Tab Section END ------------>
+                            <!--------- Tab Section END ------------>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-    </div>
-</div>
-<!-- /page content -->
-@section scripts{
-    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/js/main.js"></script>
-    <script src="~/Scripts/js/modernizr.js"></script>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+            <!-- /page content -->
+            
+            @section scripts{
+                <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+                <script src="~/Scripts/js/main.js"></script>
+                <script src="~/Scripts/js/modernizr.js"></script>
+                <!-- jQuery -->
+                <script src="../vendors/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Custom Theme Scripts -->edit
+   
     <script src="../build/js/custom.min.js"></script>
 
     <script src="~/Scripts/vendor.js"></script>

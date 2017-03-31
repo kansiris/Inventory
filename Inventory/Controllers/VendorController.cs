@@ -11,6 +11,8 @@ using System.Web.Security;
 using Inventory.Content;
 using System.Data;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.Globalization;
 
 namespace Inventory.Controllers
 {
@@ -28,29 +30,50 @@ namespace Inventory.Controllers
                       {
                           company_Id = int.Parse(row["company_Id"].ToString()),
                           Company_Name = row["Company_Name"].ToString(),
-                          Email = row["Email"].ToString()
+                          Email = row["Email"].ToString(),
+                          logo = row["logo"].ToString()
                       }).OrderByDescending(m => m.company_Id).ToList();
             ViewBag.records = vendor;
-            ViewBag.company_Id = getMaxCompanyID();
+            //ViewBag.country = new SelectList(CountryList(), "Value", "Text", vendor[0].country);
             ViewBag.vendor_Id = getMaxVendorID();
-            //ViewBag.contact1 = getcontactDetail();
-
-            //var company = getlastinsertedcompany(ViewBag.company_Id);
-            //if (status == "complete")
-            //{
-            //    ViewBag.company = 1;
-            //    ViewBag.companyname = company.Company_Name;
-            //    ViewBag.email = company.Email;
-            //}
 
             return View();
         }
-        //[HttpPost]
-        //public ActionResult Index(Vendor vendor, string command)
-        //{
-        //    return View();
-        //}
 
+
+        //companypic upload
+
+        [HttpPost]
+        public ActionResult UpdateCompanyPic(HttpPostedFileBase helpSectionImages, string company_Id)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] companypic = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(companypic);
+                int count = VendorService.updatecompanyprofile(int.Parse(company_Id), base64String);
+                return Json(base64String);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        private List<SelectListItem> CountryList()
+        {
+            List<SelectListItem> cultureList = new List<SelectListItem>();
+            CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+            if (getCultureInfo.Count() > 0)
+            {
+                foreach (CultureInfo cultureInfo in getCultureInfo)
+                {
+                    RegionInfo getRegionInfo = new RegionInfo(cultureInfo.LCID);
+                    var newitem = new SelectListItem { Text = getRegionInfo.EnglishName, Value = getRegionInfo.EnglishName };
+                    cultureList.Add(newitem);
+                }
+            }
+            return cultureList;
+        }
         // used methods        
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
         {
@@ -82,9 +105,13 @@ namespace Inventory.Controllers
         {
             int company_Id = 0;
             SqlDataReader exec = VendorService.getcompanyId();
-            if (exec.Read())
+            if (exec.Read() && exec != null)
             {
                 company_Id = int.Parse(exec["company_Id"].ToString());
+            }
+            else
+            {
+                RedirectToAction("savecompany");
             }
 
             return company_Id;
@@ -119,14 +146,14 @@ namespace Inventory.Controllers
             return vendor;
         }
 
-        public List<Vendor> getcontactDetail(int company_Id)
+        public List<Vendor> getcontactDetail(DataTable dt)
         {
             //int company_Id = ViewBag.company_Id;
-            SqlDataReader value = VendorService.getcontactdetail(company_Id);
-            DataTable dt = new DataTable();
-            dt.Load(value);
+            // SqlDataReader value = VendorService.getcontactdetail(company_Id);
+            //DataTable dt = new DataTable();
+            //dt.Load(value);
             List<Vendor> contact = new List<Vendor>();
-            VendorService.getcontactdetail(company_Id);
+            //VendorService.getcontactdetail(company_Id);
 
             contact = (from DataRow row in dt.Rows
                        select new Vendor()
@@ -135,11 +162,9 @@ namespace Inventory.Controllers
                            Contact_PersonFname = row["Contact_PersonFname"].ToString(),
                            Contact_PersonLname = row["Contact_PersonLname"].ToString(),
                            emailid = row["emailid"].ToString()
-                       }).ToList();
+                       }).OrderByDescending(m => m.Vendor_Id).ToList();
             return contact;
         }
-
-       
 
         public JsonResult getAllDetails(int company_Id)
         {
@@ -174,6 +199,7 @@ namespace Inventory.Controllers
                     Bank_Name = data["Bank_Name"].ToString(),
                     IFSC_No = data["IFSC_No"].ToString(),
                     Note = data["Note"].ToString(),
+                    //logo=data["logo"].ToString(),
                     Contact_PersonFname = data["Contact_PersonFname"].ToString(),
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
                     emailid = data["emailid"].ToString(),
@@ -249,13 +275,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult updatecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public JsonResult updatecontactdetails(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                           string emailid, string Adhar_Number, string Job_position)
         {
-            var data = VendorService.VendorUpdateContact(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            var data = VendorService.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             if (data > 0)
             {
-                ViewBag.company_Id = company_Id;
+                ViewBag.Vendor_Id = Vendor_Id;
                 ViewBag.Contact_PersonFname = Contact_PersonFname;
                 ViewBag.Contact_PersonLname = Contact_PersonLname;
                 ViewBag.Mobile_No = Mobile_No;
@@ -279,17 +305,26 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult savecompany(string Company_Name, string Email)
+        public JsonResult savecompany(string Company_Name, string Email, string logo)
         {
 
-            var data = VendorService.CompanyInsertRow(Company_Name, Email);
+            var data = VendorService.CompanyInsertRow(Company_Name, Email, logo);
             if (data > 0)
             {
+                int company_Id = getMaxCompanyID();
                 ViewBag.Company_Name = Company_Name;
                 ViewBag.Email = Email;
-                return Json("sucess");
+                ViewBag.logo = logo;
+                var result = new { Result = "sucess", ID = company_Id };
+                return Json(result, JsonRequestBehavior.AllowGet);
+                // return Json("sucess");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        public class Suggestion
+        {
+            public string value { get; set; }
+            public string data { get; set; }
         }
         public JsonResult savecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
                 string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
@@ -349,56 +384,19 @@ namespace Inventory.Controllers
                           string emailid, string Adhar_Number, string Job_position)
         {
             company_Id = getMaxCompanyID();
+            ViewBag.company_Id = company_Id;
             List<Vendor> contact = new List<Vendor>();
             var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
             if (data > 0)
             {
-                //SqlDataReader value = VendorService.getcontactdetail(company_Id);
-                //DataTable dt = new DataTable();
-                //dt.Load(value);
-                
-                var data2 = VendorService.getcontactdetail(company_Id);
-
-                //contact = (from DataRow row in dt.Rows
-                //           select new Vendor()
-                //           {
-                //               Vendor_Id = row["Vendor_Id"].ToString(),
-                //               Contact_PersonFname = row["Contact_PersonFname"].ToString(),
-                //               Contact_PersonLname = row["Contact_PersonLname"].ToString(),
-                //               emailid = row["emailid"].ToString()
-                //           }).ToList();
-                //return (contact, JsonRequestBehavior.AllowGet);
-                string json = null;
-                Vendor vs1 = new Vendor();
-                while(data2.Read())
-                {
-                    vs1.Contact_PersonFname = data2["Contact_PersonFname"].ToString();
-                    vs1.Contact_PersonLname = data2["Contact_PersonLname"].ToString();
-                    vs1.emailid = data2["emailid"].ToString();
-                    vs1.Vendor_Id = data2["Vendor_Id"].ToString();
-                    json = JsonConvert.SerializeObject(vs1);
-                }
-                
-                return Json(json);
-
-                    //    ViewBag.company_Id = company_Id;
-                    //ViewBag.Contact_PersonFname = Contact_PersonFname;
-                    //ViewBag.Contact_PersonLname = Contact_PersonLname;
-                    //ViewBag.Mobile_No = Mobile_No;
-                    //ViewBag.emailid = emailid;
-                    //ViewBag.Adhar_Number = Adhar_Number;
-                    //ViewBag.Job_position = Job_position;
-                    //vendorcontact();
-                    //return Json("sucess", JsonRequestBehavior.AllowGet);
-                   
-                }
-                return Json("unique", JsonRequestBehavior.AllowGet);
-            
+                return Json("sucess", company_Id.ToString());
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        
-            public JsonResult deleteRecord(int company_Id)
+
+        public JsonResult deleteRecord(int company_Id)
         {
-            
+
             var data = VendorService.deleteRecord(company_Id);
             if (data > 0)
             {
@@ -408,26 +406,92 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        [ChildActionOnly]
-        public PartialViewResult vendorcontact()
+        public JsonResult deleteVendor(string Vendor_Id)
         {
-            int company_Id = getMaxCompanyID();
-            SqlDataReader value = VendorService.getcontactdetail(company_Id);
-            DataTable dt = new DataTable();
-             List<Vendor> contact = new List<Vendor>();
-            contact = (from DataRow row in dt.Rows
-                       select new Vendor()
-                       {
-                           Vendor_Id = row["Vendor_Id"].ToString(),
-                           Contact_PersonFname = row["Contact_PersonFname"].ToString(),
-                           Contact_PersonLname = row["Contact_PersonLname"].ToString(),
-                           emailid = row["emailid"].ToString()
-                       }).ToList();
-            ViewBag.contact = contact;
-            return PartialView("vendorcontact", ViewBag);
 
+            var data = VendorService.deleteVendor(Vendor_Id);
+            if (data > 0)
+            {
+                ViewBag.Vendor_Id = Vendor_Id;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult inviteVendor(string Vendor_Id)
+        {
+
+            var data = VendorService.deleteVendor(Vendor_Id);
+            if (data > 0)
+            {
+                ViewBag.Vendor_Id = Vendor_Id;
+                return Json("sucess");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+        public PartialViewResult VendorContact(string id)
+        {
+            // string id = getMaxCompanyID().ToString();
+            if (id == null)
+            {
+                return PartialView("VendorRecords", null);
+            }
+            else
+            {
+                var records = VendorService.getcontactdetail(int.Parse(id));
+                var dt = new DataTable();
+                dt.Load(records);
+                ViewBag.records = getcontactDetail(dt);
+                ViewBag.id = id;
+                return PartialView("VendorRecords", ViewBag.records);
+            }
         }
 
+        //to get vendor contact details based on vendor id
+
+        public JsonResult getVendorContact(string Vendor_Id)
+        {
+            var data = VendorService.getVendorContact(Vendor_Id);
+            long set;
+            if (data.Read())
+            {
+                if (data["Mobile_No"].ToString() == "")
+                    set = 0;
+                else
+                    set = long.Parse(data["Mobile_No"].ToString());
+
+                Vendor vs = new Vendor
+                {
+                    Contact_PersonFname = data["Contact_PersonFname"].ToString(),
+                    Contact_PersonLname = data["Contact_PersonLname"].ToString(),
+                    emailid = data["emailid"].ToString(),
+                    Job_position = data["Job_position"].ToString(),
+                    Mobile_No = (int)set,
+                    Adhar_Number = data["Adhar_Number"].ToString(),
+                    Vendor_Id = data["Vendor_Id"].ToString(),
+
+                };
+
+                string json = JsonConvert.SerializeObject(vs);
+                return Json(json);
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        //Ramesh Sai Code
+        //public JsonResult UpdateVendor(Vendor vendor,string command)
+        //{
+        //    if (command == "Save")
+        //    {
+        //        var data = VendorService.CompanyInsertRow(vendor.Company_Name, vendor.Email);
+        //        if (data > 0)
+        //        {
+        //            return Json("companyadded");
+        //        }
+        //    }
+        //    return Json(JsonRequestBehavior.AllowGet);
+        //}
     }
 
 }
