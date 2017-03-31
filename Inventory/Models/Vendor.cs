@@ -46,9 +46,9 @@ namespace Inventory.Models
 
         [StringLength(50)]
         public string Bank_Branch { get; set; }
-
-        [Column(TypeName = "image")]
-        public byte[] Logo { get; set; }
+         public string country { get; set; }
+        
+        public string logo { get; set; }
 
         [StringLength(100)]
         public string Remarks { get; set; }
