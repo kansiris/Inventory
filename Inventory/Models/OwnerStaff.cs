@@ -17,5 +17,6 @@ namespace Inventory.Models
         public string Job_position { get; set; }
         public int Vendor_Access { get; set; }
         public int Customer_Access { get; set; }
+        public string UserPic { get; set; }
     }
 }
