@@ -35,7 +35,7 @@
             <form method="post" enctype="multipart/form-data" id="userprofile">
                 <div class="row info-title" http-equiv="refresh" content="0">
                     @*<meta http-equiv="refresh" content="5">*@
-                    @item.First_Name @item.Last_Name
+                    <text id="fname">@item.First_Name</text><text id="lname">@item.Last_Name</text>
                     <button type="button" class="btn btn-success btn-xs pull-right">Profile</button>
                 </div>
 
@@ -221,9 +221,26 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
-                                                    @Html.TextBoxFor(Model => Model.Item4.Job_position, new { placeholder = "Job Position", @class = "form-control", required = "required" })
-                                                    @*<input type="text" class="form-control" placeholder="City">*@
+                                                    @Html.TextBoxFor(Model => Model.Item4.Job_position, new { placeholder = "Job Position", @class = "form-control selected-position", required = "required" })
+                                                    <div class="display-positions">
+                                                        <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position Copy</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>One</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>
+                                                    </div>
+                                                    <div class="row add-position">
+                                                        <div class="row">
+                                                            <input type="text" class="form-control" placeholder="Enter Position">
+                                                            <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                            <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                        </div>
+                                                        <div class="row positions"></div>
+                                                    </div>
                                                 </div>
+                                                @*<div class="form-group col-md-6">
+                                                        @Html.TextBoxFor(Model => Model.Item4.Job_position, new { placeholder = "Job Position", @class = "form-control", required = "required" })
+                                                        @*<input type="text" class="form-control" placeholder="City">
+                                                    </div>*@
                                                 <div class="form-group col-md-6">
                                                     <div class="col-md-6 font-password"> Allow permissions </div>
                                                     <div class="col-md-6">
@@ -234,6 +251,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div id="permissionsarea" style="visibility:hidden">
                                                 <div class="form-group col-md-12">
                                                     <div class="row">
@@ -319,7 +337,7 @@
                                         <button type="button" class="btn btn-success pull-right" id="btnaddstaff" value="addstaff" onclick="updatevales(this.value)">Add User</button>
                                         <button type="button" class="btn btn-success pull-right" id="btnupdatestaff" value="updatestaff" onclick="updatevales(this.value)" style="display:none">Update User</button>
                                     </div>
-                                    <div id="staffrecords">
+                                    <div id="staffrecords" onload="Pagination()">
                                         @{ Html.RenderAction("GetStaffRecords", "UserProfile");}
                                     </div>
                                     <hr />
@@ -697,7 +715,6 @@
         }
     </script>
 
-
     <script>
         function upload1() {
             var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
@@ -730,40 +747,7 @@
         }
     </script>
 
-    @*<script>
-        function upload2() {
-            var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
-            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-                alert('Invalid File Type');
-            }
-            else {
-                var id =$('#Item4_Staff_Id').val();
-                var data = new FormData();
-                var files = $("#fileupload2").get(0).files;
-                if (files.length > 0) {
-                    data.append("helpSectionImages", files[0]);
-                }
-                $.ajax({
-                    url: '/UserProfile/UpdateStaffProfilePic?id='+id,
-                    type: "POST",
-                    processData: false,
-                    contentType: false,
-                    data: data,
-                    success: function (response) {
-                        $("#staffprofilepic").attr("src","data:image/;base64,"+response);
-                        $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
-                        alert("Pic Uploaded");
-                        Pagination();
-                    },
-                    error: function (er) {
-                        alert("Failed To Upload Pic!!! Try Again");
-                    }
-                });
-            }
-        }
-    </script>*@
-
-<script>
+    <script>
         function upload2() {
             var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
             if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
@@ -794,10 +778,9 @@
                 });
             }
         }
-</script>
+    </script>
 
     <!------ Image Upload ------>
-
 
     <script>
         function AssignStaff(staffid) {
@@ -887,8 +870,9 @@
                 data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress ,ownerStaff : staff },
                 success: function (response) {
                     if (response == 'success') {
-                        //$('#profilediv').toggle().toggle();
                         $('#partialpage').load("@Url.Action("ProfileProgressPartial", "Login")");
+                        $('#fname').html($('#Item1_First_Name').val());
+                        $('#lname').html($('#Item1_Last_Name').val());
                         alert("Profile updated SuccessFully");
                     }
                     else if(response == 'staffadded')
@@ -920,6 +904,7 @@
     </script>
 
     <script>
+        //$(document).ready(function(){
         function Pagination() {
             $('#contacttable').after('<div id="nav"></div>');
             var rowsShown = 3;
@@ -943,6 +928,68 @@
                         css('display', 'table-row').animate({ opacity: 1 }, 300);
             });
         };
+        //});
+    </script>
+
+    //<!------------ List / Grid Views and reload page -------------->
+    <script>
+        $("#grid-view").click(function(e) {
+            $("#vendortable").css("display","none");
+            $("#vendortable1").css("display","block");
+        });
+
+        $("#list-view").click(function(e) {
+            $("#vendortable").css("display","block");
+            $("#vendortable1").css("display","none");
+            location.reload();
+        });
+
+        $("#refresh").click(function(e) {
+            //location.reload();
+            $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+            //Pagination();
+        });
+    </script>
+    //<!------------ List / Grid Views and reload page -------------->
+
+    <script type="text/javascript">
+    function textval(){
+        $(".display-positions .positions1").click(function(){
+            var c = $(this).text();
+            $(this).parent(".display-positions").prev("input.selected-position").val(c);
+            $(this).parent(".display-positions").css("display","none");
+        });
+    }
+
+    $(".positions1 > i").click(function(){
+        $(this).parent(".positions1").remove();
+    });
+
+    $(".selected-position").click(function(){
+        $(this).next(".display-positions").css("display","block");
+        return textval();
+    });
+
+    $(".display-positions .position").click(function(){
+        $(this).parent(".display-positions").next(".add-position").css("display","block");
+
+        $(".add-position .add-button").click(function(){
+                var v = $(this).prev("input[type='text']").val();
+                var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
+                alert($.unique(value));
+                $(this).parents(".add-position").prev(".display-positions").append(value);
+                $(".positions1 > i").click(function(){
+                    $(this).parent(".positions1").remove();
+                });
+                return textval();
+        });
+
+        $(".close-button").click(function(){
+            $(this).parents(".add-position").css("display","none");
+        });
+
+    });
+
     </script>
 }
 
