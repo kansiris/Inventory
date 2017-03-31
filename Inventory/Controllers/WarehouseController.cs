@@ -14,6 +14,7 @@ using System.IO;
 using System.Data;
 using Inventory.Content;
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace Inventory.Controllers
 {
@@ -36,11 +37,13 @@ namespace Inventory.Controllers
                              wh_name = row["wh_name"].ToString(),
                              wh_Shortname = row["wh_Shortname"].ToString(),
                              conperson = row["Contact_person"].ToString(),
-                             Email = row["Email"].ToString()
+                             Email = row["Email"].ToString(),
+                             Wh_logo = row["Wh_Image"].ToString()
                          }).OrderByDescending(m => m.wh_Id).ToList();
             ViewBag.records = warehouse;
             ViewBag.wh_id = getMaxwhid();
             ViewBag.contact = getcontactdetails();
+           
             var wh = getlastinsertedwarehouse(ViewBag.wh_id);
             if (status == "complete")
             {
@@ -100,6 +103,7 @@ namespace Inventory.Controllers
             string cp = dt.Rows[0]["Contact_Person"].ToString();
             string em = dt.Rows[0]["Email"].ToString();
             string Mb = dt.Rows[0]["Mobile"].ToString();
+            string jb = dt.Rows[0]["Job_position"].ToString();
             if (cp == "")
             {
                 cp = "";
@@ -112,6 +116,10 @@ namespace Inventory.Controllers
             {
                 Mb = "";
             }
+            if (jb == "")
+            {
+                jb = "";
+            }
             else
             {
                 contact = (from DataRow row in dt.Rows
@@ -120,6 +128,7 @@ namespace Inventory.Controllers
                                conperson = cp,//row["Contact_Person"].ToString(),
                                Email = em,//row["Email"].ToString(),
                                Mobile = long.Parse(Mb.ToString()),//long.Parse(row["Mobile"].ToString())
+                               Job_position = jb,
                            }).ToList();
 
 
@@ -127,25 +136,40 @@ namespace Inventory.Controllers
             return contact;
         }
 
-
+        [HttpPost]
+        public ActionResult Updatewhimage(HttpPostedFileBase helpSectionImages, string wh_id)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                ViewBag.wh_id = wh_id;
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] whpic = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(whpic);
+                int count = WHservice.updatewhimage(wh_id, base64String);
+                return Json(base64String);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult getallwhdetails(string wh_id)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
             WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
             var data = WHservice.getallwhdetails(user1.DbName, wh_id);
-            long phn;
-            long Mob;
+            //long phn;
+            //long Mob;
             if (data.Read())
             {
-                if (data["Phone"].ToString() == "")
-                    phn = 0;
-                else
-                    phn = long.Parse(data["Phone"].ToString());
-                if (data["Mobile"].ToString() == "")
-                    Mob = 0;
-                else
-                    Mob = long.Parse(data["Mobile"].ToString());
+                //if (data["Phone"].ToString() == "")
+                //    phn = 0;
+                //else
+                //    phn = long.Parse(data["Phone"].ToString());
+                //if (data["Mobile"].ToString() == "")
+                //    Mob = 0;
+                //else
+                //    Mob = long.Parse(data["Mobile"].ToString());
                 Warehouse wh = new Warehouse
                 {
                     wh_Id = wh_id,//data["wh_id"].ToString(),
@@ -154,8 +178,8 @@ namespace Inventory.Controllers
                     conperson = data["Contact_person"].ToString(),
                     Job_position = data["Job_position"].ToString(),
                     Email = data["Email"].ToString(),
-                    phone = phn,//long.Parse(data["Phone"].ToString()),
-                    Mobile = Mob,//long.Parse(data["Mobile"].ToString()),
+                    phone = long.Parse(data["Phone"].ToString()),
+                    Mobile = long.Parse(data["Mobile"].ToString()),
                     Note = data["Note"].ToString(),
                     bill_Street = data["bill_street"].ToString(),
                     bill_City = data["bill_city"].ToString(),
@@ -164,10 +188,10 @@ namespace Inventory.Controllers
                     bill_Country = data["bill_country"].ToString(),
                     ship_Street = data["ship_street"].ToString(),
                     ship_City = data["ship_city"].ToString(),
-                    ship_State = "TS",//data["ship_state"].ToString(),
+                    ship_State = data["ship_state"].ToString(),
                     ship_Postalcode = data["ship_postalcode"].ToString(),
                     ship_Country = data["ship_country"].ToString(),
-
+                    Wh_logo = data["Wh_Image"].ToString(),
                 };
 
                 string json = JsonConvert.SerializeObject(wh);
@@ -195,13 +219,13 @@ namespace Inventory.Controllers
                 Warehouse wh = new Warehouse
                 {
                     wh_Id = wh_id,//data["wh_id"].ToString(),
-                   
+
                     conperson = data["Contact_person"].ToString(),
                     Job_position = data["Job_position"].ToString(),
                     Email = data["Email"].ToString(),
                     phone = phn,//long.Parse(data["Phone"].ToString()),
                     Mobile = Mob,//long.Parse(data["Mobile"].ToString()),
-                    
+
                 };
 
                 string json = JsonConvert.SerializeObject(wh);
@@ -222,37 +246,51 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+        private List<SelectListItem> CountryList()
+        {
+            List<SelectListItem> cultureList = new List<SelectListItem>();
+            CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+            if (getCultureInfo.Count() > 0)
+            {
+                foreach (CultureInfo cultureInfo in getCultureInfo)
+                {
+                    RegionInfo getRegionInfo = new RegionInfo(cultureInfo.LCID);
+                    var newitem = new SelectListItem { Text = getRegionInfo.EnglishName, Value = getRegionInfo.EnglishName };
+                    cultureList.Add(newitem);
+                }
+            }
+            return cultureList;
+        }
         public JsonResult deletewarehouse(string wh_id)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = WHservice.deletewarehouse(user1.DbName, wh_id);
-            if(data > 0)
+            if (data > 0)
             {
                 ViewBag.wh_id = wh_id;
                 return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult updatewhaddress(string wh_id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
-            string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
+        public JsonResult updatewhaddress(string wh_id, Warehouse warehouse)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhaddress(user1.DbName, wh_id, bill_street, bill_city, bill_state, bill_postalcode,
-                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+            var data = WHservice.updatewhaddress(user1.DbName, warehouse.wh_Id, warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
+                warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
             if (data > 0)
             {
                 List<Warehouse> wh = new List<Warehouse>();
-                ViewBag.wh_id = wh_id;
-                ViewBag.bill_street = bill_street;
-                ViewBag.bill_city = bill_city;
-                ViewBag.bill_state = bill_state;
-                ViewBag.bill_postalcode = bill_postalcode;
-                ViewBag.bill_country = bill_country;
-                ViewBag.ship_street = ship_street;
-                ViewBag.ship_city = ship_city;
-                ViewBag.ship_state = ship_state;
-                ViewBag.ship_postalcode = ship_postalcode;
-                ViewBag.ship_country = ship_country;
+                ViewBag.wh_id = warehouse.wh_Id;
+                ViewBag.bill_street = warehouse.bill_Street;
+                ViewBag.bill_city = warehouse.bill_City;
+                ViewBag.bill_state = warehouse.bill_State;
+                ViewBag.bill_postalcode = warehouse.bill_Postalcode;
+                ViewBag.bill_country = warehouse.bill_Country;
+                ViewBag.ship_street = warehouse.ship_Street;
+                ViewBag.ship_city = warehouse.ship_City;
+                ViewBag.ship_state = warehouse.ship_State;
+                ViewBag.ship_postalcode = warehouse.ship_Postalcode;
+                ViewBag.ship_country = warehouse.ship_Country;
                 return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
@@ -275,16 +313,16 @@ namespace Inventory.Controllers
                 return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
-            
+
         }
-        public JsonResult updatewhnotes(string wh_id, string Note)
+        public JsonResult updatewhnotes(string wh_id, Warehouse warehouse)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhnote(user1.DbName, wh_id, Note);
+            var data = WHservice.updatewhnote(user1.DbName, warehouse.wh_Id, warehouse.Note);
             if (data > 0)
             {
-                ViewBag.wh_id = wh_id;
-                ViewBag.Note = Note;
+                ViewBag.wh_id = warehouse.wh_Id;
+                ViewBag.Note = warehouse.Note;
                 return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
@@ -301,61 +339,60 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult insertwhaddress(string wh_id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
-            string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
+        public JsonResult insertwhaddress(string wh_id, Warehouse warehouse)
         {
             wh_id = getMaxwhid();
             wh_id = wh_id.TrimEnd();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.insertwhaddress(user1.DbName, wh_id, bill_street, bill_city, bill_state, bill_postalcode,
-               bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+            var data = WHservice.updatewhaddress(user1.DbName, warehouse.wh_Id, warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
+                warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
             if (data > 0)
             {
                 ViewBag.wh_id = wh_id;
-                ViewBag.bill_street = bill_street;
-                ViewBag.bill_city = bill_city;
-                ViewBag.bill_state = bill_state;
-                ViewBag.bill_postalcode = bill_postalcode;
-                ViewBag.bill_country = bill_country;
-                ViewBag.ship_street = ship_street;
-                ViewBag.ship_city = ship_city;
-                ViewBag.ship_state = ship_state;
-                ViewBag.ship_postalcode = ship_postalcode;
-                ViewBag.ship_country = ship_country;
+                ViewBag.bill_street = warehouse.bill_Street;
+                ViewBag.bill_city = warehouse.bill_City;
+                ViewBag.bill_state = warehouse.bill_State;
+                ViewBag.bill_postalcode = warehouse.bill_Postalcode;
+                ViewBag.bill_country = warehouse.bill_Country;
+                ViewBag.ship_street = warehouse.ship_Street;
+                ViewBag.ship_city = warehouse.ship_City;
+                ViewBag.ship_state = warehouse.ship_State;
+                ViewBag.ship_postalcode = warehouse.ship_Postalcode;
+                ViewBag.ship_country = warehouse.ship_Country;
 
-                return Json("sucess");
+                return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult insertwhnotes(string wh_id, string Note)
+        public JsonResult insertwhnotes(string wh_id, Warehouse warehouse)
         {
             wh_id = getMaxwhid();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhnote(user1.DbName, wh_id, Note);
+            var data = WHservice.updatewhnote(user1.DbName, wh_id, warehouse.Note);
             if (data > 0)
             {
                 ViewBag.wh_id = wh_id;
-                ViewBag.Note = Note;
+                ViewBag.Note = warehouse.Note;
 
-                return Json("sucess");
+                return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult insertwhcontact(string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        public JsonResult insertwhcontact(string wh_id, Warehouse warehouse)
         {
             wh_id = getMaxwhid();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.insertwhcontact(user1.DbName, wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            var data = WHservice.updatewhcontact(user1.DbName, warehouse.wh_Id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
             if (data > 0)
             {
                 ViewBag.wh_id = wh_id;
-                ViewBag.Contact_PersonFname = Contact_Person;
-                ViewBag.Phone = phone;
-                ViewBag.Mobile = Mobile;
-                ViewBag.Email = Email;
-                ViewBag.Job_position = job_position;
-                return Json("sucess");
+                ViewBag.Contact_PersonFname = warehouse.conperson;
+                ViewBag.Phone = warehouse.phone;
+                ViewBag.Mobile = warehouse.Mobile;
+                ViewBag.Email = warehouse.Email;
+                ViewBag.Job_position = warehouse.Job_position;
+                return Json("success");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }

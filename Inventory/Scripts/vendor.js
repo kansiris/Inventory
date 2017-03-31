@@ -1,10 +1,15 @@
 ﻿//<!---------- Display Vendor Information and reset all forms --------------->
 //<script type="text/javascript">
 
+$(document).ready(function () {
+    var url = 'Vendor/VendorCompany';
+    $('#companyrecords').load(url);
+});
 $("#add-vendor").click(function () {
     $("#vendor-information").css("display", "block");
     $("#additon").css("display", "none");
     $("#vendor-information input").val("");
+    $("#companypic").attr("src", "/images/user.png");
     $("#vendor-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
     $("#vendor-information1").css("display", "none");
     $('#mySubmit').val("Save").text("Save");
@@ -93,7 +98,7 @@ $(document).ready(function (e) {
         if (event.shiftKey) {
             event.preventDefault();
         }
-        if (event.keyCode == 46 || event.keyCode == 8) {
+        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode==9) {
         }
         else {
             if (event.keyCode < 95) {
@@ -265,7 +270,7 @@ function editFunction(array) {
             $('#Bank_Branch').val(array.Bank_Branch);
             $('#IFSC_No').val(array.IFSC_No);
             $('#Note').val(array.Note);
-            //$('#logo').val(array.logo);
+            $('#companypic').attr('src', 'data:image/;base64,'+ array.logo);
             $('#Vendor_Id').val(array.Vendor_Id);
             $('#bill_city').val(array.bill_city);
             $('#bill_country').val(array.bill_country);
@@ -314,6 +319,7 @@ function getEditDetails(id) {
     });
 }
 
+
 //Particular Vendor
 function editcompany(clickedvalue) {
    
@@ -329,8 +335,9 @@ function editcompany(clickedvalue) {
     
     company_Id = $('#company_Id').val();
     Company_Name = $('#Company_Name').val();
-    
+    logo = $('#companypic').attr('src').replace('data:image/;base64,', '');
     Email = $('#Email').val();
+    
     if ((Company_Name == "") || (Email == "")) {
         if (Company_Name == "")
             alert("Please Enter Company Name");
@@ -338,6 +345,15 @@ function editcompany(clickedvalue) {
             alert("Please Enter Email");
     }
     else{
+
+        var email = document.getElementById('Email');
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email.value)) {
+            alert('Please provide a valid email address');
+            email.focus;
+            return false;
+        }
+        else{
     if (clickedvalue == 'update') {
         $.ajax({
             url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
@@ -348,6 +364,8 @@ function editcompany(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
+                    var url = 'Vendor/VendorCompany';
+                    $('#companyrecords').load(url);
                     alert("Company Updated sucessfully");
                     $('#additon').css('display', 'block');
                 }
@@ -358,21 +376,19 @@ function editcompany(clickedvalue) {
             error: function (data)
             { alert("Failed!!!"); }
         });
-        location.reload();
     }
     if (clickedvalue == 'Save') {
         $.ajax({
-            url: '/Vendor/savecompany?Company_Name=' + Company_Name + '& Email=' + Email,
+            url: '/Vendor/savecompany',
             type: 'POST',
-            data: JSON.stringify({ Company_Name, Email }),
+            data: JSON.stringify({ Company_Name, Email,logo }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
                 if (data.Result == "sucess") {
                     $('#mySubmit').hide();
-                    alert(data.Result);
-                    $('#company_Id').val(data.ID);
-                    $("#vendortable").load(" #vendortable");
+                    var url = 'Vendor/VendorCompany';
+                    $('#companyrecords').load(url);
                     alert("company saved sucessfully");
                       }
                 else {
@@ -382,8 +398,9 @@ function editcompany(clickedvalue) {
             error: function (data)
             { alert("Failed!!!"); }
         });
-    }
-    }
+       }
+        }
+        }
 }
 
 //Particular vendor Company Address
@@ -718,35 +735,93 @@ function deleteVendor(id) {
     }
 }
 
+//vendor invite
+
+function inviteVendor(id) {
+    alert(id);
+    var retVal = confirm("Do you want to send invitation...!");
+    if (retVal == true) {
+        $.ajax({
+            url: '/Vendor/inviteVendor',
+            type: 'POST',
+            data: JSON.stringify({ Vendor_Id: id }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    alert("sai");
+                }
+                else {
+                    company_Id = $('#company_Id').val();
+                    var url = 'Vendor/VendorContact?id=' + company_Id + '';
+                    $('#vendorrecords').load(url);
+                    alert("invitation sent sucessfully");
+                    //$("#vendortable").load(" #vendortable");
+                }
+            },
+            error: function (data)
+            { alert("Failed!!!"); }
+        });
+        return true;
+    }
+
+    else {
+        return false;
+    }
+}
+
 //<!------ Image Upload ------>
-       function upload() {
-           var ext = $('#fileupload').val().split('.').pop().toLowerCase();
-           company_Id = $('#company_Id').val();
-           alert(company_Id);
-           if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-               alert('Invalid File Type');
-           }
-           else {
-               var file = $("#fileupload").get(0).files;
-               //var id = @Request.QueryString["id"];
-               var data = new FormData();
-               var files = $("#fileupload").get(0).files;
-               if (files.length > 0) {
-                   data.append("helpSectionImages", files[0]);
-               }
-               $.ajax({
-                   url: '/Vendor/UpdateCompanyPic?company_Id=' + company_Id,
-                   type: "POST",
-                   processData: false,
-                   contentType: false,
-                   data: data,
-                   success: function (response) {
-                       $("#companypic").attr("src","data:image/;base64,"+response);
-                   },
-                   error: function (er) {
-                       alert("Failed To Upload Pic!!! Try Again");
-                   }
-               });
-           }
-       }
-   
+//function upload(company_Id) {
+//           var ext = $('#fileupload').val().split('.').pop().toLowerCase();
+//           alert(company_Id);
+//           if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+//               alert('Invalid File Type');
+//           }
+//           else {
+//               var data = new FormData();
+//               var files = $("#fileupload").get(0).files;
+//               if (files.length > 0) {
+//                   data.append("helpSectionImages", files[0]);
+//               }
+//               $.ajax({
+//                   url: '/Vendor/UpdateCompanyPic?company_Id=' + company_Id,
+//                   type: "POST",
+//                   processData: false,
+//                   contentType: false,
+//                   data: data,
+//                   success: function (response) {
+//                       $("#companypic").attr("src","data:image/;base64,"+response);
+//                   },
+//                   error: function (er) {
+//                       alert("Failed To Upload Pic!!! Try Again");
+//                   }
+//               });
+//           }
+//       }
+function upload() {
+    var ext = $('#fileupload').val().split('.').pop().toLowerCase();
+    
+    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+        alert('Invalid File Type');
+    }
+    else {
+        var data = new FormData();
+        var files = $("#fileupload").get(0).files;
+        if (files.length > 0) {
+            data.append("helpSectionImages", files[0]);
+        }
+        $.ajax({
+            url: '/Vendor/UpdateCompanyPic',
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                $("#companypic").attr("src", "data:image/;base64," + response);
+            },
+            error: function (er) {
+                alert("Failed To Upload Pic!!! Try Again");
+            }
+        });
+    }
+}

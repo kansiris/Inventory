@@ -1,0 +1,35 @@
+﻿@if (ViewBag.records != null)
+{
+
+<div class="table-responsive">
+    <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Company Name</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.records)
+            {
+                <tr>
+                    <td> @item.Company_Name </td>
+                    <td> @item.Email </td>
+                    <td>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                            <ul class="dropdown-menu">
+                                <li> <a href="#" onclick="getEditDetails(@item.company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
+                                <li> <a href="#" onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+}
+

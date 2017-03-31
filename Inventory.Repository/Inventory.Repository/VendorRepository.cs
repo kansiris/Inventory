@@ -23,9 +23,9 @@ namespace Inventory.Repository
         }
 
         #region CompanyInsertRow
-        public static int CompanyInsertRow(string Company_name, string Email)
+        public static int CompanyInsertRow(string Company_name, string Email,string logo)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertCompany", Company_name, Email);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertCompany", Company_name, Email,logo);
             return count;
         }
         #endregion
