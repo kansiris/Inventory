@@ -342,9 +342,8 @@ namespace Inventory.Controllers
         public JsonResult insertwhaddress(string wh_id, Warehouse warehouse)
         {
             wh_id = getMaxwhid();
-            wh_id = wh_id.TrimEnd();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhaddress(user1.DbName, warehouse.wh_Id, warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
+            var data = WHservice.updatewhaddress(user1.DbName, wh_id.TrimEnd(), warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
                 warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
             if (data > 0)
             {
@@ -367,6 +366,7 @@ namespace Inventory.Controllers
         public JsonResult insertwhnotes(string wh_id, Warehouse warehouse)
         {
             wh_id = getMaxwhid();
+            wh_id = wh_id.TrimEnd();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = WHservice.updatewhnote(user1.DbName, wh_id, warehouse.Note);
             if (data > 0)
@@ -382,8 +382,9 @@ namespace Inventory.Controllers
         public JsonResult insertwhcontact(string wh_id, Warehouse warehouse)
         {
             wh_id = getMaxwhid();
+            wh_id = wh_id.TrimEnd();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhcontact(user1.DbName, warehouse.wh_Id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
+            var data = WHservice.updatewhcontact(user1.DbName, wh_id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
             if (data > 0)
             {
                 ViewBag.wh_id = wh_id;
