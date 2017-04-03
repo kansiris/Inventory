@@ -94,6 +94,13 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhcontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
             return count;
         }
+        public static int updatewarehousecontact(string dbname, string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewarehousecontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            return count;
+        }
 
         public static int updatewhnotes(string dbname, string wh_id,string Note)
         {
@@ -126,6 +133,13 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse1", wh_id, Contact_Person, phone, Mobile, Email, job_position);
             return count;
         }
+        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousecontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            return count;
+        }
         public  static int deletewarehouse(string dbname,string wh_Id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
@@ -139,6 +153,12 @@ namespace Inventory.Repository
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getwhcontactdtls", wh_id);
+        }
+        public static SqlDataReader getwarehousecondtls(string dbname, string wh_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "spgetwarehousecontact", wh_id);
         }
 
         public static int updatewhimage(string wh_id,string wh_image)
