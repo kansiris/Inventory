@@ -32,15 +32,15 @@ namespace Inventory.Repository
 
         #region VendorInsertRow
         public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
-                         string Email, string Adhar_Number,string Job_position)
+                         string Email, string Adhar_Number,string Job_position, string image)
         {
-             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position);
+             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position,image);
             return count;
         }
         
-            public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, string Email, string Adhar_Number, string Job_position)
+            public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, string Email, string Adhar_Number, string Job_position,string image)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor", Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatevendor", Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, Email, Adhar_Number, Job_position,image);
             return count;
         }
         #endregion
@@ -115,9 +115,9 @@ namespace Inventory.Repository
         }
 
 
-        public static int UpdateCompany1(int company_Id, string Company_Name, string Email)
+        public static int UpdateCompany1(int company_Id, string Company_Name, string Email,string logo)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatecompany1", company_Id, Company_Name, Email);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatecompany1", company_Id, Company_Name, Email, logo);
             return count;
         }
         
@@ -132,6 +132,13 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteVendor", Vendor_Id);
             return count;
         }
+        
+        public static SqlDataReader checkcompany1(string Company_Name)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "checkcompany", Company_Name);
+
+        }
+
         //company pic upload
         public static int updatecompanyprofile(int id,string companylogo)
         {

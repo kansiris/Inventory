@@ -49,7 +49,7 @@ namespace Inventory.Models
          public string country { get; set; }
         
         public string logo { get; set; }
-
+        public string image { get; set; }
         [StringLength(100)]
         public string Remarks { get; set; }
 

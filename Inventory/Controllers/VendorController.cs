@@ -21,7 +21,7 @@ namespace Inventory.Controllers
         // GET: Vendor
         public ActionResult Index()
         {
-            ViewBag.vendor_Id = getMaxVendorID();
+            //ViewBag.vendor_Id = getMaxVendorID();
             return View();
         }
         //companypic upload
@@ -40,6 +40,23 @@ namespace Inventory.Controllers
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult UpdateVendorPic(HttpPostedFileBase helpSectionImages, string Vendor_Id)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] companypic = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(companypic);
+                //int count = VendorService.updatecompanyprofile(int.Parse(company_Id), base64String);
+                return Json(base64String);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+        
 
         private List<SelectListItem> CountryList()
         {
@@ -201,10 +218,10 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult updatecompany(int company_Id, string Company_Name, string Email)
+        public JsonResult updatecompany(int company_Id, string Company_Name, string Email,string logo)
         {
 
-            var data = VendorService.UpdateCompany1(company_Id, Company_Name, Email);
+            var data = VendorService.UpdateCompany1(company_Id, Company_Name, Email, logo);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -252,9 +269,9 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
         public JsonResult updatecontactdetails(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
-                          string emailid, string Adhar_Number, string Job_position)
+                          string emailid, string Adhar_Number, string Job_position,string image)
         {
-            var data = VendorService.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            var data = VendorService.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image);
             if (data > 0)
             {
                 ViewBag.Vendor_Id = Vendor_Id;
@@ -264,6 +281,7 @@ namespace Inventory.Controllers
                 ViewBag.emailid = emailid;
                 ViewBag.Adhar_Number = Adhar_Number;
                 ViewBag.Job_position = Job_position;
+                ViewBag.iamge = image;
                 return Json("sucess");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
@@ -283,7 +301,12 @@ namespace Inventory.Controllers
 
         public JsonResult savecompany(string Company_Name, string Email, string logo)
         {
-
+            var existingNo = VendorService.checkcompany1(Company_Name);
+            if (existingNo.Read())
+            {
+                return Json("exists", JsonRequestBehavior.AllowGet);
+            }
+            else { 
             var data = VendorService.CompanyInsertRow(Company_Name, Email, logo);
             if (data > 0)
             {
@@ -291,9 +314,10 @@ namespace Inventory.Controllers
                 ViewBag.Company_Name = Company_Name;
                 ViewBag.Email = Email;
                 ViewBag.logo = logo;
-                var result = new { Result = "sucess", ID = company_Id };
+                var result = new { Result = "sucess",ID = company_Id };
                 return Json(result, JsonRequestBehavior.AllowGet);
                 // return Json("sucess");
+            }
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
@@ -357,16 +381,19 @@ namespace Inventory.Controllers
         }
 
         public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
-                          string emailid, string Adhar_Number, string Job_position)
+                          string emailid, string Adhar_Number, string Job_position,string image)
         {
-            company_Id = getMaxCompanyID();
-            ViewBag.company_Id = company_Id;
+            //company_Id = getMaxCompanyID();
+            //ViewBag.company_Id = company_Id;
             List<Vendor> contact = new List<Vendor>();
-            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image);
             if (data > 0)
             {
-                return Json("sucess", company_Id.ToString());
-            }
+                string Vendor_Id = getMaxVendorID();
+                ViewBag.Vendor_Id = Vendor_Id;
+                var result = new { Result = "sucess", ID = Vendor_Id };
+                return Json(result, JsonRequestBehavior.AllowGet);
+                }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
@@ -443,6 +470,7 @@ namespace Inventory.Controllers
                     Mobile_No = (int)set,
                     Adhar_Number = data["Adhar_Number"].ToString(),
                     Vendor_Id = data["Vendor_Id"].ToString(),
+                    image = data["image"].ToString()
 
                 };
 

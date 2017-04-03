@@ -1,14 +1,18 @@
 ﻿//<!---------- Display Vendor Information and reset all forms --------------->
 //<script type="text/javascript">
 
-$(document).ready(function () {
-    var url = 'Vendor/VendorCompany';
-    $('#companyrecords').load(url);
-});
+//$(document).ready(function () {
+//    var url = 'Vendor/VendorCompany';
+//    $('#companyrecords').load(url);
+//});
 $("#add-vendor").click(function () {
     $("#vendor-information").css("display", "block");
     $("#additon").css("display", "none");
+    $("#contacttable").css("display", "none");
+    
+    $('#mySubmit').css("display", "block");
     $("#vendor-information input").val("");
+    $("#Vendor_Id").val("");
     $("#companypic").attr("src", "/images/user.png");
     $("#vendor-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
     $("#vendor-information1").css("display", "none");
@@ -260,6 +264,7 @@ function deleteRecord(id) {
 //Assigning values to inputs
 function editFunction(array) {
     $('#vendor-information').css('display', 'block');
+    $('#additon').css('display', 'block');
     $("#contacttable").css("display", "none");
     $(".cd-tabs").css("display", "none");
             $('#company_Id').val(array.company_Id);
@@ -270,7 +275,11 @@ function editFunction(array) {
             $('#Bank_Branch').val(array.Bank_Branch);
             $('#IFSC_No').val(array.IFSC_No);
             $('#Note').val(array.Note);
-            $('#companypic').attr('src', 'data:image/;base64,'+ array.logo);
+            if (array.logo != "/images/user.png" && array.logo !=null)
+            {
+              $('#companypic').attr('src', 'data:image/;base64,' + array.logo);
+            }else
+            $('#companypic').attr('src',array.logo);
             $('#Vendor_Id').val(array.Vendor_Id);
             $('#bill_city').val(array.bill_city);
             $('#bill_country').val(array.bill_country);
@@ -295,6 +304,7 @@ function getEditDetails(id) {
 
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
+       
     });
     
     $.ajax({
@@ -330,7 +340,7 @@ function editcompany(clickedvalue) {
         $('#additional').css('display', 'none');
     });
 
-    $("vendor-information1").css("display", "block");
+    $('vendor-information1').css("display", "block");
     $('#additon').css('display', 'block');
     
     company_Id = $('#company_Id').val();
@@ -356,9 +366,9 @@ function editcompany(clickedvalue) {
         else{
     if (clickedvalue == 'update') {
         $.ajax({
-            url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
+            url: '/Vendor/updatecompany',
             type: 'POST',
-            data: JSON.stringify({ company_Id, Company_Name, Email }),
+            data: JSON.stringify({ company_Id, Company_Name, Email,logo }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -391,7 +401,10 @@ function editcompany(clickedvalue) {
                     $('#company_Id').val(data.ID);
                     $('#companyrecords').load(url);
                     alert("company saved sucessfully");
-                      }
+                }
+                else if (data="exists") {
+                    alert("Company Name alredy exists..Please enter another name");
+                }
                 else {
                     alert("not saved");
                 }
@@ -601,30 +614,29 @@ function updateContact(clickedvalue) {
     });
     company_Id = $('#company_Id').val();
     Vendor_Id = $('#Vendor_Id').val();
-    //alert(Vendor_Id);
+    alert(clickedvalue);
     Contact_PersonFname = $('#Contact_PersonFname').val();
     Contact_PersonLname = $('#Contact_PersonLname').val();
     Mobile_No = $('#Mobile_No').val();
     emailid = $('#emailid').val();
     Adhar_Number = $('#Adhar_Number').val();
     Job_position = $('#Job_position').val();
+    image = $('#contactpic').attr('src').replace('data:image/;base64,', '');
     if (clickedvalue == 'savecontact') {
+        $("#contacttable").css("display", "block");
         $.ajax({
             url: '/Vendor/savecontactdetails',
             type: 'POST',
-            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
+            data: JSON.stringify({ company_Id: company_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position, image: image }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                if (data == "unique") {
-                    alert("not saved");
-                }
-                else {
+                if (data.Result == "sucess") {
                     $('#savebutton').hide();
                     company_Id = $('#company_Id').val();
+                    $('#Vendor_Id').val(data.ID);
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert(url);
                     alert("Contact Details saved sucessfully");
                     $("[id='Contact_PersonFname']").val("");
                     $("[id='Contact_PersonLname']").val("");
@@ -632,6 +644,10 @@ function updateContact(clickedvalue) {
                     $("[id='emailid']").val("");
                     $("[id='Adhar_Number']").val("");
                     $("[id='Job_position']").val("");
+                    $("#contactpic").attr("src", "/images/user.png");
+                }
+                else {
+                    alert("not saved");
                 }
             },
             error: function (json)
@@ -642,7 +658,7 @@ function updateContact(clickedvalue) {
         $.ajax({
             url: '/Vendor/updatecontactdetails',
             type: 'POST',
-            data: JSON.stringify({ Vendor_Id: Vendor_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position }),
+            data: JSON.stringify({ Vendor_Id: Vendor_Id, Contact_PersonFname: Contact_PersonFname, Contact_PersonLname: Contact_PersonLname, Mobile_No: Mobile_No, emailid: emailid, Adhar_Number: Adhar_Number, Job_position: Job_position ,image:image}),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -692,7 +708,8 @@ function editcontactperson(id){
                 $('#Mobile_No').val(array.Mobile_No);
                 $('#emailid').val(array.emailid);
                 $('#Adhar_Number').val(array.Adhar_Number);
-                $('#Job_position').val(array.Job_position);
+                $('#Job_position').val(array.Job_position); 
+                $('#contactpic').attr('src', 'data:image/;base64,' + array.image);
             }
         },
         error: function (data)
@@ -715,14 +732,14 @@ function deleteVendor(id) {
             contentType: 'application/json',
             success: function (data) {
                 if (data == "unique") {
-                    alert("sai");
+                    alert("Not deleted");
                 }
                 else {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
                     alert("Vendor Deleted sucessfully");
-                    //$("#vendortable").load(" #vendortable");
+                  
                 }
             },
             error: function (data)
@@ -757,7 +774,6 @@ function inviteVendor(id) {
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
                     alert("invitation sent sucessfully");
-                    //$("#vendortable").load(" #vendortable");
                 }
             },
             error: function (data)
@@ -772,33 +788,7 @@ function inviteVendor(id) {
 }
 
 //<!------ Image Upload ------>
-//function upload(company_Id) {
-//           var ext = $('#fileupload').val().split('.').pop().toLowerCase();
-//           alert(company_Id);
-//           if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-//               alert('Invalid File Type');
-//           }
-//           else {
-//               var data = new FormData();
-//               var files = $("#fileupload").get(0).files;
-//               if (files.length > 0) {
-//                   data.append("helpSectionImages", files[0]);
-//               }
-//               $.ajax({
-//                   url: '/Vendor/UpdateCompanyPic?company_Id=' + company_Id,
-//                   type: "POST",
-//                   processData: false,
-//                   contentType: false,
-//                   data: data,
-//                   success: function (response) {
-//                       $("#companypic").attr("src","data:image/;base64,"+response);
-//                   },
-//                   error: function (er) {
-//                       alert("Failed To Upload Pic!!! Try Again");
-//                   }
-//               });
-//           }
-//       }
+
 function upload() {
     var ext = $('#fileupload').val().split('.').pop().toLowerCase();
     
@@ -819,6 +809,34 @@ function upload() {
             data: data,
             success: function (response) {
                 $("#companypic").attr("src", "data:image/;base64," + response);
+            },
+            error: function (er) {
+                alert("Failed To Upload Pic!!! Try Again");
+            }
+        });
+    }
+}
+
+function upload1() {
+    var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
+
+    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+        alert('Invalid File Type');
+    }
+    else {
+        var data = new FormData();
+        var files = $("#fileupload1").get(0).files;
+        if (files.length > 0) {
+            data.append("helpSectionImages", files[0]);
+        }
+        $.ajax({
+            url: '/Vendor/UpdateVendorPic',
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                $("#contactpic").attr("src", "data:image/;base64," + response);
             },
             error: function (er) {
                 alert("Failed To Upload Pic!!! Try Again");
