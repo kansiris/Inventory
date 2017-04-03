@@ -709,7 +709,10 @@ function editcontactperson(id){
                 $('#emailid').val(array.emailid);
                 $('#Adhar_Number').val(array.Adhar_Number);
                 $('#Job_position').val(array.Job_position); 
-                $('#contactpic').attr('src', 'data:image/;base64,' + array.image);
+                if (array.image != "/images/user.png" && array.image != null) {
+                    $('#contactpic').attr('src', 'data:image/;base64,' + array.image);
+                } else
+                    $('#contactpic').attr('src', array.image);
             }
         },
         error: function (data)
