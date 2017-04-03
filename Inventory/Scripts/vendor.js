@@ -353,52 +353,53 @@ function editcompany(clickedvalue) {
             email.focus;
             return false;
         }
-        else {
-            if (clickedvalue == 'update') {
-                $.ajax({
-                    url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
-                    type: 'POST',
-                    data: JSON.stringify({ company_Id, Company_Name, Email }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (data == "sucess") {
-                            $('#savebutton').hide();
-                            var url = 'Vendor/VendorCompany';
-                            $('#companyrecords').load(url);
-                            alert("Company Updated sucessfully");
-                            $('#additon').css('display', 'block');
-                        }
-                        else {
-                            alert("not updated");
-                        }
-                    },
-                    error: function (data)
-                    { alert("Failed!!!"); }
-                });
-            }
-            if (clickedvalue == 'Save') {
-                $.ajax({
-                    url: '/Vendor/savecompany',
-                    type: 'POST',
-                    data: JSON.stringify({ Company_Name, Email, logo }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (data.Result == "sucess") {
-                            $('#mySubmit').hide();
-                            var url = 'Vendor/VendorCompany';
-                            $('#companyrecords').load(url);
-                            alert("company saved sucessfully");
-                        }
-                        else {
-                            alert("not saved");
-                        }
-                    },
-                    error: function (data)
-                    { alert("Failed!!!"); }
-                });
-            }
+        else{
+    if (clickedvalue == 'update') {
+        $.ajax({
+            url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
+            type: 'POST',
+            data: JSON.stringify({ company_Id, Company_Name, Email }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "sucess") {
+                    $('#savebutton').hide();
+                    var url = 'Vendor/VendorCompany';
+                    $('#companyrecords').load(url);
+                    alert("Company Updated sucessfully");
+                    $('#additon').css('display', 'block');
+                }
+                else {
+                    alert("not updated");
+                }
+            },
+            error: function (data)
+            { alert("Failed!!!"); }
+        });
+    }
+    if (clickedvalue == 'Save') {
+        $.ajax({
+            url: '/Vendor/savecompany',
+            type: 'POST',
+            data: JSON.stringify({ Company_Name, Email,logo }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.Result == "sucess") {
+                    $('#mySubmit').hide();
+                    var url = 'Vendor/VendorCompany';
+                    $('#company_Id').val(data.ID);
+                    $('#companyrecords').load(url);
+                    alert("company saved sucessfully");
+                      }
+                else {
+                    alert("not saved");
+                }
+            },
+            error: function (data)
+            { alert("Failed!!!"); }
+        });
+       }
         }
     }
 }
