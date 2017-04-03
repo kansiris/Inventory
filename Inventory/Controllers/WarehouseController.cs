@@ -38,7 +38,7 @@ namespace Inventory.Controllers
                              wh_Shortname = row["wh_Shortname"].ToString(),
                              conperson = row["Contact_person"].ToString(),
                              Email = row["Email"].ToString(),
-                             Wh_logo = row["Wh_Image"].ToString()
+                            // Wh_logo = row["Wh_Image"].ToString()
                          }).OrderByDescending(m => m.wh_Id).ToList();
             ViewBag.records = warehouse;
             ViewBag.wh_id = getMaxwhid();
@@ -158,18 +158,18 @@ namespace Inventory.Controllers
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
             WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
             var data = WHservice.getallwhdetails(user1.DbName, wh_id);
-            //long phn;
-            //long Mob;
+            long phn;
+            long Mob;
             if (data.Read())
             {
-                //if (data["Phone"].ToString() == "")
-                //    phn = 0;
-                //else
-                //    phn = long.Parse(data["Phone"].ToString());
-                //if (data["Mobile"].ToString() == "")
-                //    Mob = 0;
-                //else
-                //    Mob = long.Parse(data["Mobile"].ToString());
+                if (data["Phone"].ToString() == "")
+                    phn = 0;
+                else
+                    phn = long.Parse(data["Phone"].ToString());
+                if (data["Mobile"].ToString() == "")
+                    Mob = 0;
+                else
+                    Mob = long.Parse(data["Mobile"].ToString());
                 Warehouse wh = new Warehouse
                 {
                     wh_Id = wh_id,//data["wh_id"].ToString(),
@@ -178,8 +178,8 @@ namespace Inventory.Controllers
                     conperson = data["Contact_person"].ToString(),
                     Job_position = data["Job_position"].ToString(),
                     Email = data["Email"].ToString(),
-                    phone = long.Parse(data["Phone"].ToString()),
-                    Mobile = long.Parse(data["Mobile"].ToString()),
+                    phone = phn,//long.Parse(data["Phone"].ToString()),
+                    Mobile = Mob,//long.Parse(data["Mobile"].ToString()),
                     Note = data["Note"].ToString(),
                     bill_Street = data["bill_street"].ToString(),
                     bill_City = data["bill_city"].ToString(),
@@ -191,7 +191,7 @@ namespace Inventory.Controllers
                     ship_State = data["ship_state"].ToString(),
                     ship_Postalcode = data["ship_postalcode"].ToString(),
                     ship_Country = data["ship_country"].ToString(),
-                    Wh_logo = data["Wh_Image"].ToString(),
+                    //Wh_logo = data["Wh_Image"].ToString(),
                 };
 
                 string json = JsonConvert.SerializeObject(wh);
