@@ -32,7 +32,7 @@
                     @foreach (var item in ViewBag.records)
                 {
                         <tr>
-                            <td> @if (item.UserPic != "")
+                            <td> @if (item.UserPic != "" && item.UserPic != null)
                             { <img src="data:image;base64,@item.UserPic" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
                             else
                             { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;"/> }

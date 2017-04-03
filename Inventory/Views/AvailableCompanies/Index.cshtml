@@ -16,6 +16,31 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Custom styling plus plugins -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <style>
+        ::-ms-reveal {
+            display: none !important;
+        }
+
+        .hideShowPassword-toggle {
+            background-image: url('../../images/wink.svg');
+            background-position: 0 center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            height: 100%;
+            overflow: hidden;
+            text-indent: -9999em;
+            width: 44px;
+        }
+
+        .hideShowPassword-toggle-hide {
+            background-position: -44px center;
+        }
+
+        .hideShowPassword-toggle,
+        .my-toggle-class {
+            z-index: 3;
+        }
+    </style>
 </head>
 <body class="nav-md">
     <form method="post">
@@ -248,7 +273,7 @@
                             <h4 class="modal-title" id="myModalLabel2">Enter Password</h4><input type="hidden" id="usertype" name="usertype" />
                         </div>
                         <div class="modal-body">
-                            <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control" required="required" />
+                            <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control loginpassword" required="required" />
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary" id="btnlogin" value="Authenticate">Sign In</button>
@@ -270,6 +295,8 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/hideShowPassword.min.js"></script>
     <script>
         function get(id) {
             var id1 = $('#loginpassword ' + id + '');
@@ -285,6 +312,13 @@
  $(".thumbnail.media-gallery").addClass(" scale-one")
  });
     </script>
+    @*<script>
+        $(window).ready(function () {
+            $('.loginpassword').hideShowPassword({
+                innerToggle: true,
+            });
+        });
+    </script>*@
     <!------ scale thumbnails --------->
 </body>
 </html>
