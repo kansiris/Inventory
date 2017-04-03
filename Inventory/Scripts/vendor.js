@@ -1,10 +1,10 @@
 ﻿//<!---------- Display Vendor Information and reset all forms --------------->
 //<script type="text/javascript">
 
-$(document).ready(function () {
-    var url = 'Vendor/VendorCompany';
-    $('#companyrecords').load(url);
-});
+//$(document).ready(function () {
+//    var url = 'Vendor/VendorCompany';
+//    $('#companyrecords').load(url);
+//});
 $("#add-vendor").click(function () {
     $("#vendor-information").css("display", "block");
     $("#additon").css("display", "none");
