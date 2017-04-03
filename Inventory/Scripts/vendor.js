@@ -388,6 +388,7 @@ function editcompany(clickedvalue) {
                 if (data.Result == "sucess") {
                     $('#mySubmit').hide();
                     var url = 'Vendor/VendorCompany';
+                    $('#company_Id').val(data.ID);
                     $('#companyrecords').load(url);
                     alert("company saved sucessfully");
                       }
@@ -413,7 +414,7 @@ function editcompanyaddress(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     company_Id = $('#company_Id').val();
-   
+    alert(company_Id);
     Company_Name = $('#Company_Name').val();
     Email = $('#Email').val();
     bill_street = $('#bill_street').val();
