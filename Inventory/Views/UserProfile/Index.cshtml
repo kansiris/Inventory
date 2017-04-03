@@ -337,9 +337,22 @@
                                         <button type="button" class="btn btn-success pull-right" id="btnaddstaff" value="addstaff" onclick="updatevales(this.value)">Add User</button>
                                         <button type="button" class="btn btn-success pull-right" id="btnupdatestaff" value="updatestaff" onclick="updatevales(this.value)" style="display:none">Update User</button>
                                     </div>
-                                    <div id="staffrecords" onload="Pagination()">
-                                        @{ Html.RenderAction("GetStaffRecords", "UserProfile");}
+                                    <div class="row top-bar">
+                                        <div class="col-md-12">
+                                            <h1 class="pull-left">Available Staff</h1>
+                                            @*<button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Vendor </button>*@
+                                            <div class="icons pull-right">
+                                                <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+                                                <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+                                                <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+                                                <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    @{ Html.RenderAction("GetStaffRecords", "UserProfile");}
+
+
                                     <hr />
                                     @*<div class="row">
                                             <div class="col-md-12">
@@ -461,7 +474,7 @@
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="form-group col-md-12">
-                                                    <textarea class="form-control" rows="5" id="comment" placeholder="Public Profile(Visible to all users)"></textarea>
+                                                    <textarea class="form-control" rows="5" id="comment" placeholder="Add Notes"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -620,7 +633,7 @@
                     <!--------- Tab Section END ------------>
                 </div>
             </form>
-                                            }
+                                        }
 
     </div>
 </div>
@@ -877,14 +890,16 @@
                     }
                     else if(response == 'staffadded')
                     {
-                        $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        $('#partialdiv').empty().load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})",function(){ Pagination(); });
+                        //$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
                         Pagination();
                         $('input[id^=Item4]').val('');
                         $("#staffprofilepic").attr("src","/images/user.png");
                         alert("User Added SuccessFully!!!");
                     }
                     else if (response == 'staffupdated') {
-                        $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+                        $('#partialdiv').empty().load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})",function(){ Pagination(); });
+                        //$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
                         Pagination();
                         $('input[id^=Item4]').val('');
                         $("#staffprofilepic").attr("src","/images/user.png");
@@ -946,8 +961,11 @@
 
         $("#refresh").click(function(e) {
             //location.reload();
-            $('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
+            //$('#staffrecords').load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})");
             //Pagination();
+            $('#partialdiv').empty().load("@Url.Action("GetStaffRecords", "UserProfile",new { id = Request.QueryString["id"]})",function(){ Pagination(); });
+
+
         });
     </script>
     //<!------------ List / Grid Views and reload page -------------->
