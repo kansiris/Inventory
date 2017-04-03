@@ -1387,7 +1387,7 @@
             }
             if (clickedvalue == 'Save Note') {
                 $.ajax({
-                    url: '/Warehouse/updatewhnotes',
+                    url: '/Warehouse/insertwhnotes',
                     type: 'POST',
                     data: JSON.stringify({ warehouse: warehouse }),
                     dataType: 'json',
@@ -1427,7 +1427,7 @@
             }
             if (clickedvalue == 'savecontact') {
                 $.ajax({
-                    url: '/Warehouse/updatewhcontact',
+                    url: '/Warehouse/insertwhcontact',
                     type: 'POST',
                     data: JSON.stringify({ warehouse: warehouse }),
                     dataType: 'json',
