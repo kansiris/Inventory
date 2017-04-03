@@ -73,9 +73,9 @@
                 </div>
             </div>
             <div class="row" id="company1">
-                <div id="companyrecords">
+                
                     @{ Html.RenderAction("VendorCompany", "Vendor");}
-                </div>
+                
                 <div class="row" id="vendortable1">
                     <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
                         <div class="well profile_view">
@@ -435,34 +435,34 @@
                             <li data-content="contactperson" class="contactperson">
 
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="row">
                                             <input type="hidden" id="newcompanyid" value="@ViewBag.id" />
-                                            <div class="form-group col-md-4">
-                                                
+                                            <div class="form-group col-md-6">
+
                                                 <input type="text" class="form-control" name="Contact_PersonFname" id="Contact_PersonFname" placeholder="First Name">
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                
+                                            <div class="form-group col-md-6">
+
                                                 <input type="text" class="form-control" name="Contact_PersonLname" id="Contact_PersonLname" placeholder="Last name">
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-4">
-                                                
+                                            <div class="form-group col-md-6">
+
                                                 <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No" maxlength="12">
                                             </div>
-                                            <div class="form-group col-md-4">
-                                               
+                                            <div class="form-group col-md-6">
+
                                                 <input type="text" class="form-control" name="emailid" id="emailid" placeholder="Email">
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-4">
-                                               
+                                            <div class="form-group col-md-6">
+
                                                 <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="AdharNumber">
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
                                                 <div class="display-positions">
                                                     <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
@@ -480,6 +480,7 @@
                                             </div>
                                             <div class="row positions"></div>
                                         </div>
+                                    </div>
                                             @*vendor logo code start*@
                                             <div class="col-md-3 col-md-push-3">
                                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
@@ -488,7 +489,7 @@
                                             </div>
                                             @*vendor logo code end*@
 
-                                    </div>
+                                    
                                 </div>
                                 <hr>
                                 <div class="row">

@@ -128,8 +128,20 @@ $(document).ready(function (e) {
 
 
   //  <!----- Table Pagination ---->
-			
-     $('#vendortable1').after('<div id="nav"></div>');
+    Pagination();
+     
+
+   // <!----- Table Pagination ---->
+    $(".cd-tabs").css("display", "none");
+
+    $("#additon").click(function () {
+        $("#vendor-information1").css("display", "block");
+        $(".cd-tabs").css("display", "block");
+    });
+});
+
+function Pagination() {
+    $('#vendortable1').after('<div id="nav"></div>');
     var rowsShown = 3;
     var rowsTotal = $('#vendortable tbody tr').length;
     var numPages = rowsTotal / rowsShown;
@@ -150,9 +162,9 @@ $(document).ready(function (e) {
         $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
                 css('display', 'table-row').animate({ opacity: 1 }, 300);
     });
-			
-			
-			
+
+
+
     $('#vendortable1 > div').hide();
     $('#vendortable1 > div').slice(0, rowsShown).show();
     $('#nav a:first').addClass('active');
@@ -166,15 +178,7 @@ $(document).ready(function (e) {
         $('#vendortable1 > div').css('opacity', '0.0').hide().slice(startItem, endItem).
                 css('display', 'table-row').animate({ opacity: 1 }, 300);
     });
-
-   // <!----- Table Pagination ---->
-    $(".cd-tabs").css("display", "none");
-
-    $("#additon").click(function () {
-        $("#vendor-information1").css("display", "block");
-        $(".cd-tabs").css("display", "block");
-    });
-});
+}
 //</script>
 //<!------ Random Colors ------>
 //<!------ Cloning contact person ------>
@@ -275,7 +279,7 @@ function editFunction(array) {
             $('#Bank_Branch').val(array.Bank_Branch);
             $('#IFSC_No').val(array.IFSC_No);
             $('#Note').val(array.Note);
-            if (array.logo != "/images/user.png" && array.logo !=null)
+            if (array.logo != "/images/user.png" && array.logo !=null && array.logo != "")
             {
               $('#companypic').attr('src', 'data:image/;base64,' + array.logo);
             }else
@@ -375,7 +379,7 @@ function editcompany(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
                     var url = 'Vendor/VendorCompany';
-                    $('#companyrecords').load(url);
+                    $('#companyrecords').empty().load(url, function () { Pagination(); });
                     alert("Company Updated sucessfully");
                     $('#additon').css('display', 'block');
                 }
@@ -399,7 +403,7 @@ function editcompany(clickedvalue) {
                     $('#mySubmit').hide();
                     var url = 'Vendor/VendorCompany';
                     $('#company_Id').val(data.ID);
-                    $('#companyrecords').load(url);
+                    $('#companyrecords').empty().load(url, function () { Pagination(); });
                     alert("company saved sucessfully");
                 }
                 else if (data="exists") {
