@@ -27,10 +27,10 @@ $("#vendor-information-cancel").click(function () {
     $("#vendor-information1").css("display", "none");
 });
 
-function forCancel(){
-     $("#additon").css("display", "block");
-     $(".cd-tabs").css("display", "none");
-     $("#vendor-information1 input").val("");
+function forCancel() {
+    $("#additon").css("display", "block");
+    $(".cd-tabs").css("display", "none");
+    $("#vendor-information1 input").val("");
 }
 $("#vendor-information1-cancel").click(function () {
     forCancel();
@@ -50,18 +50,18 @@ $("#save-reset").click(function () {
 
 //<!------------ List / Grid Views and reload page -------------->
 
-  $("#grid-view").click(function(e) {
-      $("#vendortable").css("display","none");
-      $("#vendortable1").css("display","block");
-  });
+$("#grid-view").click(function (e) {
+    $("#vendortable").css("display", "none");
+    $("#vendortable1").css("display", "block");
+});
 
-$("#list-view").click(function(e) {
-    $("#vendortable").css("display","block");
-    $("#vendortable1").css("display","none");
+$("#list-view").click(function (e) {
+    $("#vendortable").css("display", "block");
+    $("#vendortable1").css("display", "none");
     location.reload();
 });
- 
-$("#refresh").click(function(e) {
+
+$("#refresh").click(function (e) {
     location.reload();
 });
 
@@ -98,7 +98,7 @@ $(document).ready(function (e) {
         if (event.shiftKey) {
             event.preventDefault();
         }
-        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode==9) {
+        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9) {
         }
         else {
             if (event.keyCode < 95) {
@@ -112,9 +112,9 @@ $(document).ready(function (e) {
                 }
             }
         }
-        
+
     });
-    
+
     $(".top-button").each(function () {
         var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
         var len = colors.length;
@@ -123,9 +123,9 @@ $(document).ready(function (e) {
     });
 
 
-  //  <!----- Table Pagination ---->
-			
-     $('#vendortable1').after('<div id="nav"></div>');
+    //  <!----- Table Pagination ---->
+
+    $('#vendortable1').after('<div id="nav"></div>');
     var rowsShown = 3;
     var rowsTotal = $('#vendortable tbody tr').length;
     var numPages = rowsTotal / rowsShown;
@@ -146,9 +146,9 @@ $(document).ready(function (e) {
         $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
                 css('display', 'table-row').animate({ opacity: 1 }, 300);
     });
-			
-			
-			
+
+
+
     $('#vendortable1 > div').hide();
     $('#vendortable1 > div').slice(0, rowsShown).show();
     $('#nav a:first').addClass('active');
@@ -163,7 +163,7 @@ $(document).ready(function (e) {
                 css('display', 'table-row').animate({ opacity: 1 }, 300);
     });
 
-   // <!----- Table Pagination ---->
+    // <!----- Table Pagination ---->
     $(".cd-tabs").css("display", "none");
 
     $("#additon").click(function () {
@@ -230,7 +230,7 @@ $(".display-positions .position").click(function () {
 function deleteRecord(id) {
     alert(id);
     var retVal = confirm("Do you want to delete record...!");
-    if( retVal == true ){
+    if (retVal == true) {
         $.ajax({
             url: '/Vendor/deleteRecord',
             type: 'POST',
@@ -252,8 +252,8 @@ function deleteRecord(id) {
         location.reload();
         return true;
     }
-    
-    else{
+
+    else {
         return false;
     }
 }
@@ -262,26 +262,26 @@ function editFunction(array) {
     $('#vendor-information').css('display', 'block');
     $("#contacttable").css("display", "none");
     $(".cd-tabs").css("display", "none");
-            $('#company_Id').val(array.company_Id);
-            $('#Company_Name').val(array.Company_Name);
-            $('#Email').val(array.Email);
-            $('#Bank_Acc_Number').val(array.Bank_Acc_Number);
-            $('#Bank_Name').val(array.Bank_Name);
-            $('#Bank_Branch').val(array.Bank_Branch);
-            $('#IFSC_No').val(array.IFSC_No);
-            $('#Note').val(array.Note);
-            $('#companypic').attr('src', 'data:image/;base64,'+ array.logo);
-            $('#Vendor_Id').val(array.Vendor_Id);
-            $('#bill_city').val(array.bill_city);
-            $('#bill_country').val(array.bill_country);
-            $('#bill_state').val(array.bill_state);
-            $('#bill_street').val(array.bill_street);
-            $('#bill_postalcode').val(array.bill_postalcode);
-            $('#ship_city').val(array.ship_city);
-            $('#ship_country').val(array.ship_country);
-            $('#ship_state').val(array.ship_state);
-            $('#ship_street').val(array.ship_street);
-            $('#ship_postalcode').val(array.ship_postalcode);
+    $('#company_Id').val(array.company_Id);
+    $('#Company_Name').val(array.Company_Name);
+    $('#Email').val(array.Email);
+    $('#Bank_Acc_Number').val(array.Bank_Acc_Number);
+    $('#Bank_Name').val(array.Bank_Name);
+    $('#Bank_Branch').val(array.Bank_Branch);
+    $('#IFSC_No').val(array.IFSC_No);
+    $('#Note').val(array.Note);
+    $('#companypic').attr('src', 'data:image/;base64,' + array.logo);
+    $('#Vendor_Id').val(array.Vendor_Id);
+    $('#bill_city').val(array.bill_city);
+    $('#bill_country').val(array.bill_country);
+    $('#bill_state').val(array.bill_state);
+    $('#bill_street').val(array.bill_street);
+    $('#bill_postalcode').val(array.bill_postalcode);
+    $('#ship_city').val(array.ship_city);
+    $('#ship_country').val(array.ship_country);
+    $('#ship_state').val(array.ship_state);
+    $('#ship_street').val(array.ship_street);
+    $('#ship_postalcode').val(array.ship_postalcode);
 
 }
 
@@ -296,7 +296,7 @@ function getEditDetails(id) {
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
     });
-    
+
     $.ajax({
         url: '/Vendor/getAllDetails?company_Id=' + id,
         type: 'POST',
@@ -322,7 +322,7 @@ function getEditDetails(id) {
 
 //Particular Vendor
 function editcompany(clickedvalue) {
-   
+
     $('#update').click(function () {
         $('#company').css('display', 'none');
     });
@@ -332,19 +332,19 @@ function editcompany(clickedvalue) {
 
     $("vendor-information1").css("display", "block");
     $('#additon').css('display', 'block');
-    
+
     company_Id = $('#company_Id').val();
     Company_Name = $('#Company_Name').val();
     logo = $('#companypic').attr('src').replace('data:image/;base64,', '');
     Email = $('#Email').val();
-    
+
     if ((Company_Name == "") || (Email == "")) {
         if (Company_Name == "")
             alert("Please Enter Company Name");
         else
             alert("Please Enter Email");
     }
-    else{
+    else {
 
         var email = document.getElementById('Email');
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -353,59 +353,59 @@ function editcompany(clickedvalue) {
             email.focus;
             return false;
         }
-        else{
-    if (clickedvalue == 'update') {
-        $.ajax({
-            url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
-            type: 'POST',
-            data: JSON.stringify({ company_Id, Company_Name, Email }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "sucess") {
-                    $('#savebutton').hide();
-                    var url = 'Vendor/VendorCompany';
-                    $('#companyrecords').load(url);
-                    alert("Company Updated sucessfully");
-                    $('#additon').css('display', 'block');
-                }
-                else {
-                    alert("not updated");
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
+        else {
+            if (clickedvalue == 'update') {
+                $.ajax({
+                    url: '/Vendor/updatecompany?company_Id=' + company_Id + '&Company_Name=' + Company_Name + '& Email=' + Email,
+                    type: 'POST',
+                    data: JSON.stringify({ company_Id, Company_Name, Email }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            var url = 'Vendor/VendorCompany';
+                            $('#companyrecords').load(url);
+                            alert("Company Updated sucessfully");
+                            $('#additon').css('display', 'block');
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'Save') {
+                $.ajax({
+                    url: '/Vendor/savecompany',
+                    type: 'POST',
+                    data: JSON.stringify({ Company_Name, Email, logo }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.Result == "sucess") {
+                            $('#mySubmit').hide();
+                            var url = 'Vendor/VendorCompany';
+                            $('#companyrecords').load(url);
+                            alert("company saved sucessfully");
+                        }
+                        else {
+                            alert("not saved");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
     }
-    if (clickedvalue == 'Save') {
-        $.ajax({
-            url: '/Vendor/savecompany',
-            type: 'POST',
-            data: JSON.stringify({ Company_Name, Email,logo }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data.Result == "sucess") {
-                    $('#mySubmit').hide();
-                    var url = 'Vendor/VendorCompany';
-                    $('#companyrecords').load(url);
-                    alert("company saved sucessfully");
-                      }
-                else {
-                    alert("not saved");
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
-       }
-        }
-        }
 }
 
 //Particular vendor Company Address
 function editcompanyaddress(clickedvalue) {
-   
+
     $('#updateaddress').click(function () {
         $('#company').css('display', 'none');
     });
@@ -413,7 +413,7 @@ function editcompanyaddress(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     company_Id = $('#company_Id').val();
-   
+
     Company_Name = $('#Company_Name').val();
     Email = $('#Email').val();
     bill_street = $('#bill_street').val();
@@ -434,52 +434,52 @@ function editcompanyaddress(clickedvalue) {
             alert("Please Enter Email");
     }
     else {
-    if (clickedvalue == 'updateaddress') {
-        $.ajax({
-            url: '/Vendor/updatecompanyaddress',
-            type: 'POST',
-            data: JSON.stringify({ company_Id: company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "sucess") {
-                    $('#savebutton').hide();
+        if (clickedvalue == 'updateaddress') {
+            $.ajax({
+                url: '/Vendor/updatecompanyaddress',
+                type: 'POST',
+                data: JSON.stringify({ company_Id: company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "sucess") {
+                        $('#savebutton').hide();
 
-                    alert("Address Updated sucessfully");
-                }
-                else {
-                    alert("not updated");
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
+                        alert("Address Updated sucessfully");
+                    }
+                    else {
+                        alert("not updated");
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
+        if (clickedvalue == 'saveaddress') {
+            $.ajax({
+                url: '/Vendor/savecompanyaddress',
+                type: 'POST',
+                data: JSON.stringify({ company_Id: company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "sucess") {
+                        $('#savebutton').hide();
+                        alert("Address Saved sucessfully");
+                    }
+                    else {
+                        alert("not Saved");
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
     }
-    if (clickedvalue == 'saveaddress') {
-        $.ajax({
-            url: '/Vendor/savecompanyaddress',
-            type: 'POST',
-            data: JSON.stringify({ company_Id: company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "sucess") {
-                    $('#savebutton').hide();
-                    alert("Address Saved sucessfully");
-                }
-                else {
-                    alert("not Saved");
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
-    }
-}
 }
 //Vendor Bank Details
 function editcompanybankdetails(clickedvalue) {
-  
+
     $('#updatebakdetails').click(function () {
         $('#company').css('display', 'none');
     });
@@ -538,7 +538,7 @@ function editcompanybankdetails(clickedvalue) {
 
 //Vendor Note
 function updatecompanynote(clickedvalue) {
-   
+
     $('#updatenote').click(function () {
         $('#company').css('display', 'none');
     });
@@ -670,7 +670,7 @@ function updateContact(clickedvalue) {
 }
 //vendor contatc details editing based on vendor id
 
-function editcontactperson(id){
+function editcontactperson(id) {
     alert(id);
     $('#contactbutton').val("updatecontact").text("Update Contact");
     $.ajax({
@@ -800,7 +800,7 @@ function inviteVendor(id) {
 //       }
 function upload() {
     var ext = $('#fileupload').val().split('.').pop().toLowerCase();
-    
+
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
         alert('Invalid File Type');
     }

@@ -51,23 +51,30 @@ namespace Inventory.Controllers
             }
             if (command == "Insert")
             {
-                int Subscription;
-                DateTime? SubscriptionDate = null;
-                string activationCode = Guid.NewGuid().ToString();//Auto Generated code
-                string DBname = userMaster.User_Site + "_Inventory"; //Assigning Particular DB Name
-                if (plan != null)
-                    Subscription = (int)LoginService.getsubscriptionid(plan);
-                else
-                    Subscription = (int)LoginService.getsubscriptionid("Free Member");
-                int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
-                string Profile_Picture = null, Date_Format = null, Timezone = null, Currency = null, companylogo = null;
-                int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode, Profile_Picture, Date_Format, Timezone, Currency,companylogo);
-                if (count > 0)
-                {
-                    Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
-                    return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                var data = LoginService.Authenticateuser("email", userMaster.EmailId, null, null, 0);
+                if (data.HasRows) {
+                    return Content("<script language='javascript' type='text/javascript'>alert('Email Id Already Exists!!! Try Another');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
-                return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                else
+                {
+                    int Subscription;
+                    DateTime? SubscriptionDate = null;
+                    string activationCode = Guid.NewGuid().ToString();//Auto Generated code
+                    string DBname = userMaster.User_Site + "_Inventory"; //Assigning Particular DB Name
+                    if (plan != null)
+                        Subscription = (int)LoginService.getsubscriptionid(plan);
+                    else
+                        Subscription = (int)LoginService.getsubscriptionid("Free Member");
+                    int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
+                    string Profile_Picture = null, Date_Format = null, Timezone = null, Currency = null, companylogo = null;
+                    int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode, Profile_Picture, Date_Format, Timezone, Currency, companylogo);
+                    if (count > 0)
+                    {
+                        Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
+                        return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    }
+                    return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                }
             }
             return View();
         }
