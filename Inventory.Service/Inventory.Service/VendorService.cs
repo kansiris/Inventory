@@ -26,17 +26,17 @@ namespace Inventory.Service
 
         #region VendorInsertRow
         public static int VendorInsertRow(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
-                          string emailid, string Adhar_Number, string Job_position)
+                          string emailid, string Adhar_Number, string Job_position,string image)
         {
-            return VendorRepository.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            return VendorRepository.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image);
         }
 
         #endregion
 
         public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
-                      string emailid, string Adhar_Number, string Job_position)
+                      string emailid, string Adhar_Number, string Job_position,string image)
         {
-            return VendorRepository.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position);
+            return VendorRepository.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image);
         }
         #region VendorAddressInsertRow
         public static int VendorAddressInsertRow(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
@@ -93,10 +93,10 @@ namespace Inventory.Service
         {
             return VendorRepository.getAllDetails(company_Id);
         }
-        public static int UpdateCompany1(int company_Id, string Company_Name, string Email)
+        public static int UpdateCompany1(int company_Id, string Company_Name, string Email,string logo)
         {
 
-            return VendorRepository.UpdateCompany1(company_Id, Company_Name, Email);
+            return VendorRepository.UpdateCompany1(company_Id, Company_Name, Email, logo);
         }
         public static int deleteRecord(int company_Id)
         {
@@ -109,9 +109,15 @@ namespace Inventory.Service
 
             return VendorRepository.deleteVendor(Vendor_Id);
         }
+
         public static SqlDataReader getVendorContact(string Vendor_Id)
         {
             return VendorRepository.getVendorContact(Vendor_Id);
+        }
+        public static SqlDataReader checkcompany1(string Company_Name)
+        {
+            return VendorRepository.checkcompany1(Company_Name);
+
         }
         //company pic upload
         public static int updatecompanyprofile(int id, string companylogo)
