@@ -141,7 +141,7 @@ $(document).ready(function (e) {
 });
 
 function Pagination() {
-    $('#vendortable1').after('<div id="nav"></div>');
+    $('#vendortable').after('<div id="nav"></div>');
     var rowsShown = 3;
     var rowsTotal = $('#vendortable tbody tr').length;
     var numPages = rowsTotal / rowsShown;
