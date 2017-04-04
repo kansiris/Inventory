@@ -5,6 +5,7 @@
         <table class="table" id="contacttable">
             <thead class="thead-inverse">
                 <tr>
+                    @*<th></th>*@
                     <th>Vendor Id</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -17,6 +18,13 @@
                 @foreach (var item in ViewBag.records)
                 {
                     <tr>
+                        
+                        @*<td>
+                            @if (item.image != "" && item.image != null && item.image != "/images/user.png")
+                            { <img src="data:image;base64,@item.image" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
+                            else
+                            { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
+                        </td>*@
                        <td>@item.Vendor_Id</td>
                         <td>@item.Contact_PersonFname</td>
                         <td>@item.Contact_PersonLname</td>

@@ -9,7 +9,6 @@ $("#add-vendor").click(function () {
     $("#vendor-information").css("display", "block");
     $("#additon").css("display", "none");
     $("#contacttable").css("display", "none");
-    
     $('#mySubmit').css("display", "block");
     $("#vendor-information input").val("");
     $("#Vendor_Id").val("");
@@ -21,6 +20,18 @@ $("#add-vendor").click(function () {
     $('#bankid').val("savebankdetails").text("Save Bank Details");
     $('#notebutton').val("Save Note").text("Save Note");
     $('#contactbutton').val("savecontact").text("Save Contact");
+    $('#myform input[type=text]').attr("disabled", false);
+    $('#myform textarea').attr("disabled", false);
+    $('#myform input[type=file]').attr("disabled", false);
+    $('#mySubmit').show();
+    $('#mySubmit1').show();
+    $('#bankid').show();
+    $('#notebutton').show();
+    $("#vendor-information-cancel").show();
+    $("#vendor-information1-cancel").show();
+    $("#vendor-information2-cancel").show();
+    $("#vendor-information3-cancel").show();
+    $("#vendor-information4-cancel").show();
     //$("#vendor-information input, .cd-tabs input, .cd-tabs textarea").val("");
 });
 $("#vendor-information-cancel").click(function () {
@@ -56,7 +67,7 @@ $("#save-reset").click(function () {
 
   $("#grid-view").click(function(e) {
       $("#vendortable").css("display","none");
-      $("#vendortable1").css("display","block");
+      $("#vendortable1").css("display", "block");
   });
 
 $("#list-view").click(function(e) {
@@ -98,26 +109,26 @@ $("input[type='checkbox']").change(function () {
 //<!------ Random Colors ------>
 //<script type="text/javascript">
 $(document).ready(function (e) {
-    $("#Mobile_No").keydown(function (event) {
-        if (event.shiftKey) {
-            event.preventDefault();
-        }
-        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode==9) {
-        }
-        else {
-            if (event.keyCode < 95) {
-                if (event.keyCode < 48 || event.keyCode > 57) {
-                    event.preventDefault();
-                }
-            }
-            else {
-                if (event.keyCode < 96 || event.keyCode > 105) {
-                    event.preventDefault();
-                }
-            }
-        }
+//    $("#Mobile_No").keydown(function (event) {
+//        if (event.shiftKey) {
+//            event.preventDefault();
+//        }
+//        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode==9) {
+//        }
+//        else {
+//            if (event.keyCode < 95) {
+//                if (event.keyCode < 48 || event.keyCode > 57) {
+//                    event.preventDefault();
+//                }
+//            }
+//            else {
+//                if (event.keyCode < 96 || event.keyCode > 105) {
+//                    event.preventDefault();
+//                }
+//            }
+//        }
         
-    });
+//    });
     
     $(".top-button").each(function () {
         var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
@@ -141,7 +152,9 @@ $(document).ready(function (e) {
 });
 
 function Pagination() {
-    $('#vendortable').after('<div id="nav"></div>');
+    //$('#vendortable').after('<div id="nav"></div>');
+    $('#vendortable1').after('<div id="nav"></div>');
+    
     var rowsShown = 3;
     var rowsTotal = $('#vendortable tbody tr').length;
     var numPages = rowsTotal / rowsShown;
@@ -153,7 +166,6 @@ function Pagination() {
     $('#vendortable tbody tr').slice(0, rowsShown).show();
     $('#nav a:first').addClass('active');
     $('#nav a').bind('click', function () {
-
         $('#nav a').removeClass('active');
         $(this).addClass('active');
         var currPage = $(this).attr('rel');
@@ -231,7 +243,24 @@ $(".display-positions .position").click(function () {
 });
 
 //</script>
-
+$("#Adhar_Number").keypress(function (e) {
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        $("#errmsg1").html("Enter Digits Only").show().fadeOut("slow");
+        return false;
+    }
+});
+$("#Bank_Acc_Number").keypress(function (e) {
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        $("#errmsg2").html("Enter Numbers only").show().fadeOut("slow");
+        return false;
+    }
+});
+$("#Mobile_No").keypress(function (e) {
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        $("#errmsg").html("Enter Digits Only").show().fadeOut("slow");
+        return false;
+    }
+});
 //<!------ Contact Person Pop Up Job Position ------->
 //Deleting particular company based on id
 
@@ -267,10 +296,10 @@ function deleteRecord(id) {
 }
 //Assigning values to inputs
 function editFunction(array) {
-    $('#vendor-information').css('display', 'block');
-    $('#additon').css('display', 'block');
-    $("#contacttable").css("display", "none");
-    $(".cd-tabs").css("display", "none");
+    //$('#vendor-information').css('display', 'block');
+    //$('#additon').css('display', 'block');
+    //$("#contacttable").css("display", "none");
+    //$(".cd-tabs").css("display", "none");
             $('#company_Id').val(array.company_Id);
             $('#Company_Name').val(array.Company_Name);
             $('#Email').val(array.Email);
@@ -301,10 +330,13 @@ function editFunction(array) {
 //Get Particular Vendor Record
 function getEditDetails(id) {
     $('#mySubmit').val("update").text("Update Company");
+    $('#mySubmit').show();
+    $('#mySubmit1').show();
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
     $('#notebutton').val("updatenote").text("Update Note");
-    $('#contactbutton').val("updatecontact").text("Update Contact");
+    //$('#contactbutton').val("updatecontact").text("Update Contact");
+    $('#contactbutton').val("savecontact").text("Save Contact");
 
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
@@ -326,6 +358,10 @@ function getEditDetails(id) {
                 var url = 'Vendor/VendorContact?id=' + array.company_Id + '';
                 $('#vendorrecords').load(url);
                 editFunction(array);
+                $('#vendor-information').css('display', 'block');
+                $('#additon').css('display', 'block');
+                $("#contacttable").css("display", "none");
+                $(".cd-tabs").css("display", "none");
             }
         },
         error: function (data)
@@ -403,7 +439,8 @@ function editcompany(clickedvalue) {
                     $('#mySubmit').hide();
                     var url = 'Vendor/VendorCompany';
                     $('#company_Id').val(data.ID);
-                    $('#companyrecords').empty().load(url, function () { Pagination(); });
+                    $('#companyrecords').load(url, function () { Pagination(); });
+                    
                     alert("company saved sucessfully");
                 }
                 else if (data="exists") {
@@ -622,10 +659,17 @@ function updateContact(clickedvalue) {
     Contact_PersonFname = $('#Contact_PersonFname').val();
     Contact_PersonLname = $('#Contact_PersonLname').val();
     Mobile_No = $('#Mobile_No').val();
-    emailid = $('#emailid').val();
     Adhar_Number = $('#Adhar_Number').val();
     Job_position = $('#Job_position').val();
     image = $('#contactpic').attr('src').replace('data:image/;base64,', '');
+    emailid = $('#emailid').val();
+    var email = document.getElementById('emailid');
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!filter.test(email.value)) {
+        alert('Please provide a valid email address');
+        email.focus;
+        return false;
+    }else{
     if (clickedvalue == 'savecontact') {
         $("#contacttable").css("display", "block");
         $.ajax({
@@ -672,12 +716,14 @@ function updateContact(clickedvalue) {
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
                     alert("Contact Details updated sucessfully");
+                    $('#contactbutton').val("savecontact").text("Save Contact");
                     $("[id='Contact_PersonFname']").val("");
                     $("[id='Contact_PersonLname']").val("");
                     $("[id='Mobile_No']").val("");
                     $("[id='emailid']").val("");
                     $("[id='Adhar_Number']").val("");
                     $("[id='Job_position']").val("");
+                    $("#contactpic").attr("src", "/images/user.png");
                 }
                 else {
                     alert("not updated");
@@ -687,7 +733,7 @@ function updateContact(clickedvalue) {
             { alert("Failed!!!"); }
         });
     }
-
+    }
 }
 //vendor contatc details editing based on vendor id
 
@@ -712,8 +758,8 @@ function editcontactperson(id){
                 $('#Mobile_No').val(array.Mobile_No);
                 $('#emailid').val(array.emailid);
                 $('#Adhar_Number').val(array.Adhar_Number);
-                $('#Job_position').val(array.Job_position); 
-                if (array.image != "/images/user.png" && array.image != null) {
+                $('#Job_position').val(array.Job_position);
+                if (array.image != "/images/user.png" && array.image != null && array.image != "") {
                     $('#contactpic').attr('src', 'data:image/;base64,' + array.image);
                 } else
                     $('#contactpic').attr('src', array.image);
@@ -850,4 +896,46 @@ function upload1() {
             }
         });
     }
+}
+
+//View vendor
+function viewVendor(id) {
+    alert(id);
+    $.ajax({
+        url: '/Vendor/getAllDetails?company_Id=' + id,
+        type: 'POST',
+        data: JSON.stringify({ company_Id: id }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique") {
+                alert("sai");
+            }
+            else {
+                var array = JSON.parse(data);
+                var url = 'Vendor/VendorContact?id=' + array.company_Id + '';
+                $('#vendorrecords').load(url);
+                editFunction(array);
+                $('#vendor-information').css('display', 'block');
+                $('#additon').css('display', 'none');
+                $("#contacttable").css("display", "block");
+                $(".cd-tabs").css("display", "block");
+               // $(".cd-tabs").show();
+                $('#mySubmit').hide();
+                $('#mySubmit1').hide();
+                $('#bankid').hide();
+                $('#notebutton').hide();
+                $("#vendor-information-cancel").hide();
+                $("#vendor-information1-cancel").hide();
+                $("#vendor-information2-cancel").hide();
+                $("#vendor-information3-cancel").hide();
+                $("#vendor-information4-cancel").hide();
+                $('#myform input[type=text]').attr("disabled", true);
+                $('#myform textarea').attr("disabled", true);
+                $('#myform input[type=file]').attr("disabled", true);
+            }
+        },
+        error: function (data)
+        { alert("Failed!!!"); }
+    });
 }
