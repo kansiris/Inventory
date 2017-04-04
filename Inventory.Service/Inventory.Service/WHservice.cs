@@ -34,7 +34,7 @@ namespace Inventory.Service
 
         public static SqlDataReader getcontactdetail(string dbname,string wh_id)
         {
-            return WarehouseRepository.getcontactdetail(dbname,wh_id);
+            return WarehouseRepository.getwhcondtls(dbname,wh_id);
         }
         public static SqlDataReader getlastinsertedwarehouse(string dbname, string wh_id)
         {

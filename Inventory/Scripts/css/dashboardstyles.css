@@ -14,10 +14,13 @@ Primary style
 }
 
 body {
+  /*font-size: 100%;*/ /* By Me */
   font-size: 14px;
-  font-family: "PT Sans", sans-serif;
+  /*font-family: "PT Sans", sans-serif;*/ /* By Me */
+  font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif !important;
   /*color: #f8f7ee;*/ /* By me */
-  background-color: #fff;
+  /*background-color: #29324e;*/ /* By me */
+  background: #fff;
 }
 
 a {
@@ -106,7 +109,7 @@ header h1 {
     position: absolute;
     top: 0;
     left: 0;
-    height: auto;
+    height: 100%;
     box-shadow: inset -2px 0 3px rgba(203, 196, 130, 0.06);
     z-index: 1;
   }
@@ -264,8 +267,8 @@ header h1 {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.6;
-  /*color: #8493bf;*/ /*By Me*/
-  color: #000; /*By Me*/
+  /*color: #8493bf;*/ /* By Me */
+  color: #000; /* By Me */
   margin-bottom: 2em;
 }
 @media only screen and (min-width: 768px) {
@@ -284,8 +287,8 @@ header h1 {
     padding: 3em;
   }
   .cd-tabs-content li p {
-    font-size: 14px;
-    /*font-size: 1rem;*/
+    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
@@ -322,7 +325,7 @@ header h1 {
 .cd-tabs nav{
 	border-radius: 5px 5px 0 0;}
 .cd-tabs-navigation{
-	background: #2383e5;}
+	background: #0483c6;}
 .cd-tabs-navigation li{
 	width: 16.6666%;
 	}

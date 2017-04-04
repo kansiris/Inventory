@@ -219,7 +219,7 @@ namespace Inventory.Controllers
                 Warehouse wh = new Warehouse
                 {
                     wh_Id = wh_id,//data["wh_id"].ToString(),
-
+                    //con_id= data["con_id"].ToString(),
                     conperson = data["Contact_person"].ToString(),
                     Job_position = data["Job_position"].ToString(),
                     Email = data["Email"].ToString(),
