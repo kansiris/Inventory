@@ -1,40 +1,75 @@
 ﻿@if (ViewBag.records != null)
 {
-
-<div class="table-responsive" id="companyrecords">
-    <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Vendor Name</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ViewBag.records)
-            {
-                <tr>
-                    <td> @item.Company_Name </td>
-                    <td> @item.Email </td>
-                    <td>
-                        <div class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                            <ul class="dropdown-menu">
-                                <li> <a onclick="getEditDetails(@item.company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
-                                <li> <a onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
-                                <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
-                                <li> <a><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
-                                <li> <a><i class="fa fa-building-o" aria-hidden="true"></i>Create Invoice</a> </li>
-                                <li> <a><i class="fa fa-eye" aria-hidden="true"></i>View Vendor</a> </li>
-                                <li> <a><i class="fa fa-truck" aria-hidden="true"></i>Create Delivery Note</a> </li>
+<div class="row" id="companyrecords">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Vendor Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.records)
+                    {
+                        <tr>
+                            <td> @item.Company_Name </td>
+                            <td> @item.Email </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li> <a onclick="getEditDetails(@item.company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
+                                        <li> <a onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
+                                        <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
+                                        <li> <a><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
+                                        <li> <a><i class="fa fa-building-o" aria-hidden="true"></i>Create Invoice</a> </li>
+                                        <li> <a onclick="viewVendor(@item.company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Vendor</a> </li>
+                                        <li> <a><i class="fa fa-truck" aria-hidden="true"></i>Create Delivery Note</a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row" id="vendortable1">
+@foreach (var item in ViewBag.records)
+{
+            <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                <div class="well profile_view">
+                    <div class="col-sm-12">
+                        <h4 class="brief"><i>@item.Company_Name</i></h4>
+                        <div class="left col-xs-7">
+                            <h2>@item.Email</h2>
+                            <p><strong>About: </strong> Web Designer / UI. </p>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
+                                <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
                             </ul>
                         </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
+                        <div class="right col-xs-5 text-center"> @if (item.logo != "" && item.logo != null && item.logo != "/images/user.png")
+                        { <img src="data:image;base64,@item.logo" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
+                        else
+                        { <img src="~/images/user.png" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> } </div>
+                    </div>
+                    <div class="col-xs-12 bottom text-center">
+                        <div class="col-xs-12 col-sm-6 emphasis">
+                            <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 emphasis">
+                            <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
+                            <button type="button" class="btn btn-primary btn-xs" onclick="viewVendor(@item.company_Id)"> <i class="fa fa-user"> </i> View Profile </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 }
 
+        </div>
+    </div>
+</div>
+}
