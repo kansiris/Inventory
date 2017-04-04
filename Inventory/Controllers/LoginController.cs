@@ -51,7 +51,7 @@ namespace Inventory.Controllers
             }
             if (command == "Insert")
             {
-                var data = LoginService.Authenticateuser("email", userMaster.EmailId, null, null, 0);
+                var data = LoginService.Authenticateuser("checkemail", userMaster.EmailId, null, userMaster.User_Site, 0);
                 if (data.HasRows) {
                     return Content("<script language='javascript' type='text/javascript'>alert('Email Id Already Exists!!! Try Another');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
@@ -98,7 +98,7 @@ namespace Inventory.Controllers
                 DBname = value["User_Site"].ToString() + "_Inventory"; 
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user123;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; //for server
-                FileInfo File = new FileInfo(Server.MapPath("../Models/mar14.sql"));
+                FileInfo File = new FileInfo(Server.MapPath("../Models/April04.sql"));
                 string script = File.OpenText().ReadToEnd();
                 SqlConnection conn = new SqlConnection(sqlConnectionString);
                 Server server = new Server(new ServerConnection(conn));
