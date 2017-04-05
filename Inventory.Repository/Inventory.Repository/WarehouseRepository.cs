@@ -156,6 +156,14 @@ namespace Inventory.Repository
             return count;
 
         }
+        public static int deletecontactperson(string dbname, string con_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deletecontactperson", con_id);
+            return count;
+
+        }
         public static SqlDataReader getwhcondtls(string dbname, string con_id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
