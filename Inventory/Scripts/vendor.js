@@ -1,10 +1,4 @@
 ﻿//<!---------- Display Vendor Information and reset all forms --------------->
-//<script type="text/javascript">
-
-//$(document).ready(function () {
-//    var url = 'Vendor/VendorCompany';
-//    $('#companyrecords').load(url);
-//});
 $("#add-vendor").click(function () {
     $("#vendor-information").css("display", "block");
     $("#additon").css("display", "none");
@@ -32,7 +26,6 @@ $("#add-vendor").click(function () {
     $("#vendor-information2-cancel").show();
     $("#vendor-information3-cancel").show();
     $("#vendor-information4-cancel").show();
-    //$("#vendor-information input, .cd-tabs input, .cd-tabs textarea").val("");
 });
 $("#vendor-information-cancel").click(function () {
     $("#vendor-information input").val("");
@@ -82,11 +75,10 @@ $("#refresh").click(function(e) {
 
 //<!------------ List / Grid Views and reload page -------------->
 
-//</script>
 //<!---------- Display Vendor Information and reset all forms --------------->
 
 //<!-- Clone Shipping Address -->
-//<script type="text/javascript">
+
 $("input[type='checkbox']").change(function () {
     if ($("input[type='checkbox']").is(':checked')) {
         $("[id='ship_street']").val($("[id='bill_street']").val());
@@ -104,32 +96,10 @@ $("input[type='checkbox']").change(function () {
     }
 });
 
-//</script>
 //<!-- Clone Shipping Address -->
 //<!------ Random Colors ------>
-//<script type="text/javascript">
+
 $(document).ready(function (e) {
-//    $("#Mobile_No").keydown(function (event) {
-//        if (event.shiftKey) {
-//            event.preventDefault();
-//        }
-//        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode==9) {
-//        }
-//        else {
-//            if (event.keyCode < 95) {
-//                if (event.keyCode < 48 || event.keyCode > 57) {
-//                    event.preventDefault();
-//                }
-//            }
-//            else {
-//                if (event.keyCode < 96 || event.keyCode > 105) {
-//                    event.preventDefault();
-//                }
-//            }
-//        }
-        
-//    });
-    
     $(".top-button").each(function () {
         var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
         var len = colors.length;
@@ -152,7 +122,7 @@ $(document).ready(function (e) {
 });
 
 function Pagination() {
-    //$('#vendortable').after('<div id="nav"></div>');
+   
     $('#vendortable1').after('<div id="nav"></div>');
     
     var rowsShown = 3;
@@ -191,10 +161,10 @@ function Pagination() {
                 css('display', 'table-row').animate({ opacity: 1 }, 300);
     });
 }
-//</script>
+
 //<!------ Random Colors ------>
 //<!------ Cloning contact person ------>
-//<script type="text/javascript">
+
 $("#add").click(function (e) {
     var len = $(".contactperson #clone-content").length;
     if (len < 2) {
@@ -202,10 +172,10 @@ $("#add").click(function (e) {
         $("#clone-content").clone().appendTo(v);
     }
 });
-//</script>
+
 //<!------ Cloning contact person ------>
 //<!------ Contact Person Pop Up Job Position ------->
-//<script type="text/javascript">
+
 function textval() {
     $(".display-positions .positions1").click(function () {
         var c = $(this).text();
@@ -242,7 +212,7 @@ $(".display-positions .position").click(function () {
 
 });
 
-//</script>
+
 $("#Adhar_Number").keypress(function (e) {
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
         $("#errmsg1").html("Enter Digits Only").show().fadeOut("slow");
@@ -279,7 +249,7 @@ function deleteRecord(id) {
                     alert("sai");
                 }
                 else {
-                    alert("Company Deleted sucessfully");
+                    alert("Company Deleted Successfully");
                     $("#vendortable").load(" #vendortable");
                 }
             },
@@ -296,10 +266,6 @@ function deleteRecord(id) {
 }
 //Assigning values to inputs
 function editFunction(array) {
-    //$('#vendor-information').css('display', 'block');
-    //$('#additon').css('display', 'block');
-    //$("#contacttable").css("display", "none");
-    //$(".cd-tabs").css("display", "none");
             $('#company_Id').val(array.company_Id);
             $('#Company_Name').val(array.Company_Name);
             $('#Email').val(array.Email);
@@ -332,15 +298,24 @@ function getEditDetails(id) {
     $('#mySubmit').val("update").text("Update Company");
     $('#mySubmit').show();
     $('#mySubmit1').show();
+    $('#bankid').show();
+    $('#contactbutton').show();
+    $('#notebutton').show();
+    $("#vendor-information-cancel").show();
+    $("#vendor-information1-cancel").show();
+    $("#vendor-information2-cancel").show();
+    $("#vendor-information3-cancel").show();
+    $("#vendor-information4-cancel").show();
+    $('#myform input[type=text]').attr("disabled", false);
+    $('#myform textarea').attr("disabled", false);
+    $('#myform input[type=file]').attr("disabled", false);
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
     $('#notebutton').val("updatenote").text("Update Note");
-    //$('#contactbutton').val("updatecontact").text("Update Contact");
     $('#contactbutton').val("savecontact").text("Save Contact");
 
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
-       
     });
     
     $.ajax({
@@ -416,7 +391,7 @@ function editcompany(clickedvalue) {
                     $('#savebutton').hide();
                     var url = 'Vendor/VendorCompany';
                     $('#companyrecords').empty().load(url, function () { Pagination(); });
-                    alert("Company Updated sucessfully");
+                    alert("Company Updated Successfully");
                     $('#additon').css('display', 'block');
                 }
                 else {
@@ -437,11 +412,12 @@ function editcompany(clickedvalue) {
             success: function (data) {
                 if (data.Result == "sucess") {
                     $('#mySubmit').hide();
+                    $('#company_pic').children().attr('disabled', 'disabled');
+                    //$('#company_pic').disable;
                     var url = 'Vendor/VendorCompany';
                     $('#company_Id').val(data.ID);
                     $('#companyrecords').load(url, function () { Pagination(); });
-                    
-                    alert("company saved sucessfully");
+                    alert("company saved Successfully");
                 }
                 else if (data="exists") {
                     alert("Company Name alredy exists..Please enter another name");
@@ -500,7 +476,7 @@ function editcompanyaddress(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Address Updated sucessfully");
+                    alert("Address Updated Successfully");
                 }
                 else {
                     alert("not updated");
@@ -520,7 +496,7 @@ function editcompanyaddress(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("Address Saved sucessfully");
+                    alert("Address Saved Successfully");
                 }
                 else {
                     alert("not Saved");
@@ -557,7 +533,7 @@ function editcompanybankdetails(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Bank details Updated sucessfully");
+                    alert("Bank details Updated Successfully");
                 }
                 else {
                     alert("not updated");
@@ -578,7 +554,7 @@ function editcompanybankdetails(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("Bank details saved sucessfully");
+                    alert("Bank details saved Successfully");
                 }
                 else {
                     alert("not saved");
@@ -613,7 +589,7 @@ function updatecompanynote(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Notes Updated sucessfully");
+                    alert("Notes Updated Successfully");
                 }
                 else {
                     alert("not updated");
@@ -633,7 +609,7 @@ function updatecompanynote(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("Notes Saved sucessfully");
+                    alert("Notes Saved Successfully");
                 }
                 else {
                     alert("not Saved");
@@ -672,6 +648,7 @@ function updateContact(clickedvalue) {
     }else{
     if (clickedvalue == 'savecontact') {
         $("#contacttable").css("display", "block");
+        
         $.ajax({
             url: '/Vendor/savecontactdetails',
             type: 'POST',
@@ -685,7 +662,7 @@ function updateContact(clickedvalue) {
                     $('#Vendor_Id').val(data.ID);
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert("Contact Details saved sucessfully");
+                    alert("Contact Details saved Successfully");
                     $("[id='Contact_PersonFname']").val("");
                     $("[id='Contact_PersonLname']").val("");
                     $("[id='Mobile_No']").val("");
@@ -715,7 +692,7 @@ function updateContact(clickedvalue) {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert("Contact Details updated sucessfully");
+                    alert("Contact Details updated Successfully");
                     $('#contactbutton').val("savecontact").text("Save Contact");
                     $("[id='Contact_PersonFname']").val("");
                     $("[id='Contact_PersonLname']").val("");
@@ -791,7 +768,7 @@ function deleteVendor(id) {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert("Vendor Deleted sucessfully");
+                    alert("Vendor Deleted Successfully");
                   
                 }
             },
@@ -810,23 +787,28 @@ function deleteVendor(id) {
 
 function inviteVendor(id) {
     alert(id);
+    company_Id = $('#company_Id').val()
+    alert(company_Id);
     var retVal = confirm("Do you want to send invitation...!");
     if (retVal == true) {
         $.ajax({
             url: '/Vendor/inviteVendor',
             type: 'POST',
-            data: JSON.stringify({ Vendor_Id: id }),
+            data: JSON.stringify({ Vendor_Id: id, company_Id: company_Id }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
                 if (data == "unique") {
                     alert("sai");
                 }
+                else if (data == "Exists") {
+                    alert("Email Id Already Exists!!! Try Another");
+                }
                 else {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert("invitation sent sucessfully");
+                    alert("Invitation sent Successfully.Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur");
                 }
             },
             error: function (data)
@@ -844,7 +826,6 @@ function inviteVendor(id) {
 
 function upload() {
     var ext = $('#fileupload').val().split('.').pop().toLowerCase();
-    
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
         alert('Invalid File Type');
     }
@@ -872,7 +853,6 @@ function upload() {
 
 function upload1() {
     var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
-
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
         alert('Invalid File Type');
     }
@@ -900,7 +880,7 @@ function upload1() {
 
 //View vendor
 function viewVendor(id) {
-    alert(id);
+    //alert(id);
     $.ajax({
         url: '/Vendor/getAllDetails?company_Id=' + id,
         type: 'POST',
@@ -917,13 +897,14 @@ function viewVendor(id) {
                 $('#vendorrecords').load(url);
                 editFunction(array);
                 $('#vendor-information').css('display', 'block');
+                $('#vendor-information1').css('display', 'block');
                 $('#additon').css('display', 'none');
                 $("#contacttable").css("display", "block");
                 $(".cd-tabs").css("display", "block");
-               // $(".cd-tabs").show();
                 $('#mySubmit').hide();
                 $('#mySubmit1').hide();
                 $('#bankid').hide();
+                $('#contactbutton').hide();
                 $('#notebutton').hide();
                 $("#vendor-information-cancel").hide();
                 $("#vendor-information1-cancel").hide();

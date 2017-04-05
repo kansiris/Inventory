@@ -119,6 +119,10 @@ namespace Inventory.Service
             return VendorRepository.checkcompany1(Company_Name);
 
         }
+        public static SqlDataReader getusermaster(string id)
+        {
+            return VendorRepository.getusermaster(id);
+        }
         //company pic upload
         public static int updatecompanyprofile(int id, string companylogo)
         {

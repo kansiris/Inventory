@@ -24,9 +24,9 @@ namespace Inventory.Models
 
         public string Job_position { get; set; }
         //[RegularExpression("([^[0-9]*$)")]
-        public long phone { get; set; }
+        public string phone { get; set; }
         //[RegularExpression("([^[0-9]*$)")]
-        public long Mobile { get; set; }
+        public string Mobile { get; set; }
         //[Required(ErrorMessage = "Please Enter Email Address")]
         //[Display(Name = "Email")]
         //[RegularExpression(@"^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$",

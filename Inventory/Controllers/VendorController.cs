@@ -220,7 +220,8 @@ namespace Inventory.Controllers
         }
         public JsonResult updatecompany(int company_Id, string Company_Name, string Email,string logo)
         {
-
+            string s1 = Company_Name.TrimStart();
+            Company_Name = s1.TrimEnd();
             var data = VendorService.UpdateCompany1(company_Id, Company_Name, Email, logo);
             if (data > 0)
             {
@@ -301,6 +302,8 @@ namespace Inventory.Controllers
 
         public JsonResult savecompany(string Company_Name, string Email, string logo)
         {
+            string s1 = Company_Name.TrimStart();
+            Company_Name = s1.TrimEnd();
             var existingNo = VendorService.checkcompany1(Company_Name);
             if (existingNo.Read())
             {
@@ -420,14 +423,67 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult inviteVendor(string Vendor_Id)
+        public JsonResult inviteVendor(string Vendor_Id, int company_Id)
         {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            string id = user.ID;
+            string DBname = null;
+            string fname = null;
+            string lname = null;
+            string eMail = null;
+            string image = null;
+            string companyname = null;
+            string companylogo = null;
+            string Password = "ABC@123456";
+        //    private static string RandomString(int Size) {
+        //    string input = "abcdefghijklmnopqrstuvwxyz0123456789";
+        //    var chars = Enumerable.Range(0, Size).Select(x => input[random.Next(0, input.Length)]);
+        //    return new string(chars.ToArray());
+        //}
+        
+        string mObile = null;
+            //string Subscription = null;
+            string activationCode = Guid.NewGuid().ToString();
+            int usertype = (int)LoginService.GetUserTypeId("Vendor", 0);
+            string Date_Format = null, Timezone = null, Currency = null, UserSite=null;
+            int Subscription=0;
+            DateTime? SubscriptionDate = null;
 
-            var data = VendorService.deleteVendor(Vendor_Id);
-            if (data > 0)
+            SqlDataReader exec = VendorService.getusermaster(id);
+            SqlDataReader exec1 = VendorService.getVendorContact(Vendor_Id);
+            SqlDataReader exec2 = VendorService.getlastinsertedcompany(company_Id);
+            if (exec.Read())
+                DBname = exec["DB_Name"].ToString();
+            Subscription= int.Parse(exec["Subscriptionid"].ToString());
+            //UserSite= exec["User_Site"].ToString();
+
+            if (exec1.Read())
             {
-                ViewBag.Vendor_Id = Vendor_Id;
-                return Json("sucess");
+                fname= exec1["Contact_PersonFname"].ToString();
+                lname = exec1["Contact_PersonLname"].ToString();
+                eMail = exec1["emailid"].ToString();
+                mObile = exec1["Mobile_No"].ToString();
+                image= exec1["image"].ToString();
+            }
+            if (exec2.Read())
+            {
+                companyname = exec2["Company_Name"].ToString();
+                companylogo = exec2["logo"].ToString();
+            }
+            string UserSite1 = companyname.TrimStart();
+            UserSite = UserSite1.TrimEnd();
+            var data = LoginService.Authenticateuser("checkemail1", eMail,null,UserSite,0);
+            if (data.HasRows) { 
+                return Json("Exists");
+            }
+            else
+            {
+            int count = LoginService.CreateUser(eMail, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
+            if (count > 0)
+            {
+                    Email(fname, lname, eMail, activationCode, Password); //Sending Email
+                    return Json("sucess");
+                }
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
@@ -479,7 +535,7 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+       
         public PartialViewResult VendorCompany()
         {
             var records = VendorService.getcomapnies();
