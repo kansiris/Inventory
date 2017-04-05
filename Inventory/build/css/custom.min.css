@@ -707,7 +707,8 @@ a {
 }
 
 .navbar-header {
-    background: #34495E;
+    /*background: #34495E;*/
+	background: #fff; /* By Me */
 }
 
 .navbar-right {
@@ -5385,9 +5386,9 @@ form hr {
         margin-top: 5px;
     }
 
-form .customer-information ul.cd-tabs-navigation {
+/*form .customer-information ul.cd-tabs-navigation {
     width: 100%;
-}
+}*/
 
 form .customer-information .cd-tabs-navigation li {
     width: auto;
@@ -5685,8 +5686,8 @@ strong{
 #nav{
 	margin-bottom: 15px;}
 .list-unstyled > li{
-    display: block !important;
-    padding: 0 !important;
+   display: block !important;
+   padding: 0 !important;
 }
 
 /*================ Vendor Information ================*/
@@ -5940,3 +5941,12 @@ button a:hover{
 .form-group.radio label > input[type="radio"]{
 	margin-top: 0;}
 /*============ Add Product Page ==================*/
+
+/*========== Media Quries ===============*/
+
+@media only screen and (min-width: 768px) and (max-width: 800px){
+	
+	form .cd-tabs-content{
+		padding-left: 80px;}
+	
+	}
