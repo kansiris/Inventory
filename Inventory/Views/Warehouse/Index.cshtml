@@ -1090,8 +1090,10 @@
                     }
                     else {
                         var array = JSON.parse(data);
-                        var url = 'Warehouse/WarehouseDetails?id=' + array.wh_Id + '';
-                        $('#whdetails').empty().load(url, function () { Pagination(); });
+                        //var url = 'Warehouse/WarehouseDetails?id=' + array.wh_Id + '';
+                        var url1 = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
+                        //$('#whdetails').empty().load(url, function () { Pagination(); });
+                        $('#contactdiv').empty().load(url1, function () { Pagination(); });
                         editFunction(array);
                     }
                 },
@@ -1388,10 +1390,10 @@
                         if (data == "success") {
                             $('#savebutton').hide();
                             $('#con_id').val(data.ID);
-                            var url = 'Warehouse/WarehouseContact?id=' + wh_id + '';
+                            var url = 'Warehouse/WarehouseContact?id=' + warehouse.wh_id + '';
                             // $('#WarehouseDetails').load(url);
                             //var url = 'Warehouse/WarehouseDetails';
-                            //$('#contactdiv').empty().load(url, function () { Pagination(); });
+                            $('#contactdiv').empty().load(url, function () { Pagination(); });
                             alert("Contact Details Saved sucessfully");
                             // $("#whtable").load(" #whtable");
                         }
