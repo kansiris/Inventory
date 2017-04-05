@@ -330,6 +330,12 @@
     <Content Include="fonts\opensans-semibolditalic-demo.html" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\1.jpg" />
+    <Content Include="images\2.jpg" />
+    <Content Include="images\3.jpg" />
+    <Content Include="images\4.jpg" />
+    <Content Include="images\5.jpg" />
+    <Content Include="images\6.jpg" />
     <Content Include="images\american-express.png" />
     <Content Include="images\bx_loader.gif" />
     <Content Include="images\carl.jpg" />
@@ -338,6 +344,7 @@
     <Content Include="images\carl3.jpg" />
     <Content Include="images\carl4.jpg" />
     <Content Include="images\cropper.jpg" />
+    <Content Include="images\default_product.png" />
     <Content Include="images\fav_icon.png" />
     <Content Include="images\flags%402x.png" />
     <Content Include="images\flags.png" />
@@ -374,6 +381,7 @@
     <Content Include="images\user.png" />
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
+    <Content Include="Models\April04.sql" />
     <Content Include="Models\Inventory.csproj" />
     <Content Include="Models\mar02.sql" />
     <Content Include="Models\mar14.sql" />
@@ -408,6 +416,7 @@
     <Content Include="fonts\opensans-semibolditalic-webfont.woff2" />
     <None Include="Properties\PublishProfiles\Inventory.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\css\bootstrap-datepicker3.css" />
     <Content Include="Scripts\css\bootstrap.css" />
     <Content Include="Scripts\css\dashboardstyles.css" />
     <Content Include="Scripts\css\font-awesome.css" />
@@ -426,6 +435,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\js\bootstrap.js" />
     <Content Include="Scripts\js\datepicker\daterangepicker.js" />
     <Content Include="Scripts\js\intlTelInput.js" />
@@ -442,6 +452,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\UserProfile.js" />
     <Content Include="Scripts\validations.js" />
     <Content Include="Scripts\vendor.js" />
     <Content Include="src\js\custom.js" />
@@ -4719,6 +4730,8 @@
     <Content Include="Views\vendor\VendorCompany.cshtml" />
     <Content Include="Views\Warehouse\WarehouseDetails.cshtml" />
     <Content Include="Views\Warehouse\WarehouseContact.cshtml" />
+    <Content Include="Views\AddProduct\Index.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
