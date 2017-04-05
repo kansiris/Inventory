@@ -51,8 +51,8 @@
             var rand = Math.floor(Math.random() * len);
             $(this).css("background", colors[rand]);
         });
-        var url = new URL(window.location.href).searchParams;
-        var profileurl = url.get('type');
+        //var url = new URL(window.location.href).searchParams;
+        var profileurl = location.search.split('type=')[1];//url.get('type');
         if (profileurl == 'upload') {
             $(".cd-tabs-navigation li a[data-content='essentials'], ul.cd-tabs-content li[data-content='essentials']").removeClass("selected");
             $(".cd-tabs-navigation li a[data-content='address'], ul.cd-tabs-content li[data-content='address']").addClass("selected");
@@ -70,7 +70,7 @@
             alert('Invalid File Type');
         }
         else {
-            var id = new URL(window.location.href).searchParams.get('id');
+            var id = location.search.split('id=')[1];
             var data = new FormData();
             var files = $("#fileupload").get(0).files;
             if (files.length > 0) {
@@ -101,7 +101,7 @@
         }
         else {
             var file = $("#fileupload1").get(0).files;
-            var id = new URL(window.location.href).searchParams.get('id');
+            var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
             var data = new FormData();
             var files = $("#fileupload1").get(0).files;
             if (files.length > 0) {
@@ -215,7 +215,7 @@
 
 //<script>
     function updatevales(val) {
-        var id = new URL(window.location.href).searchParams.get('type');
+        var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
         var usermaster = {
             First_Name:$('#Item1_First_Name').val(),
             Last_Name:$('#Item1_Last_Name').val(),
@@ -305,7 +305,8 @@
 //<script>
     //$(document).ready(function(){
     function Pagination() {
-        $('#contacttable').after('<div id="nav"></div>');
+        //$('#contacttable').after('<div id="nav"></div>');
+        $('#vendortable1').after('<div id="nav"></div>');
         var rowsShown = 3;
         var rowsTotal = $('#contacttable tbody tr').length;
         var numPages = rowsTotal / rowsShown;
@@ -326,25 +327,43 @@
             $('#contacttable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
                     css('display', 'table-row').animate({ opacity: 1 }, 300);
         });
+
+        $('#vendortable1 > div').hide();
+        $('#vendortable1 > div').slice(0, rowsShown).show();
+        $('#nav a:first').addClass('active');
+        $('#nav a').bind('click', function () {
+
+            $('#nav a').removeClass('active');
+            $(this).addClass('active');
+            var currPage = $(this).attr('rel');
+            var startItem = currPage * rowsShown;
+            var endItem = startItem + rowsShown;
+            $('#vendortable1 > div').css('opacity', '0.0').hide().slice(startItem, endItem).
+                    css('display', 'table-row').animate({ opacity: 1 }, 300);
+        });
     };
+
 //});
 //</script>
 
 ////<!------------ List / Grid Views and reload page -------------->
 //<script>
     $("#grid-view").click(function(e) {
-        $("#vendortable").css("display","none");
+        $("#contacttable").css("display", "none");
         $("#vendortable1").css("display","block");
     });
 
 $("#list-view").click(function(e) {
-    $("#vendortable").css("display","block");
+    $("#contacttable").css("display", "block");
     $("#vendortable1").css("display","none");
-    location.reload();
+    //location.reload();
+    var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
+    var url = 'UserProfile/GetStaffRecords?id=' + id + '';
+    $('#partialdiv').empty().load(url, function () { Pagination(); });
 });
 
 $("#refresh").click(function (e) {
-    var id = new URL(window.location.href).searchParams.get('id');
+    var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
     var url = 'UserProfile/GetStaffRecords?id='+id+'';
     $('#partialdiv').empty().load(url,function(){ Pagination(); });
 
