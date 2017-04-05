@@ -5684,6 +5684,10 @@ strong{
 	-webkit-transition: 1s ease-in;}
 #nav{
 	margin-bottom: 15px;}
+.list-unstyled > li{
+    display: block !important;
+    padding: 0 !important;
+}
 
 /*================ Vendor Information ================*/
 

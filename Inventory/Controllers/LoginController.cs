@@ -52,7 +52,8 @@ namespace Inventory.Controllers
             if (command == "Insert")
             {
                 var data = LoginService.Authenticateuser("checkemail", userMaster.EmailId, null, userMaster.User_Site, 0);
-                if (data.HasRows) {
+                if (data.HasRows)
+                {
                     return Content("<script language='javascript' type='text/javascript'>alert('Email Id Already Exists!!! Try Another');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
@@ -95,7 +96,7 @@ namespace Inventory.Controllers
                 string DBname = null;
                 SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
                 if (value.Read())
-                DBname = value["User_Site"].ToString() + "_Inventory"; 
+                    DBname = value["User_Site"].ToString() + "_Inventory";
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user123;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; //for server
                 FileInfo File = new FileInfo(Server.MapPath("../Models/April04.sql"));
@@ -107,8 +108,8 @@ namespace Inventory.Controllers
                 //db.ExecuteNonQuery(script); for local
                 //string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
                 //for server 
-                string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; 
-                SqlConnection conn1 = new SqlConnection(sqlConnectionString1); 
+                string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=user123;";
+                SqlConnection conn1 = new SqlConnection(sqlConnectionString1);
                 Server server1 = new Server(new ServerConnection(conn1));
                 server1.ConnectionContext.ExecuteNonQuery(script);
             }
@@ -174,7 +175,7 @@ namespace Inventory.Controllers
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             LoginService loginService = new LoginService();
             var profilepic = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
-            var ownerstaff = LoginService.GetStaff(int.Parse(user.ID),"");
+            var ownerstaff = LoginService.GetStaff(int.Parse(user.ID), "");
             //ViewBag.profilepic = profilepic[0].Profile_Picture;
             int basic = 0, caddress = 0, uaddress = 0, users = 0, localization = 0;
             //int Warehouse = 0, Vendor = 0, Products = 0;
@@ -185,11 +186,11 @@ namespace Inventory.Controllers
             }
             if (profilepic.CLine1 != null && profilepic.CLine2 != null && profilepic.Ccity != null && profilepic.Cstate != null && profilepic.Cpostalcode != null && profilepic.Ccountry != null)
             {
-                caddress = 1; 
+                caddress = 1;
             }
             if (profilepic.ULine1 != null && profilepic.ULine2 != null && profilepic.Ucity != null && profilepic.Ustate != null && profilepic.Upostalcode != null && profilepic.Ucountry != null)
             {
-                uaddress = 1; 
+                uaddress = 1;
             }
             if (profilepic.Date_Format != null && profilepic.Timezone != null && profilepic.Currency != null)
             {
@@ -202,11 +203,12 @@ namespace Inventory.Controllers
             if (basic > 0) { Progress = ProgressBar.Level1; colour = "Red"; }
             if (basic > 0 && caddress > 0 || basic > 0 && uaddress > 0 || basic > 0 && users > 0 || basic > 0 && localization > 0) { Progress = ProgressBar.Level2; colour = "Blue"; }
             if (basic > 0 && caddress > 0 && uaddress > 0 || basic > 0 && uaddress > 0 && localization > 0 || basic > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && users > 0) { Progress = ProgressBar.Level3; colour = "Orange"; }
-            if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || basic > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+            //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || basic > 0 && uaddress > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+            if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || caddress > 0 && uaddress > 0 && localization > 0 && users > 0 || uaddress > 0 && localization > 0 && users > 0 && basic > 0 || localization > 0 && users > 0 && basic > 0 && caddress > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
             if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level5; colour = "Green"; }
             ViewBag.Progress = Progress;
             ViewBag.color = colour;
-            return PartialView("ProfileProgressPartial",profilepic);
+            return PartialView("ProfileProgressPartial", profilepic);
         }
     }
 }
