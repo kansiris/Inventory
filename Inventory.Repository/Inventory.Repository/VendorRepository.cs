@@ -138,6 +138,11 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "checkcompany", Company_Name);
 
         }
+       
+            public static SqlDataReader getusermaster(string id)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "getdatabyId", id);
+        }
 
         //company pic upload
         public static int updatecompanyprofile(int id,string companylogo)
