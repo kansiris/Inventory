@@ -4717,6 +4717,8 @@
     <Content Include="Views\vendor\VendorRecords.cshtml" />
     <Content Include="Views\UserProfile\StaffRecords.cshtml" />
     <Content Include="Views\vendor\VendorCompany.cshtml" />
+    <Content Include="Views\Warehouse\WarehouseDetails.cshtml" />
+    <Content Include="Views\Warehouse\WarehouseContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

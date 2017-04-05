@@ -25,6 +25,37 @@ namespace Inventory.Controllers
         public ActionResult Index(string status)
         {
 
+            //var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            //SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
+            //DataTable dt = new DataTable();
+            //dt.Load(value);
+            //List<Warehouse> warehouse = new List<Warehouse>();
+            //warehouse = (from DataRow row in dt.Rows
+            //             select new Warehouse()
+            //             {
+            //                 wh_Id = row["wh_id"].ToString(),
+            //                 wh_name = row["wh_name"].ToString(),
+            //                 wh_Shortname = row["wh_Shortname"].ToString(),
+            //                 conperson = row["Contact_person"].ToString(),
+            //                 Email = row["Email"].ToString(),
+            //                // Wh_logo = row["Wh_Image"].ToString()
+            //             }).OrderByDescending(m => m.wh_Id).ToList();
+            //ViewBag.records = warehouse;
+            ViewBag.wh_id = getMaxwhid();
+            //ViewBag.contact = getcontactdetails();
+           
+            var wh = getlastinsertedwarehouse(ViewBag.wh_id);
+            if (status == "complete")
+            {
+                ViewBag.Warehouse = 1;
+                ViewBag.wh_name = wh.wh_name;
+                ViewBag.wh_sname = wh.wh_Shortname;
+            }
+
+            return View();
+        }
+        public PartialViewResult WarehouseDetails()
+        {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
             SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
             DataTable dt = new DataTable();
@@ -38,21 +69,42 @@ namespace Inventory.Controllers
                              wh_Shortname = row["wh_Shortname"].ToString(),
                              conperson = row["Contact_person"].ToString(),
                              Email = row["Email"].ToString(),
-                            // Wh_logo = row["Wh_Image"].ToString()
+                             // Wh_logo = row["Wh_Image"].ToString()
                          }).OrderByDescending(m => m.wh_Id).ToList();
             ViewBag.records = warehouse;
-            ViewBag.wh_id = getMaxwhid();
-            ViewBag.contact = getcontactdetails();
-           
-            var wh = getlastinsertedwarehouse(ViewBag.wh_id);
-            if (status == "complete")
+            return PartialView("WarehouseDetails", ViewBag.records);
+        }
+        public PartialViewResult WarehouseContact(string id)
+        {
+            if (id == null)
             {
-                ViewBag.Warehouse = 1;
-                ViewBag.wh_name = wh.wh_name;
-                ViewBag.wh_sname = wh.wh_Shortname;
+                return PartialView("WarehouseContact", null);
             }
-
-            return View();
+            else
+            {
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = WHservice.getcontactdetail(user1.DbName, id);
+                var dt = new DataTable();
+                dt.Load(records);
+                ViewBag.records = getcontactDetail(dt);
+                ViewBag.id = id;
+                return PartialView("WarehouseContact", ViewBag.records);
+            }
+        }
+        public List<Warehouse> getcontactDetail(DataTable dt)
+        {
+            List<Warehouse> contact = new List<Warehouse>();
+            contact = (from DataRow row in dt.Rows
+                       select new Warehouse()
+                       {
+                           con_id = row["con_id"].ToString(),
+                           conperson = row["contact_person"].ToString(),
+                           
+                           Email = row["email"].ToString(),
+                           Mobile=row["mobile"].ToString(),
+                           Job_position = row["job_position"].ToString()
+                       }).OrderByDescending(m => m.con_id).ToList();
+            return contact;
         }
         //[HttpPost]
         //public ActionResult Index(Warehouse wh, string command)
@@ -90,51 +142,38 @@ namespace Inventory.Controllers
 
             return wh;
         }
-        public List<Warehouse> getcontactdetails()
-        {
+        //public List<Warehouse> getcontactdetails()
+        //{
 
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            string wh_id = ViewBag.wh_id;
-            SqlDataReader value = WHservice.getcontactdetail(user1.DbName, wh_id.TrimEnd());
-            DataTable dt = new DataTable();
-            dt.Load(value);
-            List<Warehouse> contact = new List<Warehouse>();
-            WHservice.getcontactdetail(user1.DbName, wh_id.TrimEnd());
-            string cp = dt.Rows[0]["Contact_Person"].ToString();
-            string em = dt.Rows[0]["Email"].ToString();
-            string Mb = dt.Rows[0]["Mobile"].ToString();
-            string jb = dt.Rows[0]["Job_position"].ToString();
-            if (cp == "")
-            {
-                cp = "";
-            }
-            if (em == "")
-            {
-                em = "";
-            }
-            if (Mb == "")
-            {
-                Mb = "";
-            }
-            if (jb == "")
-            {
-                jb = "";
-            }
-            else
-            {
-                contact = (from DataRow row in dt.Rows
-                           select new Warehouse()
-                           {
-                               conperson = cp,//row["Contact_Person"].ToString(),
-                               Email = em,//row["Email"].ToString(),
-                               Mobile = long.Parse(Mb.ToString()),//long.Parse(row["Mobile"].ToString())
-                               Job_position = jb,
-                           }).ToList();
+        //    var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //    string wh_id = ViewBag.wh_id;
+        //    SqlDataReader value = WHservice.getcontactdetail(user1.DbName, wh_id.TrimEnd());
+        //    if (value.Read())
+        //    {
+        //        DataTable dt = new DataTable();
+        //        dt.Load(value);
+        //        List<Warehouse> contact = new List<Warehouse>();
+        //        WHservice.getcontactdetail(user1.DbName, wh_id.TrimEnd());
+        //        //string cp = dt.Rows[0]["Contact_Person"].ToString();
+        //        //string em = dt.Rows[0]["Email"].ToString();
+        //        //string Mb = dt.Rows[0]["Mobile"].ToString();
+        //        //string jb = dt.Rows[0]["Job_position"].ToString();
+
+        //        contact = (from DataRow row in dt.Rows
+        //                   select new Warehouse()
+        //                   {
+        //                       conperson = row["Contact_Person"].ToString(),
+        //                       Email = row["Email"].ToString(),
+        //                       Mobile = row["Mobile"].ToString(),
+        //                       Job_position = row["Job_position"].ToString(),
+        //                   }).ToList();
 
 
-            }
-            return contact;
-        }
+
+        //        return contact;
+        //    }
+        //    return null;
+        //}
 
         [HttpPost]
         public ActionResult Updatewhimage(HttpPostedFileBase helpSectionImages, string wh_id)
@@ -178,8 +217,8 @@ namespace Inventory.Controllers
                     conperson = data["Contact_person"].ToString(),
                     Job_position = data["Job_position"].ToString(),
                     Email = data["Email"].ToString(),
-                    phone = phn,//long.Parse(data["Phone"].ToString()),
-                    Mobile = Mob,//long.Parse(data["Mobile"].ToString()),
+                    phone = data["Phone"].ToString(),
+                    Mobile = data["Mobile"].ToString(),
                     Note = data["Note"].ToString(),
                     bill_Street = data["bill_street"].ToString(),
                     bill_City = data["bill_city"].ToString(),
@@ -199,33 +238,23 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult getwhcondtls(string wh_id)
+        public JsonResult getwhcondtls(string con_id)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
-            var data = WHservice.getwhcondtls(user1.DbName, wh_id);
-            long phn;
-            long Mob;
+          
+            var data = WHservice.getwhcondtls(user1.DbName, con_id);
+           
             if (data.Read())
             {
-                if (data["Phone"].ToString() == "")
-                    phn = 0;
-                else
-                    phn = long.Parse(data["Phone"].ToString());
-                if (data["Mobile"].ToString() == "")
-                    Mob = 0;
-                else
-                    Mob = long.Parse(data["Mobile"].ToString());
+               
                 Warehouse wh = new Warehouse
                 {
-                    wh_Id = wh_id,//data["wh_id"].ToString(),
-                    //con_id= data["con_id"].ToString(),
+                    con_id= data["con_id"].ToString(),
                     conperson = data["Contact_person"].ToString(),
-                    Job_position = data["Job_position"].ToString(),
-                    Email = data["Email"].ToString(),
-                    phone = phn,//long.Parse(data["Phone"].ToString()),
-                    Mobile = Mob,//long.Parse(data["Mobile"].ToString()),
-
+                    Job_position = data["job_position"].ToString(),
+                    Email = data["email"].ToString(),
+                    phone = data["phone"].ToString(),
+                    Mobile = data["mobile"].ToString(),
                 };
 
                 string json = JsonConvert.SerializeObject(wh);
@@ -275,7 +304,7 @@ namespace Inventory.Controllers
         public JsonResult updatewhaddress(string wh_id, Warehouse warehouse)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhaddress(user1.DbName, warehouse.wh_Id, warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
+            var data = WHservice.updatewhaddress(user1.DbName, warehouse.wh_Id.ToString(), warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
                 warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
             if (data > 0)
             {
@@ -300,7 +329,7 @@ namespace Inventory.Controllers
         public JsonResult updatewhcontact(string wh_id, Warehouse warehouse)  //string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhcontact(user1.DbName, warehouse.wh_Id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
+            var data = WHservice.updatewhcontact(user1.DbName, warehouse.wh_Id.ToString(), warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
             if (data > 0)
             {
                 List<Warehouse> wh = new List<Warehouse>();
@@ -318,7 +347,7 @@ namespace Inventory.Controllers
         public JsonResult updatewhnotes(string wh_id, Warehouse warehouse)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhnote(user1.DbName, warehouse.wh_Id, warehouse.Note);
+            var data = WHservice.updatewhnote(user1.DbName, warehouse.wh_Id.ToString(), warehouse.Note);
             if (data > 0)
             {
                 ViewBag.wh_id = warehouse.wh_Id;
@@ -327,15 +356,37 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+        //public JsonResult insertwhdtls(string wh_name, string wh_sname)
+        //{
+        //    var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //    var data = WHservice.insertwhdls(user1.DbName, wh_name, wh_sname);
+        //    if (data > 0)
+        //    {
+        //        ViewBag.wh_name = wh_name;
+        //        ViewBag.wh_sname = wh_sname;
+        //        return Json("success");
+        //    }
+        //    return Json("unique", JsonRequestBehavior.AllowGet);
+        //}
         public JsonResult insertwhdtls(string wh_name, string wh_sname)
         {
+            
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.insertwhdls(user1.DbName, wh_name, wh_sname);
-            if (data > 0)
+          
+            var chkwh = WHservice.chkwh(user1.DbName,wh_name);
+            if (chkwh.Read())
             {
-                ViewBag.wh_name = wh_name;
-                ViewBag.wh_sname = wh_sname;
-                return Json("success");
+                return Json("Y", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = WHservice.insertwhdls(user1.DbName, wh_name, wh_sname);
+                if (data > 0)
+                {
+                    ViewBag.wh_name = wh_name;
+                    ViewBag.wh_sname = wh_sname;
+                    return Json("success");
+                }
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
@@ -382,12 +433,15 @@ namespace Inventory.Controllers
         public JsonResult insertwhcontact(string wh_id, Warehouse warehouse)
         {
             wh_id = getMaxwhid();
-            wh_id = wh_id.TrimEnd();
+            wh_id = getMaxwhid().TrimEnd();
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhcontact(user1.DbName, wh_id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
+            var data = WHservice.insertwarehousecontact(user1.DbName, wh_id, warehouse.conperson, warehouse.Job_position, warehouse.Email, warehouse.phone, warehouse.Mobile);
             if (data > 0)
             {
-                ViewBag.wh_id = wh_id;
+                //ViewBag.wh_id = wh_id;
+                string con_id = getMaxcontactID().TrimEnd();
+                ViewBag.con_id = con_id;
+                var result = new { Result = "success", ID = con_id };
                 ViewBag.Contact_PersonFname = warehouse.conperson;
                 ViewBag.Phone = warehouse.phone;
                 ViewBag.Mobile = warehouse.Mobile;
@@ -397,6 +451,17 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+        private string getMaxcontactID()
+        {
+            string con_id = null;
+            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
+            SqlDataReader exec = WHservice.getcontactid(user1.DbName);
+            if (exec.Read())
+            {
+                con_id = exec["con_id"].ToString();
+            }
+            return con_id;
+        }
     }
 }

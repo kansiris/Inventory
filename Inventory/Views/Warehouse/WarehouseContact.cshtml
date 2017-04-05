@@ -1,0 +1,46 @@
+﻿@if (ViewBag.records != null)
+{
+<div class="row" id="contactdiv">
+    <div class="col-md-12 table-responsive table-hover">
+        <table class="table" id="contacttable">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>con_id </th>
+                    <th>First Name</th>
+
+                    <th>Mobile Number</th>
+                    <th>E-Mail</th>
+                    <th>Job position</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in ViewBag.contact)
+                {
+                    <tr>
+                        @*<th scope="row">1</th>*@
+                        <td>@item.con_id</td>
+                        <td>@item.conperson</td>
+
+                        <td>@item.Mobile</td>
+                        <td>@item.Email</td>
+                        <td>@item.Job_position</td>
+                        <td>
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                <ul class="dropdown-menu">
+                                    <li> <a href="#" onclick="getEditContactDetails(@item.con_id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
+                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+

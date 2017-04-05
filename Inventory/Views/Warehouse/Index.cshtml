@@ -32,43 +32,14 @@
 
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.wh_Id, new { Value = @ViewBag.wh_Id })
+            @Html.HiddenFor(Model => Model.con_id, new { Value = @ViewBag.con_id })
             @*<input type="hidden" id="maxid" value="@ViewBag.wh_id">*@
             <div class="row">
                 <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>
             </div>
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table  table-borderedtable-striped bulk_action" id="whtable">
-                        <thead class="thead-inverse">
-                            <tr>
-                                <th>Warehouse Name</th>
-                                <th>Shortname</th>
-                                <th>Contact Person</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in ViewBag.records)
-                            {
-                                <tr>
-                                    <td> @item.wh_name </td>
-                                    <td> @item.wh_Shortname </td>
-                                    <td>@item.conperson</td>
-                                    <td>@item.Email</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                            <ul class="dropdown-menu">
-                                                <li> <a href="#" onclick="getEditDetails(@item.wh_Id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
-                                                <li> <a href="#" onclick="deletewhdtls(@item.wh_Id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+            <div class="row" id="wh">
+
+                @{Html.RenderAction("WarehouseDetails", "Warehouse");}
             </div>
             <div class="row" id="wh-information">
                 <div class="col-md-12 form-title">Warehouse Information</div>
@@ -103,9 +74,9 @@
                     </div>
 
 
-<div id="addinfo"><a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a></div>
+                    <div id="addinfo"><a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Inforamtion</a></div>
                 </div>
-                
+
                 @*<div class="col-md-3 col-md-push-3">
                         <div class="top-button">
                             <input type="file">
@@ -722,33 +693,39 @@
                                                 <input type="text" class="form-control" name="Phone" placeholder="Phone" id="Phone" maxlength="15">
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-6">
 
-                                            <input type="email" class="form-control" name="EmailId" id="EmailId" placeholder="Email">
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
 
-                                        <div class="form-group col-md-6">
-
-                                            <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
-                                            <div class="display-positions">
-                                                <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
-                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>One</div>
-                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
-                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>
+                                                <input type="email" class="form-control" name="EmailId" id="EmailId" placeholder="Email">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row add-position">
                                         <div class="row">
-                                            <input type="text" class="form-control" placeholder="Enter Position">
-                                            <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                            <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
+                                                <div class="display-positions">
+                                                    <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
+                                                    @*<div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>One</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>*@
+                                                </div>
+                                                <div class="row add-position">
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" placeholder="Enter Position">
+                                                        <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                        <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                    </div>
+                                                    <div class="row positions"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="row positions"></div>
+
+
                                     </div>
+
+
                                 </div>
 
                                 <hr>
@@ -759,47 +736,7 @@
                                     </div>
                                 </div>
                                 @*--------------------------------contactinfo table-----------------------------------------------*@
-                                <div class="row" id="contactdiv">
-                                    <div class="col-md-12 table-responsive table-hover">
-                                        <table class="table" id="contacttable">
-                                            <thead class="thead-inverse">
-                                                <tr>
-
-                                                    <th>First Name</th>
-
-                                                    <th>Mobile Number</th>
-                                                    <th>E-Mail</th>
-                                                    <th>Job position</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                @foreach (var item in ViewBag.contact)
-                                                {
-                                                    <tr>
-                                                        @*<th scope="row">1</th>*@
-                                                        <td>@item.conperson</td>
-
-                                                        <td>@item.Mobile</td>
-                                                        <td>@item.Email</td>
-                                                        <td>@item.Job_position</td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                                <ul class="dropdown-menu">
-                                                                    <li> <a href="#" onclick="getEditContactDetails(@item.wh_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
-                                                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                }
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @{Html.RenderAction("WarehouseContact", "Warehouse");}
                             </li>
 
                             <li data-content="notes">
@@ -829,8 +766,8 @@
                                         <input type="file">
                                         <span>W</span>
                                     </div>*@
-                               
-                                    @*@if (item.Wh_logo != null)
+
+                                @*@if (item.Wh_logo != null)
                                     {
                                         <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
                                         <img id="whpic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64" style="border-radius: 50%;width: 150px;height: 150px;" />
@@ -842,9 +779,9 @@
                                             <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic"></span>
                                         </div>
                                     }*@
-                                    <div>Upload warehouse Logo</div>
-                                    @*</div>*@
-                                
+                                <div>Upload warehouse Logo</div>
+                                @*</div>*@
+
                             </li>
 
 
@@ -877,9 +814,8 @@
     <script src="../build/js/custom.min.js"></script>
     <script src="~/Scripts/js/Warehouse.js"></script>
     <script src="~/Scripts/validations.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 
-    @*<script src="jquery.js"></script>*@
     <script>
 
         $("#add-wh").click(function () {
@@ -888,7 +824,7 @@
 
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
             $("#addinfo").hide();
-           // $('#mySubmit').val("Save").text("Save");
+            // $('#mySubmit').val("Save").text("Save");
         });
         //$("addinfo").click(function () {
         //    $("#wh-information1").css("display", "block");
@@ -968,6 +904,7 @@
     </script>
     <script>
         $(document).ready(function (e) {
+            Pagination();
             $("#Phone").keydown(function (event) {
                 if (event.shiftKey) {
                     event.preventDefault();
@@ -1015,6 +952,15 @@
 
             $("#wh-information").css("display", "none");
 
+            $(".cd-tabs").css("display", "none");
+
+            $("#additon").click(function () {
+                $(".cd-tabs").css("display", "block");
+            });
+            //validations
+
+        });
+        function Pagination() {
             $('#whtable').after('<div id="nav"></div>');
             var rowsShown = 3;
             var rowsTotal = $('#whtable tbody tr').length;
@@ -1037,15 +983,7 @@
                         css('display', 'table-row').animate({ opacity: 1 }, 300);
             });
 
-
-            $(".cd-tabs").css("display", "none");
-
-            $("#additon").click(function () {
-                $(".cd-tabs").css("display", "block");
-            });
-            //validations
-           
-        });
+        }
     </script>
     <script>
         $("#add").click(function (e) {
@@ -1112,11 +1050,11 @@
             $('#ship_state').val(array.ship_State);
             $('#ship_postalcode').val(array.ship_Postalcode);
             $('#ship_country').val(array.ship_Country);
-            $('#Contact_PersonFname').val(array.conperson);
-            $('#Phone').val(array.phone);
-            $('#Mobile_No').val(array.Mobile);
-            $('#EmailId').val(array.Email);
-            $('#Job_position').val(array.Job_position);
+            //$('#Contact_PersonFname').val(array.conperson);
+            //$('#Phone').val(array.phone);
+            //$('#Mobile_No').val(array.Mobile);
+            //$('#EmailId').val(array.Email);
+            //$('#Job_position').val(array.Job_position);
             $('#Note').val(array.Note);
         }
         function getcondtls(array1) {
@@ -1152,6 +1090,8 @@
                     }
                     else {
                         var array = JSON.parse(data);
+                        var url = 'Warehouse/WarehouseDetails?id=' + array.wh_Id + '';
+                        $('#whdetails').empty().load(url, function () { Pagination(); });
                         editFunction(array);
                     }
                 },
@@ -1195,13 +1135,14 @@
                 contentType: 'application/json',
                 success: function (data) {
                     if (data == "success") {
-
+                        var url = 'Warehouse/WarehouseDetails';
+                        $('#whdetails').empty().load(url, function () { Pagination(); });
                         alert("Warehouse Deleted sucessfully");
-                        $("#whtable").load(" #whtable");
+                        //$("#whtable").load(" #whtable");
                     }
                     else {
                         alert("Warehouse not Deleted");
-                        
+
                     }
                 },
                 error: function (data)
@@ -1211,7 +1152,7 @@
 
         //Particular Warehouse
         function editwh(clickedvalue) {
-           // alert(clickedvalue);
+            // alert(clickedvalue);
 
             $('#update').click(function () {
                 $('#warehouse').css('display', 'none');
@@ -1240,8 +1181,10 @@
                         success: function (data) {
                             if (data == "success") {
                                 $('#savebutton').hide();
+                                var url = 'Warehouse/WarehouseDetails';
+                                $('#whdetails').empty().load(url, function () { Pagination(); });
                                 alert("Warehouse Updated sucessfully");
-                                $("#whtable").load(" #whtable");
+                                //$("#whtable").load(" #whtable");
                             }
                             else {
                                 alert("Warehouse not updated");
@@ -1261,10 +1204,15 @@
                         contentType: 'application/json',
                         success: function (data) {
                             if (data == "success") {
-                                $("#whtable").load(" #whtable");
+                                //$("#whtable").load(" #whtable");
                                 $('#savebutton').hide();
+                                var url = 'Warehouse/WarehouseDetails';
+                                $('#whdetails').empty().load(url, function () { Pagination(); });
                                 alert("Warehouse saved sucessfully");
                                 $("#addinfo").show();
+                            }
+                            else if (data == "Y") {
+                                alert("Warehouse already Registered");
                             }
                             else {
                                 alert("Warehouse not saved");
@@ -1285,19 +1233,19 @@
             $('#updateaddress').click(function () {
                 $('#addinfo').css('display', 'none');
             });
-            var warehouse={
-                wh_Id : $('#wh_Id').val(),
-            bill_street : $('#bill_street').val(),
-            bill_city : $('#bill_city').val(),
-            bill_state : $('#bill_state').val(),
-            bill_postalcode : $('#bill_postalcode').val(),
-            bill_country : $('#bill_country').val(),
-            ship_street : $('#ship_street').val(),
-            ship_city : $('#ship_city').val(),
-            ship_state : $('#ship_state').val(),
-            ship_postalcode : $('#ship_postalcode').val(),
-            ship_country : $('#ship_country').val(),
-        }
+            var warehouse = {
+                wh_Id: $('#wh_Id').val(),
+                bill_street: $('#bill_street').val(),
+                bill_city: $('#bill_city').val(),
+                bill_state: $('#bill_state').val(),
+                bill_postalcode: $('#bill_postalcode').val(),
+                bill_country: $('#bill_country').val(),
+                ship_street: $('#ship_street').val(),
+                ship_city: $('#ship_city').val(),
+                ship_state: $('#ship_state').val(),
+                ship_postalcode: $('#ship_postalcode').val(),
+                ship_country: $('#ship_country').val(),
+            }
 
             if (clickedvalue == 'updateaddress') {
                 $.ajax({
@@ -1309,9 +1257,10 @@
                     success: function (data) {
                         if (data == "success") {
                             $('#savebutton').hide();
-
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Updated sucessfully");
-                            $("#whtable").load(" #whtable");
+                            //$("#whtable").load(" #whtable");
                         }
                         else {
                             alert("Adress  not updated");
@@ -1332,9 +1281,10 @@
                     success: function (data) {
                         if (data == "success") {
                             $('#savebutton').hide();
-
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Address Saved sucessfully");
-                            $("#whtable").load(" #whtable");
+                            //$("#whtable").load(" #whtable");
                         }
                         else {
                             alert("Adress  not updated");
@@ -1355,9 +1305,9 @@
             $('#updatenote').click(function () {
                 $('#addinfo').css('display', 'none');
             });
-            var warehouse={
-                wh_id : $('#wh_Id').val(),
-                Note : $('#Note').val(),
+            var warehouse = {
+                wh_id: $('#wh_Id').val(),
+                Note: $('#Note').val(),
             }
             var wa = {
                 wh_id: $('#someName').val(),
@@ -1367,15 +1317,16 @@
                 $.ajax({
                     url: '/Warehouse/updatewhnotes',
                     type: 'POST',
-                    data: JSON.stringify({ warehouse:warehouse }),
+                    data: JSON.stringify({ warehouse: warehouse }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
                         if (data == "success") {
                             $('#savebutton').hide();
-
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Updated sucessfully");
-                            $("#whtable").load(" #whtable");
+                            // $("#whtable").load(" #whtable");
                         }
                         else {
                             alert("not updated");
@@ -1395,9 +1346,10 @@
                     success: function (data) {
                         if (data == "success") {
                             $('#savebutton').hide();
-
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Note Saved sucessfully");
-                            $("#whtable").load(" #whtable");
+                            //$("#whtable").load(" #whtable");
                         }
                         else {
                             alert("not updated");
@@ -1435,8 +1387,13 @@
                     success: function (data) {
                         if (data == "success") {
                             $('#savebutton').hide();
+                            $('#con_id').val(data.ID);
+                            var url = 'Warehouse/WarehouseContact?id=' + wh_id + '';
+                            // $('#WarehouseDetails').load(url);
+                            //var url = 'Warehouse/WarehouseDetails';
+                            //$('#contactdiv').empty().load(url, function () { Pagination(); });
                             alert("Contact Details Saved sucessfully");
-                            $("#whtable").load(" #whtable");
+                            // $("#whtable").load(" #whtable");
                         }
                         else {
                             alert("not updated");
@@ -1448,16 +1405,18 @@
             }
             if (clickedvalue == 'updatecontact') {
                 $.ajax({
-                    url: '/Warehouse/updatewhcontact',  
+                    url: '/Warehouse/updatewhcontact',
                     type: 'POST',
-                    data: JSON.stringify({ warehouse: warehouse }), 
+                    data: JSON.stringify({ warehouse: warehouse }),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
                         if (data == "success") {
                             $('#savebutton').hide();
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Contact Details updated sucessfully");
-                            $("#whtable").load(" #whtable");
+                            //$("#whtable").load(" #whtable");
                         }
                         else {
                             alert("not updated");
@@ -1468,7 +1427,37 @@
                 });
             }
         }
+        function getEditContactDetails(id) {
+            alert(id);
+            $('#contactbutton').val("updatecontact").text("Update Contact");
+            $.ajax({
+                url: '/Warehouse/getwhcondtls?con_id=' + id,
+                type: 'POST',
+                data: JSON.stringify({ con_id: id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "unique") {
+                        alert("success");
+                    }
+                    else {
+                        var array = JSON.parse(data);
+                        $('#con_id').val(array.con_id);
+                        $('#Contact_PersonFname').val(array.conperson);
+                        $('#Phone').val(array.phone);
+                        $('#Mobile_No').val(array.Mobile);
+                        $('#EmailId').val(array.Email);
+                        $('#Job_position').val(array.Job_position);
+
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+
+        }
     </script>
+
 
 }
 
