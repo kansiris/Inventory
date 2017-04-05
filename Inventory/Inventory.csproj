@@ -224,7 +224,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Content\CustomPrinciple.cs" />
-    <Compile Include="Controllers\AddProductController.cs" />
     <Compile Include="Controllers\AdvancedFormController.cs" />
     <Compile Include="Controllers\AvailableCompaniesController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
@@ -260,7 +259,6 @@
     <Compile Include="Controllers\OtherChartsController.cs" />
     <Compile Include="Controllers\PlainPageController.cs" />
     <Compile Include="Controllers\PricingTablesController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProjectDetailController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -454,6 +452,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\UserProfile.js" />
     <Content Include="Scripts\validations.js" />
     <Content Include="Scripts\vendor.js" />
     <Content Include="src\js\custom.js" />
@@ -4729,8 +4728,10 @@
     <Content Include="Views\vendor\VendorRecords.cshtml" />
     <Content Include="Views\UserProfile\StaffRecords.cshtml" />
     <Content Include="Views\vendor\VendorCompany.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Warehouse\WarehouseDetails.cshtml" />
+    <Content Include="Views\Warehouse\WarehouseContact.cshtml" />
     <Content Include="Views\AddProduct\Index.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

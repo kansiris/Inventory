@@ -12,26 +12,26 @@ using Inventory.Utility;
 
 namespace Inventory.Repository
 {
-   public class WarehouseRepository
+    public class WarehouseRepository
     {
-        private static string ConnectionString ;
+        private static string ConnectionString;
         private static string ConnectionString1 = ConfigurationManager.ConnectionStrings["DbConnection1"].ToString();
-        
+
         public static int warehouseinsert(string Wh_Name, string wh_Shortname)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse",Wh_Name,wh_Shortname );
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse", Wh_Name, wh_Shortname);
             return count;
         }
 
-        public static int WHaddressinsert(string WH_Name,string WH_ShortName,string contactperson,string jobposition,
-            long phone, long mobile,string Email,string Note,string bill_street,string bill_city,string bill_state,string bill_postalcode,
+        public static int WHaddressinsert(string WH_Name, string WH_ShortName, string contactperson, string jobposition,
+            long phone, long mobile, string Email, string Note, string bill_street, string bill_city, string bill_state, string bill_postalcode,
             string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country, string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse",WH_Name,WH_ShortName,contactperson, jobposition, phone,mobile, 
-                Email,Note,bill_street,
-                bill_city,bill_state,bill_postalcode,bill_country,ship_street,ship_city,ship_state,ship_postalcode,ship_country);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse", WH_Name, WH_ShortName, contactperson, jobposition, phone, mobile,
+                Email, Note, bill_street,
+                bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
             return count;
         }
         public static SqlDataReader getwarehousedtls(string dbname)
@@ -62,7 +62,7 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getLastInsertedwarehouse", wh_id);
         }
-       public static SqlDataReader getallwhdetails(string dbname, string wh_id)
+        public static SqlDataReader getallwhdetails(string dbname, string wh_id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -70,7 +70,7 @@ namespace Inventory.Repository
         }
         //update warehouse
 
-        public static int updatewarehouse(string dbname, string wh_id,string wh_name,string wh_sname)
+        public static int updatewarehouse(string dbname, string wh_id, string wh_name, string wh_sname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -87,14 +87,14 @@ namespace Inventory.Repository
             return count1;
         }
 
-        public static int updatewhcontact(string dbname, string wh_id,string Contact_Person,long phone,long Mobile,string Email,string job_position)
+        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string job_position, string Email, string phone, string Mobile)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhcontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewarehousecontact", con_id, Contact_Person, job_position, Email, phone, Mobile);
             return count;
         }
-        public static int updatewarehousecontact(string dbname, string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        public static int updatewarehousecontact(string dbname, string wh_id, string Contact_Person, string phone, string Mobile, string Email, string job_position)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -102,18 +102,18 @@ namespace Inventory.Repository
             return count;
         }
 
-        public static int updatewhnotes(string dbname, string wh_id,string Note)
+        public static int updatewhnotes(string dbname, string wh_id, string Note)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count= SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhnotes", wh_id, Note);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhnotes", wh_id, Note);
             return count;
         }
-        public static int insertwhdtls(string dbname, string wh_name,string wh_sname)
+        public static int insertwhdtls(string dbname, string wh_name, string wh_sname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwhdtls", wh_name,wh_sname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwhdtls", wh_name, wh_sname);
             return count;
         }
 
@@ -133,14 +133,22 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehouse1", wh_id, Contact_Person, phone, Mobile, Email, job_position);
             return count;
         }
-        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        //public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        //{
+        //    GetConnectionString getConnectionString = new GetConnectionString();
+        //    ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+        //    int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousecontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
+        //    return count;
+        //}
+        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, string job_position, string Email, string phone, string Mobile)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousecontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            // string id = wh_id.ToString();
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousecontact", wh_id, Contact_Person, job_position, Email, phone, Mobile);
             return count;
         }
-        public  static int deletewarehouse(string dbname,string wh_Id)
+        public static int deletewarehouse(string dbname, string wh_Id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -148,11 +156,11 @@ namespace Inventory.Repository
             return count;
 
         }
-        public static SqlDataReader getwhcondtls(string dbname, string wh_id)
+        public static SqlDataReader getwhcondtls(string dbname, string con_id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "getwhcontactdtls", wh_id);
+            return SqlHelper.ExecuteReader(ConnectionString, "getwhcontactdtls1", con_id);
         }
         public static SqlDataReader getwarehousecondtls(string dbname, string wh_id)
         {
@@ -161,10 +169,20 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "spgetwarehousecontact", wh_id);
         }
 
-        public static int updatewhimage(string wh_id,string wh_image)
+        public static int updatewhimage(string wh_id, string wh_image)
         {
-            
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhlogo", wh_id,wh_image);
+
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhlogo", wh_id, wh_image);
+        }
+        public static SqlDataReader chkwh(string dbname, string wh_name)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "spchkwh", wh_name);
+        }
+        public static SqlDataReader getcontactid(string dbname)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString, "getcontactId");
         }
     }
 }
