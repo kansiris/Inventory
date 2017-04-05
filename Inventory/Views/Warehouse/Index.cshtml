@@ -1058,12 +1058,12 @@
             $('#Note').val(array.Note);
         }
         function getcondtls(array1) {
-            $('#wh_Id').val(array.wh_Id);
-            $('#Contact_PersonFname').val(array1.conperson);
+            $('#con_id').val(array.wh_Id);
+            $('#Contact_PersonFname').val(array1.contact_person);
             $('#Phone').val(array1.phone);
-            $('#Mobile_No').val(array1.Mobile);
-            $('#EmailId').val(array1.Email);
-            $('#Job_position').val(array1.Job_position);
+            $('#Mobile_No').val(array1.mobile);
+            $('#EmailId').val(array1.email);
+            $('#Job_position').val(array1.job_position);
         }
 
         //Get Particular warehouse Record
@@ -1072,7 +1072,8 @@
             $('#mySubmit').val("update").text("Update Warehouse");
             $('#mySubmit1').val("updateaddress").text("Update Address");
             $('#notebutton').val("updatenote").text("Update Note");
-            $('#contactbutton').val("updatecontact").text("Update Contact");
+            // $('#contactbutton').val("updatecontact").text("Update Contact");
+            $('#contactbutton').val("savecontact").text("Save Contact");
             //$('#userprofilepic').html($('#wh_name').val().substring(0,1));
             $('#btnedit').click(function () {
                 $('#warehouse').css('display', 'none');
@@ -1090,10 +1091,8 @@
                     }
                     else {
                         var array = JSON.parse(data);
-                        //var url = 'Warehouse/WarehouseDetails?id=' + array.wh_Id + '';
-                        var url1 = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
-                        //$('#whdetails').empty().load(url, function () { Pagination(); });
-                        $('#contactdiv').empty().load(url1, function () { Pagination(); });
+                        var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
+                        $('#contactdiv').empty().load(url);
                         editFunction(array);
                     }
                 },
@@ -1378,6 +1377,7 @@
                 Mobile: $('#Mobile_No').val(),
                 Email: $('#EmailId').val(),
                 Job_position: $('#Job_position').val(),
+                con_id:$('#con_id').val(),
             }
             if (clickedvalue == 'savecontact') {
                 $.ajax({
@@ -1415,8 +1415,8 @@
                     success: function (data) {
                         if (data == "success") {
                             $('#savebutton').hide();
-                            var url = 'Warehouse/WarehouseDetails';
-                            $('#whdetails').empty().load(url, function () { Pagination(); });
+                            var url = 'Warehouse/WarehouseContact';
+                            $('#contactdiv').empty().load(url, function () { Pagination(); });
                             alert("Contact Details updated sucessfully");
                             //$("#whtable").load(" #whtable");
                         }

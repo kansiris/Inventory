@@ -54,9 +54,9 @@ namespace Inventory.Service
             return WarehouseRepository.updatewhaddress(dbname, wh_id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
         }
-        public static int updatewhcontact(string dbname, string wh_id, string Contact_Person, string phone, string Mobile, string Email, string job_position)
+        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position)
         {
-            return WarehouseRepository.updatewhcontact(dbname, wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            return WarehouseRepository.updatewhcontact(dbname, con_id, Contact_Person, phone, Mobile, Email, job_position);
         }
         public static int updatewhnote(string dbname, string wh_id,string Note)
         {

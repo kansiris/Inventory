@@ -16,7 +16,7 @@
             </thead>
             <tbody>
 
-                @foreach (var item in ViewBag.contact)
+                @foreach (var item in ViewBag.records)
                 {
                     <tr>
                         @*<th scope="row">1</th>*@
@@ -30,7 +30,7 @@
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu">
-                                    <li> <a href="#" onclick="getEditContactDetails(@item.con_id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
+                                    <li> <a href="#" onclick="getEditContactDetails(@item.con_id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
                                     <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
                                 </ul>
                             </div>

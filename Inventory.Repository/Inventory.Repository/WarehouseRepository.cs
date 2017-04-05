@@ -87,14 +87,14 @@ namespace Inventory.Repository
             return count1;
         }
 
-        public static int updatewhcontact(string dbname, string wh_id, string Contact_Person, string phone, string Mobile, string Email, string job_position)
+        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string job_position, string Email, string phone, string Mobile)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewhcontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewarehousecontact", con_id, Contact_Person, job_position, Email, phone, Mobile);
             return count;
         }
-        public static int updatewarehousecontact(string dbname, string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position)
+        public static int updatewarehousecontact(string dbname, string wh_id, string Contact_Person, string phone, string Mobile, string Email, string job_position)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
