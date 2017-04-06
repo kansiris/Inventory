@@ -7,7 +7,9 @@ $("#add-vendor").click(function () {
     $("#vendor-information input").val("");
     $("#Vendor_Id").val("");
     $("#companypic").attr("src", "/images/user.png");
-    $("#vendor-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+    $("#vendor-information1 input, .cd-tabs input, .cd-tabs textarea, .cd-tabs dropdown").val("");
+    $("#bill_country").val("");
+    $("#ship_country").val("");
     $("#vendor-information1").css("display", "none");
     $('#mySubmit').val("Save").text("Save");
     $('#mySubmit1').val("saveaddress").text("Save Address");
@@ -21,6 +23,8 @@ $("#add-vendor").click(function () {
     $('#mySubmit1').show();
     $('#bankid').show();
     $('#notebutton').show();
+    $("#bill_country").attr("disabled", false);
+    $("#ship_country").attr("disabled", false);
     $("#vendor-information-cancel").show();
     $("#vendor-information1-cancel").show();
     $("#vendor-information2-cancel").show();
@@ -57,6 +61,23 @@ $("#save-reset").click(function () {
 });
 
 //<!------------ List / Grid Views and reload page -------------->
+var usedNames = {};
+$("select[name='bill_country'] > option").each(function () {
+    if (usedNames[this.text]) {
+        $(this).remove();
+    } else {
+        usedNames[this.text] = this.value;
+    }
+});
+
+var usedNames1 = {};
+$("select[name='ship_country'] > option").each(function () {
+    if (usedNames1[this.text]) {
+        $(this).remove();
+    } else {
+        usedNames1[this.text] = this.value;
+    }
+});
 
   $("#grid-view").click(function(e) {
       $("#vendortable").css("display","none");
@@ -184,7 +205,7 @@ function textval() {
     });
 }
 
-$(".positions1 > i").click(function () {
+$(".positions1 > i.fa-trash-o").click(function () {
     $(this).parent(".positions1").remove();
 });
 
@@ -235,7 +256,7 @@ $("#Mobile_No").keypress(function (e) {
 //Deleting particular company based on id
 
 function deleteRecord(id) {
-    alert(id);
+   // alert(id);
     var retVal = confirm("Do you want to delete record...!");
     if( retVal == true ){
         $.ajax({
@@ -313,6 +334,8 @@ function getEditDetails(id) {
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
     $('#notebutton').val("updatenote").text("Update Note");
     $('#contactbutton').val("savecontact").text("Save Contact");
+    $("#bill_country").attr("disabled", false);
+    $("#ship_country").attr("disabled", false);
 
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
@@ -354,10 +377,6 @@ function editcompany(clickedvalue) {
     $('#update').click(function () {
         $('#additional').css('display', 'none');
     });
-
-    $('vendor-information1').css("display", "block");
-    $('#additon').css('display', 'block');
-    
     company_Id = $('#company_Id').val();
     Company_Name = $('#Company_Name').val();
     logo = $('#companypic').attr('src').replace('data:image/;base64,', '');
@@ -413,11 +432,12 @@ function editcompany(clickedvalue) {
                 if (data.Result == "sucess") {
                     $('#mySubmit').hide();
                     $('#company_pic').children().attr('disabled', 'disabled');
-                    //$('#company_pic').disable;
                     var url = 'Vendor/VendorCompany';
                     $('#company_Id').val(data.ID);
                     $('#companyrecords').load(url, function () { Pagination(); });
                     alert("company saved Successfully");
+                    $('vendor-information1').css("display", "block");
+                    $('#additon').css('display', 'block');
                 }
                 else if (data="exists") {
                     alert("Company Name alredy exists..Please enter another name");
@@ -444,7 +464,7 @@ function editcompanyaddress(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     company_Id = $('#company_Id').val();
-    alert(company_Id);
+   // alert(company_Id);
     Company_Name = $('#Company_Name').val();
     Email = $('#Email').val();
     bill_street = $('#bill_street').val();
@@ -631,7 +651,7 @@ function updateContact(clickedvalue) {
     });
     company_Id = $('#company_Id').val();
     Vendor_Id = $('#Vendor_Id').val();
-    alert(clickedvalue);
+   // alert(clickedvalue);
     Contact_PersonFname = $('#Contact_PersonFname').val();
     Contact_PersonLname = $('#Contact_PersonLname').val();
     Mobile_No = $('#Mobile_No').val();
@@ -715,7 +735,7 @@ function updateContact(clickedvalue) {
 //vendor contatc details editing based on vendor id
 
 function editcontactperson(id){
-    alert(id);
+    //alert(id);
     $('#contactbutton').val("updatecontact").text("Update Contact");
     $.ajax({
         url: '/Vendor/getVendorContact?Vendor_Id=' + id,
@@ -751,7 +771,7 @@ function editcontactperson(id){
 //vendor deleting
 
 function deleteVendor(id) {
-    alert(id);
+    //alert(id);
     var retVal = confirm("Do you want to delete record...!");
     if (retVal == true) {
         $.ajax({
@@ -786,9 +806,9 @@ function deleteVendor(id) {
 //vendor invite
 
 function inviteVendor(id) {
-    alert(id);
+    //alert(id);
     company_Id = $('#company_Id').val()
-    alert(company_Id);
+    //alert(company_Id);
     var retVal = confirm("Do you want to send invitation...!");
     if (retVal == true) {
         $.ajax({
@@ -914,6 +934,8 @@ function viewVendor(id) {
                 $('#myform input[type=text]').attr("disabled", true);
                 $('#myform textarea').attr("disabled", true);
                 $('#myform input[type=file]').attr("disabled", true);
+                $("#bill_country").attr("disabled", true);
+                $("#ship_country").attr("disabled", true);
             }
         },
         error: function (data)

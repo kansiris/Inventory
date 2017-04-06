@@ -22,6 +22,7 @@ namespace Inventory.Controllers
         public ActionResult Index()
         {
             //ViewBag.vendor_Id = getMaxVendorID();
+            ViewBag.country = new SelectList(CountryList(), "Value", "Text");
             return View();
         }
         //companypic upload
@@ -186,7 +187,7 @@ namespace Inventory.Controllers
                     company_Id = (int)set1,
                     Company_Name = data["Company_Name"].ToString(),
                     Email = data["Email"].ToString(),
-                    Bank_Acc_Number = (int)set,//int.Parse(data["Bank_Acc_Number"].ToString()),
+                    Bank_Acc_Number = (int)set,
                     Bank_Branch = data["Bank_Branch"].ToString(),
                     Bank_Name = data["Bank_Name"].ToString(),
                     IFSC_No = data["IFSC_No"].ToString(),
@@ -196,7 +197,7 @@ namespace Inventory.Controllers
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
                     emailid = data["emailid"].ToString(),
                     Job_position = data["Job_position"].ToString(),
-                    Mobile_No = (int)set2,//int.Parse(data["Mobile_No"].ToString()),
+                    Mobile_No = set2,
                     Adhar_Number = data["Adhar_Number"].ToString(),
                     Vendor_Id = data["Vendor_Id"].ToString(),
                     bill_city = data["bill_city"].ToString(),
@@ -516,7 +517,7 @@ namespace Inventory.Controllers
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
                     emailid = data["emailid"].ToString(),
                     Job_position = data["Job_position"].ToString(),
-                    Mobile_No = (int)set,
+                    Mobile_No = set,
                     Adhar_Number = data["Adhar_Number"].ToString(),
                     Vendor_Id = data["Vendor_Id"].ToString(),
                     image = data["image"].ToString()
