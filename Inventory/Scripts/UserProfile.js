@@ -64,6 +64,16 @@
             } else {
                 usedNames[this.text] = this.value;
             }
+            var options = 'Select Country' + $('#Item2_country option');
+            options.sort(function (a, b) {
+                if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
+                else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
+                else return 0;
+            });
+
+            $('#Item2_country').empty().append(options);
+
+
         });
     });
 //</script>

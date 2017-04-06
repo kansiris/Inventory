@@ -42,7 +42,7 @@ $("#vendor-information-cancel").click(function () {
 function forCancel(){
      $("#additon").css("display", "block");
      $(".cd-tabs").css("display", "none");
-     $("#vendor-information1 input").val("");
+     //$("#vendor-information1 input").val("");
 }
 $("#vendor-information1-cancel").click(function () {
     forCancel();
@@ -322,6 +322,7 @@ function getEditDetails(id) {
     $('#bankid').show();
     $('#contactbutton').show();
     $('#notebutton').show();
+    $("#contactpic").attr("src", "/images/user.png");
     $("#vendor-information-cancel").show();
     $("#vendor-information1-cancel").show();
     $("#vendor-information2-cancel").show();
@@ -336,7 +337,6 @@ function getEditDetails(id) {
     $('#contactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
-
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
     });
