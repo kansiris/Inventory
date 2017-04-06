@@ -5685,10 +5685,6 @@ strong{
 	-webkit-transition: 1s ease-in;}
 #nav{
 	margin-bottom: 15px;}
-.list-unstyled > li{
-   display: block !important;
-   padding: 0 !important;
-}
 
 /*================ Vendor Information ================*/
 
@@ -5941,6 +5937,65 @@ button a:hover{
 .form-group.radio label > input[type="radio"]{
 	margin-top: 0;}
 /*============ Add Product Page ==================*/
+
+/*============ Tags Box ==================*/
+
+ul.tagit {
+	width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #C6C6C6;
+    background: inherit;
+	float: left;
+	border-radius: 2px;
+}
+ul.tagit li{
+	float: left;
+	padding: 5px 10px 5px 5px;
+	margin: 5px;}
+ul.tagit li.tagit-choice {
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border: 1px solid #CAD8F3;
+    background: none;
+    background-color: #DEE7F8;
+    font-weight: normal;
+	display: inline-block;
+	position: relative;
+	padding: 5px 15px 5px 5px;
+	margin: 5px;
+}
+ul.tagit li.tagit-choice .tagit-close {
+    cursor: pointer;
+    position: absolute;
+    right: .1em;
+    top: 50%;
+    margin-top: -8px;
+    line-height: 17px;
+}
+ul.tagit input[type=text] {
+    color: #333333;
+    background: none;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:         border-box;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    background-color: inherit;
+    outline: none;
+}
+.tagit .ui-helper-hidden-accessible {
+	position: absolute !important; 
+	clip: rect(1px,1px,1px,1px); 
+}
+
+/*============ Tags Box ==================*/
 
 /*========== Media Quries ===============*/
 

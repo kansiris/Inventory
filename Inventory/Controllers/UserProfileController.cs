@@ -28,6 +28,7 @@ namespace Inventory.Controllers
             //ViewBag.country = CountryList();
             //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
             ViewBag.profile = profile; //current user record
+            ViewBag.jobpositions = AvailableJobPositions(id).Select(m=>m.Job_position).Distinct();
             return View();
         }
 
@@ -141,6 +142,7 @@ namespace Inventory.Controllers
             DataView dv = dt.DefaultView;
             dt = dv.ToTable();
             ViewBag.records = StaffDetails(dt);
+            ViewBag.jobpositions = AvailableJobPositions(id);
             return PartialView("StaffRecords", ViewBag.records);
         }
 
@@ -176,6 +178,15 @@ namespace Inventory.Controllers
                               UserPic=row["UserPic"].ToString()
                           }).ToList();
             return ownerStaff;
+        }
+
+        public List<OwnerStaff> AvailableJobPositions(string id)
+        {
+            var records = LoginService.GetStaff(int.Parse(id), "");
+            var dt = new DataTable();
+            dt.Load(records);
+            List<OwnerStaff> ownerstaff = (from DataRow row in dt.Rows select new OwnerStaff() { Job_position = row["Job_position"].ToString() }).Distinct().ToList();
+            return ownerstaff;
         }
 
         [HttpPost]
