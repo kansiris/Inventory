@@ -22,6 +22,7 @@ namespace Inventory.Controllers
         public ActionResult Index()
         {
             //ViewBag.vendor_Id = getMaxVendorID();
+            ViewBag.country = new SelectList(CountryList(), "Value", "Text");
             return View();
         }
         //companypic upload

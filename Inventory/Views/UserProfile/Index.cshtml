@@ -223,10 +223,14 @@
                                                 <div class="form-group col-md-6">
                                                     @Html.TextBoxFor(Model => Model.Item4.Job_position, new { placeholder = "Job Position", @class = "form-control selected-position", required = "required" })
                                                     <div class="display-positions">
-                                                        <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position Copy</div>
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>One</div>
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>
+                                                        <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
+                                                        @if (ViewBag.jobpositions != "")
+                                                        {
+                                                            foreach (var position in ViewBag.jobpositions)
+                                                            { <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@position</div> }
+                                                        }
+                                                        @*<div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>*@
                                                     </div>
                                                     <div class="row add-position">
                                                         <div class="row">
