@@ -46,7 +46,7 @@ namespace Inventory.Models
         public string ship_Country { get; set; }
         public int JpId { get; set; }
         public string JpName { get; set; }
-        public string Wh_logo { get; set; }
+        public string Image { get; set; }
         public string con_id { get; set; }
     }
 }

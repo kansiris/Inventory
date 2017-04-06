@@ -54,9 +54,9 @@ namespace Inventory.Service
             return WarehouseRepository.updatewhaddress(dbname, wh_id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
         }
-        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position)
+        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position,string image)
         {
-            return WarehouseRepository.updatewhcontact(dbname, con_id, Contact_Person, phone, Mobile, Email, job_position);
+            return WarehouseRepository.updatewhcontact(dbname, con_id, Contact_Person, phone, Mobile, Email, job_position,image);
         }
         public static int updatewhnote(string dbname, string wh_id,string Note)
         {
@@ -77,9 +77,9 @@ namespace Inventory.Service
             return WarehouseRepository.insertwhcontact(dbname, wh_id, Contact_Person, phone, Mobile, Email, job_position);
         }
 
-        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, string job_position, string Email, string phone, string Mobile)
+        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, string job_position, string Email, string phone, string Mobile,string image)
         {
-            return WarehouseRepository.insertwarehousecontact(dbname, wh_id, Contact_Person,job_position, Email, phone, Mobile);
+            return WarehouseRepository.insertwarehousecontact(dbname, wh_id, Contact_Person,job_position, Email, phone, Mobile,image);
         }
 
         public static int deletewarehouse(string dbname, string wh_Id)
