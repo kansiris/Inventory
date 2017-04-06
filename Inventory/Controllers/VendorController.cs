@@ -21,7 +21,7 @@ namespace Inventory.Controllers
         // GET: Vendor
         public ActionResult Index()
         {
-            //ViewBag.vendor_Id = getMaxVendorID();
+            
             ViewBag.country = new SelectList(CountryList(), "Value", "Text");
             return View();
         }
@@ -36,7 +36,7 @@ namespace Inventory.Controllers
                 ImageConverter _imageConverter = new ImageConverter();
                 byte[] companypic = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
                 string base64String = Convert.ToBase64String(companypic);
-                //int count = VendorService.updatecompanyprofile(int.Parse(company_Id), base64String);
+                
                 return Json(base64String);
             }
             return Json(JsonRequestBehavior.AllowGet);
@@ -103,7 +103,8 @@ namespace Inventory.Controllers
         private int getMaxCompanyID()
         {
             int company_Id = 0;
-            SqlDataReader exec = VendorService.getcompanyId();
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader exec = VendorService.getcompanyId(user.DbName);
             if (exec.Read() && exec != null)
             {
                 company_Id = int.Parse(exec["company_Id"].ToString());
@@ -119,7 +120,8 @@ namespace Inventory.Controllers
         private string getMaxVendorID()
         {
             string vendor_Id = null;
-            SqlDataReader exec = VendorService.getvendorId();
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader exec = VendorService.getvendorId(user.DbName);
             if (exec.Read())
             {
                 vendor_Id = exec["vendor_Id"].ToString();
@@ -128,8 +130,8 @@ namespace Inventory.Controllers
         }
         private Vendor getlastinsertedcompany(int company_Id)
         {
-            //int company_Id = ViewBag.company_Id;
-            SqlDataReader value = VendorService.getlastinsertedcompany(company_Id);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            SqlDataReader value = VendorService.getlastinsertedcompany(company_Id, user.DbName);
             DataTable dt = new DataTable();
             dt.Load(value);
             Vendor vendor = new Vendor();
@@ -161,9 +163,9 @@ namespace Inventory.Controllers
 
         public JsonResult getAllDetails(int company_Id)
         {
-
-            VendorService.getlastinsertedcompany(company_Id);
-            var data = VendorService.getAllDetails(company_Id);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            VendorService.getlastinsertedcompany(company_Id, user.DbName);
+            var data = VendorService.getAllDetails(company_Id, user.DbName);
             long set;
             long set1;
             long set2;
@@ -220,9 +222,10 @@ namespace Inventory.Controllers
         }
         public JsonResult updatecompany(int company_Id, string Company_Name, string Email,string logo)
         {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string s1 = Company_Name.TrimStart();
             Company_Name = s1.TrimEnd();
-            var data = VendorService.UpdateCompany1(company_Id, Company_Name, Email, logo);
+            var data = VendorService.UpdateCompany1(company_Id, Company_Name, Email, logo, user.DbName);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -234,7 +237,8 @@ namespace Inventory.Controllers
         }
         public JsonResult updatecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode, string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -256,8 +260,8 @@ namespace Inventory.Controllers
 
         public JsonResult updatecompanybankdetails(int company_Id, long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
-
-            var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -272,7 +276,8 @@ namespace Inventory.Controllers
         public JsonResult updatecontactdetails(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                           string emailid, string Adhar_Number, string Job_position,string image)
         {
-            var data = VendorService.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image, user.DbName);
             if (data > 0)
             {
                 ViewBag.Vendor_Id = Vendor_Id;
@@ -290,7 +295,8 @@ namespace Inventory.Controllers
 
         public JsonResult updatecompanynote(int company_Id, string Note)
         {
-            var data = VendorService.UpdateNotes(company_Id, Note);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.UpdateNotes(company_Id, Note, user.DbName);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -302,15 +308,16 @@ namespace Inventory.Controllers
 
         public JsonResult savecompany(string Company_Name, string Email, string logo)
         {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string s1 = Company_Name.TrimStart();
             Company_Name = s1.TrimEnd();
-            var existingNo = VendorService.checkcompany1(Company_Name);
+            var existingNo = VendorService.checkcompany1(Company_Name, user.DbName);
             if (existingNo.Read())
             {
                 return Json("exists", JsonRequestBehavior.AllowGet);
             }
             else { 
-            var data = VendorService.CompanyInsertRow(Company_Name, Email, logo);
+            var data = VendorService.CompanyInsertRow(Company_Name, Email, logo, user.DbName);
             if (data > 0)
             {
                 int company_Id = getMaxCompanyID();
@@ -332,9 +339,9 @@ namespace Inventory.Controllers
         public JsonResult savecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
                 string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            company_Id = getMaxCompanyID();
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
-                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
+                bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -356,11 +363,10 @@ namespace Inventory.Controllers
 
         public JsonResult savecompanynote(int company_Id, string Note)
         {
-            company_Id = getMaxCompanyID();
-            var data = VendorService.UpdateNotes(company_Id, Note);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.UpdateNotes(company_Id, Note, user.DbName);
             if (data > 0)
             {
-                //ViewBag.company_Id =getMaxCompanyID();
                 ViewBag.company_Id = company_Id;
                 ViewBag.Note = Note;
                 return Json("sucess");
@@ -369,8 +375,8 @@ namespace Inventory.Controllers
         }
         public JsonResult savecompanybankdetails(int company_Id, long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
-            company_Id = getMaxCompanyID();
-            var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -386,8 +392,9 @@ namespace Inventory.Controllers
         public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                           string emailid, string Adhar_Number, string Job_position,string image)
         {
-                        List<Vendor> contact = new List<Vendor>();
-            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            List<Vendor> contact = new List<Vendor>();
+            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image, user.DbName);
             if (data > 0)
             {
                 string Vendor_Id = getMaxVendorID();
@@ -400,8 +407,8 @@ namespace Inventory.Controllers
 
         public JsonResult deleteRecord(int company_Id)
         {
-
-            var data = VendorService.deleteRecord(company_Id);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.deleteRecord(company_Id, user.DbName);
             if (data > 0)
             {
                 ViewBag.company_Id = company_Id;
@@ -412,8 +419,8 @@ namespace Inventory.Controllers
 
         public JsonResult deleteVendor(string Vendor_Id)
         {
-
-            var data = VendorService.deleteVendor(Vendor_Id);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.deleteVendor(Vendor_Id, user.DbName);
             if (data > 0)
             {
                 ViewBag.Vendor_Id = Vendor_Id;
@@ -423,6 +430,7 @@ namespace Inventory.Controllers
         }
         public JsonResult inviteVendor(string Vendor_Id, int company_Id)
         {
+
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string id = user.ID;
             string DBname = null;
@@ -446,9 +454,9 @@ namespace Inventory.Controllers
             int Subscription=0;
             DateTime? SubscriptionDate = null;
 
-            SqlDataReader exec = VendorService.getusermaster(id);
-            SqlDataReader exec1 = VendorService.getVendorContact(Vendor_Id);
-            SqlDataReader exec2 = VendorService.getlastinsertedcompany(company_Id);
+            SqlDataReader exec = VendorService.getusermaster(id, user.DbName);
+            SqlDataReader exec1 = VendorService.getVendorContact(Vendor_Id, user.DbName);
+            SqlDataReader exec2 = VendorService.getlastinsertedcompany(company_Id, user.DbName);
             if (exec.Read())
                 DBname = exec["DB_Name"].ToString();
             Subscription= int.Parse(exec["Subscriptionid"].ToString());
@@ -483,13 +491,14 @@ namespace Inventory.Controllers
         }
         public PartialViewResult VendorContact(string id)
         {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             if (id == null)
             {
                 return PartialView("VendorRecords", null);
             }
             else
             {
-                var records = VendorService.getcontactdetail(int.Parse(id));
+                var records = VendorService.getcontactdetail(int.Parse(id), user.DbName);
                 var dt = new DataTable();
                 dt.Load(records);
                 ViewBag.records = getcontactDetail(dt);
@@ -502,7 +511,8 @@ namespace Inventory.Controllers
 
         public JsonResult getVendorContact(string Vendor_Id)
         {
-            var data = VendorService.getVendorContact(Vendor_Id);
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = VendorService.getVendorContact(Vendor_Id, user.DbName);
             long set;
             if (data.Read())
             {
@@ -532,7 +542,8 @@ namespace Inventory.Controllers
        
         public PartialViewResult VendorCompany()
         {
-            var records = VendorService.getcomapnies();
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var records = VendorService.getcomapnies(user.DbName);
             var dt = new DataTable();
             dt.Load(records);
             List<Vendor> vendor = new List<Vendor>();
