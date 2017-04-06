@@ -87,11 +87,11 @@ namespace Inventory.Repository
             return count1;
         }
 
-        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string job_position, string Email, string phone, string Mobile)
+        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string job_position, string Email, string phone, string Mobile,string image)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewarehousecontact", con_id, Contact_Person, job_position, Email, phone, Mobile);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatewarehousecontact", con_id, Contact_Person, job_position, Email, phone, Mobile,image);
             return count;
         }
         public static int updatewarehousecontact(string dbname, string wh_id, string Contact_Person, string phone, string Mobile, string Email, string job_position)
@@ -140,12 +140,11 @@ namespace Inventory.Repository
         //    int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousecontact", wh_id, Contact_Person, phone, Mobile, Email, job_position);
         //    return count;
         //}
-        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, string job_position, string Email, string phone, string Mobile)
+        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, string job_position, string Email, string phone, string Mobile,string image)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            // string id = wh_id.ToString();
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousecontact", wh_id, Contact_Person, job_position, Email, phone, Mobile);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousecontact", wh_id, Contact_Person, job_position, Email, phone, Mobile,image);
             return count;
         }
         public static int deletewarehouse(string dbname, string wh_Id)

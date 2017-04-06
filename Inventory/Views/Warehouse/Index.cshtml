@@ -48,21 +48,21 @@
                         @if (ViewBag.Warehouse != null)
                         {
                             <div class="form-group col-md-4">
-                                @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
+                                @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name, @maxlength = "30" })
                             </div>
                             <div class="form-group col-md-5">
 
-                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
+                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname, @maxlength = "3" })
                             </div>
                         }
                         else
                         {
                             <div class="form-group col-md-4">
-                                @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name })
+                                @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name, @maxlength = "30" })
                             </div>
                             <div class="form-group col-md-5">
 
-                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname })
+                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname, @maxlength = "3" })
                             </div>
                         }
                     </div>
@@ -720,6 +720,13 @@
                                                     <div class="row positions"></div>
                                                 </div>
                                             </div>
+                                            @*contact person image start*@
+                                            <div class="col-md-3 col-md-push-3">
+                                                <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
+                                                <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                <div>Upload ContactPerson Image</div>
+                                            </div>
+                                            @*contact person image end*@
                                         </div>
 
 
@@ -821,8 +828,13 @@
         $("#add-wh").click(function () {
             $("#wh-information").css("display", "block");
             $("#contacttable").css("display", "none");
-
+            $("#wh-information1").css("display", "none");
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
+            $('#mySubmit').val("Save").text("Save");
+            $('#mySubmit1').val("saveaddress").text("Save Address");
+            $('#notebutton').val("Save Note").text("Save Note");
+            // $('#contactbutton').val("updatecontact").text("Update Contact");
+            $('#contactbutton').val("savecontact").text("Save Contact");
             $("#addinfo").hide();
             // $('#mySubmit').val("Save").text("Save");
         });
@@ -831,21 +843,36 @@
         //});
         $("#wh-information-cancel").click(function () {
             $("#wh-information input").val("");
-            $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+           // $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
             $("#wh-information").css("display", "none");
+            $("#wh-information1").css("display", "none");
+            var url = 'Warehouse/WarehouseDetails';
+            $('#whdetails').empty().load(url, function () { Pagination(); });
+        });
+        $("#wh-information1-cancel").click(function () {
+            $//("#wh-information input").val("");
+            // $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+            $("#wh-information").css("display", "none");
+            $("#wh-information1").css("display", "none");
+            var url = 'Warehouse/WarehouseDetails';
+            $('#whdetails').empty().load(url, function () { Pagination(); });
         });
 
-        $("#wh-information1-cancel").click(function () {
-            $("#wh-information1").css("display", "none");
-            $("#wh-information1 input").val("");
-        });
+        //$("#wh-information1-cancel").click(function () {
+        //    $("#wh-information1").css("display", "none");
+        //    $("#wh-information1 input").val("");
+        //});
         $("#btnclose3").click(function () {
             $("#wh-information1").css("display", "none");
             $("#wh-information1 input").val("");
+            var url = 'Warehouse/WarehouseDetails';
+            $('#whdetails').empty().load(url, function () { Pagination(); });
         });
         $("#btnclosenote").click(function () {
             $("#wh-information1").css("display", "none");
             $("#wh-information1 input").val("");
+            var url = 'Warehouse/WarehouseDetails';
+            $('#whdetails').empty().load(url, function () { Pagination(); });
         });
         $("#save-reset").click(function () {
             $(".contactperson input").val("");
@@ -853,36 +880,7 @@
 
 
     </script>
-    <script>
-        @*function upload() {
-            var ext = $('#fileupload').val().split('.').pop().toLowerCase();
-            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-                alert('Invalid File Type');
-            }
-            else {
-                var file = $("#fileupload").get(0).files;
-                var id = @Request.QueryString["wh_id"];
-                var data = new FormData();
-                var files = $("#fileupload").get(0).files;
-                if (files.length > 0) {
-                    data.append("helpSectionImages", files[0]);
-                }
-                $.ajax({
-                    url: '/Warehouse/Updatewhimage?id='+id,
-                    type: "POST",
-                    processData: false,
-                    contentType: false,
-                    data: data,
-                    success: function (response) {
-                        $("#whpic").attr("src","data:image/;base64,"+response);
-                    },
-                    error: function (er) {
-                        alert("Failed To Upload Pic!!! Try Again");
-                    }
-                });
-            }
-        }*@
-    </script>
+   
     <script>
 
         $("input[type='checkbox']").change(function () {
@@ -956,6 +954,7 @@
 
             $("#additon").click(function () {
                 $(".cd-tabs").css("display", "block");
+                $("#wh-information1").css("display", "block");
             });
             //validations
 
@@ -1078,7 +1077,7 @@
             $('#btnedit').click(function () {
                 $('#warehouse').css('display', 'none');
             });
-
+            $("#wh-information1").css("display", "block");
             $.ajax({
                 url: '/Warehouse/getallwhdetails?wh_Id=' + id,
                 type: 'POST',
@@ -1401,7 +1400,8 @@
                 Mobile: $('#Mobile_No').val(),
                 Email: $('#EmailId').val(),
                 Job_position: $('#Job_position').val(),
-                con_id:$('#con_id').val(),
+                con_id: $('#con_id').val(),
+                Image:  $('#contactpic').attr('src').replace('data:Image/;base64,', ''),
             }
             if (clickedvalue == 'savecontact') {
                 $.ajax({
@@ -1419,6 +1419,13 @@
                             //var url = 'Warehouse/WarehouseDetails';
                             $('#contactdiv').empty().load(url);
                             alert("Contact Details Saved sucessfully");
+                            $("[id='Contact_PersonFname']").val("");
+                            $("[id='Phone']").val("");
+                            $("[id='Mobile_No']").val("");
+                            $("[id='EmailId']").val("");
+                            $("[id='Job_position']").val("");
+                            $("#contactpic").attr("src", "/images/user.png");
+                           
                             // $("#whtable").load(" #whtable");
                         }
                         else {
@@ -1442,6 +1449,12 @@
                             var url = 'Warehouse/WarehouseContact';
                             $('#contactdiv').empty().load(url);
                             alert("Contact Details updated sucessfully");
+                            $("[id='Contact_PersonFname']").val("");
+                            $("[id='Phone']").val("");
+                            $("[id='Mobile_No']").val("");
+                            $("[id='EmailId']").val("");
+                            $("[id='Job_position']").val("");
+                            $("#contactpic").attr("src", "/images/user.png");
                             //$("#whtable").load(" #whtable");
                         }
                         else {
@@ -1454,7 +1467,7 @@
             }
         }
         function getEditContactDetails(id) {
-            //alert(id);
+            
             $('#contactbutton').val("updatecontact").text("Update Contact");
             $.ajax({
                 url: '/Warehouse/getwhcondtls?con_id=' + id,
@@ -1474,13 +1487,42 @@
                         $('#Mobile_No').val(array.Mobile);
                         $('#EmailId').val(array.Email);
                         $('#Job_position').val(array.Job_position);
-
+                        if (array.Image != "/images/user.png" && array.Image != null && array.Image != "") {
+                            $('#contactpic').attr('src', 'data:Image/;base64,' + array.Image);
+                        } else
+                            $('#contactpic').attr('src', array.Image);
                     }
                 },
                 error: function (data)
                 { alert("Failed!!!"); }
             });
 
+        }
+        function upload1() {
+            var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                alert('Invalid File Type');
+            }
+            else {
+                var data = new FormData();
+                var files = $("#fileupload1").get(0).files;
+                if (files.length > 0) {
+                    data.append("helpSectionImages", files[0]);
+                }
+                $.ajax({
+                    url: '/Warehouse/updatecontactpersonimage',
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        $("#contactpic").attr("src", "data:Image/;base64," + response);
+                    },
+                    error: function (er) {
+                        alert("Failed To Upload Pic!!! Try Again");
+                    }
+                });
+            }
         }
     </script>
 
