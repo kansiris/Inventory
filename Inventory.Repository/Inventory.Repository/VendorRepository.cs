@@ -17,8 +17,7 @@ namespace Inventory.Repository
 
         public static SqlDataReader getcomapnies()
         {
-            //GetConnectionString getConnectionString = new GetConnectionString();
-            //ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            
             return SqlHelper.ExecuteReader(ConnectionString, "getcompany");
         }
 
@@ -86,12 +85,7 @@ namespace Inventory.Repository
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getVendorId");
         }
-        //public static SqlDataReader Authenticateemail(string check, string Email_ID)
-        //{
-        //    return SqlHelper.ExecuteReader(ConnectionString1, "Authenticateemail", check, Email_ID);
-        //    //return SqlHelper.ExecuteReader(ConnectionString, "getuser", new SqlParameter("@Email_ID", Email_ID) , new SqlParameter("@Password", Password));
-        //}
-
+        
         public static SqlDataReader getlastinsertedcompany(int company_Id)
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getLastInsertedcompany", company_Id);
