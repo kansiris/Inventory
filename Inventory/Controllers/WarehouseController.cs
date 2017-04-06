@@ -73,6 +73,7 @@ namespace Inventory.Controllers
 
                            Email = row["email"].ToString(),
                            Mobile = row["mobile"].ToString(),
+                           phone = row["phone"].ToString(),
                            Job_position = row["job_position"].ToString()
                        }).OrderByDescending(m => m.con_id).ToList();
             ViewBag.records = contact;
