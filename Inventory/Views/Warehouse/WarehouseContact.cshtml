@@ -1,7 +1,7 @@
 ﻿@if (ViewBag.records != null)
 {
-<div class="row" id="contactdiv">
-    <div class="col-md-12 table-responsive table-hover">
+<div class="row">
+    <div class="col-md-12 table-responsive table-hover" id="contactdiv">
         <table class="table" id="contacttable">
             <thead class="thead-inverse">
                 <tr>
@@ -9,7 +9,7 @@
                     <th>First Name</th>
 
                     <th>Mobile Number</th>
-                    <th>E-Mail</th>
+                    <th>EMail</th>
                     <th>Job position</th>
 
                 </tr>
@@ -31,7 +31,7 @@
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu">
                                     <li> <a href="#" onclick="getEditContactDetails(@item.con_id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Warehouse</a> </li>
-                                    <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Warehouse</a> </li>
+                                    <li> <a href="#" onclick="deletecontact(@item.con_id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Contact</a> </li>
                                 </ul>
                             </div>
                         </td>

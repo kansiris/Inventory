@@ -266,6 +266,17 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+        public JsonResult deletecontactperson(string con_id)
+        {
+            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = WHservice.deletecontactperson(user1.DbName, con_id);
+            if (data > 0)
+            {
+                ViewBag.con_id = con_id;
+                return Json("success");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
         public JsonResult updatewhaddress(string wh_id, Warehouse warehouse)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -312,7 +323,8 @@ namespace Inventory.Controllers
         public JsonResult updatewhcontact(string con_id, Warehouse warehouse)  //string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhcontact(user1.DbName, warehouse.con_id, warehouse.conperson, warehouse.Job_position, warehouse.Email, warehouse.phone, warehouse.Mobile);
+            //string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position
+            var data = WHservice.updatewhcontact(user1.DbName, warehouse.con_id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position);
             if (data > 0)
             {
                 List<Warehouse> wh = new List<Warehouse>();

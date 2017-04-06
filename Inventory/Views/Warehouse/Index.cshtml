@@ -1150,6 +1150,30 @@
                 { alert("Failed!!!"); }
             });
         }
+        function deletecontact(id) {
+            //alert(id);
+            $.ajax({
+                url: '/Warehouse/deletecontactperson?con_id=' + id,
+                type: 'POST',
+                data: JSON.stringify({ con_id: id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "success") {
+                        var url = 'Warehouse/WarehouseContact';
+                        $('#contactdiv').empty().load(url);
+                        alert("Contact Deleted sucessfully");
+                        //$("#whtable").load(" #whtable");
+                    }
+                    else {
+                        alert("Contact not Deleted");
+
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
 
         //Particular Warehouse
         function editwh(clickedvalue) {
@@ -1393,7 +1417,7 @@
                             var url = 'Warehouse/WarehouseContact?id=' + warehouse.wh_id + '';
                             // $('#WarehouseDetails').load(url);
                             //var url = 'Warehouse/WarehouseDetails';
-                            $('#contactdiv').empty().load(url, function () { Pagination(); });
+                            $('#contactdiv').empty().load(url);
                             alert("Contact Details Saved sucessfully");
                             // $("#whtable").load(" #whtable");
                         }
@@ -1416,7 +1440,7 @@
                         if (data == "success") {
                             $('#savebutton').hide();
                             var url = 'Warehouse/WarehouseContact';
-                            $('#contactdiv').empty().load(url, function () { Pagination(); });
+                            $('#contactdiv').empty().load(url);
                             alert("Contact Details updated sucessfully");
                             //$("#whtable").load(" #whtable");
                         }
@@ -1430,7 +1454,7 @@
             }
         }
         function getEditContactDetails(id) {
-            alert(id);
+            //alert(id);
             $('#contactbutton').val("updatecontact").text("Update Contact");
             $.ajax({
                 url: '/Warehouse/getwhcondtls?con_id=' + id,
