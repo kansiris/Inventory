@@ -161,8 +161,7 @@
                             <input type="text" class="form-control" name="bill_postalcode" id="bill_postalcode" placeholder="Postal Code">
                         </div>
                         <div class="form-group col-md-6">
-                            @Html.DropDownListFor(Model => Model.bill_country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
-                            @*<input type="text" class="form-control" name="bill_country" id="bill_country" placeholder="Country" value="@ViewBag.country">*@
+                           @Html.DropDownListFor(Model => Model.bill_country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
                         </div>
                     </div>
                 </div>
@@ -195,7 +194,6 @@
                         </div>
                         <div class="form-group col-md-6">
                             @Html.DropDownListFor(Model => Model.ship_country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
-                            @*<input type="text" class="form-control" name="ship_country" id="ship_country" placeholder="Country" value="@ViewBag.country">*@
                         </div>
                     </div>
                 </div>
