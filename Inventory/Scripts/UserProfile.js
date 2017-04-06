@@ -57,7 +57,14 @@
             $(".cd-tabs-navigation li a[data-content='essentials'], ul.cd-tabs-content li[data-content='essentials']").removeClass("selected");
             $(".cd-tabs-navigation li a[data-content='address'], ul.cd-tabs-content li[data-content='address']").addClass("selected");
         }
-
+        var usedNames = {};
+        $("select[name='Item2.country'] > option").each(function () {
+            if (usedNames[this.text]) {
+                $(this).remove();
+            } else {
+                usedNames[this.text] = this.value;
+            }
+        });
     });
 //</script>
 //<!------ Random Colors ------>
