@@ -51,8 +51,7 @@ namespace Inventory.Controllers
                 ImageConverter _imageConverter = new ImageConverter();
                 byte[] companypic = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
                 string base64String = Convert.ToBase64String(companypic);
-                //int count = VendorService.updatecompanyprofile(int.Parse(company_Id), base64String);
-                return Json(base64String);
+                 return Json(base64String);
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
@@ -386,9 +385,7 @@ namespace Inventory.Controllers
         public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
                           string emailid, string Adhar_Number, string Job_position,string image)
         {
-            //company_Id = getMaxCompanyID();
-            //ViewBag.company_Id = company_Id;
-            List<Vendor> contact = new List<Vendor>();
+                        List<Vendor> contact = new List<Vendor>();
             var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image);
             if (data > 0)
             {
@@ -441,8 +438,7 @@ namespace Inventory.Controllers
         //    return new string(chars.ToArray());
         //}
         
-        string mObile = null;
-            //string Subscription = null;
+            string mObile = null;
             string activationCode = Guid.NewGuid().ToString();
             int usertype = (int)LoginService.GetUserTypeId("Vendor", 0);
             string Date_Format = null, Timezone = null, Currency = null, UserSite=null;
@@ -455,9 +451,7 @@ namespace Inventory.Controllers
             if (exec.Read())
                 DBname = exec["DB_Name"].ToString();
             Subscription= int.Parse(exec["Subscriptionid"].ToString());
-            //UserSite= exec["User_Site"].ToString();
-
-            if (exec1.Read())
+             if (exec1.Read())
             {
                 fname= exec1["Contact_PersonFname"].ToString();
                 lname = exec1["Contact_PersonLname"].ToString();
@@ -470,8 +464,7 @@ namespace Inventory.Controllers
                 companyname = exec2["Company_Name"].ToString();
                 companylogo = exec2["logo"].ToString();
             }
-            string UserSite1 = companyname.TrimStart();
-            UserSite = UserSite1.TrimEnd();
+            UserSite = companyname.Trim();
             var data = LoginService.Authenticateuser("checkemail1", eMail,null,UserSite,0);
             if (data.HasRows) { 
                 return Json("Exists");
