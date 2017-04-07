@@ -224,6 +224,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Content\CustomPrinciple.cs" />
+    <Compile Include="Controllers\AddProductController.cs" />
     <Compile Include="Controllers\AdvancedFormController.cs" />
     <Compile Include="Controllers\AvailableCompaniesController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Controllers\OtherChartsController.cs" />
     <Compile Include="Controllers\PlainPageController.cs" />
     <Compile Include="Controllers\PricingTablesController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProjectDetailController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
