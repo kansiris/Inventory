@@ -182,7 +182,8 @@ namespace Inventory.Controllers
 
         public List<OwnerStaff> AvailableJobPositions(string id)
         {
-            var records = LoginService.GetStaff(int.Parse(id), "");
+            //var records = LoginService.GetStaff(int.Parse(id), "");
+            var records = LoginService.JobPositions(int.Parse(id));
             var dt = new DataTable();
             dt.Load(records);
             List<OwnerStaff> ownerstaff = (from DataRow row in dt.Rows select new OwnerStaff() { Job_position = row["Job_position"].ToString() }).Distinct().ToList();
