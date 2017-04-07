@@ -67,9 +67,9 @@ namespace Inventory.Service
 
             return VendorRepository.UpdateNotes(company_Id, Note, dbname);
         }
-        public static SqlDataReader getcompanyId(string dbname)
+        public static SqlDataReader getcompanyId(string Company_Name,string dbname)
         {
-            return VendorRepository.getcompanyId(dbname);
+            return VendorRepository.getcompanyId(Company_Name,dbname);
         }
         public static int getcompanyIdlatest(string dbname)
         {
@@ -122,6 +122,20 @@ namespace Inventory.Service
         public static SqlDataReader getusermaster(string id, string dbname)
         {
             return VendorRepository.getusermaster(id, dbname);
+        }
+        //for job_Position
+        public static int insertjobposition(string Job_position, int company_Id,string dbname)
+        {
+
+            return VendorRepository.insertJobposition(Job_position, company_Id, dbname);
+        }
+        public static SqlDataReader getjobposition(string Job_position,string dbname)
+        {
+            return VendorRepository.getJobposition(Job_position,dbname);
+        }
+        public static SqlDataReader getalljobposition(string dbname)
+        {
+            return VendorRepository.getallJobposition(dbname);
         }
         //company pic upload
         public static int updatecompanyprofile(int id, string companylogo, string dbname)

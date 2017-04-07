@@ -92,11 +92,11 @@ namespace Inventory.Repository
             int count=SqlHelper.ExecuteNonQuery(ConnectionString, "getMaxCompanyid");
             return count;
         }
-        public static SqlDataReader getcompanyId(string dbname)
+        public static SqlDataReader getcompanyId(string Company_Name,string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "getMaxCompanyid");
+            return SqlHelper.ExecuteReader(ConnectionString, "getMaxCompanyid",Company_Name);
         }
         public static SqlDataReader getvendorId(string dbname)
         {
@@ -175,6 +175,25 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "getdatabyId", id);
         }
 
+        public static int insertJobposition(string Job_position,int company_Id, string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertjobposition",Job_position,company_Id);
+            return count;
+        }
+        public static SqlDataReader getJobposition(string Job_position,string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getjobposition",Job_position);
+        }
+        public static SqlDataReader getallJobposition(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getalljobposition");
+        }
         //company pic upload
         public static int updatecompanyprofile(int id,string companylogo, string dbname)
         {

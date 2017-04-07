@@ -57,28 +57,36 @@
             $(".cd-tabs-navigation li a[data-content='essentials'], ul.cd-tabs-content li[data-content='essentials']").removeClass("selected");
             $(".cd-tabs-navigation li a[data-content='address'], ul.cd-tabs-content li[data-content='address']").addClass("selected");
         }
+
+        var mycountry = $('#Item2_country').val(); //Getting Selected Value
+        var companycountry = $('#Item3_country').val(); //Getting Selected Value
+        var mycountries = countrylist(Item2_country); //Passing Value
+        var companycountries = countrylist(Item3_country); //Passing Value
+        $('#Item2_country').empty().append(mycountries).prepend($('<option>Select Country</option>')).val(mycountry); // Assigning value to Dropdown
+        $('#Item3_country').empty().append(companycountries).prepend($('<option>Select Country</option>')).val(companycountry); // Assigning value to Dropdown
+    });
+//</script>
+//<!------ Random Colors ------>
+//<!------ Image Upload ------>
+
+//country sorting and selection
+    function countrylist(value) {
         var usedNames = {};
-        $("select[name='Item2.country'] > option").each(function () {
+        $("#" + value.id + " option").each(function () {
             if (usedNames[this.text]) {
                 $(this).remove();
             } else {
                 usedNames[this.text] = this.value;
             }
-            var options = 'Select Country' + $('#Item2_country option');
-            options.sort(function (a, b) {
-                if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
-                else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
-                else return 0;
-            });
-
-            $('#Item2_country').empty().append(options);
-
-
         });
-    });
-//</script>
-//<!------ Random Colors ------>
-//<!------ Image Upload ------>
+        var options = $('#'+value.id+' option[value!=""]');
+        options.sort(function (a, b) {
+            if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
+            else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
+            else return 0;
+        });
+        return options;
+    }
 
 //<script>
     function upload() {
