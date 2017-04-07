@@ -23,6 +23,7 @@ namespace Inventory.Controllers
         {
             
             ViewBag.country = new SelectList(CountryList(), "Value", "Text");
+            ViewBag.jobpositions = AvailableJobPositions().Select(m => m.Job_position).Distinct();
             return View();
         }
         //companypic upload
@@ -100,11 +101,11 @@ namespace Inventory.Controllers
             }
             return View();
         }
-        private int getMaxCompanyID()
+        private int getMaxCompanyID(string Company_Name)
         {
             int company_Id = 0;
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader exec = VendorService.getcompanyId(user.DbName);
+            SqlDataReader exec = VendorService.getcompanyId(Company_Name,user.DbName);
             if (exec.Read() && exec != null)
             {
                 company_Id = int.Parse(exec["company_Id"].ToString());
@@ -320,7 +321,7 @@ namespace Inventory.Controllers
             var data = VendorService.CompanyInsertRow(Company_Name, Email, logo, user.DbName);
             if (data > 0)
             {
-                int company_Id = getMaxCompanyID();
+                int company_Id = getMaxCompanyID(Company_Name);
                 ViewBag.Company_Name = Company_Name;
                 ViewBag.Email = Email;
                 ViewBag.logo = logo;
@@ -506,7 +507,40 @@ namespace Inventory.Controllers
                 return PartialView("VendorRecords", ViewBag.records);
             }
         }
+        //now writting
+             public JsonResult addPosition(string Job_position,int company_Id)
+        {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
+            var existingNo = VendorService.getjobposition(Job_position,user.DbName);
+            if (existingNo.Read())
+            {
+                return Json("exists", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = VendorService.insertjobposition(Job_position, company_Id, user.DbName);
+                if (data > 0)
+                {
+                    var positions = AvailableJobPositions().Select(m=>m.Job_position.TrimEnd());
+                    var result = new { Result = "sucess", ID = positions };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                    // return Json("sucess");
+                }
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public List<Vendor> AvailableJobPositions()
+        {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var records = VendorService.getalljobposition(user.DbName);
+            var dt = new DataTable();
+            dt.Load(records);
+            List<Vendor> availpositions = (from DataRow row in dt.Rows select new Vendor() { Job_position = row["Job_position"].ToString() }).Distinct().ToList();
+            return availpositions;
+        }
         //to get vendor contact details based on vendor id
 
         public JsonResult getVendorContact(string Vendor_Id)

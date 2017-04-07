@@ -14,7 +14,7 @@ $("#add-vendor").click(function () {
     $('#mySubmit').val("Save").text("Save");
     $('#mySubmit1').val("saveaddress").text("Save Address");
     $('#bankid').val("savebankdetails").text("Save Bank Details");
-    $('#notebutton').val("Save Note").text("Save Note");
+    $('#notebutton').val("Save Notes").text("Save Notes");
     $('#contactbutton').val("savecontact").text("Save Contact");
     $('#myform input[type=text]').attr("disabled", false);
     $('#myform textarea').attr("disabled", false);
@@ -126,6 +126,7 @@ $(document).ready(function (e) {
         var len = colors.length;
         var rand = Math.floor(Math.random() * len);
         $(this).css("background", colors[rand]);
+
     });
 
 
@@ -216,19 +217,21 @@ $(".selected-position").click(function () {
 
 $(".display-positions .position").click(function () {
     $(".add-position").css("display", "block");
-
+  
     $(".add-position .add-button").click(function () {
-        var v = $(".add-position input[type='text']").val();
-        var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
-        $(".form-group .display-positions").append(value);
-        $(".positions1 > i").click(function () {
-            $(this).parent(".positions1").remove();
-        });
+    //    var v = $(".add-position input[type='text']").val();
+    //    var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
+    //    $(".form-group .display-positions").append(value);
+    //    var v = $(".add-position input[type='text']").val("");
+    //    $(".positions1 > i").click(function () {
+    //        $(this).parent(".positions1").remove();
+    //    });
         return textval();
     });
 
     $(".close-button").click(function () {
         $(".add-position").css("display", "none");
+        $(".add-position input[type='text']").val("");
     });
 
 });
@@ -311,6 +314,7 @@ function editFunction(array) {
             $('#ship_state').val(array.ship_state);
             $('#ship_street').val(array.ship_street);
             $('#ship_postalcode').val(array.ship_postalcode);
+           
 
 }
 
@@ -333,10 +337,11 @@ function getEditDetails(id) {
     $('#myform input[type=file]').attr("disabled", false);
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
-    $('#notebutton').val("updatenote").text("Update Note");
+    $('#notebutton').val("updatenote").text("Update Notes");
     $('#contactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
+
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');
     });
@@ -619,7 +624,7 @@ function updatecompanynote(clickedvalue) {
             { alert("Failed!!!"); }
         });
     }
-    if (clickedvalue == 'Save Note') {
+    if (clickedvalue == 'Save Notes') {
         $.ajax({
             url: '/Vendor/savecompanynote?company_Id=' + company_Id + '&Note=' + Note,
             type: 'POST',
@@ -941,4 +946,68 @@ function viewVendor(id) {
         error: function (data)
         { alert("Failed!!!"); }
     });
+}
+
+function addingjobpositions() {
+    company_Id = $('#company_Id').val();
+    Job_position = $('#newposition').val();
+    alert(company_Id);
+    alert(Job_position);
+    $.ajax({
+        url: '/Vendor/addPosition',
+        type: 'POST',
+        data: JSON.stringify({ Job_position: Job_position, company_Id: company_Id }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data.Result == "sucess") {
+                var url = 'Vendor/VendorCompany';
+                $('#companyrecords').load(url, function () { Pagination(); });
+                alert("job position added Successfully");
+                var array = data.ID;
+                forunderstand(array);
+                //var value = "";
+                //for (var i = 0; i < array.length; i++) {
+                //    if(i=0)
+                //        value =  $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>");
+                //    else
+                //   value = value+$("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>");
+                //}
+                //var esc1 = value;
+                //$('#jobposition').empty().append(array);
+                
+                $('#newposition').val("");
+            }
+            else if (data = "exists") {
+                alert("That Job Position alredy exists..Please select or enter new Position");
+                $('#newposition').val("");
+            }
+            else {
+                alert("not saved");
+                $('#newposition').val("");
+            }
+        },
+        error: function (data)
+        {
+            alert("Failed!!!");
+            $('#newposition').val("");
+        }
+    });
+
+}
+
+function forunderstand(array) {
+
+    var value = "";
+    for (var i = 0; i < array.length;i++) {
+        
+        value = value+ "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>";
+
+        //if (i > 0)
+        //    {
+        //    value = value + $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>");}
+    }
+    var esc1 = value;
+    $('#jobposition').empty().append(esc1);
+    $('#jobposition').prepend('<div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>');
 }
