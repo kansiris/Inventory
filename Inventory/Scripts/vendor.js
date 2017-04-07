@@ -219,11 +219,12 @@ $(".display-positions .position").click(function () {
     $(".add-position").css("display", "block");
   
     $(".add-position .add-button").click(function () {
+       
     //    var v = $(".add-position input[type='text']").val();
     //    var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
     //    $(".form-group .display-positions").append(value);
     //    var v = $(".add-position input[type='text']").val("");
-    //    $(".positions1 > i").click(function () {
+    //   $(".positions1 > i").click(function () {
     //        $(this).parent(".positions1").remove();
     //    });
         return textval();
@@ -963,19 +964,9 @@ function addingjobpositions() {
             if (data.Result == "sucess") {
                 var url = 'Vendor/VendorCompany';
                 $('#companyrecords').load(url, function () { Pagination(); });
-                alert("job position added Successfully");
+                alert("Job position added Successfully.click close and select from list");
                 var array = data.ID;
                 forunderstand(array);
-                //var value = "";
-                //for (var i = 0; i < array.length; i++) {
-                //    if(i=0)
-                //        value =  $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>");
-                //    else
-                //   value = value+$("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>");
-                //}
-                //var esc1 = value;
-                //$('#jobposition').empty().append(array);
-                
                 $('#newposition').val("");
             }
             else if (data = "exists") {
@@ -1002,12 +993,23 @@ function forunderstand(array) {
     for (var i = 0; i < array.length;i++) {
         
         value = value+ "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>";
-
-        //if (i > 0)
-        //    {
-        //    value = value + $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>");}
     }
     var esc1 = value;
     $('#jobposition').empty().append(esc1);
     $('#jobposition').prepend('<div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>');
+
+    $(".display-positions .position").click(function ()
+         {
+        $(".add-position").css("display", "block");
+
+        $(".add-position .add-button").click(function () {
+            return textval();
+        });
+
+        $(".close-button").click(function () {
+            $(".add-position").css("display", "none");
+            $(".add-position input[type='text']").val("");
+        });
+
+    });
 }
