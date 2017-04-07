@@ -62,8 +62,12 @@
         var companycountry = $('#Item3_country').val(); //Getting Selected Value
         var mycountries = countrylist(Item2_country); //Passing Value
         var companycountries = countrylist(Item3_country); //Passing Value
-        $('#Item2_country').empty().append(mycountries).prepend($('<option>Select Country</option>')).val(mycountry); // Assigning value to Dropdown
-        $('#Item3_country').empty().append(companycountries).prepend($('<option>Select Country</option>')).val(companycountry); // Assigning value to Dropdown
+        if (mycountry != '')
+        { $('#Item2_country').empty().append(mycountries).prepend($('<option>Select Country</option>')).val(mycountry); }// Assigning value to Dropdown
+        else { $('#Item2_country').empty().append(mycountries).prepend($('<option selected="selected">Select Country</option>')); }
+        if (companycountry != '')
+        { $('#Item3_country').empty().append(companycountries).prepend($('<option>Select Country</option>')).val(companycountry); } // Assigning value to Dropdown
+        else { $('#Item3_country').empty().append(companycountries).prepend($('<option selected="selected">Select Country</option>')); }
     });
 //</script>
 //<!------ Random Colors ------>

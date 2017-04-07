@@ -27,7 +27,7 @@ namespace Inventory.Controllers
             ViewBag.companycountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ccountry);//CountryList();//new SelectList(CountryList(), "EnglishName", "EnglishName", profile[0].Ccountry); //CountryList(); 
             //ViewBag.country = CountryList();
             //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
-            ViewBag.profile = profile; //current user record
+            ViewBag.profile = profile.Take(1); //current user record
             ViewBag.jobpositions = AvailableJobPositions(id).Select(m=>m.Job_position).Distinct();
             return View();
         }
