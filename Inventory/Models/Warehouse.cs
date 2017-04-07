@@ -48,5 +48,9 @@ namespace Inventory.Models
         public string JpName { get; set; }
         public string Image { get; set; }
         public string con_id { get; set; }
+        public string galimage1 { get; set; }
+        public string galimage2 { get; set; }
+        public string galimage3 { get; set; }
+        public string galimage4 { get; set; }
     }
 }

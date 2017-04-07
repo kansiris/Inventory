@@ -169,6 +169,10 @@ namespace Inventory.Controllers
                     ship_State = data["ship_state"].ToString(),
                     ship_Postalcode = data["ship_postalcode"].ToString(),
                     ship_Country = data["ship_country"].ToString(),
+                    galimage1 = data["galimage1"].ToString(),
+                    galimage2 = data["galimage2"].ToString(),
+                    galimage3 = data["galimage3"].ToString(),
+                    galimage4 = data["galimage4"].ToString(),
                     //Wh_logo = data["Wh_Image"].ToString(),
                 };
 
@@ -349,6 +353,23 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+        //save gallery
+        public JsonResult updategallery(string wh_id,Warehouse warehouse)
+        {
+            wh_id = getMaxwhid();
+            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var data = WHservice.updategallery(user1.DbName, wh_id.TrimEnd(), warehouse.galimage1, warehouse.galimage2, warehouse.galimage3, warehouse.galimage4);
+            if(data > 0)
+            {
+                ViewBag.wh_id = wh_id;
+                ViewBag.galimage1 = warehouse.galimage1;
+                ViewBag.galimage2 = warehouse.galimage2;
+                ViewBag.galimage3 = warehouse.galimage3;
+                ViewBag.galimage4 = warehouse.galimage4;
+                return Json("success");
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
         //Save warehouse Notes
         public JsonResult insertwhnotes(string wh_id, Warehouse warehouse)
         {
@@ -412,6 +433,62 @@ namespace Inventory.Controllers
                 ImageConverter _imageConverter = new ImageConverter();
                 byte[] contactimage = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
                 string base64String = Convert.ToBase64String(contactimage);
+                return Json(base64String);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult updategalimage1(HttpPostedFileBase helpSectionImages, string wh_id)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] galimage1 = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(galimage1);
+                return Json(base64String);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult updategalimage2(HttpPostedFileBase helpSectionImages, string wh_id)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] galimage2 = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(galimage2);
+                return Json(base64String);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult updategalimage3(HttpPostedFileBase helpSectionImages, string wh_id)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] galimage3 = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(galimage3);
+                return Json(base64String);
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult updategalimage4(HttpPostedFileBase helpSectionImages, string wh_id)
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
+                Image img = Bitmap.FromStream(pic.InputStream);
+                ImageConverter _imageConverter = new ImageConverter();
+                byte[] galimage4 = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+                string base64String = Convert.ToBase64String(galimage4);
                 return Json(base64String);
             }
             return Json(JsonRequestBehavior.AllowGet);
