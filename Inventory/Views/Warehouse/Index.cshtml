@@ -217,7 +217,7 @@
                                     @*contact person image start*@
                                     <div class="col-md-3 col-md-push-3">
                                         <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
-                                        <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                        <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/picture.jpg" style="border-radius: 50%;width: 150px;height: 150px;" />
                                         <div>Upload ContactPerson Image</div>
                                     </div>
                                     @*contact person image end*@
@@ -883,7 +883,7 @@
                             $("[id='Mobile_No']").val("");
                             $("[id='EmailId']").val("");
                             $("[id='Job_position']").val("");
-                            $("#contactpic").attr("src", "/images/user.png");
+                            $("#contactpic").attr("src", "/images/picture.jpg");
 
                             // $("#whtable").load(" #whtable");
                         }
@@ -913,7 +913,7 @@
                             $("[id='Mobile_No']").val("");
                             $("[id='EmailId']").val("");
                             $("[id='Job_position']").val("");
-                            $("#contactpic").attr("src", "/images/user.png");
+                            $("#contactpic").attr("src", "/images/picture.jpg");
                             //$("#whtable").load(" #whtable");
                         }
                         else {
@@ -947,7 +947,7 @@
                         $('#Mobile_No').val(array.Mobile);
                         $('#EmailId').val(array.Email);
                         $('#Job_position').val(array.Job_position);
-                        if (array.Image != "/images/user.png" && array.Image != null && array.Image != "") {
+                        if (array.Image != "/images/picture.jpg" && array.Image != null && array.Image != "") {
                             $('#contactpic').attr('src', 'data:Image/;base64,' + array.Image);
                         } else
                             $('#contactpic').attr('src', array.Image);
