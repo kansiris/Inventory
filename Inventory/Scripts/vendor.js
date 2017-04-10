@@ -942,6 +942,8 @@ function viewVendor(id) {
                 $('#myform input[type=file]').attr("disabled", true);
                 $("#bill_country").attr("disabled", true);
                 $("#ship_country").attr("disabled", true);
+                var $something = $('<input/>').attr({ type: 'button', name: 'viewclose', id: 'viewclose', value: 'Close View'});
+                $("#forview").append($something);
             }
         },
         error: function (data)
@@ -949,7 +951,7 @@ function viewVendor(id) {
     });
 }
 
-function addingjobpositions() {
+function addingjobpositions(company_Id) {
     company_Id = $('#company_Id').val();
     Job_position = $('#newposition').val();
     alert(company_Id);

@@ -6,6 +6,7 @@
             <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                 <thead class="thead-inverse">
                     <tr>
+                        <th>Logo</th>
                         <th>Vendor Name</th>
                         <th>Email</th>
                         <th>Action</th>
@@ -15,6 +16,11 @@
                     @foreach (var item in ViewBag.records)
                     {
                         <tr>
+                            <td>
+                            @if (item.logo != "" && item.logo != null && item.logo != "/images/user.png")
+                            { <img src="data:image;base64,@item.logo" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" onmouseover="viewVendor(@item.company_Id)"/> }
+                            else
+                            { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" onmouseover="viewVendor(@item.company_Id)"/> }</td>
                             <td> @item.Company_Name </td>
                             <td> @item.Email </td>
                             <td>
