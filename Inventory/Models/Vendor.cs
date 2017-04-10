@@ -28,7 +28,7 @@ namespace Inventory.Models
         public string Address { get; set; }
 
 
-        public int Bank_Acc_Number { get; set; }
+        public long Bank_Acc_Number { get; set; }
 
         public int Paytym_Number { get; set; }
 

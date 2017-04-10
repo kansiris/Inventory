@@ -190,7 +190,7 @@ namespace Inventory.Controllers
                     company_Id = (int)set1,
                     Company_Name = data["Company_Name"].ToString(),
                     Email = data["Email"].ToString(),
-                    Bank_Acc_Number = (int)set,
+                    Bank_Acc_Number = set,
                     Bank_Branch = data["Bank_Branch"].ToString(),
                     Bank_Name = data["Bank_Name"].ToString(),
                     IFSC_No = data["IFSC_No"].ToString(),
