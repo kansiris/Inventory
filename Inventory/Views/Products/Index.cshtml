@@ -32,410 +32,334 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <div class="container">
-                    <form>
-                        <div class="row top-bar">
-                            <div class="col-md-12">
-                                <h1 class="pull-left">Add Product</h1>
-                                <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> <a href="~/AddProduct">Add Product</a> </button>
-                                <div class="icons pull-right">
-                                    <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
-                                    <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
-                                    <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
-                                    <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row blocks">
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="content">
-                                    <h2>Estimate</h2>
-                                    <p>Rs&nbsp;10000</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="content">
-                                    <h2>Unbilled Activity</h2>
-                                    <p>Rs&nbsp;10000</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="content">
-                                    <h2>Open Invoice</h2>
-                                    <p>Rs&nbsp;10000</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="content">
-                                    <h2>Over Due</h2>
-                                    <p>Rs&nbsp;10000</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
-                                        <thead class="thead-inverse">
-                                            <tr>
-                                                <th class="col-md-5">Company Name</th>
-                                                <th class="col-md-5">Email</th>
-                                                <th class="col-md-2">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-md-5">Vamsi</td>
-                                                <td class="col-md-5">Velaga</td>
-                                                <td class="col-md-2">
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Vamsi</td>
-                                                <td>Velaga</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Vamsi</td>
-                                                <td>Velaga</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Vamsi</td>
-                                                <td>Velaga</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Vamsi</td>
-                                                <td>Velaga</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Vamsi</td>
-                                                <td>Velaga</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td> rtyui </td>
-                                                <td>rty@gmailcom </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td> rtyui </td>
-                                                <td>rty@gmailcom </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td> rtyui </td>
-                                                <td>rty@gmailcom </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu">
-                                                            <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                            <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row" id="vendortable1">
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist 1</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson 1</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist 1</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson 1</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist 1</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson 1</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist 2</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson 2</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist 2</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson 2</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                                        <div class="well profile_view">
-                                            <div class="col-sm-12">
-                                                <h4 class="brief"><i>Digital Strategist 2</i></h4>
-                                                <div class="left col-xs-7">
-                                                    <h2>Nicole Pearson 2</h2>
-                                                    <p><strong>About: </strong> Web Designer / UI. </p>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="right col-xs-5 text-center"> <img src="images/user.png" alt="" class="img-circle img-responsive"> </div>
-                                            </div>
-                                            <div class="col-xs-12 bottom text-center">
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 emphasis">
-                                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                                    <button type="button" class="btn btn-primary btn-xs"> <i class="fa fa-user"> </i> View Profile </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+    <div class="container">
+        <form>
+            <div class="row top-bar">
+                <div class="col-md-12">
+                    <h1 class="pull-left">View All Products</h1>
+                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Product </button>
+                    <div class="icons pull-right">
+                        <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+                        <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+                        <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+                        <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+                    </div>
                 </div>
             </div>
+            <div class="row blocks">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Estimate</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Unbilled Activity</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Open Invoice</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Over Due</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <div class="row categories">
+                        <div class="column col-xs-12 sidebar-offcanvas" id="sidebar">
+                            <ul class="nav" id="menu">
+                                <li class="title"><span class="collapse in">Categories</span></li>
+                                <li><a href="#"><span class="collapse in">Category 1</span></a></li>
+                                <li><a href="#"><span class="collapse in">Category 2</span></a></li>
+                                <li>
+                                    <a href="#" data-target="#item1" data-toggle="collapse" class="" aria-expanded="true"><span class="collapse in">Category Menu <span class="caret"></span></span></a>
+                                    <ul class="nav nav-stacked left-submenu collapse in" id="item1" aria-expanded="true">
+                                        <li><a href="google.com">View One</a></li>
+                                        <li><a href="gmail.com">View Two</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#"><span class="collapse in">Category 3</span></a></li>
+                                <li><a href="#"><span class="collapse in">Category 4</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-7">
+                    <div class="table-responsive">
+                        <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th class="col-md-2">Image</th>
+                                    <th class="col-md-3">Product Name</th>
+                                    <th class="col-md-1">Quantity</th>
+                                    <th class="col-md-3">Price</th>
+                                    <th class="col-md-2">Add</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-md-2">
+                                        <img src="images/2.jpg" alt="Img 1" />
+                                    </td>
+                                    <td class="col-md-3">Default Product</td>
+                                    <!-- <td class="col-md-2"><div class="btn-group">
+                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                         <ul class="dropdown-menu">
+                                           <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
+                                           <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
+                                         </ul>
+                                       </div></td>-->
+                                    <td class="col-md-2">
+                                        <div class="input-group spinner">
+                                            <input type="text" class="form-control" value="1">
+                                            <div class="input-group-btn-vertical">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-3">
+                                        <div class="product-variation">
+                                            <select class="form-control">
+                                                <option>50 gm  - Rs. 20</option>
+                                                <option>100 gm   - Rs. 35</option>
+                                                <option>500 gm   - Rs. 150</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        <img src="images/2.jpg" alt="Img 1" />
+                                    </td>
+                                    <td class="col-md-3">Default Product</td>
+                                    <!-- <td class="col-md-2"><div class="btn-group">
+                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                         <ul class="dropdown-menu">
+                                           <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
+                                           <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
+                                         </ul>
+                                       </div></td>-->
+                                    <td class="col-md-2">
+                                        <div class="input-group spinner">
+                                            <input type="text" class="form-control" value="1">
+                                            <div class="input-group-btn-vertical">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-3">
+                                        <div class="product-variation">
+                                            <select class="form-control">
+                                                <option>50 gm  - Rs. 20</option>
+                                                <option>100 gm   - Rs. 35</option>
+                                                <option>500 gm   - Rs. 150</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        <img src="images/2.jpg" alt="Img 1" />
+                                    </td>
+                                    <td class="col-md-3">Default Product</td>
+                                    <!-- <td class="col-md-2"><div class="btn-group">
+                                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                         <ul class="dropdown-menu">
+                                           <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
+                                           <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
+                                         </ul>
+                                       </div></td>-->
+                                    <td class="col-md-2">
+                                        <div class="input-group spinner">
+                                            <input type="text" class="form-control" value="1">
+                                            <div class="input-group-btn-vertical">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-3">
+                                        <div class="product-variation">
+                                            <select class="form-control">
+                                                <option>50 gm  - Rs. 20</option>
+                                                <option>100 gm   - Rs. 35</option>
+                                                <option>500 gm   - Rs. 150</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row" id="vendortable1">
+                        <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
+                            <div class="well">
+                                <div class="image">
+                                    <img src="~/images/2.jpg" alt="Image 1">
+                                </div>
+                                <div class="img-title">
+                                    <span class="product-brand">Brand Name</span>
+                                    <a href="#" class="product-name">Product Name</a>
+                                </div>
+                                <div class="product-variation">
+                                    <select class="form-control">
+                                        <option>50 gm  - Rs. 20</option>
+                                        <option>100 gm   - Rs. 35</option>
+                                        <option>500 gm   - Rs. 150</option>
+                                    </select>
+                                </div>
+                                <div class="rate-add">
+                                    <div class="product-price">
+                                        <span>Rs 100</span>
+                                    </div>
+                                    <div class="shipping">
+                                        <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                                        Standard Delivery
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="input-group spinner">
+                                                <label>Qty</label>
+                                                <input type="text" class="form-control" value="1">
+                                                <div class="input-group-btn-vertical">
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 add-to-cart">
+                                            <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
+                            <div class="well">
+                                <div class="image">
+                                    <img src="~/images/2.jpg" alt="Image 1">
+                                </div>
+                                <div class="img-title">
+                                    <span class="product-brand">Brand Name</span>
+                                    <a href="#" class="product-name">Product Name</a>
+                                </div>
+                                <div class="product-variation">
+                                    <select class="form-control">
+                                        <option>50 gm  - Rs. 20</option>
+                                        <option>100 gm   - Rs. 35</option>
+                                        <option>500 gm   - Rs. 150</option>
+                                    </select>
+                                </div>
+                                <div class="rate-add">
+                                    <div class="product-price">
+                                        <span>Rs 100</span>
+                                    </div>
+                                    <div class="shipping">
+                                        <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                                        Standard Delivery
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="input-group spinner">
+                                                <label>Qty</label>
+                                                <input type="text" class="form-control" value="1">
+                                                <div class="input-group-btn-vertical">
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 add-to-cart">
+                                            <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
+                            <div class="well">
+                                <div class="image">
+                                    <img src="~/images/2.jpg" alt="Image 1">
+                                </div>
+                                <div class="img-title">
+                                    <span class="product-brand">Brand Name</span>
+                                    <a href="#" class="product-name">Product Name</a>
+                                </div>
+                                <div class="product-variation">
+                                    <select class="form-control">
+                                        <option>50 gm  - Rs. 20</option>
+                                        <option>100 gm   - Rs. 35</option>
+                                        <option>500 gm   - Rs. 150</option>
+                                    </select>
+                                </div>
+                                <div class="rate-add">
+                                    <div class="product-price">
+                                        <span>Rs 100</span>
+                                    </div>
+                                    <div class="shipping">
+                                        <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                                        Standard Delivery
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="input-group spinner">
+                                                <label>Qty</label>
+                                                <input type="text" class="form-control" value="1">
+                                                <div class="input-group-btn-vertical">
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 add-to-cart">
+                                            <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="row checkout">
+                        <div class="col-xs-12">
+                            <div class="title">Your Order</div>
+                        </div>
+                        <hr>
+                        <div class="col-xs-12">
+                            <div class="added-products">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary" type="button">Proceed Check out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
             <!-- /page content -->
            
 @section scripts{
@@ -450,7 +374,7 @@
     <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Clone Shipping Address -->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
   $("input[type='checkbox']").change(function(){
 	  if($("input[type='checkbox']").is(':checked')){
 		  $("#comment2").val($("#comment1").val());
@@ -466,10 +390,10 @@
 		      $("#country2").val("");
 		  }
 	  });
-    </script>
+    </script>*@
     <!-- Clone Shipping Address -->
     <!------ Random Colors ------>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
   $(document).ready(function(e) {
     $(".top-button").each(function(){
 		var colors = ["#f4511e","#7e57c2","#455a64","#512da8","#c2185b","#5c6bc0","#0288d1","#f4511e","#ef6c00","#0097a7","#5c6bc0","#5d4037"];
@@ -524,10 +448,10 @@
 
 		});
 });
-    </script>
+    </script>*@
     <!------ Random Colors ------>
     <!------ Contact Person Pop Up Job Position ------->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
 function textval(){
 	$(".display-positions .positions1").click(function(){
 					  var c = $(this).text();
@@ -573,7 +497,7 @@ $(".positions1 > i").click(function(){
 
 });
 
-    </script>
+    </script>*@
     <!------ Contact Person Pop Up Job Position ------->
     <!------------ List / Grid Views and reload page -------------->
     <script type="text/javascript">
