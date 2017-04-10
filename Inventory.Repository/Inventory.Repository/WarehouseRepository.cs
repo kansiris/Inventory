@@ -191,5 +191,12 @@ namespace Inventory.Repository
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getcontactId");
         }
+        public static int updategallery(string dbname, string wh_id, string galimage1, string galimage2, string galimage3, string galimage4)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousegallery", wh_id, galimage1, galimage2, galimage3, galimage4);
+            return count;
+        }
     }
 }

@@ -164,5 +164,12 @@ namespace Inventory.Service
             return LoginRepository.GetStaff(id,command);
         }
         #endregion
+
+        #region Available Job Positions
+        public static SqlDataReader JobPositions(int id)
+        {
+            return LoginRepository.JobPositions(id);
+        }
+        #endregion
     }
 }

@@ -106,5 +106,9 @@ namespace Inventory.Service
         {
             return WarehouseRepository.getcontactid(dbname);
         }
+        public static int updategallery(string dbname, string wh_id, string galimage1, string galimage2, string galimage3, string galimage4)
+        {
+            return WarehouseRepository.updategallery(dbname, wh_id, galimage1, galimage2, galimage3, galimage4);
+        }
     }
 }
