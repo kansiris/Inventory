@@ -187,6 +187,12 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "spchkwh", wh_name);
         }
+        public static SqlDataReader chkwhsname(string dbname, string wh_sname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "spchkwhsname", wh_sname);
+        }
         public static SqlDataReader getcontactid(string dbname)
         {
             return SqlHelper.ExecuteReader(ConnectionString, "getcontactId");
