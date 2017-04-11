@@ -26,6 +26,7 @@ namespace Inventory.Controllers
         {
             ViewBag.wh_id = getMaxwhid();
             ViewBag.con_id = getMaxcontactID();
+            ViewBag.country = new SelectList(CountryList(), "Value", "Text");
             var wh = getlastinsertedwarehouse(ViewBag.wh_id);
             if (status == "complete")
             {
@@ -312,9 +313,14 @@ namespace Inventory.Controllers
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
             var chkwh = WHservice.chkwh(user1.DbName, wh_name);
+            var chksname = WHservice.chkwhsname(user1.DbName, wh_sname);
             if (chkwh.Read())
             {
                 return Json("Y", JsonRequestBehavior.AllowGet);
+            }
+            if(chksname.Read())
+            {
+                return Json("SNAME", JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -492,6 +498,21 @@ namespace Inventory.Controllers
                 return Json(base64String);
             }
             return Json(JsonRequestBehavior.AllowGet);
+        }
+        private List<SelectListItem> CountryList()
+        {
+            List<SelectListItem> cultureList = new List<SelectListItem>();
+            CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+            if (getCultureInfo.Count() > 0)
+            {
+                foreach (CultureInfo cultureInfo in getCultureInfo)
+                {
+                    RegionInfo getRegionInfo = new RegionInfo(cultureInfo.LCID);
+                    var newitem = new SelectListItem { Text = getRegionInfo.EnglishName, Value = getRegionInfo.EnglishName };
+                    cultureList.Add(newitem);
+                }
+            }
+            return cultureList;
         }
     }
 }

@@ -102,6 +102,10 @@ namespace Inventory.Service
         {
             return WarehouseRepository.chkwh(dbname, wh_name);
         }
+        public static SqlDataReader chkwhsname(string dbname, string wh_sname)
+        {
+            return WarehouseRepository.chkwhsname(dbname, wh_sname);
+        }
         public static SqlDataReader getcontactid(string dbname)
         {
             return WarehouseRepository.getcontactid(dbname);

@@ -197,9 +197,16 @@ namespace Inventory.Repository
         #endregion
 
         #region Available Job Positions
-        public static SqlDataReader JobPositions(int id)
+        public static SqlDataReader GetJobPostions(int id)
         {
-            return SqlHelper.ExecuteReader(ConnectionString1, "JobPositions", id);
+            return SqlHelper.ExecuteReader(ConnectionString1, "GetJobPostions", id);
+        }
+        #endregion
+
+        #region Available Job Positions
+        public static int JobPositions(string type, int id,string position, string PositionID)
+        {
+            return SqlHelper.ExecuteNonQuery(ConnectionString1, "JobPositions", type, id,position,PositionID);
         }
         #endregion
     }

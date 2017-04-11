@@ -212,19 +212,3 @@ namespace Inventory.Controllers
         }
     }
 }
-
-//SqlDataReader record = LoginService.GetProfileProgress(user.DbName);
-//if (record.Read())
-//{
-//    Warehouse = (int)record["W"];
-//    Vendor = (int)record["v"];
-//    Products = (int)record["i"];
-//}
-//if (Warehouse == 0 && Vendor == 0 && Products == 0)
-//{ Progress = ProgressBar.Level1; colour = "Red"; }
-//if (Warehouse > 0 || Vendor > 0 || Products > 0)
-//{ Progress = ProgressBar.Level2; colour = "Orange"; }
-//if (Warehouse > 0 && Vendor > 0 || Vendor > 0 && Products > 0 || Warehouse > 0 && Products > 0)
-//{ Progress = ProgressBar.Level3; colour = "YellowGreen"; }
-//if (Warehouse > 0 && Vendor > 0 && Products > 0)
-//{ Progress = ProgressBar.Level3; colour = "YellowGreen"; }

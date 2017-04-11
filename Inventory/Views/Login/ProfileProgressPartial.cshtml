@@ -13,7 +13,7 @@
             else
             {
                 <div class="top-button" id="masterpic" style="width: 25px;height: 25px">
-                    <span id="userprofilepic" style="font-size:20px;top:-10%">@Model.First_Name.Substring(0, 1)</span>
+                    <span id="userprofilepic" style="font-size:20px;top:-10%">@Model.First_Name.Substring(0, 1).ToUpper()</span>
                 </div>
             }
            
@@ -21,8 +21,9 @@
             
         </a>
         <ul class="dropdown-menu dropdown-usermenu pull-right">
-            <li><a href="~/UserProfile?id=@Model.ID"> Profile</a></li>
-            <li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>
+            <li><a href="~/UserProfile?id=@Model.ID"><span class="badge bg-red pull-right">@ViewBag.Progress</span> <span>Profile</span> </a></li>
+            @*<li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>*@
+            <li> <a href="javascript:;">Settings</a> </li>
             <li><a href="javascript:;">Help</a></li>
             <li><a href="~/Login/Logout"><i class="fa fa-sign-out pull-right"></i>Sign Out </a></li>
         </ul>

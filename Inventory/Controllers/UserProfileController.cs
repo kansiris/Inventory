@@ -28,31 +28,9 @@ namespace Inventory.Controllers
             //ViewBag.country = CountryList();
             //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
             ViewBag.profile = profile.Take(1); //current user record
-            ViewBag.jobpositions = AvailableJobPositions(id).Select(m=>m.Job_position).Distinct();
+            ViewBag.jobpositions = AvailableJobPositions(id);
             return View();
         }
-
-        //[HttpPost]
-        //public ActionResult Index([Bind(Prefix = "Item1")]UserMaster userMaster, [Bind(Prefix = "Item2")]UserAddress userAddress, [Bind(Prefix = "Item3")]OwnerCompanyAddress ownerCompanyAddress, string command, string id)
-        //{
-        //    int count = 0;
-        //    if (command == "Localization" || command == "Account" || command == "Essentials")
-        //    {
-        //        count = LoginService.updateuserprofile(command, int.Parse(id), userMaster.First_Name, userMaster.Last_Name, userMaster.Password, userMaster.Profile_Picture, userMaster.Date_Format, userMaster.Timezone, userMaster.Currency, userMaster.company_logo);
-        //    }
-        //    if (command == "useraddress")
-        //    {
-        //        count = LoginService.updateuseraddress(int.Parse(id), userAddress.Line1, userAddress.Line2, userAddress.city, userAddress.state, userAddress.postalcode, userAddress.country);
-        //    }
-        //    if (command == "companyaddress")
-        //    {
-        //        count = LoginService.updatecompanyaddress(int.Parse(id), ownerCompanyAddress.Line1, ownerCompanyAddress.Line2, ownerCompanyAddress.city, ownerCompanyAddress.state, ownerCompanyAddress.postalcode, ownerCompanyAddress.country);
-        //    }
-        //    if (count > 0)
-        //        return Content("<script language='javascript' type='text/javascript'>alert('Profile Updated');location.href='" + @Url.Action("Index", "UserProfile", new { id = id }) + "'</script>"); // Stays in Same View
-        //    return Content("<script language='javascript' type='text/javascript'>alert('Failed To Update Profile');location.href='" + @Url.Action("Index", "UserProfile", new { id = id }) + "'</script>"); // Stays in Same View
-        //    //return View();
-        //}
 
         private List<SelectListItem> CountryList()
         {
@@ -124,7 +102,6 @@ namespace Inventory.Controllers
             }
             if (command == "updatestaff")
             {
-                //var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
                 count = LoginService.UpdateStaff("staffdetails",int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position,ownerStaff.UserPic);
                 return Json("staffupdated");
             }
@@ -142,7 +119,6 @@ namespace Inventory.Controllers
             DataView dv = dt.DefaultView;
             dt = dv.ToTable();
             ViewBag.records = StaffDetails(dt);
-            ViewBag.jobpositions = AvailableJobPositions(id);
             return PartialView("StaffRecords", ViewBag.records);
         }
 
@@ -180,14 +156,21 @@ namespace Inventory.Controllers
             return ownerStaff;
         }
 
-        public List<OwnerStaff> AvailableJobPositions(string id)
+        public class OwnerJobPosition
+        {
+            public int Position_ID { get; set; }
+            public int ID { get; set; }
+            public string Job_Position { get; set; }
+        }
+
+        public List<OwnerJobPosition> AvailableJobPositions(string id)
         {
             //var records = LoginService.GetStaff(int.Parse(id), "");
-            var records = LoginService.JobPositions(int.Parse(id));
+            var records = LoginService.GetJobPostions(int.Parse(id));
             var dt = new DataTable();
             dt.Load(records);
-            List<OwnerStaff> ownerstaff = (from DataRow row in dt.Rows select new OwnerStaff() { Job_position = row["Job_position"].ToString() }).Distinct().ToList();
-            return ownerstaff;
+            List<OwnerJobPosition> positions= (from DataRow row in dt.Rows select new OwnerJobPosition() { Position_ID = int.Parse(row["Position_ID"].ToString()), ID = int.Parse(row["ID"].ToString()), Job_Position = row["Job_position"].ToString() }).ToList();
+            return positions;
         }
 
         [HttpPost]
@@ -221,6 +204,24 @@ namespace Inventory.Controllers
                 return Json(base64String);
             }
             return View();
+        }
+
+        public JsonResult JobPosition(string id,string position,string type,string PositionID)
+        {
+            int count = 0;
+            if (type == "addposition")
+            {
+                count = LoginService.JobPositions("add", int.Parse(id), position,null);
+                var records = AvailableJobPositions(id);
+                return Json(new { msg = "Position Added Successfullly!!!Click Close Button and Select Position", records = records });
+            }
+            if (PositionID!="")
+            {
+                count = LoginService.JobPositions("delete", 0, "", PositionID);
+                var records = AvailableJobPositions(id);
+                return Json(new { msg = "Position Removed", records = records });
+            }
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }
