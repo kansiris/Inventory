@@ -6,7 +6,14 @@
     CustomPrinciple user = null;
     if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
     {
+
         user = (CustomPrinciple)HttpContext.Current.User;
+        var id = Request.QueryString["id"];
+
+        if (user.ID != id && id != null)
+        {
+            Response.Redirect("/Login");
+        }
     }
     else
     {
