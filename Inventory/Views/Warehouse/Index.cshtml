@@ -370,7 +370,7 @@
 
         $("#add-wh").click(function () {
             $("#wh-information").css("display", "block");
-            $("#contacttable").css("display", "none");
+           // $("#contacttable").css("display", "none");
             $("#wh-information1").css("display", "none");
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
             $('#mySubmit').val("Save").text("Save");
@@ -577,7 +577,7 @@
         function editFunction(array) {
 
             $('#wh-information').css('display', 'block');
-            $("#contacttable").css("display", "block");
+            //$("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
             $('#wh_Id').val(array.wh_Id);
             $('#wh_Name').val(array.wh_name);
@@ -615,6 +615,22 @@
         //Get Particular warehouse Record
         function getEditDetails(id) {
             //alert(id);
+            $('#mySubmit').show();
+            $('#mySubmit1').show();
+            $('#bankid').show();
+            $('#contactbutton').show();
+            $('#notebutton').show();
+            $('#myform input[type=text]').attr("disabled", false);
+            $('#myform textarea').attr("disabled", false);
+            $('#myform input[type=file]').attr("disabled", false);
+            $("#bill_Country").attr("disabled", false);
+            $("#ship_Country").attr("disabled", false);
+            $("#wh-information1-cancel").show();
+            $("#btnclose3").show();
+            $("#btnclosegallery").show();
+            $("#btnclosenote").show();
+            $("#wh-information-cancel").show();
+            $("#EmailId").attr("disabled", false);
             $('#mySubmit').val("update").text("Update Warehouse");
             $('#mySubmit1').val("updateaddress").text("Update Address");
             $('#notebutton').val("updatenote").text("Update Note");
@@ -666,17 +682,19 @@
         }
         function viewwh(id) {
             //alert(id);
-            $('#mySubmit').val("update").text("Update Warehouse");
-            $('#mySubmit1').val("updateaddress").text("Update Address");
-            $('#notebutton').val("updatenote").text("Update Note");
+            //$('#mySubmit').val("update").text("Update Warehouse");
+            //$('#mySubmit1').val("updateaddress").text("Update Address");
+            //$('#notebutton').val("updatenote").text("Update Note");
             // $('#contactbutton').val("updatecontact").text("Update Contact");
-            $('#contactbutton').val("savecontact").text("Save Contact");
             //$('#contactbutton').val("savecontact").text("Save Contact");
-            $('#gallerybutton').val("update gallery").text("Update Gallery");
+            //$('#contactbutton').val("savecontact").text("Save Contact");
+            //$('#gallerybutton').val("update gallery").text("Update Gallery");
             //$('#userprofilepic').html($('#wh_name').val().substring(0,1));
             //$('#btnedit').click(function () {
             //    $('#warehouse').css('display', 'none');
             //});
+            //$('#whdetails').empty().load(url, function () { Pagination(); });
+            //$('#contactdiv').empty().load(url, function () { Pagination(); });
             $("#wh-information1").css("display", "block");
             $.ajax({
                 url: '/Warehouse/getallwhdetails?wh_Id=' + id,
@@ -690,6 +708,10 @@
                     }
                     else {
                         var array = JSON.parse(data);
+                        $('#wh-information').css('display', 'block');
+                        $('#wh-information1').css('display', 'block');
+                        $('#addinfo').css('display', 'none');
+                        $(".cd-tabs").css("display", "block");
                         $('#mySubmit').hide();
                         $('#mySubmit1').hide();
                         $('#bankid').hide();
@@ -706,6 +728,13 @@
                         $("#btnclosenote").hide();
                         $("#wh-information-cancel").hide();
                         $("#EmailId").attr("disabled", true);
+                        $("#Contact_PersonFname").val("");
+                        $("#Mobile_No").val("");
+                        $("#Phone").val("");
+                        $("#EmailId").val("");
+                        $("#Job_position").val("");
+                        $("#contactpic").attr("src", "/images/user.png");
+
                         if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
                             $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
                         } else
