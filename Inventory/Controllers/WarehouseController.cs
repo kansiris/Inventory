@@ -75,7 +75,8 @@ namespace Inventory.Controllers
                            Email = row["email"].ToString(),
                            Mobile = row["mobile"].ToString(),
                            phone = row["phone"].ToString(),
-                           Job_position = row["job_position"].ToString()
+                           Job_position = row["job_position"].ToString(),
+                           Image =row["image"].ToString()
                        }).OrderByDescending(m => m.con_id).ToList();
             ViewBag.records = contact;
             return PartialView("WarehouseContact", ViewBag.records);
@@ -213,13 +214,27 @@ namespace Inventory.Controllers
         public JsonResult updatewarehouse(string wh_id, string wh_name, string wh_sname)
         {
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewarehouse(user1.DbName, wh_id, wh_name, wh_sname);
-            if (data > 0)
+          
+            var chkwh = WHservice.chkwh(user1.DbName, wh_name);
+            var chksname = WHservice.chkwhsname(user1.DbName, wh_sname);
+            if (chkwh.Read())
             {
-                ViewBag.wh_id = wh_id;
-                ViewBag.wh_name = wh_name;
-                ViewBag.wh_sname = wh_sname;
-                return Json("success");
+                return Json("Y", JsonRequestBehavior.AllowGet);
+            }
+            if (chksname.Read())
+            {
+                return Json("SNAME", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = WHservice.updatewarehouse(user1.DbName, wh_id, wh_name, wh_sname);
+                if (data > 0)
+                {
+                    ViewBag.wh_id = wh_id;
+                    ViewBag.wh_name = wh_name;
+                    ViewBag.wh_sname = wh_sname;
+                    return Json("success");
+                }
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
