@@ -226,6 +226,7 @@
     <Compile Include="Content\CustomPrinciple.cs" />
     <Compile Include="Controllers\AddProductController.cs" />
     <Compile Include="Controllers\AdvancedFormController.cs" />
+    <Compile Include="Controllers\AllProductsController.cs" />
     <Compile Include="Controllers\AvailableCompaniesController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ChartJS2Controller.cs" />
@@ -4734,6 +4735,7 @@
     <Content Include="Views\Warehouse\WarehouseContact.cshtml" />
     <Content Include="Views\AddProduct\Index.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\AllProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
