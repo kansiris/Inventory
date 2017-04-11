@@ -123,8 +123,8 @@
                                                 <input type="text" class="form-control" name="bill_postalcode" id="bill_postalcode" placeholder="Postal Code">
                                             </div>
                                             <div class="form-group col-md-6">
-
-                                                <input type="text" class="form-control" name="bill_country" id="bill_country" placeholder="Country">
+                                                @Html.DropDownListFor(Model => Model.bill_Country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
+                                                @*<input type="text" class="form-control" name="bill_country" id="bill_country" placeholder="Country">*@
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +156,8 @@
                                                 <input type="text" class="form-control" name="ship_postalcode" id="ship_postalcode" placeholder="Postal Code">
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="ship_country" id="ship_country" placeholder="Country">
+                                                @*<input type="text" class="form-control" name="ship_country" id="ship_country" placeholder="Country">*@
+                                                @Html.DropDownListFor(Model => Model.ship_Country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
 
                                             </div>
                                         </div>
@@ -339,6 +340,10 @@
             $('#mySubmit').val("Save").text("Save");
             $('#mySubmit1').val("saveaddress").text("Save Address");
             $('#notebutton').val("Save Note").text("Save Note");
+            $("#bill_Country").val("");
+            $("#ship_Country").val("");
+            $("#bill_Country").attr("disabled", false);
+            $("#ship_Country").attr("disabled", false);
             // $('#contactbutton').val("updatecontact").text("Update Contact");
            // $('#gallerybutton').val("update gallery").text("Update Gallery");
             $("#addinfo").hide();
@@ -397,7 +402,26 @@
         });
 
     </script>
+    <script>
+        var bc = {};
+        $("select[name='bill_Country'] > option").each(function () {
+            if (bc[this.text]) {
+                $(this).remove();
+            } else {
+                bc[this.text] = this.value;
+            }
+        });
 
+        var sc = {};
+        $("select[name='ship_Country'] > option").each(function () {
+            if (sc[this.text]) {
+                $(this).remove();
+            } else {
+                sc[this.text] = this.value;
+            }
+        });
+
+    </script>
     <script>
 
         $("input[type='checkbox']").change(function () {
@@ -406,14 +430,14 @@
                 $("[id='ship_city']").val($("[id='bill_city']").val());
                 $("[id='ship_state']").val($("[id='bill_state']").val());
                 $("[id='ship_postalcode']").val($("[id='bill_postalcode']").val());
-                $("[id='ship_country']").val($("[id='bill_country']").val());
+                $("[id='ship_Country']").val($("[id='bill_Country']").val());
             }
             else {
                 $("[id='ship_street']").val("");
                 $("[id='ship_city']").val("");
                 $("[id='ship_state']").val("");
                 $("[id='ship_postalcode']").val("");
-                $("[id='ship_country']").val("");
+                $("[id='ship_Country']").val("");
             }
         });
     </script>
@@ -526,12 +550,12 @@
             $('#bill_city').val(array.bill_City);
             $('#bill_state').val(array.bill_State);
             $('#bill_postalcode').val(array.bill_Postalcode);
-            $('#bill_country').val(array.bill_Country);
+            $('#bill_Country').val(array.bill_Country);
             $('#ship_street').val(array.ship_Street);
             $('#ship_city').val(array.ship_City);
             $('#ship_state').val(array.ship_State);
             $('#ship_postalcode').val(array.ship_Postalcode);
-            $('#ship_country').val(array.ship_Country);
+            $('#ship_Country').val(array.ship_Country);
             $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
             $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
             $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
@@ -774,12 +798,12 @@
                 bill_city: $('#bill_city').val(),
                 bill_state: $('#bill_state').val(),
                 bill_postalcode: $('#bill_postalcode').val(),
-                bill_country: $('#bill_country').val(),
+                bill_country: $('#bill_Country').val(),
                 ship_street: $('#ship_street').val(),
                 ship_city: $('#ship_city').val(),
                 ship_state: $('#ship_state').val(),
                 ship_postalcode: $('#ship_postalcode').val(),
-                ship_country: $('#ship_country').val(),
+                ship_country: $('#ship_Country').val(),
             }
 
             if (clickedvalue == 'updateaddress') {
