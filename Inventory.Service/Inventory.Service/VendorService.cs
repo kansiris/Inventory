@@ -25,7 +25,7 @@ namespace Inventory.Service
         #endregion
 
         #region VendorInsertRow
-        public static int VendorInsertRow(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public static int VendorInsertRow(int company_Id, string Contact_PersonFname, string Contact_PersonLname, string Mobile_No,
                           string emailid, string Adhar_Number, string Job_position,string image, string dbname)
         {
             return VendorRepository.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image, dbname);
@@ -33,7 +33,7 @@ namespace Inventory.Service
 
         #endregion
 
-        public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, string Mobile_No,
                       string emailid, string Adhar_Number, string Job_position,string image, string dbname)
         {
             return VendorRepository.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image, dbname);
@@ -54,7 +54,7 @@ namespace Inventory.Service
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, dbname);
         }
         #region UpdateCompany
-        public static int UpdateCompany(int company_Id, long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No, string dbname)
+        public static int UpdateCompany(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No, string dbname)
         {
 
             return VendorRepository.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, dbname);

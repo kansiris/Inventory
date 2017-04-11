@@ -21,8 +21,7 @@ namespace Inventory.Controllers
         // GET: Vendor
         public ActionResult Index()
         {
-            
-            ViewBag.country = new SelectList(CountryList(), "Value", "Text");
+            ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
             ViewBag.jobpositions = AvailableJobPositions().Select(m => m.Job_position).Distinct();
             return View();
         }
@@ -71,9 +70,12 @@ namespace Inventory.Controllers
                     var newitem = new SelectListItem { Text = getRegionInfo.EnglishName, Value = getRegionInfo.EnglishName };
                     cultureList.Add(newitem);
                 }
-            }
+               }
+            //cultureList.OrderBy(x => x).ToList();
             return cultureList;
         }
+
+        
         // used methods        
         public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
         {
@@ -172,25 +174,25 @@ namespace Inventory.Controllers
             long set2;
             if (data.Read())
             {
-                if (data["Bank_Acc_Number"].ToString() == "")
-                    set = 0;
-                else
-                    set = long.Parse(data["Bank_Acc_Number"].ToString());
+                //if (data["Bank_Acc_Number"].ToString() == "")
+                //    set = 0;
+                //else
+                //    set = long.Parse(data["Bank_Acc_Number"].ToString());
                 if (data["company_Id"].ToString() == "")
                     set1 = 0;
                 else
                     set1 = long.Parse(data["company_Id"].ToString());
-                if (data["Mobile_No"].ToString() == "")
-                    set2 = 0;
-                else
-                    set2 = long.Parse(data["Mobile_No"].ToString());
+                //if (data["Mobile_No"].ToString() == "")
+                //    set2 = 0;
+                //else
+                //    set2 = long.Parse(data["Mobile_No"].ToString());
 
                 Vendor vs = new Vendor
                 {
                     company_Id = (int)set1,
                     Company_Name = data["Company_Name"].ToString(),
                     Email = data["Email"].ToString(),
-                    Bank_Acc_Number = set,
+                    Bank_Acc_Number = data["Bank_Acc_Number"].ToString(),
                     Bank_Branch = data["Bank_Branch"].ToString(),
                     Bank_Name = data["Bank_Name"].ToString(),
                     IFSC_No = data["IFSC_No"].ToString(),
@@ -200,7 +202,7 @@ namespace Inventory.Controllers
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
                     emailid = data["emailid"].ToString(),
                     Job_position = data["Job_position"].ToString(),
-                    Mobile_No = set2,
+                    Mobile_No = data["Mobile_No"].ToString(),
                     Adhar_Number = data["Adhar_Number"].ToString(),
                     Vendor_Id = data["Vendor_Id"].ToString(),
                     bill_city = data["bill_city"].ToString(),
@@ -259,7 +261,7 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult updatecompanybankdetails(int company_Id, long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
+        public JsonResult updatecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
@@ -274,7 +276,7 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult updatecontactdetails(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public JsonResult updatecontactdetails(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, string Mobile_No,
                           string emailid, string Adhar_Number, string Job_position,string image)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -374,7 +376,7 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult savecompanybankdetails(int company_Id, long Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
+        public JsonResult savecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
@@ -390,7 +392,7 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, string Mobile_No,
                           string emailid, string Adhar_Number, string Job_position,string image)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -547,13 +549,13 @@ namespace Inventory.Controllers
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.getVendorContact(Vendor_Id, user.DbName);
-            long set;
+           // long set;
             if (data.Read())
             {
-                if (data["Mobile_No"].ToString() == "")
-                    set = 0;
-                else
-                    set = long.Parse(data["Mobile_No"].ToString());
+                //if (data["Mobile_No"].ToString() == "")
+                //    set = 0;
+                //else
+                //    set = long.Parse(data["Mobile_No"].ToString());
 
                 Vendor vs = new Vendor
                 {
@@ -561,7 +563,7 @@ namespace Inventory.Controllers
                     Contact_PersonLname = data["Contact_PersonLname"].ToString(),
                     emailid = data["emailid"].ToString(),
                     Job_position = data["Job_position"].ToString(),
-                    Mobile_No = set,
+                    Mobile_No = data["Mobile_No"].ToString(),
                     Adhar_Number = data["Adhar_Number"].ToString(),
                     Vendor_Id = data["Vendor_Id"].ToString(),
                     image = data["image"].ToString()
