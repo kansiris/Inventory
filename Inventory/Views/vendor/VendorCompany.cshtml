@@ -29,9 +29,13 @@
                                     <ul class="dropdown-menu">
                                         <li> <a onclick="viewVendor(@item.company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Vendor</a> </li>
                                         <li> <a onclick="getEditDetails(@item.company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
-                                        <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
+                                        <li> <a onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> 
+                                        ======================
+                                        </li>
+                                        @*<li> <hr /> </li>*@
                                         <li> <a><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
                                         <li> <a><i class="fa fa-building-o" aria-hidden="true"></i>Create Invoice</a> </li>
+                                        <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
                                         <li> <a><i class="fa fa-truck" aria-hidden="true"></i>Create Delivery Note</a> </li>
                                         <li> <a onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>
                                     </ul>
