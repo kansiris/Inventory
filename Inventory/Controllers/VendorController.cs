@@ -159,7 +159,8 @@ namespace Inventory.Controllers
                            Vendor_Id = row["Vendor_Id"].ToString(),
                            Contact_PersonFname = row["Contact_PersonFname"].ToString(),
                            Contact_PersonLname = row["Contact_PersonLname"].ToString(),
-                           emailid = row["emailid"].ToString()
+                           emailid = row["emailid"].ToString(),
+                           image= row["image"].ToString()
                        }).OrderByDescending(m => m.Vendor_Id).ToList();
             return contact;
         }

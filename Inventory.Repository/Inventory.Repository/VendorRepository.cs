@@ -179,7 +179,7 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertjobposition", Job_position,company_Id);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString,"insertjobposition",Job_position,company_Id);
             return count;
         }
         public static SqlDataReader getJobposition(string Job_position,string dbname)

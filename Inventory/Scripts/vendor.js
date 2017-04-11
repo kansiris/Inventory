@@ -267,8 +267,11 @@ function deleteRecord(id) {
                 }
                 else {
                     alert("Company Deleted Successfully");
-                    var url = 'Vendor/VendorContact?id=' + id + '';
-                    $('#vendorrecords').load(url);
+                    var url = 'Vendor/VendorCompany';
+                    $('#companyrecords').empty().load(url, function () { Pagination(); });
+                    $('#vendor-information').css('display', 'none');
+                    $('#additon').css('display', 'none');
+                    $(".cd-tabs").css('display', 'none');
                     
                 }
             },
@@ -948,8 +951,8 @@ function viewVendor(id) {
 function addingjobpositions(company_Id) {
     company_Id = $('#company_Id').val();
     Job_position = $('#newposition').val();
-    alert(company_Id);
-    alert(Job_position);
+    //alert(company_Id);
+    //alert(Job_position);
     $.ajax({
         url: '/Vendor/addPosition',
         type: 'POST',
