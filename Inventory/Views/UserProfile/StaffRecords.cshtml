@@ -17,9 +17,10 @@
                 </tr>
             </thead>
                 <tbody>
-                    
-                    @foreach (var item in ViewBag.records)
-                {
+                    @if (ViewBag.records.Count != 0)
+                    {
+                        foreach (var item in ViewBag.records)
+                        {
                         <tr>
                             <td> @if (item.UserPic != "" && item.UserPic != null && item.UserPic != "/images/user.png")
                             { <img src="data:image;base64,@item.UserPic" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
@@ -42,6 +43,13 @@
                                     </ul>
                                 </div>
                             </td>
+                        </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6"><p>No Records Available</p></td>
                         </tr>
                     }
 

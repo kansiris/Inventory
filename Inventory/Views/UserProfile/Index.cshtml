@@ -222,20 +222,20 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     @Html.TextBoxFor(Model => Model.Item4.Job_position, new { placeholder = "Job Position", @class = "form-control selected-position", required = "required" })
-                                                    <div class="display-positions">
+                                                    <div class="display-positions" id="jobpositions">
                                                         <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
-                                                        @if (ViewBag.jobpositions != "")
+                                                        @if (ViewBag.jobpositions.Count != 0)
                                                         {
                                                             foreach (var position in ViewBag.jobpositions)
-                                                            { <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@position</div> }
+                                                            { <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true" onclick="JobPosition(@position.Position_ID)"></i>@position.Job_Position</div> }
                                                         }
                                                         @*<div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
                                                         <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>*@
                                                     </div>
                                                     <div class="row add-position">
                                                         <div class="row">
-                                                            <input type="text" class="form-control" placeholder="Enter Position">
-                                                            <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                            <input type="text" id="newposition" class="form-control" placeholder="Enter Position">
+                                                            <button type="button" class="btn btn-primary btn-sm add-button" onclick="JobPosition(this.value)" value="addposition"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                             <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                                         </div>
                                                         <div class="row positions"></div>

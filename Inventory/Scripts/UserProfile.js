@@ -62,8 +62,12 @@
         var companycountry = $('#Item3_country').val(); //Getting Selected Value
         var mycountries = countrylist(Item2_country); //Passing Value
         var companycountries = countrylist(Item3_country); //Passing Value
-        $('#Item2_country').empty().append(mycountries).prepend($('<option>Select Country</option>')).val(mycountry); // Assigning value to Dropdown
-        $('#Item3_country').empty().append(companycountries).prepend($('<option>Select Country</option>')).val(companycountry); // Assigning value to Dropdown
+        if (mycountry != '')
+        { $('#Item2_country').empty().append(mycountries).prepend($('<option>Select Country</option>')).val(mycountry); }// Assigning value to Dropdown
+        else { $('#Item2_country').empty().append(mycountries).prepend($('<option selected="selected">Select Country</option>')); }
+        if (companycountry != '')
+        { $('#Item3_country').empty().append(companycountries).prepend($('<option>Select Country</option>')).val(companycountry); } // Assigning value to Dropdown
+        else { $('#Item3_country').empty().append(companycountries).prepend($('<option selected="selected">Select Country</option>')); }
     });
 //</script>
 //<!------ Random Colors ------>
@@ -182,6 +186,57 @@
 
 //<!------ Image Upload ------>
 
+    function JobPosition(value) {
+        var id, position, PositionID;
+        if (value == 'addposition') {
+            id = location.search.split('id=')[1];
+            position = $('#newposition').val();
+        }
+        else {
+            id = location.search.split('id=')[1];
+            PositionID = value;
+        }
+        $.ajax({
+            url: '/UserProfile/JobPosition',
+            type: "POST",
+            datatype: "json",
+            data: { 'id': id, 'position': position, 'type': value, 'PositionID': PositionID },
+            success: function (data) {
+                $('#Item4_Job_position').val('');
+                LoadJobPositions(data.records);
+                alert(data.msg);
+            },
+            error: function (er) {
+                alert("error");
+            }
+        });
+    }
+
+    function LoadJobPositions(array) {
+
+        var value = "";
+        for (var i = 0; i < array.length; i++) {
+
+            value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true' onclick='JobPosition(" + array[i].Position_ID + ")'></i>" + array[i].Job_Position + "</div>";
+        }
+        var esc1 = value;
+        $('#jobpositions').empty().append(esc1);
+        $('#jobpositions').prepend('<div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>');
+
+        $(".display-positions .position").click(function () {
+            $(".add-position").css("display", "block");
+
+            $(".add-position .add-button").click(function () {
+                return textval();
+            });
+
+            $(".close-button").click(function () {
+                $(".add-position").css("display", "none");
+                $(".add-position input[type='text']").val("");
+            });
+
+        });
+    }
 //<script>
     function AssignStaff(staffid) {
         $.ajax({
@@ -276,7 +331,7 @@
             Customer_Access:$('#Customer_Access:checked').length,
             UserPic: $('#staffprofilepic').attr('src').replace('data:image/;base64,',''),
         }
-
+        
         $.ajax({
             url: '/UserProfile/UpdateUserProfile?command='+val+'&&id='+id,
             type: "POST",
@@ -286,7 +341,6 @@
                 if (response == 'success') {
                     var url='Login/ProfileProgressPartial';
                     $('#partialpage').load(url);
-                    //$('#partialpage').load("@Url.Action("ProfileProgressPartial", "Login")");
                     $('#fname').html($('#Item1_First_Name').val());
                     $('#lname').html($('#Item1_Last_Name').val());
                     alert("Profile updated SuccessFully");
@@ -406,9 +460,9 @@ function textval(){
     });
 }
 
-$(".positions1 > i").click(function(){
-    $(this).parent(".positions1").remove();
-});
+//$(".positions1 > i").click(function(){
+//    $(this).parent(".positions1").remove();
+//});
 
 $(".selected-position").click(function(){
     $(this).next(".display-positions").css("display","block");
@@ -421,7 +475,7 @@ $(".display-positions .position").click(function(){
     $(".add-position .add-button").click(function(){
         var v = $(this).prev("input[type='text']").val();
         var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
-        alert($.unique(value));
+        //alert($.unique(value));
         $(this).parents(".add-position").prev(".display-positions").append(value);
         $(".positions1 > i").click(function(){
             $(this).parent(".positions1").remove();
