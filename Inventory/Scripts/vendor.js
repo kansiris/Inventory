@@ -129,7 +129,6 @@ $(document).ready(function (e) {
 
     });
 
-
   //  <!----- Table Pagination ---->
     Pagination();
      
@@ -219,14 +218,7 @@ $(".display-positions .position").click(function () {
     $(".add-position").css("display", "block");
   
     $(".add-position .add-button").click(function () {
-       
-    //    var v = $(".add-position input[type='text']").val();
-    //    var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
-    //    $(".form-group .display-positions").append(value);
-    //    var v = $(".add-position input[type='text']").val("");
-    //   $(".positions1 > i").click(function () {
-    //        $(this).parent(".positions1").remove();
-    //    });
+     
         return textval();
     });
 
@@ -275,13 +267,18 @@ function deleteRecord(id) {
                 }
                 else {
                     alert("Company Deleted Successfully");
-                    $("#vendortable").load(" #vendortable");
+                    var url = 'Vendor/VendorCompany';
+                    $('#companyrecords').empty().load(url, function () { Pagination(); });
+                    $('#vendor-information').css('display', 'none');
+                    $('#additon').css('display', 'none');
+                    $(".cd-tabs").css('display', 'none');
+                    
                 }
             },
             error: function (data)
             { alert("Failed!!!"); }
         });
-        location.reload();
+       
         return true;
     }
     
@@ -315,8 +312,6 @@ function editFunction(array) {
             $('#ship_state').val(array.ship_state);
             $('#ship_street').val(array.ship_street);
             $('#ship_postalcode').val(array.ship_postalcode);
-           
-
 }
 
 //Get Particular Vendor Record
@@ -904,6 +899,9 @@ function upload1() {
     }
 }
 
+
+
+
 //View vendor
 function viewVendor(id) {
     //alert(id);
@@ -942,8 +940,7 @@ function viewVendor(id) {
                 $('#myform input[type=file]').attr("disabled", true);
                 $("#bill_country").attr("disabled", true);
                 $("#ship_country").attr("disabled", true);
-                var $something = $('<input/>').attr({ type: 'button', name: 'viewclose', id: 'viewclose', value: 'Close View'});
-                $("#forview").append($something);
+               
             }
         },
         error: function (data)
@@ -954,8 +951,8 @@ function viewVendor(id) {
 function addingjobpositions(company_Id) {
     company_Id = $('#company_Id').val();
     Job_position = $('#newposition').val();
-    alert(company_Id);
-    alert(Job_position);
+    //alert(company_Id);
+    //alert(Job_position);
     $.ajax({
         url: '/Vendor/addPosition',
         type: 'POST',

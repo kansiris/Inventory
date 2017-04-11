@@ -33,16 +33,16 @@ namespace Inventory.Repository
         #endregion
 
         #region VendorInsertRow
-        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, long Mobile_No,
+        public static int VendorInsertRow(int company_Id,string Contact_PersonFname, string Contact_PersonLname, string Mobile_No,
                          string Email, string Adhar_Number,string Job_position, string image, string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,  Email, Adhar_Number, Job_position,image);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertvendor",company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No,Email, Adhar_Number, Job_position,image);
             return count;
         }
         
-            public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, long Mobile_No, string Email, string Adhar_Number, string Job_position,string image, string dbname)
+            public static int VendorUpdateContact(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, string Mobile_No, string Email, string Adhar_Number, string Job_position,string image, string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -70,7 +70,7 @@ namespace Inventory.Repository
             return count1;
         }
         #region UpdateCompany
-        public static int UpdateCompany(long company_Id, long Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No,string dbname)
+        public static int UpdateCompany(int company_Id, string Bank_Acc_Number,string Bank_Name,string Bank_Branch,string IFSC_No,string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -179,7 +179,7 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertjobposition",Job_position,company_Id);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString,"insertjobposition",Job_position,company_Id);
             return count;
         }
         public static SqlDataReader getJobposition(string Job_position,string dbname)

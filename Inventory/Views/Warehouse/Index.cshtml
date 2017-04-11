@@ -34,8 +34,44 @@
             @Html.HiddenFor(Model => Model.wh_Id, new { Value = @ViewBag.wh_Id })
             @Html.HiddenFor(Model => Model.con_id, new { Value = @ViewBag.con_id })
             @*<input type="hidden" id="maxid" value="@ViewBag.wh_id">*@
-            <div class="row">
-                <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>
+            <div class="row top-bar">
+                <div class="col-md-12">
+                    <h1 class="pull-left">Warehouse</h1>
+                    <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>
+                    <div class="icons pull-right">
+                        <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+                        <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+                        <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+                        <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+                    </div>
+                </div>
+            </div>
+            @*<h1 class="pull-left">Warehouse</h1>*@
+            <div class="row blocks">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Estimate</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Unbilled Activity</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Open Invoice</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Over Due</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
             </div>
             <div class="row" id="wh">
 
@@ -391,9 +427,9 @@
             var url = 'Warehouse/WarehouseDetails';
             $('#whdetails').empty().load(url, function () { Pagination(); });
         });
-        $("#save-reset").click(function () {
-            $(".contactperson input").val("");
-        });
+        //$("#save-reset").click(function () {
+        //    $(".contactperson input").val("");
+        //});
         $("#Phone").keypress(function (e) {
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 $("#errmsg").html("Enter Digits Only").show().fadeOut("slow");
@@ -587,9 +623,9 @@
             //$('#contactbutton').val("savecontact").text("Save Contact");
             $('#gallerybutton').val("update gallery").text("Update Gallery");
             //$('#userprofilepic').html($('#wh_name').val().substring(0,1));
-            $('#btnedit').click(function () {
-                $('#warehouse').css('display', 'none');
-            });
+            //$('#btnedit').click(function () {
+            //    $('#warehouse').css('display', 'none');
+            //});
             $("#wh-information1").css("display", "block");
             $.ajax({
                 url: '/Warehouse/getallwhdetails?wh_Id=' + id,
@@ -628,7 +664,73 @@
                 { alert("Failed!!!"); }
             });
         }
-
+        function viewwh(id) {
+            //alert(id);
+            $('#mySubmit').val("update").text("Update Warehouse");
+            $('#mySubmit1').val("updateaddress").text("Update Address");
+            $('#notebutton').val("updatenote").text("Update Note");
+            // $('#contactbutton').val("updatecontact").text("Update Contact");
+            $('#contactbutton').val("savecontact").text("Save Contact");
+            //$('#contactbutton').val("savecontact").text("Save Contact");
+            $('#gallerybutton').val("update gallery").text("Update Gallery");
+            //$('#userprofilepic').html($('#wh_name').val().substring(0,1));
+            //$('#btnedit').click(function () {
+            //    $('#warehouse').css('display', 'none');
+            //});
+            $("#wh-information1").css("display", "block");
+            $.ajax({
+                url: '/Warehouse/getallwhdetails?wh_Id=' + id,
+                type: 'POST',
+                data: JSON.stringify({ wh_Id: id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "unique") {
+                        alert("Success");
+                    }
+                    else {
+                        var array = JSON.parse(data);
+                        $('#mySubmit').hide();
+                        $('#mySubmit1').hide();
+                        $('#bankid').hide();
+                        $('#contactbutton').hide();
+                        $('#notebutton').hide();
+                        $('#myform input[type=text]').attr("disabled", true);
+                        $('#myform textarea').attr("disabled", true);
+                        $('#myform input[type=file]').attr("disabled", true);
+                        $("#bill_Country").attr("disabled", true);
+                        $("#ship_Country").attr("disabled", true);
+                        $("#wh-information1-cancel").hide();
+                        $("#btnclose3").hide();
+                        $("#btnclosegallery").hide();
+                        $("#btnclosenote").hide();
+                        $("#wh-information-cancel").hide();
+                        $("#EmailId").attr("disabled", true);
+                        if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
+                            $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
+                        } else
+                            $('#galpic1').attr('src', array.galimage1);
+                        if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
+                            $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
+                        } else
+                            $('#galpic2').attr('src', array.galimage2);
+                        if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
+                            $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
+                        } else
+                            $('#galpic3').attr('src', array.galimage3);
+                        if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
+                            $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
+                        } else
+                            $('#galpic4').attr('src', array.galimage4);
+                        var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
+                        $('#contactdiv').empty().load(url);
+                        editFunction(array);
+                    }
+                },
+                error: function (data)
+                { alert("Failed!!!"); }
+            });
+        }
         //function getEditContactDetails(id)
         //{
         //    alert(id);
@@ -738,6 +840,14 @@
                                 $('#whdetails').empty().load(url, function () { Pagination(); });
                                 alert("Warehouse Updated successfully");
                                 //$("#whtable").load(" #whtable");
+                            }
+                            else if (data == "Y") {
+                                alert("Warehouse already Registered");
+                                $('#wh_Name').focus();
+                            }
+                            else if (data == "SNAME") {
+                                alert("Shortname is already Registered");
+                                $('#wh_sname').focus();
                             }
                             else {
                                 alert("Warehouse not updated");
