@@ -217,7 +217,7 @@
                                     @*contact person image start*@
                                     <div class="col-md-3 col-md-push-3">
                                         <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
-                                        <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/picture.jpg" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                        <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
                                         <div>Upload ContactPerson Image</div>
                                     </div>
                                     @*contact person image end*@
@@ -266,7 +266,7 @@
 
                                             <div class="col-md-3 ">
                                                 <input type="file" name="file" id="galfileupload1" accept=".gif, .jpeg, .png" style="display:none"  onchange="galupload1()">
-                                                <img id="galpic1" onclick="javascript: document.getElementById('galfileupload1').click();" src="/images/picture.jpg" style="border-radius: 50%;width: 150px;height: 150px;">
+                                                <img id="galpic1" onclick="javascript: document.getElementById('galfileupload1').click();" src="/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
 
                                             </div>
                                             <div class="col-md-3 ">
@@ -276,11 +276,11 @@
                                             </div>
                                             <div class="col-md-3 ">
                                                 <input type="file" name="file" id="galfileupload3" accept=".gif, .jpeg, .png" style="display:none" onchange="galupload3()">
-                                                <img id="galpic3" onclick="javascript: document.getElementById('galfileupload3').click();" src="~/images/visa.png" style="border-radius: 50%;width: 150px;height: 150px;">
+                                                <img id="galpic3" onclick="javascript: document.getElementById('galfileupload3').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
 
                                             </div><div class="col-md-3 ">
                                                 <input type="file" name="file" id="galfileupload4" accept=".gif, .jpeg, .png" style="display:none" onchange="galupload4()">
-                                                <img id="galpic4" onclick="javascript: document.getElementById('galfileupload4').click();" src="~/images/2.jpg" style="border-radius: 50%;width: 150px;height: 150px;">
+                                                <img id="galpic4" onclick="javascript: document.getElementById('galfileupload4').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
 
                                             </div>
                                         </div>
@@ -579,19 +579,19 @@
                     }
                     else {
                         var array = JSON.parse(data);
-                        if (array.galimage1 != "/images/picture.jpg" && array.galimage1 != null && array.galimage1 != "") {
+                        if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
                             $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
                         } else
                             $('#galpic1').attr('src', array.galimage1);
-                        if (array.galimage2 != "/images/picture.jpg" && array.galimage2 != null && array.galimage2 != "") {
+                        if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
                             $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
                         } else
                             $('#galpic2').attr('src', array.galimage2);
-                        if (array.galimage3 != "/images/picture.jpg" && array.galimage3 != null && array.galimage3 != "") {
+                        if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
                             $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
                         } else
                             $('#galpic3').attr('src', array.galimage3);
-                        if (array.galimage4 != "/images/picture.jpg" && array.galimage4 != null && array.galimage4 != "") {
+                        if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
                             $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
                         } else
                             $('#galpic4').attr('src', array.galimage4);
@@ -742,7 +742,13 @@
                             }
                             else if (data == "Y") {
                                 alert("Warehouse already Registered");
+                                $('#wh_Name').focus();
                             }
+                            else if (data == "SNAME") {
+                                alert("Shortname is already Registered");
+                                $('#wh_sname').focus();
+                            }
+
                             else {
                                 alert("Warehouse not saved");
                             }
@@ -941,7 +947,7 @@
                                 $("[id='Mobile_No']").val("");
                                 $("[id='EmailId']").val("");
                                 $("[id='Job_position']").val("");
-                                $("#contactpic").attr("src", "/images/picture.jpg");
+                                $("#contactpic").attr("src", "/images/user.png");
 
                                 // $("#whtable").load(" #whtable");
                             }
@@ -971,7 +977,7 @@
                                 $("[id='Mobile_No']").val("");
                                 $("[id='EmailId']").val("");
                                 $("[id='Job_position']").val("");
-                                $("#contactpic").attr("src", "/images/picture.jpg");
+                                $("#contactpic").attr("src", "/images/user.png");
                                 //$("#whtable").load(" #whtable");
                             }
                             else {
@@ -1015,10 +1021,10 @@
                                 var url = 'Warehouse/WarehouseDetails';
                                 $('#whdetails').empty().load(url, function () { Pagination(); });
                                 alert("Gallery Saved successfully");
-                                $("#galpic1").attr("src", "/images/picture.jpg");
-                                $("#galpic2").attr("src", "/images/picture.jpg");
-                                $("#galpic3").attr("src", "/images/picture.jpg");
-                                $("#galpic4").attr("src", "/images/picture.jpg");
+                                $("#galpic1").attr("src", "/images/user.png");
+                                $("#galpic2").attr("src", "/images/user.png");
+                                $("#galpic3").attr("src", "/images/user.png");
+                                $("#galpic4").attr("src", "/images/user.png");
                                 // $("#whtable").load(" #whtable");
                             }
                             else {
@@ -1042,10 +1048,10 @@
                                 var url = 'Warehouse/WarehouseDetails';
                                 $('#whdetails').empty().load(url, function () { Pagination(); });
                                 alert("gallery updated successfully");
-                                $("#galpic1").attr("src", "/images/picture.jpg");
-                                $("#galpic2").attr("src", "/images/picture.jpg");
-                                $("#galpic3").attr("src", "/images/picture.jpg");
-                                $("#galpic4").attr("src", "/images/picture.jpg");
+                                $("#galpic1").attr("src", "/images/user.png");
+                                $("#galpic2").attr("src", "/images/user.png");
+                                $("#galpic3").attr("src", "/images/user.png");
+                                $("#galpic4").attr("src", "/images/user.png");
                             }
                             else {
                                 alert("not updated");
@@ -1079,7 +1085,7 @@
                         $('#Mobile_No').val(array.Mobile);
                         $('#EmailId').val(array.Email);
                         $('#Job_position').val(array.Job_position);
-                        if (array.Image != "/images/picture.jpg" && array.Image != null && array.Image != "") {
+                        if (array.Image != "/images/user.png" && array.Image != null && array.Image != "") {
                             $('#contactpic').attr('src', 'data:Image/;base64,' + array.Image);
                         } else
                             $('#contactpic').attr('src', array.Image);

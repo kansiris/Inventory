@@ -312,9 +312,14 @@ namespace Inventory.Controllers
             var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
             var chkwh = WHservice.chkwh(user1.DbName, wh_name);
+            var chksname = WHservice.chkwhsname(user1.DbName, wh_sname);
             if (chkwh.Read())
             {
                 return Json("Y", JsonRequestBehavior.AllowGet);
+            }
+            if(chksname.Read())
+            {
+                return Json("SNAME", JsonRequestBehavior.AllowGet);
             }
             else
             {
