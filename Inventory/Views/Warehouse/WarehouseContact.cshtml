@@ -1,11 +1,11 @@
 ﻿@if (ViewBag.records != null)
 {
-@*<div class="row">*@
+    @*<div class="row">*@
     <div class="table-responsive" id="contactdiv">
         <table class="table table-borderedtable-striped bulk_action" id="contacttable">
             <thead class="thead-inverse">
                 <tr>
-                    <th>con_id </th>
+                    <th></th>
                     <th>First Name</th>
 
                     <th>Last Name</th>
@@ -16,33 +16,52 @@
                 </tr>
             </thead>
             <tbody>
+                @if (ViewBag.records.Count != 0)
+                {
+                    foreach (var item in ViewBag.records)
+                    {
+                        <tr>
+                            @*<th scope="row">1</th>*@
+                            @*<td>@item.con_id</td>*@
+                            <td>
+                                @if (item.Image != "" && item.Image != null && item.Image != "/images/user.png")
+                                { <img src="data:image;base64,@item.Image" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
+                                else
+                                { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
+                            </td>
+                            <td>@item.conperson</td>
 
-                @foreach (var item in ViewBag.records)
+                            <td>@item.Mobile</td>
+                            <td>@item.Email</td>
+                            <td>@item.phone</td>
+                            <td>@item.Job_position</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li> <a onclick="getEditContactDetails(@item.con_id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
+                                        <li> <a onclick="deletecontact(@item.con_id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Contact</a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+
+                else
                 {
                     <tr>
-                        @*<th scope="row">1</th>*@
-                        <td>@item.con_id</td>
-                        <td>@item.conperson</td>
-
-                        <td>@item.Mobile</td>
-                        <td>@item.Email</td>
-                        <td>@item.phone</td>
-                        <td>@item.Job_position</td>
-                        <td>
-                            <div class="btn-group">
-                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                <ul class="dropdown-menu">
-                                    <li> <a onclick="getEditContactDetails(@item.con_id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                    <li> <a onclick="deletecontact(@item.con_id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Contact</a> </li>
-                                </ul>
-                            </div>
-                        </td>
+                        <td colspan="6"><p>No Records Available</p></td>
                     </tr>
                 }
+
+
+
 
             </tbody>
         </table>
     </div>
-@*</div>*@
+    @*</div>*@
 }
+
 

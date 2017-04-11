@@ -1,37 +1,48 @@
 ﻿@if (ViewBag.records != null)
 {
-<div class="table-responsive" id="whdetails">
-    <table class="table  table-borderedtable-striped bulk_action" id="whtable">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Warehouse Name</th>
-                <th>Shortname</th>
-                <th>Actions</th>
-                @*<th>Contact Person</th>
-                <th>Email</th>*@
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ViewBag.records)
-            {
+    <div class="table-responsive" id="whdetails">
+        <table class="table  table-borderedtable-striped bulk_action" id="whtable">
+            <thead class="thead-inverse">
                 <tr>
-                    <td> @item.wh_name </td>
-                    <td> @item.wh_Shortname </td>
-                    @*<td>@item.conperson</td>
-                    <td>@item.Email</td>*@
-                    <td>
-                        <div class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                            <ul class="dropdown-menu">
-                                <li> <a onclick="getEditDetails(@item.wh_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                <li> <a onclick="deletewhdtls(@item.wh_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                            </ul>
-                        </div>
-                    </td>
+                    <th>Warehouse Name</th>
+                    <th>Shortname</th>
+                    <th>Actions</th>
+                    @*<th>Contact Person</th>
+                        <th>Email</th>*@
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @if (ViewBag.records.Count != 0)
+                {
+                    foreach (var item in ViewBag.records)
+                    {
+                        <tr>
+                            <td> @item.wh_name </td>
+                            <td> @item.wh_Shortname </td>
+                            @*<td>@item.conperson</td>
+                                <td>@item.Email</td>*@
+                            <td>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li> <a onclick="viewwh(@item.wh_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View</a> </li>
+                                        <li> <a onclick="getEditDetails(@item.wh_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
+                                        <li> <a onclick="deletewhdtls(@item.wh_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6"><p>No Records Available</p></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
 }
 
