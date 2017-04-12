@@ -498,7 +498,8 @@ namespace Inventory.Controllers
         }
         public PartialViewResult VendorContact(string id)
         {
-            if (id == null)
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (id == null || id=="")
             {
                 return PartialView("VendorRecords", null);
             }

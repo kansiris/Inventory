@@ -13,7 +13,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in ViewBag.records)
+       @if (ViewBag.records.Count != 0)
+         {
+                    foreach (var item in ViewBag.records)
                     {
                         <tr>
                             <td>
@@ -43,6 +45,13 @@
                             </td>
                         </tr>
                     }
+       }
+       else
+       {
+        <tr>
+            <td colspan="6"><p>No Records Available</p></td>
+        </tr>
+       }
                 </tbody>
             </table>
         </div>
@@ -77,12 +86,9 @@
                     </div>
                 </div>
             </div>
-}
+      }
 
         </div>
     </div>
 </div>
 }
-else {
-<h1>No Vendors Available.</h1>
- }
