@@ -22,7 +22,10 @@ namespace Inventory.Controllers
         public ActionResult Index()
         {
             ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
+            var list = AvailableJobPositions();
+            if(list != null)
             ViewBag.jobpositions = AvailableJobPositions().Select(m => m.Job_position).Distinct();
+            ViewBag.jobpositions = "";
             return View();
         }
         //companypic upload
@@ -502,6 +505,7 @@ namespace Inventory.Controllers
             }
             else
             {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var records = VendorService.getcontactdetail(int.Parse(id), user.DbName);
                 var dt = new DataTable();
                 dt.Load(records);
@@ -537,12 +541,16 @@ namespace Inventory.Controllers
 
         public List<Vendor> AvailableJobPositions()
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var records = VendorService.getalljobposition(user.DbName);
-            var dt = new DataTable();
-            dt.Load(records);
-            List<Vendor> availpositions = (from DataRow row in dt.Rows select new Vendor() { Job_position = row["Job_position"].ToString() }).Distinct().ToList();
-            return availpositions;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = VendorService.getalljobposition(user.DbName);
+                var dt = new DataTable();
+                dt.Load(records);
+                List<Vendor> availpositions = (from DataRow row in dt.Rows select new Vendor() { Job_position = row["Job_position"].ToString() }).Distinct().ToList();
+                return availpositions;
+            }
+            return null;
         }
         //to get vendor contact details based on vendor id
 
@@ -579,21 +587,25 @@ namespace Inventory.Controllers
        
         public PartialViewResult VendorCompany()
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var records = VendorService.getcomapnies(user.DbName);
-            var dt = new DataTable();
-            dt.Load(records);
-            List<Vendor> vendor = new List<Vendor>();
-            vendor = (from DataRow row in dt.Rows
-                      select new Vendor()
-                      {
-                          company_Id = int.Parse(row["company_Id"].ToString()),
-                          Company_Name = row["Company_Name"].ToString(),
-                          Email = row["Email"].ToString(),
-                          logo = row["logo"].ToString()
-                      }).OrderByDescending(m => m.company_Id).ToList();
-            ViewBag.records = vendor;
-            return PartialView("VendorCompany", ViewBag.records);
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = VendorService.getcomapnies(user.DbName);
+                var dt = new DataTable();
+                dt.Load(records);
+                List<Vendor> vendor = new List<Vendor>();
+                vendor = (from DataRow row in dt.Rows
+                          select new Vendor()
+                          {
+                              company_Id = int.Parse(row["company_Id"].ToString()),
+                              Company_Name = row["Company_Name"].ToString(),
+                              Email = row["Email"].ToString(),
+                              logo = row["logo"].ToString()
+                          }).OrderByDescending(m => m.company_Id).ToList();
+                ViewBag.records = vendor;
+                return PartialView("VendorCompany", ViewBag.records);
+            }
+            return PartialView("VendorCompany", null);
             }
                
     }

@@ -446,6 +446,7 @@
     <Content Include="Scripts\js\datepicker\daterangepicker.js" />
     <Content Include="Scripts\js\intlTelInput.js" />
     <Content Include="Scripts\js\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\js\jquery-ui.min.js" />
     <Content Include="Scripts\js\jquery.bxslider.js" />
     <Content Include="Scripts\js\jquery.easing.1.3.js" />
     <Content Include="Scripts\js\jquery.fitvids.js" />
@@ -453,6 +454,7 @@
     <Content Include="Scripts\js\modernizr.js" />
     <Content Include="Scripts\js\moment\moment.min.js" />
     <Content Include="Scripts\js\npm.js" />
+    <Content Include="Scripts\js\tag-it.js" />
     <Content Include="Scripts\js\utils.js" />
     <Content Include="Scripts\js\Warehouse.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
