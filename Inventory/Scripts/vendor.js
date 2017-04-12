@@ -131,7 +131,8 @@ $(document).ready(function (e) {
 
   //  <!----- Table Pagination ---->
     Pagination();
-     
+    var url = 'Vendor/VendorCompany';
+    $('#companyrecords').load(url);
 
    // <!----- Table Pagination ---->
     $(".cd-tabs").css("display", "none");
