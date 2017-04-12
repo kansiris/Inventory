@@ -40,79 +40,93 @@ namespace Inventory.Controllers
         //loading of warehouse details in partialview
         public PartialViewResult WarehouseDetails()
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
-            DataTable dt = new DataTable();
-            dt.Load(value);
-            List<Warehouse> warehouse = new List<Warehouse>();
-            warehouse = (from DataRow row in dt.Rows
-                         select new Warehouse()
-                         {
-                             wh_Id = row["wh_id"].ToString(),
-                             wh_name = row["wh_name"].ToString(),
-                             wh_Shortname = row["wh_Shortname"].ToString(),
-                             conperson = row["Contact_person"].ToString(),
-                             Email = row["Email"].ToString(),
-                             // Wh_logo = row["Wh_Image"].ToString()
-                         }).OrderByDescending(m => m.wh_Id).ToList();
-            ViewBag.records = warehouse;
-            return PartialView("WarehouseDetails", ViewBag.records);
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
+                DataTable dt = new DataTable();
+                dt.Load(value);
+                List<Warehouse> warehouse = new List<Warehouse>();
+                warehouse = (from DataRow row in dt.Rows
+                             select new Warehouse()
+                             {
+                                 wh_Id = row["wh_id"].ToString(),
+                                 wh_name = row["wh_name"].ToString(),
+                                 wh_Shortname = row["wh_Shortname"].ToString(),
+                                 conperson = row["Contact_person"].ToString(),
+                                 Email = row["Email"].ToString(),
+                                 // Wh_logo = row["Wh_Image"].ToString()
+                             }).OrderByDescending(m => m.wh_Id).ToList();
+                ViewBag.records = warehouse;
+                return PartialView("WarehouseDetails", ViewBag.records);
+            }
+            return PartialView("WarehouseDetails", null);
         }
         //loading of warehouse contactdetails in partialview
         public PartialViewResult WarehouseContact(string id)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader value = WHservice.getcontactdetail(user1.DbName, id);
-            var dt = new DataTable();
-            dt.Load(value);
-            List<Warehouse> contact = new List<Warehouse>();
-            contact = (from DataRow row in dt.Rows
-                       select new Warehouse()
-                       {
-                           con_id = row["con_id"].ToString(),
-                           conperson = row["contact_person"].ToString(),
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader value = WHservice.getcontactdetail(user1.DbName, id);
+                var dt = new DataTable();
+                dt.Load(value);
+                List<Warehouse> contact = new List<Warehouse>();
+                contact = (from DataRow row in dt.Rows
+                           select new Warehouse()
+                           {
+                               con_id = row["con_id"].ToString(),
+                               conperson = row["contact_person"].ToString(),
 
-                           Email = row["email"].ToString(),
-                           Mobile = row["mobile"].ToString(),
-                           phone = row["phone"].ToString(),
-                           Job_position = row["job_position"].ToString(),
-                           Image =row["image"].ToString()
-                       }).OrderByDescending(m => m.con_id).ToList();
-            ViewBag.records = contact;
-            return PartialView("WarehouseContact", ViewBag.records);
-
+                               Email = row["email"].ToString(),
+                               Mobile = row["mobile"].ToString(),
+                               phone = row["phone"].ToString(),
+                               Job_position = row["job_position"].ToString(),
+                               Image = row["image"].ToString()
+                           }).OrderByDescending(m => m.con_id).ToList();
+                ViewBag.records = contact;
+                return PartialView("WarehouseContact", ViewBag.records);
+            }
+            return PartialView("WarehouseContact", null);
         }
         //To get the warehouseid
         private string getMaxwhid()
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            string wh_id = null;
-            SqlDataReader exec = WHservice.getwhid(user1.DbName);
-            if (exec.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                wh_id = exec["wh_id"].ToString();
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                string wh_id = null;
+                SqlDataReader exec = WHservice.getwhid(user1.DbName);
+                if (exec.Read())
+                {
+                    wh_id = exec["wh_id"].ToString();
+                }
+                return wh_id;
             }
-            return wh_id;
+            return "";
         }
         //lastinserted warehouse details
         private Warehouse getlastinsertedwarehouse(string wh_id)
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader value = WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
+                DataTable dt = new DataTable();
+                dt.Load(value);
+                Warehouse wh = new Warehouse();
+                wh = (from DataRow row in dt.Rows
+                      select new Warehouse()
+                      {
 
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader value = WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
-            DataTable dt = new DataTable();
-            dt.Load(value);
-            Warehouse wh = new Warehouse();
-            wh = (from DataRow row in dt.Rows
-                  select new Warehouse()
-                  {
-
-                      wh_name = row["wh_name"].ToString(),
-                      wh_Shortname = row["wh_Shortname"].ToString()
-                  }).FirstOrDefault();
+                          wh_name = row["wh_name"].ToString(),
+                          wh_Shortname = row["wh_Shortname"].ToString()
+                      }).FirstOrDefault();
 
 
-            return wh;
+                return wh;
+            }
+            return null;
         }
        
 
@@ -433,15 +447,19 @@ namespace Inventory.Controllers
         //To get the ContactID
         private string getMaxcontactID()
         {
-            string con_id = null;
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
-            SqlDataReader exec = WHservice.getcontactid(user1.DbName);
-            if (exec.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                con_id = exec["con_id"].ToString();
+                string con_id = null;
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
+                SqlDataReader exec = WHservice.getcontactid(user1.DbName);
+                if (exec.Read())
+                {
+                    con_id = exec["con_id"].ToString();
+                }
+                return con_id;
             }
-            return con_id;
+            return "";
         }
         //update contactperson pic
         [HttpPost]
