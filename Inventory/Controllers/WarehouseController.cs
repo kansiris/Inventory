@@ -149,300 +149,351 @@ namespace Inventory.Controllers
         //loading of total warehouse details
         public JsonResult getallwhdetails(string wh_id)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
-            var data = WHservice.getallwhdetails(user1.DbName, wh_id);
-            long phn;
-            long Mob;
-            if (data.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                if (data["Phone"].ToString() == "")
-                    phn = 0;
-                else
-                    phn = long.Parse(data["Phone"].ToString());
-                if (data["Mobile"].ToString() == "")
-                    Mob = 0;
-                else
-                    Mob = long.Parse(data["Mobile"].ToString());
-                Warehouse wh = new Warehouse
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
+                var data = WHservice.getallwhdetails(user1.DbName, wh_id);
+                long phn;
+                long Mob;
+                if (data.Read())
                 {
-                    wh_Id = wh_id,//data["wh_id"].ToString(),
-                    wh_name = data["wh_name"].ToString(),
-                    wh_Shortname = data["wh_Shortname"].ToString(),
-                    conperson = data["Contact_person"].ToString(),
-                    Job_position = data["Job_position"].ToString(),
-                    Email = data["Email"].ToString(),
-                    phone = data["Phone"].ToString(),
-                    Mobile = data["Mobile"].ToString(),
-                    Note = data["Note"].ToString(),
-                    bill_Street = data["bill_street"].ToString(),
-                    bill_City = data["bill_city"].ToString(),
-                    bill_State = data["bill_state"].ToString(),
-                    bill_Postalcode = data["bill_postalcode"].ToString(),
-                    bill_Country = data["bill_country"].ToString(),
-                    ship_Street = data["ship_street"].ToString(),
-                    ship_City = data["ship_city"].ToString(),
-                    ship_State = data["ship_state"].ToString(),
-                    ship_Postalcode = data["ship_postalcode"].ToString(),
-                    ship_Country = data["ship_country"].ToString(),
-                    galimage1 = data["galimage1"].ToString(),
-                    galimage2 = data["galimage2"].ToString(),
-                    galimage3 = data["galimage3"].ToString(),
-                    galimage4 = data["galimage4"].ToString(),
-                    //Wh_logo = data["Wh_Image"].ToString(),
-                };
+                    if (data["Phone"].ToString() == "")
+                        phn = 0;
+                    else
+                        phn = long.Parse(data["Phone"].ToString());
+                    if (data["Mobile"].ToString() == "")
+                        Mob = 0;
+                    else
+                        Mob = long.Parse(data["Mobile"].ToString());
+                    Warehouse wh = new Warehouse
+                    {
+                        wh_Id = wh_id,//data["wh_id"].ToString(),
+                        wh_name = data["wh_name"].ToString(),
+                        wh_Shortname = data["wh_Shortname"].ToString(),
+                        conperson = data["Contact_person"].ToString(),
+                        Job_position = data["Job_position"].ToString(),
+                        Email = data["Email"].ToString(),
+                        phone = data["Phone"].ToString(),
+                        Mobile = data["Mobile"].ToString(),
+                        Note = data["Note"].ToString(),
+                        bill_Street = data["bill_street"].ToString(),
+                        bill_City = data["bill_city"].ToString(),
+                        bill_State = data["bill_state"].ToString(),
+                        bill_Postalcode = data["bill_postalcode"].ToString(),
+                        bill_Country = data["bill_country"].ToString(),
+                        ship_Street = data["ship_street"].ToString(),
+                        ship_City = data["ship_city"].ToString(),
+                        ship_State = data["ship_state"].ToString(),
+                        ship_Postalcode = data["ship_postalcode"].ToString(),
+                        ship_Country = data["ship_country"].ToString(),
+                        galimage1 = data["galimage1"].ToString(),
+                        galimage2 = data["galimage2"].ToString(),
+                        galimage3 = data["galimage3"].ToString(),
+                        galimage4 = data["galimage4"].ToString(),
+                        //Wh_logo = data["Wh_Image"].ToString(),
+                    };
 
-                string json = JsonConvert.SerializeObject(wh);
-                return Json(json);
+                    string json = JsonConvert.SerializeObject(wh);
+                    return Json(json);
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
 
         //loading of warehouse contact details
         public JsonResult getwhcondtls(string con_id)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-
-            var data = WHservice.getwhcondtls(user1.DbName, con_id);
-
-            if (data.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
-                Warehouse wh = new Warehouse
+                var data = WHservice.getwhcondtls(user1.DbName, con_id);
+
+                if (data.Read())
                 {
-                    con_id = data["con_id"].ToString(),
-                    conperson = data["contact_person"].ToString(),
-                    Job_position = data["job_position"].ToString(),
-                    Email = data["email"].ToString(),
-                    phone = data["phone"].ToString(),
-                    Mobile = data["mobile"].ToString(),
-                    Image=data["image"].ToString(),
-                };
 
-                string json = JsonConvert.SerializeObject(wh);
-                return Json(json);
+                    Warehouse wh = new Warehouse
+                    {
+                        con_id = data["con_id"].ToString(),
+                        conperson = data["contact_person"].ToString(),
+                        Job_position = data["job_position"].ToString(),
+                        Email = data["email"].ToString(),
+                        phone = data["phone"].ToString(),
+                        Mobile = data["mobile"].ToString(),
+                        Image = data["image"].ToString(),
+                    };
+
+                    string json = JsonConvert.SerializeObject(wh);
+                    return Json(json);
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //update warehouse
         public JsonResult updatewarehouse(string wh_id, string wh_name, string wh_sname)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-          
-            var chkwh = WHservice.chkwh(user1.DbName, wh_name);
-            var chksname = WHservice.chkwhsname(user1.DbName, wh_sname);
-            if (chkwh.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                return Json("Y", JsonRequestBehavior.AllowGet);
-            }
-            if (chksname.Read())
-            {
-                return Json("SNAME", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var data = WHservice.updatewarehouse(user1.DbName, wh_id, wh_name, wh_sname);
-                if (data > 0)
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+
+                var chkwh = WHservice.chkwh(user1.DbName, wh_name);
+                var chksname = WHservice.chkwhsname(user1.DbName, wh_sname);
+                if (chkwh.Read())
                 {
-                    ViewBag.wh_id = wh_id;
-                    ViewBag.wh_name = wh_name;
-                    ViewBag.wh_sname = wh_sname;
-                    return Json("success");
+                    return Json("Y", JsonRequestBehavior.AllowGet);
                 }
+                if (chksname.Read())
+                {
+                    return Json("SNAME", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var data = WHservice.updatewarehouse(user1.DbName, wh_id, wh_name, wh_sname);
+                    if (data > 0)
+                    {
+                        ViewBag.wh_id = wh_id;
+                        ViewBag.wh_name = wh_name;
+                        ViewBag.wh_sname = wh_sname;
+                        return Json("success");
+                    }
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
       //Delete warehouse
         public JsonResult deletewarehouse(string wh_id)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.deletewarehouse(user1.DbName, wh_id);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.wh_id = wh_id;
-                return Json("success");
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.deletewarehouse(user1.DbName, wh_id);
+                if (data > 0)
+                {
+                    ViewBag.wh_id = wh_id;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //Delete warehouse contact person
         public JsonResult deletecontactperson(string con_id)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.deletecontactperson(user1.DbName, con_id);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.con_id = con_id;
-                return Json("success");
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.deletecontactperson(user1.DbName, con_id);
+                if (data > 0)
+                {
+                    ViewBag.con_id = con_id;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //update warehouse address
         public JsonResult updatewhaddress(string wh_id, Warehouse warehouse)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhaddress(user1.DbName, warehouse.wh_Id.ToString(), warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
-                warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                List<Warehouse> wh = new List<Warehouse>();
-                ViewBag.wh_id = warehouse.wh_Id;
-                ViewBag.bill_street = warehouse.bill_Street;
-                ViewBag.bill_city = warehouse.bill_City;
-                ViewBag.bill_state = warehouse.bill_State;
-                ViewBag.bill_postalcode = warehouse.bill_Postalcode;
-                ViewBag.bill_country = warehouse.bill_Country;
-                ViewBag.ship_street = warehouse.ship_Street;
-                ViewBag.ship_city = warehouse.ship_City;
-                ViewBag.ship_state = warehouse.ship_State;
-                ViewBag.ship_postalcode = warehouse.ship_Postalcode;
-                ViewBag.ship_country = warehouse.ship_Country;
-                return Json("success");
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.updatewhaddress(user1.DbName, warehouse.wh_Id.ToString(), warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
+                    warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
+                if (data > 0)
+                {
+                    List<Warehouse> wh = new List<Warehouse>();
+                    ViewBag.wh_id = warehouse.wh_Id;
+                    ViewBag.bill_street = warehouse.bill_Street;
+                    ViewBag.bill_city = warehouse.bill_City;
+                    ViewBag.bill_state = warehouse.bill_State;
+                    ViewBag.bill_postalcode = warehouse.bill_Postalcode;
+                    ViewBag.bill_country = warehouse.bill_Country;
+                    ViewBag.ship_street = warehouse.ship_Street;
+                    ViewBag.ship_city = warehouse.ship_City;
+                    ViewBag.ship_state = warehouse.ship_State;
+                    ViewBag.ship_postalcode = warehouse.ship_Postalcode;
+                    ViewBag.ship_country = warehouse.ship_Country;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
 
         }
         //update warehouse contact
         public JsonResult updatewhcontact(string con_id, Warehouse warehouse)  //string wh_id, string Contact_Person, long phone, long Mobile, string Email, string job_position
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            //string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position
-            var data = WHservice.updatewhcontact(user1.DbName, warehouse.con_id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position,warehouse.Image);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                List<Warehouse> wh = new List<Warehouse>();
-                ViewBag.con_id = warehouse.con_id.TrimEnd();
-                ViewBag.Contact_PersonFname = warehouse.conperson;
-                ViewBag.Phone = warehouse.phone;
-                ViewBag.Mobile = warehouse.Mobile;
-                ViewBag.Email = warehouse.Email;
-                ViewBag.Job_position = warehouse.Job_position;
-                ViewBag.image = warehouse.Image;
-                return Json("success");
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                //string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position
+                var data = WHservice.updatewhcontact(user1.DbName, warehouse.con_id, warehouse.conperson, warehouse.phone, warehouse.Mobile, warehouse.Email, warehouse.Job_position, warehouse.Image);
+                if (data > 0)
+                {
+                    List<Warehouse> wh = new List<Warehouse>();
+                    ViewBag.con_id = warehouse.con_id.TrimEnd();
+                    ViewBag.Contact_PersonFname = warehouse.conperson;
+                    ViewBag.Phone = warehouse.phone;
+                    ViewBag.Mobile = warehouse.Mobile;
+                    ViewBag.Email = warehouse.Email;
+                    ViewBag.Job_position = warehouse.Job_position;
+                    ViewBag.image = warehouse.Image;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
 
         }
         //update warehouse Notes
         public JsonResult updatewhnotes(string wh_id, Warehouse warehouse)
         {
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhnote(user1.DbName, warehouse.wh_Id.ToString(), warehouse.Note);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.wh_id = warehouse.wh_Id;
-                ViewBag.Note = warehouse.Note;
-                return Json("success");
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.updatewhnote(user1.DbName, warehouse.wh_Id.ToString(), warehouse.Note);
+                if (data > 0)
+                {
+                    ViewBag.wh_id = warehouse.wh_Id;
+                    ViewBag.Note = warehouse.Note;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
       //Save warehouse Details
         public JsonResult insertwhdtls(string wh_name, string wh_sname)
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-
-            var chkwh = WHservice.chkwh(user1.DbName, wh_name);
-            var chksname = WHservice.chkwhsname(user1.DbName, wh_sname);
-            if (chkwh.Read())
-            {
-                return Json("Y", JsonRequestBehavior.AllowGet);
-            }
-            if(chksname.Read())
-            {
-                return Json("SNAME", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var data = WHservice.insertwhdls(user1.DbName, wh_name, wh_sname);
-                if (data > 0)
+                var chkwh = WHservice.chkwh(user1.DbName, wh_name);
+                var chksname = WHservice.chkwhsname(user1.DbName, wh_sname);
+                if (chkwh.Read())
                 {
-                    ViewBag.wh_name = wh_name;
-                    ViewBag.wh_sname = wh_sname;
-                    return Json("success");
+                    return Json("Y", JsonRequestBehavior.AllowGet);
                 }
+                if (chksname.Read())
+                {
+                    return Json("SNAME", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var data = WHservice.insertwhdls(user1.DbName, wh_name, wh_sname);
+                    if (data > 0)
+                    {
+                        ViewBag.wh_name = wh_name;
+                        ViewBag.wh_sname = wh_sname;
+                        return Json("success");
+                    }
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //save warehouse address
         public JsonResult insertwhaddress(string wh_id, Warehouse warehouse)
         {
-            wh_id = getMaxwhid();
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhaddress(user1.DbName, wh_id.TrimEnd(), warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
-                warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.wh_id = wh_id;
-                ViewBag.bill_street = warehouse.bill_Street;
-                ViewBag.bill_city = warehouse.bill_City;
-                ViewBag.bill_state = warehouse.bill_State;
-                ViewBag.bill_postalcode = warehouse.bill_Postalcode;
-                ViewBag.bill_country = warehouse.bill_Country;
-                ViewBag.ship_street = warehouse.ship_Street;
-                ViewBag.ship_city = warehouse.ship_City;
-                ViewBag.ship_state = warehouse.ship_State;
-                ViewBag.ship_postalcode = warehouse.ship_Postalcode;
-                ViewBag.ship_country = warehouse.ship_Country;
+                wh_id = getMaxwhid();
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.updatewhaddress(user1.DbName, wh_id.TrimEnd(), warehouse.bill_Street, warehouse.bill_City, warehouse.bill_State, warehouse.bill_Postalcode,
+                    warehouse.bill_Country, warehouse.ship_Street, warehouse.ship_City, warehouse.ship_State, warehouse.ship_Postalcode, warehouse.ship_Country);
+                if (data > 0)
+                {
+                    ViewBag.wh_id = wh_id;
+                    ViewBag.bill_street = warehouse.bill_Street;
+                    ViewBag.bill_city = warehouse.bill_City;
+                    ViewBag.bill_state = warehouse.bill_State;
+                    ViewBag.bill_postalcode = warehouse.bill_Postalcode;
+                    ViewBag.bill_country = warehouse.bill_Country;
+                    ViewBag.ship_street = warehouse.ship_Street;
+                    ViewBag.ship_city = warehouse.ship_City;
+                    ViewBag.ship_state = warehouse.ship_State;
+                    ViewBag.ship_postalcode = warehouse.ship_Postalcode;
+                    ViewBag.ship_country = warehouse.ship_Country;
 
-                return Json("success");
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //save gallery
         public JsonResult updategallery(string wh_id,Warehouse warehouse)
         {
-            wh_id = getMaxwhid();
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updategallery(user1.DbName, wh_id.TrimEnd(), warehouse.galimage1, warehouse.galimage2, warehouse.galimage3, warehouse.galimage4);
-            if(data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.wh_id = wh_id;
-                ViewBag.galimage1 = warehouse.galimage1;
-                ViewBag.galimage2 = warehouse.galimage2;
-                ViewBag.galimage3 = warehouse.galimage3;
-                ViewBag.galimage4 = warehouse.galimage4;
-                return Json("success");
+                wh_id = getMaxwhid();
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.updategallery(user1.DbName, wh_id.TrimEnd(), warehouse.galimage1, warehouse.galimage2, warehouse.galimage3, warehouse.galimage4);
+                if (data > 0)
+                {
+                    ViewBag.wh_id = wh_id;
+                    ViewBag.galimage1 = warehouse.galimage1;
+                    ViewBag.galimage2 = warehouse.galimage2;
+                    ViewBag.galimage3 = warehouse.galimage3;
+                    ViewBag.galimage4 = warehouse.galimage4;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //Save warehouse Notes
         public JsonResult insertwhnotes(string wh_id, Warehouse warehouse)
         {
-            wh_id = getMaxwhid();
-            wh_id = wh_id.TrimEnd();
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.updatewhnote(user1.DbName, wh_id, warehouse.Note);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.wh_id = wh_id;
-                ViewBag.Note = warehouse.Note;
+                wh_id = getMaxwhid();
+                wh_id = wh_id.TrimEnd();
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.updatewhnote(user1.DbName, wh_id, warehouse.Note);
+                if (data > 0)
+                {
+                    ViewBag.wh_id = wh_id;
+                    ViewBag.Note = warehouse.Note;
 
-                return Json("success");
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //Save warehouse contact
         public JsonResult insertwhcontact(string wh_id, Warehouse warehouse)
         {
-            wh_id = getMaxwhid();
-            wh_id = getMaxwhid().TrimEnd();
-            var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = WHservice.insertwarehousecontact(user1.DbName, wh_id, warehouse.conperson, warehouse.Job_position, warehouse.Email, warehouse.phone, warehouse.Mobile,warehouse.Image);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                //ViewBag.wh_id = wh_id;
-                string con_id = getMaxcontactID().TrimEnd();
-                ViewBag.con_id = con_id;
-                var result = new { Result = "success", ID = con_id };
-                ViewBag.Contact_PersonFname = warehouse.conperson;
-                ViewBag.Phone = warehouse.phone;
-                ViewBag.Mobile = warehouse.Mobile;
-                ViewBag.Email = warehouse.Email;
-                ViewBag.Job_position = warehouse.Job_position;
-                ViewBag.image = warehouse.Image;
-                return Json("success");
+                wh_id = getMaxwhid();
+                wh_id = getMaxwhid().TrimEnd();
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.insertwarehousecontact(user1.DbName, wh_id, warehouse.conperson, warehouse.Job_position, warehouse.Email, warehouse.phone, warehouse.Mobile, warehouse.Image);
+                if (data > 0)
+                {
+                    //ViewBag.wh_id = wh_id;
+                    string con_id = getMaxcontactID().TrimEnd();
+                    ViewBag.con_id = con_id;
+                    var result = new { Result = "success", ID = con_id };
+                    ViewBag.Contact_PersonFname = warehouse.conperson;
+                    ViewBag.Phone = warehouse.phone;
+                    ViewBag.Mobile = warehouse.Mobile;
+                    ViewBag.Email = warehouse.Email;
+                    ViewBag.Job_position = warehouse.Job_position;
+                    ViewBag.image = warehouse.Image;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         //To get the ContactID
         private string getMaxcontactID()

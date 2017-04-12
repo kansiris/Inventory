@@ -1,67 +1,103 @@
 ﻿@if (ViewBag.records != null)
 {
     @*<div class="row">*@
-    <div class="table-responsive" id="contactdiv">
-        <table class="table table-borderedtable-striped bulk_action" id="contacttable">
-            <thead class="thead-inverse">
-                <tr>
-                    <th></th>
-                    <th>First Name</th>
+    @*<div class="col-md-12">*@
+        <div class="table-responsive" id="contactdiv">
+            <table class="table table-borderedtable-striped bulk_action" id="contacttable">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th></th>
+                        <th>First Name</th>
 
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Job position</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Job position</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @if (ViewBag.records.Count != 0)
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.records.Count != 0)
                 {
                     foreach (var item in ViewBag.records)
                     {
-                        <tr>
-                            @*<th scope="row">1</th>*@
-                            @*<td>@item.con_id</td>*@
-                            <td>
-                                @if (item.Image != "" && item.Image != null && item.Image != "/images/user.png")
-                                { <img src="data:image;base64,@item.Image" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
-                                else
-                                { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
-                            </td>
-                            <td>@item.conperson</td>
+                            <tr>
+                                @*<th scope="row">1</th>*@
+                                @*<td>@item.con_id</td>*@
+                                <td>
+                                    @if (item.Image != "" && item.Image != null && item.Image != "/images/user.png")
+                                    { <img src="data:image;base64,@item.Image" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
+                                    else
+                                    { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" /> }
+                                </td>
+                                <td>@item.conperson</td>
 
-                            <td>@item.Mobile</td>
-                            <td>@item.Email</td>
-                            <td>@item.phone</td>
-                            <td>@item.Job_position</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                    <ul class="dropdown-menu">
-                                        <li> <a onclick="getEditContactDetails(@item.con_id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                        <li> <a onclick="deletecontact(@item.con_id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Contact</a> </li>
-                                    </ul>
-                                </div>
-                            </td>
+                                <td>@item.Mobile</td>
+                                <td>@item.Email</td>
+                                <td>@item.phone</td>
+                                <td>@item.Job_position</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                        <ul class="dropdown-menu">
+                                            <li> <a onclick="getEditContactDetails(@item.con_id.TrimEnd())"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
+                                            <li> <a onclick="deletecontact(@item.con_id.TrimEnd())"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Contact</a> </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                    else
+                    {
+                        <tr>
+                            <td colspan="6"><p>No Records Available</p></td>
                         </tr>
                     }
-                }
+                </tbody>
+            </table>
+        </div>
+        <div class="row" id="whcontacttable">
+            @foreach (var item in ViewBag.records)
+            {
+                <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                    <div class="well profile_view">
+                        <div class="col-sm-12">
+                            <h4 class="brief"><i>@item.conperson</i></h4>
+                            <div class="left col-xs-7">
+                                <h2>@item.Email</h2>
+                                @*//<p><strong>About: </strong> Web Designer / UI. </p>*@
+                                <p><strong>Jobposition: </strong> @item.Job_position </p>
+                                <p><strong>Phone: </strong> @item.phone </p>
+                                @*<ul class="list-unstyled">
+                                    <li><i class="fa fa-building"></i><span> Jobposition:</span> @item.Job_position</li>
+                                    <li><i class="fa fa-phone"></i><span> Phone #:</span>@item.phone</li>
+                                </ul>*@
+                            </div>
+                            <div class="right col-xs-5 text-center">
+                                @if (item.Image != "" && item.Image != null && item.Image != "/images/user.png")
+                                { <img src="data:image;base64,@item.Image" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
+                                else
+                                { <img src="~/images/user.png" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
+                            </div>
+                        </div>
+                        <div class="col-xs-12 bottom text-center">
+                            <div class="col-xs-12 col-sm-6 emphasis">
+                                <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 emphasis">
+                                <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
+                                <button type="button" class="btn btn-primary btn-xs" onclick="viewVendor(@item.con_id)"> <i class="fa fa-user"> </i> View Profile </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
 
-                else
-                {
-                    <tr>
-                        <td colspan="6"><p>No Records Available</p></td>
-                    </tr>
-                }
-
-
-
-
-            </tbody>
-        </table>
-    </div>
+        </div>
     @*</div>*@
+        @*</div>*@
 }
 
 

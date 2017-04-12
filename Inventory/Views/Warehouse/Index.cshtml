@@ -38,12 +38,12 @@
                 <div class="col-md-12">
                     <h1 class="pull-left">Warehouse</h1>
                     <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>
-                    <div class="icons pull-right">
-                        <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
-                        <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
-                        <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
-                        <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
-                    </div>
+                    @*<div class="icons pull-right">
+                            <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+                            <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+                            <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+                            <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+                        </div>*@
                 </div>
             </div>
             @*<h1 class="pull-left">Warehouse</h1>*@
@@ -209,6 +209,18 @@
                             </li>
 
                             <li data-content="contactperson" class="contactperson">
+                                <div class="row top-bar">
+                                    <div class="col-md-12">
+                                        <h1 class="pull-left">Contactperson</h1>
+                                        @*<button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>*@
+                                        <div class="icons pull-right">
+                                            <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+                                            <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+                                            <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+                                            <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
@@ -295,14 +307,14 @@
                             </li>
                             <li data-content="Gallery">
 
-                               
+
                                 <div class="row">
                                     <div class="col-md-12">
 
                                         <div class="row">
 
                                             <div class="col-md-3 ">
-                                                <input type="file" name="file" id="galfileupload1" accept=".gif, .jpeg, .png" style="display:none"  onchange="galupload1()">
+                                                <input type="file" name="file" id="galfileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="galupload1()">
                                                 <img id="galpic1" onclick="javascript: document.getElementById('galfileupload1').click();" src="/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
 
                                             </div>
@@ -330,7 +342,7 @@
                                         <button type="button" class="btn btn-primary pull-right" value="Save Images" id="gallerybutton" onclick="updategallery(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Gallery</button>
                                     </div>
                                 </div>
-                               
+
 
                             </li>
 
@@ -370,7 +382,7 @@
 
         $("#add-wh").click(function () {
             $("#wh-information").css("display", "block");
-           // $("#contacttable").css("display", "none");
+            // $("#contacttable").css("display", "none");
             $("#wh-information1").css("display", "none");
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
             $('#mySubmit').val("Save").text("Save");
@@ -381,8 +393,23 @@
             $("#bill_Country").attr("disabled", false);
             $("#ship_Country").attr("disabled", false);
             // $('#contactbutton').val("updatecontact").text("Update Contact");
-           // $('#gallerybutton').val("update gallery").text("Update Gallery");
+            // $('#gallerybutton').val("update gallery").text("Update Gallery");
             $("#addinfo").hide();
+            $('#mySubmit').show();
+            $('#mySubmit1').show();
+            $('#contactbutton').show();
+            $('#notebutton').show();
+            $('#myform input[type=text]').attr("disabled", false);
+            $('#myform textarea').attr("disabled", false);
+            $('#myform input[type=file]').attr("disabled", false);
+            $("#bill_Country").attr("disabled", false);
+            $("#ship_Country").attr("disabled", false);
+            $("#wh-information1-cancel").show();
+            $("#btnclose3").show();
+            $("#btnclosegallery").show();
+            $("#btnclosenote").show();
+            $("#wh-information-cancel").show();
+            $("#EmailId").attr("disabled", false);
             // $('#mySubmit').val("Save").text("Save");
         });
         //$("addinfo").click(function () {
@@ -399,7 +426,7 @@
         $("#wh-information1-cancel").click(function () {
             $//("#wh-information input").val("");
             // $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
-           // $("#wh-information").css("display", "block");
+            // $("#wh-information").css("display", "block");
             $("#wh-information1").css("display", "none");
             var url = 'Warehouse/WarehouseDetails';
             $('#whdetails').empty().load(url, function () { Pagination(); });
@@ -436,7 +463,21 @@
                 return false;
             }
         });
-
+        $("#list-view").click(function () {
+            $("#contactdiv").css("display", "block");
+            $("#whcontacttable").css("display", "none");
+            //location.reload();
+        });
+        $("#grid-view").click(function () {
+            
+            $("#whcontacttable").css("display", "block");
+            $("#contactdiv").css("display", "none");
+            //location.reload();
+            
+        });
+        $("#refresh").click(function (e) {
+            location.reload();
+        });
     </script>
     <script>
         var bc = {};
@@ -479,8 +520,8 @@
     </script>
     <script>
         $(document).ready(function (e) {
-            Pagination();
-            
+           Pagination();
+
             $(".top-button").each(function () {
                 var colors = ["#f4511e", "#7e57c2", "#455a64", "#512da8", "#c2185b", "#5c6bc0", "#0288d1", "#f4511e", "#ef6c00", "#0097a7", "#5c6bc0", "#5d4037"];
                 var len = colors.length;
@@ -496,12 +537,13 @@
                 $(".cd-tabs").css("display", "block");
                 $("#wh-information1").css("display", "block");
             });
-
+            //$("#contactdiv").css("display", "none");
+            $("#whcontacttable").css("display", "none");
 
         });
-       
 
-       
+
+
         function Pagination() {
             $('#whtable').after('<div id="nav"></div>');
             var rowsShown = 3;
@@ -617,7 +659,6 @@
             //alert(id);
             $('#mySubmit').show();
             $('#mySubmit1').show();
-            $('#bankid').show();
             $('#contactbutton').show();
             $('#notebutton').show();
             $('#myform input[type=text]').attr("disabled", false);
@@ -629,6 +670,7 @@
             $("#btnclose3").show();
             $("#btnclosegallery").show();
             $("#btnclosenote").show();
+            $("#gallerybutton").show();
             $("#wh-information-cancel").show();
             $("#EmailId").attr("disabled", false);
             $('#mySubmit').val("update").text("Update Warehouse");
@@ -714,7 +756,6 @@
                         $(".cd-tabs").css("display", "block");
                         $('#mySubmit').hide();
                         $('#mySubmit1').hide();
-                        $('#bankid').hide();
                         $('#contactbutton').hide();
                         $('#notebutton').hide();
                         $('#myform input[type=text]').attr("disabled", true);
@@ -726,6 +767,7 @@
                         $("#btnclose3").hide();
                         $("#btnclosegallery").hide();
                         $("#btnclosenote").hide();
+                        $("#gallerybutton").hide();
                         $("#wh-information-cancel").hide();
                         $("#EmailId").attr("disabled", true);
                         $("#Contact_PersonFname").val("");
@@ -1168,63 +1210,63 @@
                 galimage2: $('#galpic2').attr('src').replace('data:galimage2/;base64,', ''),
                 galimage3: $('#galpic3').attr('src').replace('data:galimage3/;base64,', ''),
                 galimage4: $('#galpic4').attr('src').replace('data:galimage4/;base64,', ''),
-                
-           
+
+
             }
             if (clickedvalue == 'Save Images') {
-                    $.ajax({
-                        url: '/Warehouse/updategallery',
-                        type: 'POST',
-                        data: JSON.stringify({ warehouse: warehouse }),
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        success: function (data) {
-                            if (data == "success") {
-                                //$('#savebutton').hide();
-                                var url = 'Warehouse/WarehouseDetails';
-                                $('#whdetails').empty().load(url, function () { Pagination(); });
-                                alert("Gallery Saved successfully");
-                                $("#galpic1").attr("src", "/images/user.png");
-                                $("#galpic2").attr("src", "/images/user.png");
-                                $("#galpic3").attr("src", "/images/user.png");
-                                $("#galpic4").attr("src", "/images/user.png");
-                                // $("#whtable").load(" #whtable");
-                            }
-                            else {
-                                alert("not updated");
-                            }
-                        },
-                        error: function (data)
-                        { alert("Failed!!!"); }
-                    });
-                }
-                if (clickedvalue == 'update gallery') {
-                    $.ajax({
-                        url: '/Warehouse/updategallery',
-                        type: 'POST',
-                        data: JSON.stringify({ warehouse: warehouse }),
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        success: function (data) {
-                            if (data == "success") {
-                                //$('#savebutton').hide();
-                                var url = 'Warehouse/WarehouseDetails';
-                                $('#whdetails').empty().load(url, function () { Pagination(); });
-                                alert("gallery updated successfully");
-                                $("#galpic1").attr("src", "/images/user.png");
-                                $("#galpic2").attr("src", "/images/user.png");
-                                $("#galpic3").attr("src", "/images/user.png");
-                                $("#galpic4").attr("src", "/images/user.png");
-                            }
-                            else {
-                                alert("not updated");
-                            }
-                        },
-                        error: function (data)
-                        { alert("Failed!!!"); }
-                    });
-                }
-            
+                $.ajax({
+                    url: '/Warehouse/updategallery',
+                    type: 'POST',
+                    data: JSON.stringify({ warehouse: warehouse }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "success") {
+                            //$('#savebutton').hide();
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
+                            alert("Gallery Saved successfully");
+                            $("#galpic1").attr("src", "/images/user.png");
+                            $("#galpic2").attr("src", "/images/user.png");
+                            $("#galpic3").attr("src", "/images/user.png");
+                            $("#galpic4").attr("src", "/images/user.png");
+                            // $("#whtable").load(" #whtable");
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'update gallery') {
+                $.ajax({
+                    url: '/Warehouse/updategallery',
+                    type: 'POST',
+                    data: JSON.stringify({ warehouse: warehouse }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "success") {
+                            //$('#savebutton').hide();
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
+                            alert("gallery updated successfully");
+                            $("#galpic1").attr("src", "/images/user.png");
+                            $("#galpic2").attr("src", "/images/user.png");
+                            $("#galpic3").attr("src", "/images/user.png");
+                            $("#galpic4").attr("src", "/images/user.png");
+                        }
+                        else {
+                            alert("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+
         }
         //update gallery end
         function getEditContactDetails(id) {
