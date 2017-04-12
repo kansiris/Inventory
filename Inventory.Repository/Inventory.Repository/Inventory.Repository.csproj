@@ -63,6 +63,7 @@
     <Compile Include="Authenticateuser_Result.cs">
       <DependentUpon>InventoryMasterSP.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomerRepository.cs" />
     <Compile Include="Franchises.cs" />
     <Compile Include="GetUserProfile_Result.cs">
       <DependentUpon>InventoryMasterSP.tt</DependentUpon>

@@ -1,0 +1,151 @@
+﻿@using Inventory.Models
+@model Inventory.Models.Customer
+@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
+}
+
+@section css{
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <!--- Tabs in Graph Section ---->
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="container" id="company">
+        <form method="post" action="#" id="myform">
+            @Html.HiddenFor(Model => Model.cus_company_Id, new { Value = @ViewBag.cus_company_Id })
+           @* @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })*@
+            <div class="row top-bar">
+                <div class="col-md-12">
+                    <h1 class="pull-left">Customer</h1>
+                    <button type="button" class="btn btn-primary pull-right invite" id="add-customer"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Customer </button>
+                    <div class="icons pull-right">
+                        <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+                        <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+                        <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+                        <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row blocks">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Estimate</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Unbilled Activity</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Open Invoice</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <h2>Over Due</h2>
+                        <p>Rs&nbsp;10000</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="customer">
+                @{ Html.RenderAction("CustomerCompany", "Customer");}
+
+                <div class="row" id="customertable1">
+                </div>
+            </div>
+            <div class="row" id="customer-information">
+                <div class="col-md-12 form-title">Customer Information</div>
+                <div class="col-md-6">
+                    <div class="row">
+                        @*@Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })*@
+                        @if (ViewBag.company != null)
+                        {
+
+                            <div class="form-group col-md-4">
+                                @Html.TextBoxFor(Model => Model.cus_company_name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
+                            </div>
+                            <div class="form-group col-md-5">
+
+                                @Html.TextBoxFor(Model => Model.cus_email, new { placeholder = "Email", @id = "Email", required = "required", @class = "form-control", Value = ViewBag.email })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group col-md-4">
+                                @Html.TextBoxFor(Model => Model.cus_company_name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-5">
+
+                                @Html.TextBoxFor(Model => Model.cus_email, new { placeholder = "Email", id = "Email", required = "required", @class = "form-control" })
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default pull-right" id="customer-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editcuscompany(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                        </div>
+                    </div>
+                    <a style="cursor: pointer;" id="additonal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information</a>
+                </div>
+                @*companylogo code start*@
+                <div class="col-md-3 col-md-push-3" id="company_pic">
+                    <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" style="display:none" onchange="upload()">
+                    <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
+
+                    <div>Upload Company Logo</div>
+                </div>
+                @*companylogo code end*@
+            </div>
+          
+
+        </form>
+    </div>
+</div>
+<!-- /page content -->
+
+@section scripts{
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="../build/js/custom.min.js"></script>
+
+    <script src="~/Scripts/customer.js"></script>
+
+}
+
+
+
+
