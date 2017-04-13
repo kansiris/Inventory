@@ -27,7 +27,8 @@
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
-
+@if (ViewBag.count != "" && ViewBag.count != null)
+{
 <div class="right_col" role="main">
     <div class="container">
         <form>
@@ -51,9 +52,13 @@
                             <input type="text" class="form-control selected-position" placeholder="Category">
                             <div class="display-positions">
                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Category</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 1</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 2</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 3</div>
+                                @if (ViewBag.categories.Count != 0)
+                               {
+                                    foreach (var item in ViewBag.categories)
+                                    {
+                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
+                                    }
+                                }
                             </div>
                             <div class="row add-position">
                                 <div class="row">
@@ -110,9 +115,13 @@
                             <input type="text" class="form-control selected-position" placeholder="Weight">
                             <div class="display-positions">
                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Weight</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>KG'S</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Grams</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Lb's</div>
+                                @if (ViewBag.weights.Count != 0)
+                                {
+                                    foreach (var item in ViewBag.weights)
+                                    {
+                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.weight</div>
+                                    }
+                                }
                             </div>
                             <div class="row add-position">
                                 <div class="row">
@@ -127,10 +136,13 @@
                             <input type="text" class="form-control selected-position" placeholder="Sizes">
                             <div class="display-positions">
                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Sizes</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>M</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>L</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XL</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XXL</div>
+                               @if (ViewBag.sizes.Count != 0)
+                               {
+                                   foreach (var item in ViewBag.sizes)
+                                   {
+                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.size</div>
+                                   }
+                               }
                             </div>
                             <div class="row add-position">
                                 <div class="row">
@@ -145,10 +157,13 @@
                             <input type="text" class="form-control selected-position" placeholder="Colors">
                             <div class="display-positions">
                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Colors</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>White</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Black</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Orange</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Baby Pink</div>
+                                @if (ViewBag.colors.Count != 0)
+                                {
+                                    foreach (var item in ViewBag.colors)
+                                    {
+                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.color</div>
+                                    }
+                                }
                             </div>
                             <div class="row add-position">
                                 <div class="row">
@@ -165,10 +180,13 @@
                             <input type="text" class="form-control selected-position" placeholder="Item Shape">
                             <div class="display-positions">
                                 <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Item Shape</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bottle</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Pouch</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Box</div>
-                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bag</div>
+                                @if (ViewBag.itemshapes.Count != 0)
+                                {
+                                    foreach (var item in ViewBag.itemshapes)
+                                    {
+                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.itemshape</div>
+                                    }
+                                }
                             </div>
                             <div class="row add-position">
                                 <div class="row">
@@ -367,10 +385,15 @@
                     <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
                 </div>
             </div>
+        </form>
     </div>
-    </form>
+    
 </div>
-
+}
+else
+{
+    <h2>No Warehouse Detected.Add warehouse by clicking <a href="/Warehouse">here</a></h2>
+}
 @section scripts{
         <!-- jQuery lib & Tabs -->
 <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>

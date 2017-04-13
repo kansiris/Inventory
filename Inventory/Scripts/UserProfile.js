@@ -99,6 +99,7 @@
             alert('Invalid File Type');
         }
         else {
+            $(".overlay").show();
             var id = location.search.split('id=')[1];
             var data = new FormData();
             var files = $("#fileupload").get(0).files;
@@ -112,9 +113,11 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    $("#companypic").attr("src","data:image/;base64,"+response);
+                    $("#companypic").attr("src", "data:image/;base64," + response);
+                    $(".overlay").hide();
                 },
                 error: function (er) {
+                    $(".overlay").hide();
                     alert("Failed To Upload Pic!!! Try Again");
                 }
             });
@@ -129,6 +132,7 @@
             alert('Invalid File Type');
         }
         else {
+            $(".overlay").show();
             var file = $("#fileupload1").get(0).files;
             var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
             var data = new FormData();
@@ -144,9 +148,11 @@
                 data: data,
                 success: function (response) {
                     $("#smallprofilepic").attr("src","data:image/;base64,"+response);
-                    $("#profilepic").attr("src","data:image/;base64,"+response);
+                    $("#profilepic").attr("src", "data:image/;base64," + response);
+                    $(".overlay").hide();
                 },
                 error: function (er) {
+                    $(".overlay").hide();
                     alert("Failed To Upload Pic!!! Try Again");
                 }
             });
@@ -161,6 +167,7 @@
             alert('Invalid File Type');
         }
         else {
+            $(".overlay").show();
             var id =$('#Item4_Staff_Id').val();
             var data = new FormData();
             var files = $("#fileupload2").get(0).files;
@@ -174,9 +181,11 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    $("#staffprofilepic").attr("src","data:image/;base64,"+response);
+                    $("#staffprofilepic").attr("src", "data:image/;base64," + response);
+                    $(".overlay").hide();
                 },
                 error: function (er) {
+                    $(".overlay").hide();
                     alert("Failed To Upload Pic!!! Try Again");
                 }
             });
@@ -436,17 +445,19 @@ $("#list-view").click(function(e) {
     $("#contacttable").css("display", "block");
     $("#vendortable1").css("display","none");
     //location.reload();
+    $(".overlay").show();
     var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
     var url = 'UserProfile/GetStaffRecords?id=' + id + '';
     $('#partialdiv').empty().load(url, function () { Pagination(); });
+    $(".overlay").hide();
 });
 
 $("#refresh").click(function (e) {
+    $(".overlay").show();
     var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
     var url = 'UserProfile/GetStaffRecords?id='+id+'';
     $('#partialdiv').empty().load(url,function(){ Pagination(); });
-
-
+    $(".overlay").hide();
     });
 //</script>
 ////<!------------ List / Grid Views and reload page -------------->
