@@ -30,10 +30,10 @@
 }
 <!-- page content -->
 <div class="right_col" role="main">
-    <div class="container" id="company">
+    <div class="container" id="cuscompany">
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.cus_company_Id, new { Value = @ViewBag.cus_company_Id })
-           @* @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })*@
+            @Html.HiddenFor(Model => Model.Customer_Id, new { Value = @ViewBag.Customer_Id })
             <div class="row top-bar">
                 <div class="col-md-12">
                     <h1 class="pull-left">Customer</h1>
@@ -83,26 +83,26 @@
                 <div class="col-md-12 form-title">Customer Information</div>
                 <div class="col-md-6">
                     <div class="row">
-                        @*@Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })*@
-                        @if (ViewBag.company != null)
+                        @Html.HiddenFor(Model => Model.cus_company_Id, new { Value = @ViewBag.cus_company_Id })
+                        @if (ViewBag.cuscompany != null)
                         {
 
                             <div class="form-group col-md-4">
-                                @Html.TextBoxFor(Model => Model.cus_company_name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control", Value = ViewBag.companyname })
+                                @Html.TextBoxFor(Model => Model.cus_company_name, new { placeholder = "Customer Company Name", @id = "cus_company_name", required = "required", @class = "form-control", Value = ViewBag.cus_company_name })
                             </div>
                             <div class="form-group col-md-5">
 
-                                @Html.TextBoxFor(Model => Model.cus_email, new { placeholder = "Email", @id = "Email", required = "required", @class = "form-control", Value = ViewBag.email })
+                                @Html.TextBoxFor(Model => Model.cus_email, new { placeholder = "Customer Email", @id = "cus_email", required = "required", @class = "form-control", Value = ViewBag.cus_email })
                             </div>
                         }
                         else
                         {
                             <div class="form-group col-md-4">
-                                @Html.TextBoxFor(Model => Model.cus_company_name, new { placeholder = "Company Name", @id = "Company_Name", required = "required", @class = "form-control" })
+                                @Html.TextBoxFor(Model => Model.cus_company_name, new { placeholder = " Customer Company Name", @id = "cus_company_name", required = "required", @class = "form-control" })
                             </div>
                             <div class="form-group col-md-5">
 
-                                @Html.TextBoxFor(Model => Model.cus_email, new { placeholder = "Email", id = "Email", required = "required", @class = "form-control" })
+                                @Html.TextBoxFor(Model => Model.cus_email, new { placeholder = "Customer Email", id = "cus_email", required = "required", @class = "form-control" })
                             </div>
                         }
                     </div>
@@ -112,18 +112,236 @@
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editcuscompany(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
-                    <a style="cursor: pointer;" id="additonal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information</a>
+                    <a style="cursor: pointer;" id="additonal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information Of Customer</a>
                 </div>
-                @*companylogo code start*@
-                <div class="col-md-3 col-md-push-3" id="company_pic">
+                @*cuscompanylogo code start*@
+                <div class="col-md-3 col-md-push-3" id="cuscompany_pic">
                     <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" style="display:none" onchange="upload()">
-                    <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
+                    <img id="cuscompanypic" onclick="javascript: document.getElementById('fileupload').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
 
-                    <div>Upload Company Logo</div>
+                    <div>Upload Customer Company Logo</div>
                 </div>
-                @*companylogo code end*@
+                @*cuscompanylogo code end*@
             </div>
-          
+            <div class="row" id="customer-information1">
+                <!--------- Tab Section START ------------>
+                <div class="col-md-12">
+                    <div class="cd-tabs">
+                        <nav>
+                            <ul class="cd-tabs-navigation">
+                                <li><a data-content="address" class="selected" href="#0">Address</a></li>
+                                <li><a data-content="contactperson" href="#0">Contact Person</a></li>
+                                @*<li><a data-content="details" href="#0">Bank Details</a></li>*@
+                                <li><a data-content="notes" href="#0">Notes</a></li>
+                            </ul>
+                            <!-- cd-tabs-navigation -->
+                        </nav>
+                        <ul class="cd-tabs-content">
+                            <li data-content="address" class="selected">
+                                <div class="row">
+                                    <div class="col-md-6 padding-top padding-bottom">
+                                        <div class="row col-md-12">
+                                            <h2 class="form-title">Billing address<a href="#">map</a></h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="5" name="bill_street" id="bill_street" placeholder="Street"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="bill_city" id="bill_city" placeholder="City/Town">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="bill_state" id="bill_state" placeholder="State">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="bill_postalcode" id="bill_postalcode" placeholder="Postal Code">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.DropDownListFor(Model => Model.bill_country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 padding-top padding-bottom shipping">
+                                        <div class="row">
+                                            <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
+                                            <div class="checkbox col-md-6">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Same as billing address
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="5" name="ship_street" id="ship_street" placeholder="Street"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="ship_city" id="ship_city" placeholder="City/Town">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="ship_state" id="ship_state" placeholder="State">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="ship_postalcode" id="ship_postalcode" placeholder="Postal Code">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                @Html.DropDownListFor(Model => Model.ship_country, (SelectList)ViewBag.country, "Select country", new { @class = "form-control", required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" onclick="editcuscompanyaddress(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Address</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li data-content="contactperson" class="contactperson">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <input type="hidden" id="newcuscompanyid" value="@ViewBag.id" />
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="Customer_contact_Fname" id="Customer_contact_Fname" placeholder="First Name">
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="Customer_contact_Lname" id="Customer_contact_Lname" placeholder="Last name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="Mobile_No" placeholder="Mobile" id="Mobile_No" maxlength="12">&nbsp;<span id="errmsg" style="color:red"></span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="Email_Id" id="Email_Id" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="Aadhaar Number">&nbsp;<span id="errmsg1" style="color:red"></span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control selected-position" name="cus_Job_position" id="cus_Job_position" placeholder="Job position">
+                                                <div class="display-positions" id="cusjobposition">
+                                                    <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
+                                                    @if (ViewBag.cusjobpositions != "")
+                                                    {
+                                                        foreach (var position in ViewBag.cusjobpositions)
+                                                        { <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@position</div> }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position" id="newposition">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="addingcusjobpositions(newcuscompanyid)"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                    </div>
+                                    @*Customer logo code start*@
+                                    <div class="col-md-3 col-md-push-3">
+                                        <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
+                                        <img id="cuscontactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                        <div>Upload Contact Person image</div>
+                                    </div>
+                                    @*Customer logo code end*@
+
+
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information2-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-primary pull-right" id="cuscontactbutton" value="savecontact" onclick="updatecusContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
+                                    </div>
+                                </div>
+
+                                <div id="customerrecords">
+                                    @{ Html.RenderAction("CustomerContact", "Customer");}
+                                </div>
+                            </li>
+                            @*<li data-content="details">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">&nbsp;<span id="errmsg2" style="color:red"></span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
+                                            </div>
+                                            <div class="form-group col-md-6">
+
+                                                <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
+                                    </div>
+                                </div>
+                            </li>*@
+
+                            <li data-content="notes">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <textarea class="form-control" rows="5" placeholder="Notes" id="cus_Note" name="cus_Note"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information4-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatecusnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <!-- cd-tabs-content -->
+                    </div>
+                    <!-- cd-tabs -->
+
+                </div>
+
+                <!--------- Tab Section END ------------>
+            </div>
 
         </form>
     </div>

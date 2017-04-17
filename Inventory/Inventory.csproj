@@ -4743,6 +4743,7 @@
     <Content Include="Views\AllProducts\Index.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\CustomerCompany.cshtml" />
+    <Content Include="Views\Customer\CustomerContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

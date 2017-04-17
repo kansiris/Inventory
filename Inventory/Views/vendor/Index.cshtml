@@ -34,6 +34,7 @@
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.company_Id, new { Value = @ViewBag.company_Id })
             @Html.HiddenFor(Model => Model.Vendor_Id, new { Value = @ViewBag.vendor_Id })
+            
             <div class="row top-bar">
                 <div class="col-md-12">
                     <h1 class="pull-left">Vendor</h1>
@@ -108,7 +109,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default pull-right" id="vendor-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-default pull-right" id="vendor-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editcompany(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
@@ -201,7 +202,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                    <button type="button" class="btn btn-default pull-right" id="vendor-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                     <button type="button" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" onclick="editcompanyaddress(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Address</button>
                 </div>
             </div>
@@ -274,7 +275,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information2-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information2-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="updateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
@@ -311,7 +312,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
                                     </div>
                                 </div>
@@ -330,7 +331,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="vendor-information4-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="vendor-information4-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatecompanynote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
                                     </div>
                                 </div>
@@ -347,6 +348,7 @@
                         </div>
             
                     </form>
+        <center> <div><input type="button" id="forclose" value="Close View" style="display:none" onclick="location.reload();"/></div></center>
                 </div>
             </div>
             <!-- /page content -->
