@@ -48,6 +48,16 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group col-md-12">
+                            <input type="text" class="form-control" placeholder="Brand Name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <input type="text" class="form-control" placeholder="Model Number">
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group col-xs-12 col-md-12">
                             <input type="text" class="form-control selected-position" placeholder="Category">
                             <div class="display-positions">
@@ -92,19 +102,26 @@
                     <div class="row text-left">
                         <div class="form-group col-md-3">
                             <label>Cost Price</label>
-                            <input type="text" class="form-control" placeholder="Cost Price">
+                            <input type="text" class="form-control" placeholder="Cost Price" value="0">
                         </div>
                         <div class="form-group col-md-3">
                             <label>Selling Price</label>
-                            <input type="text" class="form-control" placeholder="Selling Price">
+                            <input type="text" class="form-control" placeholder="Selling Price" value="0">
                         </div>
                         <div class="form-group col-md-3">
-                            <label>Actual Price</label>
-                            <input type="text" class="form-control" placeholder="Actual Price">
+                            <label>Tax(%)</label>
+                            <input type="text" class="form-control" placeholder="Tax" value="0">
                         </div>
                         <div class="form-group col-md-3">
-                            <label>Discount</label>
-                            <input type="text" class="form-control" placeholder="Discount">
+                            <label>Discount(%)</label>
+                            <input type="text" class="form-control" placeholder="Discount" value="0">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Total</label>
+                            <input type="text" class="form-control" placeholder="Total">
+                            <span>(Selling price + Tax - Discount)</span>
                         </div>
                     </div>
                     <div class="row">
@@ -243,27 +260,41 @@
                     <div class="row">
                         <div class="form-group radio col-xs-6 col-md-6">
                             <label>
-                                <input type="radio" name="optradio">
-                                Veg
+                                <input type="radio" name="optradio" class="consumable" checked="checked">
+                                Consumable
                             </label>
                         </div>
                         <div class="form-group radio col-xs-6 col-md-6">
                             <label>
-                                <input type="radio" name="optradio">
+                                <input type="radio" name="optradio" class="non-consumable">
+                                Non-Consumable
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group radio col-xs-6 col-md-6">
+                            <label class="veg">
+                                <input type="radio" name="optradio1">
+                                Veg
+                            </label>
+                        </div>
+                        <div class="form-group radio col-xs-6 col-md-6">
+                            <label class="non-veg">
+                                <input type="radio" name="optradio1">
                                 Non-Veg
                             </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group radio col-xs-6 col-md-6">
-                            <label>
-                                <input type="radio" name="optradio1">
+                            <label class="Perishable">
+                                <input type="radio" name="optradio2">
                                 Perishable
                             </label>
                         </div>
                         <div class="form-group radio col-xs-6 col-md-6">
-                            <label>
-                                <input type="radio" name="optradio1">
+                            <label class="Non-Perishable">
+                                <input type="radio" name="optradio2">
                                 Non-Perishable
                             </label>
                         </div>
@@ -376,7 +407,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-9">
-                    <label>Add Tags<span>(Seperated by kama)</span></label>
+                    <label>Add Tags<span>(Seperated by comma)</span></label>
                     <ul id="myTags"></ul>
                 </div>
             </div>
@@ -413,14 +444,15 @@ else
 <script type="text/javascript" src="js/tag-it.js" language="javascript"></script>*@
 <script src="~/Scripts/js/jquery-ui.min.js"></script>
 <script src="~/Scripts/js/tag-it.js"></script>
+
 <script type="text/javascript">
   $('#myTags').tagit();
 </script>
-@*<!------ Tags With Space and comma ------->
-<!-------------- Date Picker ----------->*@
+@*<!------ Tags With Space and comma ------->*@
+@*<!-------------- Date Picker ----------->*@
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap-datepicker3.css" />
 
-<script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
-<link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
 <script>
 	$(document).ready(function(){
 		var date_input=$('input[name="date"]'); //our date input has the name "date"
@@ -437,111 +469,170 @@ else
 @*<!-------------- Date Picker ----------->*@
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-@*<!------- PopUP ------->
+    //<!------- PopUP ------->
 
-<!--------- Add Image popUp Tabs ------>*@
-$("ul.tabs > li").click(function(){
-	var v = $(this).attr("class");
-	$("ul.tabs-content > li").each(function() {
-        var v1 = $(this).attr("class");
-		if(v==v1){
-			$(this).css("opacity","1");
-			}else{
-				$(this).css("opacity","0");}
+    //<!--------- Add Image popUp Tabs ------>
+    $("ul.tabs > li").click(function(){
+        var v = $(this).attr("class");
+        $("ul.tabs-content > li").each(function() {
+            var v1 = $(this).attr("class");
+            if(v==v1){
+                $(this).css("opacity","1");
+                }else{
+                    $(this).css("opacity","0");}
+        });
+        });
+    //<!--------- Add Image popUp Tabs ------>
+        //<!---- Cancel Tab ---->
+        $(".cancel").click(function(){
+            $(".image-library").css("display","none");
+            });
+        //<!---- Cancel Tab ---->
+        //<!---- Display PopUp ---->
+        $(".add-popup").click(function(){
+            $(".image-library").css("display","block");});
+            $("ul.tabs-content > li > ul > li > input[type='checkbox']").attr("checked",false);
+        //<!---- Display PopUp ---->
+        //<!--------- Add checkbox Images ------>
+          $("#add-image").click(function(){
+              $("li#tab-2 > ul > li > input[type='checkbox']").each(function(){
+                  if($(this).is(":checked")){
+                      var l = $("input[type='checkbox']:checked").length;
+                      //alert(l);
+                      if(l <= 6){
+                      var v = $(this).next().attr("src");
+                      //alert(v);
+                      $("ul.admin-product-thumbs").append("<li>" + "<img src='" + v + "'" + "alt='" + v + "'" + "/>" + "</li>");
+                      $("<i class='fa fa-times' aria-hidden='true'></i>").insertBefore("ul.admin-product-thumbs > li > img");
+                      $("ul.admin-product-thumbs li i").click(function(){
+                          $(this).parent("li").css("display","none");
+                          if(($(this).next("img").attr("src") == $(".admin-product-image img").attr("src"))){
+                              $(this).parent("li").css("display","none");
+                              $(".admin-product-image img").attr("src","images/default_product.png");
+                              }
+                          });
+                      }else{
+                          alert("Select Less than Six");
+                          exit;}
+                    }
+                      });
+
+            //<!--------- Thumb Image ------>
+          $("ul.admin-product-thumbs > li > img").click(function(){
+        //alert("ONE");
+        var src = $(this).attr("src");
+        //alert(src);
+        //var src = $(this).attr("src").split("/");
+        //alert(src);
+        //var len = src[src.length-1];
+        //var file = len.split(".")[0];
+        //alert(file);
+        $(".admin-product-image img").attr("src",src);
+        });
+        //<!--------- Thumb Image ------>
+                    });
+        //<!--------- Add checkbox Images ------>
+
+   // <!------- PopUP ------->
+
+    //<!------ Instant Values added in Input Box ------->
+    function textval(){
+        $(".display-positions .positions1").click(function(){
+                          var c = $(this).text();
+                          $(this).parent(".display-positions").prev("input.selected-position").val(c);
+                         $(this).parent(".display-positions").css("display","none");
+                          });
+                          }
+
+    $(".positions1 > i.fa-trash-o").click(function(){
+                      $(this).parent(".positions1").remove();
+                  });
+
+                  $(".selected-position").click(function(){
+                      $(this).next(".display-positions").css("display","block");
+                      return textval();
+                      });
+
+      $(".display-positions .position").click(function(){
+      $(this).parent(".display-positions").next(".add-position").css("display","block");
+
+       $(".add-position .add-button").click(function(){
+          var v = $(this).prev("input[type='text']").val();
+         var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
+                  $(this).parents(".add-position").prev(".display-positions").append(value);
+          $(".positions1 > i").click(function(){
+                      $(this).parent(".positions1").remove();
+                  });
+                      return textval();
+          });
+
+        $(".close-button").click(function(){
+        $(this).parents(".add-position").css("display","none");
+        });
+
     });
-	});
-//<!--------- Add Image popUp Tabs ------>
-//	<!---- Cancel Tab ---->
-	$(".cancel").click(function(){
-		$(".image-library").css("display","none");
-		});
-	//<!---- Cancel Tab ---->
-	//<!---- Display PopUp ---->
-	$(".add-popup").click(function(){
-		$(".image-library").css("display","block");});
-		$("ul.tabs-content > li > ul > li > input[type='checkbox']").attr("checked",false);
-	//<!---- Display PopUp ---->
-	//<!--------- Add checkbox Images ------>
-	  $("#add-image").click(function(){
-		  $("li#tab-2 > ul > li > input[type='checkbox']").each(function(){
-			  if($(this).is(":checked")){
-				  var l = $("input[type='checkbox']:checked").length;
-				  //alert(l);
-				  if(l <= 6){
-				  var v = $(this).next().attr("src");
-				  //alert(v);
-				  $("ul.admin-product-thumbs").append("<li>" + "<img src='" + v + "'" + "alt='" + v + "'" + "/>" + "</li>");
-				  $("<i class='fa fa-times' aria-hidden='true'></i>").insertBefore("ul.admin-product-thumbs > li > img");
-				  $("ul.admin-product-thumbs li i").click(function(){
-					  $(this).parent("li").css("display","none");
-					  if(($(this).next("img").attr("src") == $(".admin-product-image img").attr("src"))){
-						  $(this).parent("li").css("display","none");
-						  $(".admin-product-image img").attr("src","images/default_product.png");
-						  }
-					  });
-				  }else{
-					  alert("Select Less than Six");
-					  exit;}
-				}
-				  });
+    $("input[type='text']").blur(function(){
+        $(this).next(".display-positions").css("display","none");
+    });
 
-	    //<!--------- Thumb Image ------>
-      $("ul.admin-product-thumbs > li > img").click(function(){
-	//alert("ONE");
-	var src = $(this).attr("src");
-	//alert(src);
-	//var src = $(this).attr("src").split("/");
-	//alert(src);
-	//var len = src[src.length-1];
-	//var file = len.split(".")[0];
-	//alert(file);
-	$(".admin-product-image img").attr("src",src);
-	});
-    //<!--------- Thumb Image ------>
-				});
-	//<!--------- Add checkbox Images ------>
+    //<!------ Instant Values added in Input Box ------->
 
-//<!------- PopUP ------->
+    //<!------ Total Price ------->
+    $("input[placeholder='Selling Price'],input[placeholder='Discount'],input[placeholder='Tax']").blur(function(){
+        var costprice = parseInt($("input[placeholder='Cost Price']").val());
+        var sellprice = parseInt($("input[placeholder='Selling Price']").val());
+        var tax = parseInt($("input[placeholder='Tax']").val());
+        var discount = parseInt($("input[placeholder='Discount']").val());
+        var taxtotal = (sellprice/100) * tax;
+        var discounttotal = (sellprice/100) * discount;
+        var v = sellprice + taxtotal - discounttotal;
+        if(costprice == 0){
+            $("input[placeholder='Cost Price']").css("border","1px solid red").val(costprice);
+            }else if(costprice <= sellprice){
+        $("input[placeholder='Discount']").val(discount);
+        $("input[placeholder='Tax']").val(taxtotal);
+        $("input[placeholder='Total']").val(v);
+        $("input[placeholder='Cost Price']").css("border","1px solid #ccc").val(costprice);
+        $("input[placeholder='Selling Price']").css("border","1px solid #ccc").val(sellprice);
+        } else{
+            //alert("Please check the sell price");
+            $("input[placeholder='Selling Price']").css("border","1px solid red").val(costprice);
+        $("input[placeholder='Tax']").val(taxtotal);
+        $("input[placeholder='Total']").val(v);}
+        });
+    //<!------ Total Price ------->
 
-//<!------ Instant Values added in Input Box ------->
-function textval(){
-	$(".display-positions .positions1").click(function(){
-					  var c = $(this).text();
-					  $(this).parent(".display-positions").prev("input.selected-position").val(c);
-					 $(this).parent(".display-positions").css("display","none");
-					  });
-					  }
+    //<!------ Total Quantity in Hand ------->
+    $(document).ready(function(e) {
+        var len = $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").length;
+        var i = 0, total = 0;
+        $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").each(function(){
+            if(i <= len){
+                var val =   parseInt($(this).val());
+                total += val;
+                }
+                 i++;
+            });
+            $("input[placeholder='Total Quantity in Hand']").val(total);
+            //alert(total);
+            var discount = (total/100) * 20;
+            //alert(discount);
+    });
+   // <!------ Total Quantity in Hand ------->
 
-$(".positions1 > i.fa-trash-o").click(function(){
-				  $(this).parent(".positions1").remove();
-			  });
-
-			  $(".selected-position").click(function(){
-				  $(this).next(".display-positions").css("display","block");
-				  return textval();
-				  });
-
-  $(".display-positions .position").click(function(){
-  $(this).parent(".display-positions").next(".add-position").css("display","block");
-
-   $(".add-position .add-button").click(function(){
-	  var v = $(this).prev("input[type='text']").val();
-	 var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
-			  $(this).parents(".add-position").prev(".display-positions").append(value);
-	  $(".positions1 > i").click(function(){
-				  $(this).parent(".positions1").remove();
-			  });
-				  return textval();
-	  });
-
-	$(".close-button").click(function(){
-	$(this).parents(".add-position").css("display","none");
-	});
-
-});
-
-//<!------ Instant Values added in Input Box ------->
-</script> 
-    }
+    //<!-------------- Veg / Non-Veg ------------------>
+    $(".non-consumable").click(function(){
+    if($(".non-consumable").attr("checked","true")){
+        $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display","block");
+        }
+        });
+    $(".consumable").click(function(){
+    if($(".non-consumable").attr("checked","true")){
+        $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display","none");
+        }
+        });
+   // <!-------------- Veg / Non-Veg ------------------>
+    </script>
+        }
