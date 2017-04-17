@@ -5805,7 +5805,7 @@ strong{
 	max-width: 250px;
 	max-height: 50px;}
 	
-/*============ Add Product Page ==================*/
+/*============ Product Master ==================*/
 
 .relatedactivities .title{
 	background: #0483c6;
@@ -5863,7 +5863,7 @@ ul.admin-product-thumbs li{
 	width: 100px;
 	height: 100px;
 	display: inline-block;
-	margin: 10px 9px;
+	margin: 10px 5px;
 	padding: 5px;}
 ul.admin-product-thumbs li{
 	position: relative;}
@@ -5936,7 +5936,24 @@ button a:hover{
 	margin-bottom: 0;}
 .form-group.radio label > input[type="radio"]{
 	margin-top: 0;}
-/*============ Add Product Page ==================*/
+input[placeholder="Total"] + span{
+	font-size: 12px;
+	font-weight: 700;
+	color: #666;
+	position: absolute;
+	left: 45px;
+	top: 1px;
+	line-height: 14px; 
+	}
+label[for="date"]{
+	margin-top: 10px;
+	margin-bottom: 0;}
+.Perishable,
+.veg,
+.non-veg,
+.Non-Perishable{
+	display: none;}
+/*============ Product Master ==================*/
 
 /*============ Tags Box ==================*/
 
@@ -6047,7 +6064,7 @@ a.product-name{
   text-align: right;
 }
 .spinner input[type="text"]{
-	width: 48%;
+	width: 58%;
 	height: 24px;
 	padding: 6px 0px;
 	float: right;}
@@ -6112,6 +6129,9 @@ a.product-name{
 .checkout .title{
 	font-size: 16px;}
 .added-products{
+	height: 300px;
+	overflow-y: scroll;
+	overflow-x: hidden;
 	min-height: 250px;
 	color: #d7d7d7;
 	text-align: center;
@@ -6173,6 +6193,120 @@ ul.left-submenu.collapse.in{
     left: 0;
 }
 
+.well > i{
+	display: none;}
+.added-products > .well > i{
+	display: block;
+	position: absolute;
+	left: 200px;
+	top: 5px;
+	color: #ff0000;
+	font-size: 12px;
+	cursor: pointer;}
+.added-products > .well{
+	position: relative;
+	padding: 5px 0 0 5px;
+	background: #e2e1e1;
+	box-shadow: none;
+	border: none;
+	border-radius: 5px;
+	max-width: 232.5px;}
+.added-products > .well .img-title > span.product-brand,
+.added-products > .well .product-variation,
+.added-products > .well .shipping,
+.added-products > .well .add-to-cart,
+.added-products td > .product-variation,
+.added-products tr > td.add-to-cart-table > .btn,
+tr > td.add-to-cart-table > i{
+	display: none;}
+.added-products tr > td.add-to-cart-table > i{
+	display: block;
+	color: #ff0000;
+	position: absolute;
+	left: 100px;
+	font-size: 12px;
+	cursor: pointer;}
+.added-products > .well > .image,
+.added-products > .well .img-title{
+	float: left;}
+.added-products > .well > .image{
+	margin-right: 15px;}
+.added-products > .well .img-title{
+	margin-bottom: 10px;}
+.added-products > .well > .image > img{
+	width: 50px;
+	border-radius: 50%;}
+.added-products > .well > .rate-add > .product-price{
+	position: absolute;
+	left: 70px;
+	top: 20px;}
+.added-products > .well .input-group.spinner{
+	width: 65%;
+	position: absolute;
+	left: 0px;
+	top: 5px;}
+.added-products > .well .rate-add{
+	background: none;}
+tr > td > img{
+	width: 30px;
+	border-radius: 50%;}
+td > button.btn{
+	color: #fff;
+	background: #0288d1;
+	border: none;
+	border-radius: 3px;
+	padding: 0 5px;}
+td > button.btn > i{
+	margin-right: 0;}
+tr > td > .input-group.spinner > label{
+	display: none;}
+.shipping + .row > div:first-of-type{
+	padding-left: 0 !important;
+	padding-right: 0 ! !important;}
+.added-products tr{
+	position: relative;
+	background: #e2e1e1;
+	display: table;
+	margin-bottom: 20px;
+	padding: 5px 0 0 5px;
+	border-radius: 5px;
+	min-width: 232.5px;
+	height: 65px;}
+.added-products > tr > td.image{
+	margin-right: 20px;
+	padding-left: 0;}
+.added-products > tr > td > img{
+	width: 50px;}
+.added-products > tr > td.product-name{
+	width: 70%;
+	position: absolute;
+	left: 40px;
+	top: 5px;}
+.added-products > tr > td.product-name a,
+.added-products > tr > td.product-name a:hover,
+tr > td.product-name a,
+tr > td.product-name a:hover{
+	color: #000;}
+.added-products tr > td.product-price{
+	width: 70%;
+	position: absolute;
+	top: 17px;
+	left: 12px;
+	font-size: 12px;
+	color: #666;}
+.added-products tr > td > .input-group.spinner > label{
+	width: 19px;
+	display: block;
+	float: left;}
+.added-products tr > td.quantity-changes{
+	width: 60%;
+	position: absolute;
+	top: 39px;
+	left: 62px;}
+.added-products tr > td.quantity-changes > .input-group.spinner{
+	width: 65px;
+	color: #666;}
+
 /*
  * off canvas sidebar
  * --------------------------------------------------
@@ -6231,18 +6365,8 @@ ul.left-submenu.collapse.in{
     text-align: center;
     min-width:42px;
   }
+}
 
-tr > td > img{
-	width: 30px;
-	border-radius: 50%;}
-td > button.btn{
-	color: #fff;
-	background: #0288d1;
-	border: none;
-	border-radius: 3px;
-	padding: 0 5px;}
-td > button.btn > i{
-	margin-right: 0;}
 /*============ View Products ==================*/
 
 /*========== Media Quries ===============*/
