@@ -357,7 +357,6 @@ function getEditDetails(id) {
             else {
                 var array = JSON.parse(data);
                 var url = 'Vendor/VendorContact?id=' + array.company_Id + '';
-               
                 editFunction(array);
                 $('#vendor-information').css('display', 'block');
                 $('#additon').css('display', 'block');
