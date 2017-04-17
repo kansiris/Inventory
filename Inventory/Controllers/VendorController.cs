@@ -504,7 +504,7 @@ namespace Inventory.Controllers
             }
             else
             {
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var records = VendorService.getcontactdetail(int.Parse(id), user.DbName);
                 var dt = new DataTable();
                 dt.Load(records);

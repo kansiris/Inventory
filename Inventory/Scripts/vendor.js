@@ -427,6 +427,7 @@ function editcompany(clickedvalue) {
     }
     if (clickedvalue == 'Save') {
         $.ajax({
+            
             url: '/Vendor/savecompany',
             type: 'POST',
             data: JSON.stringify({ Company_Name, Email,logo }),
@@ -946,6 +947,7 @@ function viewVendor(id) {
                 $('#myform input[type=file]').attr("disabled", true);
                 $("#bill_country").attr("disabled", true);
                 $("#ship_country").attr("disabled", true);
+                $("#forclose").css("display", "block");
                
             }
         },
