@@ -91,6 +91,7 @@
     <Compile Include="Items.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Payment.cs" />
+    <Compile Include="ProductRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VendorRepository.cs" />
