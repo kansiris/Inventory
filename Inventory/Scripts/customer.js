@@ -6,7 +6,7 @@ $("#add-customer").click(function () {
     $('#mySubmit').css("display", "block");
     $("#customer-information input").val("");
     $("#Vendor_Id").val("");
-    $("#companypic").attr("src", "/images/user.png");
+    $("#cuscompanypic").attr("src", "/images/user.png");
     $("#customer-information1 input, .cd-tabs input, .cd-tabs textarea, .cd-tabs dropdown").val("");
     $("#bill_country").val("");
     $("#ship_country").val("");
@@ -30,6 +30,9 @@ $("#add-customer").click(function () {
     $("#customer-information2-cancel").show();
     $("#customer-information3-cancel").show();
     $("#customer-information4-cancel").show();
+    $("#forclose").css("display", "none");
+    $("#uploadtext").css("display", "block");
+    $("#uploadcontact").css("display", "block");
 });
 $("#customer-information-cancel").click(function () {
     $("#customer-information input").val("");
@@ -41,7 +44,11 @@ $("#customer-information-cancel").click(function () {
 
 function forCancel() {
     $("#additon").css("display", "block");
+    $("#customer-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
     $(".cd-tabs").css("display", "none");
+    $("#cuscompanypic").attr("src", "/images/user.png");
+    $("#cuscontactpic").attr("src", "/images/user.png");
+    
     //$("#vendor-information1 input").val("");
 }
 $("#customer-information1-cancel").click(function () {
@@ -87,11 +94,14 @@ $("#grid-view").click(function (e) {
 $("#list-view").click(function (e) {
     $("#customertable").css("display", "block");
     $("#customertable1").css("display", "none");
+    var url = 'Customer/CustomerCompany';
+    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
     //location.reload();
 });
 
 $("#refresh").click(function (e) {
-    //location.reload();
+    var url = 'Customer/CustomerCompany';
+    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
 });
 
 //<!------------ List / Grid Views and reload page -------------->
@@ -254,13 +264,13 @@ $("#Mobile_No").keypress(function (e) {
 //Deleting particular company based on id
 
 function deleteRecord(id) {
-    // alert(id);
+    //alert(id);
     var retVal = confirm("Do you want to delete record...!");
     if (retVal == true) {
         $.ajax({
             url: '/Customer/deletecusRecord',
             type: 'POST',
-            data: 'JSON.stringify({ cus_company_Id: id })',
+            data: JSON.stringify({ cus_company_Id: id }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -268,9 +278,10 @@ function deleteRecord(id) {
                     alert("sai");
                 }
                 else {
-                    alert("Company Deleted Successfully");
+                    
                     var url = 'Customer/CustomerCompany';
-                    $('#companyrecords').empty().load(url, function () { Pagination(); });
+                    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+                    alert("Company Deleted Successfully");
                     $('#customer-information').css('display', 'none');
                     $('#additonal').css('display', 'none');
                     $(".cd-tabs").css('display', 'none');
@@ -315,7 +326,7 @@ function editFunction(array) {
     $('#ship_postalcode').val(array.ship_postalcode);
 }
 
-//Get Particular Vendor Record
+//Get Particular customer Record
 function getEditDetails(id) {
     $('#mySubmit').val("update").text("Update Company");
     $('#mySubmit').show();
@@ -344,7 +355,7 @@ function getEditDetails(id) {
     });
 
     $.ajax({
-        url: '/Customer/getAllcusDetails?company_Id=' + id,
+        url: '/Customer/getAllcusDetails?cus_company_Id=' + id,
         type: 'POST',
         data: JSON.stringify({ cus_company_Id: id }),
         dataType: 'json',
@@ -355,7 +366,7 @@ function getEditDetails(id) {
             }
             else {
                 var array = JSON.parse(data);
-                var url = 'Customer/CustomerContact?id=' + array.cus_company_Id + '';
+                var url = 'Customer/CustomerContact?id=' + array.cus_company_Id ;
                 $('#customerrecords').load(url);
                 editFunction(array);
                 $('#customer-information').css('display', 'block');
@@ -372,7 +383,7 @@ function getEditDetails(id) {
 
 // particular customer
 function editcuscompany(clickedvalue) {
-    alert(clickedvalue)
+    //alert(clickedvalue)
     $('#update').click(function () {
         $('#cuscompany').css('display', 'none');
     });
@@ -437,7 +448,7 @@ function editcuscompany(clickedvalue) {
                             $('#mySubmit').hide();
                             $('#company_pic').children().attr('disabled', 'disabled');
                             var url = 'Customer/CustomerCompany';
-                            $('#company_Id').val(data.ID);
+                            $('#cus_company_Id').val(data.ID);
                             $('#cuscompanyrecords').load(url, function () { Pagination(); });
                             alert("company saved Successfully");
                             $('customer-information1').css("display", "block");
@@ -461,7 +472,7 @@ function editcuscompany(clickedvalue) {
     }
 }
 
-//Particular vendor Company Address
+//Particular customer Company Address
 function editcuscompanyaddress(clickedvalue) {
 
     $('#updateaddress').click(function () {
@@ -471,7 +482,7 @@ function editcuscompanyaddress(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     cus_company_Id = $('#cus_company_Id').val();
-    // alert(company_Id);
+    //alert(cus_company_Id);
     cus_company_name = $('#cus_company_name').val();
     cus_email = $('#cus_email').val();
     bill_street = $('#bill_street').val();
@@ -516,7 +527,7 @@ function editcuscompanyaddress(clickedvalue) {
         if (clickedvalue == 'saveaddress') {
           
             $.ajax({
-                url: '/Customer/savecuscompanyaddress',
+                url: '/Customer/updatecuscompanyaddress',
                 type: 'POST',
                 data: JSON.stringify({ cus_company_Id: cus_company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
                 dataType: 'json',
@@ -604,13 +615,13 @@ function updatecusnote(clickedvalue) {
     $('#updatenote').click(function () {
         $('#additional').css('display', 'none');
     });
-    cus_company_Id = $('#cus_company_Id').val();
-    cus_Note = $('#cus_Note').val();
+    cuscompany_Id = $('#cus_company_Id').val();
+    cusNote = $('#cus_Note').val();
     if (clickedvalue == 'updatenote') {
         $.ajax({
-            url: '/Vendor/updatecuscompanynote?',
+            url: '/Customer/updatecuscompanynote?',
             type: 'POST',
-            data: JSON.stringify({ cus_company_Id: cus_company_Id, cus_Note: cus_Note }),
+            data: JSON.stringify({ cus_company_Id: cuscompany_Id, cus_Note: cusNote }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -631,7 +642,7 @@ function updatecusnote(clickedvalue) {
         $.ajax({
             url: '/Customer/savecuscompanynote?',
             type: 'POST',
-            data: JSON.stringify({ cus_company_Id: cus_company_Id, cus_Note: cus_Note }),
+            data: JSON.stringify({ cus_company_Id: cuscompany_Id, cus_Note: cusNote }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -657,16 +668,16 @@ function updatecusContact(clickedvalue) {
     $('#updatecontact').click(function () {
         $('#additional').css('display', 'none');
     });
-    cus_company_Id = $('#cus_company_Id').val();
-    Customer_Id = $('#Customer_Id').val();
-    alert(Customer_Id);
-    Customer_contact_Fname = $('#Customer_contact_Fname').val();
-    Customer_contact_Lname = $('#Customer_contact_Lname').val();
-    Mobile_No = $('#Mobile_No').val();
-    Adhar_Number = $('#Adhar_Number').val();
-    cus_Job_position = $('#cus_Job_position').val();
-    image = $('#contactpic').attr('src').replace('data:image/;base64,', '');
-    Email_Id = $('#Email_Id').val();
+    cuscompany_Id = $('#cus_company_Id').val();
+    CustomerId = $('#Customer_Id').val();
+    //alert(Customer_Id);
+    Customercontact_Fname = $('#Customer_contact_Fname').val();
+    Customercontact_Lname = $('#Customer_contact_Lname').val();
+    MobileNo = $('#Mobile_No').val();
+    AdharNumber = $('#Adhar_Number').val();
+    cusJob_position = $('#cus_Job_position').val();
+    imagee = $('#cuscontactpic').attr('src').replace('data:image/;base64,', '');
+    EmailId = $('#Email_Id').val();
     var email = document.getElementById('Email_Id');
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!filter.test(email.value)) {
@@ -680,7 +691,7 @@ function updatecusContact(clickedvalue) {
             $.ajax({
                 url: '/Customer/savecuscontactdetails',
                 type: 'POST',
-                data: JSON.stringify({ cus_company_Id: cus_company_Id, Customer_contact_Fname: Customer_contact_Fname, Customer_contact_Lname: Customer_contact_Lname, Mobile_No: Mobile_No, Email_Id: Email_Id, Adhar_Number: Adhar_Number, cus_Job_position: cus_Job_position, image: image }),
+                data: JSON.stringify({ cus_company_Id: cuscompany_Id, Customer_contact_Fname: Customercontact_Fname, Customer_contact_Lname: Customercontact_Lname, Mobile_No: MobileNo, Email_Id: EmailId, Adhar_Number: AdharNumber, cus_Job_position: cusJob_position, image: imagee }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
@@ -688,8 +699,8 @@ function updatecusContact(clickedvalue) {
                         $('#savebutton').hide();
                         cus_company_Id = $('#cus_company_Id').val();
                         Customer_Id = $('#Customer_Id').val(data.ID);
-                        var url = 'Customer/VendorContact?id=' + cus_company_Id + '';
-                        $('#customerrecords').empty().load(url, function () { Pagination(); });
+                        var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
+                        $('#cuscontacttable').empty().load(url, function () { Pagination(); });
                         alert("Contact Details saved Successfully");
                         $("[id='Customer_contact_Fname']").val("");
                         $("[id='Customer_contact_Lname']").val("");
@@ -743,7 +754,7 @@ function updatecusContact(clickedvalue) {
 //customer contact details editing based on customer id
 
 function editcuscontactperson(id) {
-    alert(id);
+    //alert(id);
     $('#contactbutton').val("updatecontact").text("Update Contact");
     $.ajax({
         url: '/Customer/getCustomerContact?Customer_Id=' + id,
@@ -758,12 +769,12 @@ function editcuscontactperson(id) {
             else {
                 var array = JSON.parse(data);
                 $('#Customer_Id').val(array.Customer_Id);
-                $('#Customer_contact_Fname').val(array.Contact_PersonFname);
-                $('#Customer_contact_Lname').val(array.Contact_PersonLname);
+                $('#Customer_contact_Fname').val(array.Customer_contact_Fname);
+                $('#Customer_contact_Lname').val(array.Customer_contact_Lname);
                 $('#Mobile_No').val(array.Mobile_No);
-                $('#Email_Id').val(array.emailid);
+                $('#Email_Id').val(array.Email_Id);
                 $('#Adhar_Number').val(array.Adhar_Number);
-                $('#cus_Job_position').val(array.Job_position);
+                $('#cus_Job_position').val(array.cus_Job_position);
                 if (array.image != "/images/user.png" && array.image != null && array.image != "") {
                     $('#cuscontactpic').attr('src', 'data:image/;base64,' + array.image);
                 } else
@@ -776,7 +787,7 @@ function editcuscontactperson(id) {
 
 }
 
-//vendor deleting
+//customer deleting
 
 function deleteCustomer(id) {
     //alert(id);
@@ -789,15 +800,15 @@ function deleteCustomer(id) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                if (data == "unique") {
-                    alert("Not deleted");
-                }
-                else {
+                if (data == "sucess") {
                     cus_company_Id = $('#cus_company_Id').val();
                     var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                     $('#customerrecords').load(url);
                     alert("customer Deleted Successfully");
-
+                   
+                }
+                else {
+                    alert("Not deleted");
                 }
             },
             error: function (data)
@@ -905,13 +916,22 @@ function upload1() {
         });
     }
 }
-
-
-
+//// closeing view with close button
+//function closingview() {
+//    var url = 'Customer/CustomerCompany';
+//    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+//    $('#customer-information').css('display', 'none');
+//    $('#customer-information1').css('display', 'none');
+//    $('#additonal').css('display', 'none');
+//    $("#contacttable").css("display", "none");
+//    $(".cd-tabs").css("display", "none");
+//    $('#forclose').css('display', 'none');
+//}
 
 //View customer
 function viewCustomer(id) {
     //alert(id);
+    $('#forclose').css('display', 'block');
     $.ajax({
         url: '/customer/getAllcusDetails?cus_company_Id=' + id,
         type: 'POST',
@@ -947,7 +967,8 @@ function viewCustomer(id) {
                 $('#myform input[type=file]').attr("disabled", true);
                 $("#bill_country").attr("disabled", true);
                 $("#ship_country").attr("disabled", true);
-
+                $("#uploadtext").css("display", "none");
+                $("#uploadcontact").css("display", "none");
             }
         },
         error: function (data)
@@ -955,20 +976,20 @@ function viewCustomer(id) {
     });
 }
 
-function addingcusjobpositions(cus_company_Id) {
-    company_Id = $('#company_Id').val();
-    Job_position = $('#newposition').val();
-    //alert(company_Id);
-    //alert(Job_position);
+function addingcusjobpositions() {
+    cuscompany_Id = $('#cus_company_Id').val()
+   // alert(cuscompany_Id);
+    Jobposition = $('#newposition').val();
+   // alert(Jobposition);
     $.ajax({
         url: '/Customer/addPosition',
         type: 'POST',
-        data: JSON.stringify({ cus_Job_position: cus_Job_position, cus_company_Id: cus_company_Id }),
+        data: JSON.stringify({ cus_Job_position: Jobposition, cus_company_Id: cuscompany_Id }),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
             if (data.Result == "sucess") {
-                var url = 'Customer/VendorCompany';
+                var url = 'Customer/CustomerCompany';
                 $('#cuscompanyrecords').load(url, function () { Pagination(); });
                 alert("Job position added Successfully.click close and select from list");
                 var array = data.ID;
@@ -1000,8 +1021,8 @@ function forunderstand(array) {
         value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + array[i] + "</div>";
     }
     var esc1 = value;
-    $('#jobposition').empty().append(esc1);
-    $('#jobposition').prepend('<div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>');
+    $('#cusjobposition').empty().append(esc1);
+    $('#cusjobposition').prepend('<div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>');
 
     $(".display-positions .position").click(function () {
         $(".add-position").css("display", "block");

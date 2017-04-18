@@ -113,14 +113,14 @@
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editcompany(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
-                    <a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information</a>
+                    <a style="cursor: pointer;color:blueviolet" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information</a>
                 </div>
                 @*companylogo code start*@
                 <div class="col-md-3 col-md-push-3" id="company_pic">
                         <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" style="display:none" onchange="upload()">
                         <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
                    
-                    <div>Upload Company Logo</div>
+                    <div id="uploadtext">Upload Company Logo</div>
                 </div>
                 @*companylogo code end*@
             </div>
@@ -266,7 +266,7 @@
                                             <div class="col-md-3 col-md-push-3">
                                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
                                                 <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
-                                                <div>Upload Contact Person image</div>
+                                                <div id="uploadcontact">Upload Contact Person image</div>
                                             </div>
                                             @*vendor logo code end*@
 
@@ -348,7 +348,7 @@
                         </div>
             
                     </form>
-        <center> <div><input type="button" id="forclose" value="Close View" style="display:none" onclick="location.reload();"/></div></center>
+                 <center> <div><input type="button" id="forclose" value="Close View" style="display:none" onclick="location.reload();"/></div></center>
                 </div>
             </div>
             <!-- /page content -->
