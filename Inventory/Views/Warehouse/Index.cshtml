@@ -110,7 +110,7 @@
                     </div>
 
 
-                    <div id="addinfo"><a style="cursor: pointer;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information</a></div>
+                    <div id="addinfo"><a style="cursor: pointer; color: forestgreen; display: block;" id="additon"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information</a></div>
                 </div>
 
                 @*<div class="col-md-3 col-md-push-3">
@@ -618,36 +618,36 @@
         });
     </script>
     <script>
-        //function editFunction(array) {
-            //$("#contactdiv").css("visibility", "visibility");
-            //$("#whcontacttable").css("visibility", "hidden");
-            //$('#wh-information').css('display', 'block');
-            ////$("#contacttable").css("display", "block");
-            //$(".cd-tabs").css("display", "block");
-            //$('#wh_Id').val(array.wh_Id);
-            //$('#wh_Name').val(array.wh_name);
-            //$('#wh_sname').val(array.wh_Shortname);
-            //$('#bill_street').val(array.bill_Street);
-            //$('#bill_city').val(array.bill_City);
-            //$('#bill_state').val(array.bill_State);
-            //$('#bill_postalcode').val(array.bill_Postalcode);
-            //$('#bill_Country').val(array.bill_Country);
-            //$('#ship_street').val(array.ship_Street);
-            //$('#ship_city').val(array.ship_City);
-            //$('#ship_state').val(array.ship_State);
-            //$('#ship_postalcode').val(array.ship_Postalcode);
-            //$('#ship_Country').val(array.ship_Country);
-            //$('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
-            //$('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
-            //$('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
-            //$('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
-            //$('#Contact_PersonFname').val(array.conperson);
-            //$('#Phone').val(array.phone);
-            //$('#Mobile_No').val(array.Mobile);
-            //$('#EmailId').val(array.Email);
-            //$('#Job_position').val(array.Job_position);
-            //$('#Note').val(array.Note);
-        //}
+        function editFunction(array) {
+            $("#contactdiv").css("visibility", "visibility");
+            $("#whcontacttable").css("visibility", "hidden");
+            $('#wh-information').css('display', 'block');
+            //$("#contacttable").css("display", "block");
+            $(".cd-tabs").css("display", "block");
+            $('#wh_Id').val(array.wh_Id);
+            $('#wh_Name').val(array.wh_name);
+            $('#wh_sname').val(array.wh_Shortname);
+            $('#bill_street').val(array.bill_Street);
+            $('#bill_city').val(array.bill_City);
+            $('#bill_state').val(array.bill_State);
+            $('#bill_postalcode').val(array.bill_Postalcode);
+            $('#bill_Country').val(array.bill_Country);
+            $('#ship_street').val(array.ship_Street);
+            $('#ship_city').val(array.ship_City);
+            $('#ship_state').val(array.ship_State);
+            $('#ship_postalcode').val(array.ship_Postalcode);
+            $('#ship_Country').val(array.ship_Country);
+            $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
+            $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
+            $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
+            $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
+            $('#Contact_PersonFname').val(array.conperson);
+            $('#Phone').val(array.phone);
+            $('#Mobile_No').val(array.Mobile);
+            $('#EmailId').val(array.Email);
+            $('#Job_position').val(array.Job_position);
+            $('#Note').val(array.Note);
+        }
         function getcondtls(array1) {
             $('#con_id').val(array.wh_Id);
             $('#Contact_PersonFname').val(array1.contact_person);
