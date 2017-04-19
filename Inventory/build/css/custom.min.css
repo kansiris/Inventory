@@ -5509,6 +5509,12 @@ form .top-button + div {
     color: #0483c6;
     font-weight: bold;
 }
+.display-positions .position > i.fa-times{
+	position: absolute;
+    top: 5px;
+    font-size: 10px;
+    color: #333;
+    right: 7px;}
 
 .position {
     /*padding: 0;*/
@@ -5622,7 +5628,10 @@ ul.dropdown-menu li {
     .positions1 i {
         cursor: pointer;
     }
-
+.form-group > i.fa-sort-desc{
+	position: absolute;
+	right: 15px;
+	top: 5px;}
 .display-positions {
     height: 150px;
     overflow-y: scroll;
@@ -5863,7 +5872,7 @@ ul.admin-product-thumbs li{
 	width: 100px;
 	height: 100px;
 	display: inline-block;
-	margin: 10px 5px;
+	margin: 10px 1px;
 	padding: 5px;}
 ul.admin-product-thumbs li{
 	position: relative;}
@@ -5895,10 +5904,17 @@ ul.admin-product-thumbs li img{
 .image-library > ul.tabs > li{
 	float: left;
 	padding: 0 10px;}
+.image-library > ul.tabs > i{
+	font-size: 12px;
+	color: #fff;
+	cursor: pointer;
+	padding-right: 10px;
+	display: none;}
 .image-library > ul.tabs > li > a{
 	color: #fff;
 	font-weight: 400;
-	padding: 9px;}
+	padding: 9px;
+	cursor: pointer;}
 .image-library > ul.tabs > li > a:hover,
 .image-library > ul.tabs > li > a:active{
 	background: #fff;
@@ -5953,6 +5969,15 @@ label[for="date"]{
 .non-veg,
 .Non-Perishable{
 	display: none;}
+.veg-non,
+.perishable-non{
+	background: #eee;}
+.veg-non{
+	border-radius: 5px 5px 0 0;}
+.veg-non label{
+	padding-top: 15px;}
+.perishable-non{
+	border-radius: 0 0 5px 5px;}
 /*============ Product Master ==================*/
 
 /*============ Tags Box ==================*/
@@ -6212,10 +6237,8 @@ ul.left-submenu.collapse.in{
 	border-radius: 5px;
 	max-width: 232.5px;}
 .added-products > .well .img-title > span.product-brand,
-.added-products > .well .product-variation,
 .added-products > .well .shipping,
 .added-products > .well .add-to-cart,
-.added-products td > .product-variation,
 .added-products tr > td.add-to-cart-table > .btn,
 tr > td.add-to-cart-table > i{
 	display: none;}
@@ -6223,7 +6246,7 @@ tr > td.add-to-cart-table > i{
 	display: block;
 	color: #ff0000;
 	position: absolute;
-	left: 100px;
+	left: 150px;
 	font-size: 12px;
 	cursor: pointer;}
 .added-products > .well > .image,
@@ -6271,7 +6294,7 @@ tr > td > .input-group.spinner > label{
 	padding: 5px 0 0 5px;
 	border-radius: 5px;
 	min-width: 232.5px;
-	height: 65px;}
+	height: 85px;}
 .added-products > tr > td.image{
 	margin-right: 20px;
 	padding-left: 0;}
@@ -6294,6 +6317,15 @@ tr > td.product-name a:hover{
 	left: 12px;
 	font-size: 12px;
 	color: #666;}
+.added-products tr > td.product-variation{
+	width: 70%;
+	position: absolute;
+	left: 47px;
+	top: 33px;}
+.added-products tr > td.product-variation > select{
+	box-shadow: none;
+	border: none;
+	background: transparent;}
 .added-products tr > td > .input-group.spinner > label{
 	width: 19px;
 	display: block;
@@ -6301,7 +6333,7 @@ tr > td.product-name a:hover{
 .added-products tr > td.quantity-changes{
 	width: 60%;
 	position: absolute;
-	top: 39px;
+	top: 59px;
 	left: 62px;}
 .added-products tr > td.quantity-changes > .input-group.spinner{
 	width: 65px;
