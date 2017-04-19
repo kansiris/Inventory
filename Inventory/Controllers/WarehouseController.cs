@@ -26,7 +26,7 @@ namespace Inventory.Controllers
         {
             ViewBag.wh_id = getMaxwhid();
             ViewBag.con_id = getMaxcontactID();
-            ViewBag.country = new SelectList(CountryList(), "Value", "Text");
+            ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
             var wh = getlastinsertedwarehouse(ViewBag.wh_id);
             if (status == "complete")
             {
