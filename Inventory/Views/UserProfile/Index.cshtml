@@ -110,12 +110,14 @@
 
                                             @if (item.company_logo != null)
                                             {
-                                                <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
-                                                <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                <div id="pic1">
+                                                    <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" onchange="upload()" style="display:none">
+                                                    <img id="companypic" onclick="javascript: document.getElementById('fileupload').click();" src="data:image;base64,@item.company_logo" style="border-radius: 50%;width: 150px;height: 150px;" />
+                                                </div>
                                             }
                                             else
                                             {
-                                                <div class="top-button">
+                                                <div class="top-button" id="sample1">
                                                     <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
                                                     <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                                 </div>

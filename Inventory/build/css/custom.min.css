@@ -4788,7 +4788,8 @@ ul.notifications {
 	padding: 10px;
 	border-radius: 2px;
 	color: #fff;
-	font-size: 16px;}
+	font-size: 16px;
+	margin-bottom: 10px;}
 .blocks div .content h2{
 	font-weight: 400;
 	margin-bottom: 5px;}
@@ -6156,6 +6157,20 @@ a.product-name{
 	border-radius: 5px;}
 .checkout .title{
 	font-size: 16px;}
+.added-products .empty{
+	display: block;
+	color: #333;}
+.added-products > .well .empty{
+	display: block;
+	color: #333;
+	width: 70%;
+    position: absolute;
+    left: 35px;
+    top: 38px;
+    font-size: 12px;
+    font-weight: bold;}
+.empty{
+	display: none;}
 .added-products{
 	height: 300px;
 	overflow-y: scroll;
@@ -6238,18 +6253,21 @@ ul.left-submenu.collapse.in{
 	box-shadow: none;
 	border: none;
 	border-radius: 5px;
-	max-width: 232.5px;}
+	max-width: 232.5px;
+	height: 85px;}
 .added-products > .well .img-title > span.product-brand,
 .added-products > .well .shipping,
 .added-products > .well .add-to-cart,
+.added-products > .well .product-variation,
 .added-products tr > td.add-to-cart-table > .btn,
-tr > td.add-to-cart-table > i{
+tr > td.add-to-cart-table > i,
+.added-products tr > td.product-variation{
 	display: none;}
 .added-products tr > td.add-to-cart-table > i{
 	display: block;
 	color: #ff0000;
 	position: absolute;
-	left: 150px;
+	left: 155px;
 	font-size: 12px;
 	cursor: pointer;}
 .added-products > .well > .image,
@@ -6270,7 +6288,7 @@ tr > td.add-to-cart-table > i{
 	width: 65%;
 	position: absolute;
 	left: 0px;
-	top: 5px;}
+	top: 25px;}
 .added-products > .well .rate-add{
 	background: none;}
 tr > td > img{
@@ -6320,11 +6338,13 @@ tr > td.product-name a:hover{
 	left: 12px;
 	font-size: 12px;
 	color: #666;}
-.added-products tr > td.product-variation{
+.added-products tr > td.empty{
 	width: 70%;
 	position: absolute;
-	left: 47px;
-	top: 33px;}
+	left: 35px;
+	top: 38px;
+	font-size: 12px;
+	font-weight: bold;}
 .added-products tr > td.product-variation > select{
 	box-shadow: none;
 	border: none;

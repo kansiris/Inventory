@@ -803,7 +803,7 @@ function deleteVendor(id) {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert("Vendor Deleted Successfully");
+                    alert("Contact Person Deleted Successfully");
                   
                 }
             },
