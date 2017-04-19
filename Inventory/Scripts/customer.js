@@ -332,7 +332,7 @@ function getEditDetails(id) {
     $('#mySubmit').show();
     $('#mySubmit1').show();
     //$('#bankid').show();
-    $('#contactbutton').show();
+    $('#cuscontactbutton').show();
     $('#notebutton').show();
     $("#cuscontactpic").attr("src", "/images/user.png");
     $("#customer-information-cancel").show();
@@ -689,8 +689,7 @@ function updatecusContact(clickedvalue) {
         return false;
     } else {
         if (clickedvalue == 'savecontact') {
-            $("#contacttable").css("display", "block");
-
+           
             $.ajax({
                 url: '/Customer/savecuscontactdetails',
                 type: 'POST',
@@ -813,7 +812,7 @@ function deleteCustomer(id) {
                     cus_company_Id = $('#cus_company_Id').val();
                     var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                     $('#customerrecords').load(url);
-                    alert("customer Deleted Successfully");
+                    alert("Contact Person Deleted Successfully");
                    
                 }
                 else {
