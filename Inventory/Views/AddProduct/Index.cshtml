@@ -57,10 +57,46 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Brand Name">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Brand Name">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Brand</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Brand 1</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Brand 2</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Brand 3</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                        @*<input type="text" class="form-control" placeholder="Brand Name">*@
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Model Number">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Model Number">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Model 1</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Model 2</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Model 3</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                        @*<input type="text" class="form-control" placeholder="Model Number">*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -71,9 +107,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 1</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 2</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 3</div>
+                                           @if (ViewBag.categories.Count != 0)
+                                           {
+                                               foreach (var item in ViewBag.categories)
+                                               {
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
+                                               }
+                                           }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -131,7 +171,7 @@
                                     <div class="form-group col-xs-6 col-md-6">
                                         <label>Total</label>
                                         <input type="text" class="form-control" placeholder="Total">
-                                        <span>(Selling price + Tax - Discount)</span>
+                                        <span>(Selling price + Tax + Shipping - Discount)</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -145,9 +185,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>KG'S</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Grams</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Lb's</div>
+                                            @if (ViewBag.weights.Count != 0)
+                                            {
+                                                foreach (var item in ViewBag.weights)
+                                                {
+                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.weight</div>
+                                                }
+                                            }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -165,10 +209,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sizes</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>M</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>L</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XL</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XXL</div>
+                                            @if (ViewBag.sizes.Count != 0)
+                                            {
+                                                foreach (var item in ViewBag.sizes)
+                                                {
+                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.size</div>
+                                                }
+                                            }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -186,10 +233,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Colors</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>White</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Black</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Orange</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Baby Pink</div>
+                                            @if (ViewBag.colors.Count != 0)
+                                            {
+                                                foreach (var item in ViewBag.colors)
+                                                {
+                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.color</div>
+                                                }
+                                            }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -209,10 +259,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bottle</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Pouch</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Box</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bag</div>
+                                            @if (ViewBag.itemshapes.Count != 0)
+                                            {
+                                                foreach (var item in ViewBag.itemshapes)
+                                                {
+                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.itemshape</div>
+                                                }
+                                            }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -240,7 +293,7 @@
                                                     <td>Himayathnagar</td>
                                                     <td>
                                                         <div class="form-group col-xs-12 col-md-12">
-                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="10">
+                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="0">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -249,7 +302,7 @@
                                                     <td>Kukatpally</td>
                                                     <td>
                                                         <div class="form-group col-xs-12 col-md-12">
-                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="20">
+                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="0">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -258,7 +311,7 @@
                                                     <td>Madhapur</td>
                                                     <td>
                                                         <div class="form-group col-xs-12 col-md-12">
-                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="30">
+                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="0">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -399,7 +452,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label>Add Tags<span>(Seperated by kama)</span></label>
+                                <label>Add Tags<span>(Seperated by Comma)</span></label>
                                 <ul id="myTags"></ul>
                             </div>
                         </div>
@@ -474,9 +527,10 @@ else
     </script>
     @*<!------ Tags With Space and comma ------->*@
     @*<!-------------- Date Picker ----------->*@
-    <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap-datepicker3.css" />
-
+    @*<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-datepicker3.css" />*@
+<script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+<link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
     <script>
         $(document).ready(function () {
             var date_input = $('input[name="date"]'); //our date input has the name "date"
