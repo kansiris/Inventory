@@ -498,13 +498,14 @@ namespace Inventory.Controllers
         }
         public PartialViewResult VendorContact(string id)
         {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             if (id == null || id=="")
             {
                 return PartialView("VendorRecords", null);
             }
             else
             {
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var records = VendorService.getcontactdetail(int.Parse(id), user.DbName);
                 var dt = new DataTable();
                 dt.Load(records);

@@ -30,6 +30,9 @@ $("#add-vendor").click(function () {
     $("#vendor-information2-cancel").show();
     $("#vendor-information3-cancel").show();
     $("#vendor-information4-cancel").show();
+    $("#forclose").css("display", "none");
+    $("#uploadtext").css("display", "block");
+    $("#uploadcontact").css("display", "block");
 });
 $("#vendor-information-cancel").click(function () {
     $("#vendor-information input").val("");
@@ -87,11 +90,13 @@ $("select[name='ship_country'] > option").each(function () {
 $("#list-view").click(function(e) {
     $("#vendortable").css("display","block");
     $("#vendortable1").css("display","none");
-    //location.reload();
+    var url = 'Vendor/VendorCompany';
+    $('#companyrecords').load(url, function () { Pagination(); });
 });
  
 $("#refresh").click(function(e) {
-    location.reload();
+    var url = 'Vendor/VendorCompany';
+    $('#companyrecords').load(url, function () { Pagination(); });
 });
 
 //<!------------ List / Grid Views and reload page -------------->
@@ -357,7 +362,6 @@ function getEditDetails(id) {
             else {
                 var array = JSON.parse(data);
                 var url = 'Vendor/VendorContact?id=' + array.company_Id + '';
-               
                 editFunction(array);
                 $('#vendor-information').css('display', 'block');
                 $('#additon').css('display', 'block');
@@ -427,6 +431,7 @@ function editcompany(clickedvalue) {
     }
     if (clickedvalue == 'Save') {
         $.ajax({
+            
             url: '/Vendor/savecompany',
             type: 'POST',
             data: JSON.stringify({ Company_Name, Email,logo }),
@@ -911,6 +916,7 @@ function upload1() {
 //View vendor
 function viewVendor(id) {
     //alert(id);
+    $("#forclose").css("display", "block");
     $.ajax({
         url: '/Vendor/getAllDetails?company_Id=' + id,
         type: 'POST',
@@ -946,7 +952,10 @@ function viewVendor(id) {
                 $('#myform input[type=file]').attr("disabled", true);
                 $("#bill_country").attr("disabled", true);
                 $("#ship_country").attr("disabled", true);
-               
+                $("#forclose").css("display", "block");
+                $("#uploadtext").css("display", "none");
+                $("#uploadcontact").css("display", "none");
+                
             }
         },
         error: function (data)
