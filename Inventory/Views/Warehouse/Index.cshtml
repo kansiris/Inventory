@@ -37,7 +37,7 @@
             <div class="row top-bar">
                 <div class="col-md-12">
                     <h1 class="pull-left">Warehouse</h1>
-                    <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>
+                    <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Warehouse </button>
                     @*<div class="icons pull-right">
                             <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
                             <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
@@ -86,7 +86,7 @@
                             <div class="form-group col-md-4">
                                 @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name, @maxlength = "30" })
                             </div>
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-3">
 
                                 @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname, @maxlength = "3" })
                             </div>
@@ -96,15 +96,15 @@
                             <div class="form-group col-md-4">
                                 @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name, @maxlength = "30" })
                             </div>
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-2">
 
-                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Short Name", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname, @maxlength = "3" })
+                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Sname", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname, @maxlength = "3" })
                             </div>
                         }
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default pull-right" id="wh-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-default pull-right" id="wh-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editwh(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="btnclose3">Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclose3">Close</button>
                                         <button type="button" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" onclick="editwhaddress(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Address</button>
                                     </div>
                                 </div>
@@ -211,7 +211,7 @@
                             <li data-content="contactperson" class="contactperson">
                                 <div class="row top-bar">
                                     <div class="col-md-12">
-                                        <h1 class="pull-left">Contactperson</h1>
+                                        <h1 class="pull-left">Contact Person</h1>
                                         @*<button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add warehouse </button>*@
                                         <div class="icons pull-right">
                                             <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
@@ -277,7 +277,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="wh-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="wh-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" id="contactbutton" value="savecontact" onclick="UpdateContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
@@ -300,8 +300,8 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="btnclosenote"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                                        <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatewhnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclosenote"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                        <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatewhnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Notes</button>
                                     </div>
                                 </div>
                             </li>
@@ -338,7 +338,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="btnclosegallery"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclosegallery"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" value="Save Images" id="gallerybutton" onclick="updategallery(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Gallery</button>
                                     </div>
                                 </div>
@@ -424,7 +424,7 @@
             $('#whdetails').empty().load(url, function () { Pagination(); });
         });
         $("#wh-information1-cancel").click(function () {
-            $//("#wh-information input").val("");
+            //$("#wh-information input").val("");
             // $("#wh-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
             // $("#wh-information").css("display", "block");
             $("#wh-information1").css("display", "none");
@@ -538,7 +538,9 @@
                 $("#wh-information1").css("display", "block");
             });
             //$("#contactdiv").css("display", "none");
-            $("#whcontacttable").css("display", "none");
+            //$("#whcontacttable").css("display", "none");
+            //$("#contactdiv").css("display", "block");
+            //$("#whcontacttable").css("display", "none");
 
         });
 
@@ -616,35 +618,36 @@
         });
     </script>
     <script>
-        function editFunction(array) {
-
-            $('#wh-information').css('display', 'block');
-            //$("#contacttable").css("display", "block");
-            $(".cd-tabs").css("display", "block");
-            $('#wh_Id').val(array.wh_Id);
-            $('#wh_Name').val(array.wh_name);
-            $('#wh_sname').val(array.wh_Shortname);
-            $('#bill_street').val(array.bill_Street);
-            $('#bill_city').val(array.bill_City);
-            $('#bill_state').val(array.bill_State);
-            $('#bill_postalcode').val(array.bill_Postalcode);
-            $('#bill_Country').val(array.bill_Country);
-            $('#ship_street').val(array.ship_Street);
-            $('#ship_city').val(array.ship_City);
-            $('#ship_state').val(array.ship_State);
-            $('#ship_postalcode').val(array.ship_Postalcode);
-            $('#ship_Country').val(array.ship_Country);
-            $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
-            $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
-            $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
-            $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
+        //function editFunction(array) {
+            //$("#contactdiv").css("visibility", "visibility");
+            //$("#whcontacttable").css("visibility", "hidden");
+            //$('#wh-information').css('display', 'block');
+            ////$("#contacttable").css("display", "block");
+            //$(".cd-tabs").css("display", "block");
+            //$('#wh_Id').val(array.wh_Id);
+            //$('#wh_Name').val(array.wh_name);
+            //$('#wh_sname').val(array.wh_Shortname);
+            //$('#bill_street').val(array.bill_Street);
+            //$('#bill_city').val(array.bill_City);
+            //$('#bill_state').val(array.bill_State);
+            //$('#bill_postalcode').val(array.bill_Postalcode);
+            //$('#bill_Country').val(array.bill_Country);
+            //$('#ship_street').val(array.ship_Street);
+            //$('#ship_city').val(array.ship_City);
+            //$('#ship_state').val(array.ship_State);
+            //$('#ship_postalcode').val(array.ship_Postalcode);
+            //$('#ship_Country').val(array.ship_Country);
+            //$('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
+            //$('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
+            //$('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
+            //$('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
             //$('#Contact_PersonFname').val(array.conperson);
             //$('#Phone').val(array.phone);
             //$('#Mobile_No').val(array.Mobile);
             //$('#EmailId').val(array.Email);
             //$('#Job_position').val(array.Job_position);
-            $('#Note').val(array.Note);
-        }
+            //$('#Note').val(array.Note);
+        //}
         function getcondtls(array1) {
             $('#con_id').val(array.wh_Id);
             $('#Contact_PersonFname').val(array1.contact_person);
@@ -657,6 +660,11 @@
         //Get Particular warehouse Record
         function getEditDetails(id) {
             //alert(id);
+            $("#contactdiv").css("visibility", "visibility");
+            $("#whcontacttable").css("visibility", "hidden");
+            $('#wh-information').css('display', 'block');
+            //$("#contacttable").css("display", "block");
+            $(".cd-tabs").css("display", "block");
             $('#mySubmit').show();
             $('#mySubmit1').show();
             $('#contactbutton').show();
@@ -675,7 +683,7 @@
             $("#EmailId").attr("disabled", false);
             $('#mySubmit').val("update").text("Update Warehouse");
             $('#mySubmit1').val("updateaddress").text("Update Address");
-            $('#notebutton').val("updatenote").text("Update Note");
+            $('#notebutton').val("updatenote").text("Update Notes");
             // $('#contactbutton').val("updatecontact").text("Update Contact");
             $('#contactbutton').val("savecontact").text("Save Contact");
             //$('#contactbutton').val("savecontact").text("Save Contact");
@@ -684,6 +692,7 @@
             //$('#btnedit').click(function () {
             //    $('#warehouse').css('display', 'none');
             //});
+            $("#contactpic").attr("src", "/images/user.png");
             $("#Contact_PersonFname").val("");
             $("#Mobile_No").val("");
             $("#Phone").val("");
@@ -703,6 +712,20 @@
                     }
                     else {
                         var array = JSON.parse(data);
+                        $('#wh_Id').val(array.wh_Id);
+                        $('#wh_Name').val(array.wh_name);
+                        $('#wh_sname').val(array.wh_Shortname);
+                        $('#bill_street').val(array.bill_Street);
+                        $('#bill_city').val(array.bill_City);
+                        $('#bill_state').val(array.bill_State);
+                        $('#bill_postalcode').val(array.bill_Postalcode);
+                        $('#bill_Country').val(array.bill_Country);
+                        $('#ship_street').val(array.ship_Street);
+                        $('#ship_city').val(array.ship_City);
+                        $('#ship_state').val(array.ship_State);
+                        $('#ship_postalcode').val(array.ship_Postalcode);
+                        $('#ship_Country').val(array.ship_Country);
+                        $('#Note').val(array.Note);
                         if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
                             $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
                         } else
@@ -721,7 +744,9 @@
                             $('#galpic4').attr('src', array.galimage4);
                         var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
                         $('#contactdiv').empty().load(url);
-                        editFunction(array);
+                        //editFunction(array);
+                        
+                       
                     }
                 },
                 error: function (data)
@@ -769,12 +794,12 @@
                         $('#myform input[type=file]').attr("disabled", true);
                         $("#bill_Country").attr("disabled", true);
                         $("#ship_Country").attr("disabled", true);
-                        $("#wh-information1-cancel").hide();
-                        $("#btnclose3").hide();
-                        $("#btnclosegallery").hide();
-                        $("#btnclosenote").hide();
+                       // $("#wh-information1-cancel").hide();
+                       // $("#btnclose3").hide();
+                        //$("#btnclosegallery").hide();
+                      //  $("#btnclosenote").hide();
                         $("#gallerybutton").hide();
-                        $("#wh-information-cancel").hide();
+                       // $("#wh-information-cancel").hide();
                         $("#EmailId").attr("disabled", true);
                         $("#Contact_PersonFname").val("");
                         $("#Mobile_No").val("");
@@ -835,51 +860,65 @@
         //delete warehouse
         function deletewhdtls(id) {
             //alert(id);
-            $.ajax({
-                url: '/Warehouse/deletewarehouse?wh_Id=' + id,
-                type: 'POST',
-                data: JSON.stringify({ wh_Id: id }),
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data == "success") {
-                        var url = 'Warehouse/WarehouseDetails';
-                        $('#whdetails').empty().load(url, function () { Pagination(); });
-                        alert("Warehouse Deleted successfully");
-                        //$("#whtable").load(" #whtable");
-                    }
-                    else {
-                        alert("Warehouse not Deleted");
+            if (confirm("Are you sure you want to delete this Record?")) {
+                $.ajax({
+                    url: '/Warehouse/deletewarehouse?wh_Id=' + id,
+                    type: 'POST',
+                    data: JSON.stringify({ wh_Id: id }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        //if (confirm("Are you sure you want to delete this Record?")) {
+                        if (data == "success") {
 
-                    }
-                },
-                error: function (data)
-                { alert("Failed!!!"); }
-            });
+                            var url = 'Warehouse/WarehouseDetails';
+                            $('#whdetails').empty().load(url, function () { Pagination(); });
+                            alert("Warehouse Deleted successfully");
+                            //$("#whtable").load(" #whtable");
+                            //}
+                            //return false;
+                        }
+
+                        else {
+                            alert("Warehouse not Deleted");
+
+                        }
+                        //}
+                        //return false;
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            return false;
+
         }
         function deletecontact(id) {
             //alert(id);
-            $.ajax({
-                url: '/Warehouse/deletecontactperson?con_id=' + id,
-                type: 'POST',
-                data: JSON.stringify({ con_id: id }),
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data == "success") {
-                        var url = 'Warehouse/WarehouseContact';
-                        $('#contactdiv').empty().load(url);
-                        alert("Contact Deleted successfully");
-                        //$("#whtable").load(" #whtable");
-                    }
-                    else {
-                        alert("Contact not Deleted");
+            if (confirm("Are you sure you want to delete this Record?")) {
+                $.ajax({
+                    url: '/Warehouse/deletecontactperson?con_id=' + id,
+                    type: 'POST',
+                    data: JSON.stringify({ con_id: id }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "success") {
+                            var url = 'Warehouse/WarehouseContact';
+                            $('#contactdiv').empty().load(url);
+                            alert("Contact Deleted successfully");
+                            //$("#whtable").load(" #whtable");
+                        }
+                        else {
+                            alert("Contact not Deleted");
 
-                    }
-                },
-                error: function (data)
-                { alert("Failed!!!"); }
-            });
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            return false;
         }
 
         //Particular Warehouse
@@ -1071,7 +1110,7 @@
                             //$('#savebutton').hide();
                             var url = 'Warehouse/WarehouseDetails';
                             $('#whdetails').empty().load(url, function () { Pagination(); });
-                            alert("Updated successfully");
+                            alert("Notes Updated successfully");
                             // $("#whtable").load(" #whtable");
                         }
                         else {
@@ -1094,7 +1133,7 @@
                             //$('#savebutton').hide();
                             var url = 'Warehouse/WarehouseDetails';
                             $('#whdetails').empty().load(url, function () { Pagination(); });
-                            alert("Note Saved successfully");
+                            alert("Notes Saved successfully");
                             //$("#whtable").load(" #whtable");
                         }
                         else {
@@ -1204,9 +1243,9 @@
         //update gallery start
         function updategallery(clickedvalue) {
             //alert(clickedvalue);
-            $('#gallerybutton').click(function () {
-                $('#warehouse').css('display', 'none');
-            });
+            //$('#gallerybutton').click(function () {
+            //    $('#warehouse').css('display', 'none');
+            //});
             $('#gallerybutton').click(function () {
                 $('#addinfo').css('display', 'none');
             });
@@ -1232,10 +1271,10 @@
                             var url = 'Warehouse/WarehouseDetails';
                             $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Gallery Saved successfully");
-                            $("#galpic1").attr("src", "/images/user.png");
-                            $("#galpic2").attr("src", "/images/user.png");
-                            $("#galpic3").attr("src", "/images/user.png");
-                            $("#galpic4").attr("src", "/images/user.png");
+                            //$("#galpic1").attr("src", "/images/user.png");
+                            //$("#galpic2").attr("src", "/images/user.png");
+                            //$("#galpic3").attr("src", "/images/user.png");
+                            //$("#galpic4").attr("src", "/images/user.png");
                             // $("#whtable").load(" #whtable");
                         }
                         else {
@@ -1257,12 +1296,12 @@
                         if (data == "success") {
                             //$('#savebutton').hide();
                             var url = 'Warehouse/WarehouseDetails';
-                            $('#whdetails').empty().load(url, function () { Pagination(); });
+                          //  $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("gallery updated successfully");
-                            $("#galpic1").attr("src", "/images/user.png");
-                            $("#galpic2").attr("src", "/images/user.png");
-                            $("#galpic3").attr("src", "/images/user.png");
-                            $("#galpic4").attr("src", "/images/user.png");
+                            //$("#galpic1").attr("src", "/images/user.png");
+                            //$("#galpic2").attr("src", "/images/user.png");
+                            //$("#galpic3").attr("src", "/images/user.png");
+                            //$("#galpic4").attr("src", "/images/user.png");
                         }
                         else {
                             alert("not updated");
