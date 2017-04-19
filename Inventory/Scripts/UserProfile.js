@@ -113,7 +113,9 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
+                    $('#sample1').hide();
                     $("#companypic").attr("src", "data:image/;base64," + response);
+                    $("#companypic").css('display','block');
                     $(".overlay").hide();
                 },
                 error: function (er) {
