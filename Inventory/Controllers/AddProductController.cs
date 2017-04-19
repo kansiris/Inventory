@@ -38,6 +38,24 @@ namespace Inventory.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index(string command,Product product)
+        {
+            if (command == "AddProduct")
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                int count = ProductService.ProductFunctionalities(command, user.DbName, product.product_name, product.brand, product.model, product.category, product.sub_category,
+                    product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight, 
+                    product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
+                    product.product_description, product.product_tags);
+                if (count > 1)
+                    return RedirectToAction("Index", "AllProducts");
+                else
+                    return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "Products") + "'</script>"); // Stays in Same View
+            }
+            return View();
+        }
+
         public List<ProductItems> convert(string dbname, string type)
         {
             List<ProductItems> result = new List<ProductItems>();

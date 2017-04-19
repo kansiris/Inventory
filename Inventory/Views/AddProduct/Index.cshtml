@@ -1,4 +1,4 @@
-﻿
+﻿@model Inventory.Models.Product
 @{
     ViewBag.Title = ":: Add Product ::";
     Layout = "~/Views/Shared/MainMaster.cshtml";
@@ -31,7 +31,7 @@
 {
     <div class="right_col" role="main">
         <div class="container">
-            <form>
+            <form method="post">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="row">
@@ -48,17 +48,19 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="row">
-                                    <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Product Name">
+                                    <div class="form-group col-xs-12">
+                                        @*<input type="text" class="form-control" placeholder="Product Name">*@
+                                        @Html.TextBoxFor(Model=>Model.product_name,new { @class="form-control" ,placeholder="Product Name"})
                                     </div>
-                                    <div class="form-group col-xs-12 col-md-6">
+                                    @*<div class="form-group col-xs-12 col-md-6">
                                         <input type="text" class="form-control" placeholder="Product ID">
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-md-6">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Brand Name">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Brand Name">*@
+                                        @Html.TextBoxFor(Model => Model.brand, new { @class = "form-control selected-position", placeholder = "Brand Name" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Brand</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -83,7 +85,8 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Model Number">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Model Number">*@
+                                        @Html.TextBoxFor(Model => Model.model, new { @class = "form-control selected-position", placeholder = "Model Name" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -110,7 +113,8 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-md-6">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Category">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Category">*@
+                                        @Html.TextBoxFor(Model => Model.category, new { @class = "form-control selected-position", placeholder = "Category" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -134,7 +138,8 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Sub Category">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Sub Category">*@
+                                        @Html.TextBoxFor(Model => Model.sub_category, new { @class = "form-control selected-position", placeholder = "Sub Category" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sub Category</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -156,39 +161,47 @@
                                 <div class="row text-left">
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Cost Price</label>
-                                        <input type="text" class="form-control" placeholder="Cost Price" value="0">
+                                        @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
+                                        @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price",Value = "0" })
                                     </div>
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Selling Price</label>
-                                        <input type="text" class="form-control" placeholder="Selling Price" value="0">
+                                        @*<input type="text" class="form-control" placeholder="Selling Price" value="0">*@
+                                        @Html.TextBoxFor(Model => Model.selling_price, new { @class = "form-control", placeholder = "Selling Price", Value = "0" })
                                     </div>
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Tax(%)</label>
-                                        <input type="text" class="form-control" placeholder="Tax" value="0">
+                                        @*<input type="text" class="form-control" placeholder="Tax" value="0">*@
+                                        @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", Value = "0" })
                                     </div>
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Discount(%)</label>
-                                        <input type="text" class="form-control" placeholder="Discount" value="0">
+                                        @*<input type="text" class="form-control" placeholder="Discount" value="0">*@
+                                        @Html.TextBoxFor(Model => Model.discount, new { @class = "form-control", placeholder = "Discount", Value = "0" })
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Shipping</label>
-                                        <input type="text" class="form-control" placeholder="Shipping" value="0">
+                                        @*<input type="text" class="form-control" placeholder="Shipping" value="0">*@
+                                        @Html.TextBoxFor(Model => Model.shipping_price, new { @class = "form-control", placeholder = "Shipping", Value = "0" })
                                     </div>
                                     <div class="form-group col-xs-6 col-md-6">
                                         <label>Total</label>
-                                        <input type="text" class="form-control" placeholder="Total">
+                                        @*<input type="text" class="form-control" placeholder="Total">*@
+                                        @Html.TextBoxFor(Model => Model.total_price, new { @class = "form-control", placeholder = "Total"})
                                         <span>(Selling price + Tax + Shipping - Discount)</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-md-3">
-                                        <input type="text" class="form-control" placeholder="Measurement">
+                                        @*<input type="text" class="form-control" placeholder="Measurement">*@
+                                        @Html.TextBoxFor(Model => Model.Measurement, new { @class = "form-control", placeholder = "Measurement" })
                                     </div>
                                     <div class="form-group col-xs-12 col-md-3">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Weight">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Weight">*@
+                                        @Html.TextBoxFor(Model => Model.weight, new { @class = "form-control selected-position", placeholder = "Weight" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -340,13 +353,13 @@
                                 <div class="row">
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label>
-                                            <input type="radio" name="optradio" class="consumable">
+                                            <input type="radio" name="optradio" class="consumable" id="product_consumable">
                                             Consumable
                                         </label>
                                     </div>
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label>
-                                            <input type="radio" name="optradio" class="non-consumable">
+                                            <input type="radio" name="optradio" class="non-consumable" id="product_consumable">
                                             Non-Consumable
                                         </label>
                                     </div>
@@ -354,13 +367,13 @@
                                 <div class="row veg-non">
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="veg">
-                                            <input type="radio" name="optradio1">
+                                            <input type="radio" name="optradio1" id="product_type">
                                             Veg
                                         </label>
                                     </div>
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="non-veg">
-                                            <input type="radio" name="optradio1">
+                                            <input type="radio" name="optradio1" id="product_type">
                                             Non-Veg
                                         </label>
                                     </div>
@@ -368,13 +381,13 @@
                                 <div class="row perishable-non">
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="Perishable">
-                                            <input type="radio" name="optradio2">
+                                            <input type="radio" name="optradio2" id="product_perishability">
                                             Perishable
                                         </label>
                                     </div>
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="Non-Perishable">
-                                            <input type="radio" name="optradio2">
+                                            <input type="radio" name="optradio2" id="product_perishability">
                                             Non-Perishable
                                         </label>
                                     </div>
@@ -386,7 +399,8 @@
                                             <div class="col-sm-9">
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                                                    @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />*@
+                                                    @Html.TextBoxFor(Model => Model.product_expirydate, new { @class = "form-control", placeholder = "MM/DD/YYYY" })
                                                 </div>
                                             </div>
                                         </div>
@@ -455,7 +469,8 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-xs-12 col-md-12">
-                                <textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>
+                                @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
+                                @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description" , rows = "5" })
                             </div>
                         </div>
                         <div class="row">
@@ -469,7 +484,7 @@
                                 <button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                             </div>
                             <div class="col-xs-12 col-md-2 pull-right">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
+                                <button type="submit" class="btn btn-primary" name="command" value="AddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
                             </div>
                         </div>
                     </div>
@@ -721,7 +736,7 @@ $("input[placeholder='Shipping']").blur(function(){
 //<!------ Total Price ------->
 
 //<!------ Total Quantity in Hand ------->
-$(document).ready(function(e) {
+$("input[placeholder='Quantity in Hand']").blur(function(e) {
 	var len = $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").length;
 	var i = 0, total = 0;
     $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").each(function(){
