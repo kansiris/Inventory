@@ -114,5 +114,13 @@ namespace Inventory.Service
         {
             return WarehouseRepository.updategallery(dbname, wh_id, galimage1, galimage2, galimage3, galimage4);
         }
+        public static SqlDataReader getwhjobpositions(string dbname)
+        {
+            return WarehouseRepository.getwhjobpositions(dbname);
+        }
+        public static int savewhjp(string dbname, string job_position)
+        {
+            return WarehouseRepository.savewhjp(dbname, job_position);
+        }
     }
 }

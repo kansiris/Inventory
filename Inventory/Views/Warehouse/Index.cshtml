@@ -248,14 +248,19 @@
                                                 <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
                                                 <div class="display-positions">
                                                     <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
+                                                    @if (ViewBag.jobpositions != null)
+                                                    {
+                                                        foreach (var item in ViewBag.jobpositions)
+                                                        { <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.job_position</div> }
+                                                    }
                                                     @*<div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>One</div>
                                                         <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
                                                         <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Three</div>*@
                                                 </div>
                                                 <div class="row add-position">
                                                     <div class="row">
-                                                        <input type="text" class="form-control" placeholder="Enter Position">
-                                                        <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                        <input type="text" class="form-control" placeholder="Enter Position" id="whjp" name="whjp">
+                                                        <button type="button" class="btn btn-primary btn-sm add-button" onclick="Addjp(this.value)" value="savejp" id="savejp"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
                                                         <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                                     </div>
                                                     <div class="row positions"></div>
@@ -920,7 +925,31 @@
             }
             return false;
         }
-
+        function Addjp(clickedvalue) {
+            job_position = $('#whjp').val();
+            if (clickedvalue == 'savejp') {
+                $.ajax({
+                    url: '/Warehouse/savewhjp?job_position=' + job_position,
+                    type: 'POST',
+                    data: JSON.stringify({ job_position }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "success") {
+                            //$('#savebutton').hide();
+                            alert("Job position saved successfully.Please close to select");
+                            //$("#whtable").load(" #whtable");
+                        }
+                        
+                        else {
+                            alert("Warehouse not updated");
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+        }
         //Particular Warehouse
         function editwh(clickedvalue) {
             // alert(clickedvalue);
