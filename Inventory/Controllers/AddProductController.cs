@@ -70,7 +70,7 @@ namespace Inventory.Controllers
             }
             if (type == "getallmodels")
             {
-                result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["brandmodel_id"].ToString(), brandmodel = row["brandmodel"].ToString() }).ToList();
+                result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["model_id"].ToString(), brandmodel = row["model"].ToString() }).ToList();
             }
             return result;
         }
