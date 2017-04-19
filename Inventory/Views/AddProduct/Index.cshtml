@@ -63,9 +63,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Brand</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Brand 1</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Brand 2</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Brand 3</div>
+                                            @if (ViewBag.brands.Count != 0)
+                                            {
+                                                foreach (var item in ViewBag.brands)
+                                                {
+                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brand</div>
+                                                }
+                                            }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -84,9 +88,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Model 1</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Model 2</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Model 3</div>
+                                            @if (ViewBag.brandmodels.Count != 0)
+                                            {
+                                                foreach (var item in ViewBag.brandmodels)
+                                                {
+                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.model</div>
+                                                }
+                                            }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">

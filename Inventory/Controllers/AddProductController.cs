@@ -27,6 +27,8 @@ namespace Inventory.Controllers
                     ViewBag.colors = convert(user.DbName, "getallcolors");
                     ViewBag.itemshapes = convert(user.DbName, "getallitemshapes");
                     ViewBag.categories = convert(user.DbName, "getallcategories");
+                    ViewBag.brands = convert(user.DbName, "getallbrands");
+                    ViewBag.brandmodels = convert(user.DbName, "getallmodels");
                 }
                 else
                 {
@@ -61,6 +63,14 @@ namespace Inventory.Controllers
             if (type == "getallcategories")
             {
                 result = (from DataRow row in dt.Rows select new ProductItems() { category_id = row["category_id"].ToString(), category = row["category"].ToString() }).ToList();
+            }
+            if (type == "getallbrands")
+            {
+                result = (from DataRow row in dt.Rows select new ProductItems() { brand_id = row["brand_id"].ToString(), brand = row["brand"].ToString() }).ToList();
+            }
+            if (type == "getallmodels")
+            {
+                result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["brandmodel_id"].ToString(), brandmodel = row["brandmodel"].ToString() }).ToList();
             }
             return result;
         }

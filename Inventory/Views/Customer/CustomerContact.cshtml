@@ -1,6 +1,6 @@
 ﻿@if (ViewBag.records != null)
 {
-    <div class="row"  id="cuscontacttable">
+    <div class="row" id="cuscontacttable">
         <div class="col-md-12 table-responsive table-hover">
             <table class="table">
                 <thead class="thead-inverse">
@@ -21,28 +21,28 @@
                                 <td>
                                     @if (item.image != "" && item.image != null && item.image != "/images/user.png")
 
-                                    {
-                                        <img src="data:image;base64,@item.image" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" />
-                                    }
-                                </td>
-                                <td>@item.Customer_contact_Fname</td>
-                                <td>@item.Customer_contact_Lname</td>
-                                <td>@item.Email_Id</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                        <ul class="dropdown-menu">
-                                            <li> <a href="#" onclick="editcuscontactperson(@item.Customer_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                            <li> <a href="#" onclick="inviteCustomer(@item.Customer_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Invite</a> </li>
-                                            <li> <a href="#" onclick="deleteCustomer(@item.Customer_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                                {
+                                    <img src="data:image;base64,@item.image" style="width:29px;height:29px;border-radius:50%;margin-top:0;" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-top:0;" />
+                                }
+                            </td>
+                            <td>@item.Customer_contact_Fname</td>
+                            <td>@item.Customer_contact_Lname</td>
+                            <td>@item.Email_Id</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li> <a href="#" onclick="editcuscontactperson(@item.Customer_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
+                                        <li> <a href="#" onclick="inviteCustomer(@item.Customer_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Invite</a> </li>
+                                        <li> <a href="#" onclick="deleteCustomer(@item.Customer_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
                         }
                     }
                     else
