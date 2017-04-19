@@ -344,6 +344,9 @@ function getEditDetails(id) {
     $('#contactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
+    $('#forclose').css('display', 'none');
+    $("#uploadtext").css("display", "block");
+    $("#uploadcontact").css("display", "block");
 
     $('#btnedit').click(function () {
         $('#company').css('display', 'none');

@@ -349,6 +349,9 @@ function getEditDetails(id) {
     $('#contactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
+    $('#forclose').css('display', 'none');
+    $("#uploadtext").css("display", "block");
+    $("#uploadcontact").css("display", "block");
 
     $('#btnedit').click(function () {
         $('#cuscompany').css('display', 'none');
@@ -699,8 +702,11 @@ function updatecusContact(clickedvalue) {
                         $('#savebutton').hide();
                         cus_company_Id = $('#cus_company_Id').val();
                         Customer_Id = $('#Customer_Id').val(data.ID);
-                        var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
-                        $('#cuscontacttable').empty().load(url, function () { Pagination(); });
+                        var url = 'Customer/CustomerCompany';
+                        $('#cus_company_Id').val(data.ID);
+                        $('#cuscompanyrecords').load(url, function () { Pagination(); });
+                        var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
+                        $('#cuscontacttable').empty().load(url1, function () { Pagination(); });
                         alert("Contact Details saved Successfully");
                         $("[id='Customer_contact_Fname']").val("");
                         $("[id='Customer_contact_Lname']").val("");
@@ -722,17 +728,19 @@ function updatecusContact(clickedvalue) {
             $.ajax({
                 url: '/Customer/updatecuscontactdetails',
                 type: 'POST',
-                data: JSON.stringify({ Customer_Id: Customer_Id, Customer_contact_Fname: Customer_contact_Fname, Customer_contact_Lname: Customer_contact_Lname, Mobile_No: Mobile_No, Email_Id: Email_Id, Adhar_Number: Adhar_Number, cus_Job_position: cus_Job_position, image: image }),
+                data: JSON.stringify({ Customer_Id: CustomerId, Customer_contact_Fname: Customercontact_Fname, Customer_contact_Lname: Customercontact_Lname, Mobile_No: MobileNo, Email_Id: EmailId, Adhar_Number: AdharNumber, cus_Job_position: cusJob_position, image: imagee }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
                     if (data == "sucess") {
                         $('#savebutton').hide();
                         cus_company_Id = $('#cus_company_Id').val();
-                        var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
-                        $('#cuatomerrecords').load(url);
-                        alert("Contact Details updated Successfully");
-                        $('#contactbutton').val("savecontact").text("Save Contact");
+                        //alert(cus_company_Id);
+                        var url = 'Customer/CustomerCompany';
+                        $('#cuscompanyrecords').load(url, function () { Pagination(); });
+                        var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
+                        $('#cuscontacttable').empty().load(url1, function () { Pagination(); });
+                        $('#cuscontactbutton').val("savecontact").text("Save Contact");
                         $("[id='Customer_contact_Fname']").val("");
                         $("[id='Customer_contact_Lname']").val("");
                         $("[id='Mobile_No']").val("");
@@ -755,7 +763,8 @@ function updatecusContact(clickedvalue) {
 
 function editcuscontactperson(id) {
     //alert(id);
-    $('#contactbutton').val("updatecontact").text("Update Contact");
+    //alert($('#contactbutton').val());
+    $('#cuscontactbutton').val("updatecontact").text("Update Contact");
     $.ajax({
         url: '/Customer/getCustomerContact?Customer_Id=' + id,
         type: 'POST',
@@ -955,7 +964,7 @@ function viewCustomer(id) {
                 $('#mySubmit').hide();
                 $('#mySubmit1').hide();
                 $('#bankid').hide();
-                $('#contactbutton').hide();
+                $('#cuscontactbutton').hide();
                 $('#notebutton').hide();
                 $("#customer-information-cancel").hide();
                 $("#customer-information1-cancel").hide();
