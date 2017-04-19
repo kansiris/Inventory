@@ -5542,6 +5542,9 @@ form .top-button + div {
     border: 1px solid #fff;
     box-shadow: none;
 }
+h2.form-title {
+    background: none;
+}
 /*=========== Border and border tri-angle effect ===========*/
 .btn-group ul.dropdown-menu {
     min-width: 100px;
