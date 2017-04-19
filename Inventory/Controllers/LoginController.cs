@@ -99,7 +99,7 @@ namespace Inventory.Controllers
                     DBname = value["User_Site"].ToString() + "_Inventory";
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user123;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; //for server
-                FileInfo File = new FileInfo(Server.MapPath("../Models/April04.sql"));
+                FileInfo File = new FileInfo(Server.MapPath("../Models/April19.sql"));
                 string script = File.OpenText().ReadToEnd();
                 SqlConnection conn = new SqlConnection(sqlConnectionString);
                 Server server = new Server(new ServerConnection(conn));

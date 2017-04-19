@@ -389,6 +389,7 @@
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
     <Content Include="Models\April04.sql" />
+    <Content Include="Models\April19.sql" />
     <Content Include="Models\Inventory.csproj" />
     <Content Include="Models\mar02.sql" />
     <Content Include="Models\mar14.sql" />
