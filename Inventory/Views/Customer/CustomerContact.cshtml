@@ -1,8 +1,8 @@
 ﻿@if (ViewBag.records != null)
 {
-    <div class="row">
+    <div class="row" id="cuscontacttable">
         <div class="col-md-12 table-responsive table-hover">
-            <table class="table" id="cuscontacttable">
+            <table class="table">
                 <thead class="thead-inverse">
                     <tr>
                         @*<th></th>*@
@@ -23,11 +23,11 @@
                                     @if (item.image != "" && item.image != null && item.image != "/images/user.png")
 
                                 {
-                                    <img src="data:image;base64,@item.image" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" />
+                                    <img src="data:image;base64,@item.image" style="width:29px;height:29px;border-radius:50%;margin-top:0;" />
                                 }
                                 else
                                 {
-                                    <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" />
+                                    <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-top:0;" />
                                 }
                             </td>
                             <td>@item.Customer_contact_Fname</td>

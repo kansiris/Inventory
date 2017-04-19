@@ -19,5 +19,9 @@ namespace Inventory.Models
         public string category { get; set; }
         public string subcategory_id { get; set; }
         public string subcategory { get; set; }
+        public string brand_id { get; set; }
+        public string brand { get; set; }
+        public string brandmodel_id { get; set; }
+        public string brandmodel { get; set; }
     }
 }
