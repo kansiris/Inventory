@@ -20,7 +20,7 @@
                                 <tr>
                                     <td>
                                         @if (item.cus_logo != "" && item.cus_logo != null && item.cus_logo != "/images/user.png")
-                                        { <img src="data:image;base64,@item.cus_logo" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" onmouseover="viewVendor(@item.cus_company_Id)" /> }
+                                        { <img src="data:image;base64,@item.cus_logo" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" onmouseover="viewCustomer(@item.cus_company_Id)" /> }
                                         else
                                         { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" onmouseover="viewCustomer(@item.cus_company_Id)" /> }
                                     </td>
@@ -39,7 +39,7 @@
                                                 @*<li> <hr /> </li>*@
                                                 <li> <a><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
                                                 <li> <a><i class="fa fa-building-o" aria-hidden="true"></i>Create Invoice</a> </li>
-                                                <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
+                                                <li> <a><i class="fa fa-money" aria-hidden="true"></i>Receive Payment</a> </li>
                                                 <li> <a><i class="fa fa-truck" aria-hidden="true"></i>Create Delivery Note</a> </li>
                                                 @*<li> <a onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>*@
                                             </ul>
@@ -54,46 +54,45 @@
                                 <td colspan="6"><p>No Records Available</p></td>
                             </tr>
                         }
-                        
                     </tbody>
                 </table>
             </div>
-            <div class="row" id="customertable1">
-                    @foreach (var item in ViewBag.records)
-                    {
-                        <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                            <div class="well profile_view">
-                                <div class="col-sm-12">
-                                    <h4 class="brief"><i>@item.cus_company_name</i></h4>
-                                    <div class="left col-xs-7">
-                                        <h2>@item.cus_email</h2>
-                                        <p><strong>About: </strong> Web Designer / UI. </p>
-                                        <ul class="list-unstyled">
-                                            <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
-                                            <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
-                                        </ul>
-                                    </div>
-                                    <div class="right col-xs-5 text-center">
-                                        @if (item.cus_logo != "" && item.cus_logo != null && item.cus_logo != "/images/user.png")
-                                        { <img src="data:image;base64,@item.cus_logo" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
-                                        else
-                                        { <img src="~/images/user.png" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
-                                    </div>
+            <div class="row" id="customertable1"  style="display:none">
+                @foreach (var item in ViewBag.records)
+                {
+                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                        <div class="well profile_view">
+                            <div class="col-sm-12">
+                                <h4 class="brief"><i>@item.cus_company_name</i></h4>
+                                <div class="left col-xs-7">
+                                    <h2>@item.cus_email</h2>
+                                    <p><strong>About: </strong> Web Designer / UI. </p>
+                                    <ul class="list-unstyled">
+                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
+                                        <li><i class="fa fa-phone"></i><span> Phone #:</span>9290462803 </li>
+                                    </ul>
                                 </div>
-                                <div class="col-xs-12 bottom text-center">
-                                    <div class="col-xs-12 col-sm-6 emphasis">
-                                        <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 emphasis">
-                                        <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
-                                        <button type="button" class="btn btn-primary btn-xs" onclick="viewVendor(@item.cus_company_Id)"> <i class="fa fa-user"> </i> View Profile </button>
-                                    </div>
+                                <div class="right col-xs-5 text-center">
+                                    @if (item.cus_logo != "" && item.cus_logo != null && item.cus_logo != "/images/user.png")
+                                    { <img src="data:image;base64,@item.cus_logo" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
+                                    else
+                                    { <img src="~/images/user.png" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
+                                </div>
+                            </div>
+                            <div class="col-xs-12 bottom text-center">
+                                <div class="col-xs-12 col-sm-6 emphasis">
+                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 emphasis">
+                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="viewCustomer(@item.cus_company_Id)"> <i class="fa fa-user"> </i> View Profile </button>
                                 </div>
                             </div>
                         </div>
-                    }
+                    </div>
+                }
 
-                </div>
+            </div>
         </div>
     </div>
 }

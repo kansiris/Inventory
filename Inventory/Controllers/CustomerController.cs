@@ -65,7 +65,7 @@ namespace Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCustomerPic(HttpPostedFileBase helpSectionImages, string Customer_Id)
+        public ActionResult UpdatecuscontactPic(HttpPostedFileBase helpSectionImages, string Customer_Id)
         {
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
@@ -206,24 +206,14 @@ namespace Inventory.Controllers
                     set1 = 0;
                 else
                     set1 = long.Parse(data["cus_company_Id"].ToString());
-                
-                Customer vs = new Customer
+
+                Customer cs = new Customer
                 {
-                    cus_company_Id = (int)set1,
+                    cus_company_Id = int.Parse(set1.ToString()),
                     cus_company_name = data["cus_company_name"].ToString(),
                     cus_email = data["cus_email"].ToString(),
-                    //Bank_Acc_Number = data["Bank_Acc_Number"].ToString(),
-                    //Bank_Branch = data["Bank_Branch"].ToString(),
-                    //Bank_Name = data["Bank_Name"].ToString(),
-                    //IFSC_No = data["IFSC_No"].ToString(),
                     cus_Note = data["cus_Note"].ToString(),
                     cus_logo = data["cus_logo"].ToString(),
-                    Customer_contact_Fname = data["Customer_contact_Fname"].ToString(),
-                    Customer_contact_Lname = data["Customer_contact_Lname"].ToString(),
-                    Email_Id = data["Email_Id"].ToString(),
-                    cus_Job_position = data["cus_Job_position"].ToString(),
-                    Mobile_No = data["Mobile_No"].ToString(),
-                    Adhar_Number = data["Adhar_Number"].ToString(),
                     Customer_Id = data["Customer_Id"].ToString(),
                     bill_city = data["bill_city"].ToString(),
                     bill_country = data["bill_country"].ToString(),
@@ -235,11 +225,9 @@ namespace Inventory.Controllers
                     ship_state = data["ship_state"].ToString(),
                     ship_street = data["ship_street"].ToString(),
                     ship_postalcode = data["ship_postalcode"].ToString(),
-
                 };
-
-                string json = JsonConvert.SerializeObject(vs);
-                return Json(json);//new { vs.Company_Name, vs.Email }
+                string json = JsonConvert.SerializeObject(cs);
+                return Json(json);
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
@@ -261,7 +249,7 @@ namespace Inventory.Controllers
         public JsonResult updatecuscompanyaddress(int cus_company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode, string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = CustomerService.CustomerAddressInsertRow(cus_company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
+            var data = CustomerService.CustomerAddressUpdateRow(cus_company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
             if (data > 0)
             {
                 ViewBag.cus_company_Id = cus_company_Id;
@@ -469,7 +457,7 @@ namespace Inventory.Controllers
 
             string mObile = null;
             string activationCode = Guid.NewGuid().ToString();
-            int usertype = (int)LoginService.GetUserTypeId("Vendor", 0);
+            int usertype = (int)LoginService.GetUserTypeId("Customer", 0);
             string Date_Format = null, Timezone = null, Currency = null, UserSite = null;
             int Subscription = 0;
             DateTime? SubscriptionDate = null;
@@ -529,7 +517,7 @@ namespace Inventory.Controllers
             }
         }
         //for Jobpostions adding
-        public JsonResult addPosition(string cus_Job_position, int company_Id)
+        public JsonResult addPosition(string cus_Job_position, int cus_company_Id)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
@@ -540,7 +528,7 @@ namespace Inventory.Controllers
             }
             else
             {
-                var data = CustomerService.insertcusJobposition(cus_Job_position, company_Id, user.DbName);
+                var data = CustomerService.insertcusJobposition(cus_Job_position, cus_company_Id, user.DbName);
                 if (data > 0)
                 {
                     var positions = AvailableJobPositions().Select(m => m.cus_Job_position.TrimEnd());

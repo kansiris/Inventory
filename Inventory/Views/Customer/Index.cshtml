@@ -73,12 +73,12 @@
                 </div>
             </div>
 
-            <div class="row" id="customer">
+            @*<div class="row" id="customer">*@
                 @{ Html.RenderAction("CustomerCompany", "Customer");}
 
                 <div class="row" id="customertable1">
                 </div>
-            </div>
+            @*</div>*@
             <div class="row" id="customer-information">
                 <div class="col-md-12 form-title">Customer Information</div>
                 <div class="col-md-6">
@@ -108,18 +108,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default pull-right" id="customer-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                            <button type="button" class="btn btn-default pull-right" id="customer-information-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                             <button type="button" class="btn btn-primary pull-right save" id="mySubmit" onclick="editcuscompany(this.value)" value="Save"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
-                    <a style="cursor: pointer;" id="additonal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information Of Customer</a>
+                    <a style="cursor: pointer;color:blueviolet" id="additonal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Additional Information Of Customer</a>
                 </div>
                 @*cuscompanylogo code start*@
                 <div class="col-md-3 col-md-push-3" id="cuscompany_pic">
                     <input type="file" name="file" id="fileupload" accept=".gif, .jpeg, .png" style="display:none" onchange="upload()">
                     <img id="cuscompanypic" onclick="javascript: document.getElementById('fileupload').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
 
-                    <div>Upload Customer Company Logo</div>
+                    <div id="uploadtext">Upload Customer Company Logo</div>
                 </div>
                 @*cuscompanylogo code end*@
             </div>
@@ -201,7 +201,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="customer-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information1-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" onclick="editcuscompanyaddress(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Address</button>
                                     </div>
                                 </div>
@@ -252,7 +252,7 @@
                                         <div class="row add-position">
                                             <div class="row">
                                                 <input type="text" class="form-control" placeholder="Enter Position" id="newposition">
-                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="addingcusjobpositions(newcuscompanyid)"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="addingcusjobpositions()"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -262,7 +262,7 @@
                                     <div class="col-md-3 col-md-push-3">
                                         <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
                                         <img id="cuscontactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
-                                        <div>Upload Contact Person image</div>
+                                        <div id="uploadcontact">Upload Contact Person image</div>
                                     </div>
                                     @*Customer logo code end*@
 
@@ -271,7 +271,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="customer-information2-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information2-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" id="cuscontactbutton" value="savecontact" onclick="updatecusContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
@@ -281,38 +281,38 @@
                                 </div>
                             </li>
                             @*<li data-content="details">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">&nbsp;<span id="errmsg2" style="color:red"></span>
-                                            </div>
-                                            <div class="form-group col-md-6">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">&nbsp;<span id="errmsg2" style="color:red"></span>
+                    </div>
+                    <div class="form-group col-md-6">
 
-                                                <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
 
-                                                <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
-                                            </div>
-                                            <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
+                    </div>
+                    <div class="form-group col-md-6">
 
-                                                <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
-                                            </div>
-                                        </div>
+                        <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
+                    </div>
+                </div>
 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="customer-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
-                                        <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
-                                    </div>
-                                </div>
-                            </li>*@
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-default pull-right" id="customer-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
+            </div>
+        </div>
+    </li>*@
 
                             <li data-content="notes">
                                 <div class="row">
@@ -327,7 +327,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="customer-information4-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information4-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" value="Save Note" id="notebutton" onclick="updatecusnote(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Note</button>
                                     </div>
                                 </div>
@@ -344,6 +344,7 @@
             </div>
 
         </form>
+        <center> <div><input type="button" id="forclose" value="Close View" style="display:none" onclick="location.reload();" /></div></center>
     </div>
 </div>
 <!-- /page content -->
