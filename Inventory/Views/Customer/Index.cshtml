@@ -72,13 +72,8 @@
                     </div>
                 </div>
             </div>
-
-            @*<div class="row" id="customer">*@
                 @{ Html.RenderAction("CustomerCompany", "Customer");}
 
-                <div class="row" id="customertable1">
-                </div>
-            @*</div>*@
             <div class="row" id="customer-information">
                 <div class="col-md-12 form-title">Customer Information</div>
                 <div class="col-md-6">
@@ -208,7 +203,6 @@
                             </li>
 
                             <li data-content="contactperson" class="contactperson">
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row">
@@ -234,7 +228,6 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-
                                                 <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="Aadhaar Number">&nbsp;<span id="errmsg1" style="color:red"></span>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -275,10 +268,9 @@
                                         <button type="button" class="btn btn-primary pull-right" id="cuscontactbutton" value="savecontact" onclick="updatecusContact(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Contact</button>
                                     </div>
                                 </div>
-
                                 <div id="customerrecords">
                                     @{ Html.RenderAction("CustomerContact", "Customer");}
-                                </div>
+                                @*</div>*@
                             </li>
                             @*<li data-content="details">
         <div class="row">

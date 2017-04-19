@@ -173,9 +173,9 @@ namespace Inventory.Controllers
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             VendorService.getlastinsertedcompany(company_Id, user.DbName);
             var data = VendorService.getAllDetails(company_Id, user.DbName);
-            long set;
+           
             long set1;
-            long set2;
+            
             if (data.Read())
             {
                 //if (data["Bank_Acc_Number"].ToString() == "")
