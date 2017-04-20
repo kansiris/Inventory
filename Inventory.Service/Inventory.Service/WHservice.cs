@@ -32,17 +32,17 @@ namespace Inventory.Service
             return WarehouseRepository.getwhid(dbname);
         }
 
-        public static SqlDataReader getcontactdetail(string dbname,string wh_id)
+        public static SqlDataReader getcontactdetail(string dbname, string wh_id)
         {
-            return WarehouseRepository.getcontactdetail(dbname,wh_id);
+            return WarehouseRepository.getcontactdetail(dbname, wh_id);
         }
         public static SqlDataReader getlastinsertedwarehouse(string dbname, string wh_id)
         {
-            return WarehouseRepository.getlastinsertedwarehouse(dbname,wh_id);
+            return WarehouseRepository.getlastinsertedwarehouse(dbname, wh_id);
         }
-        public static SqlDataReader getallwhdetails(string dbname,string wh_id)
+        public static SqlDataReader getallwhdetails(string dbname, string wh_id)
         {
-            return WarehouseRepository.getallwhdetails(dbname,wh_id);
+            return WarehouseRepository.getallwhdetails(dbname, wh_id);
         }
         public static int updatewarehouse(string dbname, string wh_id, string wh_name, string wh_sname)
         {
@@ -54,11 +54,11 @@ namespace Inventory.Service
             return WarehouseRepository.updatewhaddress(dbname, wh_id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country);
         }
-        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position,string image)
+        public static int updatewhcontact(string dbname, string con_id, string Contact_Person, string phone, string Mobile, string Email, string job_position, string image)
         {
-            return WarehouseRepository.updatewhcontact(dbname, con_id, Contact_Person, phone, Mobile, Email, job_position,image);
+            return WarehouseRepository.updatewhcontact(dbname, con_id, Contact_Person, phone, Mobile, Email, job_position, image);
         }
-        public static int updatewhnote(string dbname, string wh_id,string Note)
+        public static int updatewhnote(string dbname, string wh_id, string Note)
         {
             return WarehouseRepository.updatewhnotes(dbname, wh_id, Note);
         }
@@ -77,9 +77,9 @@ namespace Inventory.Service
             return WarehouseRepository.insertwhcontact(dbname, wh_id, Contact_Person, phone, Mobile, Email, job_position);
         }
 
-        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, string job_position, string Email, string phone, string Mobile,string image)
+        public static int insertwarehousecontact(string dbname, string wh_id, string Contact_Person, string job_position, string Email, string phone, string Mobile, string image)
         {
-            return WarehouseRepository.insertwarehousecontact(dbname, wh_id, Contact_Person,job_position, Email, phone, Mobile,image);
+            return WarehouseRepository.insertwarehousecontact(dbname, wh_id, Contact_Person, job_position, Email, phone, Mobile, image);
         }
 
         public static int deletewarehouse(string dbname, string wh_Id)
@@ -96,9 +96,9 @@ namespace Inventory.Service
         }
         public static int updatewhimage(string wh_id, string wh_image)
         {
-            return WarehouseRepository.updatewhimage( wh_id, wh_image);
+            return WarehouseRepository.updatewhimage(wh_id, wh_image);
         }
-        public static SqlDataReader chkwh(string dbname,string wh_name)
+        public static SqlDataReader chkwh(string dbname, string wh_name)
         {
             return WarehouseRepository.chkwh(dbname, wh_name);
         }
@@ -122,5 +122,10 @@ namespace Inventory.Service
         {
             return WarehouseRepository.savewhjp(dbname, job_position);
         }
+        public static int deletewhjp(string dbname, string jp_id)
+        {
+            return WarehouseRepository.deletewhjobposition(dbname, jp_id);
+        }
+       
     }
 }
