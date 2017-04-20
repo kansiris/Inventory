@@ -78,7 +78,7 @@
                                 <div class="column col-xs-12 sidebar-offcanvas" id="sidebar">
                                     <ul class="nav" id="menu">
                                         <li class="title"><span class="collapse in">Categories</span></li>
-                                        <li><a href="#"><span class="collapse in">Category 1</span></a></li>
+                                        <li><a onclick="loadproducts()"><span class="collapse in">Category 1</span></a></li>
                                         <li><a href="#"><span class="collapse in">Category 2</span></a></li>
                                         <li>
                                             <a href="#" data-target="#item1" data-toggle="collapse" class="" aria-expanded="true"><span class="collapse in">Category Menu <span class="caret"></span></span></a>
@@ -109,9 +109,9 @@
                                     <tbody>
                                         <tr>
                                             <td class="col-md-1 image">
-                                                <img src="/images/2.jpg" alt="Img 1" />
+                                                <img src="/images/image1.jpg" alt="Img 1" />
                                             </td>
-                                            <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
+                                            <td class="col-md-3 product-name"><a href="#">Corn Flex</a></td>
                                             <td class="col-md-1 quantity-changes">
                                                 <div class="input-group spinner">
                                                     <label>Qty</label>
@@ -138,9 +138,9 @@
                                         </tr>
                                         <tr>
                                             <td class="col-md-1 image">
-                                                <img src="/images/3.jpg" alt="Img 2" />
+                                                <img src="/images/image3.jpg" alt="Img 2" />
                                             </td>
-                                            <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
+                                            <td class="col-md-3 product-name"><a href="#">Real Fruit Juice</a></td>
                                             <td class="col-md-1 quantity-changes">
                                                 <div class="input-group spinner">
                                                     <label>Qty</label>
@@ -158,7 +158,7 @@
                                                     <option>500 gm   - Rs. 150</option>
                                                 </select>
                                             </td>
-                                            <td class="col-md-2 product-price">Rs <span>100</span></td>
+                                            <td class="col-md-2 product-price">Rs <span>200</span></td>
                                             <td class="col-md-1 add-to-cart-table">
                                                 <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                                 <i class="fa fa-times remove" aria-hidden="true"></i>
@@ -167,9 +167,9 @@
                                         </tr>
                                         <tr>
                                             <td class="col-md-1 image">
-                                                <img src="/images/4.jpg" alt="Img 3" />
+                                                <img src="/images/5.jpg" alt="Img 3" />
                                             </td>
-                                            <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
+                                            <td class="col-md-3 product-name"><a href="#">Tresemme Shampoo</a></td>
                                             <td class="col-md-1 quantity-changes">
                                                 <div class="input-group spinner">
                                                     <label>Qty</label>
@@ -187,7 +187,7 @@
                                                     <option>500 gm   - Rs. 150</option>
                                                 </select>
                                             </td>
-                                            <td class="col-md-2 product-price">Rs <span>100</span></td>
+                                            <td class="col-md-2 product-price">Rs <span>90</span></td>
                                             <td class="col-md-1 add-to-cart-table">
                                                 <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                                 <i class="fa fa-times remove" aria-hidden="true"></i>
@@ -202,11 +202,11 @@
                                     <div class="well">
                                         <i class="fa fa-times remove" aria-hidden="true"></i>
                                         <div class="image">
-                                            <img src="/images/2.jpg" alt="Image 1">
+                                            <img src="/images/image1.jpg" alt="Image 1">
                                         </div>
                                         <div class="img-title">
-                                            <span class="product-brand">Brand Name</span>
-                                            <a href="#" class="product-name">Product Name</a>
+                                            <span class="product-brand">Kellogg's</span>
+                                            <a href="#" class="product-name">Corn Flex</a>
                                         </div>
                                         <div class="product-variation">
                                             <select class="form-control">
@@ -218,7 +218,7 @@
                                         <div class="empty"></div>
                                         <div class="rate-add">
                                             <div class="product-price">
-                                                Rs <span>100</span>
+                                                Rs <span>200</span>
                                             </div>
                                             <div class="shipping">
                                                 <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
@@ -246,11 +246,11 @@
                                     <div class="well">
                                         <i class="fa fa-times remove" aria-hidden="true"></i>
                                         <div class="image">
-                                            <img src="images/3.jpg" alt="Image 2">
+                                            <img src="images/image3.jpg" alt="Image 2">
                                         </div>
                                         <div class="img-title">
-                                            <span class="product-brand">Brand Name</span>
-                                            <a href="#" class="product-name">Product Name</a>
+                                            <span class="product-brand">Real</span>
+                                            <a href="#" class="product-name">Real Fruit Juice</a>
                                         </div>
                                         <div class="product-variation">
                                             <select class="form-control">
@@ -262,7 +262,7 @@
                                         <div class="empty"></div>
                                         <div class="rate-add">
                                             <div class="product-price">
-                                                Rs <span>100</span>
+                                                Rs <span>160</span>
                                             </div>
                                             <div class="shipping">
                                                 <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
@@ -290,11 +290,11 @@
                                     <div class="well">
                                         <i class="fa fa-times remove" aria-hidden="true"></i>
                                         <div class="image">
-                                            <img src="images/4.jpg" alt="Image 1">
+                                            <img src="images/5.jpg" alt="Image 1">
                                         </div>
                                         <div class="img-title">
-                                            <span class="product-brand">Brand Name</span>
-                                            <a href="#" class="product-name">Product Name</a>
+                                            <span class="product-brand">Tresemme</span>
+                                            <a href="#" class="product-name">Tresemme Shampoo</a>
                                         </div>
                                         <div class="product-variation">
                                             <select class="form-control">
@@ -306,7 +306,7 @@
                                         <div class="empty"></div>
                                         <div class="rate-add">
                                             <div class="product-price">
-                                                Rs <span>100</span>
+                                                Rs <span>90</span>
                                             </div>
                                             <div class="shipping">
                                                 <i class="fa fa-truck fa-lg" aria-hidden="true"></i>

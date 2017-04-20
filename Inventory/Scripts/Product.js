@@ -75,3 +75,7 @@ function getsub(type, id) {
         }
     })
 }
+function loadproducts() {
+    
+      
+}

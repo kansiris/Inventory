@@ -208,12 +208,20 @@ $("#add").click(function (e) {
 
 //<!------ Cloning contact person ------>
 //<!------ Contact Person Pop Up Job Position ------->
+$(".display-positions .position > i.fa-times").click(function () {
+    $(this).parents(".add-position").css("display", "none");
+    $(this).parents(".display-positions").css("display", "none");
+    $(this).parents(".display-positions").nextAll(".add-position").css("display", "none");
+    
+});
 
 function textval() {
     $(".display-positions .positions1").click(function () {
         var c = $(this).text();
         $("input.selected-position").val(c);
         $(".display-positions").css("display", "none");
+        $(this).parents(".add-position").css("display", "none");
+
     });
 }
 
@@ -235,8 +243,7 @@ $(".display-positions .position").click(function () {
     });
 
     $(".close-button").click(function () {
-        $(".add-position").css("display", "none");
-        $(".add-position input[type='text']").val("");
+        $(this).parents(".add-position").css("display", "none");
     });
 
 });
@@ -1030,7 +1037,7 @@ function forunderstand(array) {
     }
     var esc1 = value;
     $('#cusjobposition').empty().append(esc1);
-    $('#cusjobposition').prepend('<div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>');
+    $('#cusjobposition').prepend('<div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position<i class="fa fa-times" aria-hidden="true"></i></div>');
 
     $(".display-positions .position").click(function () {
         $(".add-position").css("display", "block");
