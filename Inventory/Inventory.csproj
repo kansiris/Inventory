@@ -266,6 +266,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ProjectDetailController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ServerDownController.cs" />
     <Compile Include="Controllers\TableDynamicController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TypographyController.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Models\OwnerStaffStatus.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Payment_Method_Types.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductItems.cs" />
     <Compile Include="Models\Program.cs" />
     <Compile Include="Models\ProgressBar.cs" />
@@ -362,6 +364,9 @@
     <Content Include="images\icon3.jpg" />
     <Content Include="images\icon4.jpg" />
     <Content Include="images\icon5.jpg" />
+    <Content Include="images\image1.jpg" />
+    <Content Include="images\image2.jpg" />
+    <Content Include="images\image3.jpg" />
     <Content Include="images\img.jpg" />
     <Content Include="images\inbox.png" />
     <Content Include="images\loader.gif" />
@@ -379,6 +384,7 @@
     <Content Include="images\prod-4.jpg" />
     <Content Include="images\prod-5.jpg" />
     <Content Include="images\profilepic.png" />
+    <Content Include="images\serverdown.jpg" />
     <Content Include="images\slide1.jpg" />
     <Content Include="images\slide2.jpg" />
     <Content Include="images\slide3.jpg" />
@@ -4748,6 +4754,7 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\CustomerCompany.cshtml" />
     <Content Include="Views\Customer\CustomerContact.cshtml" />
+    <Content Include="Views\ServerDown\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

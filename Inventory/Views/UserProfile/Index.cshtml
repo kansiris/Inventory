@@ -117,10 +117,12 @@
                                             }
                                             else
                                             {
-                                                <div class="top-button" id="sample1">
+                                                <div id="companyuploadedpic"></div>
+                                                <div class="top-button" id="companydefaultpic">
                                                     <input type="file" name="file" id="fileupload" accept="image/gif, image/jpeg, image/png" onchange="upload()">
                                                     <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.CompanyName.Substring(0, 1)</span>
                                                 </div>
+                                                
                                             }
                                             <div onclick="javascript: document.getElementById('fileupload').click();">Click to Upload Logo</div>
                                             @*<div>Upload Company <a onclick="javascript: document.getElementById('fileupload').click();">Logo</a></div>*@
@@ -431,7 +433,8 @@
                                             }
                                             else
                                             {
-                                                <div class="top-button">
+                                                <div id="useruploadedpic"></div>
+                                                <div class="top-button" id="userdefaultpic">
                                                     <input type="file" name="file" id="fileupload1" accept="image/gif, image/jpeg, image/png" onchange="upload1()">
                                                     <span onclick="javascript: document.getElementById('fileupload1').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>
                                                 </div>

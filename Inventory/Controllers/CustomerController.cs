@@ -30,7 +30,10 @@ namespace Inventory.Controllers
        //Partial view for loading all customer compines
         public PartialViewResult CustomerCompany()
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var records = CustomerService.getcuscomapnies(user.DbName);
             var dt = new DataTable();
             dt.Load(records);
@@ -47,7 +50,8 @@ namespace Inventory.Controllers
             return PartialView("CustomerCompany", ViewBag.records);
         }
 
-
+            return PartialView("CustomerCompany", null);
+        }
         [HttpPost]
         public ActionResult UpdatecusCompanyPic(HttpPostedFileBase helpSectionImages, string cus_company_Id)
         {
@@ -67,6 +71,7 @@ namespace Inventory.Controllers
         [HttpPost]
         public ActionResult UpdatecuscontactPic(HttpPostedFileBase helpSectionImages, string Customer_Id)
         {
+
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 var pic = System.Web.HttpContext.Current.Request.Files["helpSectionImages"];
@@ -131,54 +136,66 @@ namespace Inventory.Controllers
         }
         private int getMaxcusCompanyID(string cus_company_name)
         {
-            int cus_company_Id = 0;
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader exec = CustomerService.getcuscompanyId(cus_company_name, user.DbName);
-            if (exec.Read() && exec != null)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                cus_company_Id = int.Parse(exec["cus_company_Id"].ToString());
-            }
-            else
-            {
-                RedirectToAction("savecompany");
-            }
+                int cus_company_Id = 0;
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader exec = CustomerService.getcuscompanyId(cus_company_name, user.DbName);
+                if (exec.Read() && exec != null)
+                {
+                    cus_company_Id = int.Parse(exec["cus_company_Id"].ToString());
+                }
+                else
+                {
+                    RedirectToAction("savecompany");
+                }
 
-            return cus_company_Id;
+                return cus_company_Id;
+            }
+            return 0;
         }
-
         private string getMaxcustomerID()
         {
-            string Customer_Id = null;
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader exec = CustomerService.getCustomerId(user.DbName);
-            if (exec.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                Customer_Id = exec["Customer_Id"].ToString();
+                string Customer_Id = null;
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader exec = CustomerService.getCustomerId(user.DbName);
+                if (exec.Read())
+                {
+                    Customer_Id = exec["Customer_Id"].ToString();
+                }
+                return Customer_Id;
             }
-            return Customer_Id;
+            return null;
         }
         private Customer getlastinsertedcuscompany(int cus_company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader value = CustomerService.getlastinsertedcompany(cus_company_Id, user.DbName);
-            DataTable dt = new DataTable();
-            dt.Load(value);
-            Customer customer = new Customer();
-            customer = (from DataRow row in dt.Rows
-                      select new Customer()
-                      {
-                          //company_Id = int.Parse(row["company_Id"].ToString()),
-                          cus_company_name = row["cus_company_name"].ToString(),
-                          cus_email = row["cus_email"].ToString()
-                      }).FirstOrDefault();
-            
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader value = CustomerService.getlastinsertedcompany(cus_company_Id, user.DbName);
+                DataTable dt = new DataTable();
+                dt.Load(value);
+                Customer customer = new Customer();
+                customer = (from DataRow row in dt.Rows
+                            select new Customer()
+                            {
+                                //company_Id = int.Parse(row["company_Id"].ToString()),
+                                cus_company_name = row["cus_company_name"].ToString(),
+                                cus_email = row["cus_email"].ToString()
+                            }).FirstOrDefault();
 
-            return customer;
+
+                return customer;
+            }
+            return null;
         }
-
         public List<Customer> getcuscontactDetail(DataTable dt)
         {
-            List<Customer> contact = new List<Customer>();
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                List<Customer> contact = new List<Customer>();
             contact = (from DataRow row in dt.Rows
                        select new Customer()
                        {
@@ -190,10 +207,13 @@ namespace Inventory.Controllers
                        }).OrderByDescending(m => m.Customer_Id).ToList();
             return contact;
         }
-
+            return null;
+        }
         public JsonResult getAllcusDetails(int cus_company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             CustomerService.getlastinsertedcompany(cus_company_Id, user.DbName);
             var data = CustomerService.getAllcusDetails(cus_company_Id, user.DbName);
             
@@ -231,9 +251,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public JsonResult updatecuscompany(int cus_company_Id, string cus_company_name, string cus_email, string cus_logo)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string s1 = cus_company_name.TrimStart();
             cus_company_name = s1.TrimEnd();
             var data = CustomerService.UpdatecusCompany1(cus_company_Id, cus_company_name, cus_email, cus_logo, user.DbName);
@@ -246,9 +270,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public JsonResult updatecuscompanyaddress(int cus_company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode, string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = CustomerService.CustomerAddressUpdateRow(cus_company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
             if (data > 0)
             {
@@ -268,7 +296,8 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
         //public JsonResult updatecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         //{
         //    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -287,26 +316,31 @@ namespace Inventory.Controllers
         public JsonResult updatecuscontactdetails(string Customer_Id, string Customer_contact_Fname, string Customer_contact_Lname, string Mobile_No,
                           string Email_Id, string Adhar_Number, string cus_Job_position, string image)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = CustomerService.CustomerUpdateContact(Customer_Id, Customer_contact_Fname, Customer_contact_Lname, Mobile_No, Email_Id, Adhar_Number, cus_Job_position, image, user.DbName);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.Customer_Id = Customer_Id;
-                ViewBag.Customer_contact_Fname = Customer_contact_Fname;
-                ViewBag.Customer_contact_Lname = Customer_contact_Lname;
-                ViewBag.Mobile_No = Mobile_No;
-                ViewBag.Email_Id = Email_Id;
-                ViewBag.Adhar_Number = Adhar_Number;
-                ViewBag.cus_Job_position = cus_Job_position;
-                ViewBag.iamge = image;
-                return Json("sucess");
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = CustomerService.CustomerUpdateContact(Customer_Id, Customer_contact_Fname, Customer_contact_Lname, Mobile_No, Email_Id, Adhar_Number, cus_Job_position, image, user.DbName);
+                if (data > 0)
+                {
+                    ViewBag.Customer_Id = Customer_Id;
+                    ViewBag.Customer_contact_Fname = Customer_contact_Fname;
+                    ViewBag.Customer_contact_Lname = Customer_contact_Lname;
+                    ViewBag.Mobile_No = Mobile_No;
+                    ViewBag.Email_Id = Email_Id;
+                    ViewBag.Adhar_Number = Adhar_Number;
+                    ViewBag.cus_Job_position = cus_Job_position;
+                    ViewBag.iamge = image;
+                    return Json("sucess");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
-
         public JsonResult updatecuscompanynote(int cus_company_Id, string cus_Note)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = CustomerService.UpdatecusNotes(cus_company_Id, cus_Note, user.DbName);
             if (data > 0)
             {
@@ -316,10 +350,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
         public JsonResult savecuscompany(string cus_company_name, string cus_email, string cus_logo)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string s1 = cus_company_name.TrimStart();
             cus_company_name = s1.TrimEnd();
             var existingNo = CustomerService.checkcuscompany1(cus_company_name, user.DbName);
@@ -343,11 +380,14 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-        
+            return Json(null);
+        }
         public JsonResult savecuscompanyaddress(int cus_company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
                 string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = CustomerService.CustomerAddressUpdateRow(cus_company_Id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
             if (data > 0)
@@ -368,10 +408,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
         public JsonResult savecuscompanynote(int cus_company_Id, string cus_Note)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = CustomerService.UpdatecusNotes(cus_company_Id, cus_Note, user.DbName);
             if (data > 0)
             {
@@ -380,6 +423,8 @@ namespace Inventory.Controllers
                 return Json("sucess");
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
+        }
+            return Json(null);
         }
         //public JsonResult savecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         //{
@@ -400,7 +445,9 @@ namespace Inventory.Controllers
         public JsonResult savecuscontactdetails(int cus_company_Id, string Customer_contact_Fname, string Customer_contact_Lname, string Mobile_No,
                           string Email_Id, string Adhar_Number, string cus_Job_position, string image)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             List<Vendor> contact = new List<Vendor>();
             var data = CustomerService.CustomerInsertRow(cus_company_Id, Customer_contact_Fname, Customer_contact_Lname, Mobile_No, Email_Id, Adhar_Number, cus_Job_position, image, user.DbName);
             if (data > 0)
@@ -412,10 +459,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
         public JsonResult deletecusRecord(int cus_company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = CustomerService.deletecuscompRecord(cus_company_Id, user.DbName);
             if (data > 0)
             {
@@ -424,10 +474,14 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
 
         public JsonResult deleteCustomer(string Customer_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = CustomerService.deleteCustomer(Customer_Id, user.DbName);
             if (data > 0)
             {
@@ -436,10 +490,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public JsonResult inviteCustomer(string Customer_Id, int cus_company_Id)
         {
-
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string id = user.ID;
             string DBname = null;
             string fname = null;
@@ -449,12 +506,6 @@ namespace Inventory.Controllers
             string companyname = null;
             string companylogo = null;
             string Password = "ABC@123456";
-            //    private static string RandomString(int Size) {
-            //    string input = "abcdefghijklmnopqrstuvwxyz0123456789";
-            //    var chars = Enumerable.Range(0, Size).Select(x => input[random.Next(0, input.Length)]);
-            //    return new string(chars.ToArray());
-            //}
-
             string mObile = null;
             string activationCode = Guid.NewGuid().ToString();
             int usertype = (int)LoginService.GetUserTypeId("Customer", 0);
@@ -498,9 +549,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public PartialViewResult CustomerContact(string id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             if (id == null || id == "")
             {
                 return PartialView("CustomerContact", null);
@@ -516,11 +571,14 @@ namespace Inventory.Controllers
                 return PartialView("CustomerContact", ViewBag.records);
             }
         }
+            return PartialView("CustomerContact",null);
+        }
         //for Jobpostions adding
         public JsonResult addPosition(string cus_Job_position, int cus_company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var existingNo = CustomerService.getcusJobposition(cus_Job_position, user.DbName);
             if (existingNo.Read())
             {
@@ -539,7 +597,8 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
 
         public List<Customer> AvailableJobPositions()
         {
@@ -558,29 +617,29 @@ namespace Inventory.Controllers
 
         public JsonResult getCustomerContact(string Customer_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = CustomerService.getCustomerContact(Customer_Id, user.DbName);
-           
-            if (data.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-               
-                Customer vs = new Customer
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = CustomerService.getCustomerContact(Customer_Id, user.DbName);
+                if (data.Read())
                 {
-                    Customer_contact_Fname = data["Customer_contact_Fname"].ToString(),
-                    Customer_contact_Lname = data["Customer_contact_Lname"].ToString(),
-                    Email_Id = data["Email_Id"].ToString(),
-                    cus_Job_position = data["cus_Job_position"].ToString(),
-                    Mobile_No = data["Mobile_No"].ToString(),
-                    Adhar_Number = data["Adhar_Number"].ToString(),
-                    Customer_Id = data["Customer_Id"].ToString(),
-                    image = data["image"].ToString()
-
-                };
-
-                string json = JsonConvert.SerializeObject(vs);
-                return Json(json);
+                    Customer vs = new Customer
+                    {
+                        Customer_contact_Fname = data["Customer_contact_Fname"].ToString(),
+                        Customer_contact_Lname = data["Customer_contact_Lname"].ToString(),
+                        Email_Id = data["Email_Id"].ToString(),
+                        cus_Job_position = data["cus_Job_position"].ToString(),
+                        Mobile_No = data["Mobile_No"].ToString(),
+                        Adhar_Number = data["Adhar_Number"].ToString(),
+                        Customer_Id = data["Customer_Id"].ToString(),
+                        image = data["image"].ToString()
+                    };
+                    string json = JsonConvert.SerializeObject(vs);
+                    return Json(json);
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
 
        }

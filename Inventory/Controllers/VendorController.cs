@@ -108,7 +108,9 @@ namespace Inventory.Controllers
         }
         private int getMaxCompanyID(string Company_Name)
         {
-            int company_Id = 0;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                int company_Id = 0;
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             SqlDataReader exec = VendorService.getcompanyId(Company_Name,user.DbName);
             if (exec.Read() && exec != null)
@@ -122,37 +124,43 @@ namespace Inventory.Controllers
 
             return company_Id;
         }
-
+            return 0;
+        }
         private string getMaxVendorID()
         {
-            string vendor_Id = null;
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader exec = VendorService.getvendorId(user.DbName);
-            if (exec.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                vendor_Id = exec["vendor_Id"].ToString();
+                string vendor_Id = null;
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader exec = VendorService.getvendorId(user.DbName);
+                if (exec.Read())
+                {
+                    vendor_Id = exec["vendor_Id"].ToString();
+                }
+                return vendor_Id;
             }
-            return vendor_Id;
+            return null;
         }
         private Vendor getlastinsertedcompany(int company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            SqlDataReader value = VendorService.getlastinsertedcompany(company_Id, user.DbName);
-            DataTable dt = new DataTable();
-            dt.Load(value);
-            Vendor vendor = new Vendor();
-            vendor = (from DataRow row in dt.Rows
-                      select new Vendor()
-                      {
-                          //company_Id = int.Parse(row["company_Id"].ToString()),
-                          Company_Name = row["Company_Name"].ToString(),
-                          Email = row["Email"].ToString()
-                      }).FirstOrDefault();
-            //ViewBag.records = vendor;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                SqlDataReader value = VendorService.getlastinsertedcompany(company_Id, user.DbName);
+                DataTable dt = new DataTable();
+                dt.Load(value);
+                Vendor vendor = new Vendor();
+                vendor = (from DataRow row in dt.Rows
+                          select new Vendor()
+                          {
 
-            return vendor;
+                              Company_Name = row["Company_Name"].ToString(),
+                              Email = row["Email"].ToString()
+                          }).FirstOrDefault();
+                return vendor;
+            }
+            return null;
         }
-
         public List<Vendor> getcontactDetail(DataTable dt)
         {
             List<Vendor> contact = new List<Vendor>();
@@ -170,7 +178,9 @@ namespace Inventory.Controllers
 
         public JsonResult getAllDetails(int company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             VendorService.getlastinsertedcompany(company_Id, user.DbName);
             var data = VendorService.getAllDetails(company_Id, user.DbName);
            
@@ -178,18 +188,12 @@ namespace Inventory.Controllers
             
             if (data.Read())
             {
-                //if (data["Bank_Acc_Number"].ToString() == "")
-                //    set = 0;
-                //else
-                //    set = long.Parse(data["Bank_Acc_Number"].ToString());
+                
                 if (data["company_Id"].ToString() == "")
                     set1 = 0;
                 else
                     set1 = long.Parse(data["company_Id"].ToString());
-                //if (data["Mobile_No"].ToString() == "")
-                //    set2 = 0;
-                //else
-                //    set2 = long.Parse(data["Mobile_No"].ToString());
+               
 
                 Vendor vs = new Vendor
                 {
@@ -227,9 +231,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public JsonResult updatecompany(int company_Id, string Company_Name, string Email,string logo)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             string s1 = Company_Name.TrimStart();
             Company_Name = s1.TrimEnd();
             var data = VendorService.UpdateCompany1(company_Id, Company_Name, Email, logo, user.DbName);
@@ -242,9 +250,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public JsonResult updatecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode, string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode, bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
             if (data > 0)
             {
@@ -264,10 +276,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
         public JsonResult updatecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
             if (data > 0)
             {
@@ -280,10 +295,14 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public JsonResult updatecontactdetails(string Vendor_Id, string Contact_PersonFname, string Contact_PersonLname, string Mobile_No,
                           string emailid, string Adhar_Number, string Job_position,string image)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.VendorUpdateContact(Vendor_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image, user.DbName);
             if (data > 0)
             {
@@ -299,10 +318,13 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
         public JsonResult updatecompanynote(int company_Id, string Note)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.UpdateNotes(company_Id, Note, user.DbName);
             if (data > 0)
             {
@@ -312,31 +334,37 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
-
+            return Json(null);
+        }
         public JsonResult savecompany(string Company_Name, string Email, string logo)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            string s1 = Company_Name.TrimStart();
-            Company_Name = s1.TrimEnd();
-            var existingNo = VendorService.checkcompany1(Company_Name, user.DbName);
-            if (existingNo.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                return Json("exists", JsonRequestBehavior.AllowGet);
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                string s1 = Company_Name.TrimStart();
+                Company_Name = s1.TrimEnd();
+                var existingNo = VendorService.checkcompany1(Company_Name, user.DbName);
+                if (existingNo.Read())
+                {
+                    return Json("exists", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var data = VendorService.CompanyInsertRow(Company_Name, Email, logo, user.DbName);
+                    if (data > 0)
+                    {
+                        int company_Id = getMaxCompanyID(Company_Name);
+                        ViewBag.Company_Name = Company_Name;
+                        ViewBag.Email = Email;
+                        ViewBag.logo = logo;
+                        var result = new { Result = "sucess", ID = company_Id };
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                        // return Json("sucess");
+                    }
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            else { 
-            var data = VendorService.CompanyInsertRow(Company_Name, Email, logo, user.DbName);
-            if (data > 0)
-            {
-                int company_Id = getMaxCompanyID(Company_Name);
-                ViewBag.Company_Name = Company_Name;
-                ViewBag.Email = Email;
-                ViewBag.logo = logo;
-                var result = new { Result = "sucess",ID = company_Id };
-                return Json(result, JsonRequestBehavior.AllowGet);
-                // return Json("sucess");
-            }
-            }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         public class Suggestion
         {
@@ -346,7 +374,9 @@ namespace Inventory.Controllers
         public JsonResult savecompanyaddress(int company_Id, string bill_street, string bill_city, string bill_state, string bill_postalcode,
                 string bill_country, string ship_street, string ship_city, string ship_state, string ship_postalcode, string ship_country)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.VendorAddressupdateRow(company_Id, bill_street, bill_city, bill_state, bill_postalcode,
                 bill_country, ship_street, ship_city, ship_state, ship_postalcode, ship_country, user.DbName);
             if (data > 0)
@@ -367,10 +397,14 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
 
         public JsonResult savecompanynote(int company_Id, string Note)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var data = VendorService.UpdateNotes(company_Id, Note, user.DbName);
             if (data > 0)
             {
@@ -380,121 +414,136 @@ namespace Inventory.Controllers
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
         }
+            return Json(null);
+        }
         public JsonResult savecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.company_Id = company_Id;
-                ViewBag.Bank_Acc_Number = Bank_Acc_Number;
-                ViewBag.Bank_Name = Bank_Name;
-                ViewBag.Bank_Branch = Bank_Branch;
-                ViewBag.IFSC_No = IFSC_No;
-                return Json("sucess");
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
+                if (data > 0)
+                {
+                    ViewBag.company_Id = company_Id;
+                    ViewBag.Bank_Acc_Number = Bank_Acc_Number;
+                    ViewBag.Bank_Name = Bank_Name;
+                    ViewBag.Bank_Branch = Bank_Branch;
+                    ViewBag.IFSC_No = IFSC_No;
+                    return Json("sucess");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
 
         public JsonResult savecontactdetails(int company_Id, string Contact_PersonFname, string Contact_PersonLname, string Mobile_No,
-                          string emailid, string Adhar_Number, string Job_position,string image)
+                          string emailid, string Adhar_Number, string Job_position, string image)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            List<Vendor> contact = new List<Vendor>();
-            var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position,image, user.DbName);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                string Vendor_Id = getMaxVendorID();
-                ViewBag.Vendor_Id = Vendor_Id;
-                var result = new { Result = "sucess", ID = Vendor_Id };
-                return Json(result, JsonRequestBehavior.AllowGet);
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                List<Vendor> contact = new List<Vendor>();
+                var data = VendorService.VendorInsertRow(company_Id, Contact_PersonFname, Contact_PersonLname, Mobile_No, emailid, Adhar_Number, Job_position, image, user.DbName);
+                if (data > 0)
+                {
+                    string Vendor_Id = getMaxVendorID();
+                    ViewBag.Vendor_Id = Vendor_Id;
+                    var result = new { Result = "sucess", ID = Vendor_Id };
+                    return Json(result, JsonRequestBehavior.AllowGet);
                 }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+                return Json("unique", JsonRequestBehavior.AllowGet);
+            }
+            return Json(null);
         }
-
         public JsonResult deleteRecord(int company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = VendorService.deleteRecord(company_Id, user.DbName);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.company_Id = company_Id;
-                return Json("sucess");
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = VendorService.deleteRecord(company_Id, user.DbName);
+                if (data > 0)
+                {
+                    ViewBag.company_Id = company_Id;
+                    return Json("sucess");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
 
         public JsonResult deleteVendor(string Vendor_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = VendorService.deleteVendor(Vendor_Id, user.DbName);
-            if (data > 0)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.Vendor_Id = Vendor_Id;
-                return Json("sucess");
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = VendorService.deleteVendor(Vendor_Id, user.DbName);
+                if (data > 0)
+                {
+                    ViewBag.Vendor_Id = Vendor_Id;
+                    return Json("sucess");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         public JsonResult inviteVendor(string Vendor_Id, int company_Id)
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                string id = user.ID;
+                string DBname = null;
+                string fname = null;
+                string lname = null;
+                string eMail = null;
+                string image = null;
+                string companyname = null;
+                string companylogo = null;
+                string Password = "ABC@123456";
+                string mObile = null;
+                string activationCode = Guid.NewGuid().ToString();
+                int usertype = (int)LoginService.GetUserTypeId("Vendor", 0);
+                string Date_Format = null, Timezone = null, Currency = null, UserSite = null;
+                int Subscription = 0;
+                DateTime? SubscriptionDate = null;
 
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            string id = user.ID;
-            string DBname = null;
-            string fname = null;
-            string lname = null;
-            string eMail = null;
-            string image = null;
-            string companyname = null;
-            string companylogo = null;
-            string Password = "ABC@123456";
-        //    private static string RandomString(int Size) {
-        //    string input = "abcdefghijklmnopqrstuvwxyz0123456789";
-        //    var chars = Enumerable.Range(0, Size).Select(x => input[random.Next(0, input.Length)]);
-        //    return new string(chars.ToArray());
-        //}
-        
-            string mObile = null;
-            string activationCode = Guid.NewGuid().ToString();
-            int usertype = (int)LoginService.GetUserTypeId("Vendor", 0);
-            string Date_Format = null, Timezone = null, Currency = null, UserSite=null;
-            int Subscription=0;
-            DateTime? SubscriptionDate = null;
-
-            SqlDataReader exec = VendorService.getusermaster(id, user.DbName);
-            SqlDataReader exec1 = VendorService.getVendorContact(Vendor_Id, user.DbName);
-            SqlDataReader exec2 = VendorService.getlastinsertedcompany(company_Id, user.DbName);
-            if (exec.Read())
-                DBname = exec["DB_Name"].ToString();
-            Subscription= int.Parse(exec["Subscriptionid"].ToString());
-             if (exec1.Read())
-            {
-                fname= exec1["Contact_PersonFname"].ToString();
-                lname = exec1["Contact_PersonLname"].ToString();
-                eMail = exec1["emailid"].ToString();
-                mObile = exec1["Mobile_No"].ToString();
-                image= exec1["image"].ToString();
-            }
-            if (exec2.Read())
-            {
-                companyname = exec2["Company_Name"].ToString();
-                companylogo = exec2["logo"].ToString();
-            }
-            UserSite = companyname.Trim();
-            var data = LoginService.Authenticateuser("checkemail1", eMail,null,UserSite,0);
-            if (data.HasRows) { 
-                return Json("Exists");
-            }
-            else
-            {
-            int count = LoginService.CreateUser(eMail, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
-            if (count > 0)
-            {
-                    Email(fname, lname, eMail, activationCode, Password); //Sending Email
-                    return Json("sucess");
+                SqlDataReader exec = VendorService.getusermaster(id, user.DbName);
+                SqlDataReader exec1 = VendorService.getVendorContact(Vendor_Id, user.DbName);
+                SqlDataReader exec2 = VendorService.getlastinsertedcompany(company_Id, user.DbName);
+                if (exec.Read())
+                    DBname = exec["DB_Name"].ToString();
+                Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                if (exec1.Read())
+                {
+                    fname = exec1["Contact_PersonFname"].ToString();
+                    lname = exec1["Contact_PersonLname"].ToString();
+                    eMail = exec1["emailid"].ToString();
+                    mObile = exec1["Mobile_No"].ToString();
+                    image = exec1["image"].ToString();
                 }
+                if (exec2.Read())
+                {
+                    companyname = exec2["Company_Name"].ToString();
+                    companylogo = exec2["logo"].ToString();
+                }
+                UserSite = companyname.Trim();
+                var data = LoginService.Authenticateuser("checkemail1", eMail, null, UserSite, 0);
+                if (data.HasRows)
+                {
+                    return Json("Exists");
+                }
+                else
+                {
+                    int count = LoginService.CreateUser(eMail, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
+                    if (count > 0)
+                    {
+                        Email(fname, lname, eMail, activationCode, Password); //Sending Email
+                        return Json("sucess");
+                    }
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
         public PartialViewResult VendorContact(string id)
         {
@@ -515,29 +564,31 @@ namespace Inventory.Controllers
             }
         }
         //now writting
-             public JsonResult addPosition(string Job_position,int company_Id)
+        public JsonResult addPosition(string Job_position, int company_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-
-            var existingNo = VendorService.getjobposition(Job_position,user.DbName);
-            if (existingNo.Read())
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                return Json("exists", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                var data = VendorService.insertjobposition(Job_position, company_Id, user.DbName);
-                if (data > 0)
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var existingNo = VendorService.getjobposition(Job_position, user.DbName);
+                if (existingNo.Read())
                 {
-                    var positions = AvailableJobPositions().Select(m=>m.Job_position.TrimEnd());
-                    var result = new { Result = "sucess", ID = positions };
-                    return Json(result, JsonRequestBehavior.AllowGet);
-                    // return Json("sucess");
+                    return Json("exists", JsonRequestBehavior.AllowGet);
                 }
+                else
+                {
+                    var data = VendorService.insertjobposition(Job_position, company_Id, user.DbName);
+                    if (data > 0)
+                    {
+                        var positions = AvailableJobPositions().Select(m => m.Job_position.TrimEnd());
+                        var result = new { Result = "sucess", ID = positions };
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                        // return Json("sucess");
+                    }
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
-
 
         public List<Vendor> AvailableJobPositions()
         {
@@ -556,35 +607,33 @@ namespace Inventory.Controllers
 
         public JsonResult getVendorContact(string Vendor_Id)
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = VendorService.getVendorContact(Vendor_Id, user.DbName);
-           // long set;
-            if (data.Read())
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                //if (data["Mobile_No"].ToString() == "")
-                //    set = 0;
-                //else
-                //    set = long.Parse(data["Mobile_No"].ToString());
-
-                Vendor vs = new Vendor
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = VendorService.getVendorContact(Vendor_Id, user.DbName);
+                if (data.Read())
                 {
-                    Contact_PersonFname = data["Contact_PersonFname"].ToString(),
-                    Contact_PersonLname = data["Contact_PersonLname"].ToString(),
-                    emailid = data["emailid"].ToString(),
-                    Job_position = data["Job_position"].ToString(),
-                    Mobile_No = data["Mobile_No"].ToString(),
-                    Adhar_Number = data["Adhar_Number"].ToString(),
-                    Vendor_Id = data["Vendor_Id"].ToString(),
-                    image = data["image"].ToString()
+                    Vendor vs = new Vendor
+                    {
+                        Contact_PersonFname = data["Contact_PersonFname"].ToString(),
+                        Contact_PersonLname = data["Contact_PersonLname"].ToString(),
+                        emailid = data["emailid"].ToString(),
+                        Job_position = data["Job_position"].ToString(),
+                        Mobile_No = data["Mobile_No"].ToString(),
+                        Adhar_Number = data["Adhar_Number"].ToString(),
+                        Vendor_Id = data["Vendor_Id"].ToString(),
+                        image = data["image"].ToString()
 
-                };
+                    };
 
-                string json = JsonConvert.SerializeObject(vs);
-                return Json(json);
+                    string json = JsonConvert.SerializeObject(vs);
+                    return Json(json);
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+            return Json(null);
         }
-       
         public PartialViewResult VendorCompany()
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)

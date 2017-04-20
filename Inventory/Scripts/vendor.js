@@ -97,6 +97,7 @@ $("#list-view").click(function(e) {
 $("#refresh").click(function(e) {
     var url = 'Vendor/VendorCompany';
     $('#companyrecords').load(url, function () { Pagination(); });
+    location.reload();
 });
 
 //<!------------ List / Grid Views and reload page -------------->
