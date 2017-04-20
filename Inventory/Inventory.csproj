@@ -345,6 +345,7 @@
     <Content Include="images\5.jpg" />
     <Content Include="images\6.jpg" />
     <Content Include="images\american-express.png" />
+    <Content Include="images\biscuts.jpg" />
     <Content Include="images\bx_loader.gif" />
     <Content Include="images\carl.jpg" />
     <Content Include="images\carl1.jpg" />
@@ -353,6 +354,7 @@
     <Content Include="images\carl4.jpg" />
     <Content Include="images\cropper.jpg" />
     <Content Include="images\default_product.png" />
+    <Content Include="images\download %281%29.jpg" />
     <Content Include="images\fav_icon.png" />
     <Content Include="images\flags%402x.png" />
     <Content Include="images\flags.png" />
@@ -376,6 +378,8 @@
     <Content Include="images\marketing.jpg" />
     <Content Include="images\mastercard.png" />
     <Content Include="images\media.jpg" />
+    <Content Include="images\parachute.jpg" />
+    <Content Include="images\paste.jpg" />
     <Content Include="images\paypal.png" />
     <Content Include="images\picture.jpg" />
     <Content Include="images\prod-1.jpg" />
@@ -389,6 +393,7 @@
     <Content Include="images\slide2.jpg" />
     <Content Include="images\slide3.jpg" />
     <Content Include="images\slide4.jpg" />
+    <Content Include="images\soap.jpg" />
     <Content Include="images\svg_presentation-128.png" />
     <Content Include="images\Teamwork.com-Logo-Default.png" />
     <Content Include="images\user.png" />
