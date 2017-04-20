@@ -50,11 +50,11 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12">
                                         @*<input type="text" class="form-control" placeholder="Product Name">*@
-                                        @Html.TextBoxFor(Model=>Model.product_name,new { @class="form-control" ,placeholder="Product Name"})
+                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name" })
                                     </div>
                                     @*<div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Product ID">
-                                    </div>*@
+                                            <input type="text" class="form-control" placeholder="Product ID">
+                                        </div>*@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-md-6">
@@ -65,18 +65,20 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Brand</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
+
                                             @if (ViewBag.brands.Count != 0)
                                             {
                                                 foreach (var item in ViewBag.brands)
                                                 {
-                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brand</div>
+                                                    <div class="positions1" onclick="getsub('brand','@item.brand_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brand</div>
                                                 }
                                             }
+
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Brand" id="addnewbrand">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addbrand"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -91,13 +93,7 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            @if (ViewBag.brandmodels.Count != 0)
-                                            {
-                                                foreach (var item in ViewBag.brandmodels)
-                                                {
-                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brandmodel</div>
-                                                }
-                                            }
+                                            <div id="subbrands"></div>
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -119,13 +115,13 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                           @if (ViewBag.categories.Count != 0)
-                                           {
-                                               foreach (var item in ViewBag.categories)
-                                               {
-                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
-                                               }
-                                           }
+                                            @if (ViewBag.categories.Count != 0)
+                                            {
+                                                foreach (var item in ViewBag.categories)
+                                                {
+                                                    <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
+                                                }
+                                            }
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -144,9 +140,7 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sub Category</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 1</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 2</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 3</div>
+                                            <div id="subcategories"></div>
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -162,7 +156,7 @@
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Cost Price</label>
                                         @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
-                                        @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price",Value = "0" })
+                                        @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", Value = "0" })
                                     </div>
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Selling Price</label>
@@ -189,7 +183,7 @@
                                     <div class="form-group col-xs-6 col-md-6">
                                         <label>Total</label>
                                         @*<input type="text" class="form-control" placeholder="Total">*@
-                                        @Html.TextBoxFor(Model => Model.total_price, new { @class = "form-control", placeholder = "Total"})
+                                        @Html.TextBoxFor(Model => Model.total_price, new { @class = "form-control", placeholder = "Total" })
                                         <span>(Selling price + Tax + Shipping - Discount)</span>
                                     </div>
                                 </div>
@@ -353,13 +347,15 @@
                                 <div class="row">
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label>
-                                            <input type="radio" name="optradio" class="consumable" id="product_consumable">
+                                            @Html.RadioButtonFor(Model=>Model.product_consumable, "Consumable",new { @class="consumable"})
+                                            @*<input type="radio" name="product_consumable" class="consumable" id="product_consumable">*@
                                             Consumable
                                         </label>
                                     </div>
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label>
-                                            <input type="radio" name="optradio" class="non-consumable" id="product_consumable">
+                                            @Html.RadioButtonFor(Model => Model.product_consumable, "Non-Consumable", new { @class = "non-consumable" })
+                                            @*<input type="radio" name="product_consumable" class="non-consumable" id="product_consumable">*@
                                             Non-Consumable
                                         </label>
                                     </div>
@@ -367,13 +363,15 @@
                                 <div class="row veg-non">
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="veg">
-                                            <input type="radio" name="optradio1" id="product_type">
+                                            @Html.RadioButtonFor(Model => Model.product_type, "Veg")
+                                            @*<input type="radio" name="optradio1" id="product_type">*@
                                             Veg
                                         </label>
                                     </div>
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="non-veg">
-                                            <input type="radio" name="optradio1" id="product_type">
+                                            @Html.RadioButtonFor(Model => Model.product_type, "Non-Veg")
+                                            @*<input type="radio" name="optradio1" id="product_type">*@
                                             Non-Veg
                                         </label>
                                     </div>
@@ -381,13 +379,15 @@
                                 <div class="row perishable-non">
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="Perishable">
-                                            <input type="radio" name="optradio2" id="product_perishability">
+                                            @Html.RadioButtonFor(Model => Model.product_perishability, "Perishable")
+                                            @*<input type="radio" name="optradio2" id="product_perishability">*@
                                             Perishable
                                         </label>
                                     </div>
                                     <div class="form-group radio col-xs-6 col-md-6">
                                         <label class="Non-Perishable">
-                                            <input type="radio" name="optradio2" id="product_perishability">
+                                            @Html.RadioButtonFor(Model => Model.product_perishability, "Non-Perishable")
+                                            @*<input type="radio" name="optradio2" id="product_perishability">*@
                                             Non-Perishable
                                         </label>
                                     </div>
@@ -535,7 +535,7 @@ else
     <script src="~/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script src="~/Scripts/Product.js"></script>
     <script src="/Scripts/js/bootstrap-datepicker.min.js"></script>
     <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
 
@@ -551,9 +551,9 @@ else
     @*<!------ Tags With Space and comma ------->*@
     @*<!-------------- Date Picker ----------->*@
     @*<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap-datepicker3.css" />*@
-<script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
-<link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.css" />*@
+    <script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+    <link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
     <script>
         $(document).ready(function () {
             var date_input = $('input[name="date"]'); //our date input has the name "date"
@@ -569,201 +569,206 @@ else
 
     @*<!-------------- Date Picker ----------->*@
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-//<!------- PopUP ------->
+        //<!------- PopUP ------->
 
-//<!--------- Add Image popUp Tabs ------>
-$("ul.tabs > li").click(function(){
-	var v = $(this).attr("class");
-		if(v == "tab-1"){
-			$(this).nextAll(".fa-times").css("display","block");
-			}else{$(this).nextAll("i").css("display","none");}
-	$("ul.tabs-content > li").each(function() {
-        var v1 = $(this).attr("class");
-		if(v==v1){
-			$(this).css("opacity","1");
-			}else{
-				$(this).css("opacity","0");}
-    });
-	});
-$("ul.tabs > i").click(function(){
-	$(".image-library").css("display","none");
-	});
-//<!--------- Add Image popUp Tabs ------>
-	//<!---- Cancel Tab ---->
-	$(".cancel").click(function(){
-		$(".image-library").css("display","none");
-		});
-	////<!---- Cancel Tab ---->
-	//<!---- Display PopUp ---->
-	$(".add-popup").click(function(){
-		$(".image-library").css("display","block");});
-		$("ul.tabs-content > li > ul > li > input[type='checkbox']").attr("checked",false);
-	//<!---- Display PopUp ---->
-	//<!--------- Add checkbox Images ------>
-	  $("#add-image").click(function(){
-		  $("li#tab-2 > ul > li > input[type='checkbox']").each(function(){
-			  if($(this).is(":checked")){
-				  var l = $("input[type='checkbox']:checked").length;
-				  //alert(l);
-				  if(l <= 6){
-				  var v = $(this).next().attr("src");
-				  //alert(v);
-				  $("ul.admin-product-thumbs").append("<li>" + "<img src='" + v + "'" + "alt='" + v + "'" + "/>" + "</li>");
-				  $("<i class='fa fa-times' aria-hidden='true'></i>").insertBefore("ul.admin-product-thumbs > li > img");
-				  $("ul.admin-product-thumbs li i").click(function(){
-					  $(this).parent("li").css("display","none");
-					  if(($(this).next("img").attr("src") == $(".admin-product-image img").attr("src"))){
-						  $(this).parent("li").css("display","none");
-						  $(".admin-product-image img").attr("src","images/default_product.png");
-						  }
-					  });
-				  }else{
-					  alert("Select Less than Six");
-					  exit;}
-				}
-				$(".image-library").css("display","none");
-				  });
+        //<!--------- Add Image popUp Tabs ------>
+        $("ul.tabs > li").click(function () {
+            var v = $(this).attr("class");
+            if (v == "tab-1") {
+                $(this).nextAll(".fa-times").css("display", "block");
+            } else { $(this).nextAll("i").css("display", "none"); }
+            $("ul.tabs-content > li").each(function () {
+                var v1 = $(this).attr("class");
+                if (v == v1) {
+                    $(this).css("opacity", "1");
+                } else {
+                    $(this).css("opacity", "0");
+                }
+            });
+        });
+        $("ul.tabs > i").click(function () {
+            $(".image-library").css("display", "none");
+        });
+        //<!--------- Add Image popUp Tabs ------>
+        //<!---- Cancel Tab ---->
+        $(".cancel").click(function () {
+            $(".image-library").css("display", "none");
+        });
+        ////<!---- Cancel Tab ---->
+        //<!---- Display PopUp ---->
+        $(".add-popup").click(function () {
+            $(".image-library").css("display", "block");
+        });
+        $("ul.tabs-content > li > ul > li > input[type='checkbox']").attr("checked", false);
+        //<!---- Display PopUp ---->
+        //<!--------- Add checkbox Images ------>
+        $("#add-image").click(function () {
+            $("li#tab-2 > ul > li > input[type='checkbox']").each(function () {
+                if ($(this).is(":checked")) {
+                    var l = $("input[type='checkbox']:checked").length;
+                    //alert(l);
+                    if (l <= 6) {
+                        var v = $(this).next().attr("src");
+                        //alert(v);
+                        $("ul.admin-product-thumbs").append("<li>" + "<img src='" + v + "'" + "alt='" + v + "'" + "/>" + "</li>");
+                        $("<i class='fa fa-times' aria-hidden='true'></i>").insertBefore("ul.admin-product-thumbs > li > img");
+                        $("ul.admin-product-thumbs li i").click(function () {
+                            $(this).parent("li").css("display", "none");
+                            if (($(this).next("img").attr("src") == $(".admin-product-image img").attr("src"))) {
+                                $(this).parent("li").css("display", "none");
+                                $(".admin-product-image img").attr("src", "images/default_product.png");
+                            }
+                        });
+                    } else {
+                        alert("Select Less than Six");
+                        exit;
+                    }
+                }
+                $(".image-library").css("display", "none");
+            });
 
-	    //<!--------- Thumb Image ------>
-      $("ul.admin-product-thumbs > li > img").click(function(){
-	//alert("ONE");
-	var src = $(this).attr("src");
-	//alert(src);
-	//var src = $(this).attr("src").split("/");
-	//alert(src);
-	//var len = src[src.length-1];
-	//var file = len.split(".")[0];
-	//alert(file);
-	$(".admin-product-image img").attr("src",src);
-	});
-   // <!--------- Thumb Image ------>
-				});
-	//<!--------- Add checkbox Images ------>
+            //<!--------- Thumb Image ------>
+            $("ul.admin-product-thumbs > li > img").click(function () {
+                //alert("ONE");
+                var src = $(this).attr("src");
+                //alert(src);
+                //var src = $(this).attr("src").split("/");
+                //alert(src);
+                //var len = src[src.length-1];
+                //var file = len.split(".")[0];
+                //alert(file);
+                $(".admin-product-image img").attr("src", src);
+            });
+            // <!--------- Thumb Image ------>
+        });
+        //<!--------- Add checkbox Images ------>
 
-//<!------- PopUP ------->
+        //<!------- PopUP ------->
 
-//<!------ Instant Values added in Input Box ------->
+        //<!------ Instant Values added in Input Box ------->
 
-$(".display-positions .position > i.fa-times").click(function(){
-  $(this).parents(".display-positions").css("display","none");
-  $(this).parents(".display-positions").next(".add-position").css("display","none");
-});
+        $(".display-positions .position > i.fa-times").click(function () {
+            $(this).parents(".display-positions").css("display", "none");
+            $(this).parents(".display-positions").next(".add-position").css("display", "none");
+        });
 
-function textval(){
-	$(".display-positions .positions1").click(function(){
-					  var c = $(this).text();
-					  $(this).parent(".display-positions").prev("input.selected-position").val(c);
-					 $(this).parent(".display-positions").css("display","none");
-					  });
-					  }
+        function textval() {
+            $(".display-positions .positions1").click(function () {
+                var c = $(this).text();
+                $(this).parents(".display-positions").prev("input.selected-position").val(c);
+                $(this).parents(".display-positions").css("display", "none");
+            });
+        }
 
-$(".positions1 > i.fa-trash-o").click(function(){
-				  $(this).parent(".positions1").remove();
-			  });
+        $(".positions1 > i.fa-trash-o").click(function () {
+            $(this).parent(".positions1").remove();
+        });
 
-			  $(".selected-position").click(function(){
-				  $(this).next(".display-positions").css("display","block");
-				  return textval();
-				  });
+        $(".selected-position").click(function () {
+            $(this).next(".display-positions").css("display", "block");
+            return textval();
+        });
 
-  $(".display-positions .position > span, .display-positions .position > i.fa-plus-circle").click(function(){
-  $(this).parents(".display-positions").next(".add-position").css("display","block");
+        $(".display-positions .position > span, .display-positions .position > i.fa-plus-circle").click(function () {
+            $(this).parents(".display-positions").next(".add-position").css("display", "block");
 
-   $(".add-position .add-button").click(function(){
-	  var v = $(this).prev("input[type='text']").val();
-	 var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
-			  $(this).parents(".add-position").prev(".display-positions").append(value);
-	  $(".positions1 > i").click(function(){
-				  $(this).parent(".positions1").remove();
-			  });
-				  return textval();
-	  });
+            //$(".add-position .add-button").click(function () {
+            //    var v = $(this).prev("input[type='text']").val();
+            //    var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
+            //    $(this).parents(".add-position").prev(".display-positions").append(value);
+            //    $(".positions1 > i").click(function () {
+            //        $(this).parent(".positions1").remove();
+            //    });
+            //    return textval();
+            //});
 
-	$(".close-button").click(function(){
-	$(this).parents(".add-position").css("display","none");
-	});
+            $(".close-button").click(function () {
+                $(this).parents(".add-position").css("display", "none");
+            });
 
-});
+        });
 
-//<!------ Instant Values added in Input Box ------->
+        //<!------ Instant Values added in Input Box ------->
 
-//<!------ Total Price ------->
-	var costprice, sellprice, tax, taxtotal, discount, discounttotal, shipping;
+        //<!------ Total Price ------->
+        var costprice, sellprice, tax, taxtotal, discount, discounttotal, shipping;
 
-$("input[placeholder='Cost Price']").blur(function(){
-	costprice = parseInt($("input[placeholder='Cost Price']").val());
-	if(costprice <= 0){
-		$("input[placeholder='Cost Price']").css("border","1px solid red");
-		}else{$("input[placeholder='Cost Price']").css("border","1px solid #ccc");}
-		});
-$("input[placeholder='Selling Price']").blur(function(){
-	sellprice = parseInt($("input[placeholder='Selling Price']").val());
-	costprice = parseInt($("input[placeholder='Cost Price']").val());
-	if(costprice <= 0){
-		$("input[placeholder='Cost Price']").css("border","1px solid red");
-		}
-	  if(sellprice < costprice){
-		  $("input[placeholder='Selling Price']").css("border","1px solid red").val(costprice);
-		  $("input[placeholder='Total']").val(costprice);
-		  }else{$("input[placeholder='Selling Price']").css("border","1px solid #ccc").val(sellprice);
-		        $("input[placeholder='Total']").val(sellprice);}
-	});
-$("input[placeholder='Tax']").blur(function(){
-	sellprice = parseInt($("input[placeholder='Selling Price']").val());
-	tax = parseInt($("input[placeholder='Tax']").val());
-	$(this).val(tax);
-	taxtotal = (sellprice/100) * tax;
-	var v = sellprice + taxtotal;
-	$("input[placeholder='Selling Price']").css("border","1px solid #ccc").val(sellprice);
-	$("input[placeholder='Total']").val(v);
+        $("input[placeholder='Cost Price']").blur(function () {
+            costprice = parseInt($("input[placeholder='Cost Price']").val());
+            if (costprice <= 0) {
+                $("input[placeholder='Cost Price']").css("border", "1px solid red");
+            } else { $("input[placeholder='Cost Price']").css("border", "1px solid #ccc"); }
+        });
+        $("input[placeholder='Selling Price']").blur(function () {
+            sellprice = parseInt($("input[placeholder='Selling Price']").val());
+            costprice = parseInt($("input[placeholder='Cost Price']").val());
+            if (costprice <= 0) {
+                $("input[placeholder='Cost Price']").css("border", "1px solid red");
+            }
+            if (sellprice < costprice) {
+                $("input[placeholder='Selling Price']").css("border", "1px solid red").val(costprice);
+                $("input[placeholder='Total']").val(costprice);
+            } else {
+                $("input[placeholder='Selling Price']").css("border", "1px solid #ccc").val(sellprice);
+                $("input[placeholder='Total']").val(sellprice);
+            }
+        });
+        $("input[placeholder='Tax']").blur(function () {
+            sellprice = parseInt($("input[placeholder='Selling Price']").val());
+            tax = parseInt($("input[placeholder='Tax']").val());
+            $(this).val(tax);
+            taxtotal = (sellprice / 100) * tax;
+            var v = sellprice + taxtotal;
+            $("input[placeholder='Selling Price']").css("border", "1px solid #ccc").val(sellprice);
+            $("input[placeholder='Total']").val(v);
 
-	});
-$("input[placeholder='Discount']").blur(function(){
-	discount = parseInt($("input[placeholder='Discount']").val());
-	$(this).val(discount);
-	discounttotal = (sellprice/100) * discount;
-	var v = sellprice + taxtotal - discounttotal;
-	$("input[placeholder='Total']").val(v);
-	});
-$("input[placeholder='Shipping']").blur(function(){
-	shipping = parseInt($("input[placeholder='Shipping']").val());
-	$(this).val(shipping);
-	var v = sellprice + taxtotal + shipping - discounttotal;
-	$("input[placeholder='Total']").val(v);
-	});
-//<!------ Total Price ------->
+        });
+        $("input[placeholder='Discount']").blur(function () {
+            discount = parseInt($("input[placeholder='Discount']").val());
+            $(this).val(discount);
+            discounttotal = (sellprice / 100) * discount;
+            var v = sellprice + taxtotal - discounttotal;
+            $("input[placeholder='Total']").val(v);
+        });
+        $("input[placeholder='Shipping']").blur(function () {
+            shipping = parseInt($("input[placeholder='Shipping']").val());
+            $(this).val(shipping);
+            var v = sellprice + taxtotal + shipping - discounttotal;
+            $("input[placeholder='Total']").val(v);
+        });
+        //<!------ Total Price ------->
 
-//<!------ Total Quantity in Hand ------->
-$("input[placeholder='Quantity in Hand']").blur(function(e) {
-	var len = $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").length;
-	var i = 0, total = 0;
-    $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").each(function(){
-		if(i <= len){
-			var val =   parseInt($(this).val());
-			total += val;
-			}
-			 i++;
-		});
-		$("input[placeholder='Total Quantity in Hand']").val(total);
-		//alert(total);
-		var discount = (total/100) * 20;
-		//alert(discount);
-});
-//<!------ Total Quantity in Hand ------->
+        //<!------ Total Quantity in Hand ------->
+        $("input[placeholder='Quantity in Hand']").blur(function (e) {
+            var len = $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").length;
+            var i = 0, total = 0;
+            $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").each(function () {
+                if (i <= len) {
+                    var val = parseInt($(this).val());
+                    total += val;
+                }
+                i++;
+            });
+            $("input[placeholder='Total Quantity in Hand']").val(total);
+            //alert(total);
+            var discount = (total / 100) * 20;
+            //alert(discount);
+        });
+        //<!------ Total Quantity in Hand ------->
 
-//<!-------------- Veg / Non-Veg ------------------>
-$(".non-consumable").click(function(){
-if($(".non-consumable").attr("checked","true")){
-	$(".Perishable,.Non-Perishable, .veg, .non-veg").css("display","none");
-	}
-	});
-$(".consumable").click(function(){
-if($(".consumable").attr("checked","true")){
-	$(".Perishable,.Non-Perishable, .veg, .non-veg").css("display","block");
-	}
-	});
-//<!-------------- Veg / Non-Veg ------------------>
-</script>
+        //<!-------------- Veg / Non-Veg ------------------>
+        $(".non-consumable").click(function () {
+            if ($(".non-consumable").attr("checked", "true")) {
+                $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display", "none");
+            }
+        });
+        $(".consumable").click(function () {
+            if ($(".consumable").attr("checked", "true")) {
+                $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display", "block");
+            }
+        });
+        //<!-------------- Veg / Non-Veg ------------------>
+    </script>
 }

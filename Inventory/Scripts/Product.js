@@ -1,6 +1,6 @@
 ﻿var product = {
-    product_name : $('#product_name').val(),
-    brand: $('#brand').val(),
+    product_name: $('#product_name').val(),
+    brand: $('#addnewbrand').val(),
     model: $('#model').val(),
     category: $('#category').val(),
     sub_category: $('#sub_category').val(),
@@ -22,23 +22,56 @@
     product_description: $('#product_description').val(),
     product_tags: $('#myTags').val(),
 }
-function updateproduct(val) {
+function updateproductitems(val) {
     $.ajax({
-        url: '/AddProduct/UpdateProducts?command=' + val,
+        url: '/AddProduct/UpdateProductsItems?command=' + val,
         type: "POST",
         datatype: "json",
-        data: { product: product},
+        data: { product: product },
         success: function (response) {
-            if (response == 'success') {
-                alert("");
-                location.href = '/AllProducts';
+            if (response == 'Failed') {
+                alert("Failed to Add Record!!! Try Again Later");
             }
             else {
-                alert("Failed To Add Product");
+                alert(response + " Added SuccessFully");
             }
         },
         error: function (er) {
             alert("error");
+        }
+    })
+}
+
+
+function getsub(type, id) {
+    $.ajax({
+        url: '/AddProduct/getsub',
+        type: "POST",
+        datatype: "json",
+        data: { 'type': type, 'id': id },
+        success: function (response) {
+            if (response == 'empty') {
+                alert("No Records Available");
+            }
+            else {
+                if (type == 'category') {
+                    var value = "";
+                    for (var i = 0; i < response.length; i++) {
+                        value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response[i].subcategory + "</div>";
+                    }
+                    $('#subcategories').empty().append(value);
+                }
+                if (type == 'brand') {
+                    var value = "";
+                    for (var i = 0; i < response.length; i++) {
+                        value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response[i].brandmodel + "</div>";
+                    }
+                    $('#subbrands').empty().append(value);
+                }
+            }
+        },
+        error: function (er) {
+            alert("Something Went Wrong!!!Try Again Later");
         }
     })
 }

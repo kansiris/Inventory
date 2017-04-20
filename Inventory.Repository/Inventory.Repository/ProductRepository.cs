@@ -25,20 +25,20 @@ namespace Inventory.Repository
         #endregion
 
         #region Sorting Sub-Category
-        public static SqlDataReader GetSubCategory(string dbname,string categoryid)
+        public static SqlDataReader GetSubCategory(string dbname,string type,string categoryid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "getsubcategory",categoryid);
+            return SqlHelper.ExecuteReader(ConnectionString, "getsubcategory",type,categoryid);
         }
         #endregion
 
         #region Add/Remove ProductItems
-        public static int ProductItems(string dbname,string command,string weight,string size,string color,string itemshape,string category,string subcategory,string id)
+        public static int ProductItems(string dbname,string command,string weight,string size,string color,string itemshape,string category,string subcategory,string brand,string model,string id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductItems", command, weight, size, color, itemshape, category, subcategory, id);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductItems", command, weight, size, color, itemshape, category, subcategory,brand,model, id);
         }
         #endregion
 

@@ -113,6 +113,9 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
+                    $('#companydefaultpic').hide();
+                    var imgdiv = "<input type='file' name='file' id='fileupload' accept='.gif, .jpeg, .png' onchange='upload()' style='display:none'> <img id='companypic' onclick='javascript: document.getElementById('fileupload').click();' style='border-radius: 50%;width: 150px;height: 150px;' />";
+                    $('#companyuploadedpic').empty().append(imgdiv);
                     $("#companypic").attr("src", "data:image/;base64," + response);
                     $(".overlay").hide();
                 },
@@ -147,8 +150,13 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
+                    $('#userdefaultpic').hide();
+                    var imgdiv = "<input type='file' name='file' id='fileupload1' accept='.gif, .jpeg, .png' onchange='upload1()' style='display:none'> <img id='profilepic' onclick='javascript: document.getElementById('fileupload1').click();' style='border-radius: 50%;width: 150px;height: 150px;' />";
+                    $('#useruploadedpic').append(imgdiv);
                     $("#smallprofilepic").attr("src","data:image/;base64,"+response);
                     $("#profilepic").attr("src", "data:image/;base64," + response);
+                    $('#smallprofilepic').show();
+                    $('#masterpic').hide();
                     $(".overlay").hide();
                 },
                 error: function (er) {

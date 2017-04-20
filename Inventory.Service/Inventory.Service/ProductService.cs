@@ -18,16 +18,16 @@ namespace Inventory.Service
         #endregion
 
         #region Sorting Sub-Category
-        public static SqlDataReader GetSubCategory(string dbname, string categoryid)
+        public static SqlDataReader GetSubCategory(string dbname,string type, string categoryid)
         {
-            return ProductRepository.GetSubCategory(dbname, categoryid);
+            return ProductRepository.GetSubCategory(dbname,type, categoryid);
         }
         #endregion
 
         #region Add/Remove ProductItems
-        public static int ProductItems(string dbname, string command, string weight, string size, string color, string itemshape, string category, string subcategory, string id)
+        public static int ProductItems(string dbname, string command, string weight, string size, string color, string itemshape, string category, string subcategory, string brand, string model, string id)
         {
-            return ProductRepository.ProductItems(dbname, command, weight, size, color, itemshape, category, subcategory, id);
+            return ProductRepository.ProductItems(dbname, command, weight, size, color, itemshape, category, subcategory, brand, model, id);
         }
         #endregion
 
