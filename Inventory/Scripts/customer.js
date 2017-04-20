@@ -353,7 +353,7 @@ function getEditDetails(id) {
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
     $('#notebutton').val("updatenote").text("Update Notes");
-    $('#contactbutton').val("savecontact").text("Save Contact");
+    $('#cuscontactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
     $('#forclose').css('display', 'none');
