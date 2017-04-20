@@ -208,7 +208,7 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "getwhjobpositions1");
+            return SqlHelper.ExecuteReader(ConnectionString, "getwhjobpositions2");
         }
         public static int savewhjp(string dbname,string job_position)
         {
@@ -217,6 +217,14 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "savewhjp", job_position);
             return count;
         }
+        public static int deletewhjobposition(string dbname,string jp_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deletewhjobposition", jp_id);
+            return count;
+        }
+       
 
     }
 }

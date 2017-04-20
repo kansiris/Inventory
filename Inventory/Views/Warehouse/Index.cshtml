@@ -33,17 +33,20 @@
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.wh_Id, new { Value = @ViewBag.wh_Id })
             @Html.HiddenFor(Model => Model.con_id, new { Value = @ViewBag.con_id })
-            @*<input type="hidden" id="maxid" value="@ViewBag.wh_id">*@
-            <div class="row top-bar">
-                <div class="col-md-12">
-                    <h1 class="pull-left">Warehouse</h1>
+           
+       
+            <div class="row">
+                <div class="form-title col-xs-12 col-md-10">
+                    Warehouse
+                </div>
+                <div class="top-bar col-xs-12 col-md-2">
                     <button type="button" class="btn btn-primary pull-right invite" id="add-wh"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Warehouse </button>
                     @*<div class="icons pull-right">
-                            <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
-                            <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
-                            <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
-                            <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
-                        </div>*@
+            <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+            <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+            <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+            <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+        </div>*@
                 </div>
             </div>
             @*<h1 class="pull-left">Warehouse</h1>*@
@@ -96,9 +99,9 @@
                             <div class="form-group col-md-4">
                                 @Html.TextBoxFor(Model => Model.wh_name, new { placeholder = "Warehouse Name", @id = "wh_Name", required = "required", @class = "form-control", Value = ViewBag.wh_name, @maxlength = "30" })
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
 
-                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Sname", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname, @maxlength = "3" })
+                                @Html.TextBoxFor(Model => Model.wh_Shortname, new { placeholder = "Shortname", @id = "wh_sname", required = "required", @class = "form-control", Value = ViewBag.wh_Shortname, @maxlength = "3" })
                             </div>
                         }
                     </div>
@@ -202,7 +205,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-default pull-right" id="btnclose3">Close</button>
+                                        <button type="button" class="btn btn-default pull-right" id="btnclose3"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
                                         <button type="button" class="btn btn-primary pull-right" id="mySubmit1" name="command" value="saveaddress" onclick="editwhaddress(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Address</button>
                                     </div>
                                 </div>
@@ -244,14 +247,14 @@
                                         <div class="row">
 
                                             <div class="form-group col-md-6">
-
+                                                <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                                 <input type="text" class="form-control selected-position" name="Job_position" id="Job_position" placeholder="Job position">
                                                 <div class="display-positions">
-                                                    <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
+                                                    <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i><span>Job Position</span><i class="fa fa-times" aria-hidden="true"></i></div>
                                                     @if (ViewBag.jobpositions != null)
                                                     {
                                                         foreach (var item in ViewBag.jobpositions)
-                                                        { <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.job_position</div> }
+                                                        { <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true" onclick="deletejp(@item.jp_id)"></i>@item.job_position</div> }
                                                     }
                                                     @*<div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>One</div>
                                                         <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Two</div>
@@ -287,7 +290,10 @@
                                     </div>
                                 </div>
                                 @*--------------------------------contactinfo table-----------------------------------------------*@
-                                @{Html.RenderAction("WarehouseContact", "Warehouse");}
+                                <div class="vamsi">
+                                    @{Html.RenderAction("WarehouseContact", "Warehouse");}
+                                </div>
+                                
                             </li>
 
                             <li data-content="notes">
@@ -392,7 +398,7 @@
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
             $('#mySubmit').val("Save").text("Save");
             $('#mySubmit1').val("saveaddress").text("Save Address");
-            $('#notebutton').val("Save Note").text("Save Note");
+            $('#notebutton').val("Save Note").text("Save Notes");
             $("#bill_Country").val("");
             $("#ship_Country").val("");
             $("#bill_Country").attr("disabled", false);
@@ -543,9 +549,7 @@
                 $("#wh-information1").css("display", "block");
             });
             //$("#contactdiv").css("display", "none");
-            //$("#whcontacttable").css("display", "none");
-            //$("#contactdiv").css("display", "block");
-            //$("#whcontacttable").css("display", "none");
+            $("#whcontacttable").css("display", "none");
 
         });
 
@@ -586,6 +590,10 @@
         });
     </script>
     <script>
+        $(".display-positions .position > i.fa-times").click(function () {
+            $(this).parents(".display-positions").css("display", "none");
+            $(this).parents(".display-positions").next(".add-position").css("display", "none");
+        });
         function textval() {
             $(".display-positions .positions1").click(function () {
                 var c = $(this).text();
@@ -617,15 +625,15 @@
             });
 
             $(".close-button").click(function () {
-                $(".add-position").css("display", "none");
+                $(this).parents(".add-position").css("display", "none");
             });
 
         });
     </script>
     <script>
         function editFunction(array) {
-            $("#contactdiv").css("visibility", "visibility");
-            $("#whcontacttable").css("visibility", "hidden");
+            //$("#contactdiv").css("visibility", "visibility");
+            //$("#whcontacttable").css("visibility", "hidden");
             $('#wh-information').css('display', 'block');
             //$("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
@@ -897,6 +905,39 @@
             }
             return false;
 
+        }
+        function deletejp(id){
+            if (confirm("Are you sure you want to delete this Position?")) {
+                $.ajax({
+                    url: '/Warehouse/deletejobposition?jp_id=' + id,
+                    type: 'POST',
+                    data: JSON.stringify({ jp_id: id }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        //if (confirm("Are you sure you want to delete this Record?")) {
+                        if (data == "success") {
+
+                            //var url = 'Warehouse/WarehouseDetails';
+                            //$('#whdetails').empty().load(url, function () { Pagination(); });
+                            alert("position Deleted successfully");
+                            //$("#whtable").load(" #whtable");
+                            //}
+                            //return false;
+                        }
+
+                        else {
+                            alert("not Deleted");
+
+                        }
+                        //}
+                        //return false;
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+            }
+            return false;
         }
         function deletecontact(id) {
             //alert(id);
@@ -1217,9 +1258,10 @@
                                 //$('#savebutton').hide();
                                 $('#con_id').val(data.ID);
                                 var url = 'Warehouse/WarehouseContact?id=' + warehouse.wh_id + '';
+                                $('#contactdiv').empty().load(url);
                                 // $('#WarehouseDetails').load(url);
                                 //var url = 'Warehouse/WarehouseDetails';
-                                $('#contactdiv').empty().load(url);
+                                //$('#contactdiv').empty().load(url);
                                 alert("Contact Details Saved successfully");
                                 $("[id='Contact_PersonFname']").val("");
                                 $("[id='Phone']").val("");

@@ -26,8 +26,9 @@ namespace Inventory.Controllers
         {
             ViewBag.wh_id = getMaxwhid();
             ViewBag.con_id = getMaxcontactID();
+           
             ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
-            //  SelectList selectList = new SelectList(whjobpositions());
+            
             ViewBag.jobpositions = whjobpositions();
             var wh = getlastinsertedwarehouse(ViewBag.wh_id);
             if (status == "complete")
@@ -298,6 +299,21 @@ namespace Inventory.Controllers
             }
             return Json(null);
         }
+        public JsonResult deletejobposition(string jp_id)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.deletewhjp(user1.DbName, jp_id);
+                if (data > 0)
+                {
+                    ViewBag.jp_id = jp_id;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
+            }
+            return Json(null);
+        }
         //update warehouse address
         public JsonResult updatewhaddress(string wh_id, Warehouse warehouse)
         {
@@ -529,6 +545,7 @@ namespace Inventory.Controllers
             }
             return "";
         }
+        
         //update contactperson pic
         [HttpPost]
         public ActionResult updatecontactpersonimage(HttpPostedFileBase helpSectionImages, string con_id)
@@ -618,6 +635,7 @@ namespace Inventory.Controllers
         public class whjobposition
         {
             public string job_position { get; set; }
+            public string jp_id { get; set; }
         }
         public List<whjobposition> whjobpositions()
         {
@@ -628,7 +646,7 @@ namespace Inventory.Controllers
                 var positions = WHservice.getwhjobpositions(user1.DbName);
                 var dt = new DataTable();
                 dt.Load(positions);
-                List<whjobposition> jpositions = (from DataRow row in dt.Rows select new whjobposition() { job_position = row["job_position"].ToString() }).ToList();
+                List<whjobposition> jpositions = (from DataRow row in dt.Rows select new whjobposition() { jp_id = row["jp_id"].ToString(), job_position = row["job_position"].ToString() }).ToList();
                 return jpositions;
             }
             return null;
