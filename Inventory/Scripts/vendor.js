@@ -1006,7 +1006,6 @@ function addingjobpositions(company_Id) {
 }
 
 function forunderstand(array) {
-
     var value = "";
     for (var i = 0; i < array.length;i++) {
         
