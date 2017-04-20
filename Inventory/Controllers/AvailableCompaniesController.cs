@@ -37,19 +37,39 @@ namespace Inventory.Controllers
         [HttpPost]
         public ActionResult Index(string email, string usertype, string loginpassword)
         {
-            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
-            UserMaster userMaster = new UserMaster();
-            if (value.HasRows)
+            try
             {
-                userMaster = convert(value);
-                if (userMaster != null)
+                SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+                UserMaster userMaster = new UserMaster();
+                if (value.HasRows)
                 {
-                    string userData = JsonConvert.SerializeObject(userMaster);
-                    ValidUser.SetAuthCookie(userData, userMaster.ID);
+                    userMaster = convert(value);
+                    if (userMaster != null)
+                    {
+                        string userData = JsonConvert.SerializeObject(userMaster);
+                        ValidUser.SetAuthCookie(userData, userMaster.ID);
+                    }
+                    return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
                 }
-                return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
+                return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
             }
-            return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "ServerDown");
+            }
+            //SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+            //UserMaster userMaster = new UserMaster();
+            //if (value.HasRows)
+            //{
+            //    userMaster = convert(value);
+            //    if (userMaster != null)
+            //    {
+            //        string userData = JsonConvert.SerializeObject(userMaster);
+            //        ValidUser.SetAuthCookie(userData, userMaster.ID);
+            //    }
+            //    return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
+            //}
+            //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
         }
 
         public UserMaster convert(SqlDataReader sqlDataReader)

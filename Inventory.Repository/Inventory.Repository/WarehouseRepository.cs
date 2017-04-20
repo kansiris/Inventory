@@ -204,5 +204,19 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertwarehousegallery", wh_id, galimage1, galimage2, galimage3, galimage4);
             return count;
         }
+        public static SqlDataReader getwhjobpositions(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getwhjobpositions1");
+        }
+        public static int savewhjp(string dbname,string job_position)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "savewhjp", job_position);
+            return count;
+        }
+
     }
 }

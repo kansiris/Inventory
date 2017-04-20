@@ -45,7 +45,7 @@
         @RenderSection("css", required: false)
         <!-- Custom Theme Style -->
         <link href="../build/css/custom.min.css" rel="stylesheet">*@
-    
+
 
 </head>
 @*<body class="nav-md">
@@ -54,7 +54,7 @@
         </div>
     </body>*@
 <body class="nav-md">
-   
+
 
     <div class="container ">
         <div class="main_container">
@@ -118,6 +118,7 @@
             <!-- /footer content -->
         </div>
     </div>
+    
     @RenderSection("scripts", required: false)
     @*<!-- jQuery -->
         <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -168,9 +169,14 @@
         <script src="../build/js/custom.min.js"></script>*@
 
     <script>
-        $(document).ready(function () {
-            //$("#masterpic").html($("#pic").html());
+        //<!----------------- Top Menu Active ----------------->
+        $("ul.nav > li").click(function () {
+            $(this).prevAll("li").removeClass("active");
+            $(this).nextAll("li").removeClass("active");
+            $(this).addClass(" active");
+            //alert(this.text);
         });
+        //<!----------------- Top Menu Active ----------------->
     </script>
 
 </body>
