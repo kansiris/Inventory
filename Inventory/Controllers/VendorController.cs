@@ -24,7 +24,8 @@ namespace Inventory.Controllers
             ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
             var list = AvailableJobPositions();
             if(list != null)
-            ViewBag.jobpositions = AvailableJobPositions().Select(m => m.Job_position).Distinct();
+                    ViewBag.jobpositions = AvailableJobPositions().Select(m => m.Job_position).Distinct();
+            else
             ViewBag.jobpositions = "";
             return View();
         }

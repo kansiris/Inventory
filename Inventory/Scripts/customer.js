@@ -353,7 +353,7 @@ function getEditDetails(id) {
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
     $('#notebutton').val("updatenote").text("Update Notes");
-    $('#contactbutton').val("savecontact").text("Save Contact");
+    $('#cuscontactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
     $('#forclose').css('display', 'none');
@@ -746,6 +746,7 @@ function updatecusContact(clickedvalue) {
                         $('#cuscompanyrecords').load(url, function () { Pagination(); });
                         var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                         $('#cuscontacttable').empty().load(url1, function () { Pagination(); });
+                        alert("Contact Details updated Successfully");
                         $('#cuscontactbutton').val("savecontact").text("Save Contact");
                         $("[id='Customer_contact_Fname']").val("");
                         $("[id='Customer_contact_Lname']").val("");
