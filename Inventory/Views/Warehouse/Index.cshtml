@@ -650,10 +650,10 @@
             $('#ship_state').val(array.ship_State);
             $('#ship_postalcode').val(array.ship_Postalcode);
             $('#ship_Country').val(array.ship_Country);
-            $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
-            $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
-            $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
-            $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
+            $('#galpic1').attr('src', array.galimage1);
+            $('#galpic2').attr('src', array.galimage2);
+            $('#galpic3').attr('src', array.galimage3);
+            $('#galpic4').attr('src', array.galimage4);
             $('#Contact_PersonFname').val(array.conperson);
             $('#Phone').val(array.phone);
             $('#Mobile_No').val(array.Mobile);
@@ -740,21 +740,18 @@
                         $('#ship_Country').val(array.ship_Country);
                         $('#Note').val(array.Note);
                         if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
-                            $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
-                        } else
-                            $('#galpic1').attr('src', array.galimage1);
+                            $("#galpic1").attr("src", array.galimage1);
+                            //$("#companypic").attr("src", "data:image/;base64," + response);
+                        } 
                         if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
-                            $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
-                        } else
                             $('#galpic2').attr('src', array.galimage2);
+                        } 
                         if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
-                            $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
-                        } else
-                            $('#galpic3').attr('src', array.galimage3);
+                            $('#galpic3').attr('src',  array.galimage3);
+                        } 
                         if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
-                            $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
-                        } else
                             $('#galpic4').attr('src', array.galimage4);
+                        } 
                         var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
                         $('#contactdiv').empty().load(url);
                         //editFunction(array);
@@ -822,7 +819,7 @@
                         $("#contactpic").attr("src", "/images/user.png");
 
                         if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
-                            $('#galpic1').attr('src', 'data:galimage1/;base64,' + array.galimage1);
+                            $('#galpic1').attr('src', 'data:Image/;base64,' + array.galimage1);
                         } else
                             $('#galpic1').attr('src', array.galimage1);
                         if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {

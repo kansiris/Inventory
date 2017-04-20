@@ -26,9 +26,9 @@ namespace Inventory.Controllers
         {
             ViewBag.wh_id = getMaxwhid();
             ViewBag.con_id = getMaxcontactID();
-           
+
             ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
-            
+
             ViewBag.jobpositions = whjobpositions();
             var wh = getlastinsertedwarehouse(ViewBag.wh_id);
             if (status == "complete")
@@ -545,7 +545,7 @@ namespace Inventory.Controllers
             }
             return "";
         }
-        
+
         //update contactperson pic
         [HttpPost]
         public ActionResult updatecontactpersonimage(HttpPostedFileBase helpSectionImages, string con_id)
