@@ -63,5 +63,14 @@ namespace Inventory.Repository
                 product_description, product_tags);
         }
         #endregion
+
+        #region Get All Products
+        public static SqlDataReader GetAllProducts(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetAllProducts");
+        }
+        #endregion
     }
 }

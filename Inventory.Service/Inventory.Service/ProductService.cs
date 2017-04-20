@@ -48,5 +48,12 @@ namespace Inventory.Service
                 product_description, product_tags);
         }
         #endregion
+
+        #region Get All Products
+        public static SqlDataReader GetAllProducts(string dbname)
+        {
+            return ProductRepository.GetAllProducts(dbname);
+        }
+        #endregion
     }
 }
