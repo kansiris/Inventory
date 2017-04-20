@@ -34,9 +34,9 @@
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.cus_company_Id, new { Value = @ViewBag.cus_company_Id })
             @Html.HiddenFor(Model => Model.Customer_Id, new { Value = @ViewBag.Customer_Id })
-            <div class="row top-bar">
-                <div class="col-md-12">
-                    <h1 class="pull-left">Customer</h1>
+            <div class="row">
+                <div class="form-title col-xs-12 col-md-8">Customer</div>
+                <div class="top-bar col-xs-12 col-md-4">
                     <button type="button" class="btn btn-primary pull-right invite" id="add-customer"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Customer </button>
                     <div class="icons pull-right">
                         <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
@@ -231,9 +231,10 @@
                                                 <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="Aadhaar Number">&nbsp;<span id="errmsg1" style="color:red"></span>
                                             </div>
                                             <div class="form-group col-md-6">
+                                                <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                                 <input type="text" class="form-control selected-position" name="cus_Job_position" id="cus_Job_position" placeholder="Job position">
                                                 <div class="display-positions" id="cusjobposition">
-                                                    <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i>Job Position</div>
+                                                    <div class="positions1 position"><i class="fa fa-plus-circle" aria-hidden="true"></i><span>Job Position</span><i class="fa fa-times" aria-hidden="true"></i></div>
                                                     @if (ViewBag.cusjobpositions != "")
                                                     {
                                                         foreach (var position in ViewBag.cusjobpositions)
