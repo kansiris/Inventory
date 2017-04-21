@@ -31,5 +31,6 @@ namespace Inventory.Models
         public string product_expirydate { get; set; }
         public string product_description { get; set; }
         public string product_tags { get; set; }
+        public string created_date { get; set; }
     }
 }
