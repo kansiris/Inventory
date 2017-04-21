@@ -18,10 +18,10 @@ namespace Inventory.Controllers
         {
             return View();
         }
-        public ActionResult purchaseorderback()
-        {
-            //return RedirectToAction("purchaseorder");
-            return Redirect("http://localhost:3350/Products");
-        }
+        //public ActionResult purchaseorderback()
+        //{
+        //    //return RedirectToAction("purchaseorder");
+        //    return View("Index");
+        //}
     }
 }
