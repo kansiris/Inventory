@@ -481,6 +481,30 @@ namespace Inventory.Controllers
             }
             return Json(null);
         }
+        //update gallery
+        
+        public JsonResult savegallery(string wh_id, Warehouse warehouse)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                //wh_id = getMaxwhid();
+                var user1 = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var data = WHservice.updategallery(user1.DbName, warehouse.wh_Id.ToString(), warehouse.galimage1, warehouse.galimage2, warehouse.galimage3, warehouse.galimage4);
+                if (data > 0)
+                {
+                    ViewBag.wh_id = warehouse.wh_Id;
+                    ViewBag.galimage1 = warehouse.galimage1;
+                    ViewBag.galimage2 = warehouse.galimage2;
+                    ViewBag.galimage3 = warehouse.galimage3;
+                    ViewBag.galimage4 = warehouse.galimage4;
+                    return Json("success");
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
+            }
+            return Json(null);
+        }
+        //update gallery
+
         //Save warehouse Notes
         public JsonResult insertwhnotes(string wh_id, Warehouse warehouse)
         {

@@ -1393,7 +1393,7 @@
             }
             if (clickedvalue == 'update gallery') {
                 $.ajax({
-                    url: '/Warehouse/updategallery',
+                    url: '/Warehouse/savegallery',
                     type: 'POST',
                     data: JSON.stringify({ warehouse: warehouse }),
                     dataType: 'json',
