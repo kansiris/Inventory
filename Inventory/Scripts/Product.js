@@ -30,12 +30,12 @@
         data: { product: product },
         success: function (response) {
             if (response == 'Failed') { alert("Failed to Add Record!!! Try Again Later"); }
-            if (response.command == 'addweight') { alert(product.weight + " Added SuccessFully"); } //Weight
-            if (response.command == 'addsize') { alert(product.size + " Size Added SuccessFully"); } //Size
-            if (response.command == 'addcolor') { alert(product.color + " Color Added SuccessFully"); } //Color
-            if (response.command == 'additemshape') { alert(product.item_shape + " Added SuccessFully"); } //Item Shape
-            if (response.command == 'addcategory') { alert(product.category + " Category Added SuccessFully"); } //Category
-            if (response.command == 'addsubcategory') { alert(product.sub_category + " Sub-Category Added SuccessFully"); } //Sub-Category
+            if (response.command == 'addweight') { alert(product.weight + " Added SuccessFully"); $('#addnewweight').val(''); $('#weight').val(''); loadproducts(response); } //Weight
+            if (response.command == 'addsize') { alert(product.size + " Size Added SuccessFully"); $('#addnewsize').val(''); $('#size').val(''); loadproducts(response); } //Size
+            if (response.command == 'addcolor') { alert(product.color + " Color Added SuccessFully"); $('#addnewcolor').val(''); $('#color').val(''); loadproducts(response); } //Color
+            if (response.command == 'additemshape') { alert(product.item_shape + " Added SuccessFully"); $('#addnewitemshape').val(''); $('#item_shape').val(''); loadproducts(response); } //Item Shape
+            if (response.command == 'addcategory') { alert(product.category + " Category Added SuccessFully"); $('#addnewcategory').val(''); $('#category').val(''); loadproducts(response); } //Category
+            if (response.command == 'addsubcategory') { alert(product.sub_category + " Sub-Category Added SuccessFully"); $('#addnewsubcategory').val(''); $('#sub_category').val(''); loadproducts(response); } //Sub-Category
             if (response.command == 'addbrand') { alert(product.brand + " Added SuccessFully"); $('#addnewbrand').val(''); $('#brand').val(''); loadproducts(response); } //Brand
             if (response.command == 'addmodel') { alert(product.model + " Added SuccessFully"); } //Model
         },
@@ -79,13 +79,53 @@ function getsub(type, id) {
 }
 
 function loadproducts(response) {
-
+    if (response.command == 'addbrand') { //Brand
     var value = "";
     for (var i = 0; i < response.records.length; i++) {
-        if (response.command == 'addbrand') {
             value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response.records[i].brand + "</div>";
-            $('#allbrands').empty().append(value);
         }
-
+    $('#allbrands').empty().append(value);
+    }
+    if (response.command == 'addcategory') { //Category
+        var value = "";
+        for (var i = 0; i < response.records.length; i++) {
+            value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response.records[i].category + "</div>";
+        }
+        $('#allcategories').empty().append(value);
+    }
+    if (response.command == 'addsubcategory') { //Sub-category
+        var value = "";
+        for (var i = 0; i < response.records.length; i++) {
+            value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response.records[i].sub_category + "</div>";
+        }
+        $('#subcategories').empty().append(value);
+    }
+    if (response.command == 'addweight') { //Weight
+        var value = "";
+        for (var i = 0; i < response.records.length; i++) {
+            value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response.records[i].weight + "</div>";
+        }
+        $('#allweights').empty().append(value);
+    }
+    if (response.command == 'addsize') { //size
+        var value = "";
+        for (var i = 0; i < response.records.length; i++) {
+            value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response.records[i].size + "</div>";
+        }
+        $('#allsizes').empty().append(value);
+    }
+    if (response.command == 'addcolor') { //color
+        var value = "";
+        for (var i = 0; i < response.records.length; i++) {
+            value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response.records[i].color + "</div>";
+        }
+        $('#allcolors').empty().append(value);
+    }
+    if (response.command == 'additemshape') { //item shape
+        var value = "";
+        for (var i = 0; i < response.records.length; i++) {
+            value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response.records[i].itemshape + "</div>";
+        }
+        $('#allitemshapes').empty().append(value);
     }
 }

@@ -87,10 +87,10 @@
                                         @*<input type="text" class="form-control" placeholder="Brand Name">*@
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
-                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        @*<i class="fa fa-sort-desc" aria-hidden="true"></i>*@
                                         @*<input type="text" class="form-control selected-position" placeholder="Model Number">*@
                                         @Html.TextBoxFor(Model => Model.model, new { @class = "form-control selected-position", placeholder = "Model Name" })
-                                        <div class="display-positions">
+                                        @*<div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
@@ -103,7 +103,7 @@
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
-                                        </div>
+                                        </div>*@
                                         @*<input type="text" class="form-control" placeholder="Model Number">*@
                                     </div>
                                 </div>
@@ -116,14 +116,16 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            @if (ViewBag.categories.Count != 0)
-                                            {
-                                                foreach (var item in ViewBag.categories)
+                                            <div id="allcategories">
+                                                @if (ViewBag.categories.Count != 0)
                                                 {
-                                                    <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
+                                                    foreach (var item in ViewBag.categories)
+                                                    {
+                                                        <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
+                                                    }
                                                 }
-                                            }
-                                        </div>
+                                                </div>
+                                            </div>
                                         <div class="row add-position">
                                             <div class="row">
                                                 <input type="text" class="form-control" placeholder="Enter Category" id="addnewcategory">
@@ -201,14 +203,16 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            @if (ViewBag.weights.Count != 0)
-                                            {
-                                                foreach (var item in ViewBag.weights)
+                                            <div id="allweights">
+                                                @if (ViewBag.weights.Count != 0)
                                                 {
-                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.weight</div>
+                                                    foreach (var item in ViewBag.weights)
+                                                    {
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.weight</div>
+                                                    }
                                                 }
-                                            }
-                                        </div>
+                                                </div>
+                                            </div>
                                         <div class="row add-position">
                                             <div class="row">
                                                 <input type="text" class="form-control" placeholder="Enter Weight" id="addnewweight">
@@ -220,18 +224,21 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-md-3">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Sizes">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Sizes">*@
+                                        @Html.TextBoxFor(Model => Model.size, new { @class = "form-control selected-position", placeholder = "Sizes" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sizes</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            @if (ViewBag.sizes.Count != 0)
-                                            {
-                                                foreach (var item in ViewBag.sizes)
+                                            <div id="allsizes">
+                                                @if (ViewBag.sizes.Count != 0)
                                                 {
-                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.size</div>
+                                                    foreach (var item in ViewBag.sizes)
+                                                    {
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.size</div>
+                                                    }
                                                 }
-                                            }
+                                            </div>
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -244,18 +251,21 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-md-3">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Colors">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Colors">*@
+                                        @Html.TextBoxFor(Model => Model.color, new { @class = "form-control selected-position", placeholder = "Colors" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Colors</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            @if (ViewBag.colors.Count != 0)
-                                            {
-                                                foreach (var item in ViewBag.colors)
+                                            <div id="allcolors">
+                                                @if (ViewBag.colors.Count != 0)
                                                 {
-                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.color</div>
+                                                    foreach (var item in ViewBag.colors)
+                                                    {
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.color</div>
+                                                    }
                                                 }
-                                            }
+                                            </div>
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
@@ -270,18 +280,21 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12 col-md-12">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Item Shape">
+                                        @*<input type="text" class="form-control selected-position" placeholder="Item Shape">*@
+                                        @Html.TextBoxFor(Model => Model.item_shape, new { @class = "form-control selected-position", placeholder = "Item Shape" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-                                            @if (ViewBag.itemshapes.Count != 0)
-                                            {
-                                                foreach (var item in ViewBag.itemshapes)
+                                            <div id="allitemshapes">
+                                                @if (ViewBag.itemshapes.Count != 0)
                                                 {
-                                                    <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.itemshape</div>
+                                                    foreach (var item in ViewBag.itemshapes)
+                                                    {
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.itemshape</div>
+                                                    }
                                                 }
-                                            }
+                                            </div>
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">

@@ -118,7 +118,7 @@ namespace Inventory.Controllers
             if (count > 0)
             {
                // var data = ProductService.GetProductItems(user.DbName, command.Replace("add", ""), id);
-                var records = convert(user.DbName, command.Replace("add", ""), id);
+                var records = convert(user.DbName, command.Replace("add", ""), id).Distinct();
                 var result = new { command = command , records = records};
                 return Json(result);
             }

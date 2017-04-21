@@ -6425,15 +6425,12 @@ tr > td.product-name a:hover{
 /*============ View Products ==================*/
 
 /*============ Generate Purchase Order ==================*/
-.po-number label{
-	position: absolute;
-	left: 15px;
-	bottom: -15px;
-	font-size: 12px;
-	color: #333;
-	font-weight: 700;}
+.po-number{
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 30px;}
 .logo img{
-	max-width: 120px;
+	max-width: 150px;
 	display: block;}
 .vendorname{
 	font-size: 16px;
@@ -6448,7 +6445,11 @@ tr > td.product-name a:hover{
 .total-amount{
 	font-size: 18px;
 	color: #0288d1;}
-.total-amount span{
+.invoice-total-amount{
+	font-size: 18px;
+	color: #8086c2;}
+.total-amount span,
+.invoice-total-amount span{
 	font-size: 40px;}
 .margin-top{
 	margin-top: 15px;}
@@ -6482,6 +6483,9 @@ tr > td.product-name a:hover{
 .terms-conditions a{
 	color: #0288d1;
 	font-weight: 700;}
+.invoice-conditions a{
+	color: #8086c2;
+	font-weight: 700;}
 .terms-conditions a > i{
 	margin-right: 5px;}
 ul.terms-content{}
@@ -6497,6 +6501,33 @@ ul.terms-content li{
 	border-radius: 3px;
 	padding: 15px 10px;
 	}
+.po-order,
+.invoice{
+	border-bottom: 1px solid #e4e4e4;}
+.po-date > .table tbody > tr:nth-child(odd),
+.invoice-table .table tbody > tr:nth-child(odd){
+	background: none;}
+.invoice-table{
+	height: 170px;
+	overflow-y: scroll;}
+.invoice-table .table > thead,
+.invoice .thead-inverse{
+	background: #8086c2;}
+.invoice-buttons > .btn-primary{
+	background: #8086c2 !important;}
+.invoice-table .table > thead > tr > th{	
+	color: #fff;}
+.po-date .input-group{
+	width: 80%;
+	margin-bottom: 0;}
+.po-date .form-control{
+	width: 80%;}
+.po-order .product-name,
+.po-order .product-variation,
+.po-order .product-variation > span,
+.invoice product-name,
+.invoice .product-variation > span{
+	font-weight: 100;}
 /*============ Generate Purchase Order ==================*/
 
 /*========== Media Quries ===============*/
@@ -6506,4 +6537,16 @@ ul.terms-content li{
 	form .cd-tabs-content{
 		padding-left: 80px;}
 	
+	}
+@media only screen and (min-width: 320px) and (max-width: 768px){
+	.po-date .input-group,
+	.po-date .form-control{
+		width: 100%;}
+	.po-date .input-group-addon{
+		display: none;}
+	.po-date .form-control{
+		min-width: 30px;
+		min-height: 30px;
+		padding-left: 0;
+		padding-right: 0;}
 	}
