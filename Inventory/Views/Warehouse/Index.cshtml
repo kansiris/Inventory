@@ -275,7 +275,7 @@
                                     <div class="col-md-3 col-md-push-3">
                                         <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
                                         <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
-                                        <div>Upload ContactPerson Image</div>
+                                        <div>Upload Contact Person Image</div>
                                     </div>
                                     @*contact person image end*@
 
@@ -405,7 +405,7 @@
             $("#bill_Country").attr("disabled", false);
             $("#ship_Country").attr("disabled", false);
             // $('#contactbutton').val("updatecontact").text("Update Contact");
-            // $('#gallerybutton').val("update gallery").text("Update Gallery");
+            $('#gallerybutton').val("Save Images").text("Save Gallery");
             $("#addinfo").hide();
             $('#mySubmit').show();
             $('#mySubmit1').show();
@@ -880,33 +880,11 @@
                 { alert("Failed!!!"); }
             });
         }
-        //function getEditContactDetails(id)
-        //{
-        //    alert(id);
-        //    $('#contactbutton').val("updatecontact").text("Update Contact");
-        //    $.ajax({
-        //        url: '/Warehouse/getwhcondtls?wh_Id=' + id,
-        //        type: 'POST',
-        //        data: JSON.stringify({ wh_Id: id }),
-        //        dataType: 'json',
-        //        contentType: 'application/json',
-        //        success: function (data) {
-        //            if (data == "unique") {
-        //                alert("Success");
-        //            }
-        //            else {
-        //                var array = JSON.parse(data);
-        //                getcondtls(array1);
-        //            }
-        //        },
-        //        error: function (data)
-        //        { alert("Failed!!!"); }
-        //    });
-        //}
+       
 
         //delete warehouse
         function deletewhdtls(id) {
-            //alert(id);
+            
             if (confirm("Are you sure you want to delete this Record?")) {
                 $.ajax({
                     url: '/Warehouse/deletewarehouse?wh_Id=' + id,
@@ -915,23 +893,20 @@
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        //if (confirm("Are you sure you want to delete this Record?")) {
+                      
                         if (data == "success") {
 
                             var url = 'Warehouse/WarehouseDetails';
                             $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Warehouse Deleted successfully");
-                            //$("#whtable").load(" #whtable");
-                            //}
-                            //return false;
+                      
                         }
 
                         else {
                             alert("Warehouse not Deleted");
 
                         }
-                        //}
-                        //return false;
+                       
                     },
                     error: function (data)
                     { alert("Failed!!!"); }
@@ -986,6 +961,7 @@
                         if (data == "success") {
                             var url = 'Warehouse/WarehouseContact';
                             $('#contactdiv').empty().load(url);
+                            $('#whcontacttable').empty().load(url);
                             alert("Contact Deleted successfully");
                             //$("#whtable").load(" #whtable");
                         }
@@ -1298,6 +1274,9 @@
                                 //$('#WarehouseDetails').load(url);
                                // $('#contactdiv').empty().load(url);
                                 alert("Contact Details Saved successfully");
+                                $('#contactdiv').empty().load(url);
+                                //$('#contacttable').empty().load(url);
+                                //$('#whcontacttable').empty().load(url);
                                 $("[id='Contact_PersonFname']").val("");
                                 $("[id='Phone']").val("");
                                 $("[id='Mobile_No']").val("");
