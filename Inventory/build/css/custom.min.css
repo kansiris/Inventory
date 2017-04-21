@@ -6048,9 +6048,10 @@ ul.tagit input[type=text] {
 	background: #fff;}
 .displayproduct > .well{
 	border: 1px solid #e3e3e3;}
-.image img{
+.displayproduct > .well .image img{
 	margin: 0 auto;
-	display: block;}
+	display: block;
+	max-width: 150px;}
 .product-variation,
 .img-title{
 	margin-bottom: 20px;}
@@ -6088,12 +6089,13 @@ a.product-name{
 	.spinner {
   /*width: 100px;*/ /* By Me */
   line-height: 24px;
+  width: 65px;
 }
 .spinner input {
   text-align: right;
 }
 .spinner input[type="text"]{
-	width: 58%;
+	width: 26px;
 	height: 24px;
 	padding: 6px 0px;
 	float: right;}
