@@ -32,9 +32,9 @@ namespace Inventory.Service
         #endregion
 
         #region Get Product Items
-        public static SqlDataReader GetProductItems(string dbname, string command)
+        public static SqlDataReader GetProductItems(string dbname, string command, string id)
         {
-            return ProductRepository.GetProductItems(dbname, command);
+            return ProductRepository.GetProductItems(dbname, command,id);
         }
         #endregion
 

@@ -65,14 +65,15 @@
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Brand</span><i class="fa fa-times" aria-hidden="true"></i>
                                             </div>
-
-                                            @if (ViewBag.brands.Count != 0)
-                                            {
-                                                foreach (var item in ViewBag.brands)
+                                            <div id="allbrands">
+                                                @if (ViewBag.brands.Count != 0)
                                                 {
-                                                    <div class="positions1" onclick="getsub('brand','@item.brand_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brand</div>
+                                                    foreach (var item in ViewBag.brands)
+                                                    {
+                                                        <div class="positions1" onclick="getsub('brand','@item.brand_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brand</div>
+                                                    }
                                                 }
-                                            }
+                                            </div>
 
                                         </div>
                                         <div class="row add-position">
