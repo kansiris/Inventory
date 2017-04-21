@@ -393,7 +393,8 @@
 
         $("#add-wh").click(function () {
             $("#wh-information").css("display", "block");
-            // $("#contacttable").css("display", "none");
+            $("#contacttable").css("display", "none");
+            $("#whcontacttable").css("display", "none");
             $("#wh-information1").css("display", "none");
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
             $('#mySubmit').val("Save").text("Save");
@@ -421,6 +422,10 @@
             $("#btnclosenote").show();
             $("#wh-information-cancel").show();
             $("#EmailId").attr("disabled", false);
+            $("#galpic1").attr("src","/images/user.png");
+            $("#galpic2").attr("src","/images/user.png");
+            $("#galpic3").attr("src","/images/user.png");
+            $("#galpic4").attr("src","/images/user.png");
             // $('#mySubmit').val("Save").text("Save");
         });
         //$("addinfo").click(function () {
@@ -549,7 +554,7 @@
                 $("#wh-information1").css("display", "block");
             });
             //$("#contactdiv").css("display", "none");
-            $("#whcontacttable").css("display", "none");
+            //$("#whcontacttable").css("display", "none");
 
         });
 
@@ -632,10 +637,10 @@
     </script>
     <script>
         function editFunction(array) {
-            //$("#contactdiv").css("visibility", "visibility");
-            //$("#whcontacttable").css("visibility", "hidden");
+            $("#contactdiv").css("visibility", "visibility");
+            $("#whcontacttable").css("visibility", "hidden");
             $('#wh-information').css('display', 'block');
-            //$("#contacttable").css("display", "block");
+            $("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
             $('#wh_Id').val(array.wh_Id);
             $('#wh_Name').val(array.wh_name);
@@ -650,10 +655,26 @@
             $('#ship_state').val(array.ship_State);
             $('#ship_postalcode').val(array.ship_Postalcode);
             $('#ship_Country').val(array.ship_Country);
-            $('#galpic1').attr('src', array.galimage1);
-            $('#galpic2').attr('src', array.galimage2);
-            $('#galpic3').attr('src', array.galimage3);
-            $('#galpic4').attr('src', array.galimage4);
+            //$('#galpic1').attr('src', array.galimage1);
+            //$('#galpic2').attr('src', array.galimage2);
+            //$('#galpic3').attr('src', array.galimage3);
+            //$('#galpic4').attr('src', array.galimage4);
+            if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
+                $('#galpic1').attr('src',  array.galimage1);
+            } else
+                $('#galpic1').attr('src', "/images/user.png");
+            if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
+                $('#galpic2').attr('src',  array.galimage2);
+            } else
+                $('#galpic2').attr('src', "/images/user.png");
+            if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
+                $('#galpic3').attr('src',  array.galimage3);
+            } else
+                $('#galpic3').attr('src', "/images/user.png");
+            if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
+                $('#galpic4').attr('src',  array.galimage4);
+            } else
+                $('#galpic4').attr('src', "/images/user.png");
             $('#Contact_PersonFname').val(array.conperson);
             $('#Phone').val(array.phone);
             $('#Mobile_No').val(array.Mobile);
@@ -676,7 +697,7 @@
             $("#contactdiv").css("visibility", "visibility");
             $("#whcontacttable").css("visibility", "hidden");
             $('#wh-information').css('display', 'block');
-            //$("#contacttable").css("display", "block");
+            $("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
             $('#mySubmit').show();
             $('#mySubmit1').show();
@@ -743,15 +764,31 @@
                             $("#galpic1").attr("src", array.galimage1);
                             //$("#companypic").attr("src", "data:image/;base64," + response);
                         } 
+                        else
+                        {
+                            $("#galpic1").attr("src", "/images/user.png");
+                        }
                         if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
                             $('#galpic2').attr('src', array.galimage2);
-                        } 
+                        }
+                        else
+                        {
+                            $("#galpic2").attr("src", "/images/user.png");
+                        }
                         if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
                             $('#galpic3').attr('src',  array.galimage3);
-                        } 
+                        }
+                        else
+                        {
+                            $("#galpic3").attr("src", "/images/user.png");
+                        }
                         if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
                             $('#galpic4').attr('src', array.galimage4);
-                        } 
+                        }
+                        else
+                        {
+                            $("#galpic4").attr("src", "/images/user.png");
+                        }
                         var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
                         $('#contactdiv').empty().load(url);
                         //editFunction(array);
@@ -818,22 +855,22 @@
                         $("#Job_position").val("");
                         $("#contactpic").attr("src", "/images/user.png");
 
-                        if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
-                            $('#galpic1').attr('src', 'data:Image/;base64,' + array.galimage1);
-                        } else
-                            $('#galpic1').attr('src', array.galimage1);
-                        if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
-                            $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
-                        } else
-                            $('#galpic2').attr('src', array.galimage2);
-                        if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
-                            $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
-                        } else
-                            $('#galpic3').attr('src', array.galimage3);
-                        if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
-                            $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
-                        } else
-                            $('#galpic4').attr('src', array.galimage4);
+                        //if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
+                        //    $('#galpic1').attr('src',  array.galimage1);
+                        //} else
+                        //    $('#galpic1').attr('src', "/images/user.png");
+                        //if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
+                        //    $('#galpic2').attr('src',  array.galimage2);
+                        //} else
+                        //    $('#galpic2').attr('src', "/images/user.png");
+                        //if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
+                        //    $('#galpic3').attr('src',  array.galimage3);
+                        //} else
+                        //    $('#galpic3').attr('src', "/images/user.png");
+                        //if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
+                        //    $('#galpic4').attr('src',  array.galimage4);
+                        //} else
+                        //    $('#galpic4').attr('src', "/images/user.png");
                         var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
                         $('#contactdiv').empty().load(url);
                         editFunction(array);
@@ -1255,10 +1292,11 @@
                                 //$('#savebutton').hide();
                                 $('#con_id').val(data.ID);
                                 var url = 'Warehouse/WarehouseContact?id=' + warehouse.wh_id + '';
-                                $('#contactdiv').empty().load(url);
-                                // $('#WarehouseDetails').load(url);
-                                //var url = 'Warehouse/WarehouseDetails';
                                 //$('#contactdiv').empty().load(url);
+                                 
+                                //var url = 'Warehouse/WarehouseDetails';
+                                //$('#WarehouseDetails').load(url);
+                               // $('#contactdiv').empty().load(url);
                                 alert("Contact Details Saved successfully");
                                 $("[id='Contact_PersonFname']").val("");
                                 $("[id='Phone']").val("");
@@ -1339,10 +1377,10 @@
                             var url = 'Warehouse/WarehouseDetails';
                             $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Gallery Saved successfully");
-                            //$("#galpic1").attr("src", "/images/user.png");
-                            //$("#galpic2").attr("src", "/images/user.png");
-                            //$("#galpic3").attr("src", "/images/user.png");
-                            //$("#galpic4").attr("src", "/images/user.png");
+                            $("#galpic1").attr("src", "/images/user.png");
+                            $("#galpic2").attr("src", "/images/user.png");
+                            $("#galpic3").attr("src", "/images/user.png");
+                            $("#galpic4").attr("src", "/images/user.png");
                             // $("#whtable").load(" #whtable");
                         }
                         else {
@@ -1366,10 +1404,10 @@
                             var url = 'Warehouse/WarehouseDetails';
                           //  $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("gallery updated successfully");
-                            //$("#galpic1").attr("src", "/images/user.png");
-                            //$("#galpic2").attr("src", "/images/user.png");
-                            //$("#galpic3").attr("src", "/images/user.png");
-                            //$("#galpic4").attr("src", "/images/user.png");
+                            $("#galpic1").attr("src", "/images/user.png");
+                            $("#galpic2").attr("src", "/images/user.png");
+                            $("#galpic3").attr("src", "/images/user.png");
+                            $("#galpic4").attr("src", "/images/user.png");
                         }
                         else {
                             alert("not updated");
