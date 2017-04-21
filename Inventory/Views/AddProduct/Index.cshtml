@@ -97,8 +97,8 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Model" id="addnewmodel">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addmodel"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -125,8 +125,8 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Category" id="addnewcategory">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addcategory"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -144,8 +144,8 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Sub Category" id="addnewsubcategory">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addsubcategory"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -180,7 +180,7 @@
                                         @*<input type="text" class="form-control" placeholder="Shipping" value="0">*@
                                         @Html.TextBoxFor(Model => Model.shipping_price, new { @class = "form-control", placeholder = "Shipping", Value = "0" })
                                     </div>
-                                    <div class="form-group col-xs-6 col-md-6">
+                                    <div class="form-group col-xs-6 col-md-8">
                                         <label>Total</label>
                                         @*<input type="text" class="form-control" placeholder="Total">*@
                                         @Html.TextBoxFor(Model => Model.total_price, new { @class = "form-control", placeholder = "Total" })
@@ -210,8 +210,8 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Weight" id="addnewweight">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addweight"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -234,8 +234,8 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Size" id="addnewsize">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addsize"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -258,8 +258,8 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Color" id="addnewcolor">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addcolor"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -284,8 +284,8 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <input type="text" class="form-control" placeholder="Enter Item Shape" id="addnewitemshape">
+                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="additemshape"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
                                             <div class="row positions"></div>
@@ -675,13 +675,14 @@ else
             $(this).parents(".display-positions").next(".add-position").css("display", "block");
 
             //$(".add-position .add-button").click(function () {
-            //    var v = $(this).prev("input[type='text']").val();
-            //    var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
-            //    $(this).parents(".add-position").prev(".display-positions").append(value);
-            //    $(".positions1 > i").click(function () {
-            //        $(this).parent(".positions1").remove();
-            //    });
-            //    return textval();
+                //var v = $(this).prev("input[type='text']").val();
+                //updateproductitems(this.value,v);
+                //var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
+                //$(this).parents(".add-position").prev(".display-positions").append(value);
+                //$(".positions1 > i").click(function () {
+                //    $(this).parent(".positions1").remove();
+                //});
+                //return textval();
             //});
 
             $(".close-button").click(function () {
