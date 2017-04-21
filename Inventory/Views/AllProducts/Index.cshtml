@@ -33,7 +33,7 @@
     <div class="container">
         <form>
             <div class="row">
-                <div class="form-title col-xs-12 col-md-9">Products Master</div>
+                <div class="form-title col-xs-12 col-md-9">Product Master</div>
                 <div class="top-bar col-xs-12 col-md-3">
                     <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> <a href="~/AddProduct">Add Product</a> </button>
                     <div class="icons pull-right">
@@ -76,10 +76,12 @@
                         <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                             <thead class="thead-inverse">
                                 <tr>
-                                    <th class="col-md-4">Product Name</th>
-                                    <th class="col-md-4">Quantity</th>
-                                    <th class="col-md-4">Price</th>
-                                    <th class="col-md-4">Action</th>
+                                    <th class="col-md-3">Product ID</th>
+                                    <th class="col-md-3">Product</th>
+                                    <th class="col-md-3">Brand</th>
+                                    <th class="col-md-3">Model</th>
+                                    <th class="col-md-3">Price</th>
+                                    <th class="col-md-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,10 +90,12 @@
                                     foreach (var item in ViewBag.products)
                                     {
                                         <tr>
-                                            <td class="col-md-4">@item.product_name</td>
-                                            <td class="col-md-4">@item.Measurement @item.weight</td>
-                                            <td class="col-md-4">@item.total_price</td>
-                                            <td class="col-md-4">
+                                            <td class="col-md-2">@item.product_id</td>
+                                            <td class="col-md-3">@item.product_name</td>
+                                            <td class="col-md-2">@item.brand</td>
+                                            <td class="col-md-2">@item.model</td>
+                                            <td class="col-md-2">@item.total_price</td>
+                                            <td class="col-md-2">
                                                 <div class="btn-group">
                                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                                     <ul class="dropdown-menu">
@@ -102,6 +106,12 @@
                                             </td>
                                         </tr>
                                     }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4"> <text> NO Products Available </text> </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

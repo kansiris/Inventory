@@ -24,12 +24,15 @@ namespace Inventory.Controllers
                 ViewBag.products = (from DataRow row in dt.Rows
                                     select new Product()
                                     {
+                                        ID = row["ID"].ToString(),
                                         product_id = row["product_id"].ToString(),
                                         product_name = row["product_name"].ToString(),
                                         Measurement = row["Measurement"].ToString(),
                                         weight = row["weight"].ToString(),
                                         total_price = row["total_price"].ToString(),
-                                    }).ToList();
+                                        brand = row["brand"].ToString(),
+                                        model = row["model"].ToString(),
+                                    }).ToList().OrderByDescending(m=>m.ID);
             }
             return View();
         }

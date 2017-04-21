@@ -43,11 +43,11 @@ namespace Inventory.Repository
         #endregion
 
         #region Get Product Items
-        public static SqlDataReader GetProductItems(string dbname, string command)
+        public static SqlDataReader GetProductItems(string dbname, string command,string id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "GetProductItems", command);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetProductItems", command,id);
         }
         #endregion
 

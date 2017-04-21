@@ -275,7 +275,7 @@
                                     <div class="col-md-3 col-md-push-3">
                                         <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="upload1()">
                                         <img id="contactpic" onclick="javascript: document.getElementById('fileupload1').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
-                                        <div>Upload ContactPerson Image</div>
+                                        <div>Upload Contact Person Image</div>
                                     </div>
                                     @*contact person image end*@
 
@@ -326,21 +326,21 @@
 
                                             <div class="col-md-3 ">
                                                 <input type="file" name="file" id="galfileupload1" accept=".gif, .jpeg, .png" style="display:none" onchange="galupload1()">
-                                                <img id="galpic1" onclick="javascript: document.getElementById('galfileupload1').click();" src="/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
+                                                <img id="galpic1" onclick="javascript: document.getElementById('galfileupload1').click();" src="/images/user.png" style="width: 150px;height: 150px;">
 
                                             </div>
                                             <div class="col-md-3 ">
                                                 <input type="file" name="file" id="galfileupload2" accept=".gif, .jpeg, .png" style="display:none" onchange="galupload2()">
-                                                <img id="galpic2" onclick="javascript: document.getElementById('galfileupload2').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
+                                                <img id="galpic2" onclick="javascript: document.getElementById('galfileupload2').click();" src="~/images/user.png" style="width: 150px;height: 150px;">
 
                                             </div>
                                             <div class="col-md-3 ">
                                                 <input type="file" name="file" id="galfileupload3" accept=".gif, .jpeg, .png" style="display:none" onchange="galupload3()">
-                                                <img id="galpic3" onclick="javascript: document.getElementById('galfileupload3').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
+                                                <img id="galpic3" onclick="javascript: document.getElementById('galfileupload3').click();" src="~/images/user.png" style="width: 150px;height: 150px;">
 
                                             </div><div class="col-md-3 ">
                                                 <input type="file" name="file" id="galfileupload4" accept=".gif, .jpeg, .png" style="display:none" onchange="galupload4()">
-                                                <img id="galpic4" onclick="javascript: document.getElementById('galfileupload4').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;">
+                                                <img id="galpic4" onclick="javascript: document.getElementById('galfileupload4').click();" src="~/images/user.png" style="width: 150px;height: 150px;">
 
                                             </div>
                                         </div>
@@ -393,7 +393,8 @@
 
         $("#add-wh").click(function () {
             $("#wh-information").css("display", "block");
-            // $("#contacttable").css("display", "none");
+            $("#contacttable").css("display", "none");
+            $("#whcontacttable").css("display", "none");
             $("#wh-information1").css("display", "none");
             $("#wh-information input, .cd-tabs input, .cd-tabs textarea").val("");
             $('#mySubmit').val("Save").text("Save");
@@ -404,7 +405,7 @@
             $("#bill_Country").attr("disabled", false);
             $("#ship_Country").attr("disabled", false);
             // $('#contactbutton').val("updatecontact").text("Update Contact");
-            // $('#gallerybutton').val("update gallery").text("Update Gallery");
+            $('#gallerybutton').val("Save Images").text("Save Gallery");
             $("#addinfo").hide();
             $('#mySubmit').show();
             $('#mySubmit1').show();
@@ -421,6 +422,10 @@
             $("#btnclosenote").show();
             $("#wh-information-cancel").show();
             $("#EmailId").attr("disabled", false);
+            $("#galpic1").attr("src","/images/user.png");
+            $("#galpic2").attr("src","/images/user.png");
+            $("#galpic3").attr("src","/images/user.png");
+            $("#galpic4").attr("src","/images/user.png");
             // $('#mySubmit').val("Save").text("Save");
         });
         //$("addinfo").click(function () {
@@ -549,7 +554,7 @@
                 $("#wh-information1").css("display", "block");
             });
             //$("#contactdiv").css("display", "none");
-            $("#whcontacttable").css("display", "none");
+            //$("#whcontacttable").css("display", "none");
 
         });
 
@@ -632,10 +637,10 @@
     </script>
     <script>
         function editFunction(array) {
-            //$("#contactdiv").css("visibility", "visibility");
-            //$("#whcontacttable").css("visibility", "hidden");
+            $("#contactdiv").css("visibility", "visibility");
+            $("#whcontacttable").css("visibility", "hidden");
             $('#wh-information').css('display', 'block');
-            //$("#contacttable").css("display", "block");
+            $("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
             $('#wh_Id').val(array.wh_Id);
             $('#wh_Name').val(array.wh_name);
@@ -650,10 +655,26 @@
             $('#ship_state').val(array.ship_State);
             $('#ship_postalcode').val(array.ship_Postalcode);
             $('#ship_Country').val(array.ship_Country);
-            $('#galpic1').attr('src', array.galimage1);
-            $('#galpic2').attr('src', array.galimage2);
-            $('#galpic3').attr('src', array.galimage3);
-            $('#galpic4').attr('src', array.galimage4);
+            //$('#galpic1').attr('src', array.galimage1);
+            //$('#galpic2').attr('src', array.galimage2);
+            //$('#galpic3').attr('src', array.galimage3);
+            //$('#galpic4').attr('src', array.galimage4);
+            if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
+                $('#galpic1').attr('src',  array.galimage1);
+            } else
+                $('#galpic1').attr('src', "/images/user.png");
+            if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
+                $('#galpic2').attr('src',  array.galimage2);
+            } else
+                $('#galpic2').attr('src', "/images/user.png");
+            if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
+                $('#galpic3').attr('src',  array.galimage3);
+            } else
+                $('#galpic3').attr('src', "/images/user.png");
+            if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
+                $('#galpic4').attr('src',  array.galimage4);
+            } else
+                $('#galpic4').attr('src', "/images/user.png");
             $('#Contact_PersonFname').val(array.conperson);
             $('#Phone').val(array.phone);
             $('#Mobile_No').val(array.Mobile);
@@ -676,7 +697,7 @@
             $("#contactdiv").css("visibility", "visibility");
             $("#whcontacttable").css("visibility", "hidden");
             $('#wh-information').css('display', 'block');
-            //$("#contacttable").css("display", "block");
+            $("#contacttable").css("display", "block");
             $(".cd-tabs").css("display", "block");
             $('#mySubmit').show();
             $('#mySubmit1').show();
@@ -743,15 +764,31 @@
                             $("#galpic1").attr("src", array.galimage1);
                             //$("#companypic").attr("src", "data:image/;base64," + response);
                         } 
+                        else
+                        {
+                            $("#galpic1").attr("src", "/images/user.png");
+                        }
                         if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
                             $('#galpic2').attr('src', array.galimage2);
-                        } 
+                        }
+                        else
+                        {
+                            $("#galpic2").attr("src", "/images/user.png");
+                        }
                         if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
                             $('#galpic3').attr('src',  array.galimage3);
-                        } 
+                        }
+                        else
+                        {
+                            $("#galpic3").attr("src", "/images/user.png");
+                        }
                         if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
                             $('#galpic4').attr('src', array.galimage4);
-                        } 
+                        }
+                        else
+                        {
+                            $("#galpic4").attr("src", "/images/user.png");
+                        }
                         var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
                         $('#contactdiv').empty().load(url);
                         //editFunction(array);
@@ -818,22 +855,22 @@
                         $("#Job_position").val("");
                         $("#contactpic").attr("src", "/images/user.png");
 
-                        if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
-                            $('#galpic1').attr('src', 'data:Image/;base64,' + array.galimage1);
-                        } else
-                            $('#galpic1').attr('src', array.galimage1);
-                        if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
-                            $('#galpic2').attr('src', 'data:galimage2/;base64,' + array.galimage2);
-                        } else
-                            $('#galpic2').attr('src', array.galimage2);
-                        if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
-                            $('#galpic3').attr('src', 'data:galimage3/;base64,' + array.galimage3);
-                        } else
-                            $('#galpic3').attr('src', array.galimage3);
-                        if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
-                            $('#galpic4').attr('src', 'data:galimage4/;base64,' + array.galimage4);
-                        } else
-                            $('#galpic4').attr('src', array.galimage4);
+                        //if (array.galimage1 != "/images/user.png" && array.galimage1 != null && array.galimage1 != "") {
+                        //    $('#galpic1').attr('src',  array.galimage1);
+                        //} else
+                        //    $('#galpic1').attr('src', "/images/user.png");
+                        //if (array.galimage2 != "/images/user.png" && array.galimage2 != null && array.galimage2 != "") {
+                        //    $('#galpic2').attr('src',  array.galimage2);
+                        //} else
+                        //    $('#galpic2').attr('src', "/images/user.png");
+                        //if (array.galimage3 != "/images/user.png" && array.galimage3 != null && array.galimage3 != "") {
+                        //    $('#galpic3').attr('src',  array.galimage3);
+                        //} else
+                        //    $('#galpic3').attr('src', "/images/user.png");
+                        //if (array.galimage4 != "/images/user.png" && array.galimage4 != null && array.galimage4 != "") {
+                        //    $('#galpic4').attr('src',  array.galimage4);
+                        //} else
+                        //    $('#galpic4').attr('src', "/images/user.png");
                         var url = 'Warehouse/WarehouseContact?id=' + array.wh_Id + '';
                         $('#contactdiv').empty().load(url);
                         editFunction(array);
@@ -843,33 +880,11 @@
                 { alert("Failed!!!"); }
             });
         }
-        //function getEditContactDetails(id)
-        //{
-        //    alert(id);
-        //    $('#contactbutton').val("updatecontact").text("Update Contact");
-        //    $.ajax({
-        //        url: '/Warehouse/getwhcondtls?wh_Id=' + id,
-        //        type: 'POST',
-        //        data: JSON.stringify({ wh_Id: id }),
-        //        dataType: 'json',
-        //        contentType: 'application/json',
-        //        success: function (data) {
-        //            if (data == "unique") {
-        //                alert("Success");
-        //            }
-        //            else {
-        //                var array = JSON.parse(data);
-        //                getcondtls(array1);
-        //            }
-        //        },
-        //        error: function (data)
-        //        { alert("Failed!!!"); }
-        //    });
-        //}
+       
 
         //delete warehouse
         function deletewhdtls(id) {
-            //alert(id);
+            
             if (confirm("Are you sure you want to delete this Record?")) {
                 $.ajax({
                     url: '/Warehouse/deletewarehouse?wh_Id=' + id,
@@ -878,23 +893,20 @@
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        //if (confirm("Are you sure you want to delete this Record?")) {
+                      
                         if (data == "success") {
 
                             var url = 'Warehouse/WarehouseDetails';
                             $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Warehouse Deleted successfully");
-                            //$("#whtable").load(" #whtable");
-                            //}
-                            //return false;
+                      
                         }
 
                         else {
                             alert("Warehouse not Deleted");
 
                         }
-                        //}
-                        //return false;
+                       
                     },
                     error: function (data)
                     { alert("Failed!!!"); }
@@ -949,6 +961,7 @@
                         if (data == "success") {
                             var url = 'Warehouse/WarehouseContact';
                             $('#contactdiv').empty().load(url);
+                            $('#whcontacttable').empty().load(url);
                             alert("Contact Deleted successfully");
                             //$("#whtable").load(" #whtable");
                         }
@@ -1255,11 +1268,15 @@
                                 //$('#savebutton').hide();
                                 $('#con_id').val(data.ID);
                                 var url = 'Warehouse/WarehouseContact?id=' + warehouse.wh_id + '';
-                                $('#contactdiv').empty().load(url);
-                                // $('#WarehouseDetails').load(url);
-                                //var url = 'Warehouse/WarehouseDetails';
                                 //$('#contactdiv').empty().load(url);
+                                 
+                                //var url = 'Warehouse/WarehouseDetails';
+                                //$('#WarehouseDetails').load(url);
+                               // $('#contactdiv').empty().load(url);
                                 alert("Contact Details Saved successfully");
+                                $('#contactdiv').empty().load(url);
+                                //$('#contacttable').empty().load(url);
+                                //$('#whcontacttable').empty().load(url);
                                 $("[id='Contact_PersonFname']").val("");
                                 $("[id='Phone']").val("");
                                 $("[id='Mobile_No']").val("");
@@ -1339,10 +1356,10 @@
                             var url = 'Warehouse/WarehouseDetails';
                             $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("Gallery Saved successfully");
-                            //$("#galpic1").attr("src", "/images/user.png");
-                            //$("#galpic2").attr("src", "/images/user.png");
-                            //$("#galpic3").attr("src", "/images/user.png");
-                            //$("#galpic4").attr("src", "/images/user.png");
+                            $("#galpic1").attr("src", "/images/user.png");
+                            $("#galpic2").attr("src", "/images/user.png");
+                            $("#galpic3").attr("src", "/images/user.png");
+                            $("#galpic4").attr("src", "/images/user.png");
                             // $("#whtable").load(" #whtable");
                         }
                         else {
@@ -1355,7 +1372,7 @@
             }
             if (clickedvalue == 'update gallery') {
                 $.ajax({
-                    url: '/Warehouse/updategallery',
+                    url: '/Warehouse/savegallery',
                     type: 'POST',
                     data: JSON.stringify({ warehouse: warehouse }),
                     dataType: 'json',
@@ -1366,10 +1383,10 @@
                             var url = 'Warehouse/WarehouseDetails';
                           //  $('#whdetails').empty().load(url, function () { Pagination(); });
                             alert("gallery updated successfully");
-                            //$("#galpic1").attr("src", "/images/user.png");
-                            //$("#galpic2").attr("src", "/images/user.png");
-                            //$("#galpic3").attr("src", "/images/user.png");
-                            //$("#galpic4").attr("src", "/images/user.png");
+                            $("#galpic1").attr("src", "/images/user.png");
+                            $("#galpic2").attr("src", "/images/user.png");
+                            $("#galpic3").attr("src", "/images/user.png");
+                            $("#galpic4").attr("src", "/images/user.png");
                         }
                         else {
                             alert("not updated");
