@@ -1,231 +1,300 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Invoice";
     Layout = "~/Views/Shared/MainMaster.cshtml";
 }
 
 @section css{
     <!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-<!-- Custom styling plus plugins -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-    }
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 
-<div class="right_col" role="main">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h3>Invoice <small>Some examples to get you started</small></h3>
-            </div>
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Invoice Design <small>Sample user invoice design</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#">Settings 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Settings 2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <section class="content invoice">
-                            <!-- title row -->
+    <!--- Tabs in Graph Section ---->
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+}
+<div class="container body">
+    <div class="main_container">
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="container">
+                <form>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
                             <div class="row">
-                                <div class="col-xs-12 invoice-header">
-                                    <h1>
-                                        <i class="fa fa-globe"></i> Invoice.
-                                        <small class="pull-right">Date: 16/08/2016</small>
-                                    </h1>
-                                </div>
-                                <!-- /.col -->
+                                <div class="form-title col-xs-12 col-md-12">Invoice</div>
                             </div>
-                            <!-- info row -->
-                            <div class="row invoice-info">
-                                <div class="col-sm-4 invoice-col">
-                                    From
-                                    <address>
-                                        <strong>Iron Admin, Inc.</strong>
-                                        <br>795 Freedom Ave, Suite 600
-                                        <br>New York, CA 94107
-                                        <br>Phone: 1 (804) 123-9876
-                                        <br>Email: ironadmin.com
-                                    </address>
+                        </div>
+                    </div>
+                    <div class="row total-border">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row margin-bottom">
+                                <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
+                                <div class="address col-xs-12 col-md-3 margin-bottom">
+                                    <span>Billing Address</span><br />
+                                    Fedex Solutions Pvt.Ltd,<br />
+                                    H.No.8-2-120/112/B/5&6,<br />
+                                    3rd Floor, BBR Forum,<br />
+                                    Road No.2, Banjara Hills,<br />
+                                    Hyderabad-500034.
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-sm-4 invoice-col">
-                                    To
-                                    <address>
-                                        <strong>John Doe</strong>
-                                        <br>795 Freedom Ave, Suite 600
-                                        <br>New York, CA 94107
-                                        <br>Phone: 1 (804) 123-9876
-                                        <br>Email: jon@ironadmin.com
-                                    </address>
+                                <div class="address col-xs-12 col-md-3 margin-bottom">
+                                    <span>Shipping Address</span><br />
+                                    Fedex Solutions Pvt.Ltd,<br />
+                                    H.No.8-2-120/112/B/5&6,<br />
+                                    3rd Floor, BBR Forum,<br />
+                                    Road No.2, Banjara Hills,<br />
+                                    Hyderabad-500034.
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-sm-4 invoice-col">
-                                    <b>Invoice #007612</b>
-                                    <br>
-                                    <br>
-                                    <b>Order ID:</b> 4F3S8J
-                                    <br>
-                                    <b>Payment Due:</b> 2/22/2014
-                                    <br>
-                                    <b>Account:</b> 968-34567
+                                <div class="col-xs-12 col-md-3 margin-bottom">
+                                    <div class="row padding-bottom date"> Date : 05/10/2017 </div>
+                                    <div class="row invoice-total-amount"> Rs <span>40123</span> </div>
                                 </div>
-                                <!-- /.col -->
                             </div>
-                            <!-- /.row -->
-                            <!-- Table row -->
-                            <div class="row">
-                                <div class="col-xs-12 table">
-                                    <table class="table table-striped">
+                            <div class="row padding-bottom">
+                                <div class="col-xs-12 col-md-7 to-address margin-bottom"> <span>To : Fedex Company</span> </div>
+                                <div class="col-xs-12 col-md-5 margin-bottom">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
+                                        <div class="col-xs-12 col-md-8">
+                                            <input type="text" class="form-control" placeholder="Enter Invoice">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row po-date">
+                                <table class="table table-bordered col-xs-12 col-md-12">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-xs-6 col-md-2">Payment Date</td>
+                                            <td class="col-xs-6 col-md-4">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                                                </div>
+                                            </td>
+                                            <td class="col-xs-6 col-md-2">Payment Terms</td>
+                                            <td class="col-xs-6 col-md-4">
+                                                <input type="text" class="form-control" placeholder="" value="">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row invoice-table margin-top margin-bottom">
+                                <div class=" col-md-12">
+                                    <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Qty</th>
-                                                <th>Product</th>
-                                                <th>Serial #</th>
-                                                <th style="width: 59%">Description</th>
-                                                <th>Subtotal</th>
+                                                <th class="col-md-1">Select</th>
+                                                <th class="col-md-2">PO No</th>
+                                                <th class="col-md-3">PO Date</th>
+                                                <th class="col-md-3">Total Item</th>
+                                                <th class="col-md-3">Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>1</td>
-                                                <td>Call of Duty</td>
-                                                <td>455-981-221</td>
-                                                <td>
-                                                    El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson
+                                                <td class="col-md-1">
+                                                    <label><input type="checkbox" value=""></label>
                                                 </td>
-                                                <td>$64.50</td>
+                                                <td class="col-md-2">1556</td>
+                                                <td class="col-md-3">04/21/2017</td>
+                                                <td class="col-md-3">6</td>
+                                                <td class="col-md-3">Rs<span>121</span></td>
                                             </tr>
                                             <tr>
-                                                <td>1</td>
-                                                <td>Need for Speed IV</td>
-                                                <td>247-925-726</td>
-                                                <td>Wes Anderson umami biodiesel</td>
-                                                <td>$50.00</td>
+                                                <td class="col-md-1">
+                                                    <label><input type="checkbox" value=""></label>
+                                                </td>
+                                                <td class="col-md-2">1557</td>
+                                                <td class="col-md-3">05/23/2017</td>
+                                                <td class="col-md-3">10</td>
+                                                <td class="col-md-3">Rs<span>1100</span></td>
                                             </tr>
                                             <tr>
-                                                <td>1</td>
-                                                <td>Monsters DVD</td>
-                                                <td>735-845-642</td>
-                                                <td>Terry Richardson helvetica tousled street art master, El snort testosterone trophy driving gloves handsome letterpress erry Richardson helvetica tousled</td>
-                                                <td>$10.70</td>
+                                                <td class="col-md-1">
+                                                    <label><input type="checkbox" value=""></label>
+                                                </td>
+                                                <td class="col-md-2">1558</td>
+                                                <td class="col-md-3">05/30/2017</td>
+                                                <td class="col-md-3">8</td>
+                                                <td class="col-md-3">Rs<span>800</span></td>
                                             </tr>
                                             <tr>
-                                                <td>1</td>
-                                                <td>Grown Ups Blue Ray</td>
-                                                <td>422-568-642</td>
-                                                <td>Tousled lomo letterpress erry Richardson helvetica tousled street art master helvetica tousled street art master, El snort testosterone</td>
-                                                <td>$25.99</td>
+                                                <td class="col-md-1">
+                                                    <label><input type="checkbox" value=""></label>
+                                                </td>
+                                                <td class="col-md-2">1559</td>
+                                                <td class="col-md-3">06/21/2017</td>
+                                                <td class="col-md-3">7</td>
+                                                <td class="col-md-3">Rs<span>1200</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-1">
+                                                    <label><input type="checkbox" value=""></label>
+                                                </td>
+                                                <td class="col-md-2">1560</td>
+                                                <td class="col-md-3">08/21/2017</td>
+                                                <td class="col-md-3">11</td>
+                                                <td class="col-md-3">Rs<span>1310</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- /.col -->
                             </div>
-                            <!-- /.row -->
-                            <div class="row">
-                                <!-- accepted payments column -->
-                                <div class="col-xs-6">
-                                    <p class="lead">Payment Methods:</p>
-                                    <img src="images/visa.png" alt="Visa">
-                                    <img src="images/mastercard.png" alt="Mastercard">
-                                    <img src="images/american-express.png" alt="American Express">
-                                    <img src="images/paypal.png" alt="Paypal">
-                                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                                    </p>
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-xs-6">
-                                    <p class="lead">Amount Due 2/22/2014</p>
-                                    <div class="table-responsive">
-                                        <table class="table">
+                            <div class="row padding-top invoice">
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="total table-responsive">
+                                        <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                                            <thead class="thead-inverse">
+                                                <tr>
+                                                    <th class="col-md-2">PO No</th>
+                                                    <th class="col-md-2">Ptid</th>
+                                                    <th class="col-md-3">Product Name</th>
+                                                    <th class="col-md-1">Quantity</th>
+                                                    <th class="col-md-3">Description</th>
+                                                    <th class="col-md-2">Total</th>
+                                                </tr>
+                                            </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th style="width:50%">Subtotal:</th>
-                                                    <td>$250.30</td>
+                                                    <td class="col-md-2">1556</td>
+                                                    <td class="col-md-2 image">1006 </td>
+                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
+                                                    <td class="col-md-1 quantity-changes">2</td>
+                                                    <td class="col-md-3 product-variation"><span>50 gm  - Rs. 20</span></td>
+                                                    <td class="col-md-2 product-price">Rs <span>40</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Tax (9.3%)</th>
-                                                    <td>$10.34</td>
+                                                    <td class="col-md-2">1556</td>
+                                                    <td class="col-md-2 image">1006 </td>
+                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
+                                                    <td class="col-md-1 quantity-changes">2</td>
+                                                    <td class="col-md-3 product-variation"><span>50 gm  - Rs. 20</span></td>
+                                                    <td class="col-md-2 product-price">Rs <span>40</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Shipping:</th>
-                                                    <td>$5.80</td>
+                                                    <td class="col-md-2">1556</td>
+                                                    <td class="col-md-2 image">1006 </td>
+                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
+                                                    <td class="col-md-1 quantity-changes">2</td>
+                                                    <td class="col-md-3 product-variation"><span>50 gm  - Rs. 20</span></td>
+                                                    <td class="col-md-2 product-price">Rs <span>40</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Total:</th>
-                                                    <td>$265.24</td>
+                                                    <td class="col-md-2">1556</td>
+                                                    <td class="col-md-2 image">1006 </td>
+                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
+                                                    <td class="col-md-1 quantity-changes">2</td>
+                                                    <td class="col-md-3 product-variation"><span>50 gm  - Rs. 20</span></td>
+                                                    <td class="col-md-2 product-price">Rs <span>40</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <!-- /.col -->
                             </div>
-                            <!-- /.row -->
-                            <!-- this row will not appear when printing -->
-                            <div class="row no-print">
-                                <div class="col-xs-12">
-                                    <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-                                    <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6 remarks margin-top">
+                                    <label>Remarks</label>
+                                    <textarea class="form-control" rows="3" id="comment" placeholder=""></textarea>
+                                </div>
+                                <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
+                                    <div class="row sub-total margin-bottom">
+                                        <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
+                                        <div class="col-xs-6 col-md-7">120.00</div>
+                                    </div>
+                                    <div class="row sub-total margin-bottom">
+                                        <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
+                                        <div class="col-xs-6 col-md-7">18%</div>
+                                    </div>
+                                    <div class="row sub-total margin-bottom">
+                                        <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
+                                        <div class="col-xs-6 col-md-7">10%</div>
+                                    </div>
+                                    <div class="row sub-total">
+                                        <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
+                                        <div class="col-xs-6 col-md-7">121.00</div>
+                                    </div>
                                 </div>
                             </div>
-                        </section>
+                            <div class="row margin-top">
+                                <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
+                                    <a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions</a>
+                                    <ul class="terms-content margin-top">
+                                        <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+                                        <li>2) Text has been the industry's standard dummy text ever since</li>
+                                        <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
+                                        <li>4) Here we have industry's standard dummy text ever since</li>
+                                        <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
+                                        <li>6) Enter content has been the industry's standard dummy text ever since</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="row margin-top">
+                        <div class="col-xs-12 col-md-12 invoice-buttons">
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Submit </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+    <!-- /page content -->
 </div>
-
-
-@section scripts{
-    <!-- jQuery -->
+        @section scripts{
+           <!-- jQuery lib & Tabs -->
+<script type="text/javascript" language="javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/modernizr.js"></script>
+<script type="text/javascript" language="javascript" src="js/main.js"></script>
+<!-- jQuery lib & Tabs -->
+<!-- jQuery -->
 <script src="../vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="../vendors/fastclick/lib/fastclick.js"></script>
-<!-- NProgress -->
-<script src="../vendors/nprogress/nprogress.js"></script>
-<!-- Custom Theme Scripts -->
-<script src="../build/js/custom.min.js"></script>
-    }
+
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap-datepicker3.css" />
+
+<script>
+	$(document).ready(function(){
+		var date_input=$('input[name="date"]'); //our date input has the name "date"
+		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+		date_input.datepicker({
+			format: 'mm/dd/yyyy',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+		})
+	})
+</script>
+<script type="text/javascript">
+    $('#add-vendor1').click(function () {
+        document.location = '@Url.Action("Index", "Products")';
+    });
+</script>
+
+        }

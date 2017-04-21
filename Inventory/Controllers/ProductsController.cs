@@ -13,5 +13,15 @@ namespace Inventory.Controllers
         {
             return View();
         }
+        
+        public ActionResult purchaseorder()
+        {
+            return View();
+        }
+        //public ActionResult purchaseorderback()
+        //{
+        //    //return RedirectToAction("purchaseorder");
+        //    return View("Index");
+        //}
     }
 }
