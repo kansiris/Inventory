@@ -114,12 +114,12 @@ namespace Inventory.Controllers
         public JsonResult UpdateProductsItems(string command, string id,Product product)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            //int count = ProductService.ProductItems(user.DbName, command, product.weight, product.size,product.color, product.item_shape, product.category, product.sub_category,product.brand,product.model, id);
-            //if (count > 1)
-            //    return Json(command);
-            //else
-            //    return Json("Failed");
-            return Json(JsonRequestBehavior.AllowGet);
+            int count = ProductService.ProductItems(user.DbName, command, product.weight, product.size, product.color, product.item_shape, product.category, product.sub_category, product.brand, product.model, id);
+            if (count > 0)
+                return Json(command);
+            else
+                return Json("Failed");
+            //return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

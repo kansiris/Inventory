@@ -76,10 +76,11 @@
                         <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                             <thead class="thead-inverse">
                                 <tr>
-                                    <th class="col-md-4">Product Name</th>
-                                    <th class="col-md-4">Quantity</th>
-                                    <th class="col-md-4">Price</th>
-                                    <th class="col-md-4">Action</th>
+                                    <th class="col-md-3">Product ID</th>
+                                    <th class="col-md-3">Product</th>
+                                    <th class="col-md-3">Quantity</th>
+                                    <th class="col-md-3">Price</th>
+                                    <th class="col-md-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,10 +89,11 @@
                                     foreach (var item in ViewBag.products)
                                     {
                                         <tr>
-                                            <td class="col-md-4">@item.product_name</td>
-                                            <td class="col-md-4">@item.Measurement @item.weight</td>
-                                            <td class="col-md-4">@item.total_price</td>
-                                            <td class="col-md-4">
+                                            <td class="col-md-3">@item.product_id</td>
+                                            <td class="col-md-3">@item.product_name</td>
+                                            <td class="col-md-3">@item.Measurement @item.weight</td>
+                                            <td class="col-md-3">@item.total_price</td>
+                                            <td class="col-md-3">
                                                 <div class="btn-group">
                                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                                     <ul class="dropdown-menu">

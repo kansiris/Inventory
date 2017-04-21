@@ -6424,6 +6424,81 @@ tr > td.product-name a:hover{
 
 /*============ View Products ==================*/
 
+/*============ Generate Purchase Order ==================*/
+.po-number label{
+	position: absolute;
+	left: 15px;
+	bottom: -15px;
+	font-size: 12px;
+	color: #333;
+	font-weight: 700;}
+.logo img{
+	max-width: 120px;
+	display: block;}
+.vendorname{
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 39px;
+	}
+.address{
+	font-size: 14px;
+	line-height: 18px;}
+.address > span{
+	font-weight: 700;}
+.total-amount{
+	font-size: 18px;
+	color: #0288d1;}
+.total-amount span{
+	font-size: 40px;}
+.margin-top{
+	margin-top: 15px;}
+.margin-bottom{
+	margin-bottom: 15px;}
+.to-address{
+	font-size: 14px;
+	font-weight: 700;
+	background: #e4e4e4;
+	padding: 10px;
+	border-radius: 5px;
+	display: block;}
+.product-variation > span{
+	font-weight: 700;}
+.total.table-responsive{
+	margin-bottom: 0px;}
+.calculate{
+	background: #e4e4e4;
+	padding: 10px 5px;
+	border-radius: 5px;}
+.sub-total{
+	font-size: 14px;}
+.sub-total span{
+	font-weight: 700;}
+.sub-total > div:last-of-type{
+	font-weight: 700;}
+.remarks label{
+	font-size: 16px;
+	font-weight: 700;
+	padding-bottom: 5px;}
+.terms-conditions a{
+	color: #0288d1;
+	font-weight: 700;}
+.terms-conditions a > i{
+	margin-right: 5px;}
+ul.terms-content{}
+ul.terms-content li{
+	font-size: 13px;
+	color: #999;
+	padding: 5px 0;}
+.row.total-border{
+	margin-left: 15px;
+	margin-right: 15px;}
+.total-border > div{
+	border: 1px solid #e4e4e4;
+	border-radius: 3px;
+	padding: 15px 10px;
+	}
+/*============ Generate Purchase Order ==================*/
+
 /*========== Media Quries ===============*/
 
 @media only screen and (min-width: 768px) and (max-width: 800px){
