@@ -49,6 +49,7 @@ namespace Inventory.Controllers
                 SqlDataReader value = WHservice.getwarehousedtls(user1.DbName);
                 DataTable dt = new DataTable();
                 dt.Load(value);
+                value.Close();
                 List<Warehouse> warehouse = new List<Warehouse>();
                 warehouse = (from DataRow row in dt.Rows
                              select new Warehouse()
@@ -74,6 +75,7 @@ namespace Inventory.Controllers
                 SqlDataReader value = WHservice.getcontactdetail(user1.DbName, id);
                 var dt = new DataTable();
                 dt.Load(value);
+                value.Close();
                 List<Warehouse> contact = new List<Warehouse>();
                 contact = (from DataRow row in dt.Rows
                            select new Warehouse()
@@ -104,6 +106,7 @@ namespace Inventory.Controllers
                 {
                     wh_id = exec["wh_id"].ToString();
                 }
+                exec.Close();
                 return wh_id;
             }
             return "";
@@ -117,6 +120,7 @@ namespace Inventory.Controllers
                 SqlDataReader value = WHservice.getlastinsertedwarehouse(user1.DbName, wh_id);
                 DataTable dt = new DataTable();
                 dt.Load(value);
+                value.Close();
                 Warehouse wh = new Warehouse();
                 wh = (from DataRow row in dt.Rows
                       select new Warehouse()
@@ -196,7 +200,7 @@ namespace Inventory.Controllers
                         galimage4 = data["galimage4"].ToString(),
                         //Wh_logo = data["Wh_Image"].ToString(),
                     };
-
+                    data.Close();
                     string json = JsonConvert.SerializeObject(wh);
                     return Json(json);
                 }
@@ -231,6 +235,7 @@ namespace Inventory.Controllers
                     string json = JsonConvert.SerializeObject(wh);
                     return Json(json);
                 }
+                data.Close();
                 return Json("unique", JsonRequestBehavior.AllowGet);
             }
             return Json(null);
@@ -260,10 +265,15 @@ namespace Inventory.Controllers
                         ViewBag.wh_id = wh_id;
                         ViewBag.wh_name = wh_name;
                         ViewBag.wh_sname = wh_sname;
+                       
                         return Json("success");
+                      
                     }
+                 
                 }
+                
                 return Json("unique", JsonRequestBehavior.AllowGet);
+               
             }
             return Json(null);
         }
@@ -277,8 +287,11 @@ namespace Inventory.Controllers
                 if (data > 0)
                 {
                     ViewBag.wh_id = wh_id;
+                  
                     return Json("success");
+                   
                 }
+               
                 return Json("unique", JsonRequestBehavior.AllowGet);
             }
             return Json(null);
@@ -294,6 +307,7 @@ namespace Inventory.Controllers
                 {
                     ViewBag.con_id = con_id;
                     return Json("success");
+                  
                 }
                 return Json("unique", JsonRequestBehavior.AllowGet);
             }
@@ -310,6 +324,7 @@ namespace Inventory.Controllers
                     ViewBag.jp_id = jp_id;
                     return Json("success");
                 }
+               
                 return Json("unique", JsonRequestBehavior.AllowGet);
             }
             return Json(null);
@@ -338,6 +353,7 @@ namespace Inventory.Controllers
                     ViewBag.ship_country = warehouse.ship_Country;
                     return Json("success");
                 }
+             
                 return Json("unique", JsonRequestBehavior.AllowGet);
             }
             return Json(null);
@@ -565,7 +581,9 @@ namespace Inventory.Controllers
                 {
                     con_id = exec["con_id"].ToString();
                 }
+                exec.Close();
                 return con_id;
+
             }
             return "";
         }
