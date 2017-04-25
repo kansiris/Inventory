@@ -126,7 +126,7 @@
                             <ul class="cd-tabs-navigation">
                                 <li><a data-content="address" class="selected" href="#0">Address</a></li>
                                 <li><a data-content="contactperson" href="#0">Contact Person</a></li>
-                                @*<li><a data-content="details" href="#0">Bank Details</a></li>*@
+                                <li><a data-content="details" href="#0">Tax Info</a></li>
                                 <li><a data-content="notes" href="#0">Notes</a></li>
                             </ul>
                             <!-- cd-tabs-navigation -->
@@ -273,39 +273,37 @@
                                     @{ Html.RenderAction("CustomerContact", "Customer");}
                                 @*</div>*@
                             </li>
-                            @*<li data-content="details">
+                            <li data-content="details">
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="Bank_Acc_Number" id="Bank_Acc_Number" placeholder="Account Number">&nbsp;<span id="errmsg2" style="color:red"></span>
+                        <input type="text" class="form-control" name="tax_regno" id="tax_regno" placeholder="Tax Reg. No">&nbsp;<span id="errmsg2" style="color:red"></span>
                     </div>
                     <div class="form-group col-md-6">
-
-                        <input type="text" class="form-control" name="Bank_Name" id="Bank_Name" placeholder="Bank Name">
+                        <input type="checkbox" name="tds" value="tds" id="tds"> Apply TDS for this Customer
+                        
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
+               
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="Pan No">
+                            @*<input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">*@
+                        </div>
 
-                        <input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">
                     </div>
-                    <div class="form-group col-md-6">
 
-                        <input type="text" class="form-control" name="IFSC_No" id="IFSC_No" placeholder="IFSC Code">
-                    </div>
                 </div>
-
-            </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-md-12">
                 <button type="button" class="btn btn-default pull-right" id="customer-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                <button type="button" class="btn btn-primary pull-right" id="bankid" value="savebankdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Bank Details</button>
+                <button type="button" class="btn btn-primary pull-right" id="taxid" value="savetaxdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Tax Details</button>
             </div>
         </div>
-    </li>*@
+    </li>
 
                             <li data-content="notes">
                                 <div class="row">

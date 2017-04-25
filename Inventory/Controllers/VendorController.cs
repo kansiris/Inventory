@@ -122,6 +122,7 @@ namespace Inventory.Controllers
             {
                 RedirectToAction("savecompany");
             }
+                exec.Close();
 
             return company_Id;
         }
@@ -138,6 +139,7 @@ namespace Inventory.Controllers
                 {
                     vendor_Id = exec["vendor_Id"].ToString();
                 }
+                exec.Close();
                 return vendor_Id;
             }
             return null;
@@ -514,6 +516,7 @@ namespace Inventory.Controllers
                 if (exec.Read())
                     DBname = exec["DB_Name"].ToString();
                 Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                exec.Close();
                 if (exec1.Read())
                 {
                     fname = exec1["Contact_PersonFname"].ToString();
@@ -522,11 +525,13 @@ namespace Inventory.Controllers
                     mObile = exec1["Mobile_No"].ToString();
                     image = exec1["image"].ToString();
                 }
+                exec1.Close();
                 if (exec2.Read())
                 {
                     companyname = exec2["Company_Name"].ToString();
                     companylogo = exec2["logo"].ToString();
                 }
+                exec2.Close();
                 UserSite = companyname.Trim();
                 var data = LoginService.Authenticateuser("checkemail1", eMail, null, UserSite, 0);
                 if (data.HasRows)

@@ -149,7 +149,7 @@ namespace Inventory.Controllers
                 {
                     RedirectToAction("savecompany");
                 }
-
+                exec.Close();
                 return cus_company_Id;
             }
             return 0;
@@ -165,8 +165,10 @@ namespace Inventory.Controllers
                 {
                     Customer_Id = exec["Customer_Id"].ToString();
                 }
+                exec.Close();
                 return Customer_Id;
             }
+           
             return null;
         }
         private Customer getlastinsertedcuscompany(int cus_company_Id)
@@ -527,17 +529,20 @@ namespace Inventory.Controllers
                 mObile = exec1["Mobile_No"].ToString();
                 image = exec1["image"].ToString();
             }
+                exec1.Close();
             if (exec2.Read())
             {
                 companyname = exec2["cus_company_name"].ToString();
                 companylogo = exec2["cus_logo"].ToString();
             }
-            UserSite = companyname.Trim();
+                exec2.Close();
+                UserSite = companyname.Trim();
             var data = LoginService.Authenticateuser("checkemail1", eMail, null, UserSite, 0);
             if (data.HasRows)
             {
                 return Json("Exists");
             }
+                
             else
             {
                 int count = LoginService.CreateUser(eMail, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
@@ -547,8 +552,10 @@ namespace Inventory.Controllers
                     return Json("sucess");
                 }
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
-        }
+                data.Close();
+                return Json("unique", JsonRequestBehavior.AllowGet);
+            }
+            //data.Close();
             return Json(null);
         }
         public PartialViewResult CustomerContact(string id)
