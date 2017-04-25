@@ -32,6 +32,7 @@ namespace Inventory.Controllers
                     controller = type.ToString() + "Home";
                 if (value.HasRows == false) //Failed Login
                     return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+                value.Close();
                 return RedirectToAction("Index", controller, new { email = email, site = User_Site, usertype = usertype });
             }
             return View();

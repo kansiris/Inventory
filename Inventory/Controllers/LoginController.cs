@@ -39,6 +39,7 @@ namespace Inventory.Controllers
                 if (value.Read())
                 {
                     int active = int.Parse(value["IsActive"].ToString());
+                    value.Close();
                     if (active > 0)
                         return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
                     return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
@@ -54,6 +55,7 @@ namespace Inventory.Controllers
                 var data = LoginService.Authenticateuser("checkemail", userMaster.EmailId, null, userMaster.User_Site, 0);
                 if (data.HasRows)
                 {
+                    data.Close();
                     return Content("<script language='javascript' type='text/javascript'>alert('Email Id Already Exists!!! Try Another');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
@@ -85,7 +87,10 @@ namespace Inventory.Controllers
             int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
             var data = LoginService.Authenticateuser(type, emailid, null, site, usertype);
             if (data.HasRows)
+            {
+                data.Close();
                 return Json("exists", JsonRequestBehavior.AllowGet); // if email ID already exists
+            }
             return Json("unique", JsonRequestBehavior.AllowGet); // if email ID is unique
         }
 
@@ -97,6 +102,7 @@ namespace Inventory.Controllers
                 SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
                 if (value.Read())
                     DBname = value["User_Site"].ToString() + "_Inventory";
+                value.Close();
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user123;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; //for server
                 FileInfo File = new FileInfo(Server.MapPath("../Models/April19.sql"));
@@ -112,6 +118,8 @@ namespace Inventory.Controllers
                 SqlConnection conn1 = new SqlConnection(sqlConnectionString1);
                 Server server1 = new Server(new ServerConnection(conn1));
                 server1.ConnectionContext.ExecuteNonQuery(script);
+                conn.Close();
+                conn1.Close();
             }
             catch (Exception ex)
             {
@@ -151,6 +159,7 @@ namespace Inventory.Controllers
                     {
                         createdb(Email); //creating DB
                         activateemail = LoginService.ActivateEmail(Email, ActivationCode);
+                        value.Close();
                     }
                     else
                     {
@@ -208,6 +217,7 @@ namespace Inventory.Controllers
             if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level5; colour = "Green"; }
             ViewBag.Progress = Progress;
             ViewBag.color = colour;
+            ownerstaff.Close();
             return PartialView("ProfileProgressPartial", profilepic);
         }
     }
