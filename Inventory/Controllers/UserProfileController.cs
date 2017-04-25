@@ -29,6 +29,7 @@ namespace Inventory.Controllers
             //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
             ViewBag.profile = profile.Take(1); //current user record
             ViewBag.jobpositions = AvailableJobPositions(id);
+           // profile.Clear();
             return View();
         }
 
@@ -119,6 +120,7 @@ namespace Inventory.Controllers
             DataView dv = dt.DefaultView;
             dt = dv.ToTable();
             ViewBag.records = StaffDetails(dt);
+            //records.Close();
             return PartialView("StaffRecords", ViewBag.records);
         }
 
@@ -130,6 +132,7 @@ namespace Inventory.Controllers
                 var dt = new DataTable();
                 dt.Load(record);
                 var data = StaffDetails(dt);
+                //record.Close();
                 return Json(data.FirstOrDefault());
                 //return Json( JsonConvert.SerializeObject(data));
             }
@@ -169,6 +172,7 @@ namespace Inventory.Controllers
             var records = LoginService.GetJobPostions(int.Parse(id));
             var dt = new DataTable();
             dt.Load(records);
+            //records.Close();
             List<OwnerJobPosition> positions= (from DataRow row in dt.Rows select new OwnerJobPosition() { Position_ID = int.Parse(row["Position_ID"].ToString()), ID = int.Parse(row["ID"].ToString()), Job_Position = row["Job_position"].ToString() }).ToList();
             return positions;
         }
@@ -209,16 +213,17 @@ namespace Inventory.Controllers
         public JsonResult JobPosition(string id,string position,string type,string PositionID)
         {
             int count = 0;
+            string id1 = id.Replace("&&type=upload","");
             if (type == "addposition")
             {
-                count = LoginService.JobPositions("add", int.Parse(id), position,null);
-                var records = AvailableJobPositions(id);
+                count = LoginService.JobPositions("add", int.Parse(id1), position,null);
+                var records = AvailableJobPositions(id1);
                 return Json(new { msg = "Position Added Successfullly!!!Click Close Button and Select Position", records = records });
             }
             if (PositionID!="")
             {
                 count = LoginService.JobPositions("delete", 0, "", PositionID);
-                var records = AvailableJobPositions(id);
+                var records = AvailableJobPositions(id1);
                 return Json(new { msg = "Position Removed", records = records });
             }
             return Json(JsonRequestBehavior.AllowGet);

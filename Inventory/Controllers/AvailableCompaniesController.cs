@@ -21,6 +21,7 @@ namespace Inventory.Controllers
             SqlDataReader value = LoginService.Authenticateuser("loginsite", emailid, null, null, 0);
             DataTable dt = new DataTable();
             dt.Load(value);
+            value.Close();
             List<UserMaster> userMaster = new List<UserMaster>();
             userMaster = (from DataRow row in dt.Rows
                           select new UserMaster()
@@ -31,6 +32,7 @@ namespace Inventory.Controllers
                               company_logo = row["company_logo"].ToString()
                           }).ToList();
             ViewBag.records = userMaster;
+            value.Close();
             return View();
         }
 
@@ -46,6 +48,7 @@ namespace Inventory.Controllers
                     userMaster = convert(value);
                     if (userMaster != null)
                     {
+                        value.Close();
                         string userData = JsonConvert.SerializeObject(userMaster);
                         ValidUser.SetAuthCookie(userData, userMaster.ID);
                     }
@@ -53,8 +56,8 @@ namespace Inventory.Controllers
                 }
                 return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
             }
-            catch (Exception ex)
-            {
+            catch (Exception)
+            {                
                 return RedirectToAction("Index", "ServerDown");
             }
             //SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
