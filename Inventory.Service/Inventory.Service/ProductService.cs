@@ -55,5 +55,12 @@ namespace Inventory.Service
             return ProductRepository.GetAllProducts(dbname);
         }
         #endregion
+
+        #region Get Product Max ID
+        public static SqlDataReader GetProductMaxID(string dbname)
+        {
+            return ProductRepository.GetProductMaxID(dbname);
+        }
+        #endregion
     }
 }

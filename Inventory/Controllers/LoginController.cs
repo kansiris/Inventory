@@ -103,8 +103,8 @@ namespace Inventory.Controllers
                 if (value.Read())
                     DBname = value["User_Site"].ToString() + "_Inventory";
                 value.Close();
-                //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user123;"; //for local
-                string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user123;"; //for server
+                //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
+                string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user1234;"; //for server
                 FileInfo File = new FileInfo(Server.MapPath("../Models/April19.sql"));
                 string script = File.OpenText().ReadToEnd();
                 SqlConnection conn = new SqlConnection(sqlConnectionString);
@@ -112,9 +112,9 @@ namespace Inventory.Controllers
                 var db = new Database(server, DBname);
                 db.Create();
                 //db.ExecuteNonQuery(script); for local
-                //string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=192.168.0.131;User ID=user_inv;Password=123456;"; //for local
+                //string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
                 //for server 
-                string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=user123;";
+                string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=user1234;";
                 SqlConnection conn1 = new SqlConnection(sqlConnectionString1);
                 Server server1 = new Server(new ServerConnection(conn1));
                 server1.ConnectionContext.ExecuteNonQuery(script);

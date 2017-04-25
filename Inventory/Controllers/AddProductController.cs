@@ -49,8 +49,9 @@ namespace Inventory.Controllers
                     product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
                     product.product_description, product.product_tags);
                 if (count > 1)
+                {
                     return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
-                else
+                }
                     return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "Products") + "'</script>"); // Stays in Same View
             }
             return View();
@@ -104,8 +105,8 @@ namespace Inventory.Controllers
                 dt.Load(data);
                 if (type == "category")
                     result = (from DataRow row in dt.Rows select new ProductItems() { subcategory_id = row["subcategory_id"].ToString(), subcategory = row["sub_category"].ToString() }).ToList();
-                if (type == "brand")
-                    result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["model_id"].ToString(), brandmodel = row["model"].ToString() }).ToList();
+                //if (type == "brand")
+                //    result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["model_id"].ToString(), brandmodel = row["model"].ToString() }).ToList();
                 return Json(result);
             }
             return Json("empty");

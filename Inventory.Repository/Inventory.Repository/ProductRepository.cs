@@ -72,5 +72,14 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "GetAllProducts");
         }
         #endregion
+
+        #region Get Product Max ID
+        public static SqlDataReader GetProductMaxID(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetProductMaxID");
+        }
+        #endregion
     }
 }
