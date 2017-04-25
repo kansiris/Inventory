@@ -104,8 +104,8 @@ namespace Inventory.Controllers
                 dt.Load(data);
                 if (type == "category")
                     result = (from DataRow row in dt.Rows select new ProductItems() { subcategory_id = row["subcategory_id"].ToString(), subcategory = row["sub_category"].ToString() }).ToList();
-                if (type == "brand")
-                    result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["model_id"].ToString(), brandmodel = row["model"].ToString() }).ToList();
+                //if (type == "brand")
+                //    result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["model_id"].ToString(), brandmodel = row["model"].ToString() }).ToList();
                 return Json(result);
             }
             return Json("empty");

@@ -46,6 +46,8 @@
 }
 
 function getsub(type, id) {
+    alert(id);
+    $('#selectedcategoryid').val(id);
     $.ajax({
         url: '/AddProduct/getsub',
         type: "POST",
@@ -53,7 +55,7 @@ function getsub(type, id) {
         data: { 'type': type, 'id': id },
         success: function (response) {
             if (response == 'empty') {
-                alert("No Records Available");
+                //alert("No Records Available");
             }
             else {
                 if (type == 'category') {
@@ -63,13 +65,13 @@ function getsub(type, id) {
                     }
                     $('#subcategories').empty().append(value);
                 }
-                if (type == 'brand') {
-                    var value = "";
-                    for (var i = 0; i < response.length; i++) {
-                        value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response[i].brandmodel + "</div>";
-                    }
-                    $('#subbrands').empty().append(value);
-                }
+                //if (type == 'brand') {
+                //    var value = "";
+                //    for (var i = 0; i < response.length; i++) {
+                //        value = value + "<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + response[i].brandmodel + "</div>";
+                //    }
+                //    $('#subbrands').empty().append(value);
+                //}
             }
         },
         error: function (er) {
