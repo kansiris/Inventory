@@ -41,7 +41,7 @@ namespace Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string command, Product product)
+        public ActionResult Index(string command, Product product, string myTags)
         {
             if (command == "AddProduct")
             {
@@ -66,10 +66,10 @@ namespace Inventory.Controllers
             return View();
         }
 
-        public List<ProductItems> convert(string dbname, string type,string id)
+        public List<ProductItems> convert(string dbname, string type, string id)
         {
             List<ProductItems> result = new List<ProductItems>();
-            var reader = ProductService.GetProductItems(dbname, type,id);
+            var reader = ProductService.GetProductItems(dbname, type, id);
             DataTable dt = new DataTable();
             dt.Load(reader);
             if (type == "weight")
@@ -100,6 +100,10 @@ namespace Inventory.Controllers
             {
                 result = (from DataRow row in dt.Rows select new ProductItems() { brandmodel_id = row["model_id"].ToString(), brandmodel = row["model"].ToString() }).ToList();
             }
+            if (type == "subcategory")
+            {
+                result = (from DataRow row in dt.Rows select new ProductItems() { subcategory_id = row["subcategory_id"].ToString(), subcategory = row["sub_category"].ToString() }).ToList();
+            }
             return result;
         }
 
@@ -121,15 +125,20 @@ namespace Inventory.Controllers
             return Json("empty");
         }
 
-        public JsonResult UpdateProductsItems(string command, string id,Product product)
+        public JsonResult UpdateProductsItems(string command, string id, Product product)
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            int count = ProductService.ProductItems(user.DbName, command, product.weight, product.size, product.color, product.item_shape, product.category, product.sub_category, product.brand, product.model, id);
+            int count = ProductService.ProductItems(user.DbName, command, product.weight, product.size, product.color, product.item_shape, product.category_id, product.category, product.sub_category, product.brand, product.model, id);
             if (count > 0)
             {
-               // var data = ProductService.GetProductItems(user.DbName, command.Replace("add", ""), id);
-                var records = convert(user.DbName, command.Replace("add", ""), id).Distinct();
-                var result = new { command = command , records = records};
+                string replace;
+                // var data = ProductService.GetProductItems(user.DbName, command.Replace("add", ""), id);
+                if (id != null && id != "")
+                 replace = "del"; 
+                else
+                 replace = "add"; 
+                var records = convert(user.DbName, command.Replace(replace, ""), product.category_id).Distinct();
+                var result = new { command = command, records = records };
                 return Json(result);
             }
             else

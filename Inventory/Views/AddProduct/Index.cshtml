@@ -71,7 +71,7 @@
                                                 {
                                                     foreach (var item in ViewBag.brands)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brand</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delbrand',@item.brand_id)" aria-hidden="true"></i>@item.brand</div>
                                                     }
                                                 }
                                             </div>
@@ -122,7 +122,7 @@
                                                 {
                                                     foreach (var item in ViewBag.categories)
                                                     {
-                                                        <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
+                                                        <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delcategory',@item.category_id)" aria-hidden="true"></i>@item.category</div>
                                                     }
                                                 }
                                             </div>
@@ -217,7 +217,7 @@
                                                 {
                                                     foreach (var item in ViewBag.weights)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.weight</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delweight',@item.weight_id)" aria-hidden="true"></i>@item.weight</div>
                                                     }
                                                 }
                                             </div>
@@ -244,7 +244,7 @@
                                                 {
                                                     foreach (var item in ViewBag.sizes)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.size</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delsize',@item.size_id)" aria-hidden="true"></i>@item.size</div>
                                                     }
                                                 }
                                             </div>
@@ -271,7 +271,7 @@
                                                 {
                                                     foreach (var item in ViewBag.colors)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.color</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delcolor',@item.color_id)" aria-hidden="true"></i>@item.color</div>
                                                     }
                                                 }
                                             </div>
@@ -300,7 +300,7 @@
                                                 {
                                                     foreach (var item in ViewBag.itemshapes)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.itemshape</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delitemshape','@item.itemshape_id')" aria-hidden="true"></i>@item.itemshape</div>
                                                     }
                                                 }
                                             </div>
@@ -376,7 +376,7 @@
                                     </div>
                                     <div class="form-group radio col-xs-4 col-md-4">
                                         <label>
-                                            @Html.HiddenFor(Model => Model.product_consumable)
+                                            @Html.HiddenFor(Model => Model.product_consumable,new { Value= "Non-Consumable" })
                                             @*@Html.RadioButtonFor(Model => Model.product_consumable, "Non-Consumable", new { @class = "non-consumable" })*@
                                             @*<input type="radio" name="product_consumable" class="non-consumable" id="product_consumable">*@
                                             Non-Consumable
@@ -399,7 +399,7 @@
                                     </div>
                                     <div class="form-group radio col-xs-4 col-md-4">
                                         <label class="non-veg">
-                                            @Html.HiddenFor(Model => Model.product_type)
+                                            @Html.HiddenFor(Model => Model.product_type, new { Value = "Non-Veg" })
                                             @*@Html.RadioButtonFor(Model => Model.product_type, "Non-Veg")*@
                                             @*<input type="radio" name="optradio1" id="product_type">*@
                                             Non-Veg
@@ -409,7 +409,7 @@
                                 <div class="row perishable-non">
                                     <div class="form-group radio col-xs-4 col-md-4">
                                         <label class="Perishable">
-                                            @Html.HiddenFor(Model => Model.product_perishability)
+                                            @Html.HiddenFor(Model => Model.product_perishability, new { Value = "Non-Perishable" })
                                             @*@Html.RadioButtonFor(Model => Model.product_perishability, "Perishable")*@
                                             @*<input type="radio" name="optradio2" id="product_perishability">*@
                                             Perishable
@@ -514,6 +514,7 @@
                             <div class="form-group col-md-12">
                                 <label>Add Tags<span>(Seperated by Comma)</span></label>
                                 <ul id="myTags"></ul>
+                                @Html.HiddenFor(Model => Model.product_tags)
                             </div>
                         </div>
                         <div class="row">
@@ -522,7 +523,7 @@
                                 <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</a>
                             </div>
                             <div class="col-xs-12 col-md-2 pull-right">
-                                <button type="submit" class="btn btn-primary" name="command" value="AddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
+                                <button type="submit" class="btn btn-primary" name="command" value="AddProduct" id="btnAddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
                             </div>
                         </div>
                     </div>
@@ -846,5 +847,14 @@ else
             }
         });
         //<!-- Toogle Function -->
+
+        $('#btnAddProduct').click(function () {
+            var arr = [];
+            // get the text from li's
+            $('#myTags li span.tagit-label').each(function (index) {
+                arr.push($(this).text());
+            });
+            $('#product_tags').val(arr);
+        });
     </script>
 }

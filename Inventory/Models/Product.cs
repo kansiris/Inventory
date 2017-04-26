@@ -12,7 +12,9 @@ namespace Inventory.Models
         public string product_name { get; set; }
         public string brand { get; set; }
         public string model { get; set; }
+        public string category_id { get; set; }
         public string category { get; set; }
+        public string subcategory_id { get; set; }
         public string sub_category { get; set; }
         public string cost_price { get; set; }
         public string selling_price { get; set; }
