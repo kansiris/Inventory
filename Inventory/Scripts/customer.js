@@ -456,7 +456,7 @@ function editcuscompany(clickedvalue) {
                     success: function (data) {
                         if (data.Result == "sucess") {
                             $('#mySubmit').hide();
-                            $('#company_pic').children().attr('disabled', 'disabled');
+                            $('#cuscompany_pic').children().attr('disabled', 'disabled');
                             var url = 'Customer/CustomerCompany';
                             $('#cus_company_Id').val(data.ID);
                             $('#cuscompanyrecords').load(url, function () { Pagination(); });
