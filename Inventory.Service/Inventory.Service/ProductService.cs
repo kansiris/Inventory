@@ -25,9 +25,9 @@ namespace Inventory.Service
         #endregion
 
         #region Add/Remove ProductItems
-        public static int ProductItems(string dbname, string command, string weight, string size, string color, string itemshape, string category, string subcategory, string brand, string model, string id)
+        public static int ProductItems(string dbname, string command, string weight, string size, string color, string itemshape, string assignedcategoryid, string category, string subcategory, string brand, string model, string id)
         {
-            return ProductRepository.ProductItems(dbname, command, weight, size, color, itemshape, category, subcategory, brand, model, id);
+            return ProductRepository.ProductItems(dbname, command, weight, size, color, itemshape,assignedcategoryid, category, subcategory, brand, model, id);
         }
         #endregion
 
