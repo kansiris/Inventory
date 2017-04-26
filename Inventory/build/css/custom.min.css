@@ -5688,9 +5688,9 @@ ul.dropdown-menu li {
 	margin-bottom: 10px;}
 strong{
 	font-weight: 700 !important;}
-#vendortable{
-	display: none;
-	width: 100%;}
+/*#vendortable{
+	display: block;
+	width: 100%;}*/
 #nav{
 	margin-bottom: 15px;}
 
