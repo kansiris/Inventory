@@ -4,7 +4,7 @@
             Pagination();
             $("#checkbox1").val($(this).is(':checked'));
             $("#allowaccess").val($(this).is(':checked'));
-
+            $('#vendortable1').css('display','none');
             $("#checkbox1").change(function () {
                 if ($(this).is(":checked")) {
                     $(".toggle-box").css("visibility", "visible");
@@ -450,14 +450,15 @@
     });
 
 $("#list-view").click(function(e) {
-    $("#contacttable").css("display", "block");
-    $("#vendortable1").css("display","none");
+    
     //location.reload();
     $(".overlay").show();
     var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
     var url = 'UserProfile/GetStaffRecords?id=' + id + '';
     $('#partialdiv').empty().load(url, function () { Pagination(); });
     $(".overlay").hide();
+    $("#contacttable").css("display", "block");
+    $("#vendortable1").css("display", "none");
 });
 
 $("#refresh").click(function (e) {
