@@ -4771,6 +4771,7 @@
     <Content Include="Views\Customer\CustomerContact.cshtml" />
     <Content Include="Views\ServerDown\Index.cshtml" />
     <Content Include="Views\Products\purchaseorder.cshtml" />
+    <Content Include="Views\Products\allproducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

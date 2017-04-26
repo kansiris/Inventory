@@ -131,3 +131,11 @@ function loadproducts(response) {
         $('#allitemshapes').empty().append(value);
     }
 }
+
+
+
+//sravani added code start //
+
+
+
+//sravani added code end //

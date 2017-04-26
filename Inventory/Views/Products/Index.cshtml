@@ -4,38 +4,37 @@
     Layout = "~/Views/Shared/MainMaster.cshtml";
 }
 
-    @section css{
+@section css{
     <!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-<!-- iCheck -->
-<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-<!-- bootstrap-progressbar -->
-<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-<!-- JQVMap -->
-<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-<!-- bootstrap-daterangepicker -->
-<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 
-<!--- Tabs in Graph Section ---->
-<link rel="stylesheet" type="text/css" href="css/reset.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-        }
+    <!--- Tabs in Graph Section ---->
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+}
 <div class="container body">
     <div class="main_container">
-        
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="container">
                 <form>
                     <div class="row">
-                        <div class="form-title col-xs-12 col-md-9">View All Products</div>
+                        <div class="form-title col-xs-12 col-md-9">Shop Products</div>
                         <div class="top-bar col-xs-12 col-md-3">
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Product </button>
                             <div class="icons pull-right">
@@ -78,8 +77,8 @@
                                 <div class="column col-xs-12 sidebar-offcanvas" id="sidebar">
                                     <ul class="nav" id="menu">
                                         <li class="title"><span class="collapse in">Categories</span></li>
-                                        <li><a onclick="loadproducts()"><span class="collapse in">Category 1</span></a></li>
-                                        <li><a href="#"><span class="collapse in">Category 2</span></a></li>
+                                        <li><a onclick="loadallproducts()"><span class="collapse in">Meat</span></a></li>
+                                        <li><a href="#"><span class="collapse in">Fruits and Vegetables</span></a></li>
                                         <li>
                                             <a href="#" data-target="#item1" data-toggle="collapse" class="" aria-expanded="true"><span class="collapse in">Category Menu <span class="caret"></span></span></a>
                                             <ul class="nav nav-stacked left-submenu collapse in" id="item1" aria-expanded="true">
@@ -87,622 +86,22 @@
                                                 <li><a href="gmail.com">View Two</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="#"><span class="collapse in">Category 3</span></a></li>
-                                        <li><a href="#"><span class="collapse in">Category 4</span></a></li>
+                                        <li><a href="#"><span class="collapse in">Grocery and Staples</span></a></li>
+                                        <li><a href="#"><span class="collapse in">Branded Foods </span></a></li>
+                                        <li><a href="#"><span class="collapse in">Beverages</span></a></li>
+                                        <li><a href="#"><span class="collapse in">Gift Cards</span></a></li>
+                                        <li><a href="#"><span class="collapse in">Women's fashion</span></a></li>
+                                        <li><a href="#"><span class="collapse in">Men's fashion</span></a></li>
+                                        <li><a href="#"><span class="collapse in">PC and Electronics</span></a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-7">
-                            <div class="table-responsive">
-                                <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
-                                    <thead class="thead-inverse">
-                                        <tr>
-                                            <th class="col-md-1">Image</th>
-                                            <th class="col-md-3">Product Name</th>
-                                            <th class="col-md-1">Quantity</th>
-                                            <th class="col-md-3">Type</th>
-                                            <th class="col-md-2">Price</th>
-                                            <th class="col-md-1">Add</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="/images/image1.jpg" alt="Img 1" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">CornFleks</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>100</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="~/images/fruitjuice.jpg" alt="Img 2" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">FruitJuice</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>200</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="/images/shampoo.jpg" alt="Img 3" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">Shampoo</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>90</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="~/images/biscutes.jpg" alt="Img 1" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">Biscuits</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>50</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="~/images/soap.jpg" alt="Img 1" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">Soap</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>40</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="~/images/coockingoil.jpg" alt="Img 1" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">Mazolaoil</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>90</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="~/images/hairoil.jpg" alt="Img 1" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">HairOil</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>150</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-md-1 image">
-                                                <img src="~/images/toothpaste.jpg" alt="Img 1" />
-                                            </td>
-                                            <td class="col-md-3 product-name"><a href="#">Toothpaste</a></td>
-                                            <td class="col-md-1 quantity-changes">
-                                                <div class="input-group spinner">
-                                                    <label>Qty</label>
-                                                    <input type="text" class="form-control" value="1">
-                                                    <div class="input-group-btn-vertical">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-md-3 product-variation">
-                                                <select class="form-control">
-                                                    <option>50 gm  - Rs. 20</option>
-                                                    <option>100 gm   - Rs. 35</option>
-                                                    <option>500 gm   - Rs. 150</option>
-                                                </select>
-                                            </td>
-                                            <td class="col-md-2 product-price">Rs <span>150</span></td>
-                                            <td class="col-md-1 add-to-cart-table">
-                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                                <i class="fa fa-times remove" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="empty"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row" id="vendortable1">
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="/images/image1.jpg" alt="Image 1">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">Kellogg's</span>
-                                            <a href="#" class="product-name">CornFleks</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>200</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="~/images/fruitjuice.jpg">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">Dole</span>
-                                            <a href="#" class="product-name">Juice</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>160</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="~/images/shampoo.jpg" alt="Image 1">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">Dove</span>
-                                            <a href="#" class="product-name">Shampoo</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>90</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="~/images/biscutes.jpg" alt="Image 1">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">Mcvities</span>
-                                            <a href="#" class="product-name">Biscuits</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>50</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="~/images/soap.jpg" alt="Image 1">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">Alaffia</span>
-                                            <a href="#" class="product-name">Soap</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>40</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="~/images/coockingoil.jpg" alt="Image 1">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">Mazola</span>
-                                            <a href="#" class="product-name">MazolaOil</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>90</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="~/images/hairoil.jpg" alt="Image 1">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">Garnier</span>
-                                            <a href="#" class="product-name">HairOil</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>150</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                                    <div class="well">
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                        <div class="image">
-                                            <img src="~/images/toothpaste.jpg" alt="Image 1">
-                                        </div>
-                                        <div class="img-title">
-                                            <span class="product-brand">AquaFresh</span>
-                                            <a href="#" class="product-name">Toothpaste</a>
-                                        </div>
-                                        <div class="product-variation">
-                                            <select class="form-control">
-                                                <option>50 gm  - Rs. 20</option>
-                                                <option>100 gm   - Rs. 35</option>
-                                                <option>500 gm   - Rs. 150</option>
-                                            </select>
-                                        </div>
-                                        <div class="empty"></div>
-                                        <div class="rate-add">
-                                            <div class="product-price">
-                                                Rs <span>150</span>
-                                            </div>
-                                            <div class="shipping">
-                                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                                Standard Delivery
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="input-group spinner">
-                                                        <label>Qty</label>
-                                                        <input type="text" class="form-control" value="1">
-                                                        <div class="input-group-btn-vertical">
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 add-to-cart">
-                                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                            @{ Html.RenderAction("allproducts", "Products");}
+                        @*<div class="row" id="productstable1">
+                    </div>*@
+                    </div>
                         <div class="col-xs-12 col-md-3">
                             <div class="row checkout">
                                 <div class="col-xs-12">
@@ -714,11 +113,8 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
-                                    
-                                    <a class="btn btn-primary" href="/Products/purchaseorder">Generate Product Order</a>
-                                   
-                                  </div>
-                                
+                                    <button class="btn btn-primary" type="button">Generate Product Order</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -726,81 +122,82 @@
             </div>
         </div>
         <!-- /page content -->
-      
     </div>
 </div>
 
-            
-           
+
+
 @section scripts{
-   <!-- jQuery lib & Tabs -->
-<script type="text/javascript" language="javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" language="javascript" src="js/modernizr.js"></script>
-<script type="text/javascript" language="javascript" src="js/main.js"></script>
-<!-- jQuery lib & Tabs -->
-<!-- jQuery -->
-<script src="../vendors/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<!------------ List / Grid Views and reload page -------------->
+    <!-- jQuery lib & Tabs -->
+    <script type="text/javascript" language="javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="js/modernizr.js"></script>
+    <script type="text/javascript" language="javascript" src="js/main.js"></script>
+    <!-- jQuery lib & Tabs -->
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!------------ List / Grid Views and reload page -------------->
 
-<script type="text/javascript">
-  $("#grid-view").click(function(e) {
-    $("#vendortable").css("display","none");
-	$("#vendortable1").css("display","block");
-});
+    <script type="text/javascript">
+        $("#grid-view").click(function (e) {
+            $("#productstable").css("display", "none");
+            $("#productstable1").css("display", "block");
+        });
 
-  $("#list-view").click(function(e) {
-    $("#vendortable").css("display","block");
-	$("#vendortable1").css("display","none");
-	//location.reload();
-});
+        $("#list-view").click(function (e) {
+            $("#productstable").css("display", "block");
+            $("#productstable1").css("display", "none");
+            //location.reload();
+        });
 
-  $("#refresh").click(function(e) {
-    location.reload();
-  });
-  function gototgenerateorder() {
-      RedirectToAction("purchaseorder");
-  }
-//<!------------ List / Grid Views and reload page -------------->
+        $("#refresh").click(function (e) {
+            location.reload();
+        });
+        function gototgenerateorder() {
+            RedirectToAction("purchaseorder");
+        }
+        //<!------------ List / Grid Views and reload page -------------->
 
-//<!------------ Quantity changes -------------->
-$('.spinner .btn:first-of-type').click(function(){
-	var v = parseInt($(this).parent("div").prev("input[type='text']").val());
-	if(v > 0){
-		var plus = v + 1;
-		$(this).parent("div").prev("input[type='text']").val(plus);}
-		var q = parseInt($(this).parents("td.quantity-changes").next("td.product-price").children("span").text());
-		//alert(q);
-	});
-$('.spinner .btn:last-of-type').click(function(){
-	var v = parseInt($(this).parent("div").prev("input[type='text']").val());
-	if(v > 1){
-		var minus = v - 1;
-		$(this).parent("div").prev("input[type='text']").val(minus);}
-	});
-//<!------------ Quantity changes -------------->
+        //<!------------ Quantity changes -------------->
+        $('.spinner .btn:first-of-type').click(function () {
+            var v = parseInt($(this).parent("div").prev("input[type='text']").val());
+            if (v > 0) {
+                var plus = v + 1;
+                $(this).parent("div").prev("input[type='text']").val(plus);
+            }
+            var q = parseInt($(this).parents("td.quantity-changes").next("td.product-price").children("span").text());
+            //alert(q);
+        });
+        $('.spinner .btn:last-of-type').click(function () {
+            var v = parseInt($(this).parent("div").prev("input[type='text']").val());
+            if (v > 1) {
+                var minus = v - 1;
+                $(this).parent("div").prev("input[type='text']").val(minus);
+            }
+        });
+        //<!------------ Quantity changes -------------->
 
-//<!----------- Quantity Add in Right Bar ---------------->
-$(".add-to-cart > .btn").click(function(){
-	var v = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val();
-	var txt = $(this).parents(".rate-add").prev("div.empty");
-	$(txt).empty().append("<p>" + v + "<p>");
-	$(this).parents(".well").clone(true,true).appendTo(".added-products");
-	$(".added-products").css("padding","0px 0px 10px");
-	});
-$(".add-to-cart-table > .btn").click(function(){
-  var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val();
-  var txt = $(this).parent("td.add-to-cart-table").next("td.empty");
-	$(txt).empty().append("<p>" + v + "</p>");
-  $(this).parents("tr").clone(true,true).appendTo(".added-products");
-  $(".added-products").css("padding","0px 0px 10px");
-});
+        //<!----------- Quantity Add in Right Bar ---------------->
+        $(".add-to-cart > .btn").click(function () {
+            var v = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val();
+            var txt = $(this).parents(".rate-add").prev("div.empty");
+            $(txt).empty().append("<p>" + v + "<p>");
+            $(this).parents(".well").clone(true, true).appendTo(".added-products");
+            $(".added-products").css("padding", "0px 0px 10px");
+        });
+        $(".add-to-cart-table > .btn").click(function () {
+            var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val();
+            var txt = $(this).parent("td.add-to-cart-table").next("td.empty");
+            $(txt).empty().append("<p>" + v + "</p>");
+            $(this).parents("tr").clone(true, true).appendTo(".added-products");
+            $(".added-products").css("padding", "0px 0px 10px");
+        });
 
-$(".remove").click(function(){
-	$(this).parents("div.well,tr").css("display","none");
-});
-</script>
-//<!----------- Quantity Add in Right Bar ---------------->
+        $(".remove").click(function () {
+            $(this).parents("div.well,tr").css("display", "none");
+        });
+    </script>
+    //<!----------- Quantity Add in Right Bar ---------------->
 }
 
