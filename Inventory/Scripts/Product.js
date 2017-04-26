@@ -41,7 +41,7 @@
             //if (response.command == 'addmodel') { alert(product.model + " Added SuccessFully"); } //Model
         },
         error: function (er) {
-            alert("error");
+            alert("Something Went Wrong!!!Try Again Later");
         }
     })
 }
@@ -55,11 +55,10 @@ function getsub(type, id) {
         data: { 'type': type, 'id': id },
         success: function (response) {
             if (response == 'empty') {
-                //alert("No Records Available");
+                alert("No Sub-Caregories Available");
             }
             else {
                 if (type == 'category') {
-                    var val = "delcategory";
                     var value = "";
                     for (var i = 0; i < response.length; i++) {
                         value = value + "<div class='positions1'><i class='fa fa-trash-o pull-right' onclick=deleteitem('delsubcategory','" + response[i].subcategory_id + "') aria-hidden='true'></i>" + response[i].subcategory + "</div>";
@@ -138,7 +137,7 @@ function deleteitem(command, productitemid) {
         category_id: $('#selectedcategoryid').val(),
     }
     $.ajax({
-        url: '/AddProduct/UpdateProductsItems',//?command=' + command + '&&id=' + productitemid,
+        url: '/AddProduct/UpdateProductsItems',
         type: "POST",
         datatype: "json",
         data: { command: command, id: productitemid ,product:product},
@@ -154,7 +153,7 @@ function deleteitem(command, productitemid) {
             //if (response.command == 'delmodel') { alert(product.model + " Added SuccessFully"); } //Model
         },
         error: function (er) {
-            alert("error");
+            alert("Something Went Wrong!!!Try Again Later");
         }
     })
 }
