@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = ":: Add Product ::";
     Layout = "~/Views/Shared/MainMaster.cshtml";
+    var sno = 0;
 }
 
 @section css{
@@ -50,7 +51,7 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12">
                                         @*<input type="text" class="form-control" placeholder="Product Name">*@
-                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name" ,required= "required" })
+                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required" })
                                     </div>
                                     @*<div class="form-group col-xs-12 col-md-6">
                                             <input type="text" class="form-control" placeholder="Product ID">
@@ -70,7 +71,7 @@
                                                 {
                                                     foreach (var item in ViewBag.brands)
                                                     {
-                                                        <div class="positions1" onclick="getsub('brand','@item.brand_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.brand</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delbrand',@item.brand_id)" aria-hidden="true"></i>@item.brand</div>
                                                     }
                                                 }
                                             </div>
@@ -91,19 +92,19 @@
                                         @*<input type="text" class="form-control selected-position" placeholder="Model Number">*@
                                         @Html.TextBoxFor(Model => Model.model, new { @class = "form-control selected-position", placeholder = "Model Name", required = "required" })
                                         @*<div class="display-positions">
-                                            <div class="positions1 position">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="subbrands"></div>
                                             </div>
-                                            <div id="subbrands"></div>
-                                        </div>
-                                        <div class="row add-position">
-                                            <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Model" id="addnewmodel">
-                                                <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addmodel"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
-                                            </div>
-                                            <div class="row positions"></div>
-                                        </div>*@
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Model" id="addnewmodel">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addmodel"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>*@
                                         @*<input type="text" class="form-control" placeholder="Model Number">*@
                                     </div>
                                 </div>
@@ -121,11 +122,11 @@
                                                 {
                                                     foreach (var item in ViewBag.categories)
                                                     {
-                                                        <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.category</div>
+                                                        <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delcategory',@item.category_id)" aria-hidden="true"></i>@item.category</div>
                                                     }
                                                 }
-                                                </div>
                                             </div>
+                                        </div>
                                         <div class="row add-position">
                                             <div class="row">
                                                 <input type="text" class="form-control" placeholder="Enter Category" id="addnewcategory">
@@ -147,7 +148,7 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Sub Category" id="addnewsubcategory">
+                                                <input type="text" class="form-control" placeholder="Enter Sub Category" id="addnewsubcategory"><input type="hidden" id="selectedcategoryid" />
                                                 <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addsubcategory"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
@@ -161,17 +162,25 @@
                                         @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
                                         @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", Value = "0" })
                                     </div>
-                                    <div class="form-group col-xs-6 col-md-3">
-                                        <label>Selling Price</label>
+                                    <div class="form-group col-xs-6 col-md-2">
+                                        <label>Sell Price</label>
                                         @*<input type="text" class="form-control" placeholder="Selling Price" value="0">*@
                                         @Html.TextBoxFor(Model => Model.selling_price, new { @class = "form-control", placeholder = "Selling Price", Value = "0" })
                                     </div>
-                                    <div class="form-group col-xs-6 col-md-3">
-                                        <label>Tax(%)</label>
-                                        @*<input type="text" class="form-control" placeholder="Tax" value="0">*@
-                                        @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", Value = "0" })
+                                    @*<div class="form-group col-xs-6 col-md-3">
+                                            <label>Tax(%)</label>
+                                            @*<input type="text" class="form-control" placeholder="Tax" value="0">
+                                            @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", Value = "0" })
+                                        </div>*@
+                                    <div class="form-group col-xs-6 col-md-5 tax">
+                                        <label>TaxApplicable(%)</label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                        <input type="text" class="form-control" placeholder="Tax" value="0" disabled>
                                     </div>
-                                    <div class="form-group col-xs-6 col-md-3">
+                                    <div class="form-group col-xs-6 col-md-2">
                                         <label>Discount(%)</label>
                                         @*<input type="text" class="form-control" placeholder="Discount" value="0">*@
                                         @Html.TextBoxFor(Model => Model.discount, new { @class = "form-control", placeholder = "Discount", Value = "0" })
@@ -183,7 +192,7 @@
                                         @*<input type="text" class="form-control" placeholder="Shipping" value="0">*@
                                         @Html.TextBoxFor(Model => Model.shipping_price, new { @class = "form-control", placeholder = "Shipping", Value = "0" })
                                     </div>
-                                    <div class="form-group col-xs-6 col-md-8">
+                                    <div class="form-group col-xs-6 col-md-9">
                                         <label>Total</label>
                                         @*<input type="text" class="form-control" placeholder="Total">*@
                                         @Html.TextBoxFor(Model => Model.total_price, new { @class = "form-control", placeholder = "Total" })
@@ -208,11 +217,11 @@
                                                 {
                                                     foreach (var item in ViewBag.weights)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.weight</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delweight',@item.weight_id)" aria-hidden="true"></i>@item.weight</div>
                                                     }
                                                 }
-                                                </div>
                                             </div>
+                                        </div>
                                         <div class="row add-position">
                                             <div class="row">
                                                 <input type="text" class="form-control" placeholder="Enter Weight" id="addnewweight">
@@ -235,7 +244,7 @@
                                                 {
                                                     foreach (var item in ViewBag.sizes)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.size</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delsize',@item.size_id)" aria-hidden="true"></i>@item.size</div>
                                                     }
                                                 }
                                             </div>
@@ -262,7 +271,7 @@
                                                 {
                                                     foreach (var item in ViewBag.colors)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.color</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delcolor',@item.color_id)" aria-hidden="true"></i>@item.color</div>
                                                     }
                                                 }
                                             </div>
@@ -291,7 +300,7 @@
                                                 {
                                                     foreach (var item in ViewBag.itemshapes)
                                                     {
-                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>@item.itemshape</div>
+                                                        <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delitemshape','@item.itemshape_id')" aria-hidden="true"></i>@item.itemshape</div>
                                                     }
                                                 }
                                             </div>
@@ -317,39 +326,32 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Himayathnagar</td>
-                                                    <td>
-                                                        <div class="form-group col-xs-12 col-md-12">
-                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="0">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Kukatpally</td>
-                                                    <td>
-                                                        <div class="form-group col-xs-12 col-md-12">
-                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="0">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Madhapur</td>
-                                                    <td>
-                                                        <div class="form-group col-xs-12 col-md-12">
-                                                            <input type="text" class="form-control" placeholder="Quantity in Hand" value="0">
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                @if (ViewBag.AvailableWarehouses != null)
+                                                {
+                                                    //foreach (var item in ViewBag.AvailableWarehouses)
+                                                    for(int i = 0; i < ViewBag.AvailableWarehouses.Count; i++)
+                                                    {
+                                                    <tr>
+                                                        <td>@(++sno)</td> 
+                                                        <td>@ViewBag.AvailableWarehouses[i].wh_Shortname</td>
+                                                        <td>
+                                                            <div class="form-group col-xs-12 col-md-12">
+                                                                @*<input type="text" id="txtqty @sno" class="form-control" placeholder="Quantity in Hand" value="0">*@
+                                                                @Html.TextBoxFor(Model => Model.Quantity_Qty[i] , new { @Value = "0", @class = "form-control", placeholder = "Quantity in Hand" })
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    }
+                                                }
+
                                                 <tr>
                                                     <td></td>
                                                     <td>Total</td>
                                                     <td>
                                                         <div class="form-group col-xs-12 col-md-12">
-                                                            <input type="text" class="form-control" placeholder="Total Quantity in Hand">
+                                                            @*<input type="text" class="form-control" placeholder="Total Quantity in Hand">*@
+                                                            @Html.TextBoxFor(Model => Model.Quantity_Total, new { @Value = "0", @class = "form-control", placeholder = "Total Quantity in Hand" })
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -359,48 +361,69 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group radio col-xs-6 col-md-6">
+                                    <div class="form-group radio col-xs-4 col-md-4">
                                         <label>
-                                            @Html.RadioButtonFor(Model=>Model.product_consumable, "Consumable",new { @class="consumable"})
+                                            @*@Html.RadioButtonFor(Model=>Model.product_consumable, "Consumable",new { @class="consumable"})*@
                                             @*<input type="radio" name="product_consumable" class="consumable" id="product_consumable">*@
                                             Consumable
                                         </label>
                                     </div>
-                                    <div class="form-group radio col-xs-6 col-md-6">
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="switch toggle-consumable">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
                                         <label>
-                                            @Html.RadioButtonFor(Model => Model.product_consumable, "Non-Consumable", new { @class = "non-consumable" })
+                                            @Html.HiddenFor(Model => Model.product_consumable,new { Value= "Non-Consumable" })
+                                            @*@Html.RadioButtonFor(Model => Model.product_consumable, "Non-Consumable", new { @class = "non-consumable" })*@
                                             @*<input type="radio" name="product_consumable" class="non-consumable" id="product_consumable">*@
                                             Non-Consumable
                                         </label>
                                     </div>
                                 </div>
                                 <div class="row veg-non">
-                                    <div class="form-group radio col-xs-6 col-md-6">
+                                    <div class="form-group radio col-xs-4 col-md-4">
                                         <label class="veg">
-                                            @Html.RadioButtonFor(Model => Model.product_type, "Veg")
+                                            @*@Html.RadioButtonFor(Model => Model.product_type, "Veg")*@
                                             @*<input type="radio" name="optradio1" id="product_type">*@
                                             Veg
                                         </label>
                                     </div>
-                                    <div class="form-group radio col-xs-6 col-md-6">
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="switch veg-non">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
                                         <label class="non-veg">
-                                            @Html.RadioButtonFor(Model => Model.product_type, "Non-Veg")
+                                            @Html.HiddenFor(Model => Model.product_type, new { Value = "Non-Veg" })
+                                            @*@Html.RadioButtonFor(Model => Model.product_type, "Non-Veg")*@
                                             @*<input type="radio" name="optradio1" id="product_type">*@
                                             Non-Veg
                                         </label>
                                     </div>
                                 </div>
                                 <div class="row perishable-non">
-                                    <div class="form-group radio col-xs-6 col-md-6">
+                                    <div class="form-group radio col-xs-4 col-md-4">
                                         <label class="Perishable">
-                                            @Html.RadioButtonFor(Model => Model.product_perishability, "Perishable")
+                                            @Html.HiddenFor(Model => Model.product_perishability, new { Value = "Non-Perishable" })
+                                            @*@Html.RadioButtonFor(Model => Model.product_perishability, "Perishable")*@
                                             @*<input type="radio" name="optradio2" id="product_perishability">*@
                                             Perishable
                                         </label>
                                     </div>
-                                    <div class="form-group radio col-xs-6 col-md-6">
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="switch perishable-non">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
                                         <label class="Non-Perishable">
-                                            @Html.RadioButtonFor(Model => Model.product_perishability, "Non-Perishable")
+                                            @*@Html.RadioButtonFor(Model => Model.product_perishability, "Non-Perishable")*@
                                             @*<input type="radio" name="optradio2" id="product_perishability">*@
                                             Non-Perishable
                                         </label>
@@ -484,13 +507,14 @@
                         <div class="row">
                             <div class="form-group col-xs-12 col-md-12">
                                 @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
-                                @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description" , rows = "5" })
+                                @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description", rows = "5" })
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label>Add Tags<span>(Seperated by Comma)</span></label>
                                 <ul id="myTags"></ul>
+                                @Html.HiddenFor(Model => Model.product_tags)
                             </div>
                         </div>
                         <div class="row">
@@ -499,7 +523,7 @@
                                 <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</a>
                             </div>
                             <div class="col-xs-12 col-md-2 pull-right">
-                                <button type="submit" class="btn btn-primary" name="command" value="AddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
+                                <button type="submit" class="btn btn-primary" name="command" value="AddProduct" id="btnAddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
                             </div>
                         </div>
                     </div>
@@ -571,15 +595,15 @@ else
     <link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
     <script>
         $(document).ready(function () {
-            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var date_input = $('#product_expirydate'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
                 format: 'mm/dd/yyyy',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,
-            })
-        })
+            });
+        });
     </script>
 
     @*<!-------------- Date Picker ----------->*@
@@ -690,14 +714,14 @@ else
             $(this).parents(".display-positions").next(".add-position").css("display", "block");
 
             //$(".add-position .add-button").click(function () {
-                //var v = $(this).prev("input[type='text']").val();
-                //updateproductitems(this.value,v);
-                //var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
-                //$(this).parents(".add-position").prev(".display-positions").append(value);
-                //$(".positions1 > i").click(function () {
-                //    $(this).parent(".positions1").remove();
-                //});
-                //return textval();
+            //var v = $(this).prev("input[type='text']").val();
+            //updateproductitems(this.value,v);
+            //var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
+            //$(this).parents(".add-position").prev(".display-positions").append(value);
+            //$(".positions1 > i").click(function () {
+            //    $(this).parent(".positions1").remove();
+            //});
+            //return textval();
             //});
 
             $(".close-button").click(function () {
@@ -709,7 +733,7 @@ else
         //<!------ Instant Values added in Input Box ------->
 
         //<!------ Total Price ------->
-        var costprice, sellprice, tax, taxtotal, discount, discounttotal, shipping;
+        var costprice = 0, sellprice = 0, tax = 0, taxtotal = 0, discount = 0, discounttotal = 0, shipping = 0;
 
         $("input[placeholder='Cost Price']").blur(function () {
             costprice = parseInt($("input[placeholder='Cost Price']").val());
@@ -769,22 +793,68 @@ else
             });
             $("input[placeholder='Total Quantity in Hand']").val(total);
             //alert(total);
-            var discount = (total / 100) * 20;
+            //var discount = (total / 100) * 20;
             //alert(discount);
         });
         //<!------ Total Quantity in Hand ------->
 
         //<!-------------- Veg / Non-Veg ------------------>
-        $(".non-consumable").click(function () {
-            if ($(".non-consumable").attr("checked", "true")) {
-                $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display", "none");
-            }
-        });
-        $(".consumable").click(function () {
-            if ($(".consumable").attr("checked", "true")) {
-                $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display", "block");
-            }
-        });
+        //$(".non-consumable").click(function () {
+        //    if ($(".non-consumable").attr("checked", "true")) {
+        //        $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display", "none");
+        //    }
+        //});
+        //$(".consumable").click(function () {
+        //    if ($(".consumable").attr("checked", "true")) {
+        //        $(".Perishable,.Non-Perishable, .veg, .non-veg").css("display", "block");
+        //    }
+        //});
         //<!-------------- Veg / Non-Veg ------------------>
+
+        // <!-- Toogle Function -->
+        $(".tax #checkbox1").change(function () {
+            if ($(this).is(":checked")) {
+                $(".tax input[placeholder='Tax']").prop('disabled', false);
+            } else {
+                $(".tax input[placeholder='Tax']").prop('disabled', true);
+            }
+
+        });
+
+        $(".toggle-consumable #checkbox1").change(function () {
+            if ($(this).is(":checked")) {
+                $('#product_consumable').val("Consumable");
+                $(".perishable-non, .veg-non").css("display", "block");
+            } else {
+                $('#product_consumable').val("Non-Consumable");
+                $(".perishable-non, .veg-non").css("display", "none");
+            }
+        });
+
+        $(".veg-non #checkbox1").change(function () {
+            if ($(this).is(":checked")) {
+                $('#product_type').val("Non-Veg");
+            } else {
+                $('#product_type').val("Veg");
+            }
+        });
+
+        $(".perishable-non #checkbox1").change(function () {
+            if ($(this).is(":checked")) {
+                $('#product_perishability').val("Non-Perishable");
+            } else {
+                $('#product_perishability').val("Perishable");
+            }
+        });
+        //<!-- Toogle Function -->
+
+        $('#btnAddProduct').click(function () {
+            var arr = [];
+            // get the text from li's
+            $('#myTags li span.tagit-label').each(function (index) {
+                arr.push($(this).text());
+            });
+            $('#product_tags').val(arr);
+        });
     </script>
 }

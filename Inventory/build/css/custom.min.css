@@ -5691,11 +5691,6 @@ strong{
 #vendortable1{
 	display: none;
 	width: 100%;}
-#vendortable, #vendortable1{
-	transition: 1s ease-in;
-	-o-transition: 1s ease-in;
-	-moz-transition: 1s ease-in;
-	-webkit-transition: 1s ease-in;}
 #nav{
 	margin-bottom: 15px;}
 
@@ -5968,11 +5963,6 @@ input[placeholder="Total"] + span{
 label[for="date"]{
 	margin-top: 10px;
 	margin-bottom: 0;}
-.Perishable,
-.veg,
-.non-veg,
-.Non-Perishable{
-	display: none;}
 .veg-non,
 .perishable-non{
 	background: #eee;}
@@ -5981,7 +5971,47 @@ label[for="date"]{
 .veg-non label{
 	padding-top: 15px;}
 .perishable-non{
-	border-radius: 0 0 5px 5px;}
+	border-radius: 0 0 5px 5px;
+	margin-bottom: 10px;}
+.tax{
+	position: relative;}
+.tax > label.switch{
+	position: absolute;
+	top: 0px;
+	right: 15px;
+	height: 15px;}
+.tax > label.switch .slider:before{
+	height: 13px;
+	top: 1px;}
+.switch.toggle-consumable{
+	margin: 0 auto;
+	display: block;}
+.switch.toggle-consumable .slider{
+	background: #0483c6;}
+.switch.veg-non{
+	margin: 10px auto 0;
+	display: block;}
+.switch.veg-non .slider,
+.switch.perishable-non .slider{
+	background: #0483c6;	
+	height: 15px;}
+.switch.veg-non .slider:before,
+.switch.perishable-non .slider:before{
+	height: 13px;
+	top: 1px;}
+.switch.perishable-non{
+	margin: 0px auto 10px;
+	display: block;}
+.toggle-consumable .slider:before{
+	left: 22px;}
+.toggle-consumable > input[type=checkbox]:checked + .slider:before{
+	transform: translateX(-20px) !important;
+    -o-transform: translateX(-20px) !important;
+    -moz-transform: translateX(-20px) !important;
+    -webkit-transform: translateX(-20px) !important;}
+.perishable-non,
+.veg-non{
+	display: none;}
 /*============ Product Master ==================*/
 
 /*============ Tags Box ==================*/
@@ -6044,6 +6074,8 @@ ul.tagit input[type=text] {
 /*============ Tags Box ==================*/
 
 /*============ View Products ==================*/
+#productstable1{
+display: none;}
 .displayproduct{
 	background: #fff;}
 .displayproduct > .well{
@@ -6077,8 +6109,12 @@ a.product-name{
 	padding: 10px 5px;
 	color: #666666;
 	font-size: 12px;}
-.product-price{
-	font-weight: 700;}
+.product-price-total{
+	font-weight: 700;
+	margin-top: 10px;}
+.product-price-total p{
+	float: left;
+	margin-right: 5px;}
 .rate-add > .shipping{
 	background: none;
 	margin-top: 10px;
@@ -6155,19 +6191,44 @@ a.product-name{
 
 .checkout{
 	background: #f1f0f0;
-	padding: 10px;
 	border-radius: 5px;}
+.check-title{
+	padding-left: 0px;
+	padding-right: 0px;
+	background: #0288d1;
+	border-radius: 5px 5px 0 0;}
 .checkout .title{
-	font-size: 16px;}
+	font-size: 14px;
+	color: #fff;
+	line-height: 30px;}
+.cart-icn{
+	color: #fff;
+	line-height: 30px;
+	position: relative;}
+.cart-icn span{
+	position: absolute;
+	top: 0;
+	left: 20px;
+	border-radius: 50%;
+	line-height: 13px;
+	padding: 2px 5px;
+	font-size: 10px;
+	background: #000;
+	color: #fff;}
+.cart-total{
+	font-size: 14px;
+	color: #fff;
+	line-height: 30px;}
 .added-products .empty{
 	display: block;
 	color: #333;}
 .added-products > .well .empty{
 	display: block;
 	color: #333;
-	width: 70%;
+	width: 120px;
+	text-align: left;
     position: absolute;
-    left: 35px;
+    left: 70px;
     top: 38px;
     font-size: 12px;
     font-weight: bold;}
@@ -6263,7 +6324,10 @@ ul.left-submenu.collapse.in{
 .added-products > .well .product-variation,
 .added-products tr > td.add-to-cart-table > .btn,
 tr > td.add-to-cart-table > i,
-.added-products tr > td.product-variation{
+.added-products tr > td.product-variation,
+.added-products td.product-price,
+.added-products > .well .product-price,
+.added-products > .well > .rate-add > .product-price-total > p{
 	display: none;}
 .added-products tr > td.add-to-cart-table > i{
 	display: block;
@@ -6278,14 +6342,19 @@ tr > td.add-to-cart-table > i,
 .added-products > .well > .image{
 	margin-right: 15px;}
 .added-products > .well .img-title{
-	margin-bottom: 10px;}
+	width: 120px;
+	height: 18px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	text-align: left;}
 .added-products > .well > .image > img{
 	width: 50px;
 	border-radius: 50%;}
-.added-products > .well > .rate-add > .product-price{
+.added-products > .well > .rate-add > .product-price-total{
 	position: absolute;
 	left: 70px;
-	top: 20px;}
+	top: 22px;
+	margin-top: 0;}
 .added-products > .well .input-group.spinner{
 	width: 65%;
 	position: absolute;
@@ -6324,29 +6393,36 @@ tr > td > .input-group.spinner > label{
 .added-products > tr > td > img{
 	width: 50px;}
 .added-products > tr > td.product-name{
-	width: 70%;
+	width: 120px;
+	height: 18px;
+	overflow: hidden;
 	position: absolute;
-	left: 40px;
-	top: 5px;}
+	left: 60px;
+	top: 5px;
+	text-align: left;}
 .added-products > tr > td.product-name a,
 .added-products > tr > td.product-name a:hover,
 tr > td.product-name a,
 tr > td.product-name a:hover{
 	color: #000;}
-.added-products tr > td.product-price{
-	width: 70%;
+.added-products tr > td.product-price-total{
+	width: 120px;
 	position: absolute;
 	top: 17px;
-	left: 12px;
+	left: 62px;
 	font-size: 12px;
-	color: #666;}
+	color: #666;
+	text-align: left;
+	font-weight: 700;
+	margin-top: 0;}
 .added-products tr > td.empty{
-	width: 70%;
+	width: 120px;
 	position: absolute;
-	left: 35px;
+	left: 72px;
 	top: 38px;
 	font-size: 12px;
-	font-weight: bold;}
+	font-weight: bold;
+	text-align: left;}
 .added-products tr > td.product-variation > select{
 	box-shadow: none;
 	border: none;
@@ -6424,6 +6500,43 @@ tr > td.product-name a:hover{
   }
 }
 
+/*.product-checkout{
+	background: #e2e1e1;
+	min-height: 84px;
+	border-radius: 5px;
+	padding: 5px 0;
+	position: relative;
+	margin-bottom: 10px;}
+.product-checkout > .image{
+	width: 50px;
+	line-height: 84px;}
+.product-checkout > .image > img{
+	max-width: 100%;
+	border-radius: 50%;}
+.product-checkout .product-name,
+.product-checkout .product-name a,
+.product-checkout .product-description{
+	color: #333;
+	font-size: 12px;
+	font-weight: 700;}
+.product-checkout .product-details{
+	text-align: left;}
+.product-checkout .product-price{
+	color: #666;
+	font-size: 12px;}
+.product-checkout .quantity-changes{
+	color: #333;}
+.product-checkout .quantity-changes .input-group{
+	margin-bottom: 0;}
+.product-checkout .remove{
+	color: #f00;
+	font-size: 12px;
+	cursor: pointer;
+	position: absolute;
+	right: 5px;
+	top: 5px;}*/
+.cart-total span{
+	font-weight: 700;}
 /*============ View Products ==================*/
 
 /*============ Generate Purchase Order ==================*/

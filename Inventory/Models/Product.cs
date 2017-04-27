@@ -12,7 +12,9 @@ namespace Inventory.Models
         public string product_name { get; set; }
         public string brand { get; set; }
         public string model { get; set; }
+        public string category_id { get; set; }
         public string category { get; set; }
+        public string subcategory_id { get; set; }
         public string sub_category { get; set; }
         public string cost_price { get; set; }
         public string selling_price { get; set; }
@@ -32,5 +34,12 @@ namespace Inventory.Models
         public string product_description { get; set; }
         public string product_tags { get; set; }
         public string created_date { get; set; }
+        public string product_images { get; set; }
+        
+        //Quantity In Hand Related Fields
+        public int Quantity_id { get; set; }
+        public string Quantity_area { get; set; }
+        public List<string> Quantity_Qty { get; set; }
+        public string Quantity_Total { get; set; }
     }
 }
