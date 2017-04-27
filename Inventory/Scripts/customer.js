@@ -21,6 +21,8 @@ $("#add-customer").click(function () {
     $('#myform input[type=file]').attr("disabled", false);
     $('#mySubmit').show();
     $('#mySubmit1').show();
+    $('#cuscontactbutton').show();
+    $('#taxid').show();
     $('#bankid').show();
     $('#notebutton').show();
     $("#bill_country").attr("disabled", false);
@@ -972,6 +974,7 @@ function viewCustomer(id) {
                 $('#mySubmit1').hide();
                 $('#bankid').hide();
                 $('#cuscontactbutton').hide();
+                $('#taxid').hide();
                 $('#notebutton').hide();
                 $("#customer-information-cancel").hide();
                 $("#customer-information1-cancel").hide();
