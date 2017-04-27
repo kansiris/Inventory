@@ -35,6 +35,7 @@ $("#add-vendor").click(function () {
     $("#forclose").css("display", "none");
     $("#uploadtext").css("display", "block");
     $("#uploadcontact").css("display", "block");
+    $("#contactpic").attr("src", "/images/user.png");
 });
 $("#vendor-information-cancel").click(function () {
     $("#vendor-information input").val("");
@@ -961,6 +962,7 @@ function viewVendor(id) {
                 $("#forclose").css("display", "block");
                 $("#uploadtext").css("display", "none");
                 $("#uploadcontact").css("display", "none");
+                //$("#contactpic").attr("src", "/images/user.png");
                 
             }
         },
