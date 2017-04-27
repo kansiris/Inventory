@@ -22,6 +22,8 @@ $("#add-vendor").click(function () {
     $('#mySubmit').show();
     $('#mySubmit1').show();
     $('#bankid').show();
+    $('#contactbutton').show();
+    $("#contactbutton").css("display", "block");
     $('#notebutton').show();
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);

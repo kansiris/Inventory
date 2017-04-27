@@ -21,11 +21,11 @@
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+<link href="../build/css/custom.min.css" rel="stylesheet">
 
-    <!--- Tabs in Graph Section ---->
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+<!--- Tabs in Graph Section ---->
+<link href="~/Scripts/css/reset.css" rel="stylesheet" />
+<link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
 <div class="container body">
     <div class="main_container">
@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="form-title col-xs-12 col-md-9">Shop Products</div>
                         <div class="top-bar col-xs-12 col-md-3">
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Product </button>
+                            @*<button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Product </button>*@
                             <div class="icons pull-right">
                                 <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
                                 <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
@@ -134,12 +134,12 @@
 
 @section scripts{
     <!-- jQuery lib & Tabs -->
-<script type="text/javascript" language="javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" language="javascript" src="js/modernizr.js"></script>
-<script type="text/javascript" language="javascript" src="js/main.js"></script>
-<!-- jQuery lib & Tabs -->
+<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/js/main.js"></script>
+<script src="~/Scripts/js/modernizr.js"></script>
 <!-- jQuery -->
 <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    
 <!-- Bootstrap -->
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
