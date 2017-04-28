@@ -5857,7 +5857,9 @@ input[type="file"].form-control{
 	transition: 1s ease;
 	-o-transition: 1s ease;
 	-moz-transition: 1s ease;
-	-webkit-transition: 1s ease;}
+	-webkit-transition: 1s ease;
+	border-radius: 5px;
+	margin-bottom: 10px;}
 .admin-product-image img{
 	display: block;
 	margin: 0 auto;}
@@ -5927,7 +5929,9 @@ ul.tabs-content > li{
 ul.tabs-content > li:first-of-type{
 	position: absolute;
 	top: 40%;
-	left: 35%;}
+	left: 35%;
+    z-index:1;
+}
 ul.tabs-content > li:last-of-type{
 	opacity: 1;}
 ul.tabs-content > li > ul > li{
@@ -6074,8 +6078,8 @@ ul.tagit input[type=text] {
 /*============ Tags Box ==================*/
 
 /*============ View Products ==================*/
-#productstable1{
-display: none;}
+#productstable{
+	display: none;}
 .displayproduct{
 	background: #fff;}
 .displayproduct > .well{
@@ -6282,11 +6286,16 @@ a.product-name{
     min-height: 100%;
 }
 
-#sidebar .collapse.in {
-    display: inline;
-}
-ul.left-submenu.collapse.in{
-	display: none !important;}
+#sidebar ul.nav > li > a{
+	padding: 10px 15px;}
+ul.left-submenu{
+	display: none;}
+#sidebar ul.left-submenu > li > a{
+	padding: 5px 5px 10px 18px;
+	color: #333;}
+#sidebar ul.left-submenu > li > a:hover{
+	font-weight: bold;
+	color: #0288d1;}
 
 #sidebar > .nav>li>a {
     white-space: nowrap;
