@@ -5930,7 +5930,7 @@ ul.tabs-content > li:first-of-type{
 	position: absolute;
 	top: 40%;
 	left: 35%;
-    z-index:1;
+	z-index:1;
 }
 ul.tabs-content > li:last-of-type{
 	opacity: 1;}
@@ -6016,6 +6016,14 @@ label[for="date"]{
 .perishable-non,
 .veg-non{
 	display: none;}
+.quantity-perishable-non,
+.quantity-veg-non{
+	display: block;
+	background: #eee;}
+.quantity-veg-non{
+	padding-top: 10px;}
+.quantity-perishable-non{
+	margin-bottom: 15px;}
 /*============ Product Master ==================*/
 
 /*============ Tags Box ==================*/
