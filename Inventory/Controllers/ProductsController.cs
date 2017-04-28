@@ -45,5 +45,22 @@ namespace Inventory.Controllers
             }
             return PartialView("allproducts", null);
         }
+
+        //for chicken
+        public List<Vendor> getcontactDetail(DataTable dt)
+        {
+            List<Vendor> contact = new List<Vendor>();
+            contact = (from DataRow row in dt.Rows
+                       select new Vendor()
+                       {
+                           Vendor_Id = row["Vendor_Id"].ToString(),
+                           Contact_PersonFname = row["Contact_PersonFname"].ToString(),
+                           Contact_PersonLname = row["Contact_PersonLname"].ToString(),
+                           emailid = row["emailid"].ToString(),
+                           image = row["image"].ToString()
+                       }).OrderByDescending(m => m.Vendor_Id).ToList();
+            return contact;
+        }
+
     }
 }

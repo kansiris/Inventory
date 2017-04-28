@@ -15,7 +15,7 @@ $("#add-customer").click(function () {
     $('#mySubmit1').val("saveaddress").text("Save Address");
     $('#bankid').val("savebankdetails").text("Save Bank Details");
     $('#notebutton').val("Save Notes").text("Save Notes");
-    $('#contactbutton').val("savecontact").text("Save Contact");
+    $('#cuscontactbutton').val("savecontact").text("Save Contact");
     $('#myform input[type=text]').attr("disabled", false);
     $('#myform textarea').attr("disabled", false);
     $('#myform input[type=file]').attr("disabled", false);
@@ -35,6 +35,7 @@ $("#add-customer").click(function () {
     $("#forclose").css("display", "none");
     $("#uploadtext").css("display", "block");
     $("#uploadcontact").css("display", "block");
+    $("#cuscontactpic").attr("src", "/images/user.png");
 });
 $("#customer-information-cancel").click(function () {
     $("#customer-information input").val("");
