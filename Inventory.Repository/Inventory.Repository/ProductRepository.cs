@@ -90,5 +90,13 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteNonQuery(ConnectionString, "AddQuantityInHand", product_id, area, Qty, Total);
         }
         #endregion
+
+        //to get chicken products
+        public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "Getproductsbysubcategory", sub_category);
+        }
     }
 }

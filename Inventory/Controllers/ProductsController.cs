@@ -15,14 +15,14 @@ namespace Inventory.Controllers
         // GET: Products
         public ActionResult Index()
         {
-           return View();
+            return View();
         }
-        
+
         public ActionResult purchaseorder()
         {
             return View();
         }
-       
+
         public PartialViewResult allproducts()
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -38,29 +38,47 @@ namespace Inventory.Controllers
                                                  product_type = row["product_type"].ToString(),
                                                  cost_price = row["cost_price"].ToString(),
                                                  product_images = row["product_images"].ToString(),
-                                                 brand= row["brand"].ToString()
+                                                 brand = row["brand"].ToString()
                                              }).Distinct().ToList();
                 ViewBag.records = allproducts;
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
         }
-
-        //for chicken
-        public List<Vendor> getcontactDetail(DataTable dt)
+        [HttpGet]
+        //for subcategory
+        public PartialViewResult Getproductsbysubcategory(string sub_category)
         {
-            List<Vendor> contact = new List<Vendor>();
-            contact = (from DataRow row in dt.Rows
-                       select new Vendor()
-                       {
-                           Vendor_Id = row["Vendor_Id"].ToString(),
-                           Contact_PersonFname = row["Contact_PersonFname"].ToString(),
-                           Contact_PersonLname = row["Contact_PersonLname"].ToString(),
-                           emailid = row["emailid"].ToString(),
-                           image = row["image"].ToString()
-                       }).OrderByDescending(m => m.Vendor_Id).ToList();
-            return contact;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                string category = Request.QueryString[sub_category];
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = ProductService.Getproductsbysubcategory(user.DbName, sub_category.Trim());
+                var dt = new DataTable();
+                dt.Load(records);
+                List<Product> subcategoryproducts = (from DataRow row in dt.Rows
+                                                     select new Product()
+                                                     {
+                                                         product_name = row["product_name"].ToString(),
+                                                         product_type = row["product_type"].ToString(),
+                                                         cost_price = row["cost_price"].ToString(),
+                                                         product_images = row["product_images"].ToString(),
+                                                         brand = row["brand"].ToString()
+                                                     }).Distinct().ToList();
+                ViewBag.records = subcategoryproducts;
+                return PartialView("allproducts", ViewBag.records);
+            }
+            return PartialView("allproducts", null);
         }
 
+        public JsonResult Getproducts(string sub_category)
+        {
+            var sample = Getproductsbysubcategory(sub_category);
+            if (sample != null)
+            {
+                return Json(sub_category);
+            }
+            return Json("unique");
+        }
     }
 }
