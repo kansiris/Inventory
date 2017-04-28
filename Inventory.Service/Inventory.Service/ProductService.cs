@@ -69,5 +69,18 @@ namespace Inventory.Service
             return ProductRepository.AddQuantityInHand(dbname, product_id, area, Qty, Total);
         }
         #endregion
+
+        //to get chicken products
+        public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
+        {
+            return ProductRepository.Getproductsbysubcategory(dbname, sub_category);
+        }
+        
+        //to get mutton products
+        //public static SqlDataReader GetmuttonProducts(string dbname, string sub_category)
+        //{
+        //    return ProductRepository.GetmuttonProducts(dbname, sub_category);
+        //}
+
     }
 }

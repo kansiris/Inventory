@@ -81,9 +81,9 @@
                                         <li class="leve12">
                                             <a href="#">Meat<span class="caret"></span></a>
                                             <ul class="nav nav-stacked left-submenu">
-                                                <li><a href="" onclick="getchicken()" id="chicken">Chicken</a></li>
-                                                <li><a href="#">Mutton</a></li>
-                                                <li><a href="#">Seafood</a></li>
+                                                <li><a href="" onclick="getproducts('Chicken')" id="chicken">Chicken</a></li>
+                                                <li><a href="" onclick="getproducts('Mutton')" id="mutton">Mutton</a></li>
+                                                <li><a href="" onclick="getproducts('Seafood')" id="seafood">Seafood</a></li>
                                                
                                             </ul>
                                         </li>
@@ -91,13 +91,13 @@
                                         <li class="leve12">
                                             <a href="#">Fruits and Vegetables<span class="caret"></span></a>
                                             <ul class="nav nav-stacked left-submenu">
-                                                <li><a href="#">Cuts and Sprouts</a></li>
-                                                <li><a href="#">Flowers</a></li>
-                                                <li><a href="#">Fresh Fruits</a></li>
-                                                <li><a href="#">fresh Herbs and Seasonings</a></li>
-                                                <li><a href="#">Fresh Vegetables</a></li>
-                                                <li><a href="#">International Fruits and Vegetables</a></li>
-                                                <li><a href="#">Organic Fruits and vegetables</a></li>
+                                                <li><a href="" onclick="getproducts('Cuts and Sprouts')" id="cutsandsprouts">Cuts and Sprouts</a></li>
+                                                <li><a href="" onclick="getproducts('flowers')" id="flowers">Flowers</a></li>
+                                                <li><a href="" onclick="getproducts('Fresh Fruits')" id="fruits">Fresh Fruits</a></li>
+                                                <li><a href="" onclick="getproducts('fresh Herbs and Seasonings')" id="herbs">fresh Herbs and Seasonings</a></li>
+                                                <li><a href="" onclick="getproducts('Fresh Vegetables')" id="vegetables">Fresh Vegetables</a></li>
+                                                <li><a href="" onclick="getproducts('International Fruits and Vegetables')" id="infruits">International Fruits and Vegetables</a></li>
+                                                <li><a href="" onclick="getproducts('Organic Fruits and vegetables')" id="orgfruits">Organic Fruits and vegetables</a></li>
 
                                             </ul>
                                         </li>
@@ -195,6 +195,7 @@
                         </div>
                         <div class="col-xs-12 col-md-7">
                             @{ Html.RenderAction("allproducts", "Products");}
+                            
                         </div>
                         <div class="col-xs-12 col-md-3">
                             <div class="row checkout">
@@ -238,9 +239,12 @@
 
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+     <script src="../build/js/custom.min.js"></script>
 
-    <script type="text/javascript">
-@*<!------------ List / Grid Views and reload page -------------->*@
+       <script src="~/Scripts/shopproduct.js"></script>
+
+    <script type="text/javascript">@*
+    @*<!------------ List / Grid Views and reload page -------------->*@
         $("#grid-view").click(function (e) {
             $("#productstable").css("display", "none");
             $("#productstable1").css("display", "block");
@@ -324,9 +328,7 @@
             $(this).parents("tr").clone(true, true).appendTo(".added-products");
             $(".added-products").css("padding", "0px 0px 10px");
         });
-        function gototgenerateorder() {
-            RedirectToAction("purchaseorder");
-        }
+       
         function vals() {
             var total, totalquantity = 0, productprice, carttotal = 0;
             $(".added-products .spinner input[type='text']").each(function () {
@@ -352,37 +354,9 @@
             $(this).parents("div.well,tr").remove();
             return vals();
         });
-        // for chicken
-        function getchicken() {
-            var clickeditem = $('#chicken').text();
-            alert(clickeditem);
-            if( clickeditem == 'Chicken'){
-                $.ajax({
-                    url: '/Products/deleteRecord',
-                    type: 'POST',
-                    data: JSON.stringify({ company_Id: id }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (data == "unique") {
-                            alert("sai");
-                        }
-                        else {
-                            alert("Company Deleted Successfully");
-                        }
-                    },
-                    error: function (data)
-                    { alert("Failed!!!"); }
-                });
-       
-                return true;
-            }
-    
-            else{
-                return false;
-            }
-        }
 
+        function gototgenerateorder() {
+            RedirectToAction("purchaseorder");
         }
     </script>
     //<!----------- Quantity Add in Right Bar ---------------->
