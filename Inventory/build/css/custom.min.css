@@ -5857,7 +5857,9 @@ input[type="file"].form-control{
 	transition: 1s ease;
 	-o-transition: 1s ease;
 	-moz-transition: 1s ease;
-	-webkit-transition: 1s ease;}
+	-webkit-transition: 1s ease;
+	border-radius: 5px;
+	margin-bottom: 10px;}
 .admin-product-image img{
 	display: block;
 	margin: 0 auto;}
@@ -5927,7 +5929,9 @@ ul.tabs-content > li{
 ul.tabs-content > li:first-of-type{
 	position: absolute;
 	top: 40%;
-	left: 35%;}
+	left: 35%;
+	z-index:1;
+}
 ul.tabs-content > li:last-of-type{
 	opacity: 1;}
 ul.tabs-content > li > ul > li{
@@ -6012,6 +6016,14 @@ label[for="date"]{
 .perishable-non,
 .veg-non{
 	display: none;}
+.quantity-perishable-non,
+.quantity-veg-non{
+	display: block;
+	background: #eee;}
+.quantity-veg-non{
+	padding-top: 10px;}
+.quantity-perishable-non{
+	margin-bottom: 15px;}
 /*============ Product Master ==================*/
 
 /*============ Tags Box ==================*/
@@ -6074,7 +6086,7 @@ ul.tagit input[type=text] {
 /*============ Tags Box ==================*/
 
 /*============ View Products ==================*/
-#productstable1{
+#productstable{
 	display: none;}
 .displayproduct{
 	background: #fff;}

@@ -41,28 +41,33 @@ namespace Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string command, Product product, string myTags)
+        public ActionResult Index(string command, Product product, HttpPostedFileBase file)
         {
             if (command == "AddProduct")
             {
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                int id = ProductMaxID(user.DbName); // Get Max Product ID
-                string product_id = "P" + id;
-                ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
-                int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.brand, product.model, product.category, product.sub_category,
-                    product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
-                    product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                    product.product_description, product.product_tags);
-                if (count > 0)
+                if (file != null && file.ContentLength > 0)
                 {
-                    for (int i = 0; i < product.Quantity_Qty.Count; i++)
+                    file.SaveAs(Server.MapPath("~/ProductImages/" + file.FileName));
+                    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                    int id = ProductMaxID(user.DbName); // Get Max Product ID
+                    string product_id = "P" + id;
+                    ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
+                    int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.brand, product.model, product.category, product.sub_category,
+                        product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
+                        product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
+                        product.product_description, product.product_tags, file.FileName);
+                    if (count > 0)
                     {
-                        int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, product.Quantity_Qty[i], product.Quantity_Total);
+                        for (int i = 0; i < product.Quantity_Qty.Count; i++)
+                        {
+                            int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, product.Quantity_Qty[i], product.Quantity_Total);
+                        }
+                        return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
                     }
-                    return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
+                    return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
                 }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
             }
+        
             return View();
         }
 

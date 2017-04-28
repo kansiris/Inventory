@@ -54,13 +54,13 @@ namespace Inventory.Repository
         #region Add Product
         public static int ProductFunctionalities(string type,string dbname,int id, string product_id, string product_name, string brand , string model , string category , string sub_category , string cost_price , string selling_price , string tax ,
            string discount , string shipping_price , string total_price , string Measurement , string weight , string size , string color , string item_shape , string product_consumable ,
-           string product_type , string product_perishability , string product_expirydate , string product_description , string product_tags)
+           string product_type , string product_perishability , string product_expirydate , string product_description , string product_tags,string product_images)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductFunctionalities", type,id,product_id, product_name, brand, model, category, sub_category, cost_price, selling_price, tax, discount,
                 shipping_price, total_price, Measurement, weight, size, color, item_shape, product_consumable, product_type, product_perishability, product_expirydate,
-                product_description, product_tags);
+                product_description, product_tags,product_images);
         }
         #endregion
 
