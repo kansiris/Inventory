@@ -732,6 +732,7 @@ else
                 $("input[placeholder='Cost Price']").css("border", "1px solid red");
             }
             if (sellprice < costprice) {
+                sellprice = costprice;
                 $("input[placeholder='Selling Price']").css("border", "1px solid red").val(costprice);
                 $("input[placeholder='Total']").val(costprice);
             } else {
