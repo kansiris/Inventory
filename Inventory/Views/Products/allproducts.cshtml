@@ -20,6 +20,7 @@
                         {
                             foreach (var item in ViewBag.records)
                             {
+                               
                                 <tr>
                                     <td class="col-md-1 image">
                                         @if (item.product_images != "" && item.product_images != null && item.product_images != "/images/user.png")
@@ -65,12 +66,13 @@
                 </table>
             </div>
             <div class="row" id="productstable1">
-                @foreach (var item in ViewBag.records)
-                {
+            @foreach (var item in ViewBag.records)
+            {
                     <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
                         <div class="well">
                             <i class="fa fa-times remove" aria-hidden="true"></i>
                             <div class="image">
+                               
                                 @if (item.product_images != "" && item.product_images != null && item.product_images != "/images/user.png")
                                 { <img src="data:image;base64,@item.product_images" /> }
                                 else
@@ -117,8 +119,88 @@
                             </div>
                         </div>
                     </div>
-                }
+            }
             </div>
         </div>
-  
+        @*<label>norecords available</label>*@
 }
+<script>
+    $(document).ready(function (e) {
+        var tableprice, divprice, tabletotal, divtotal;
+        $('.spinner .btn:first-of-type').click(function () {
+            var plus, v;
+            v = parseInt($(this).parent("div").prev("input[type='text']").val());
+            
+            if (v > 0) {
+                plus = v + 1;
+                $(this).parent("div").prev("input[type='text']").val(plus);
+                tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
+                divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
+                tabletotal = plus * tableprice;
+                divtotal = plus * divprice; $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
+                $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
+                $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
+                $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
+            }
+            return vals();
+        });
+        $('.spinner .btn:last-of-type').click(function () {
+            var minus, v;
+            v = parseInt($(this).parent("div").prev("input[type='text']").val());
+           
+            if (v > 1) {
+                minus = v - 1;
+                $(this).parent("div").prev("input[type='text']").val(minus);
+                tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());;
+                divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
+                tabletotal = minus * tableprice;
+                divtotal = minus * divprice; $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
+                $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
+                $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
+                $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
+            }
+            return vals();
+        });
+    });
+
+    $(".add-to-cart > .btn").click(function () {
+        var v = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val();
+        var txt = $(this).parents(".rate-add").prev("div.empty");
+        $(txt).empty().append("<p>" + v + "<p>");
+        $(this).parents(".well").clone(true, true).appendTo(".added-products");
+        $(".added-products").css("padding", "0px 0px 10px");
+    });
+    $(".add-to-cart-table > .btn").click(function () {
+        var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val();
+        var txt = $(this).parent("td.add-to-cart-table").next("td.empty");
+        $(txt).empty().append("<p>" + v + "</p>");
+        $(this).parents("tr").clone(true, true).appendTo(".added-products");
+        $(".added-products").css("padding", "0px 0px 10px");
+    });
+
+    function vals() {
+        var total, totalquantity = 0, productprice, carttotal = 0;
+        $(".added-products .spinner input[type='text']").each(function () {
+            total = parseInt($(this).val());
+            totalquantity = total + totalquantity;
+        });
+        $(".added-products .product-price-total span").each(function () {
+            productprice = parseInt($(this).text());
+            carttotal = productprice + carttotal;
+        });
+        $(".cart-total span").remove();
+        $(".cart-total").append("<span>" + carttotal + "</span>");
+        $(".cart-icn span").remove();
+        $(".cart-icn").append("<span>" + totalquantity + "</span>");
+
+    }
+
+    $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
+        return vals();
+    });
+
+    $(".remove").click(function () {
+        $(this).parents("div.well,tr").remove();
+        return vals();
+    });
+</script>

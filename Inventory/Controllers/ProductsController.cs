@@ -29,6 +29,7 @@ namespace Inventory.Controllers
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var records = ProductService.GetAllProducts(user.DbName);
+                
                 var dt = new DataTable();
                 dt.Load(records);
                 List<Product> allproducts = (from DataRow row in dt.Rows
@@ -49,11 +50,12 @@ namespace Inventory.Controllers
         //for subcategory
         public PartialViewResult Getproductsbysubcategory(string sub_category)
         {
+           
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 string category = Request.QueryString[sub_category];
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var records = ProductService.Getproductsbysubcategory(user.DbName, sub_category.Trim());
+                var records = ProductService.Getproductsbysubcategory(user.DbName, sub_category);
                 var dt = new DataTable();
                 dt.Load(records);
                 List<Product> subcategoryproducts = (from DataRow row in dt.Rows
@@ -74,9 +76,10 @@ namespace Inventory.Controllers
         public JsonResult Getproducts(string sub_category)
         {
             var sample = Getproductsbysubcategory(sub_category);
+            string myString = sub_category.Replace(" ", "-");
             if (sample != null)
             {
-                return Json(sub_category);
+                return Json(myString);
             }
             return Json("unique");
         }
