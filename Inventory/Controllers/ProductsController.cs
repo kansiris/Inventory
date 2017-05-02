@@ -64,7 +64,7 @@ namespace Inventory.Controllers
                                                          product_name = row["product_name"].ToString(),
                                                          product_type = row["product_type"].ToString(),
                                                          cost_price = row["cost_price"].ToString(),
-                                                         product_images = row["product_images"].ToString(),
+                                                         product_images = row["product_images"].ToString().Split(',')[0],
                                                          brand = row["brand"].ToString()
                                                      }).Distinct().ToList();
                 ViewBag.records = subcategoryproducts;
