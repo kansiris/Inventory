@@ -54,7 +54,8 @@
                                         @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required" })
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Batch Number">
+                                        @*<input type="text" class="form-control" placeholder="Batch Number">*@
+                                        @Html.TextBoxFor(Model => Model.batch_number, new { @class = "form-control", placeholder = "Batch Number", required = "required" })
                                     </div>
                                     @*<div class="form-group col-xs-12 col-md-6">
                                             <input type="text" class="form-control" placeholder="Product ID">
@@ -420,8 +421,10 @@
                                     </ul>
                                     <ul class="col-md-12 tabs-content">
                                         <li class="tab-1" id="tab-1">
-                                            <button type="button" id="btnupload" onclick="javascript: document.getElementById('uploadimages').click();" class="btn">Upload Here</button>
-                                            <input type="file" id="uploadimages" style="display:none"  name="file"/>
+                                            <button type="button" id="btnupload" onclick="javascript: document.getElementById('fileUpload').click();" class="btn">Upload Here</button>
+                                            @*<input type="file" id="uploadimages" name="file" multiple="multiple"/> style="display:none"*@
+                                            <input type='file'  multiple="multiple" accept="image/*" id='fileUpload' name="file" />
+                                            <div id="dvPreview" align="center" style="padding:30px">
                                         </li>
                                         <li class="tab-2" id="tab-2">
                                             <ul>
@@ -458,7 +461,8 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div>
+                                    
+                                    </div>
                                 <div class="row">
                                     <ul class="col-md-12 admin-product-thumbs"></ul>
                                 </div>

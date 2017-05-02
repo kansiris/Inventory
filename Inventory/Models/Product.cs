@@ -10,6 +10,7 @@ namespace Inventory.Models
         public string ID { get; set; }
         public string product_id { get; set; }
         public string product_name { get; set; }
+        public string batch_number { get; set; }
         public string brand { get; set; }
         public string model { get; set; }
         public string category_id { get; set; }
