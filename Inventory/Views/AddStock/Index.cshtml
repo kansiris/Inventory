@@ -1,0 +1,568 @@
+﻿
+@{
+    ViewBag.Title = ":: Quantity In Hand ::";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
+}
+
+@section css{
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
+
+    <!--- Tabs in Graph Section ---->
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+}
+
+<div class="right_col" role="main">
+   
+        <div class="container">
+            <form>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 form-title">Product Update</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-9">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-md-6">
+                                        <input type="text" class="form-control" placeholder="Product Name">
+                                    </div>
+                                    <div class="form-group col-xs-12 col-md-6">
+                                        <input type="text" class="form-control batchnum" placeholder="Batch Num">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-md-6">
+                                        <input type="text" class="form-control" placeholder="Brand Name">
+                                    </div>
+                                    <div class="form-group col-xs-12 col-md-6">
+                                        <input type="text" class="form-control" placeholder="Model Number">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-md-6">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Category">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 1</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 2</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 3</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-md-6">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Sub Category">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sub Category</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 1</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 2</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 3</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modified-toggle">
+                                    <div class="row margin-bottom">
+                                        <div class="col-xs-3 col-md-2">
+                                            <label class="switch">
+                                                <input type="checkbox" id="checkbox1">
+                                                <div class="slider"></div>
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-9 col-md-10 switch-text">Price Update</div>
+                                    </div>
+                                    <div class="row text-left">
+                                        <div class="form-group col-xs-6 col-md-3">
+                                            <label>Cost Price</label>
+                                            <input type="text" class="form-control" placeholder="Cost Price" value="0">
+                                        </div>
+                                        <div class="form-group col-xs-6 col-md-2">
+                                            <label>Sell Price</label>
+                                            <input type="text" class="form-control" placeholder="Selling Price" value="0">
+                                        </div>
+                                        <div class="form-group col-xs-6 col-md-5 tax">
+                                            <label>TaxApplicable(%)</label>
+                                            <input type="text" class="form-control" placeholder="Tax" value="0">
+                                        </div>
+                                        <div class="form-group col-xs-6 col-md-2">
+                                            <label>Discount(%)</label>
+                                            <input type="text" class="form-control" placeholder="Discount" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-6 col-md-3">
+                                            <label>Shipping</label>
+                                            <input type="text" class="form-control" placeholder="Shipping" value="0">
+                                        </div>
+                                        <div class="form-group col-xs-6 col-md-6">
+                                            <label>Total</label>
+                                            <input type="text" class="form-control" placeholder="Total">
+                                            <span>(Selling price + Tax + Shipping - Discount)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-md-3">
+                                        <input type="text" class="form-control" placeholder="Measurement">
+                                    </div>
+                                    <div class="form-group col-xs-12 col-md-3">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Weight">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>KG'S</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Grams</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Lb's</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-md-3">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Sizes">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sizes</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>M</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>L</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XL</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XXL</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-md-3">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Colors">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Colors</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>White</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Black</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Orange</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Baby Pink</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-md-12">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control selected-position" placeholder="Item Shape">
+                                        <div class="display-positions">
+                                            <div class="positions1 position">
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bottle</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Pouch</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Box</div>
+                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bag</div>
+                                        </div>
+                                        <div class="row add-position">
+                                            <div class="row">
+                                                <input type="text" class="form-control" placeholder="Enter Position">
+                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                            </div>
+                                            <div class="row positions"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label>
+                                            Consumable
+                                        </label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="switch toggle-consumable">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label>
+                                            Non-Consumable
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row quantity-veg-non">
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="veg">Veg</label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="switch veg-non">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="non-veg">Non-Veg</label>
+                                    </div>
+                                </div>
+                                <div class="row quantity-perishable-non">
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="Perishable">Perishable</label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="switch perishable-non">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                    </div>
+                                    <div class="form-group radio col-xs-4 col-md-4">
+                                        <label class="Non-Perishable">Non-Perishable</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group ">
+                                            <label class="col-sm-3" for="date"> Expiry Date </label>
+                                            <div class="col-sm-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-md-12 admin-product-image"> <img src="images/default_product.png" alt="Product" /> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary btn-xs pull-right add-popup"><i class="fa fa-plus-circle" aria-hidden="true"></i>Image</button>
+                                    </div>
+                                </div>
+                                <div class="row image-library">
+                                    <ul class="col-md-12 tabs">
+                                        <li class="tab-1"><a>Upload Images</a></li>
+                                        <li class="tab-2"><a>Library</a></li>
+                                        <i class="fa fa-times pull-right" aria-hidden="true"></i>
+                                    </ul>
+                                    <ul class="col-md-12 tabs-content">
+                                        <li class="tab-1" id="tab-1">
+                                            <button type="button" class="btn">Upload Here</button>
+                                            <input type="file">
+                                        </li>
+                                        <li class="tab-2" id="tab-2">
+                                            <ul>
+                                                <li>
+                                                    <input type="checkbox" name="checkbox">
+                                                    <img src="images/1.jpg" alt="Image one" />
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" name="checkbox">
+                                                    <img src="images/2.jpg" alt="Image Two" />
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" name="checkbox">
+                                                    <img src="images/3.jpg" alt="Image Three" />
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" name="checkbox">
+                                                    <img src="images/4.jpg" alt="Image Four" />
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" name="checkbox">
+                                                    <img src="images/5.jpg" alt="Image Five" />
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" name="checkbox">
+                                                    <img src="images/6.jpg" alt="Image Six" />
+                                                </li>
+                                            </ul>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                                    <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <ul class="col-md-12 admin-product-thumbs"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-md-12">
+                                <textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Add Tags<span>(Seperated by kama)</span></label>
+                                <ul id="myTags"></ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-2 pull-right">
+                                <button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                            </div>
+                            <div class="col-xs-12 col-md-2 pull-right">
+                                <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modified-toggle1">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="row margin-bottom">
+                                <div class="col-xs-3 col-md-3">
+                                    <label class="switch">
+                                        <input type="checkbox" id="checkbox1">
+                                        <div class="slider"></div>
+                                    </label>
+                                </div>
+                                <div class="col-xs-9 col-md-9 switch-text">Add New Quantity</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Sno</th>
+                                                <th>Area</th>
+                                                <th>Quantity In Hand</th>
+                                                <th>New Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>HIMA</td>
+                                                <td>
+                                                    <div class="form-group col-xs-12 col-md-12">
+                                                        <input type="text" class="form-control" placeholder="Quantity in Hand" value="5">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group col-xs-12 col-md-12">
+                                                        <input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>KUKA</td>
+                                                <td>
+                                                    <div class="form-group col-xs-12 col-md-12">
+                                                        <input type="text" class="form-control" placeholder="Quantity in Hand" value="10">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group col-xs-12 col-md-12">
+                                                        <input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>MADH</td>
+                                                <td>
+                                                    <div class="form-group col-xs-12 col-md-12">
+                                                        <input type="text" class="form-control" placeholder="Quantity in Hand" value="2">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group col-xs-12 col-md-12">
+                                                        <input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total</td>
+                                                <td colspan="3">
+                                                    <div class="form-group col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Total Quantity in Hand" value="0">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+</div>
+   
+</div>
+
+@section scripts{
+    <!-- jQuery lib & Tabs -->
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+    <!-- jQuery lib & Tabs -->
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<!------ Tags With Space and comma ------->*@
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/tag-it.js"></script>
+
+    <script type="text/javascript">
+        $('#myTags').tagit();
+    </script>
+
+<script type="text/javascript">
+<!------ Total Price ------->
+	var costprice = 0, sellprice = 0, tax = 0, taxtotal = 0, discount = 0, discounttotal = 0, shipping = 0;
+
+$("input[placeholder='Cost Price']").blur(function(){
+	costprice = parseInt($("input[placeholder='Cost Price']").val());
+	if(costprice <= 0){
+		$("input[placeholder='Cost Price']").css("border","1px solid red");
+		}else{$("input[placeholder='Cost Price']").css("border","1px solid #ccc");}
+		});
+$("input[placeholder='Selling Price']").blur(function(){
+	sellprice = parseInt($("input[placeholder='Selling Price']").val());
+	costprice = parseInt($("input[placeholder='Cost Price']").val());
+	if(costprice <= 0){
+		$("input[placeholder='Cost Price']").css("border","1px solid red");
+		}
+	  if(sellprice < costprice){
+		  $("input[placeholder='Selling Price']").css("border","1px solid red").val(costprice);
+		  $("input[placeholder='Total']").val(costprice);
+		  }else{$("input[placeholder='Selling Price']").css("border","1px solid #ccc").val(sellprice);
+		        $("input[placeholder='Total']").val(sellprice);}
+	});
+$("input[placeholder='Tax']").blur(function(){
+	sellprice = parseInt($("input[placeholder='Selling Price']").val());
+	tax = parseInt($("input[placeholder='Tax']").val());
+	$(this).val(tax);
+	taxtotal = (sellprice/100) * tax;
+	var v = sellprice + taxtotal;
+	$("input[placeholder='Selling Price']").css("border","1px solid #ccc").val(sellprice);
+	$("input[placeholder='Total']").val(v);
+
+	});
+$("input[placeholder='Discount']").blur(function(){
+	discount = parseInt($("input[placeholder='Discount']").val());
+	$(this).val(discount);
+	discounttotal = (sellprice/100) * discount;
+	var v = sellprice + taxtotal - discounttotal;
+	$("input[placeholder='Total']").val(v);
+	});
+$("input[placeholder='Shipping']").blur(function(){
+	shipping = parseInt($("input[placeholder='Shipping']").val());
+	$(this).val(shipping);
+	var v = sellprice + taxtotal + shipping - discounttotal;
+	$("input[placeholder='Total']").val(v);
+	});
+<!------ Total Price ------->
+
+<!------ Total Quantity in Hand ------->
+function add(){
+	var len = $(".modified-toggle1 .table-striped tbody > tr input[placeholder='Quantity in Hand']").length;
+	var i = 0, total = 0;
+    $(".modified-toggle1 .table-striped tbody > tr input[placeholder='Quantity in Hand']").each(function(){
+		if(i <= len){
+			var val =   parseInt($(this).val());
+			total += val;
+			}
+			 i++;
+		});
+		$("input[placeholder='Total Quantity in Hand']").val(total);}
+$(document).ready(function(e) {
+	return add();
+});
+$("input[placeholder='Quantity in Hand']").blur(function(e) {
+	return add();
+});
+<!------ Total Quantity in Hand ------->
+<!---- Text boxes disable / enable ------------>
+$(document).ready(function(e) {
+    $("input[type='text'], textarea").attr("disabled","disabled");
+	$("input[type='text'].batchnum").removeAttr("disabled");
+});
+
+$(".modified-toggle input[type='checkbox']").change(function(){
+	if($(this).is(":checked")){
+		$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").removeAttr('disabled');
+		}else{
+			$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").attr('disabled','disabled');}
+	});
+
+$(".modified-toggle1 input[type='checkbox']").change(function(){
+	if($(this).is(":checked")){
+		$(this).parents(".modified-toggle1").find("input[type='text'].modified").removeAttr('disabled');
+		}
+	});
+<!---- Text boxes disable / enable ------------>
+</script>
+}

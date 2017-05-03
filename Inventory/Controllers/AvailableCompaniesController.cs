@@ -21,7 +21,6 @@ namespace Inventory.Controllers
             SqlDataReader value = LoginService.Authenticateuser("loginsite", emailid, null, null, 0);
             DataTable dt = new DataTable();
             dt.Load(value);
-            value.Close();
             List<UserMaster> userMaster = new List<UserMaster>();
             userMaster = (from DataRow row in dt.Rows
                           select new UserMaster()
@@ -29,7 +28,8 @@ namespace Inventory.Controllers
                               ID = row["ID"].ToString(),
                               User_Site = row["User_Site"].ToString(),
                               UserTypeId = (int)row["UserTypeId"],
-                              company_logo = row["company_logo"].ToString()
+                              company_logo = row["company_logo"].ToString(),
+                              EmailId= row["EmailId"].ToString()
                           }).ToList();
             ViewBag.records = userMaster;
             value.Close();

@@ -189,7 +189,15 @@
                                                     <div class="caption">
                                                         @item.User_Site
                                                     </div>
-                                                    <button type="button" class="btn btn-default" onclick="get(@item.UserTypeId)" data-toggle="modal" data-target=".bs-example-modal-sm">Select</button>
+                                                    <div class="form-group col-xs-12 col-sm-12 col-md-12 password">
+                                                        <div></div>
+                                                        @*<input type="password" class="form-control" placeholder="Enter Password" />*@
+                                                        <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control loginpassword" required="required" />
+                                                        <button type="submit" onclick="this.form.submit();" class="btn btn-primary signin" id="btnlogin" value="Authenticate">Sign In</button>
+                                                        <button type="button" class="btn btn-default next" onclick="get(@item.UserTypeId)">Select</button>  @*data-toggle="modal" data-target=".bs-example-modal-sm"*@
+                                                    </div>
+                                                    
+                                                    
                                                     @*<div id="password @item.UserTypeId" style="display:none">*@
                                                     @*<input type="hidden" id="usertype" name="usertype" />
                                                         <input type="password" id="loginpassword @item.UserTypeId" name="loginpassword" placeholder="Enter Password" class="form-control" required="required"/>*@
@@ -197,6 +205,9 @@
                                                 </div>
                                             </div>
                                             }
+
+
+                                            
 
 
                                             @*<div class="col-xs-12 col-sm-6 col-md-3">
@@ -310,7 +321,23 @@
            // $('#loginpassword ' + id + '').css('visibility', 'visibility');
             $("input[name='loginpassword']").css('visibility', 'visibility');  //.hide(); //.css('visibility', 'hidden');
  $(".thumbnail.media-gallery").addClass(" scale-one")
- });
+        });
+
+        //$(".thumbnail .form-group input[type='text']").blur(function () {
+        //    var v = $(this).val();
+        //    $(this).css("display", "none");
+        //    $(this).parent(".form-group").append("<span>" + v + "</span>");
+        //    $(this).parent(".form-group").nextAll("button.next").css({ "box-shadow": "0px 0px 10px 5px #cccccc", "border": "1px solid #FFF" });
+
+        //});
+
+        $(".thumbnail button.next").click(function () {
+            var v = '@Request.QueryString["email"]';
+            $(this).parent(".form-group.password").children("div").append("<span>" + v + "</span>");
+            $(this).prev("button.signin").css("display", "block");
+            $(this).prevAll("input[type='password']").css("display", "block");
+            $(this).css("display", "none");
+        });
     </script>
     @*<script>
             $(window).ready(function () {

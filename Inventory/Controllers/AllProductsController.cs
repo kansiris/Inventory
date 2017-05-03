@@ -21,7 +21,10 @@ namespace Inventory.Controllers
                 var data = ProductService.GetAllProducts(user.DbName);
                 DataTable dt = new DataTable();
                 dt.Load(data);
-                var records = (from DataRow row in dt.Rows
+                DataView dv = dt.DefaultView;
+                dv.Sort = "id desc";
+                dt = dv.ToTable();
+                ViewBag.products = (from DataRow row in dt.Rows
                                     select new Product()
                                     {
                                         ID = row["ID"].ToString(),
@@ -34,7 +37,6 @@ namespace Inventory.Controllers
                                         model = row["model"].ToString(),
                                         created_date = row["created_date"].ToString(),
                                     }).ToList();
-                ViewBag.products = records.OrderByDescending(m => m.created_date);
             }
             return View();
         }

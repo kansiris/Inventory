@@ -225,6 +225,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Content\CustomPrinciple.cs" />
     <Compile Include="Controllers\AddProductController.cs" />
+    <Compile Include="Controllers\AddStockController.cs" />
     <Compile Include="Controllers\AdvancedFormController.cs" />
     <Compile Include="Controllers\AllProductsController.cs" />
     <Compile Include="Controllers\AvailableCompaniesController.cs" />
@@ -4773,6 +4774,7 @@
     <Content Include="Views\ServerDown\Index.cshtml" />
     <Content Include="Views\Products\purchaseorder.cshtml" />
     <Content Include="Views\Products\allproducts.cshtml" />
+    <Content Include="Views\AddStock\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
