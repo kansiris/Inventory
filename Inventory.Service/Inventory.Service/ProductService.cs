@@ -70,17 +70,22 @@ namespace Inventory.Service
         }
         #endregion
 
-        //to get chicken products
+        //to get subcategory products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {
             return ProductRepository.Getproductsbysubcategory(dbname, sub_category);
         }
+
         
-        //to get mutton products
-        //public static SqlDataReader GetmuttonProducts(string dbname, string sub_category)
-        //{
-        //    return ProductRepository.GetmuttonProducts(dbname, sub_category);
-        //}
+            public static SqlDataReader Getdistinctproducts(string dbname)
+        {
+            return ProductRepository.Getdistinctproducts(dbname);
+        }
+        
+             public static SqlDataReader Getdescripton(string dbname, string product_name)
+        {
+            return ProductRepository.Getdescripton(dbname, product_name);
+        }
 
     }
 }

@@ -23,34 +23,34 @@ namespace Inventory.Controllers
             return View();
         }
 
-        public PartialViewResult allproducts()
-        {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var records = ProductService.GetAllProducts(user.DbName);
-                
-                var dt = new DataTable();
-                dt.Load(records);
-                List<Product> allproducts = (from DataRow row in dt.Rows
-                                             select new Product()
-                                             {
-                                                 product_name = row["product_name"].ToString(),
-                                                 product_type = row["product_type"].ToString(),
-                                                 cost_price = row["cost_price"].ToString(),
-                                                 product_images = row["product_images"].ToString().Split(',')[0],
-                                                 brand = row["brand"].ToString()
-                                             }).Distinct().ToList();
-                ViewBag.records = allproducts;
-                return PartialView("allproducts", ViewBag.records);
-            }
-            return PartialView("allproducts", null);
-        }
+        //public PartialViewResult allproducts()
+        //{
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //        var records = ProductService.GetAllProducts(user.DbName);
+
+        //        var dt = new DataTable();
+        //        dt.Load(records);
+        //        List<Product> allproducts = (from DataRow row in dt.Rows
+        //                                     select new Product()
+        //                                     {
+        //                                         product_name = row["product_name"].ToString(),
+        //                                         product_type = row["product_type"].ToString(),
+        //                                         cost_price = row["cost_price"].ToString(),
+        //                                         product_images = row["product_images"].ToString().Split(',')[0],
+        //                                         brand = row["brand"].ToString()
+        //                                     }).Distinct().ToList();
+        //        ViewBag.records = allproducts;
+        //        return PartialView("allproducts", ViewBag.records);
+        //    }
+        //    return PartialView("allproducts", null);
+        //}
         [HttpGet]
         //for subcategory
         public PartialViewResult Getproductsbysubcategory(string sub_category)
         {
-           
+
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 string category = Request.QueryString[sub_category];
@@ -64,10 +64,12 @@ namespace Inventory.Controllers
                                                          product_name = row["product_name"].ToString(),
                                                          product_type = row["product_type"].ToString(),
                                                          cost_price = row["cost_price"].ToString(),
+                                                         Measurement=row["Measurement"].ToString()+ row["weight"].ToString(),
+                                                         total_price = row["total_price"].ToString(),
                                                          product_images = row["product_images"].ToString().Split(',')[0],
                                                          brand = row["brand"].ToString()
-                                                     }).Distinct().ToList();
-                ViewBag.records = subcategoryproducts;
+                                                     }).ToList();
+                ViewBag.records = subcategoryproducts.Distinct();
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
@@ -82,6 +84,91 @@ namespace Inventory.Controllers
                 return Json(myString);
             }
             return Json("unique");
+        }
+
+        //for decsription drop down
+        public List<Product> getdistinctproducts()
+        {
+            var dt = new DataTable();
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            var records = ProductService.Getdistinctproducts(user.DbName);
+            dt.Load(records);
+            List<Product> description = new List<Product>();
+            description = (from DataRow row in dt.Rows
+                           select new Product()
+                           {
+                             product_name = row["product_name"].ToString(),
+                           }).ToList();
+            return description;
+        }
+        //for kg and price
+        public List<Product> getweight(string product_name)
+        {
+            var dt = new DataTable();
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+            List<Product> li = new List<Product>();
+            List<Product> li1 = new List<Product>();
+            List<Product> description = new List<Product>();
+            li = getdistinctproducts();
+            for (int i = 0; i < li.Count; i++)
+            {
+                //string product_name = li[i].product_name;
+                var records = ProductService.Getdescripton(user.DbName, product_name);
+                dt.Load(records);
+                description = (from DataRow row in dt.Rows
+                               select new Product()
+                               {
+                                   Measurement = row["Measurement"].ToString(),
+                                   weight = row["weight"].ToString(),
+                                   total_price = row["total_price"].ToString(),
+                                   //product_images = row["product_images"].ToString().Split(',')[0],
+                               }).ToList();
+                li1.AddRange(description);
+                  }
+            return li1;
+        }
+        //for mesurments
+
+        public PartialViewResult allproducts()
+        {
+
+            List<Product> li = new List<Product>();
+            List<Product> li1 = new List<Product>();
+            List<Product> li2 = new List<Product>();
+            List<Product> description = new List<Product>();
+            li = getdistinctproducts();
+            for (int i = 0; i < li.Count; i++)
+            {
+                var dt = new DataTable();
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                string product_name = li[i].product_name;
+                if (product_name != "")
+                {
+                    li2 = getweight(product_name);
+                    string Measurement = li2[i].Measurement +" "+ li2[i].weight;
+                    string total_price = li2[i].total_price;
+                    var records = ProductService.Getdescripton(user.DbName, product_name);
+                    dt.Load(records);
+                    description = (from DataRow row in dt.Rows
+                                   select new Product()
+                                   {
+                                       ID = row["ID"].ToString(),
+                                       product_id = row["product_id"].ToString(),
+                                       product_name = row["product_name"].ToString(),
+                                       Measurement = Measurement,
+                                       cost_price = row["cost_price"].ToString(),
+                                       //weight = row["weight"].ToString(),
+                                       total_price = total_price,
+                                       brand = row["brand"].ToString(),
+                                       model = row["model"].ToString(),
+                                       product_images = row["product_images"].ToString().Split(',')[0],
+                                       created_date = row["created_date"].ToString(),
+                                   }).ToList();
+                    li1.AddRange(description);
+                    ViewBag.records = li1;
+                }
+            }
+            return PartialView("allproducts", ViewBag.records);
         }
     }
 }

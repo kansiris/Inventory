@@ -216,8 +216,8 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
-                                    <a class="btn btn-primary" href="/Products/purchaseorder">Generate Product Order</a>
-                                    @*<button class="btn btn-primary" type="button">Generate Product Order</button>*@
+                                    @*<a class="btn btn-primary" href="/Products/purchaseorder">Generate Product Order</a>*@
+    <button class="btn btn-primary" type="button">Generate Product Order</button>
                                 </div>
                             </div>
                         </div>
@@ -261,45 +261,6 @@
         });
         //<!------------ List / Grid Views and reload page -------------->
 
-        //<!------------ Quantity changes / Prices Multiple -------------->
-        $(document).ready(function (e) {
-            var tableprice, divprice, tabletotal, divtotal;
-            $('.spinner .btn:first-of-type').click(function () {
-                var plus, v;
-                v = parseInt($(this).parent("div").prev("input[type='text']").val());
-                //alert("value of v(Plus) IS " + v);
-                if (v > 0) {
-                    plus = v + 1;
-                    $(this).parent("div").prev("input[type='text']").val(plus);
-                    tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
-                    divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
-                    tabletotal = plus * tableprice;
-                    divtotal = plus * divprice; $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
-                    $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
-                    $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
-                    $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
-                }
-                return vals();
-            });
-            $('.spinner .btn:last-of-type').click(function () {
-                var minus, v;
-                v = parseInt($(this).parent("div").prev("input[type='text']").val());
-                //alert("value of V(Minus) IS " + v);
-                if (v > 1) {
-                    minus = v - 1;
-                    $(this).parent("div").prev("input[type='text']").val(minus);
-                    tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());;
-                    divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
-                    tabletotal = minus * tableprice;
-                    divtotal = minus * divprice; $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
-                    $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
-                    $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
-                    $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
-                }
-                return vals();
-            });
-        });
-        //<!------------ Quantity changes / Prices Multiple -------------->
         //<!------------ Left Side Bar ------------------->
         $("#sidebar li.leve12, #sidebar li").click(function () {
             $(this).children("a").css("font-weight", "700");

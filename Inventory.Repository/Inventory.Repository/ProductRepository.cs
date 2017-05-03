@@ -98,5 +98,18 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "Getproductsbysubcategory", sub_category);
         }
+        
+             public static SqlDataReader Getdistinctproducts(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getdistinctproduct");
+        }
+        public static SqlDataReader Getdescripton(string dbname,String product_name)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getmeasurmentsbyproduct", product_name);
+        }
     }
 }
