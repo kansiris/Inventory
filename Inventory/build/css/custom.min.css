@@ -6412,7 +6412,7 @@ tr > td > .input-group.spinner > label{
 	display: none;}
 .shipping + .row > div:first-of-type{
 	padding-left: 0 !important;
-	padding-right: 0 ! !important;}
+	padding-right: 0 ! important;}
 .added-products tr{
 	position: relative;
 	background: #e2e1e1;

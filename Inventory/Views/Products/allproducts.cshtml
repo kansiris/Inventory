@@ -8,7 +8,7 @@
                         <tr>
                             <th class="col-md-1">Image</th>
                             <th class="col-md-3">Product Name</th>
-                            <th class="col-md-2">Descrption</th>
+                            <th class="col-md-2">Description</th>
                             <th class="col-md-1">Quantity</th>
                             <th class="col-md-2">Price</th>
                             <th class="col-md-2">Total</th>
@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (ViewBag.records.Count != 0)
+                        @if (ViewBag.records != null)
                         {
                             foreach (var item in ViewBag.records)
                             {
@@ -28,7 +28,7 @@
                                         else
                                         { <img src="~/images/default_product.png" /> }
                                     </td>
-                                    <td class="col-md-3 product-name"><a href="#" title="vamsi">@item.product_name</a></td>
+                                    <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
                                     <td class="col-md-2 product-variation">
                                         <select class="form-control">
                                             <option>@item.Measurement</option>
@@ -46,7 +46,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="col-md-2 product-price">Rs <span>20</span></td>
+                                    <td class="col-md-2 product-price">Rs <span>@item.cost_price</span></td>
                                     <td class="col-md-2 product-price-total">Rs <span>@item.total_price</span></td>
                                     <td class="col-md-1 add-to-cart-table">
                                         <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
@@ -84,18 +84,18 @@
                             </div>
                             <div class="product-variation">
                                 <select class="form-control">
-                                    <option>50 gm</option>
-                                    <option>100 gm</option>
-                                    <option>500 gm</option>
+                                    <option>@item.Measurement</option>
+                                    @*<option>100 gm</option>
+                                    <option>500 gm</option>*@
                                 </select>
                             </div>
                             <div class="empty"></div>
                             <div class="rate-add">
                                 <div class="product-price">
-                                    Rs <span>20</span>
+                                    Rs <span>@item.cost_price</span>
                                 </div>
                                 <div class="product-price-total">
-                                    <p>Total</p> Rs <span>20</span>
+                                    <p>Total</p> Rs <span>@item.total_price</span>
                                 </div>
                                 <div class="shipping">
                                     <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
@@ -123,6 +123,7 @@
             </div>
         </div>
 }
+<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
 <script>
     $(document).ready(function (e) {
         var tableprice, divprice, tabletotal, divtotal;

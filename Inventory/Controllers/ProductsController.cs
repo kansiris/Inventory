@@ -64,6 +64,8 @@ namespace Inventory.Controllers
                                                          product_name = row["product_name"].ToString(),
                                                          product_type = row["product_type"].ToString(),
                                                          cost_price = row["cost_price"].ToString(),
+                                                         Measurement=row["Measurement"].ToString()+ row["weight"].ToString(),
+                                                         total_price = row["total_price"].ToString(),
                                                          product_images = row["product_images"].ToString().Split(',')[0],
                                                          brand = row["brand"].ToString()
                                                      }).ToList();
@@ -135,32 +137,36 @@ namespace Inventory.Controllers
             List<Product> li2 = new List<Product>();
             List<Product> description = new List<Product>();
             li = getdistinctproducts();
-            //li2 = getweight();
-            for (int i=0;i<li.Count;i++) {
+            for (int i = 0; i < li.Count; i++)
+            {
                 var dt = new DataTable();
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 string product_name = li[i].product_name;
-                //li2 = getweight(product_name);
-               // string Measurement = li2[i].Measurement;
-                //string total_price = li2[i].total_price;
-                var records = ProductService.Getdescripton(user.DbName, product_name);
-                dt.Load(records);
-               description = (from DataRow row in dt.Rows
-                               select new Product()
-                               {
-                                   ID = row["ID"].ToString(),
-                                   product_id = row["product_id"].ToString(),
-                                   product_name = row["product_name"].ToString(),
-                                   //Measurement = Measurement,
-                                   weight = row["weight"].ToString(),
-                                   total_price = row["total_price"].ToString(),
-                                   brand = row["brand"].ToString(),
-                                   model = row["model"].ToString(),
-                                   product_images = row["product_images"].ToString().Split(',')[0],
-                                   created_date = row["created_date"].ToString(),
-                               }).ToList();
-                li1.AddRange(description);
-                ViewBag.records = li1;
+                if (product_name != "")
+                {
+                    li2 = getweight(product_name);
+                    string Measurement = li2[i].Measurement +" "+ li2[i].weight;
+                    string total_price = li2[i].total_price;
+                    var records = ProductService.Getdescripton(user.DbName, product_name);
+                    dt.Load(records);
+                    description = (from DataRow row in dt.Rows
+                                   select new Product()
+                                   {
+                                       ID = row["ID"].ToString(),
+                                       product_id = row["product_id"].ToString(),
+                                       product_name = row["product_name"].ToString(),
+                                       Measurement = Measurement,
+                                       cost_price = row["cost_price"].ToString(),
+                                       //weight = row["weight"].ToString(),
+                                       total_price = total_price,
+                                       brand = row["brand"].ToString(),
+                                       model = row["model"].ToString(),
+                                       product_images = row["product_images"].ToString().Split(',')[0],
+                                       created_date = row["created_date"].ToString(),
+                                   }).ToList();
+                    li1.AddRange(description);
+                    ViewBag.records = li1;
+                }
             }
             return PartialView("allproducts", ViewBag.records);
         }
