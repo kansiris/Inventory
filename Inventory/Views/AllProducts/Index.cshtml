@@ -96,7 +96,7 @@
                                             <td class="col-md-2">@item.brand</td>
                                             <td class="col-md-2">@item.model</td>
                                             <td class="col-md-2">@item.Measurement @item.weight</td>
-                                            <td class="col-md-1">@item.total_price</td>
+                                            <td class="col-md-1">Rs.@item.total_price</td>
                                             <td class="col-md-1">
                                                 <div class="btn-group">
                                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
@@ -131,8 +131,8 @@
                                                 <h2>@item.brand</h2>
                                                 <p><strong>Model: </strong> @item.model </p>
                                                 <ul class="list-unstyled">
-                                                    <li><i class="fa fa-building"></i><span> Measurement:</span> @item.Measurement </li>
-                                                    <li><i class="fa fa-money"></i><span> Total Price:</span>@item.total_price </li>
+                                                    <li><i class="fa fa-building"></i><span> Measurement:</span> @item.Measurement @item.weight</li>
+                                                    <li><i class="fa fa-money"></i><span> Total Price:</span>Rs.@item.total_price </li>
                                                 </ul>
                                             </div>
                                             <div class="right col-xs-5 text-center"> <img src="/images/image1.jpg" alt="" class="img-responsive"> </div>
