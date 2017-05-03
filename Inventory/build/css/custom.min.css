@@ -6099,10 +6099,16 @@ ul.tagit input[type=text] {
 .product-variation,
 .img-title{
 	margin-bottom: 20px;}
+.img-title {
+    height: 50px;
+    overflow: hidden;
+}
 .product-variation select{}
 .product-brand{
 	display: block;
-	margin-bottom: 5px;}
+	margin-bottom: 5px;
+    margin-top: 10px;
+}
 .product-brand{
 	font-size: 11px;
 	text-transform: uppercase;
@@ -6145,7 +6151,7 @@ a.product-name{
 .spinner input[type="text"]{
 	width: 26px;
 	height: 24px;
-	padding: 6px 0px;
+	padding: 6px 2px 6px 0;
 	float: right;}
 .spinner > label{
 	font-size: 12px;
@@ -6153,8 +6159,10 @@ a.product-name{
 	border-right: none;
 	padding: 0px;
 	height: 24px;
-	background: #fff;
-	border-radius: 3px 0 0 3px;}
+	background: #0288d1;
+	border-radius: 3px 0 0 3px;
+    color: #fff;
+}
 .input-group-btn-vertical {
   position: relative;
   white-space: nowrap;
