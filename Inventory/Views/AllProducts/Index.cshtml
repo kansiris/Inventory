@@ -90,7 +90,7 @@
                                 {
                                     foreach (var item in ViewBag.products)
                                     {
-                                        <tr>
+                                        <tr> @* class="vamsi"*@
                                             <td class="col-md-1">@item.product_id</td>
                                             <td class="col-md-3">@item.product_name</td>
                                             <td class="col-md-2">@item.brand</td>
@@ -102,7 +102,14 @@
                                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                                     <ul class="dropdown-menu">
                                                         <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                                        <li> <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
+                                                        @if (item.status == "Active")
+                                                        {
+                                                        <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=InActive"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}
+                                                        @if (item.status == "InActive")
+                                                        {
+                                                        <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=Active"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
+                                                        
+                                                        <li> <a href="~/AddStock?id=@item.product_id"><i class="fa fa-st-o" aria-hidden="true"></i>Add Stock</a> </li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -318,5 +325,14 @@
         });
     </script>
     <!------------ List / Grid Views and reload page -------------->
+@*<script>
+ //<!--------- thumbnail Blur --------------->
+ $(".thumbnail button.next").click(function(){
+ $(this).prev("button.signin").css("display","block");
+ $(this).prevAll(".form-group").children("input[type='password']").css("display","block");
+ $(this).css("display","none");
+ });
+ //<!--------- thumbnail Blur --------------->
+</script>*@
 }
 

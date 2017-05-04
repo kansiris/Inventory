@@ -70,6 +70,13 @@ namespace Inventory.Service
         }
         #endregion
 
+        #region Active/InActive Product
+        public static int productstatus(string dbname, string id, string status)
+        {
+            return ProductRepository.productstatus(dbname,id, status);
+        }
+        #endregion
+
         //to get subcategory products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {

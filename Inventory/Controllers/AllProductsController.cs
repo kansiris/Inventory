@@ -36,7 +36,21 @@ namespace Inventory.Controllers
                                         brand = row["brand"].ToString(),
                                         model = row["model"].ToString(),
                                         created_date = row["created_date"].ToString(),
+                                        status = row["status"].ToString(),
                                     }).ToList();
+            }
+            return View();
+        }
+
+        public ActionResult productstatus(string id,string status)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                int count = ProductService.productstatus(user.DbName,id, status);
+                //if(count > 0)
+                //    return Content("<script language='javascript' type='text/javascript'>alert('Now Product is "+status+"');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Stays in Same View
+                return Content("<script language='javascript' type='text/javascript'>alert('Now Product " + id + " is " + status + "');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Stays in Same View
             }
             return View();
         }

@@ -91,6 +91,15 @@ namespace Inventory.Repository
         }
         #endregion
 
+        #region Active/InActive Product
+        public static int productstatus(string dbname, string id, string status)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "productstatus",id, status);
+        }
+        #endregion
+
         //to get chicken products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {
