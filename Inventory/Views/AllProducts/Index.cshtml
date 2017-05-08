@@ -334,5 +334,16 @@
  });
  //<!--------- thumbnail Blur --------------->
 </script>*@
+    <script>
+        $(document).ready(function (e) {
+            $(".btn-group ul.dropdown-menu > li").each(function () {
+                var v = $(this).children("a").text();
+                if (v == "Active") {
+                    $(this).parents("tr").children("td").css("color", "#ccc");
+                    //alert(v);
+                }
+            });
+        })
+    </script>
 }
 

@@ -28,6 +28,13 @@ namespace Inventory.Controllers
     {
         public ActionResult Index()
         {
+            //var array = new List<string>();
+            //array.Add("1");
+            //array.Add("2");
+            //ViewBag.data = array;
+            //ViewBag.data[0] = "1";
+            //ViewBag.data[1] = "2";
+            //var data = ViewBag.data;
             return View();
         }
         [HttpPost]
@@ -41,13 +48,19 @@ namespace Inventory.Controllers
                     int active = int.Parse(value["IsActive"].ToString());
                     value.Close();
                     if (active > 0)
+                    {
+                        ViewBag.smsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
                         return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
-                    return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    }
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
                 {
-                    return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
-                    //ViewBag.invalid = "Confirm Your Email-ID then Login";
+                    ViewBag.msg = "Please Register";
+                    //return JavaScript("overhang()");
+                    //return Content("<script language='javascript' type='text/javascript'>" + JavaScript("overhang") +";location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    //ViewBag.invalid = "Confirm Your Email-ID then Login";   
                 }
             }
             if (command == "Insert")
