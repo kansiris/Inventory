@@ -8,6 +8,7 @@ using Inventory.Content;
 using System.Data;
 using Inventory.Models;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Inventory.Controllers
 {
@@ -45,41 +46,54 @@ namespace Inventory.Controllers
         {
             if (command == "AddProduct")
             {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                int id = ProductMaxID(user.DbName); // Get Max Product ID
+                string product_id = "P" + id;
+                ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
+                string imagename = "";
                 if (file != null && file.ContentLength > 0)
                 {
-                    
-                    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                    int id = ProductMaxID(user.DbName); // Get Max Product ID
-                    string product_id = "P" + id;
-                    ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
-                    string imagename="";
                     for (int i = 0; i < Request.Files.Count; i++)
                     {
                         var file1 = Request.Files[i];
                         if (file1 != null && file1.ContentLength > 0)
                         {
-                            imagename = imagename+"," +  product_id+"_"+file1.FileName;
+                            imagename = imagename + "," + product_id + "_" + file1.FileName;
                             file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + file1.FileName));
                         }
-
                     }
                     imagename = imagename.TrimStart(',');
-                    int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
-                        product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
-                        product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                        product.product_description, product.product_tags, imagename);
-                    if (count > 0)
-                    {
-                        for (int i = 0; i < product.Quantity_Qty.Count; i++)
-                        {
-                            int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, product.Quantity_Qty[i], product.Quantity_Total);
-                        }
-                        return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
-                    }
-                    return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
                 }
+                //if (product.product_images != null)
+                //{
+                   
+                //    var images = product.product_images.Split(',');
+                //    for (int i = 0; i < images.Count(); i++)
+                //    {
+                //        imagename = imagename + "," + product_id + "_" + images[i];
+                //        //Path.Combine(Server.MapPath("~/ProductImages/"), product_id + "_" + images[i]);
+                //        //file.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + images[i]));
+                //        //file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + file1.FileName));
+                //    }
+                //    imagename = imagename.TrimStart(',');
+                //}
+                //int count = 0;
+                int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
+                    product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
+                    product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
+                    product.product_description, product.product_tags, imagename);
+                if (count > 0)
+                {
+                    for (int i = 0; i < product.Quantity_Qty.Count; i++)
+                    {
+                        int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, product.Quantity_Qty[i], product.Reorder_level[i], product.Quantity_Total);
+                    }
+                    return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
+                }
+                return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
+
             }
-        
+
             return View();
         }
 
@@ -151,9 +165,9 @@ namespace Inventory.Controllers
                 string replace;
                 // var data = ProductService.GetProductItems(user.DbName, command.Replace("add", ""), id);
                 if (id != null && id != "")
-                 replace = "del"; 
+                    replace = "del";
                 else
-                 replace = "add"; 
+                    replace = "add";
                 var records = convert(user.DbName, command.Replace(replace, ""), product.category_id).Distinct();
                 var result = new { command = command, records = records };
                 return Json(result);

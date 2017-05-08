@@ -64,9 +64,16 @@ namespace Inventory.Service
         #endregion
 
         #region Add Quantity In Hand
-        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty, string Total)
+        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty,string reorder ,string Total)
         {
-            return ProductRepository.AddQuantityInHand(dbname, product_id, area, Qty, Total);
+            return ProductRepository.AddQuantityInHand(dbname, product_id, area, Qty, reorder, Total);
+        }
+        #endregion
+
+        #region Active/InActive Product
+        public static int productstatus(string dbname, string id, string status)
+        {
+            return ProductRepository.productstatus(dbname,id, status);
         }
         #endregion
 

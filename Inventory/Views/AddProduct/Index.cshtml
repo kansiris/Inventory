@@ -32,7 +32,7 @@
 {
     <div class="right_col" role="main">
         <div class="container">
-            <form method="post" enctype = "multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="row">
@@ -51,7 +51,7 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12  col-md-6">
                                         @*<input type="text" class="form-control" placeholder="Product Name">*@
-                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required" })
+                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required", autofocus = "autofocus" })
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
                                         @*<input type="text" class="form-control" placeholder="Batch Number">*@
@@ -164,7 +164,7 @@
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Cost Price</label>
                                         @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
-                                        @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", Value = "0" })
+                                        @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price",required ="required" })
                                     </div>
                                     <div class="form-group col-xs-6 col-md-2">
                                         <label>Sell Price</label>
@@ -319,7 +319,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="form-group radio col-xs-4 col-md-4">
                                         <label>
@@ -336,7 +336,7 @@
                                     </div>
                                     <div class="form-group radio col-xs-4 col-md-4">
                                         <label>
-                                            @Html.HiddenFor(Model => Model.product_consumable,new { Value= "Non-Consumable" })
+                                            @Html.HiddenFor(Model => Model.product_consumable, new { Value = "Non-Consumable" })
                                             @*@Html.RadioButtonFor(Model => Model.product_consumable, "Non-Consumable", new { @class = "non-consumable" })*@
                                             @*<input type="radio" name="product_consumable" class="non-consumable" id="product_consumable">*@
                                             Non-Consumable
@@ -420,36 +420,59 @@
                                         <i class="fa fa-times pull-right" aria-hidden="true"></i>
                                     </ul>
                                     <ul class="col-md-12 tabs-content">
-                                        <li class="tab-1" id="tab-1">
+                                        @*<li class="tab-1" id="tab-1">
                                             <button type="button" id="btnupload" onclick="javascript: document.getElementById('fileUpload').click();" class="btn">Upload Here</button>
-                                            @*<input type="file" id="uploadimages" name="file" multiple="multiple"/> style="display:none"*@
-                                            <input type='file'  multiple="multiple" accept="image/*" id='fileUpload' name="file" />
+                                           
+                                            <input type='file' multiple="multiple" accept="image/*" id='fileUpload' name="file" />
                                             <div id="dvPreview" align="center" style="padding:30px">
+                                        </li>*@
+                                        <li class="tab-1" id="tab-1">
+                                            <button type="button" class="btn">Upload Here</button>
+                                            <input type="file" multiple="multiple" accept="image/*" id='fileUpload' name="file" >
+                                            <div class="row" id="dvPreview">
+                                                @*<div class="col-xs-12 col-md-12">
+                                                    <ul class="upload-thumbs">
+                                                        <li><img src="images/1.jpg" alt="1" /></li>
+                                                        <li><img src="images/2.jpg" alt="2" /></li>
+                                                        <li><img src="images/3.jpg" alt="3" /></li>
+                                                        <li><img src="images/4.jpg" alt="4" /></li>
+                                                        <li><img src="images/5.jpg" alt="5" /></li>
+                                                        <li><img src="images/6.jpg" alt="6" /></li>
+                                                        <li><img src="images/1.jpg" alt="1" /></li>
+                                                        <li><img src="images/2.jpg" alt="2" /></li>
+                                                        <li><img src="images/3.jpg" alt="3" /></li>
+                                                        <li><img src="images/4.jpg" alt="4" /></li>
+                                                        <li><img src="images/5.jpg" alt="5" /></li>
+                                                        <li><img src="images/6.jpg" alt="6" /></li>
+                                                    </ul>
+                                                </div>*@
+                                            </div>
                                         </li>
                                         <li class="tab-2" id="tab-2">
+                                            @Html.HiddenFor(m=>m.product_images)
                                             <ul>
                                                 <li>
-                                                    <input type="checkbox" name="checkbox">
+                                                    <input type="checkbox" name="checkbox" class="libselection">
                                                     <img src="images/1.jpg" alt="Image one" />
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="checkbox">
+                                                    <input type="checkbox" name="checkbox" class="libselection">
                                                     <img src="images/2.jpg" alt="Image Two" />
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="checkbox">
+                                                    <input type="checkbox" name="checkbox" class="libselection">
                                                     <img src="images/3.jpg" alt="Image Three" />
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="checkbox">
+                                                    <input type="checkbox" name="checkbox" class="libselection">
                                                     <img src="images/4.jpg" alt="Image Four" />
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="checkbox">
+                                                    <input type="checkbox" name="checkbox" class="libselection">
                                                     <img src="images/5.jpg" alt="Image Five" />
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="checkbox">
+                                                    <input type="checkbox" name="checkbox" class="libselection">
                                                     <img src="images/6.jpg" alt="Image Six" />
                                                 </li>
                                             </ul>
@@ -461,8 +484,8 @@
                                             </div>
                                         </li>
                                     </ul>
-                                    
-                                    </div>
+
+                                </div>
                                 <div class="row">
                                     <ul class="col-md-12 admin-product-thumbs"></ul>
                                 </div>
@@ -500,6 +523,7 @@
                                             <th>Sno</th>
                                             <th>Area</th>
                                             <th>Quantity in Hand</th>
+                                            <th>Re-Order Level (%)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -512,9 +536,16 @@
                                                     <td>@(++sno)</td>
                                                     <td>@ViewBag.AvailableWarehouses[i].wh_Shortname</td>
                                                     <td>
-                                                        <div class="form-group col-xs-12 col-md-7 col-md-push-2">
+                                                        <div class="form-group col-xs-12  col-md-12">
+                                                            @*col-md-7 col-md-push-2*@
                                                             @*<input type="text" id="txtqty @sno" class="form-control" placeholder="Quantity in Hand" value="0">*@
                                                             @Html.TextBoxFor(Model => Model.Quantity_Qty[i], new { @Value = "0", @class = "form-control", placeholder = "Quantity in Hand" })
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group col-xs-12 col-md-12">
+                                                            @Html.TextBoxFor(Model => Model.Reorder_level[i], new { @Value = "0", @class = "form-control modified", placeholder = "Quantity1 in Hand" })
+                                                            @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -525,7 +556,7 @@
                                         <tr>
                                             <td></td>
                                             <td>Total</td>
-                                            <td>
+                                            <td colspan="2">
                                                 <div class="form-group col-xs-12 col-md-12">
                                                     @*<input type="text" class="form-control" placeholder="Total Quantity in Hand">*@
                                                     @Html.TextBoxFor(Model => Model.Quantity_Total, new { @Value = "0", @class = "form-control", placeholder = "Total Quantity in Hand" })
@@ -605,11 +636,18 @@ else
             $("ul.tabs-content > li").each(function () {
                 var v1 = $(this).attr("class");
                 if (v == v1) {
-                    $(this).css("opacity", "1");
+                    $(this).css({ "opacity": "1", "z-index": "1" });
                 } else {
-                    $(this).css("opacity", "0");
+                    $(this).css({ "opacity": "0", "z-index": "-1" });
                 }
             });
+        });
+        $("li#tab-2 > ul > li > img").click(function () {
+            var checked = $("input[type='checkbox']:checked");
+            $(this).closest("li").find("input[type='checkbox']").click();
+        });
+        $("ul.tabs > i").click(function () {
+            $(".image-library").css("display", "none");
         });
         $("ul.tabs > i").click(function () {
             $(".image-library").css("display", "none");
@@ -628,12 +666,14 @@ else
         //<!---- Display PopUp ---->
         //<!--------- Add checkbox Images ------>
         $("#add-image").click(function () {
+            var imagelist = new Array();
             $("li#tab-2 > ul > li > input[type='checkbox']").each(function () {
+               
                 if ($(this).is(":checked")) {
                     var l = $("input[type='checkbox']:checked").length;
                     //alert(l);
                     if (l <= 6) {
-                        var v = $(this).next().attr("src");
+                        var v = $(this).next().attr("src"); imagelist.push(v.replace('images/','')); //selectedimages(v);
                         //alert(v);
                         $("ul.admin-product-thumbs").append("<li>" + "<img src='" + v + "'" + "alt='" + v + "'" + "/>" + "</li>");
                         $("<i class='fa fa-times' aria-hidden='true'></i>").insertBefore("ul.admin-product-thumbs > li > img");
@@ -649,9 +689,10 @@ else
                         exit;
                     }
                 }
+                
                 $(".image-library").css("display", "none");
             });
-
+            $('#product_images').val(imagelist);
             //<!--------- Thumb Image ------>
             $("ul.admin-product-thumbs > li > img").click(function () {
                 //alert("ONE");
@@ -842,4 +883,5 @@ else
             $('#product_tags').val(arr);
         });
     </script>
+   
 }

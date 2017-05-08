@@ -1048,6 +1048,7 @@ footer {
 
 article.media {
     width: 100%;
+
 }
 
 *, *:before, *:after {
@@ -1272,6 +1273,7 @@ legend {
     }
 
     .profile_details .profile_view .brief {
+
         margin: 0;
         font-weight: 300;
     }
@@ -2516,6 +2518,7 @@ legend {
 .form-control.has-feedback-left {
     padding-left: 45px;
 }
+
 
 .form-control.has-feedback-right {
     padding-right: 45px;
@@ -4314,6 +4317,7 @@ fieldset {
         vertical-align: top;
     }
 
+
 .cropper .tooltip-inner {
     white-space: normal;
 }
@@ -4481,6 +4485,7 @@ fieldset {
         filter: alpha(opacity=65);
         box-shadow: none;
     }
+
 
     .actionBar a {
         margin: 0 3px;
@@ -5738,18 +5743,7 @@ strong{
         font-size: 18px;
 		margin-bottom: 30px;
     }
-.thumbnail .form-group{
-	text-align: center;}
-.thumbnail .form-group.password > div > span{
-	color: #000;
-	font-weight: 700;
-	font-size: 16px;}
-.thumbnail .form-group input[type='password'],
-.thumbnail.media-gallery button.signin{
-	display: none;}
-.email,
-.password  input[type='password']{
-	margin-bottom: 10px;}
+
 .thumbnail.media-gallery {
     padding: 50px 0px 50px;
     box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
@@ -5779,6 +5773,18 @@ strong{
 
 .x_content > div.row .thumbnail.media-gallery:hover{
 	box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 50px rgba(0,0,0,.24);}
+.email{
+	font-size: 14px;
+	color: #000;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 10px;}
+.thumbnail.media-gallery .password > input[type="password"],
+.thumbnail.media-gallery button.signin{
+	display: none;}
+.thumbnail.media-gallery .password > input[type="password"]{
+    margin-bottom: 10px;
+}
 
 /*================ Media Gallery ================*/
 
@@ -5939,9 +5945,16 @@ ul.tabs-content > li{
 	-webkit-transition: 1s ease;}
 ul.tabs-content > li:first-of-type{
 	position: absolute;
-	top: 40%;
-	left: 35%;
-	z-index: 1;}
+	top: 20%;
+	left: 0%;
+}
+ul.tabs-content > li:first-of-type ul.upload-thumbs{
+	height: 170px;
+	overflow-y: scroll;}
+ul.tabs-content > li:first-of-type ul.upload-thumbs > li{
+	margin: 5px;
+	box-shadow: 1px 1px 5px 3px #e4e4e4;
+	cursor: pointer;}
 ul.tabs-content > li:last-of-type{
 	opacity: 1;}
 ul.tabs-content > li > ul > li{
@@ -6034,6 +6047,20 @@ label[for="date"]{
 	padding-top: 10px;}
 .quantity-perishable-non{
 	margin-bottom: 15px;}
+ul.upload-thumbs li{
+	width: 90px;
+	height: 90px;
+	float: left;}
+ul.upload-thumbs li img{
+	max-width: 100%;}
+#dvPreview {
+    height: 170px;
+    overflow-y: scroll;
+}
+#dvPreview img{
+    margin: 5px;
+    box-shadow: 1px 1px 5px 3px #e4e4e4;
+}
 /*============ Product Master ==================*/
 
 /*============ Tags Box ==================*/
@@ -6096,7 +6123,7 @@ ul.tagit input[type=text] {
 /*============ Tags Box ==================*/
 
 /*============ View Products ==================*/
-#productstable{
+#productstable1{
 	display: none;}
 .displayproduct{
 	background: #fff;}
@@ -6221,7 +6248,14 @@ a.product-name{
 
 .checkout{
 	background: #f1f0f0;
-	border-radius: 5px;}
+	border-radius: 5px;
+	position: fixed;
+	max-width: 273px;
+	transition: ease 1s;
+	-o--webkit-transition: ease 1s;
+	-ms-transition: ease 1s;
+	-moz-transition: ease 1s;
+	-webkit-transition: ease 1s;}
 .check-title{
 	padding-left: 0px;
 	padding-right: 0px;
@@ -6412,7 +6446,7 @@ tr > td > .input-group.spinner > label{
 	display: none;}
 .shipping + .row > div:first-of-type{
 	padding-left: 0 !important;
-	padding-right: 0 ! important;}
+	padding-right: 0 ! !important;}
 .added-products tr{
 	position: relative;
 	background: #e2e1e1;
@@ -6572,6 +6606,12 @@ tr > td.product-name a:hover{
 	top: 5px;}*/
 .cart-total span{
 	font-weight: 700;}
+.right-side-bar{
+	transition: ease 1s;
+	-o--webkit-transition: ease 1s;
+	-ms-transition: ease 1s;
+	-moz-transition: ease 1s;
+	-webkit-transition: ease 1s;}
 /*============ View Products ==================*/
 
 /*============ Generate Purchase Order ==================*/
@@ -6680,20 +6720,6 @@ ul.terms-content li{
 	font-weight: 100;}
 /*============ Generate Purchase Order ==================*/
 
-/*============== Quantity In Hand ==================*/
-.modified-toggle1 input[type="text"]{
-	padding: 0;}
-.switch-text{
-	font-weight: 700;
-	font-size: 13px;
-	margin-top: 5px;}
-.modified-toggle > div.row:first-of-type,
-.modified-toggle1 div.row:first-of-type{
-	background: #eee;
-	padding: 5px 0;
-	border-radius: 5px;}{}
-/*============== Quantity In Hand ==================*/
-
 /*========== Media Quries ===============*/
 
 @media only screen and (min-width: 768px) and (max-width: 800px){
@@ -6713,4 +6739,6 @@ ul.terms-content li{
 		min-height: 30px;
 		padding-left: 0;
 		padding-right: 0;}
+	.checkout{
+		position: relative;}
 	}

@@ -39,10 +39,13 @@ namespace Inventory.Models
         public string distinctproducts { get; set; }
 
 
+        public string status { get; set; }
+        
         //Quantity In Hand Related Fields
         public int Quantity_id { get; set; }
         public string Quantity_area { get; set; }
         public List<string> Quantity_Qty { get; set; }
+        public List<string> Reorder_level { get; set; }
         public string Quantity_Total { get; set; }
     }
 }

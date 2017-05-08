@@ -83,11 +83,20 @@ namespace Inventory.Repository
         #endregion
 
         #region Add Quantity In Hand
-        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty, string Total)
+        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty, string reorder, string Total)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "AddQuantityInHand", product_id, area, Qty, Total);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "AddQuantityInHand", product_id, area, Qty,reorder, Total);
+        }
+        #endregion
+
+        #region Active/InActive Product
+        public static int productstatus(string dbname, string id, string status)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "productstatus",id, status);
         }
         #endregion
 
