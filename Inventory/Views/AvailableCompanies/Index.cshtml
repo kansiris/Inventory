@@ -16,6 +16,12 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Custom styling plus plugins -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <!-- Over Hang -->
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/bootstrap.js"></script>
     <style>
         ::-ms-reveal {
             display: none !important;
@@ -190,7 +196,8 @@
                                                         @item.User_Site
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-12 email">
-                                                        <span>@Request.QueryString["email"]</span>
+                                                        <span style="color:maroon">Hi @item.First_Name,</span><br/>
+                                                        <span style="font-weight:300"> @item.EmailId</span>
                                                     </div>
                                                     <div class="form-group col-xs-12 col-sm-12 col-md-12 password">
                                                         @*<div></div>*@
@@ -311,6 +318,9 @@
     <script src="../build/js/custom.min.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/hideShowPassword.min.js"></script>
+    <!-- Over Hang -->
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
     <script>
         function get(id) {
             var id1 = $('#loginpassword ' + id + '');
@@ -350,6 +360,17 @@
             });
         </script>*@
     <!------ scale thumbnails --------->
+    @*Error Message*@
+    @if (ViewBag.msg != "" && ViewBag.msg != null)
+    {
+        <script>
+            $("body").overhang({
+            type: "error",
+                message: '@ViewBag.msg',
+                closeConfirm: false
+            });
+        </script>
+    }
 </body>
 </html>
 

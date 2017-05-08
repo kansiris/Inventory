@@ -29,10 +29,14 @@ namespace Inventory.Controllers
                               User_Site = row["User_Site"].ToString(),
                               UserTypeId = (int)row["UserTypeId"],
                               company_logo = row["company_logo"].ToString(),
-                              EmailId= row["EmailId"].ToString()
+                              EmailId= row["EmailId"].ToString(),
+                              First_Name = row["First_Name"].ToString()
+                              //EmailId = row["EmailId"].ToString()
                           }).ToList();
             ViewBag.records = userMaster;
             value.Close();
+            if (TempData["msg"] != null )
+            { ViewBag.msg = TempData["msg"]; }
             return View();
         }
 
@@ -54,7 +58,9 @@ namespace Inventory.Controllers
                     }
                     return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
                 }
-                return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+                TempData["msg"] = "Invalid Login!!! Try Again";
+                return RedirectToAction("Index", "AvailableCompanies", new { email = email });
+                //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
             }
             catch (Exception)
             {                
