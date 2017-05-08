@@ -103,7 +103,7 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "getdistinctproduct");
+            return SqlHelper.ExecuteReader(ConnectionString, "getuniqueproducts");
         }
         public static SqlDataReader Getdescripton(string dbname,String product_name)
         {

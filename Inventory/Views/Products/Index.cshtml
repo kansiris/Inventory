@@ -277,41 +277,41 @@
         });
         // <!------------ Left Side Bar ------------------->
         //<!----------- Quantity Add in Right Bar ---------------->
-        $(".add-to-cart > .btn").click(function () {
-            var v = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val();
-            var txt = $(this).parents(".rate-add").prev("div.empty");
-            $(txt).empty().append("<p>" + v + "<p>");
-            $(this).parents(".well").clone(true, true).appendTo(".added-products");
-            $(".added-products").css("padding", "0px 0px 10px");
-        });
-        $(".add-to-cart-table > .btn").click(function () {
-            var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val();
-            var txt = $(this).parent("td.add-to-cart-table").next("td.empty");
-            $(txt).empty().append("<p>" + v + "</p>");
-            $(this).parents("tr").clone(true, true).appendTo(".added-products");
-            $(".added-products").css("padding", "0px 0px 10px");
-        });
+        //$(".add-to-cart > .btn").click(function () {
+        //    var v = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val();
+        //    var txt = $(this).parents(".rate-add").prev("div.empty");
+        //    $(txt).empty().append("<p>" + v + "<p>");
+        //    $(this).parents(".well").clone(true, true).appendTo(".added-products");
+        //    $(".added-products").css("padding", "0px 0px 10px");
+        //});
+        //$(".add-to-cart-table > .btn").click(function () {
+        //    var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val();
+        //    var txt = $(this).parent("td.add-to-cart-table").next("td.empty");
+        //    $(txt).empty().append("<p>" + v + "</p>");
+        //    $(this).parents("tr").clone(true, true).appendTo(".added-products");
+        //    $(".added-products").css("padding", "0px 0px 10px");
+        //});
        
-        function vals() {
-            var total, totalquantity = 0, productprice, carttotal = 0;
-            $(".added-products .spinner input[type='text']").each(function () {
-                total = parseInt($(this).val());
-                totalquantity = total + totalquantity;
-            });
-            $(".added-products .product-price-total span").each(function () {
-                productprice = parseInt($(this).text());
-                carttotal = productprice + carttotal;
-            });
-            $(".cart-total span").remove();
-            $(".cart-total").append("<span>" + carttotal + "</span>");
-            $(".cart-icn span").remove();
-            $(".cart-icn").append("<span>" + totalquantity + "</span>");
+        //function vals() {
+        //    var total, totalquantity = 0, productprice, carttotal = 0;
+        //    $(".added-products .spinner input[type='text']").each(function () {
+        //        total = parseInt($(this).val());
+        //        totalquantity = total + totalquantity;
+        //    });
+        //    $(".added-products .product-price-total span").each(function () {
+        //        productprice = parseInt($(this).text());
+        //        carttotal = productprice + carttotal;
+        //    });
+        //    $(".cart-total span").remove();
+        //    $(".cart-total").append("<span>" + carttotal + "</span>");
+        //    $(".cart-icn span").remove();
+        //    $(".cart-icn").append("<span>" + totalquantity + "</span>");
 
-        }
+        //}
 
-       $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
-            return vals();
-        });
+       //$(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
+       //     return vals();
+       // });
 
         $(".remove").click(function () {
             $(this).parents("div.well,tr").remove();

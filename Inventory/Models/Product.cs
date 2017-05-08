@@ -36,7 +36,9 @@ namespace Inventory.Models
         public string product_tags { get; set; }
         public string created_date { get; set; }
         public string product_images { get; set; }
-        
+        public string distinctproducts { get; set; }
+
+
         //Quantity In Hand Related Fields
         public int Quantity_id { get; set; }
         public string Quantity_area { get; set; }
