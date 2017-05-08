@@ -1,127 +1,130 @@
 ﻿@if (ViewBag.records != null)
 {
     <div class="row" id="allproducts">
-       
-            <div class="table-responsive">
-                <table class="table  table-borderedtable-striped bulk_action" id="productstable">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th class="col-md-1">Image</th>
-                            <th class="col-md-3">Product Name</th>
-                            <th class="col-md-2">Description</th>
-                            <th class="col-md-1">Quantity</th>
-                            <th class="col-md-2">Price</th>
-                            <th class="col-md-2">Total</th>
-                            <th class="col-md-1">Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (ViewBag.records != null)
+
+        <div class="table-responsive">
+            <table class="table  table-borderedtable-striped bulk_action" id="productstable">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="col-md-1">Image</th>
+                        <th class="col-md-3">Product Name</th>
+                        <th class="col-md-2">Description</th>
+                        <th class="col-md-1">Quantity</th>
+                        <th class="col-md-2">Price</th>
+                        <th class="col-md-2">Total</th>
+                        <th class="col-md-1">Add</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.records != null)
+                    {
+                        foreach (var item in ViewBag.records)
                         {
-                            foreach (var item in ViewBag.records)
-                            {
-                               
-                                <tr>
-                                    <td class="col-md-1 image">
-                                        @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
-                                        { <img src="~/ProductImages/@item.product_images" /> }
-                                        else
-                                        { <img src="~/images/default_product.png" /> }
-                                    </td>
-                                    <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
-                                    <td class="col-md-2 product-variation">
-                                        <select class="form-control">
-                                            <option>@item.Measurement</option>
-                                            @*<option>100 gm</option>
-                                            <option>500 gm</option>*@
-                                        </select>
-                                    </td>
-                                    <td class="col-md-1 quantity-changes">
-                                        <div class="input-group spinner">
-                                            <label>Qty</label>
-                                            <input type="text" class="form-control" value="1">
-                                            <div class="input-group-btn-vertical">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="col-md-2 product-price">Rs <span>@item.cost_price</span></td>
-                                    <td class="col-md-2 product-price-total">Rs <span>@item.total_price</span></td>
-                                    <td class="col-md-1 add-to-cart-table">
-                                        <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                                    </td>
-                                    <td class="empty"></td>
-                                </tr>
-                            }
-                        }
-                        else
-                        {
+
                             <tr>
-                                <td colspan="6"><p>No Records Available</p></td>
+                                <td class="col-md-1 image">
+                                    @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                                    { <img src="~/ProductImages/@item.product_images" /> }
+                                    else
+                                    { <img src="~/images/default_product.png" /> }
+                                </td>
+                                <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
+                                <td class="col-md-2 product-variation">
+                                    <select class="form-control">
+                                        <option>@item.distinctproducts.Replace('?', '₹')</option>
+                                        
+                                    </select>
+                                </td>
+                                <td class="col-md-1 quantity-changes">
+                                    <div class="input-group spinner">
+                                        <label>Qty</label>
+                                        <input type="text" class="form-control" value="1">
+                                        <div class="input-group-btn-vertical">
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                                @*<td class="col-md-2 product-price">Rs <span>@item.cost_price</span></td>
+                                <td class="col-md-2 product-price-total">Rs <span>@item.total_price</span></td>*@
+                                <td class="col-md-1 add-to-cart-table">
+                                    <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                    <i class="fa fa-times remove" aria-hidden="true"></i>
+                                </td>
+                                <td class="empty"></td>
                             </tr>
                         }
-                    </tbody>
-                </table>
-            </div>
-            <div class="row" id="productstable1">
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6"><p>No Records Available</p></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row" id="productstable1">
             @foreach (var item in ViewBag.records)
             {
-                    <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                        <div class="well">
-                            <i class="fa fa-times remove" aria-hidden="true"></i>
-                            <div class="image">
-                               
-                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
+                    <div class="well">
+                        <i class="fa fa-times remove" aria-hidden="true"></i>
+                        <div class="image">
+
+                            @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
                                 { <img src="~/ProductImages/@item.product_images" /> }
                                 else
                                 { <img src="~/images/default_product.png" /> }
+                            @*<img src="~/images/default_product.png" />*@
+                        </div>
+                        <div class="img-title">
+                            <span class="product-brand">@item.brand</span>
+                            <a href="#" class="product-name">@item.product_name</a>
+                        </div>
+                        <div class="product-variation">
+                            <select class="form-control">
+                                @*<option>@item.distinctproducts.Replace('?', '₹')</option>*@
+                                @foreach (var item1 in item.distinctproducts.Split(','))
+                                {
+                                    <option>@item1.Replace('?', '₹')</option>
+                                }
+                               
+                            </select>
+                        </div>
+                        <div class="empty"></div>
+                        <div class="rate-add">
+                            <div class="product-price">
+                                ₹ @*<span>10</span>*@<span>@item.total_price</span>
                             </div>
-                            <div class="img-title">
-                                <span class="product-brand">@item.brand</span>
-                                <a href="#" class="product-name">@item.product_name</a>
+                            <div class="product-price-total">
+                                @*<p>Total</p> Rs <span>10</span>*@<span>@item.total_price</span>
+    </div>
+                            <div class="shipping">
+                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                                Standard Delivery
                             </div>
-                            <div class="product-variation">
-                                <select class="form-control">
-                                    <option>@item.Measurement</option>
-                                    @*<option>100 gm</option>
-                                    <option>500 gm</option>*@
-                                </select>
-                            </div>
-                            <div class="empty"></div>
-                            <div class="rate-add">
-                                <div class="product-price">
-                                    Rs <span>@item.cost_price</span>
-                                </div>
-                                <div class="product-price-total">
-                                    <p>Total</p> Rs <span>@item.total_price</span>
-                                </div>
-                                <div class="shipping">
-                                    <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                    Standard Delivery
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="input-group spinner">
-                                            <label>Qty</label>
-                                            <input type="text" class="form-control" value="1">
-                                            <div class="input-group-btn-vertical">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="input-group spinner">
+                                        <label>Qty</label>
+                                        <input type="text" class="form-control" value="1">
+                                        <div class="input-group-btn-vertical">
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6 add-to-cart">
-                                        <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                    </div>
+                                </div>
+                                <div class="col-xs-6 add-to-cart">
+                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             }
-            </div>
         </div>
+    </div>
 }
 <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
 <script>
@@ -130,7 +133,7 @@
         $('.spinner .btn:first-of-type').click(function () {
             var plus, v;
             v = parseInt($(this).parent("div").prev("input[type='text']").val());
-            
+
             if (v > 0) {
                 plus = v + 1;
                 $(this).parent("div").prev("input[type='text']").val(plus);
@@ -147,7 +150,7 @@
         $('.spinner .btn:last-of-type').click(function () {
             var minus, v;
             v = parseInt($(this).parent("div").prev("input[type='text']").val());
-           
+
             if (v > 1) {
                 minus = v - 1;
                 $(this).parent("div").prev("input[type='text']").val(minus);
@@ -203,4 +206,17 @@
         $(this).parents("div.well,tr").remove();
         return vals();
     });
+
+    //  //<!---------- Scroll Anima Right-Side-Bar ------------>
+
+    $(window).scroll(function () {
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop <= 250) {
+            $(".checkout").css("top", "250px");
+        } else if (scrollTop > 250) {
+            $(".checkout").css("top", "50px");
+        }
+    });
+
+    //  //<!---------- Scroll Anima Right-Side-Bar ------------>
 </script>
