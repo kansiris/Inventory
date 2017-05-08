@@ -22,9 +22,13 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
+    <!-- Over Hang -->
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+
     <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/bootstrap.js"></script>
 
+    
     <style>
         ::-ms-reveal {
             display: none !important;
@@ -214,7 +218,9 @@
     <script src="~/Scripts/hideShowPassword.min.js"></script>
     <script src="~/Scripts/js/intlTelInput.js"></script>
     <script src="~/Scripts/validations.js"></script>
-
+    <!-- Over Hang -->
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
     @if (ViewBag.invalid != null)
     {
         <script>
@@ -363,6 +369,37 @@
             //    }
             //    });
         });
+
+        //function overhang() {
+            //$("body").overhang({
+            //    type: "error",
+            //    message: "Whoops! Something went wrong!",
+            //    closeConfirm: true
+            //});
+        //}
     </script>
+    @*Error Message*@
+    @if (ViewBag.msg != "" && ViewBag.msg != null)
+    {
+        <script>
+            $("body").overhang({
+            type: "error",
+                message: '@ViewBag.msg',
+                closeConfirm: false
+            });
+        </script>
+    }
+
+    @*Success Message*@
+    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "success",
+                message: '@ViewBag.smsg',
+                closeConfirm: false
+            });
+        </script>
+    }
 </body>
 </html>

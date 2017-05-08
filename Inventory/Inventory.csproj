@@ -273,6 +273,7 @@
     <Compile Include="Controllers\TypographyController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
+    <Compile Include="Controllers\VamsiController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\VendorHomeController.cs" />
     <Compile Include="Controllers\WarehouseController.cs" />
@@ -454,6 +455,7 @@
     <Content Include="Scripts\css\jquery.bxslider.css" />
     <Content Include="Scripts\css\maps\jquery-jvectormap-2.0.3.css" />
     <Content Include="Scripts\css\OpenSans.css" />
+    <Content Include="Scripts\css\overhang.min.css" />
     <Content Include="Scripts\css\reset.css" />
     <Content Include="Scripts\css\styles.css" />
     <Content Include="Scripts\customer.js" />
@@ -479,6 +481,7 @@
     <Content Include="Scripts\js\modernizr.js" />
     <Content Include="Scripts\js\moment\moment.min.js" />
     <Content Include="Scripts\js\npm.js" />
+    <Content Include="Scripts\js\overhang.min.js" />
     <Content Include="Scripts\js\tag-it.js" />
     <Content Include="Scripts\js\utils.js" />
     <Content Include="Scripts\js\Warehouse.js" />
@@ -4775,6 +4778,7 @@
     <Content Include="Views\Products\purchaseorder.cshtml" />
     <Content Include="Views\Products\allproducts.cshtml" />
     <Content Include="Views\AddStock\Index.cshtml" />
+    <Content Include="Views\Vamsi\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
