@@ -16,10 +16,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (ViewBag.records != null)
+                    @if (ViewBag.records.Count != 0) {
+                    foreach (var item in ViewBag.records)
                     {
-                        foreach (var item in ViewBag.records)
-                        {
 
                             <tr>
                                 <td class="col-md-1 image">
@@ -45,13 +44,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                @*<td class="col-md-2 product-price">Rs <span>@item.cost_price</span></td>
-                                <td class="col-md-2 product-price-total">Rs <span>@item.total_price</span></td>*@
+                                <td class="col-md-2 product-price">Rs <span>@item.total_price</span></td>
+                                <td class="col-md-2 product-price-total">Rs <span>@item.total_price</span></td>
                                 <td class="col-md-1 add-to-cart-table">
                                     <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                     <i class="fa fa-times remove" aria-hidden="true"></i>
                                 </td>
-                                <td class="empty"></td>
+                               
                             </tr>
                         }
                     }
@@ -65,7 +64,9 @@
             </table>
         </div>
         <div class="row" id="productstable1">
-            @foreach (var item in ViewBag.records)
+@if (ViewBag.records.Count != 0)
+{
+            foreach (var item in ViewBag.records)
             {
                 <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
                     <div class="well">
@@ -123,6 +124,11 @@
                     </div>
                 </div>
             }
+}
+else
+{
+    <div><p>No Records Available</p></div>
+}
         </div>
     </div>
 }
@@ -219,4 +225,46 @@
     });
 
     //  //<!---------- Scroll Anima Right-Side-Bar ------------>
+    //<!---------- Scroll Anima Right-Side-Bar ------------>
+
+  $(window).scroll(function(){
+      var scrollTop = $(window).scrollTop();
+      if(scrollTop <= 250){
+          $(".checkout").css("top","250px");
+      }else if(scrollTop > 250){
+          $(".checkout").css("top","50px");}
+  });
+
+    if(window.matchMedia('(max-width: 768px)').matches){
+        $(window).scroll(function(){
+            $(".checkout").css({"right":"40px", "top":"30%"});
+        });
+    }	
+
+    if(window.matchMedia ('(max-width: "480px")').matches){
+
+        $(window).scroll(function(){
+            $(".checkout").css({"right":"40px", "top":"20%"});
+
+        });
+
+    }
+
+    //<!---------- Scroll Anima Right-Side-Bar ------------>
+
+    //<!---------- mobile cart ------------>
+    $(".mobile-cart").click(function(){
+        $(this).toggleClass(" rotate");
+        if($(this).hasClass("rotate")){
+            $(".checkout").css({"opacity":"1","top":"20%","right":"40px","z-index":"2"});
+            $(this).children("i.fa-shopping-cart").css("display","none");
+            $(this).children("i.fa-times").css("display","block");
+        }else{
+            $(".checkout").css({"opacity":"0","z-index":"-99"});
+            $(this).children("i.fa-shopping-cart").css("display","block");
+            $(this).children("i.fa-times").css("display","none");
+        }
+        // $(".checkout").parent("div").css("position","fixed");
+    });
+    //<!---------- mobile cart ------------>
 </script>
