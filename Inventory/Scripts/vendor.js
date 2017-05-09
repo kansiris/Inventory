@@ -452,7 +452,7 @@ function editcompany(clickedvalue) {
                     var url = 'Vendor/VendorCompany';
                     $('#company_Id').val(data.ID);
                     $('#companyrecords').load(url, function () { Pagination(); });
-                    alert("company saved Successfully");
+                    successmsg(data.Result);
                     $('vendor-information1').css("display", "block");
                     $('#additon').css('display', 'block');
                     company_Id = $('#company_Id').val();
@@ -1035,10 +1035,19 @@ function forunderstand(array) {
 
     });
 }
-function successmes(message) {
-            $("body").overhang({
-                type: "success",
-                message: '@ViewBag.smsg',
-                closeConfirm: false
-            });
-}
+
+//   function errormsg(msg) {
+//       $("body").overhang({
+//           type: "error",
+//           message: msg,
+//           closeConfirm: false
+//       });
+//   }
+
+//function successmsg(msg) {
+//    $("body").overhang({
+//        type: "success",
+//        message: msg,
+//        closeConfirm: false
+//    });
+//}

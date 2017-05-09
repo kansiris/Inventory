@@ -29,7 +29,7 @@
                                 </td>
                                 <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
                                 <td class="col-md-2 product-variation">
-                                    <select class="form-control" onchange="basedon_price(this.value)">
+                                    <select class="form-control" @*onchange="basedon_price(this.value)"*@>
                                         @foreach (var item1 in item.distinctproducts.Split(','))
                                         {
                                             <option>@item1.Replace('?', '₹')</option>
@@ -87,7 +87,7 @@
                             <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
                         </div>
                         <div class="product-variation">
-                            <select class="form-control" onchange="selctprice(this.value)">
+                            <select class="form-control" @*onchange="selctprice(this.value)"*@>
                                 @*<option>@item.distinctproducts.Replace('?', '₹')</option>*@
                                 @foreach (var item1 in item.distinctproducts.Split(','))
                                 {
@@ -147,6 +147,7 @@ else
                 plus = v + 1;
                 $(this).parent("div").prev("input[type='text']").val(plus);
                 tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
+                alert(tableprice);
                 divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
                 tabletotal = plus * tableprice;
                 divtotal = plus * divprice; $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
@@ -172,7 +173,17 @@ else
                 $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
             }
             return vals();
-           
+        });
+
+        //for drop down price
+        $("select").on('change', function () {
+            var v = $(this).children("option:selected").text().split('-');
+            var newprice = v[1].split("₹");
+            $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("<span>₹ " + newprice[1] + "</span>");
+            $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("<span>₹ " + newprice[1] + "</span>");
+            $(this).parents(".product-variation").nextAll(".product-price").empty().append("<span ₹>" + newprice[1] + "</span>");
+            $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("<span>₹ " + newprice[1] + "</span>");
+            alert(newprice[1]);
         });
     });
 
