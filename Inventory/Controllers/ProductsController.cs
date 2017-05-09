@@ -43,7 +43,7 @@ namespace Inventory.Controllers
                                                          //product_id = row["product_id"].ToString(),
                                                          product_name = row["product_name"].ToString(),
                                                          brand = row["brand"].ToString(),
-                                                         total_price = row["total_price"].ToString(),
+                                                         //total_price = row["total_price"].ToString(),
                                                          distinctproducts = row["BATCHNOLIST"].ToString(),
                                                      })/*.OrderByDescending(m => m.product_id)*/.ToList();
                 ViewBag.records = subcategoryproducts;
@@ -79,7 +79,7 @@ namespace Inventory.Controllers
                                    //product_id = row["product_id"].ToString(),
                                    product_name = row["product_name"].ToString(),
                                    brand = row["brand"].ToString(),
-                                   total_price = row["total_price"].ToString(),
+                                   //total_price = row["total_price"].ToString(),
                                    distinctproducts = row["BATCHNOLIST"].ToString(),
                                })/*.OrderByDescending(m => m.product_id)*/.ToList();
                 return description;
@@ -103,7 +103,7 @@ namespace Inventory.Controllers
                                    //product_id=row["product_id"].ToString(),
                                    product_name = row["product_name"].ToString(),
                                    brand = row["brand"].ToString(),
-                                   total_price = row["total_price"].ToString(),
+                                   //total_price = row["total_price"].ToString(),
                                    distinctproducts = row["BATCHNOLIST"].ToString(),
                                })/*.OrderByDescending(m => m.product_id)*/.ToList();
                 ViewBag.records = description;

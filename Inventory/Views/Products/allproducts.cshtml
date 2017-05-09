@@ -96,10 +96,10 @@
                         <div class="empty"></div>
                         <div class="rate-add">
                             <div class="product-price">
-                                ₹ @*<span>10</span>*@<span>@item.total_price</span>
+                                ₹ @*<span>10</span>*@@*<span>@item.total_price</span>*@<span>@item.distinctproducts.Split(',')[0].Split('?')[1]</span>
                             </div>
                             <div class="product-price-total">
-                                @*<p>Total</p> Rs <span>10</span>*@<span>@item.total_price</span>
+                                @*<p>Total</p> Rs <span>10</span>*@@*<span>@item.total_price</span>*@<span>@item.distinctproducts.Split(',')[0].Split('?')[1]</span>
     </div>
                             <div class="shipping">
                                 <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
