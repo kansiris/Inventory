@@ -26,6 +26,12 @@
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+
+      <!-- Over Hang -->
+<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+@*<script src="~/Scripts/js/bootstrap.js"></script>*@
 }
 
 <!-- page content -->
@@ -180,6 +186,9 @@
     <script src="~/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Over Hang -->
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
     <!-- Clone Shipping Address -->
     <script type="text/javascript">
         $("input[type='checkbox']").change(function () {
@@ -345,5 +354,17 @@
             });
         })
     </script>
+
+@*Error Message*@
+@if (ViewBag.msg != "" && ViewBag.msg != null)
+    {
+    <script>
+            $("body").overhang({
+            type: "error",
+                message: '@ViewBag.msg',
+                closeConfirm: false
+            });
+    </script>
+}
 }
 

@@ -884,4 +884,27 @@ else
         });
     </script>
    
+@*Error Message*@
+@if (ViewBag.msg != "" && ViewBag.msg != null)
+    {
+    <script>
+            $("body").overhang({
+            type: "error",
+                message: '@ViewBag.msg',
+                closeConfirm: false
+            });
+    </script>
+}
+
+    @*Success Message*@
+    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "success",
+                message: '@ViewBag.smsg',
+                closeConfirm: false
+            });
+        </script>
+    }
 }

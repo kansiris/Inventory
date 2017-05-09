@@ -69,7 +69,8 @@ namespace Inventory.Controllers
                 if (data.HasRows)
                 {
                     data.Close();
-                    return Content("<script language='javascript' type='text/javascript'>alert('Email Id Already Exists!!! Try Another');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    ViewBag.msg = "Email Id Already Exists!!! Try Another";
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Email Id Already Exists!!! Try Another');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
                 {
@@ -87,9 +88,11 @@ namespace Inventory.Controllers
                     if (count > 0)
                     {
                         Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
-                        return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                        ViewBag.smsg = "Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.";
+                        //return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                     }
-                    return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    ViewBag.msg = "Registration Failed!!!!";
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
             }
             return View();
@@ -118,7 +121,7 @@ namespace Inventory.Controllers
                 value.Close();
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user1234;"; //for server
-                FileInfo File = new FileInfo(Server.MapPath("../Models/April19.sql"));
+                FileInfo File = new FileInfo(Server.MapPath("../Models/May08.sql"));
                 string script = File.OpenText().ReadToEnd();
                 SqlConnection conn = new SqlConnection(sqlConnectionString);
                 Server server = new Server(new ServerConnection(conn));
@@ -179,7 +182,9 @@ namespace Inventory.Controllers
                         activateemail = LoginService.ActivateEmail(Email, ActivationCode);
                     }
                     if (activateemail < 0)
-                        return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                        ViewBag.msg = "Email ID Confirmation Failed!!!";
+                    return RedirectToAction("Index", "Login");
+                        //return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
             }
             return View();

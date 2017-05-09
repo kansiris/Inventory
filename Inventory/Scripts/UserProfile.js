@@ -96,7 +96,7 @@
     function upload() {
         var ext = $('#fileupload').val().split('.').pop().toLowerCase();
         if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            alert('Invalid File Type');
+            errormsg('Invalid File Type');
         }
         else {
             $(".overlay").show();
@@ -121,7 +121,7 @@
                 },
                 error: function (er) {
                     $(".overlay").hide();
-                    alert("Failed To Upload Pic!!! Try Again");
+                    errormsg("Failed To Upload Pic!!! Try Again");
                 }
             });
         }
@@ -132,7 +132,7 @@
     function upload1() {
         var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
         if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            alert('Invalid File Type');
+            errormsg('Invalid File Type');
         }
         else {
             $(".overlay").show();
@@ -161,7 +161,7 @@
                 },
                 error: function (er) {
                     $(".overlay").hide();
-                    alert("Failed To Upload Pic!!! Try Again");
+                    errormsg("Failed To Upload Pic!!! Try Again");
                 }
             });
         }
@@ -172,7 +172,7 @@
     function upload2() {
         var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
         if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            alert('Invalid File Type');
+            errormsg('Invalid File Type');
         }
         else {
             $(".overlay").show();
@@ -194,7 +194,7 @@
                 },
                 error: function (er) {
                     $(".overlay").hide();
-                    alert("Failed To Upload Pic!!! Try Again");
+                    errormsg("Failed To Upload Pic!!! Try Again");
                 }
             });
         }
@@ -221,10 +221,11 @@
             success: function (data) {
                 $('#Item4_Job_position').val('');
                 LoadJobPositions(data.records);
-                alert(data.msg);
+                successmsg(data.msg);
             },
             error: function (er) {
-                alert("error");
+                //alert("error");
+                errormsg("System Encountered Internal Error!!! Try Again After Some Time");
             }
         });
     }
@@ -263,7 +264,7 @@
             data: staffid,
             success: function (data) {
                 if (data == 'unique') {
-                    alert("Failed To Fetch User Details");
+                    errormsg("Failed To Fetch User Details");
                 }
                 else {
                     $('#btnupdatestaff').show();
@@ -304,7 +305,8 @@
                 }
             },
             error: function (er) {
-                alert("error");
+                //alert("error");
+                errormsg("System Encountered Internal Error!!! Try Again After Some Time");
             }
         });
     }
@@ -360,7 +362,8 @@
                     $('#partialpage').load(url);
                     $('#fname').html($('#Item1_First_Name').val());
                     $('#lname').html($('#Item1_Last_Name').val());
-                    alert("Profile updated SuccessFully");
+                    //alert("Profile updated SuccessFully");
+                    successmsg("Profile updated SuccessFully");
                 }
                 else if(response == 'staffadded')
                 {
@@ -372,7 +375,8 @@
                     $("#Vendor_Access").prop('checked', false);
                     $("#allowaccess").prop('checked', false);
                     $("#permissionsarea").css("visibility", "hidden");
-                    alert("User Added SuccessFully!!!");
+                    //alert("User Added SuccessFully!!!");
+                    successmsg("User Added SuccessFully");
                 }
                 else if (response == 'staffupdated') {
                     var url = 'UserProfile/GetStaffRecords?id='+id+'';
@@ -383,16 +387,19 @@
                     $("#Vendor_Access").prop('checked', false);
                     $("#allowaccess").prop('checked', false);
                     $("#permissionsarea").css("visibility", "hidden");
-                    alert("User Updated SuccessFully!!!");
+                    //alert("User Updated SuccessFully!!!");
+                    successmsg("User Updated SuccessFully");
                     $('#btnupdatestaff').hide();
                     $('#btnaddstaff').show();
                 }
                 else {
-                    alert("Failed To Update Profile");
+                    errormsg("Failed To Update Profile");
+                    //alert("Failed To Update Profile");
                 }
             },
             error: function (er) {
-                alert("error");
+                errormsg("System Encountered Internal Error!!! Try Again After Some Time");
+                //alert("error");
             }
         });
     }

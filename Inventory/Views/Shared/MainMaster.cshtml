@@ -209,5 +209,23 @@
             });
         });
     </script>
+
+    <script>
+    function errormsg(msg) {
+        $("body").overhang({
+            type: "error",
+            message: msg,
+            closeConfirm: false
+        });
+    }
+
+    function successmsg(msg) {
+        $("body").overhang({
+            type: "success",
+            message: msg,
+            closeConfirm: false
+        });
+    }
+    </script>
 </body>
 </html>

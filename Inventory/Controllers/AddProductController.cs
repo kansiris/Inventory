@@ -88,10 +88,11 @@ namespace Inventory.Controllers
                     {
                         int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, product.Quantity_Qty[i], product.Reorder_level[i], product.Quantity_Total);
                     }
-                    return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
+                    ViewBag.smsg = "Product Added Successfully!!!";
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
                 }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
-
+                ViewBag.msg = "Failed To Add Product";
+                //return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
             }
 
             return View();
