@@ -425,7 +425,8 @@ function editcompany(clickedvalue) {
                     $('#savebutton').hide();
                     var url = 'Vendor/VendorCompany';
                     $('#companyrecords').empty().load(url, function () { Pagination(); });
-                    alert("Company Updated Successfully");
+                    successmes("Company Updated Successfully");
+                    //alert("Company Updated Successfully");
                     $('#additon').css('display', 'block');
                 }
                 else {
@@ -1033,4 +1034,11 @@ function forunderstand(array) {
         });
 
     });
+}
+function successmes(message) {
+            $("body").overhang({
+                type: "success",
+                message: '@ViewBag.smsg',
+                closeConfirm: false
+            });
 }

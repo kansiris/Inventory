@@ -29,8 +29,11 @@
                                 </td>
                                 <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
                                 <td class="col-md-2 product-variation">
-                                    <select class="form-control">
-                                        <option>@item.distinctproducts.Replace('?', '₹')</option>
+                                    <select class="form-control" onchange="basedon_price(this.value)">
+                                        @foreach (var item1 in item.distinctproducts.Split(','))
+                                        {
+                                            <option>@item1.Replace('?', '₹')</option>
+                                        }
                                         
                                     </select>
                                 </td>
@@ -44,8 +47,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="col-md-2 product-price">Rs <span>@item.total_price</span></td>
-                                <td class="col-md-2 product-price-total">Rs <span>@item.total_price</span></td>
+                                <td class="col-md-2 product-price">Rs <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1]</span></td>
+                                <td class="col-md-2 product-price-total">Rs <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1]</span></td>
                                 <td class="col-md-1 add-to-cart-table">
                                     <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                     <i class="fa fa-times remove" aria-hidden="true"></i>
@@ -81,10 +84,10 @@
                         </div>
                         <div class="img-title">
                             <span class="product-brand">@item.brand</span>
-                            <a href="#" class="product-name">@item.product_name</a>
+                            <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
                         </div>
                         <div class="product-variation">
-                            <select class="form-control">
+                            <select class="form-control" onchange="selctprice(this.value)">
                                 @*<option>@item.distinctproducts.Replace('?', '₹')</option>*@
                                 @foreach (var item1 in item.distinctproducts.Split(','))
                                 {
@@ -96,10 +99,10 @@
                         <div class="empty"></div>
                         <div class="rate-add">
                             <div class="product-price">
-                                ₹ @*<span>10</span>*@<span>@item.total_price</span>
+                                ₹ @*<span>@item.total_price</span>*@<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1]</span>
                             </div>
                             <div class="product-price-total">
-                                @*<p>Total</p> Rs <span>10</span>*@<span>@item.total_price</span>
+                                ₹ @*<span>@item.total_price</span>*@<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1]</span>
     </div>
                             <div class="shipping">
                                 <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
@@ -169,6 +172,7 @@ else
                 $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
             }
             return vals();
+           
         });
     });
 
@@ -185,6 +189,7 @@ else
         $(txt).empty().append("<p>" + v + "</p>");
         $(this).parents("tr").clone(true, true).appendTo(".added-products");
         $(".added-products").css("padding", "0px 0px 10px");
+        
     });
 
     function vals() {
@@ -196,21 +201,24 @@ else
         $(".added-products .product-price-total span").each(function () {
             productprice = parseInt($(this).text());
             carttotal = productprice + carttotal;
+            
         });
         $(".cart-total span").remove();
         $(".cart-total").append("<span>" + carttotal + "</span>");
         $(".cart-icn span").remove();
         $(".cart-icn").append("<span>" + totalquantity + "</span>");
-
+        //alert("Product added successfully");
     }
 
     $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
         return vals();
+       
     });
 
     $(".remove").click(function () {
         $(this).parents("div.well,tr").remove();
         return vals();
+        
     });
 
     //  //<!---------- Scroll Anima Right-Side-Bar ------------>
@@ -223,7 +231,7 @@ else
             $(".checkout").css("top", "50px");
         }
     });
-
+   
     //  //<!---------- Scroll Anima Right-Side-Bar ------------>
     //<!---------- Scroll Anima Right-Side-Bar ------------>
 
@@ -249,9 +257,9 @@ else
         });
 
     }
-
+    
     //<!---------- Scroll Anima Right-Side-Bar ------------>
-
+    
     //<!---------- mobile cart ------------>
     $(".mobile-cart").click(function(){
         $(this).toggleClass(" rotate");
@@ -268,3 +276,29 @@ else
     });
     //<!---------- mobile cart ------------>
 </script>
+@*Error Message*@
+@if (ViewBag.msg != "" && ViewBag.msg != null)
+{
+    <script>
+            $("body").overhang({
+            type: "error",
+                message: '@ViewBag.msg',
+                closeConfirm: false
+            });
+    </script>
+}
+
+    @*Success Message*@
+    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "success",
+                message: '@ViewBag.smsg',
+                closeConfirm: false
+            });
+        </script>
+    }
+<script>
+   
+    </script>

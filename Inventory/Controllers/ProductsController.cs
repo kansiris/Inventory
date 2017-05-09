@@ -40,12 +40,10 @@ namespace Inventory.Controllers
                 List<Product> subcategoryproducts = (from DataRow row in dt.Rows
                                                      select new Product()
                                                      {
-                                                         //product_id = row["product_id"].ToString(),
                                                          product_name = row["product_name"].ToString(),
                                                          brand = row["brand"].ToString(),
-                                                         total_price = row["total_price"].ToString(),
                                                          distinctproducts = row["BATCHNOLIST"].ToString(),
-                                                     })/*.OrderByDescending(m => m.product_id)*/.ToList();
+                                                     }).ToList();
                 ViewBag.records = subcategoryproducts;
                 return PartialView("allproducts", ViewBag.records);
             }
@@ -76,12 +74,10 @@ namespace Inventory.Controllers
                 description = (from DataRow row in dt.Rows
                                select new Product()
                                {
-                                   //product_id = row["product_id"].ToString(),
                                    product_name = row["product_name"].ToString(),
                                    brand = row["brand"].ToString(),
-                                   total_price = row["total_price"].ToString(),
                                    distinctproducts = row["BATCHNOLIST"].ToString(),
-                               })/*.OrderByDescending(m => m.product_id)*/.ToList();
+                               }).ToList();
                 return description;
             }
             return null;
@@ -100,19 +96,18 @@ namespace Inventory.Controllers
                 description = (from DataRow row in dt.Rows
                                select new Product()
                                {
-                                   //product_id=row["product_id"].ToString(),
                                    product_name = row["product_name"].ToString(),
                                    brand = row["brand"].ToString(),
-                                   total_price = row["total_price"].ToString(),
                                    distinctproducts = row["BATCHNOLIST"].ToString(),
-                               })/*.OrderByDescending(m => m.product_id)*/.ToList();
+                               }).ToList();
                 ViewBag.records = description;
 
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
         }
+
     }
 }
 
-   
+
