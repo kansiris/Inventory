@@ -94,5 +94,11 @@ namespace Inventory.Service
             return ProductRepository.Getdescripton(dbname, product_name);
         }
 
+        public static int Addtocart(string dbname, string product_name, string brand, string cost_price, string Quantity, string product_images, string Measurement, string weight, string total_price)
+        {
+            return ProductRepository.Addtocart(dbname, product_name, brand, cost_price, product_images, Quantity, Measurement, weight, total_price);
+        }
+        
+
     }
 }

@@ -106,6 +106,8 @@ namespace Inventory.Controllers
             }
             return PartialView("allproducts", null);
         }
+        //for Add to cart
+
 
     }
 }
