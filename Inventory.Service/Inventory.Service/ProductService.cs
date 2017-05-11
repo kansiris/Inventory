@@ -18,34 +18,34 @@ namespace Inventory.Service
         #endregion
 
         #region Sorting Sub-Category
-        public static SqlDataReader GetSubCategory(string dbname,string type, string categoryid)
+        public static SqlDataReader GetSubCategory(string dbname, string type, string categoryid)
         {
-            return ProductRepository.GetSubCategory(dbname,type, categoryid);
+            return ProductRepository.GetSubCategory(dbname, type, categoryid);
         }
         #endregion
 
         #region Add/Remove ProductItems
         public static int ProductItems(string dbname, string command, string weight, string size, string color, string itemshape, string assignedcategoryid, string category, string subcategory, string brand, string model, string id)
         {
-            return ProductRepository.ProductItems(dbname, command, weight, size, color, itemshape,assignedcategoryid, category, subcategory, brand, model, id);
+            return ProductRepository.ProductItems(dbname, command, weight, size, color, itemshape, assignedcategoryid, category, subcategory, brand, model, id);
         }
         #endregion
 
         #region Get Product Items
         public static SqlDataReader GetProductItems(string dbname, string command, string id)
         {
-            return ProductRepository.GetProductItems(dbname, command,id);
+            return ProductRepository.GetProductItems(dbname, command, id);
         }
         #endregion
 
         #region Product Functionalities
-        public static int ProductFunctionalities(string type, string dbname,int id,string product_id, string product_name,string batch_number, string brand, string model, string category, string sub_category, string cost_price, string selling_price, string tax,
+        public static int ProductFunctionalities(string type, string dbname, int id, string product_id, string product_name, string batch_number, string brand, string model, string category, string sub_category, string cost_price, string selling_price, string tax,
            string discount, string shipping_price, string total_price, string Measurement, string weight, string size, string color, string item_shape, string product_consumable,
            string product_type, string product_perishability, string product_expirydate, string product_description, string product_tags, string product_images)
         {
-            return ProductRepository.ProductFunctionalities(type, dbname,id,product_id , product_name, batch_number, brand, model, category, sub_category, cost_price, selling_price, tax, discount,
+            return ProductRepository.ProductFunctionalities(type, dbname, id, product_id, product_name, batch_number, brand, model, category, sub_category, cost_price, selling_price, tax, discount,
                 shipping_price, total_price, Measurement, weight, size, color, item_shape, product_consumable, product_type, product_perishability, product_expirydate,
-                product_description, product_tags,product_images);
+                product_description, product_tags, product_images);
         }
         #endregion
 
@@ -64,7 +64,7 @@ namespace Inventory.Service
         #endregion
 
         #region Add Quantity In Hand
-        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty,string reorder ,string Total)
+        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty, string reorder, string Total)
         {
             return ProductRepository.AddQuantityInHand(dbname, product_id, area, Qty, reorder, Total);
         }
@@ -73,7 +73,35 @@ namespace Inventory.Service
         #region Active/InActive Product
         public static int productstatus(string dbname, string id, string status)
         {
-            return ProductRepository.productstatus(dbname,id, status);
+            return ProductRepository.productstatus(dbname, id, status);
+        }
+        #endregion
+
+        #region Get Product
+        public static SqlDataReader GetProduct(string dbname, string id)
+        {
+            return ProductRepository.GetProduct(dbname, id);
+        }
+        #endregion
+
+        #region Get Quantity In Hand
+        public static SqlDataReader GetQuantityInHand(string dbname, string id)
+        {
+            return ProductRepository.GetQuantityInHand(dbname, id);
+        }
+        #endregion
+
+        #region Update Product
+        public static int updateproduct(string dbname, string id, string batch, string cost_price, string selling_price, string tax, string discount, string shipping, string total_price)
+        {
+            return ProductRepository.updateproduct(dbname, id, batch, cost_price, selling_price, tax, discount, shipping, total_price);
+        }
+        #endregion
+
+        #region Update Stock
+        public static int UpdateStock(string dbname, string id, string qty,string total)
+        {
+            return ProductRepository.UpdateStock(dbname,id,qty,total);
         }
         #endregion
 
@@ -83,13 +111,12 @@ namespace Inventory.Service
             return ProductRepository.Getproductsbysubcategory(dbname, sub_category);
         }
 
-        
-            public static SqlDataReader Getdistinctproducts(string dbname)
+        public static SqlDataReader Getdistinctproducts(string dbname)
         {
             return ProductRepository.Getdistinctproducts(dbname);
         }
-        
-             public static SqlDataReader Getdescripton(string dbname, string product_name)
+
+        public static SqlDataReader Getdescripton(string dbname, string product_name)
         {
             return ProductRepository.Getdescripton(dbname, product_name);
         }

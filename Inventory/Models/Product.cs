@@ -44,8 +44,11 @@ namespace Inventory.Models
         //Quantity In Hand Related Fields
         public int Quantity_id { get; set; }
         public string Quantity_area { get; set; }
+        public string Qty_Stock { get; set; }
         public List<string> Quantity_Qty { get; set; }
         public List<string> Reorder_level { get; set; }
+        public List<string> Quantity_QtyStock { get; set; }
+        public List<int> Qid { get; set; }
         public string Quantity_Total { get; set; }
     }
 }

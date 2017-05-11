@@ -1,7 +1,8 @@
-﻿
+﻿@model Inventory.Models.Product
 @{
-    ViewBag.Title = ":: Quantity In Hand ::";
+    ViewBag.Title = ":: Add Stock ::";
     Layout = "~/Views/Shared/MainMaster.cshtml";
+    var sno = 0;
 }
 
 @section css{
@@ -29,436 +30,456 @@
 }
 
 <div class="right_col" role="main">
-   
-        <div class="container">
-            <form>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-12 form-title">Product Update</div>
-                                </div>
+
+    <div class="container">
+        <form method="post">
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 form-title">Stock Update</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-9">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Product Name">
-                                    </div>
-                                    <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control batchnum" placeholder="Batch Num">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Brand Name">
-                                    </div>
-                                    <div class="form-group col-xs-12 col-md-6">
-                                        <input type="text" class="form-control" placeholder="Model Number">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-md-6">
-                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Category">
-                                        <div class="display-positions">
-                                            <div class="positions1 position">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
-                                            </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 1</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 2</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 3</div>
+            </div>
+            @if (ViewBag.product != null)
+            {
+                foreach (var item in ViewBag.product)
+                {
+                    <div class="row">
+                        <div class="col-xs-12 col-md-9">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", Value = item.product_name })
                                         </div>
-                                        <div class="row add-position">
-                                            <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
-                                            </div>
-                                            <div class="row positions"></div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            @*<input type="text" class="form-control batchnum" placeholder="Batch Num">*@
+                                            @Html.TextBoxFor(Model => Model.batch_number, new { @class = "form-control batchnum", placeholder = "Batch Number", required = "required", Value = item.batch_number })
                                         </div>
                                     </div>
-                                    <div class="form-group col-xs-12 col-md-6">
-                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Sub Category">
-                                        <div class="display-positions">
-                                            <div class="positions1 position">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sub Category</span><i class="fa fa-times" aria-hidden="true"></i>
-                                            </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 1</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 2</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 3</div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            @*<input type="text" class="form-control" placeholder="Brand Name">*@
+                                            @Html.TextBoxFor(Model => Model.brand, new { @class = "form-control", placeholder = "Brand Name", required = "required", Value = item.brand })
                                         </div>
-                                        <div class="row add-position">
-                                            <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
-                                            </div>
-                                            <div class="row positions"></div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            @*<input type="text" class="form-control" placeholder="Model Number">*@
+                                            @Html.TextBoxFor(Model => Model.model, new { @class = "form-control", placeholder = "Model Number", required = "required", Value = item.model })
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modified-toggle">
-                                    <div class="row margin-bottom">
-                                        <div class="col-xs-3 col-md-2">
-                                            <label class="switch">
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Category">*@
+                                            @Html.TextBoxFor(Model => Model.category, new { @class = "form-control", placeholder = "Category", required = "required", Value = item.category })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 1</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 2</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Category 3</div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Position">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Sub Category">*@
+                                            @Html.TextBoxFor(Model => Model.sub_category, new { @class = "form-control", placeholder = "Sub Category", required = "required", Value = item.sub_category })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sub Category</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 1</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 2</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Sub Category 3</div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Position">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modified-toggle">
+                                        <div class="row margin-bottom">
+                                            <div class="col-xs-3 col-md-2">
+                                                <label class="switch">
+                                                    <input type="checkbox" id="checkbox1">
+                                                    <div class="slider"></div>
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 switch-text">Price Update</div>
+                                        </div>
+                                        <div class="row text-left">
+                                            <div class="form-group col-xs-6 col-md-3">
+                                                <label>Cost Price</label>
+                                                @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
+                                                @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", required = "required", Value = item.cost_price })
+                                            </div>
+                                            <div class="form-group col-xs-6 col-md-2">
+                                                <label>Sell Price</label>
+                                                @*<input type="text" class="form-control" placeholder="Selling Price" value="0">*@
+                                                @Html.TextBoxFor(Model => Model.selling_price, new { @class = "form-control", placeholder = "Selling Price", required = "required", Value = item.selling_price })
+                                            </div>
+                                            <div class="form-group col-xs-6 col-md-5 tax">
+                                                <label>TaxApplicable(%)</label>
+                                                @*<input type="text" class="form-control" placeholder="Tax" value="0">*@
+                                                @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", required = "required", Value = item.tax })
+                                            </div>
+                                            <div class="form-group col-xs-6 col-md-2">
+                                                <label>Discount(%)</label>
+                                                @*<input type="text" class="form-control" placeholder="Discount" value="0">*@
+                                                @Html.TextBoxFor(Model => Model.discount, new { @class = "form-control", placeholder = "Discount", required = "required", Value = item.discount })
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-xs-6 col-md-3">
+                                                <label>Shipping</label>
+                                                @*<input type="text" class="form-control" placeholder="Shipping" value="0">*@
+                                                @Html.TextBoxFor(Model => Model.shipping_price, new { @class = "form-control", placeholder = "Shipping", required = "required", Value = item.shipping_price })
+                                            </div>
+                                            <div class="form-group col-xs-9 col-md-9">
+                                                <label>Total</label>
+                                                @*<input type="text" class="form-control" placeholder="Total">*@
+                                                @Html.TextBoxFor(Model => Model.total_price, new { @class = "form-control", placeholder = "Total", required = "required", Value = item.total_price })
+                                                <span>(Selling price + Tax + Shipping - Discount)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            @*<input type="text" class="form-control" placeholder="Measurement">*@
+                                            @Html.TextBoxFor(Model => Model.Measurement, new { @class = "form-control", Value = item.Measurement })
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Weight">*@
+                                            @Html.TextBoxFor(Model => Model.weight, new { @class = "form-control", Value = item.weight })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>KG'S</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Grams</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Lb's</div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Position">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Sizes">*@
+                                            @Html.TextBoxFor(Model => Model.size, new { @class = "form-control", Value = item.size })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sizes</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>M</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>L</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XL</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XXL</div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Position">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Colors">*@
+                                            @Html.TextBoxFor(Model => Model.color, new { @class = "form-control", Value = item.color })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Colors</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>White</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Black</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Orange</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Baby Pink</div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Position">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-12">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Item Shape">*@
+                                            @Html.TextBoxFor(Model => Model.item_shape, new { @class = "form-control", Value = item.item_shape })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bottle</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Pouch</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Box</div>
+                                                <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bag</div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Position">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @Html.HiddenFor(Model => Model.product_consumable, new { Value = item.product_consumable })
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label>
+                                                Consumable
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="switch toggle-consumable">
                                                 <input type="checkbox" id="checkbox1">
                                                 <div class="slider"></div>
                                             </label>
                                         </div>
-                                        <div class="col-xs-9 col-md-10 switch-text">Price Update</div>
-                                    </div>
-                                    <div class="row text-left">
-                                        <div class="form-group col-xs-6 col-md-3">
-                                            <label>Cost Price</label>
-                                            <input type="text" class="form-control" placeholder="Cost Price" value="0">
-                                        </div>
-                                        <div class="form-group col-xs-6 col-md-2">
-                                            <label>Sell Price</label>
-                                            <input type="text" class="form-control" placeholder="Selling Price" value="0">
-                                        </div>
-                                        <div class="form-group col-xs-6 col-md-5 tax">
-                                            <label>TaxApplicable(%)</label>
-                                            <input type="text" class="form-control" placeholder="Tax" value="0">
-                                        </div>
-                                        <div class="form-group col-xs-6 col-md-2">
-                                            <label>Discount(%)</label>
-                                            <input type="text" class="form-control" placeholder="Discount" value="0">
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label>
+                                                Non-Consumable
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-xs-6 col-md-3">
-                                            <label>Shipping</label>
-                                            <input type="text" class="form-control" placeholder="Shipping" value="0">
+                                    @Html.HiddenFor(Model => Model.product_type, new { Value = item.product_type })
+                                    <div class="row quantity-veg-non">
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="veg">Veg</label>
                                         </div>
-                                        <div class="form-group col-xs-6 col-md-6">
-                                            <label>Total</label>
-                                            <input type="text" class="form-control" placeholder="Total">
-                                            <span>(Selling price + Tax + Shipping - Discount)</span>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="switch veg-non">
+                                                <input type="checkbox" id="checkbox1">
+                                                <div class="slider"></div>
+                                            </label>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-md-3">
-                                        <input type="text" class="form-control" placeholder="Measurement">
-                                    </div>
-                                    <div class="form-group col-xs-12 col-md-3">
-                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Weight">
-                                        <div class="display-positions">
-                                            <div class="positions1 position">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
-                                            </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>KG'S</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Grams</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Lb's</div>
-                                        </div>
-                                        <div class="row add-position">
-                                            <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
-                                            </div>
-                                            <div class="row positions"></div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="non-veg">Non-Veg</label>
                                         </div>
                                     </div>
-                                    <div class="form-group col-xs-12 col-md-3">
-                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Sizes">
-                                        <div class="display-positions">
-                                            <div class="positions1 position">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sizes</span><i class="fa fa-times" aria-hidden="true"></i>
-                                            </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>M</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>L</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XL</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>XXL</div>
+                                    <div class="row quantity-perishable-non">
+                                        @Html.HiddenFor(Model => Model.product_perishability, new { Value = item.product_perishability })
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="Perishable">Perishable</label>
                                         </div>
-                                        <div class="row add-position">
-                                            <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
-                                            </div>
-                                            <div class="row positions"></div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="switch perishable-non">
+                                                <input type="checkbox" id="checkbox1">
+                                                <div class="slider"></div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="Non-Perishable">Non-Perishable</label>
                                         </div>
                                     </div>
-                                    <div class="form-group col-xs-12 col-md-3">
-                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Colors">
-                                        <div class="display-positions">
-                                            <div class="positions1 position">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Colors</span><i class="fa fa-times" aria-hidden="true"></i>
-                                            </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>White</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Black</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Orange</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Baby Pink</div>
-                                        </div>
-                                        <div class="row add-position">
-                                            <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
-                                            </div>
-                                            <div class="row positions"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-xs-12 col-md-12">
-                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control selected-position" placeholder="Item Shape">
-                                        <div class="display-positions">
-                                            <div class="positions1 position">
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
-                                            </div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bottle</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Pouch</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Box</div>
-                                            <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bag</div>
-                                        </div>
-                                        <div class="row add-position">
-                                            <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Position">
-                                                <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
-                                                <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
-                                            </div>
-                                            <div class="row positions"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label>
-                                            Consumable
-                                        </label>
-                                    </div>
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label class="switch toggle-consumable">
-                                            <input type="checkbox" id="checkbox1">
-                                            <div class="slider"></div>
-                                        </label>
-                                    </div>
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label>
-                                            Non-Consumable
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row quantity-veg-non">
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label class="veg">Veg</label>
-                                    </div>
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label class="switch veg-non">
-                                            <input type="checkbox" id="checkbox1">
-                                            <div class="slider"></div>
-                                        </label>
-                                    </div>
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label class="non-veg">Non-Veg</label>
-                                    </div>
-                                </div>
-                                <div class="row quantity-perishable-non">
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label class="Perishable">Perishable</label>
-                                    </div>
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label class="switch perishable-non">
-                                            <input type="checkbox" id="checkbox1">
-                                            <div class="slider"></div>
-                                        </label>
-                                    </div>
-                                    <div class="form-group radio col-xs-4 col-md-4">
-                                        <label class="Non-Perishable">Non-Perishable</label>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-group ">
-                                            <label class="col-sm-3" for="date"> Expiry Date </label>
-                                            <div class="col-sm-9">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                                    <div class="row form-group">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group ">
+                                                <label class="col-sm-3" for="date"> Expiry Date </label>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                                                        @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />*@
+                                                        @Html.TextBoxFor(Model => Model.product_expirydate, new { @class = "form-control", Value = item.product_expirydate })
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="row">
-                                    <div class="col-md-12 admin-product-image"> <img src="images/default_product.png" alt="Product" /> </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-xs pull-right add-popup"><i class="fa fa-plus-circle" aria-hidden="true"></i>Image</button>
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-md-12 admin-product-image">
+                                            @if (item.product_images != "")
+                                            {
+                                                foreach (var item1 in item.product_images.Split(','))
+                                                {
+                                                    <img src="~/ProductImages/@item1" height="50px" width="50px" alt="Product" /> <br />
+                                                }
+                                            }
+                                            else
+                                            {<img src="images/default_product.png" alt="Product" />}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row image-library">
-                                    <ul class="col-md-12 tabs">
-                                        <li class="tab-1"><a>Upload Images</a></li>
-                                        <li class="tab-2"><a>Library</a></li>
-                                        <i class="fa fa-times pull-right" aria-hidden="true"></i>
-                                    </ul>
-                                    <ul class="col-md-12 tabs-content">
-                                        <li class="tab-1" id="tab-1">
-                                            <button type="button" class="btn">Upload Here</button>
-                                            <input type="file">
-                                        </li>
-                                        <li class="tab-2" id="tab-2">
-                                            <ul>
-                                                <li>
-                                                    <input type="checkbox" name="checkbox">
-                                                    <img src="images/1.jpg" alt="Image one" />
+                                    @*<div class="row">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-primary btn-xs pull-right add-popup"><i class="fa fa-plus-circle" aria-hidden="true"></i>Image</button>
+                                            </div>
+                                        </div>*@
+                                    @*<div class="row image-library">
+                                            <ul class="col-md-12 tabs">
+                                                <li class="tab-1"><a>Upload Images</a></li>
+                                                <li class="tab-2"><a>Library</a></li>
+                                                <i class="fa fa-times pull-right" aria-hidden="true"></i>
+                                            </ul>
+                                            <ul class="col-md-12 tabs-content">
+                                                <li class="tab-1" id="tab-1">
+                                                    <button type="button" class="btn">Upload Here</button>
+                                                    <input type="file">
                                                 </li>
-                                                <li>
-                                                    <input type="checkbox" name="checkbox">
-                                                    <img src="images/2.jpg" alt="Image Two" />
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" name="checkbox">
-                                                    <img src="images/3.jpg" alt="Image Three" />
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" name="checkbox">
-                                                    <img src="images/4.jpg" alt="Image Four" />
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" name="checkbox">
-                                                    <img src="images/5.jpg" alt="Image Five" />
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" name="checkbox">
-                                                    <img src="images/6.jpg" alt="Image Six" />
+                                                <li class="tab-2" id="tab-2">
+                                                    <ul>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox">
+                                                            <img src="images/1.jpg" alt="Image one" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox">
+                                                            <img src="images/2.jpg" alt="Image Two" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox">
+                                                            <img src="images/3.jpg" alt="Image Three" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox">
+                                                            <img src="images/4.jpg" alt="Image Four" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox">
+                                                            <img src="images/5.jpg" alt="Image Five" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox">
+                                                            <img src="images/6.jpg" alt="Image Six" />
+                                                        </li>
+                                                    </ul>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                                            <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             </ul>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                                                    <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                        <div class="row">
+                                            <ul class="col-md-12 admin-product-thumbs"></ul>
+                                        </div>*@
                                 </div>
-                                <div class="row">
-                                    <ul class="col-md-12 admin-product-thumbs"></ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-xs-12 col-md-12">
-                                <textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label>Add Tags<span>(Seperated by kama)</span></label>
-                                <ul id="myTags"></ul>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-2 pull-right">
-                                <button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                            </div>
-                            <div class="col-xs-12 col-md-2 pull-right">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modified-toggle1">
-                        <div class="col-xs-12 col-md-3">
-                            <div class="row margin-bottom">
-                                <div class="col-xs-3 col-md-3">
-                                    <label class="switch">
-                                        <input type="checkbox" id="checkbox1">
-                                        <div class="slider"></div>
-                                    </label>
-                                </div>
-                                <div class="col-xs-9 col-md-9 switch-text">Add New Quantity</div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Sno</th>
-                                                <th>Area</th>
-                                                <th>Quantity In Hand</th>
-                                                <th>New Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>HIMA</td>
-                                                <td>
-                                                    <div class="form-group col-xs-12 col-md-12">
-                                                        <input type="text" class="form-control" placeholder="Quantity in Hand" value="5">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group col-xs-12 col-md-12">
-                                                        <input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>KUKA</td>
-                                                <td>
-                                                    <div class="form-group col-xs-12 col-md-12">
-                                                        <input type="text" class="form-control" placeholder="Quantity in Hand" value="10">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group col-xs-12 col-md-12">
-                                                        <input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>MADH</td>
-                                                <td>
-                                                    <div class="form-group col-xs-12 col-md-12">
-                                                        <input type="text" class="form-control" placeholder="Quantity in Hand" value="2">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group col-xs-12 col-md-12">
-                                                        <input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total</td>
-                                                <td colspan="3">
-                                                    <div class="form-group col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="Total Quantity in Hand" value="0">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="form-group col-xs-12 col-md-12">
+                                    @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
+                                    @Html.TextAreaFor(Model => Model.product_description,  new { @class="form-control", placeholder = "Product Description", @rows="5", @Value = item.product_description })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label>Add Tags<span>(Seperated by Comma)</span></label>
+                                    @*<ul id="myTags"></ul>*@
+                                    @Html.TextBoxFor(Model => Model.product_tags, new { @class = "form-control", Value = item.product_tags })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-2 pull-right">
+                                    <button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                </div>
+                                <div class="col-xs-12 col-md-2 pull-right">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Update Stock</button>
                                 </div>
                             </div>
                         </div>
+                        <div class="modified-toggle1">
+                            <div class="col-xs-12 col-md-3">
+                                <div class="row margin-bottom">
+                                    <div class="col-xs-3 col-md-3">
+                                        <label class="switch">
+                                            <input type="checkbox" id="checkbox1">
+                                            <div class="slider"></div>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-9 col-md-9 switch-text">Add New Quantity</div>
+                                </div>
+                                @if (ViewBag.AvailableQty != null)
+                                {
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sno</th>
+                                                        <th>Area</th>
+                                                        <th>Quantity In Hand</th>
+                                                        <th>New Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var qty in ViewBag.AvailableQty)
+                                                    {
+                                                        <tr>
+                                                            <td>@(++sno)</td>
+                                                            <td>@qty.Quantity_area</td>
+                                                            <td>@Html.HiddenFor(Model=>Model.Qid,new { Value=qty.Quantity_id })
+                                                                <div class="form-group col-xs-12 col-md-12">
+                                                                    @*<input type="text" class="form-control" placeholder="Quantity in Hand" value="@qty.Qty_Stock">*@
+                                                                    @Html.TextBoxFor(Model => Model.Quantity_Qty, new { @class = "form-control", placeholder = "Quantity in Hand", Value = qty.Qty_Stock })
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group col-xs-12 col-md-12">
+                                                                    @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
+                                                                    @Html.TextBoxFor(Model => Model.Quantity_QtyStock, new { @class = "form-control modified", placeholder = "Quantity in Hand", Value = 0 })
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    <tr>
+                                                        <td>Total</td>
+                                                        <td colspan="3">
+                                                            <div class="form-group col-xs-12">
+                                                                @*<input type="text" class="form-control" placeholder="Total Quantity in Hand" value="@ViewBag.total">*@
+                                                                @Html.TextBoxFor(Model => Model.Quantity_Total, new { @class = "form-control modified", placeholder = "Total Quantity in Hand", Value = @ViewBag.total,required="required" })
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </form>
-</div>
-   
+                }
+            }
+
+        </form>
+    </div>
+
 </div>
 
 @section scripts{
@@ -479,7 +500,7 @@
         $('#myTags').tagit();
     </script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 <!--//---- Total Price ------->
 	var costprice = 0, sellprice = 0, tax = 0, taxtotal = 0, discount = 0, discounttotal = 0, shipping = 0;
 
@@ -499,7 +520,8 @@ $("input[placeholder='Selling Price']").blur(function(){
 		  $("input[placeholder='Selling Price']").css("border","1px solid red").val(costprice);
 		  $("input[placeholder='Total']").val(costprice);
 		  }else{$("input[placeholder='Selling Price']").css("border","1px solid #ccc").val(sellprice);
-		        $("input[placeholder='Total']").val(sellprice);}
+		  $("input[placeholder='Total']").val(sellprice);
+      }
 	});
 $("input[placeholder='Tax']").blur(function(){
 	sellprice = parseInt($("input[placeholder='Selling Price']").val());
@@ -509,7 +531,6 @@ $("input[placeholder='Tax']").blur(function(){
 	var v = sellprice + taxtotal;
 	$("input[placeholder='Selling Price']").css("border","1px solid #ccc").val(sellprice);
 	$("input[placeholder='Total']").val(v);
-
 	});
 $("input[placeholder='Discount']").blur(function(){
 	discount = parseInt($("input[placeholder='Discount']").val());
@@ -547,22 +568,22 @@ $("input[placeholder='Quantity in Hand']").blur(function(e) {
 //<!------ Total Quantity in Hand ------->
 //<!---- Text boxes disable / enable ------------>
 $(document).ready(function(e) {
-    $("input[type='text'], textarea").attr("disabled","disabled");
-	$("input[type='text'].batchnum").removeAttr("disabled");
+    $("input[type='text'], textarea").attr("readonly","true");
+	$("input[type='text'].batchnum").removeAttr("readonly");
 });
 
 $(".modified-toggle input[type='checkbox']").change(function(){
 	if($(this).is(":checked")){
-		$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").removeAttr('disabled');
+		$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").removeAttr('readonly');
 		}else{
-			$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").attr('disabled','disabled');}
+			$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").attr('readonly','true');}
 	});
 
 $(".modified-toggle1 input[type='checkbox']").change(function(){
 	if($(this).is(":checked")){
-		$(this).parents(".modified-toggle1").find("input[type='text'].modified").removeAttr('disabled');
+		$(this).parents(".modified-toggle1").find("input[type='text'].modified").removeAttr('readonly');
 		}
 	});
 //<!---- Text boxes disable / enable ------------>
-</script>
+    </script>
 }

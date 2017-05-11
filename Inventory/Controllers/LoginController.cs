@@ -52,6 +52,7 @@ namespace Inventory.Controllers
                         ViewBag.smsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
                         return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
                     }
+                    ViewBag.umsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
                     //return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
