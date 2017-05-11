@@ -49,7 +49,7 @@
     </style>
 </head>
 <body class="nav-md">
-    <form method="post">
+    <form method="post" id="checklogin">
         <div class="container body">
             <div class="main_container">
 
@@ -180,7 +180,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
-
+                                        <input type="hidden" id="usertype" name="usertype" />
                                         <div class="row">
 
                                             @*<p>Media gallery design emelents</p>*@
@@ -196,16 +196,17 @@
                                                         @item.User_Site
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-12 email">
-                                                        <span style="color:maroon">Hi @item.First_Name,</span><br/>
+                                                        <span style="color:maroon">Hi @item.First_Name,</span><br />
                                                         <span style="font-weight:300"> @item.EmailId</span>
                                                     </div>
                                                     <div class="form-group col-xs-12 col-sm-12 col-md-12 password">
                                                         @*<div></div>*@
                                                         @*<input type="password" class="form-control" placeholder="Enter Password" />*@
-                                                        <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control loginpassword" required="required" autofocus="autofocus" />
-                                                        <button type="submit" class="btn btn-primary signin" onclick="this.form.submit();" id="btnlogin" value="Authenticate">Sign In</button>
-                                                        <button type="button" class="btn btn-default next" onclick="get(@item.UserTypeId)">Select</button>  @*data-toggle="modal" data-target=".bs-example-modal-sm"*@
+                                                        @*<input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control loginpassword" required="required" autofocus="autofocus" />*@
+                                                        @*@Html.PasswordFor(Model=>Model.Password,new { placeholder= "Enter Password" , @class="form-control loginpassword", required = "required" ,autofocus = "autofocus" })*@
                                                     </div>
+                                                    <button type="button" class="btn btn-primary signin" onclick="password()" id="btnlogin" value="Authenticate">Sign In</button>
+                                                    <button type="button" class="btn btn-default next" onclick="get(@item.UserTypeId)">Select</button>  @*data-toggle="modal" data-target=".bs-example-modal-sm"*@
 
 
                                                     @*<div id="password @item.UserTypeId" style="display:none">*@
@@ -284,25 +285,25 @@
                     </footer>*@
                 <!-- /footer content -->
             </div>
-            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel2">Enter Password</h4><input type="hidden" id="usertype" name="usertype" />
-                        </div>
-                        <div class="modal-body">
-                            <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control loginpassword" required="required" />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" id="btnlogin" value="Authenticate">Sign In</button>
+            @*<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel2">Enter Password</h4><input type="hidden" id="usertype" name="usertype" />
+                            </div>
+                            <div class="modal-body">
+                                <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" class="form-control loginpassword" required="required" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" id="btnlogin" value="Authenticate">Sign In</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>*@
         </div>
     </form>
     <!-- jQuery -->
@@ -318,6 +319,7 @@
     <script src="../build/js/custom.min.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/hideShowPassword.min.js"></script>
+    <script src="~/Scripts/validations.js"></script>
     <!-- Over Hang -->
     <script src="~/Scripts/js/jquery-ui.min.js"></script>
     <script src="~/Scripts/js/overhang.min.js"></script>
@@ -344,12 +346,20 @@
 
         //});
 
-        $(".thumbnail button.next").click(function () {
+        @*$(".thumbnail button.next").click(function () {
             //var v = '@Request.QueryString["email"]';
             //$(this).parent(".form-group.email").children("div").append("<span>" + v + "</span>");
             $(this).prev("button.signin").css("display", "block");
             $(this).prevAll("input[type='password']").css("display", "block");
             $(this).css("display", "none");
+            //$(this).parent(".form-group.password").children("div").append("<input type='password' id='loginpassword' name='loginpassword' placeholder='Enter Password' class='form-control loginpassword' required='required' autofocus='autofocus' />");
+        });*@
+
+        $(".thumbnail button.next").click(function () {
+            $(this).prev("button.signin").css("display", "block");
+            var password = $(this).prevAll(".form-group.password").append('<input type="password" class="form-control loginpassword" id="loginpassword" name="loginpassword" autofocus="autofocus" placeholder="Enter Password"/>').css("margin-bottom", "0");
+            $(password).children("input[type='password']").css("display", "block");
+            $(this).css({ "display": "none", "margin-bottom": "0" });
         });
     </script>
     @*<script>
@@ -365,13 +375,29 @@
     {
         <script>
             $("body").overhang({
-            type: "error",
+                type: "error",
                 message: '@ViewBag.msg',
                 closeConfirm: false
             });
         </script>
     }
+
+    <script>
+        function password() {
+            if ($('#loginpassword').val() == '') {
+                $("body").overhang({
+                    type: "error",
+                    message: 'Enter Password',
+                    closeConfirm: false,
+                    duration: 5,
+                });
+                $('#loginpassword').focus();
+            }
+            else {
+                $('#checklogin').submit();
+            }
+        };
+
+    </script>
 </body>
 </html>
-
-

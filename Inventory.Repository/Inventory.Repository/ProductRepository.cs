@@ -25,42 +25,42 @@ namespace Inventory.Repository
         #endregion
 
         #region Sorting Sub-Category
-        public static SqlDataReader GetSubCategory(string dbname,string type,string categoryid)
+        public static SqlDataReader GetSubCategory(string dbname, string type, string categoryid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "getsubcategory",type,categoryid);
+            return SqlHelper.ExecuteReader(ConnectionString, "getsubcategory", type, categoryid);
         }
         #endregion
 
         #region Add/Remove ProductItems
-        public static int ProductItems(string dbname,string command,string weight,string size,string color,string itemshape,string assignedcategoryid,string category,string subcategory,string brand,string model,string id)
+        public static int ProductItems(string dbname, string command, string weight, string size, string color, string itemshape, string assignedcategoryid, string category, string subcategory, string brand, string model, string id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductItems", command, weight, size, color, itemshape, assignedcategoryid, category, subcategory,brand,model, id);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductItems", command, weight, size, color, itemshape, assignedcategoryid, category, subcategory, brand, model, id);
         }
         #endregion
 
         #region Get Product Items
-        public static SqlDataReader GetProductItems(string dbname, string command,string id)
+        public static SqlDataReader GetProductItems(string dbname, string command, string id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "GetProductItems", command,id);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetProductItems", command, id);
         }
         #endregion
 
         #region Add Product
-        public static int ProductFunctionalities(string type,string dbname,int id, string product_id, string product_name, string batch_number,string brand , string model , string category , string sub_category , string cost_price , string selling_price , string tax ,
-           string discount , string shipping_price , string total_price , string Measurement , string weight , string size , string color , string item_shape , string product_consumable ,
-           string product_type , string product_perishability , string product_expirydate , string product_description , string product_tags,string product_images)
+        public static int ProductFunctionalities(string type, string dbname, int id, string product_id, string product_name, string batch_number, string brand, string model, string category, string sub_category, string cost_price, string selling_price, string tax,
+           string discount, string shipping_price, string total_price, string Measurement, string weight, string size, string color, string item_shape, string product_consumable,
+           string product_type, string product_perishability, string product_expirydate, string product_description, string product_tags, string product_images)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductFunctionalities", type,id,product_id, product_name, batch_number, brand, model, category, sub_category, cost_price, selling_price, tax, discount,
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductFunctionalities", type, id, product_id, product_name, batch_number, brand, model, category, sub_category, cost_price, selling_price, tax, discount,
                 shipping_price, total_price, Measurement, weight, size, color, item_shape, product_consumable, product_type, product_perishability, product_expirydate,
-                product_description, product_tags,product_images);
+                product_description, product_tags, product_images);
         }
         #endregion
 
@@ -87,7 +87,7 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "AddQuantityInHand", product_id, area, Qty,reorder, Total);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "AddQuantityInHand", product_id, area, Qty, reorder, Total);
         }
         #endregion
 
@@ -96,7 +96,43 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "productstatus",id, status);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "productstatus", id, status);
+        }
+        #endregion
+
+        #region Get Product
+        public static SqlDataReader GetProduct(string dbname, string id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetProduct", id);
+        }
+        #endregion
+
+        #region Get Quantity In Hand
+        public static SqlDataReader GetQuantityInHand(string dbname, string id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetQuantityInHand", id);
+        }
+        #endregion
+
+        #region Update Product
+        public static int updateproduct(string dbname, string id,string batch,string cost_price,string selling_price,string tax,string discount,string shipping,string total_price)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "UpdateProduct", id, batch, cost_price, selling_price, tax, discount, shipping, total_price);
+        }
+        #endregion
+
+        #region Update Stock
+        public static int UpdateStock(string dbname, string id, string qty,string total)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "UpdateStock", id, qty,total);
         }
         #endregion
 
@@ -107,14 +143,15 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "Getproductsbysubcategory", sub_category);
         }
-        
-             public static SqlDataReader Getdistinctproducts(string dbname)
+
+        public static SqlDataReader Getdistinctproducts(string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getuniqueproducts");
         }
-        public static SqlDataReader Getdescripton(string dbname,String product_name)
+
+        public static SqlDataReader Getdescripton(string dbname, String product_name)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);

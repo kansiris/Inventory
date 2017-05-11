@@ -52,6 +52,7 @@ namespace Inventory.Controllers
                         ViewBag.smsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
                         return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
                     }
+                    ViewBag.umsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
                     //return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
@@ -110,15 +111,15 @@ namespace Inventory.Controllers
             return Json("unique", JsonRequestBehavior.AllowGet); // if email ID is unique
         }
 
-        public void createdb(string Email)
+        public void createdb(string DBname)
         {
             try
             {
-                string DBname = null;
-                SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
-                if (value.Read())
-                    DBname = value["User_Site"].ToString() + "_Inventory";
-                value.Close();
+                //string DBname = null;
+                //SqlDataReader value = LoginService.Authenticateuser("email", Email, null, null, 0);
+                //if (value.Read())
+                //    DBname = value["User_Site"].ToString() + "_Inventory";
+                //value.Close();
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user1234;"; //for server
                 FileInfo File = new FileInfo(Server.MapPath("../Models/May08.sql"));
@@ -173,7 +174,7 @@ namespace Inventory.Controllers
                 {
                     if (value["activationcode"].ToString() == ActivationCode && (int)value["UserTypeId"] == usertype) // if usertype is owner
                     {
-                        createdb(Email); //creating DB
+                        createdb(value["DB_Name"].ToString()); //creating DB
                         activateemail = LoginService.ActivateEmail(Email, ActivationCode);
                         value.Close();
                     }

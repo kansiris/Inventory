@@ -385,7 +385,8 @@
             $("body").overhang({
             type: "error",
                 message: '@ViewBag.msg',
-                closeConfirm: false
+                closeConfirm: false,
+                duration: 5,
             });
         </script>
     }
@@ -400,6 +401,19 @@
                 closeConfirm: false
             });
             location.href = '/AllProducts/Index';
+        </script>
+    }
+
+    @*Warning Message*@
+    @if (ViewBag.umsg != "" && ViewBag.umsg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "warn",
+                message: '@ViewBag.umsg',
+                closeConfirm: false,
+                duration: 5,
+            });
         </script>
     }
 </body>

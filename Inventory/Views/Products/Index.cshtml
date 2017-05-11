@@ -84,7 +84,7 @@
                                                 <li><a href="" onclick="getproducts('Chicken')" id="chicken">Chicken</a></li>
                                                 <li><a href="" onclick="getproducts('Mutton')" id="mutton">Mutton</a></li>
                                                 <li><a href="" onclick="getproducts('Seafood')" id="seafood">Seafood</a></li>
-                                               
+
                                             </ul>
                                         </li>
 
@@ -116,7 +116,7 @@
                                                 <li><a href="" onclick="getproducts('Salt,Sugar and Jaggery')">Salt,Sugar and Jaggery</a></li>
                                             </ul>
                                         </li>
-                                        
+
                                         <li class="leve12">
                                             <a href="#">Branded Foods <span class="caret"></span></a>
                                             <ul class="nav nav-stacked left-submenu">
@@ -149,7 +149,7 @@
                                                 <li><a href="" onclick="getproducts('Tea and Coffee')">Tea and Coffee</a></li>
                                             </ul>
                                         </li>
-                                       
+
                                         <li class="leve12">
                                             <a href="#">Gift Cards<span class="caret"></span></a>
                                             <ul class="nav nav-stacked left-submenu">
@@ -170,7 +170,7 @@
                                                 <li><a href="" onclick="getproducts('Handloom and Handycraft store')">Handloom and Handycraft store</a></li>
                                             </ul>
                                         </li>
-                                        
+
                                         <li class="leve12">
                                             <a href="#">Men's fashion<span class="caret"></span></a>
                                             <ul class="nav nav-stacked left-submenu">
@@ -180,7 +180,7 @@
                                                 <li><a href="" onclick="getproducts('Sports Wear')">Sports Wear</a></li>
                                             </ul>
                                         </li>
-                                        
+
                                         <li class="leve12">
                                             <a href="#">PC and Electronics<span class="caret"></span></a>
                                             <ul class="nav nav-stacked left-submenu">
@@ -188,14 +188,14 @@
                                                 <li><a href="" onclick="getproducts('Computers and Accessories')">Computers and Accessories</a></li>
                                             </ul>
                                         </li>
-                                        
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-7">
                             @{ Html.RenderAction("allproducts", "Products");}
-                            
+
                         </div>
                         <div class="col-xs-12 col-md-3">
                             <div class="row checkout">
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="col-xs-12">
                                     @*<a class="btn btn-primary" href="/Products/purchaseorder">Generate Product Order</a>*@
-    <button class="btn btn-primary" type="button">Generate Product Order</button>
+                                    <button class="btn btn-primary" type="button">Generate Product Order</button>
                                 </div>
                             </div>
                         </div>
@@ -239,9 +239,9 @@
 
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-     <script src="../build/js/custom.min.js"></script>
+    <script src="../build/js/custom.min.js"></script>
 
-       <script src="~/Scripts/shopproduct.js"></script>
+    <script src="~/Scripts/shopproduct.js"></script>
 
     <script type="text/javascript">@*
     @*<!------------ List / Grid Views and reload page -------------->*@
@@ -291,7 +291,7 @@
         //    $(this).parents("tr").clone(true, true).appendTo(".added-products");
         //    $(".added-products").css("padding", "0px 0px 10px");
         //});
-       
+
         //function vals() {
         //    var total, totalquantity = 0, productprice, carttotal = 0;
         //    $(".added-products .spinner input[type='text']").each(function () {
@@ -309,9 +309,9 @@
 
         //}
 
-       //$(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
-       //     return vals();
-       // });
+        //$(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
+        //     return vals();
+        // });
 
         $(".remove").click(function () {
             $(this).parents("div.well,tr").remove();
