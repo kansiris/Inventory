@@ -37,7 +37,8 @@ namespace Inventory.Models
         public string created_date { get; set; }
         public string product_images { get; set; }
         public string distinctproducts { get; set; }
-
+        public string Quantity { get; set; }
+        public int cart_id { get; set; }
 
         public string status { get; set; }
         
