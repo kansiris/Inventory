@@ -32,7 +32,7 @@
                                     <select class="form-control" @*onchange="basedon_price(this.value)"*@>
                                         @foreach (var item1 in item.distinctproducts.Split(','))
                                         {
-                                            <option>@item1.Replace('?', '₹')</option>
+                                            <option>@item1.Replace('?', '₹')</option>  
                                         }
                                         
                                     </select>
@@ -109,7 +109,7 @@
                                 Standard Delivery
                             </div>
                             <div class="row">
-                                <div class="col-xs-6">
+                                <div class="col-xs-6 qty">
                                     <div class="input-group spinner">
                                         <label>Qty</label>
                                         <input type="text" class="form-control" value="1">
@@ -188,6 +188,11 @@ else
     });
 
     $(".add-to-cart > .btn").click(function () {
+        var select = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val();
+        var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
+        var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
+        var brandname = $(this).parents(".rate-add").prevAll("div.img-title").children("span").html();
+        alert("brand:" + brandname + ", productname:" + productname + ",Measurement:" + select + ",Quantity:" + qty + "");
         var v = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val();
         var txt = $(this).parents(".rate-add").prev("div.empty");
         $(txt).empty().append("<p>" + v + "<p>");

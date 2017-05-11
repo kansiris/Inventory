@@ -37,11 +37,13 @@ namespace Inventory.Controllers
             value.Close();
             if (TempData["msg"] != null )
             { ViewBag.msg = TempData["msg"]; }
+            if (TempData["umsg"] != null)
+            { ViewBag.umsg = TempData["umsg"]; }
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(string email, string usertype, string loginpassword)
+        public ActionResult Index(string email, string usertype, string loginpassword,string userid)
         {
             try
             {
@@ -49,21 +51,24 @@ namespace Inventory.Controllers
                 UserMaster userMaster = new UserMaster();
                 if (value.HasRows)
                 {
-                    userMaster = convert(value);
-                    if (userMaster != null)
+                    userMaster = convert(value,userid);
+                    if (userMaster.IsActive != 0)
                     {
                         value.Close();
                         string userData = JsonConvert.SerializeObject(userMaster);
                         ValidUser.SetAuthCookie(userData, userMaster.ID);
+                        return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
                     }
-                    return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
+                    TempData["umsg"] = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
+                    return RedirectToAction("Index", "AvailableCompanies", new { email = email });
                 }
                 TempData["msg"] = "Invalid Login!!! Try Again";
                 return RedirectToAction("Index", "AvailableCompanies", new { email = email });
                 //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
             }
             catch (Exception)
-            {                
+            {
+                //throw r;
                 return RedirectToAction("Index", "ServerDown");
             }
             //SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
@@ -81,11 +86,11 @@ namespace Inventory.Controllers
             //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
         }
 
-        public UserMaster convert(SqlDataReader sqlDataReader)
+        public UserMaster convert(SqlDataReader sqlDataReader,string userid)
         {
             DataTable dt = new DataTable();
             dt.Load(sqlDataReader);
-            UserMaster userMaster = new UserMaster();
+            List<UserMaster> userMaster = new List<UserMaster>();
             userMaster = (from DataRow row in dt.Rows
                           select new UserMaster()
                           {
@@ -99,15 +104,15 @@ namespace Inventory.Controllers
                               UserTypeId = (int)row["UserTypeId"],
                               User_Site = row["User_Site"].ToString(),
                               CompanyName = row["CompanyName"].ToString(),
-                              Phone = row["Phone"].ToString(),
-                              SubscriptionDate = (DateTime)row["SubscriptionDate"],
+                              //Phone = row["Phone"].ToString(),
+                              //SubscriptionDate = (DateTime)row["SubscriptionDate"],
                               IsActive = (int)row["IsActive"],
                               //Profile_Picture = (byte[])row["Profile_Picture"],
-                              Date_Format = row["Date_Format"].ToString(),
-                              Timezone = row["Timezone"].ToString(),
-                              Currency=row["Currency"].ToString()
-                          }).FirstOrDefault();
-            return userMaster;
+                              //Date_Format = row["Date_Format"].ToString(),
+                              //Timezone = row["Timezone"].ToString(),
+                              //Currency=row["Currency"].ToString()
+                          }).Where(m=>m.ID == userid).ToList();
+            return userMaster.First();
         }
     }
 }
