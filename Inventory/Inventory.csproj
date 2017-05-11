@@ -4780,6 +4780,8 @@
     <Content Include="Views\Products\allproducts.cshtml" />
     <Content Include="Views\AddStock\Index.cshtml" />
     <Content Include="Views\Vamsi\Index.cshtml" />
+    <Content Include="Views\Products\Addtocartpartial.cshtml" />
+    <Content Include="Views\Products\GenaratePOs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

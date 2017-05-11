@@ -157,5 +157,18 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getmeasurmentsbyproduct", product_name);
         }
+        public static int Addtocart(string dbname, string id, string brand, string product_name, string Quantity, string Measurement, string total_price)
+        {
+               GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "addtocart",id, brand, product_name, Quantity, Measurement, total_price);
+        }
+        public static SqlDataReader Addtocartbyid(string dbname, String id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "addtocartbyuserid", id);
+        }
+
     }
 }
