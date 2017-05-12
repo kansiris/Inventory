@@ -36,8 +36,8 @@
                                                     <a onclick="deleteRecord(@item.cus_company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Customer</a>
                                                     ======================
                                                 </li>
-                                                @*<li> <hr /> </li>*@
-                                                <li> <a href="~/Products"><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
+                                                <li> <a href="~/Products?cid=@item.cus_company_Id"><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
+                                                @*<li> <a onclick="createPo(@item.cus_company_Id)"><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>*@
                                                 <li> <a href="~/Invoice"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a> </li>
                                                 <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
                                                 <li> <a><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>

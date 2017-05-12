@@ -141,6 +141,13 @@ namespace Inventory.Service
         {
             return CustomerRepository.updatecuscompanyprofile(id, cus_logo, dbname);
         }
+        
+
+        //for products purpose
+             public static SqlDataReader getAllDetailsByCompany_Id(string Customer_Id, string dbname)
+        {
+            return CustomerRepository.getusermaster(Customer_Id, dbname);
+        }
 
     }
 }

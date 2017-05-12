@@ -40,7 +40,7 @@
                     <div class="row total-border">
                         <div class="col-xs-12 col-md-12">
                             <div class="row margin-bottom">
-                                <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="images/logo6.jpg" alt="Logo" /> <span class="vendorname">Fedex Company</span> </div>
+                                <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="~/images/logo6.jpg" alt="Logo" /> <span class="vendorname">Fedex Company</span> </div>
                                 <div class="address col-xs-12 col-md-3 margin-bottom">
                                     <span>Billing Address</span><br />
                                     Fedex Solutions Pvt.Ltd,<br />
@@ -109,7 +109,38 @@
                             </div>
                             <div class="row padding-top po-order">
                                 <div class="col-xs-12 col-md-12">
-                                    <div class="total table-responsive">
+@if (ViewBag.records != null)
+{
+    foreach (var item in ViewBag.records)
+    {
+        <div class="total table-responsive">
+            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="col-md-2">Ptid</th>
+                        <th class="col-md-3">Product Name</th>
+                        <th class="col-md-3">Description</th>
+                        <th class="col-md-2">Quantity</th>
+                        <th class="col-md-1">Price</th>
+                        <th class="col-md-1">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-md-2 image">@item.cart_id </td>
+                        <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
+                        <td class="col-md-3 product-variation"><span>@item.Measurement</span></td>
+                        <td class="col-md-2 quantity-changes">@item.Quantity</td>
+                        <td class="col-md-1 product-price">Rs <span>@item.total_price</span></td>
+                        <td class="col-md-1 product-price">Rs <span>@item.total_price</span></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    }
+}
+   @*<div class="total table-responsive">
                                         <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                                             <thead class="thead-inverse">
                                                 <tr>
@@ -156,10 +187,10 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
-                            <div class="row">
+                           <div class="row">
                                 <div class="col-xs-12 col-md-6 remarks margin-top">
                                     <label>Remarks</label>
                                     <textarea class="form-control" rows="3" id="comment" placeholder=""></textarea>
