@@ -71,13 +71,24 @@ namespace Inventory.Controllers
                     }
                     imagename = imagename.TrimStart(',');
                 }
+
                 //if (product.product_images != null)
                 //{
-                   
+
                 //    var images = product.product_images.Split(',');
                 //    for (int i = 0; i < images.Count(); i++)
                 //    {
-                //        imagename = imagename + "," + product_id + "_" + images[i];
+                //        string fileName = product_id + "_" + images[i];
+                //        string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
+                //        using (System.IO.FileStream fs = System.IO.File.Create(pathString))
+                //        {
+                //            for (byte i1 = 0; i1 < 100; i1++)
+                //            {
+                //                fs.WriteByte(i1);
+                //            }
+                //        }
+                //        //imagename = imagename + "," + product_id + "_" + images[i];
+                //        //System.IO.File.Create(Server.MapPath("~/ProductImages/" + product_id + "_" + images[i]));
                 //        //Path.Combine(Server.MapPath("~/ProductImages/"), product_id + "_" + images[i]);
                 //        //file.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + images[i]));
                 //        //file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + file1.FileName));
