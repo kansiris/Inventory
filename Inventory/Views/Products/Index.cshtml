@@ -218,8 +218,8 @@
                                 </div>*@
                                 @{ Html.RenderAction("Addtocartpartial", "Products");}
                                 <div class="col-xs-12">
-                                    @*<a class="btn btn-primary" href="/Products/purchaseorder">Generate Product Order</a>*@
-                                    <button class="btn btn-primary" type="button" onclick="genaratepo()">Generate Product Order</button>
+                                    
+                                    <button class="btn btn-primary" type="button" onclick="genaratepo()">Generate Purchase Order</button>
                                 </div>
                             </div>
                         </div>
@@ -284,9 +284,7 @@
             return vals();
         });
 
-        function gototgenerateorder() {
-            RedirectToAction("purchaseorder");
-        }
+       
     </script>
     //<!----------- Quantity Add in Right Bar ---------------->
 }

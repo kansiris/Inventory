@@ -14,7 +14,7 @@ namespace Inventory.Controllers
     {
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string cid)
         {
             return View();
         }
@@ -108,13 +108,13 @@ namespace Inventory.Controllers
         }
         //for Add to cart
 
-        public JsonResult Addtocart(string brand,string product_name,string Quantity,string Measurement,string total_price)
+        public JsonResult Addtocart(/*string brand,*/string product_name,string Quantity,string Measurement,string total_price)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var sample = Addtocartpartial(user.DbName, user.ID);
-                int count = ProductService.Addtocart(user.DbName,user.ID,brand, product_name, Quantity, Measurement, total_price);
+                int count = ProductService.Addtocart(user.DbName,user.ID, product_name, Quantity, Measurement, total_price);
             if (count>0)
             {
                    return Json("success");
@@ -133,9 +133,9 @@ namespace Inventory.Controllers
                                                select new Product()
                                                {
                                                    ID= row["id"].ToString(),
-                                                   //cart_id=int(row["cart_id"].ToString()),
+                                                   cart_id= int.Parse(row["cart_id"].ToString()),
                                                    product_name = row["product_name"].ToString(),
-                                                   brand = row["brand"].ToString(),
+                                                   //brand = row["brand"].ToString(),
                                                    Quantity= row["Quantity"].ToString(),
                                                   //product_images = row["product_images"].ToString(),
                                                    Measurement = row["Measurement"].ToString(),
@@ -145,42 +145,57 @@ namespace Inventory.Controllers
             return PartialView("Addtocartpartial", ViewBag.records);
                    }
         //for genRte pos
-        public PartialViewResult GenaratePOs()
+        [HttpGet]
+        public PartialViewResult GenaratePOs(string cid)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-
-                //var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                //var records = ProductService.Getproductbyid(user.DbName, id);
-                //var dt = new DataTable();
-                //dt.Load(records);
-                //List<Product> cartaddedproducts = (from DataRow row in dt.Rows
-                //                                   select new Product()
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = ProductService.Getcartdata(user.DbName, user.ID);
+                dt.Load(records);
+                //var dt1 = new DataTable();
+                //var records1 = CustomerService.getAllDetailsByCompany_Id(user.DbName, cid);
+                //dt.Load(records1);
+                //List<Customer> customerdata = (from DataRow row in dt.Rows
+                //                                   select new Customer()
                 //                                   {
-                //                                       product_name = row["product_name"].ToString(),
-                //                                       brand = row["brand"].ToString(),
-                //                                       Quantity = row["Quantity"].ToString(),
-                //                                       //product_images = row["product_images"].ToString(),
-                //                                       Measurement = row["Measurement"].ToString(),
-                //                                       //weight = row["weight"].ToString(),
-                //                                       total_price = row["total_price"].ToString(),
+                //                                       company_name=[]
                 //                                   }).ToList();
-                //ViewBag.records = cartaddedproducts;
-                return PartialView("GenaratePOs");
+                List<Product> cartaddedproducts = (from DataRow row in dt.Rows
+                                                   select new Product()
+                                                   {
+                                                       ID = row["id"].ToString(),
+                                                       cart_id = int.Parse(row["cart_id"].ToString()),
+                                                       product_name = row["product_name"].ToString(),
+                                                       //brand = row["brand"].ToString(),
+                                                       Quantity = row["Quantity"].ToString(),
+                                                       //product_images = row["product_images"].ToString(),
+                                                       Measurement = row["Measurement"].ToString(),
+                                                       total_price = row["total_price"].ToString(),
+                                                   }).ToList();
+                ViewBag.records = cartaddedproducts;
+                //cartaddedproducts.AddRange()
+                return PartialView("GenaratePOs", ViewBag.records);
             }
             return PartialView("GenaratePOs", null);
         }
-
-        public JsonResult Genaratepo()
+        
+        //removing from cart
+        public JsonResult Removefromcart(int cart_id)
         {
-            //var sample = Addtocartpartial(id);
-
-            //if (id != null)
-            //{
-                return Json("success");
-            //}
-            //return Json("unique");
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+               
+                int count = ProductService.Removefromcart(user.DbName,cart_id);
+                if (count > 0)
+                {
+                    return Json("success");
+                }
+            }
+            return Json("unique");
         }
     }
 }

@@ -1,60 +1,61 @@
-﻿@if (ViewBag.records != null)
+﻿
+
+@if (ViewBag.records != null)
 {
 <div class="col-xs-12" id="cartrecords">
     <div class="added-products" style="padding:0px 0px 10px">
-       @foreach (var item in ViewBag.records)
-       {
-        <div class="well">
-            <i class="fa fa-times remove" aria-hidden="true" onclose="removecart(@item.ID)"></i>
-            <div class="image">
+        @foreach (var item in ViewBag.records)
+        {
+            <div class="well">
+                <i class="fa fa-times remove" aria-hidden="true" onclick="removecart(@item.cart_id)"></i>
+                <div class="image">
 
-                <img src="/images/default_product.png">
-            </div>
-            <div class="img-title">
-                <span class="product-brand">@item.product_name</span>
-                <a href="#" class="product-name" title="@item.product_name">@item.brand</a>
-            </div>
-            <div class="product-variation">
-                <select class="form-control">
+                    <img src="/images/default_product.png">
+                </div>
+                <div class="img-title">
+                    <span class="product-brand">@item.product_name</span>
+                    <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
+                </div>
+                <div class="product-variation">
+                    <select class="form-control">
 
-                    <option>@item.Measurement</option>
-                    
-                </select>
-            </div>
-            <div class="empty"><p>@item.Measurement</p><p></p></div>
-            <div class="rate-add">
-                @*<div class="product-price">
-                    ₹ <span id="price">4600</span>
-                </div>*@
-                <div class="product-price-total">
-                    ₹ <span id="price1">@item.total_price</span>
+                        <option>@item.Measurement</option>
+
+                    </select>
                 </div>
-                <div class="shipping">
-                    <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                    Standard Delivery
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 qty">
-                        <div class="input-group spinner">
-                            <label>Qty</label>
-                            <input type="text" class="form-control" value="@item.Quantity">
-                            <div class="input-group-btn-vertical">
-                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                <div class="empty"><p>@item.Measurement</p><p></p></div>
+                <div class="rate-add">
+                    @*<div class="product-price">
+                            ₹ <span id="price">4600</span>
+                        </div>*@
+                    <div class="product-price-total">
+                        ₹ <span id="price1">@item.total_price</span>
+                    </div>
+                    <div class="shipping">
+                        <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                        Standard Delivery
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 qty">
+                            <div class="input-group spinner">
+                                <label>Qty</label>
+                                <input type="text" class="form-control" value="@item.Quantity">
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 add-to-cart">
-                        <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                        <div class="col-xs-6 add-to-cart">
+                            <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-       }
-        
+        }
 
     </div>
-</div>
-
+    </div>
+    
 }
 

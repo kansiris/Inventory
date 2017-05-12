@@ -205,6 +205,11 @@ namespace Inventory.Repository
             return count;
         }
 
-
+        public static SqlDataReader getAllDetailsByCompany_Id(string Customer_Id, string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getAllDetailsByCompany_Id", Customer_Id);
+        }
     }
 }

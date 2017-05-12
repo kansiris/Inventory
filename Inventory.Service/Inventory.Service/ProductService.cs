@@ -121,9 +121,9 @@ namespace Inventory.Service
             return ProductRepository.Getdescripton(dbname, product_name);
         }
 
-        public static int Addtocart(string dbname,string id, string brand, string product_name, string Quantity, string Measurement, string total_price)
+        public static int Addtocart(string dbname,string id, /*string brand,*/ string product_name, string Quantity, string Measurement, string total_price)
         {
-            return ProductRepository.Addtocart(dbname,id, brand, product_name, Quantity, Measurement, total_price);
+            return ProductRepository.Addtocart(dbname,id,/* brand,*/ product_name, Quantity, Measurement, total_price);
         }
 
         
@@ -131,5 +131,16 @@ namespace Inventory.Service
         {
             return ProductRepository.Addtocartbyid(dbname, id);
         }
+
+        
+            public static int Removefromcart(string dbname, int cart_id)
+        {
+            return ProductRepository.Removefromcart(dbname, cart_id);
+        }
+        public static SqlDataReader Getcartdata(string dbname, string id)
+        {
+            return ProductRepository.Getcartdata(dbname, id);
+        }
+        
     }
 }

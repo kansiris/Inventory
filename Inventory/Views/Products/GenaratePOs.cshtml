@@ -40,7 +40,7 @@
                     <div class="row total-border">
                         <div class="col-xs-12 col-md-12">
                             <div class="row margin-bottom">
-                                <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="images/logo6.jpg" alt="Logo" /> <span class="vendorname">Fedex Company</span> </div>
+                                <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="~/images/logo6.jpg" alt="Logo" /> <span class="vendorname">Fedex Company</span> </div>
                                 <div class="address col-xs-12 col-md-3 margin-bottom">
                                     <span>Billing Address</span><br />
                                     Fedex Solutions Pvt.Ltd,<br />
@@ -107,6 +107,7 @@
                                     </tbody>
                                 </table>
                             </div>
+
                             <div class="row padding-top po-order">
                                 <div class="col-xs-12 col-md-12">
                                     <div class="total table-responsive">
@@ -122,43 +123,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="col-md-2 image">1006 </td>
-                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
-                                                    <td class="col-md-3 product-variation"><span>50 gm </span></td>
-                                                    <td class="col-md-2 quantity-changes">2</td>
-                                                    <td class="col-md-1 product-price">Rs <span>20</span></td>
-                                                    <td class="col-md-1 product-price">Rs <span>40</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-md-2 image">1006 </td>
-                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
-                                                    <td class="col-md-3 product-variation"><span>50 gm </span></td>
-                                                    <td class="col-md-2 quantity-changes">2</td>
-                                                    <td class="col-md-1 product-price">Rs <span>20</span></td>
-                                                    <td class="col-md-1 product-price">Rs <span>40</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-md-2 image">1006 </td>
-                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
-                                                    <td class="col-md-3 product-variation"><span>50 gm </span></td>
-                                                    <td class="col-md-2 quantity-changes">2</td>
-                                                    <td class="col-md-1 product-price">Rs <span>20</span></td>
-                                                    <td class="col-md-1 product-price">Rs <span>40</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-md-2 image">1006 </td>
-                                                    <td class="col-md-3 product-name"><a href="#">Product Name</a></td>
-                                                    <td class="col-md-3 product-variation"><span>50 gm </span></td>
-                                                    <td class="col-md-2 quantity-changes">2</td>
-                                                    <td class="col-md-1 product-price">Rs <span>20</span></td>
-                                                    <td class="col-md-1 product-price">Rs <span>40</span></td>
-                                                </tr>
+                                                @if (ViewBag.records != null)
+                                                {
+                                                    foreach (var item in ViewBag.records)
+                                                    {
+                                                        <tr>
+                                                            <td class="col-md-2 image">@item.cart_id </td>
+                                                            <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
+                                                            <td class="col-md-3 product-variation"><span>@item.Measurement</span></td>
+                                                            <td class="col-md-2 quantity-changes">@item.Quantity</td>
+                                                            <td class="col-md-1 product-price">Rs <span>@item.total_price</span></td>
+                                                            <td class="col-md-1 product-price">Rs <span>@item.total_price</span></td>
+                                                        </tr>
+                                                    }
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-xs-12 col-md-6 remarks margin-top">
                                     <label>Remarks</label>
@@ -225,21 +209,21 @@
     <script src="~/Scripts/Product.js"></script>
     <link rel="stylesheet" href="css/bootstrap-datepicker3.css" />
     <script>
-    $(document).ready(function () {
-        var date_input = $('input[name="date"]'); //our date input has the name "date"
-        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'mm/dd/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
-    });
+        $(document).ready(function () {
+            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+        });
     </script>
     <script type="text/javascript">
-    $('#add-vendor1').click(function () {
-        document.location = '@Url.Action("Index", "Products")';
-    });
+        $('#add-vendor1').click(function () {
+            document.location = '@Url.Action("Index", "Products")';
+        });
     </script>
 }
 

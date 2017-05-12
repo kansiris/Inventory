@@ -28,55 +28,38 @@ function getproducts(value) {
     ajaxcalling(value);
 }
 
-//function addtocart(id) {
-//    alert(id);
-//    $.ajax({
-//        url: '/Products/Addtocart?id=' + id,
-//        type: 'POST',
-//        data: JSON.stringify({}),
-//        dataType: 'json',
-//        contentType: 'application/json',
-//        success: function (data) {
-//            alert(data);
-//            if (data == "unique") {
-//                alert("nodata available");
-//            }
-//            else {
-//                alert("inserted");
-//                //var url1 = 'Products/Getproductsbysubcategory';
-//                //$('#allproducts').empty().load(url1);
-//            }
-//        },
-//        error: function (data)
-//        { alert("Failed!!!"); }
-//    });
-
-//}
 
 
-//for genarate pos
-
-function genaratepo() {
-    //alert(id);
+//removing from cart
+function removecart(cartid) {
+    alert(cartid);
     $.ajax({
-        url: '/Products/Genaratepo?',
+        url: '/Products/Removefromcart?cart_id=' + cartid,
         type: 'POST',
         data: JSON.stringify({}),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            alert(data);
             if (data == "unique") {
-                alert("nodata available");
+                alert("no data available");
             }
             else {
-                alert("inserted");
-                var url1 = 'Products/GenaratePOs';
-                $('#allproducts').empty().load(url1);
+                alert("Removed from cart Successfully .");
+                var url = 'Products/Addtocartpartial';
+                $('#cartrecords').empty().load(url);
+                $('#allproducts').load();
             }
         },
         error: function (data)
         { alert("Failed!!!"); }
     });
 
+}
+
+//for genarate pos
+
+function genaratepo() {
+    var customerid = document.URL.split('=')[1];
+    location.href='/Products/GenaratePOs?cid='+customerid;
+    
 }
