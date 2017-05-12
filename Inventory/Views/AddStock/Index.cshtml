@@ -265,7 +265,7 @@
                                         </div>
                                         <div class="form-group radio col-xs-4 col-md-4">
                                             <label class="switch toggle-consumable">
-                                                <input type="checkbox" id="checkbox1">
+                                                <input type="checkbox" id="consumable">
                                                 <div class="slider"></div>
                                             </label>
                                         </div>
@@ -282,7 +282,7 @@
                                         </div>
                                         <div class="form-group radio col-xs-4 col-md-4">
                                             <label class="switch veg-non">
-                                                <input type="checkbox" id="checkbox1">
+                                                <input type="checkbox" id="veg-non">
                                                 <div class="slider"></div>
                                             </label>
                                         </div>
@@ -297,7 +297,7 @@
                                         </div>
                                         <div class="form-group radio col-xs-4 col-md-4">
                                             <label class="switch perishable-non">
-                                                <input type="checkbox" id="checkbox1">
+                                                <input type="checkbox" id="perishable">
                                                 <div class="slider"></div>
                                             </label>
                                         </div>
@@ -569,7 +569,30 @@ $("input[placeholder='Quantity in Hand']").blur(function(e) {
 //<!---- Text boxes disable / enable ------------>
 $(document).ready(function(e) {
     $("input[type='text'], textarea").attr("readonly","true");
-	$("input[type='text'].batchnum").removeAttr("readonly");
+    $("input[type='text'].batchnum").removeAttr("readonly");
+    var consumable = $('#product_consumable').val()
+    var type = $('#product_type').val();
+    var perishable = $('#product_perishability').val();
+    if (consumable == 'Non-Consumable') {
+        $('#consumable').attr('checked', false).attr('readonly', 'true');
+        $(".quantity-perishable-non, .quantity-veg-non").css("display", "none");
+    }
+    else {
+        $('#consumable').attr('checked', true).attr('readonly', 'true');
+        $(".quantity-perishable-non, .quantity-veg-non").css("display", "block");
+        if (type == 'Veg') {
+            $('#veg-non').attr('checked', false).attr('readonly','true');
+        }
+        else {
+            $('#veg-non').attr('checked', true).attr('readonly', 'true');
+        }
+        if (perishable == 'Perishable') {
+            $('#perishable').attr('checked', false).attr('readonly', 'true');
+        }
+        else {
+            $('#perishable').attr('checked', true).attr('readonly', 'true');
+        }
+    }
 });
 
 $(".modified-toggle input[type='checkbox']").change(function(){
