@@ -27,11 +27,11 @@
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 
-      <!-- Over Hang -->
-<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+    <!-- Over Hang -->
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 
-<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-@*<script src="~/Scripts/js/bootstrap.js"></script>*@
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    @*<script src="~/Scripts/js/bootstrap.js"></script>*@
 }
 
 <!-- page content -->
@@ -53,8 +53,12 @@
             <div class="row blocks">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="content">
-                        <h2>Estimate</h2>
-                        <p>Rs&nbsp;10000</p>
+                        <h2>Products Count</h2>
+                        @if (ViewBag.products != null)
+                        {
+                            <p>@ViewBag.products.Count</p>}
+                        else
+                        { <p>0</p>}
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -77,9 +81,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="table-responsive">
-                        <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                        <table class="table  table-borderedtable-striped bulk_action" id="producttable">
                             <thead class="thead-inverse">
                                 <tr>
                                     <th class="col-md-1">Product ID</th>
@@ -96,7 +100,8 @@
                                 {
                                     foreach (var item in ViewBag.products)
                                     {
-                                        <tr> @* class="vamsi"*@
+                                        <tr>
+                                            @* class="vamsi"*@
                                             <td class="col-md-1">@item.product_id</td>
                                             <td class="col-md-3">@item.product_name</td>
                                             <td class="col-md-2">@item.brand</td>
@@ -110,11 +115,11 @@
                                                         <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
                                                         @if (item.status == "Active")
                                                         {
-                                                        <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=InActive"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}
+                                                            <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=InActive"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}
                                                         @if (item.status == "InActive")
                                                         {
-                                                        <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=Active"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
-                                                        
+                                                            <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=Active"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
+
                                                         <li> <a href="~/AddStock?pid=@item.product_id"><i class="fa fa-st-o" aria-hidden="true"></i>Add Stock</a> </li>
                                                     </ul>
                                                 </div>
@@ -122,10 +127,10 @@
                                         </tr>
                                     }
                                 }
-                                else
+                                @if (ViewBag.products.Count == 0)
                                 {
                                     <tr>
-                                        <td colspan="4"> <text> NO Products Available </text> </td>
+                                        <td colspan="6"> <text> NO Products Available </text> </td>
                                     </tr>
                                 }
                             </tbody>
@@ -186,9 +191,9 @@
     <script src="~/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- Over Hang -->
-<script src="~/Scripts/js/jquery-ui.min.js"></script>
-<script src="~/Scripts/js/overhang.min.js"></script>
+    <!-- Over Hang -->
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
     <!-- Clone Shipping Address -->
     <script type="text/javascript">
         $("input[type='checkbox']").change(function () {
@@ -334,15 +339,15 @@
         });
     </script>
     <!------------ List / Grid Views and reload page -------------->
-@*<script>
- //<!--------- thumbnail Blur --------------->
- $(".thumbnail button.next").click(function(){
- $(this).prev("button.signin").css("display","block");
- $(this).prevAll(".form-group").children("input[type='password']").css("display","block");
- $(this).css("display","none");
- });
- //<!--------- thumbnail Blur --------------->
-</script>*@
+    @*<script>
+         //<!--------- thumbnail Blur --------------->
+         $(".thumbnail button.next").click(function(){
+         $(this).prev("button.signin").css("display","block");
+         $(this).prevAll(".form-group").children("input[type='password']").css("display","block");
+         $(this).css("display","none");
+         });
+         //<!--------- thumbnail Blur --------------->
+        </script>*@
     <script>
         $(document).ready(function (e) {
             $(".btn-group ul.dropdown-menu > li").each(function () {
@@ -355,16 +360,16 @@
         })
     </script>
 
-@*Error Message*@
-@if (ViewBag.msg != "" && ViewBag.msg != null)
+    @*Error Message*@
+    @if (ViewBag.msg != "" && ViewBag.msg != null)
     {
-    <script>
+        <script>
             $("body").overhang({
-            type: "error",
+                type: "error",
                 message: '@ViewBag.msg',
                 closeConfirm: false
             });
-    </script>
-}
+        </script>
+    }
 }
 

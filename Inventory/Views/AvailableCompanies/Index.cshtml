@@ -181,6 +181,7 @@
                                     </div>
                                     <div class="x_content">
                                         <input type="hidden" id="usertype" name="usertype" />
+                                        <input type="hidden" id="userid" name="userid" />
                                         <div class="row">
 
                                             @*<p>Media gallery design emelents</p>*@
@@ -206,7 +207,7 @@
                                                         @*@Html.PasswordFor(Model=>Model.Password,new { placeholder= "Enter Password" , @class="form-control loginpassword", required = "required" ,autofocus = "autofocus" })*@
                                                     </div>
                                                     <button type="button" class="btn btn-primary signin" onclick="password()" id="btnlogin" value="Authenticate">Sign In</button>
-                                                    <button type="button" class="btn btn-default next" onclick="get(@item.UserTypeId)">Select</button>  @*data-toggle="modal" data-target=".bs-example-modal-sm"*@
+                                                    <button type="button" class="btn btn-default next" onclick="get(@item.UserTypeId,@item.ID)">Select</button>  @*data-toggle="modal" data-target=".bs-example-modal-sm"*@
 
 
                                                     @*<div id="password @item.UserTypeId" style="display:none">*@
@@ -324,10 +325,11 @@
     <script src="~/Scripts/js/jquery-ui.min.js"></script>
     <script src="~/Scripts/js/overhang.min.js"></script>
     <script>
-        function get(id) {
-            var id1 = $('#loginpassword ' + id + '');
-            $('#loginpassword ' + id + '').css('visibility', 'hidden');  //.css('visibility', 'visibility');
-            $('#usertype').val(id);
+        function get(usertypeid,userid) {
+            //var id1 = $('#loginpassword ' + id + '');
+            //$('#loginpassword ' + id + '').css('visibility', 'hidden');  //.css('visibility', 'visibility');
+            $('#usertype').val(usertypeid);
+            $('#userid').val(userid);
         }
     </script>
     <!------ scale thumbnails --------->
@@ -378,6 +380,19 @@
                 type: "error",
                 message: '@ViewBag.msg',
                 closeConfirm: false
+            });
+        </script>
+    }
+
+    @*Warning Message*@
+    @if (ViewBag.umsg != "" && ViewBag.umsg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "warn",
+                message: '@ViewBag.umsg',
+                closeConfirm: false,
+                duration:5
             });
         </script>
     }

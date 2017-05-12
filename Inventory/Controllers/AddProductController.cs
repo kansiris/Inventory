@@ -21,17 +21,24 @@ namespace Inventory.Controllers
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var count = ProductService.GetWarehouseCount(user.DbName);
-                if (count.HasRows)
+                if (count.Read())
                 {
-                    ViewBag.count = "1";
-                    ViewBag.weights = convert(user.DbName, "weight", "");
-                    ViewBag.sizes = convert(user.DbName, "size", "");
-                    ViewBag.colors = convert(user.DbName, "color", "");
-                    ViewBag.itemshapes = convert(user.DbName, "itemshape", "");
-                    ViewBag.categories = convert(user.DbName, "category", "");
-                    ViewBag.brands = convert(user.DbName, "brand", "");
-                    //ViewBag.brandmodels = convert(user.DbName, "getallmodels");
-                    ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
+                    if (count["wcount"].ToString() != "0")
+                    {
+                        ViewBag.count = "1";
+                        ViewBag.weights = convert(user.DbName, "weight", "");
+                        ViewBag.sizes = convert(user.DbName, "size", "");
+                        ViewBag.colors = convert(user.DbName, "color", "");
+                        ViewBag.itemshapes = convert(user.DbName, "itemshape", "");
+                        ViewBag.categories = convert(user.DbName, "category", "");
+                        ViewBag.brands = convert(user.DbName, "brand", "");
+                        //ViewBag.brandmodels = convert(user.DbName, "getallmodels");
+                        ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
+                    }
+                    else
+                    {
+                        ViewBag.count = "";
+                    }
                 }
                 else
                 {
