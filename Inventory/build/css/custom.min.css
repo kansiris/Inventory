@@ -6787,37 +6787,63 @@ ul.terms-content li{
 @media only screen and (max-width: 768px){
 	table#vendortable,
     table#producttable,
-    table#contacttable{
+    table#contacttable,
+    table#customertable,
+    table#cuscontacttable,
+    div#cuscontacttable,
+    table#productstable{
 		border: 1px solid #ccc;
 		border-radius: 5px;}
 	table#vendortable > thead.thead-inverse,
     table#producttable > thead.thead-inverse,
-    table#contacttable > thead.thead-inverse{
+    table#contacttable > thead.thead-inverse,
+    table#customertable > thead.thead-inverse,
+    table#cuscontacttable > thead.thead-inverse,
+    div#cuscontacttable  thead.thead-inverse,
+    table#productstable > thead.thead-inverse{
 		position: absolute;
 		top: -999px;
 		left: -999px;}
 	table#vendortable > tbody > tr,
     table#producttable > tbody > tr,
-    table#contacttable > tbody > tr{
+    table#contacttable > tbody > tr,
+    table#customertable > tbody > tr,
+    table#cuscontacttable > tbody > tr,
+    div#cuscontacttable  > tbody > tr,
+    div#cuscontacttable tbody > tr,
+    table#productstable  > tbody > tr{
 		border-bottom: 1px solid #ddd}
 	table#vendortable > tbody > tr > td,
     table#producttable > tbody > tr > td,
-    table#contacttable > tbody > tr > td{
+    table#contacttable > tbody > tr > td,
+    table#customertable > tbody > tr > td,
+    table#cuscontacttable > tbody > tr > td,
+    div#cuscontacttable tbody > tr > td,
+    table#productstable  > tbody > tr > td{
 		position: relative;
 		padding-left: 50%;
 		display: block;
 		border: none;}
 	table#vendortable > tbody > tr > td:before,
     table#producttable  > tbody > tr > td:before,
-    table#contacttable  > tbody > tr > td:before{
+    table#contacttable  > tbody > tr > td:before,
+    table#customertable  > tbody > tr > td:before,
+    table#cuscontacttable  > tbody > tr > td:before,
+    div#cuscontacttable tbody > tr > td:before,
+    table#productstable  > tbody > tr > td:before{
 		position: absolute;
 		top: 6px;
 		left: 6px;
 		width: 45%;
 		font-weight: 700;}
-	table#vendortable > tbody > tr > td:nth-of-type(1)::before{ content: "Company Name";}
-	table#vendortable > tbody > tr > td:nth-of-type(2)::before{ content: "E-Mail";}
-	table#vendortable > tbody > tr > td:nth-of-type(3)::before{ content: "Action";}
+	table#vendortable > tbody > tr > td:nth-of-type(1)::before,
+    table#customertable > tbody > tr > td:nth-of-type(1)::before{ content: "Logo";}
+	table#vendortable > tbody > tr > td:nth-of-type(2)::before,
+    table#customertable > tbody > tr > td:nth-of-type(2)::before{ content: "Company";}
+	table#vendortable > tbody > tr > td:nth-of-type(3)::before,
+    table#customertable > tbody > tr > td:nth-of-type(3)::before{ content: "EMail";}
+    table#vendortable > tbody > tr > td:nth-of-type(4)::before,
+    table#customertable > tbody > tr > td:nth-of-type(4)::before{ content: "Action";}
 
     table#producttable > tbody > tr > td:nth-of-type(1)::before{ content: "Product Id";}
     table#producttable > tbody > tr > td:nth-of-type(2)::before{ content: "Product";}
@@ -6834,4 +6860,28 @@ ul.terms-content li{
     table#contacttable  > tbody > tr > td:nth-of-type(5)::before{ content: "E-Mail Id";}
     table#contacttable  > tbody > tr > td:nth-of-type(6)::before{ content: "Job Position";}
     table#contacttable  > tbody > tr > td:nth-of-type(7)::before{ content: "Action";}
+
+    table.contacttable  > tbody > tr > td:nth-of-type(1)::before,
+    table#cuscontacttable  > tbody > tr > td:nth-of-type(1)::before,
+    div#cuscontacttable tbody > tr > td:nth-of-type(1)::before{ content: "Profile Picture";}
+    table.contacttable  > tbody > tr > td:nth-of-type(2)::before,
+    table#cuscontacttable  > tbody > tr > td:nth-of-type(2)::before,
+    div#cuscontacttable tbody > tr > td:nth-of-type(2)::before{ content: "First Name";}
+    table.contacttable  > tbody > tr > td:nth-of-type(3)::before,
+    table#cuscontacttable  > tbody > tr > td:nth-of-type(3)::before,
+    tdiv#cuscontacttable tbody > tr > td:nth-of-type(3)::before{ content: "Last Name";}
+    table.contacttable  > tbody > tr > td:nth-of-type(4)::before,
+    table#cuscontacttable  > tbody > tr > td:nth-of-type(4)::before,
+    div#cuscontacttable tbody > tr > td:nth-of-type(4)::before{ content: "E-Mail";}
+    table.contacttable  > tbody > tr > td:nth-of-type(5)::before,
+    table#cuscontacttable  > tbody > tr > td:nth-of-type(5)::before,
+    div#cuscontacttable tbody > tr > td:nth-of-type(5)::before{ content: "Action";}
+
+    table#productstable > tbody > tr > td:nth-of-type(1)::before{ content: "Image"}
+    table#productstable > tbody > tr > td:nth-of-type(2)::before{ content: "Product Name"}
+    table#productstable > tbody > tr > td:nth-of-type(3)::before{ content: "Description"}
+    table#productstable > tbody > tr > td:nth-of-type(4)::before{ content: "Quantity"}
+    table#productstable > tbody > tr > td:nth-of-type(5)::before{ content: "Price"}
+    table#productstable > tbody > tr > td:nth-of-type(6)::before{ content: "Total"}
+    table#productstable > tbody > tr > td:nth-of-type(7)::before{ content: "Add"}
 	}
