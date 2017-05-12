@@ -1729,9 +1729,9 @@ ul.msg_list li {
     margin-top: 0;
     border: 1px solid #D9DEE4;
     -webkit-box-shadow: none;
-    /*right: 0;
-    left: auto;*/
-	left: 0;
+    right: 0;
+    /*left: auto;
+	left: 0;*/
     width: 220px;
 }
 
@@ -5279,6 +5279,7 @@ footer {
         font-size: 13px;
         font-weight: bold;
         margin-bottom: 10px;
+		height: 15px;
     }
 
 .form-title {
@@ -5558,7 +5559,7 @@ h2.form-title {
     box-shadow: 0 0 5px 3px #e4e4e4;
     border: 1px solid #adacac;
     position: absolute;
-    left: -120px;
+    left: -160px;
     top: 0;
 }
 
@@ -6123,7 +6124,7 @@ ul.tagit input[type=text] {
 /*============ Tags Box ==================*/
 
 /*============ View Products ==================*/
-#productstable{
+#productstable1{
 	display: none;}
 .displayproduct{
 	background: #fff;}
@@ -6651,7 +6652,7 @@ tr > td.product-name a:hover{
 	}
 /*============ View Products ==================*/
 
-/*============ Generate Purchase Order ==================*/
+/*============ Generate Purchase Order / invoice ==================*/
 .po-number{
 	font-size: 14px;
 	font-weight: 700;
@@ -6755,7 +6756,7 @@ ul.terms-content li{
 .invoice product-name,
 .invoice .product-variation > span{
 	font-weight: 100;}
-/*============ Generate Purchase Order ==================*/
+/*============ Generate Purchase Order / invoice ==================*/
 
 /*========== Media Quries ===============*/
 
@@ -6780,4 +6781,57 @@ ul.terms-content li{
 		opacity: 0;}
 	.mobile-cart{
 		display: block;}
+	}
+	
+/*=================== Table Responsive =======================*/
+@media only screen and (max-width: 768px){
+	table#vendortable,
+    table#producttable,
+    table#contacttable{
+		border: 1px solid #ccc;
+		border-radius: 5px;}
+	table#vendortable > thead.thead-inverse,
+    table#producttable > thead.thead-inverse,
+    table#contacttable > thead.thead-inverse{
+		position: absolute;
+		top: -999px;
+		left: -999px;}
+	table#vendortable > tbody > tr,
+    table#producttable > tbody > tr,
+    table#contacttable > tbody > tr{
+		border-bottom: 1px solid #ddd}
+	table#vendortable > tbody > tr > td,
+    table#producttable > tbody > tr > td,
+    table#contacttable > tbody > tr > td{
+		position: relative;
+		padding-left: 50%;
+		display: block;
+		border: none;}
+	table#vendortable > tbody > tr > td:before,
+    table#producttable  > tbody > tr > td:before,
+    table#contacttable  > tbody > tr > td:before{
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		font-weight: 700;}
+	table#vendortable > tbody > tr > td:nth-of-type(1)::before{ content: "Company Name";}
+	table#vendortable > tbody > tr > td:nth-of-type(2)::before{ content: "E-Mail";}
+	table#vendortable > tbody > tr > td:nth-of-type(3)::before{ content: "Action";}
+
+    table#producttable > tbody > tr > td:nth-of-type(1)::before{ content: "Product Id";}
+    table#producttable > tbody > tr > td:nth-of-type(2)::before{ content: "Product";}
+    table#producttable > tbody > tr > td:nth-of-type(3)::before{ content: "Brand";}
+    table#producttable > tbody > tr > td:nth-of-type(4)::before{ content: "Model";}
+    table#producttable > tbody > tr > td:nth-of-type(5)::before{ content: "Measurement";}
+    table#producttable > tbody > tr > td:nth-of-type(6)::before{ content: "Price";}
+    table#producttable > tbody > tr > td:nth-of-type(7)::before{ content: "Action";}
+
+    table#contacttable  > tbody > tr > td:nth-of-type(1)::before{ content: "";}
+    table#contacttable  > tbody > tr > td:nth-of-type(2)::before{ content: "First Name";}
+    table#contacttable  > tbody > tr > td:nth-of-type(3)::before{ content: "Last Name";}
+    table#contacttable  > tbody > tr > td:nth-of-type(4)::before{ content: "Mobile Number";}
+    table#contacttable  > tbody > tr > td:nth-of-type(5)::before{ content: "E-Mail Id";}
+    table#contacttable  > tbody > tr > td:nth-of-type(6)::before{ content: "Job Position";}
+    table#contacttable  > tbody > tr > td:nth-of-type(7)::before{ content: "Action";}
 	}
