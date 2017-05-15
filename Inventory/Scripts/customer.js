@@ -157,7 +157,7 @@ $(document).ready(function (e) {
         $(".cd-tabs").css("display", "block");
     });
 });
-
+//$('#customertable tbody tr').css({ "display": "table", "width": "100%" });
 function Pagination() {
 
     $('#customertable1').after('<div id="nav"></div>');
