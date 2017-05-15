@@ -140,11 +140,11 @@
                                     </div>
                                     <div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7">18%</div>
+                                        <div class="col-xs-6 col-md-7"><input id="numberbox" type='number' max='100' style="width:100px">%</div>
                                     </div>
                                     <div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7">10%</div>
+                                        <div class="col-xs-6 col-md-7"><input id="numberbox" type='number' max='100' style="width:100px">%</div>
                                     </div>
                                     <div class="row sub-total">
                                         <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
@@ -208,6 +208,13 @@
     <script type="text/javascript">
         $('#add-vendor1').click(function () {
             document.location = '@Url.Action("Index", "Products")';
+        });
+
+        $('#numberbox').keyup(function () {
+            if ($(this).val() > 100) {
+                alert("No numbers above 100");
+                $(this).val('100');
+            }
         });
     </script>
 }

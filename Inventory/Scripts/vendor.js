@@ -140,6 +140,7 @@ $(document).ready(function (e) {
 
   //  <!----- Table Pagination ---->
     Pagination();
+   
     
     // <!----- Table Pagination ---->
 
@@ -154,7 +155,7 @@ $(document).ready(function (e) {
 });
 
 function Pagination() {
-   
+    //$('#vendortable tbody tr').css({ "display": "table", "width": "100%" });
     $('#vendortable1').after('<div id="nav"></div>');
     
     var rowsShown = 3;
@@ -174,7 +175,7 @@ function Pagination() {
         var startItem = currPage * rowsShown;
         var endItem = startItem + rowsShown;
         $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
-                css('display', 'table-row').animate({ opacity: 1 }, 300);
+                css('display', 'table').animate({ opacity: 1 }, 300);
     });
 
 
@@ -190,7 +191,7 @@ function Pagination() {
         var startItem = currPage * rowsShown;
         var endItem = startItem + rowsShown;
         $('#vendortable1 > div').css('opacity', '0.0').hide().slice(startItem, endItem).
-                css('display', 'table-row').animate({ opacity: 1 }, 300);
+                css('display', 'table').animate({ opacity: 1 }, 300);
     });
 }
 

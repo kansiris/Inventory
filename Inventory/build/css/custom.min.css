@@ -6124,7 +6124,7 @@ ul.tagit input[type=text] {
 /*============ Tags Box ==================*/
 
 /*============ View Products ==================*/
-#productstable1{
+#productstable{
 	display: none;}
 .displayproduct{
 	background: #fff;}
@@ -6792,7 +6792,7 @@ ul.terms-content li{
     table#cuscontacttable,
     div#cuscontacttable,
     table#productstable{
-		border: 1px solid #ccc;
+		/*border: 1px solid #ccc;*/
 		border-radius: 5px;}
 	table#vendortable > thead.thead-inverse,
     table#producttable > thead.thead-inverse,
@@ -6812,7 +6812,8 @@ ul.terms-content li{
     div#cuscontacttable  > tbody > tr,
     div#cuscontacttable tbody > tr,
     table#productstable  > tbody > tr{
-		border-bottom: 1px solid #ddd}
+		border: 1px solid #ddd;
+		margin-bottom: 30px;}
 	table#vendortable > tbody > tr > td,
     table#producttable > tbody > tr > td,
     table#contacttable > tbody > tr > td,
