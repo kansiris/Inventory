@@ -29,7 +29,7 @@
                                 </td>
                                 <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
                                 <td class="col-md-2 product-variation">
-                                    <select class="form-control" @*onchange="basedon_price(this.value)"*@>
+                                    <select class="form-control">
                                         @foreach (var item1 in item.distinctproducts.Split(','))
                                         {
                                             <option>@item1.Replace('?', '₹').Split('@')[0]</option>
@@ -80,15 +80,15 @@
                                 { <img src="~/ProductImages/@item.product_images" /> }
                                 else
                                 { <img src="~/images/default_product.png" /> }
-                            @*<img src="~/images/default_product.png" />*@
+                            
                         </div>
                         <div class="img-title">
                             <span class="product-brand">@item.brand</span>
                             <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
                         </div>
                         <div class="product-variation">
-                            <select class="form-control" @*onchange="selctprice(this.value)"*@>
-                                @*<option>@item.distinctproducts.Replace('?', '₹')</option>*@
+                            <select class="form-control">
+                                
                                 @foreach (var item1 in item.distinctproducts.Split(','))
                                 {
                                     <option>@item1.Replace('?', '₹').Split('@')[0]</option>
@@ -99,10 +99,10 @@
                         <div class="empty"></div>
                         <div class="rate-add">
                             <div class="product-price">
-                                ₹ @*<span>@item.total_price</span>*@<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+                                Price&nbsp;&nbsp;₹<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                             </div>
                             <div class="product-price-total">
-                                ₹ @*<span>@item.total_price</span>*@<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+                                Total&nbsp;&nbsp;₹<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                              </div>
                             <div class="shipping">
                                 <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
@@ -143,7 +143,7 @@ else
       $('.spinner .btn:first-of-type').click(function(){
           var plus, v;
           v = parseInt($(this).parent("div").prev("input[type='text']").val());
-          //alert("value of v(Plus) IS " + v);
+          
           if(v > 0){
               plus = v + 1;
               $(this).parent("div").prev("input[type='text']").val(plus);
@@ -162,7 +162,7 @@ else
       $('.spinner .btn:last-of-type').click(function(){
           var minus, v;
           v = parseInt($(this).parent("div").prev("input[type='text']").val());
-          //alert("value of V(Minus) IS " + v);
+         
           if(v > 1){
               minus = v - 1;
               $(this).parent("div").prev("input[type='text']").val(minus);
@@ -181,9 +181,9 @@ else
           var v = $(this).children("option:selected").text().split("₹")[1];
           $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("₹"+"<span>" + v + "</span>");
           $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("₹"+"<span>" + v + "</span>");
-          $(this).parents(".product-variation").nextAll(".product-price").empty().append("<span>" + v + "</span>");
-          $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("<span>" + v + "</span>");
-          //alert(v);
+          $(this).parents(".product-variation").nextAll(".product-price").empty().append("Rs "+"<span>" + v + "</span>");
+          $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("Rs "+"<span>" + v + "</span>");
+         
       });
   });
     //<!------------ Quantity changes / Prices Multiple -------------->
@@ -193,7 +193,6 @@ else
         var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
         var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
         var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
-        //var brandname = $(this).parents(".rate-add").prevAll("div.img-title").children("span").html();
         var total=$(this).parents(".rate-add").children(".product-price-total").children("span").html();
        
         $.ajax({
@@ -225,7 +224,6 @@ else
         var price = $(this).parent("td.add-to-cart-table").prevAll("td.product-price").children("span").html();
         var total = $(this).parent("td.add-to-cart-table").prevAll("td.product-price-total").children("span").html();
         var qty = $(this).parent("td.add-to-cart-table").prevAll('td.quantity-changes').children("div.spinner").children("input").val();
-        alert(qty);
         $.ajax({
             url: '/Products/Addtocart',
             type: 'POST',
@@ -257,13 +255,11 @@ else
         $(".added-products .product-price-total span").each(function () {
             productprice = parseInt($(this).text());
             carttotal = productprice + carttotal;
-            
         });
         $(".cart-total span").remove();
         $(".cart-total").append("<span>" + carttotal + "</span>");
         $(".cart-icn span").remove();
         $(".cart-icn").append("<span>" + totalquantity + "</span>");
-        //alert("Product added successfully");
     }
 
     $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
