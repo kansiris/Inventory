@@ -72,30 +72,17 @@ namespace Inventory.Controllers
                     imagename = imagename.TrimStart(',');
                 }
 
-                //if (product.product_images != null)
-                //{
-
-                //    var images = product.product_images.Split(',');
-                //    for (int i = 0; i < images.Count(); i++)
-                //    {
-                //        string fileName = product_id + "_" + images[i];
-                //        string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
-                //        using (System.IO.FileStream fs = System.IO.File.Create(pathString))
-                //        {
-                //            for (byte i1 = 0; i1 < 100; i1++)
-                //            {
-                //                fs.WriteByte(i1);
-                //            }
-                //        }
-                //        //imagename = imagename + "," + product_id + "_" + images[i];
-                //        //System.IO.File.Create(Server.MapPath("~/ProductImages/" + product_id + "_" + images[i]));
-                //        //Path.Combine(Server.MapPath("~/ProductImages/"), product_id + "_" + images[i]);
-                //        //file.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + images[i]));
-                //        //file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + file1.FileName));
-                //    }
-                //    imagename = imagename.TrimStart(',');
-                //}
-                //int count = 0;
+                if (product.product_images != null)
+                {
+                    var images = product.product_images.Split(',');
+                    for (int i = 0; i < images.Count(); i++)
+                    {
+                        string fileName = product_id + "_" + images[i];
+                        string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
+                        System.IO.File.Copy(Server.MapPath("~/images/"+images[i]+""), pathString); //copy image to application folder
+                    }
+                    imagename = imagename.TrimStart(',');
+                }
                 int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                     product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                     product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
