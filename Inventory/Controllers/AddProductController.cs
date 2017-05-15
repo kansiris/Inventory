@@ -58,6 +58,7 @@ namespace Inventory.Controllers
                 string product_id = "P" + id;
                 ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
                 string imagename = "";
+                //Uploaded Images
                 if (file != null && file.ContentLength > 0)
                 {
                     for (int i = 0; i < Request.Files.Count; i++)
@@ -71,7 +72,7 @@ namespace Inventory.Controllers
                     }
                     imagename = imagename.TrimStart(',');
                 }
-
+                //Library Images
                 if (product.product_images != null)
                 {
                     var images = product.product_images.Split(',');
@@ -79,13 +80,12 @@ namespace Inventory.Controllers
                     {
                         string fileName = product_id + "_" + images[i];
                         string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
-                        string spath = Request.Url.AbsolutePath.Replace("AddProduct","images") + "/";
-                        //System.IO.File.Copy(Server.MapPath("~/images/"+images[i]+""), pathString); //copy image to application folder in local
-                        System.IO.File.Copy(spath + images[i] + "", pathString); //copy image to application folder in live
+                        string spath = Server.MapPath("~/images/" + images[i] + "");
+                        System.IO.File.Copy(spath , pathString); //copy image from images folder to productimages folder
+                        imagename = imagename + "," + fileName;
                     }
                     imagename = imagename.TrimStart(',');
                 }
-                //int count = 0;
                 int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                     product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                     product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,

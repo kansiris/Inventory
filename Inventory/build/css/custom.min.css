@@ -4965,6 +4965,10 @@ ul.notifications {
         left: 130px;
         bottom: 0;
     }
+li.selected > .row div:nth-of-type(2).profilepic input[type='file'] {
+    display: block;
+    margin: 0 auto;
+}
 
 /*============= Toggle Bar ==============*/
 .toggle-area {
