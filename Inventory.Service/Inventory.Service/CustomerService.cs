@@ -146,7 +146,7 @@ namespace Inventory.Service
         //for products purpose
              public static SqlDataReader getAllDetailsByCompany_Id(string Customer_Id, string dbname)
         {
-            return CustomerRepository.getusermaster(Customer_Id, dbname);
+            return CustomerRepository.getAllDetailsByCompany_Id(Customer_Id, dbname);
         }
 
     }

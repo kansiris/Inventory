@@ -60,6 +60,7 @@ function removecart(cartid) {
 
 function genaratepo() {
     var customerid = document.URL.split('=')[1];
+    alert(customerid);
     location.href='/Products/GenaratePOs?cid='+customerid;
     
 }

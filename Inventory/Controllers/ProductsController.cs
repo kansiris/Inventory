@@ -4,6 +4,7 @@ using Inventory.Service;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -155,14 +156,7 @@ namespace Inventory.Controllers
                 var dt = new DataTable();
                 var records = ProductService.Getcartdata(user.DbName, user.ID);
                 dt.Load(records);
-                //var dt1 = new DataTable();
-                //var records1 = CustomerService.getAllDetailsByCompany_Id(user.DbName, cid);
-                //dt.Load(records1);
-                //List<Customer> customerdata = (from DataRow row in dt.Rows
-                //                                   select new Customer()
-                //                                   {
-                //                                       company_name=[]
-                //                                   }).ToList();
+                
                 List<Product> cartaddedproducts = (from DataRow row in dt.Rows
                                                    select new Product()
                                                    {
@@ -175,13 +169,49 @@ namespace Inventory.Controllers
                                                        Measurement = row["Measurement"].ToString(),
                                                        total_price = row["total_price"].ToString(),
                                                    }).ToList();
+              
+                
                 ViewBag.records = cartaddedproducts;
-                //cartaddedproducts.AddRange()
-                return PartialView("GenaratePOs", ViewBag.records);
+                
+                return PartialView("GenaratePOs",ViewBag.records);
             }
             return PartialView("GenaratePOs", null);
         }
-        
+
+        public PartialViewResult CustomerforPOs(string cid)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+               
+                var dt = new DataTable();
+                var records = CustomerService.getAllDetailsByCompany_Id(user.DbName, cid);
+                dt.Load(records);
+                List<Customer> customerdata = (from DataRow row in dt.Rows
+                                               select new Customer()
+                                               {
+                                                   cus_company_name = row["cus_company_name"].ToString(),
+                                                   cus_email = row["cus_email"].ToString(),
+                                                   cus_logo = row["cus_logo"].ToString(),
+                                                   bill_street = row["bill_street"].ToString(),
+                                                   bill_city = row["bill_city"].ToString(),
+                                                   bill_state = row["bill_state"].ToString(),
+                                                   bill_postalcode = row["bill_postalcode"].ToString(),
+                                                   bill_country = row["bill_country"].ToString(),
+                                                   ship_street = row["ship_street"].ToString(),
+                                                   ship_city = row["ship_city"].ToString(),
+                                                   ship_state = row["ship_state"].ToString(),
+                                                   ship_postalcode = row["ship_postalcode"].ToString(),
+                                                   ship_country = row["ship_country"].ToString()
+                                               }).ToList();
+                ViewBag.records = customerdata;
+                return PartialView("CustomerforPOs", ViewBag.records);
+            }
+            return PartialView("CustomerforPOs", null);
+        }
+
+
         //removing from cart
         public JsonResult Removefromcart(int cart_id)
         {

@@ -1,0 +1,30 @@
+﻿
+@if (ViewBag.records != null)
+{
+    foreach (var item in ViewBag.records)
+    {
+
+<div class="col-xs-12 col-md-3 logo margin-bottom"> 
+    @if (item.cus_logo != "" && item.cus_logo != null && item.cus_logo != "/images/user.png")
+    { <img src="data:image;base64,@item.cus_logo"> }
+    else
+    { <img src="~/images/user.png"/> }
+    <span class="vendorname">@item.cus_company_name</span> </div>
+<div class="address col-xs-12 col-md-3 margin-bottom">
+    <span>Billing Address</span><br />
+    @item.bill_street,<br />
+    @item.bill_city,<br />
+    @item.bill_state,<br />
+    @item.bill_postalcode,<br />
+    @item.bill_country.
+</div>
+<div class="address col-xs-12 col-md-3 margin-bottom">
+    <span>Shipping Address</span><br />
+    @item.bill_street,<br />
+    @item.bill_city,<br />
+    @item.bill_state,<br />
+    @item.bill_postalcode,<br />
+    @item.bill_country.
+</div>
+    }
+}

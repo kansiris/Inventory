@@ -4782,6 +4782,7 @@
     <Content Include="Views\Vamsi\Index.cshtml" />
     <Content Include="Views\Products\Addtocartpartial.cshtml" />
     <Content Include="Views\Products\GenaratePOs.cshtml" />
+    <Content Include="Views\Products\CustomerforPOs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
