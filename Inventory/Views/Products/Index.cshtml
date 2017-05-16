@@ -37,7 +37,6 @@
                     <div class="row">
                         <div class="form-title col-xs-12 col-md-9">Shop Products</div>
                         <div class="top-bar col-xs-12 col-md-3">
-                            @*<button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Product </button>*@
                             <div class="icons pull-right">
                                 <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
                                 <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
@@ -196,33 +195,8 @@
                         </div>
                         <div class="col-xs-12 col-md-7">
                             @{ Html.RenderAction("allproducts", "Products");}
-
                         </div>
-                        <div class="col-xs-12 col-md-3">
-                            <div class="row checkout">
-                                <div class="col-xs-12 col-md-12 check-title">
-                                    <div class="row">
-                                        <div class="col-xs-5 col-md-5 title">Your Order</div>
-                                        <div class="col-xs-2 col-md-2 cart-icn">
-                                            <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="col-xs-5 col-md-5 cart-total">
-                                            Total:Rs <span>000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                @*<div class="col-xs-12">
-                                    <div class="added-products">
-                                    </div>
-                                </div>*@
                                 @{ Html.RenderAction("Addtocartpartial", "Products");}
-                                <div class="col-xs-12">
-                                    
-                                    <button class="btn btn-primary" type="button" onclick="genaratepo()">Generate Purchase Order</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -315,8 +289,8 @@
       });
   });
 
-var url = 'Products/Addtocartpartial';
-$('#cartrecords').load(url);
+//var url = 'Products/Addtocartpartial';
+//$('#cartrecords').load(url);
     //<!------------ Quantity changes / Prices Multiple -------------->
 
     function vals() {

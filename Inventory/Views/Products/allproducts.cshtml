@@ -16,9 +16,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (ViewBag.records.Count != 0) {
-                    foreach (var item in ViewBag.records)
+                    @if (ViewBag.records.Count != 0)
                     {
+                        foreach (var item in ViewBag.records)
+                        {
 
                             <tr>
                                 <td class="col-md-1 image">
@@ -34,18 +35,20 @@
                                         {
                                             <option>@item1.Replace('?', '₹').Split('@')[0]</option>
                                         }
-                                        
+
                                     </select>
                                 </td>
                                 <td class="col-md-1 quantity-changes">
-                                    <div class="input-group spinner">
-                                        <label>Qty</label>
-                                        <input type="text" class="form-control" value="1">
-                                        <div class="input-group-btn-vertical">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                    @*<div class="col-xs-6 qty">*@
+                                        <div class="input-group spinner">
+                                            <label>Qty</label>
+                                            <input type="text" class="form-control" value="1">
+                                            <div class="input-group-btn-vertical">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @*</div>*@
                                 </td>
                                 <td class="col-md-2 product-price">Rs <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
                                 <td class="col-md-2 product-price-total">Rs <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
@@ -53,7 +56,7 @@
                                     <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                     <i class="fa fa-times remove" aria-hidden="true"></i>
                                 </td>
-                               
+
                             </tr>
                         }
                     }
@@ -67,138 +70,87 @@
             </table>
         </div>
         <div class="row" id="productstable1">
-@if (ViewBag.records.Count != 0)
-{
-            foreach (var item in ViewBag.records)
+            @if (ViewBag.records.Count != 0)
             {
-                <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                    <div class="well">
-                        <i class="fa fa-times remove" aria-hidden="true"></i>
-                        <div class="image">
+                foreach (var item in ViewBag.records)
+                {
+                    <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
+                        <div class="well">
+                            <i class="fa fa-times remove" aria-hidden="true"></i>
+                            <div class="image">
 
-                            @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
                                 { <img src="~/ProductImages/@item.product_images" /> }
                                 else
                                 { <img src="~/images/default_product.png" /> }
-                            
-                        </div>
-                        <div class="img-title">
-                            <span class="product-brand">@item.brand</span>
-                            <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
-                        </div>
-                        <div class="product-variation">
-                            <select class="form-control">
-                                
-                                @foreach (var item1 in item.distinctproducts.Split(','))
-                                {
-                                    <option>@item1.Replace('?', '₹').Split('@')[0]</option>
-                                }
-                               
-                            </select>
-                        </div>
-                        <div class="empty"></div>
-                        <div class="rate-add">
-                            <div class="product-price">
-                                Price&nbsp;&nbsp;₹<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+
                             </div>
-                            <div class="product-price-total">
-                                Total&nbsp;&nbsp;₹<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
-                             </div>
-                            <div class="shipping">
-                                <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                Standard Delivery
+                            <div class="img-title">
+                                <span class="product-brand">@item.brand</span>
+                                <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
                             </div>
-                            <div class="row">
-                                <div class="col-xs-6 qty">
-                                    <div class="input-group spinner">
-                                        <label>Qty</label>
-                                        <input type="text" class="form-control" value="1">
-                                        <div class="input-group-btn-vertical">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                            <div class="product-variation">
+                                <select class="form-control">
+
+                                    @foreach (var item1 in item.distinctproducts.Split(','))
+                                    {
+                                        <option>@item1.Replace('?', '₹').Split('@')[0]</option>
+                                    }
+
+                                </select>
+                            </div>
+                            <div class="empty"></div>
+                            <div class="rate-add">
+                                <div class="product-price">
+                                    Price&nbsp;&nbsp;₹<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+                                </div>
+                                <div class="product-price-total">
+                                    Total&nbsp;&nbsp;₹<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+                                </div>
+                                <div class="shipping">
+                                    <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                                    Standard Delivery
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 qty">
+                                        <div class="input-group spinner">
+                                            <label>Qty</label>
+                                            <input type="text" class="form-control" value="1">
+                                            <div class="input-group-btn-vertical">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-6 add-to-cart">
-                                    <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                                    <div class="col-xs-6 add-to-cart">
+                                        <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
-}
-else
-{
-    <div><p>No Records Available</p></div>
-}
+            else
+            {
+                <div><p>No Records Available</p></div>
+            }
         </div>
     </div>
 }
 <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
 <script>
 
-  $(document).ready(function(e) {
-      var tableprice, divprice, tabletotal, divtotal;
-      $('.spinner .btn:first-of-type').click(function(){
-          var plus, v;
-          v = parseInt($(this).parent("div").prev("input[type='text']").val());
-          
-          if(v > 0){
-              plus = v + 1;
-              $(this).parent("div").prev("input[type='text']").val(plus);
-              tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
-              divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
-             
-              tabletotal = plus * tableprice;
-              divtotal = plus * divprice;
-              $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
-              $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
-              $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
-              $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
-          }
-          return vals();
-      }); 
-      $('.spinner .btn:last-of-type').click(function(){
-          var minus, v;
-          v = parseInt($(this).parent("div").prev("input[type='text']").val());
-         
-          if(v > 1){
-              minus = v - 1;
-              $(this).parent("div").prev("input[type='text']").val(minus);
-              tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());;
-              divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
-              tabletotal = minus * tableprice;
-              divtotal = minus * divprice;$(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
-              $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
-              $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
-              $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
-          }
-          return vals();
-      });
-	
-      $("select").on('change',function(){
-          var v = $(this).children("option:selected").text().split("₹")[1];
-          $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("₹"+"<span>" + v + "</span>");
-          $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("₹"+"<span>" + v + "</span>");
-          $(this).parents(".product-variation").nextAll(".product-price").empty().append("Rs "+"<span>" + v + "</span>");
-          $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("Rs "+"<span>" + v + "</span>");
-         
-      });
-  });
-    //<!------------ Quantity changes / Prices Multiple -------------->
-
-
     $(".add-to-cart > .btn").click(function () {
         var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
         var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
         var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
-        var total=$(this).parents(".rate-add").children(".product-price-total").children("span").html();
-       
+        var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
+
         $.ajax({
             url: '/Products/Addtocart',
             type: 'POST',
-            data: JSON.stringify({product_name: productname,Quantity: qty,Measurement: mesurment,total_price: total}),
+            data: JSON.stringify({ product_name: productname, Quantity: qty, Measurement: mesurment, total_price: total }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -214,11 +166,11 @@ else
             error: function (data)
             { alert("Failed!!!"); }
         });
-        
+
     });
 
     $(".add-to-cart-table > .btn").click(function () {
-        
+
         var mesurment = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
         var productname = $(this).parent("td.add-to-cart-table").prevAll("td.product-name").children("a").text();
         var price = $(this).parent("td.add-to-cart-table").prevAll("td.product-price").children("span").html();
@@ -227,7 +179,7 @@ else
         $.ajax({
             url: '/Products/Addtocart',
             type: 'POST',
-            data: JSON.stringify({product_name: productname, Quantity: qty, Measurement: mesurment, total_price: total }),
+            data: JSON.stringify({ product_name: productname, Quantity: qty, Measurement: mesurment, total_price: total }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -243,7 +195,7 @@ else
             error: function (data)
             { alert("Failed!!!"); }
         });
-        
+
     });
 
     function vals() {
@@ -264,13 +216,13 @@ else
 
     $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
         return vals();
-       
+
     });
 
     $(".remove").click(function () {
         $(this).parents("div.well,tr").remove();
         return vals();
-        
+
     });
 
     //  //<!---------- Scroll Anima Right-Side-Bar ------------>
@@ -283,46 +235,47 @@ else
             $(".checkout").css("top", "50px");
         }
     });
-   
+
     //  //<!---------- Scroll Anima Right-Side-Bar ------------>
     //<!---------- Scroll Anima Right-Side-Bar ------------>
 
-  $(window).scroll(function(){
-      var scrollTop = $(window).scrollTop();
-      if(scrollTop <= 250){
-          $(".checkout").css("top","250px");
-      }else if(scrollTop > 250){
-          $(".checkout").css("top","50px");}
-  });
+    $(window).scroll(function () {
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop <= 250) {
+            $(".checkout").css("top", "250px");
+        } else if (scrollTop > 250) {
+            $(".checkout").css("top", "50px");
+        }
+    });
 
-    if(window.matchMedia('(max-width: 768px)').matches){
-        $(window).scroll(function(){
-            $(".checkout").css({"right":"40px", "top":"30%"});
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        $(window).scroll(function () {
+            $(".checkout").css({ "right": "40px", "top": "30%" });
         });
-    }	
+    }
 
-    if(window.matchMedia ('(max-width: "480px")').matches){
+    if (window.matchMedia('(max-width: "480px")').matches) {
 
-        $(window).scroll(function(){
-            $(".checkout").css({"right":"40px", "top":"20%"});
+        $(window).scroll(function () {
+            $(".checkout").css({ "right": "40px", "top": "20%" });
 
         });
 
     }
-    
+
     //<!---------- Scroll Anima Right-Side-Bar ------------>
-    
+
     //<!---------- mobile cart ------------>
-    $(".mobile-cart").click(function(){
+    $(".mobile-cart").click(function () {
         $(this).toggleClass(" rotate");
-        if($(this).hasClass("rotate")){
-            $(".checkout").css({"opacity":"1","top":"20%","right":"40px","z-index":"2"});
-            $(this).children("i.fa-shopping-cart").css("display","none");
-            $(this).children("i.fa-times").css("display","block");
-        }else{
-            $(".checkout").css({"opacity":"0","z-index":"-99"});
-            $(this).children("i.fa-shopping-cart").css("display","block");
-            $(this).children("i.fa-times").css("display","none");
+        if ($(this).hasClass("rotate")) {
+            $(".checkout").css({ "opacity": "1", "top": "20%", "right": "40px", "z-index": "2" });
+            $(this).children("i.fa-shopping-cart").css("display", "none");
+            $(this).children("i.fa-times").css("display", "block");
+        } else {
+            $(".checkout").css({ "opacity": "0", "z-index": "-99" });
+            $(this).children("i.fa-shopping-cart").css("display", "block");
+            $(this).children("i.fa-times").css("display", "none");
         }
         // $(".checkout").parent("div").css("position","fixed");
     });
@@ -332,11 +285,11 @@ else
 @if (ViewBag.msg != "" && ViewBag.msg != null)
 {
     <script>
-            $("body").overhang({
+        $("body").overhang({
             type: "error",
-                message: '@ViewBag.msg',
-                closeConfirm: false
-            });
+            message: '@ViewBag.msg',
+            closeConfirm: false
+        });
     </script>
 }
 
@@ -351,6 +304,6 @@ else
             });
         </script>
     }
-<script>
-   
+    <script>
+
     </script>
