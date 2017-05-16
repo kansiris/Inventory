@@ -51,5 +51,6 @@ namespace Inventory.Models
         public List<string> Quantity_QtyStock { get; set; }
         public List<int> Qid { get; set; }
         public string Quantity_Total { get; set; }
+        public string Qty_Reorder { get; set; }
     }
 }

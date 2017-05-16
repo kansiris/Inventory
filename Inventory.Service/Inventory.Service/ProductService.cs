@@ -105,6 +105,13 @@ namespace Inventory.Service
         }
         #endregion
 
+        #region Reordering
+        public static SqlDataReader Reordering(string dbname)
+        {
+            return ProductRepository.Reordering(dbname);
+        }
+        #endregion
+
         //to get subcategory products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {

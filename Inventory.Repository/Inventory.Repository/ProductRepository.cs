@@ -136,6 +136,15 @@ namespace Inventory.Repository
         }
         #endregion
 
+        #region Re-Order
+        public static SqlDataReader Reordering(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "Reordering");
+        }
+        #endregion
+
         //to get chicken products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {
