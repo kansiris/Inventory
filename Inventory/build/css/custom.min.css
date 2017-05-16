@@ -4899,6 +4899,8 @@ ul.notifications {
     border-radius: 50%;
     position: relative;
     float: left;
+    left: -50px;
+    margin-left: 50%;
     /*background: #f29c13;*/
 }
 
@@ -4909,7 +4911,7 @@ ul.notifications {
         /*background: #f29c13;*/
         position: absolute;
         top: 0;
-        left: 0;
+        left: 0px;
         opacity: 0;
     }
 
@@ -5417,6 +5419,7 @@ form .customer-information ul.cd-tabs-content .top-button + div {
     form .customer-information ul.cd-tabs-content .top-button + div {
         width: 100%;
         margin-top: 10px;
+        text-align: center;
     }
 
 form .customer-information .btn-success {

@@ -38,6 +38,7 @@ namespace Inventory.Controllers
                                         created_date = row["created_date"].ToString(),
                                         status = row["status"].ToString(),
                                     }).ToList();
+                Reordering(user.DbName);
                 if (TempData["msg"] != null)
                 {
                     ViewBag.msg = TempData["msg"];
@@ -66,6 +67,33 @@ namespace Inventory.Controllers
                 //return Content("<script language='javascript' type='text/javascript'>alert('Now Product " + id + " is " + status + "');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Stays in Same View
             }
             return View();
+        }
+
+        public void Reordering(string dbname)
+        {
+            var items = ProductService.Reordering(dbname);
+            DataTable dt = new DataTable();
+            dt.Load(items);
+            var reorderitems = (from DataRow row in dt.Rows
+                                select new Product()
+                                {
+                                    Quantity_id = int.Parse(row["id"].ToString()),
+                                    product_id = row["product_id"].ToString(),
+                                    Quantity_area = row["area"].ToString(),
+                                    Qty_Stock = row["Qty"].ToString(),
+                                    Qty_Reorder = row["Reorder_level"].ToString()
+                                }).ToList();
+            var reorderlist = new List<Product>();
+            foreach (var item in reorderitems)
+            {
+                int qty = int.Parse(item.Qty_Stock);
+                int reorder = int.Parse(item.Qty_Reorder.ToString());
+                if (qty < reorder)
+                {
+                    reorderlist.Add(item);
+                }
+            }
+            ViewBag.reorderlistitems = reorderlist;
         }
     }
 }
