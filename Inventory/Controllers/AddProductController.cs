@@ -58,6 +58,7 @@ namespace Inventory.Controllers
                 string product_id = "P" + id;
                 ViewBag.AvailableWarehouses = WarehouseQuantity(user.DbName);
                 string imagename = "";
+                //Uploaded Images
                 if (file != null && file.ContentLength > 0)
                 {
                     for (int i = 0; i < Request.Files.Count; i++)
@@ -71,7 +72,7 @@ namespace Inventory.Controllers
                     }
                     imagename = imagename.TrimStart(',');
                 }
-
+                //Library Images
                 if (product.product_images != null)
                 {
                     var images = product.product_images.Split(',');
@@ -79,7 +80,9 @@ namespace Inventory.Controllers
                     {
                         string fileName = product_id + "_" + images[i];
                         string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
-                        System.IO.File.Copy(Server.MapPath("~/images/"+images[i]+""), pathString); //copy image to application folder
+                        string spath = Server.MapPath("~/images/" + images[i] + "");
+                        System.IO.File.Copy(spath , pathString); //copy image from images folder to productimages folder
+                        imagename = imagename + "," + fileName;
                     }
                     imagename = imagename.TrimStart(',');
                 }
@@ -93,11 +96,12 @@ namespace Inventory.Controllers
                     {
                         int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, product.Quantity_Qty[i], product.Reorder_level[i], product.Quantity_Total);
                     }
-                    //ViewBag.smsg = "Product Added Successfully!!!";
-                    return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
+                     TempData["smsg"] = "Product Added Successfully!!!";
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
                 }
-                //ViewBag.msg = "Failed To Add Product";
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
+                TempData["msg"] = "Failed To Add Product";
+                return RedirectToAction("Index", "AllProducts");
+                //return Content("<script language='javascript' type='text/javascript'>alert('Failed To Add Product');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
             }
 
             return View();

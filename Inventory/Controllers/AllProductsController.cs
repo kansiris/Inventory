@@ -42,6 +42,10 @@ namespace Inventory.Controllers
                 {
                     ViewBag.msg = TempData["msg"];
                 }
+                if (TempData["smsg"] != null)
+                {
+                    ViewBag.smsg = TempData["smsg"];
+                }
             }
             return View();
         }
@@ -52,7 +56,10 @@ namespace Inventory.Controllers
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 int count = ProductService.productstatus(user.DbName, id, status);
-                TempData["msg"] = "Now Product " + id + " is " + status + "";
+                if (status == "Active")
+                    TempData["smsg"] = "Now Product " + id + " is " + status + "";
+                else
+                    TempData["msg"] = "Now Product " + id + " is " + status + "";
                 return RedirectToAction("Index", "AllProducts");
                 //if(count > 0)
                 //    return Content("<script language='javascript' type='text/javascript'>alert('Now Product is "+status+"');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Stays in Same View
