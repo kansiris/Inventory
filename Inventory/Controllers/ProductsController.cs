@@ -109,13 +109,13 @@ namespace Inventory.Controllers
         }
         //for Add to cart
 
-        public JsonResult Addtocart(/*string brand,*/string product_name,string Quantity,string Measurement,string total_price)
+        public JsonResult Addtocart(/*string brand,*/string product_name,string Quantity,string Measurement, /*string weight,*/ string total_price)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var sample = Addtocartpartial(user.DbName, user.ID);
-                int count = ProductService.Addtocart(user.DbName,user.ID, product_name, Quantity, Measurement, total_price);
+                int count = ProductService.Addtocart(user.DbName,user.ID, product_name, Quantity, Measurement,/* weight,*/ total_price);
             if (count>0)
             {
                    return Json("success");
@@ -140,9 +140,12 @@ namespace Inventory.Controllers
                                                    Quantity= row["Quantity"].ToString(),
                                                   //product_images = row["product_images"].ToString(),
                                                    Measurement = row["Measurement"].ToString(),
+                                                   //weight = row["brand"].ToString(),
                                                    total_price = row["total_price"].ToString(),
                                                }).ToList();
                         ViewBag.records = cartaddedproducts;
+            ViewBag.totalamount = cartaddedproducts.Select(m => int.Parse(m.total_price)).Sum();
+            ViewBag.cartqtycount = cartaddedproducts.Select(m => int.Parse(m.Quantity)).Sum();
             return PartialView("Addtocartpartial", ViewBag.records);
                    }
         //for genRte pos
@@ -172,7 +175,7 @@ namespace Inventory.Controllers
               
                 
                 ViewBag.records = cartaddedproducts;
-                
+                ViewBag.totalamount = cartaddedproducts.Select(m => int.Parse(m.total_price)).Sum();
                 return PartialView("GenaratePOs",ViewBag.records);
             }
             return PartialView("GenaratePOs", null);
