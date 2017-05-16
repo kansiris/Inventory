@@ -4776,7 +4776,6 @@
     <Content Include="Views\Customer\CustomerCompany.cshtml" />
     <Content Include="Views\Customer\CustomerContact.cshtml" />
     <Content Include="Views\ServerDown\Index.cshtml" />
-    <Content Include="Views\Products\purchaseorder.cshtml" />
     <Content Include="Views\Products\allproducts.cshtml" />
     <Content Include="Views\AddStock\Index.cshtml" />
     <Content Include="Views\Vamsi\Index.cshtml" />

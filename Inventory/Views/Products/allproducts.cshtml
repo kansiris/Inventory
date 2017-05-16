@@ -50,8 +50,8 @@
                                         </div>
                                     @*</div>*@
                                 </td>
-                                <td class="col-md-2 product-price">Rs <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
-                                <td class="col-md-2 product-price-total">Rs <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                                <td class="col-md-2 product-price">₹ <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                                <td class="col-md-2 product-price-total">₹ <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
                                 <td class="col-md-1 add-to-cart-table">
                                     <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                     <i class="fa fa-times remove" aria-hidden="true"></i>
@@ -138,6 +138,7 @@
         </div>
     </div>
 }
+<script src="~/Scripts/shopproduct.js"></script>
 <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
 <script>
 
@@ -198,32 +199,32 @@
 
     });
 
-    function vals() {
-        var total, totalquantity = 0, productprice, carttotal = 0;
-        $(".added-products .spinner input[type='text']").each(function () {
-            total = parseInt($(this).val());
-            totalquantity = total + totalquantity;
-        });
-        $(".added-products .product-price-total span").each(function () {
-            productprice = parseInt($(this).text());
-            carttotal = productprice + carttotal;
-        });
-        $(".cart-total span").remove();
-        $(".cart-total").append("<span>" + carttotal + "</span>");
-        $(".cart-icn span").remove();
-        $(".cart-icn").append("<span>" + totalquantity + "</span>");
-    }
+    //function vals() {
+    //    var total, totalquantity = 0, productprice, carttotal = 0;
+    //    $(".added-products .spinner input[type='text']").each(function () {
+    //        total = parseInt($(this).val());
+    //        totalquantity = total + totalquantity;
+    //    });
+    //    $(".added-products .product-price-total span").each(function () {
+    //        productprice = parseInt($(this).text());
+    //        carttotal = productprice + carttotal;
+    //    });
+    //    $(".cart-total span").remove();
+    //    $(".cart-total").append("<span>" + carttotal + "</span>");
+    //    $(".cart-icn span").remove();
+    //    $(".cart-icn").append("<span>" + totalquantity + "</span>");
+    //}
 
-    $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
-        return vals();
+    //$(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
+    //    return vals();
 
-    });
+    //});
 
-    $(".remove").click(function () {
-        $(this).parents("div.well,tr").remove();
-        return vals();
+    //$(".remove").click(function () {
+    //    $(this).parents("div.well,tr").remove();
+    //    return vals();
 
-    });
+    //});
 
     //  //<!---------- Scroll Anima Right-Side-Bar ------------>
 
@@ -240,7 +241,7 @@
         var charCode = (evt.which) ? evt.which : event.keyCode
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
             alert("Enter Number only");
-            return false;
+             return false;
         }
         return true;
     }

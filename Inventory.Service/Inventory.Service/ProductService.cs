@@ -142,5 +142,10 @@ namespace Inventory.Service
             return ProductRepository.Getcartdata(dbname, id);
         }
         
+             public static int checkcartdata(string dbname, string product_name, string Measurement)
+        {
+            return ProductRepository.checkcartdata(dbname, product_name, Measurement);
+        }
+
     }
 }
