@@ -1,4 +1,5 @@
 ﻿$(document).ready(function (e) {
+    
     var tableprice, divprice, tabletotal, divtotal;
     $('.spinner .btn:first-of-type').click(function () {
         var plus, v;
@@ -92,8 +93,8 @@ function ajaxcalling(clickeditem) {
             else {
                 var url1 = 'Products/Getproductsbysubcategory?sub_category=' + data;
                 $('#allproducts').empty().load(url1);
-                //var url2 = 'Products/Addtocartpartial';
-                //$('#cartrecords').empty().load(url2);
+                var url2 = 'Products/Addtocartpartial';
+                $('#cartrecords').empty().load(url2);
             }
         },
         error: function (data)
@@ -125,7 +126,8 @@ function removecart(cartid) {
                 alert("Removed from cart Successfully .");
                 var url = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url);
-                //$('#allproducts').load();
+                $('#allproducts').load();
+                //location.reload();
             }
         },
         error: function (data)
