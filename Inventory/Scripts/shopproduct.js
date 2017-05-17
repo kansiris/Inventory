@@ -95,6 +95,7 @@ function ajaxcalling(clickeditem) {
                 $('#allproducts').empty().load(url1);
                 var url2 = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url2);
+               //location.reload();
             }
         },
         error: function (data)
@@ -127,7 +128,7 @@ function removecart(cartid) {
                 var url = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url);
                 $('#allproducts').load();
-                //location.reload();
+                location.reload();
             }
         },
         error: function (data)
@@ -144,3 +145,4 @@ function genaratepo() {
     location.href='/Products/GenaratePOs?cid='+customerid;
     
 }
+

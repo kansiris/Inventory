@@ -195,11 +195,11 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "basedonidcartdata", id);
         }
 
-        public static int checkcartdata(string dbname, string product_name, string Measurement)
+        public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "checkcartdata", product_name, Measurement);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement);
            
         }
     }
