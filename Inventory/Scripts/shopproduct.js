@@ -145,15 +145,16 @@ function genaratepo() {
     location.href='/Products/GenaratePOs?cid='+customerid;
     
 }
+
 //updatecart
 function updatecart(cartid, quantity, costprice) {
-    alert(cartid);
-    alert(quantity);
-    alert(costprice);
+    //alert(cartid);
+    //alert(quantity);
+    //alert(costprice);
     newquant = quantity + 1;
     newamunt = costprice * newquant;
-    alert("new" + newquant);
-    alert("new" + newamunt);
+    //alert("new" + newquant);
+    //alert("new" + newamunt);
 
     $.ajax({
         url: '/Products/UpdateCart',
@@ -169,7 +170,7 @@ function updatecart(cartid, quantity, costprice) {
                 alert("Successfully Updated Cart.");
                 var url = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url);
-                location.reload();
+               // location.reload();
             }
         },
         error: function (data)
@@ -178,13 +179,13 @@ function updatecart(cartid, quantity, costprice) {
 
 }
 function updatecart1(cartid, quantity, costprice) {
-    alert(cartid);
-    alert(quantity);
-    alert(costprice);
+    //alert(cartid);
+    //alert(quantity);
+    //alert(costprice);
     newquant = quantity - 1;
     newamunt = costprice * newquant;
-    alert("new" + newquant);
-    alert("new" + newamunt);
+    //alert("new" + newquant);
+    //alert("new" + newamunt);
 
     $.ajax({
         url: '/Products/UpdateCart',
@@ -200,7 +201,7 @@ function updatecart1(cartid, quantity, costprice) {
                 alert("Successfully Updated Cart.");
                 var url = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url);
-                location.reload();
+                //location.reload();
             }
         },
         error: function (data)
