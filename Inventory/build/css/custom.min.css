@@ -4899,8 +4899,8 @@ ul.notifications {
     border-radius: 50%;
     position: relative;
     float: left;
-    left: -50px;
-    margin-left: 50%;
+    /*left: -50px;
+    margin-left: 50%;*/
     /*background: #f29c13;*/
 }
 
