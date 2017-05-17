@@ -1,9 +1,10 @@
 ﻿$(document).ready(function (e) {
+    
     var tableprice, divprice, tabletotal, divtotal;
     $('.spinner .btn:first-of-type').click(function () {
         var plus, v;
         v = parseInt($(this).parent("div").prev("input[type='text']").val());
-
+        //alert(v);
         if (v > 0) {
             plus = v + 1;
             $(this).parent("div").prev("input[type='text']").val(plus);
@@ -43,11 +44,13 @@
         $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("Total ₹ " + "<span>" + v + "</span>");
         $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>");
         $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>");
+        $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1');
 
     });
 });
 
 function vals() {
+  
     var total, totalquantity = 0, productprice, carttotal = 0;
     $(".added-products .spinner input[type='text']").each(function () {
         total = parseInt($(this).val());
@@ -65,7 +68,7 @@ function vals() {
 
 $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
     return vals();
-
+    
 });
 
 $(".remove").click(function () {
@@ -108,7 +111,7 @@ function getproducts(value) {
 
 //removing from cart
 function removecart(cartid) {
-    alert(cartid);
+    //alert(cartid);
     $.ajax({
         url: '/Products/Removefromcart?cart_id=' + cartid,
         type: 'POST',
@@ -124,6 +127,7 @@ function removecart(cartid) {
                 var url = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url);
                 $('#allproducts').load();
+                //location.reload();
             }
         },
         error: function (data)
@@ -136,7 +140,7 @@ function removecart(cartid) {
 
 function genaratepo() {
     var customerid = document.URL.split('=')[1];
-    alert(customerid);
+    //alert(customerid);
     location.href='/Products/GenaratePOs?cid='+customerid;
     
 }

@@ -109,15 +109,16 @@ namespace Inventory.Controllers
         }
         //for Add to cart
 
-        public JsonResult Addtocart(/*string brand,*/string product_name,string Quantity,string Measurement, /*string weight,*/ string total_price)
+        public JsonResult Addtocart(string product_name, string cost_price,string Quantity,string Measurement, /*string weight,*/ string total_price)
         {
+            
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var sample = Addtocartpartial(user.DbName, user.ID);
                 int counts= ProductService.checkcartdata(user.DbName,product_name,Measurement);
                 if (counts<1) {
-                int count = ProductService.Addtocart(user.DbName,user.ID, product_name, Quantity, Measurement,/* weight,*/ total_price);
+                int count = ProductService.Addtocart(user.DbName,user.ID, product_name, cost_price, Quantity, Measurement, total_price);
                  if (count>0)
                  return Json("success");
                 }
@@ -141,7 +142,7 @@ namespace Inventory.Controllers
                                                    ID= row["id"].ToString(),
                                                    cart_id= int.Parse(row["cart_id"].ToString()),
                                                    product_name = row["product_name"].ToString(),
-                                                   //brand = row["brand"].ToString(),
+                                                   cost_price = row["cost_price"].ToString(),
                                                    Quantity= row["Quantity"].ToString(),
                                                   //product_images = row["product_images"].ToString(),
                                                    Measurement = row["Measurement"].ToString(),
