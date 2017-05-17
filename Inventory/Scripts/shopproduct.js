@@ -1,4 +1,80 @@
-﻿function ajaxcalling(clickeditem) {
+﻿$(document).ready(function (e) {
+    var tableprice, divprice, tabletotal, divtotal;
+    $('.spinner .btn:first-of-type').click(function () {
+        var plus, v;
+        v = parseInt($(this).parent("div").prev("input[type='text']").val());
+
+        if (v > 0) {
+            plus = v + 1;
+            $(this).parent("div").prev("input[type='text']").val(plus);
+            tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
+            divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
+
+            tabletotal = plus * tableprice;
+            divtotal = plus * divprice;
+            $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
+            $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
+            $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
+            $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
+        }
+        return vals();
+    });
+    $('.spinner .btn:last-of-type').click(function () {
+        var minus, v;
+        v = parseInt($(this).parent("div").prev("input[type='text']").val());
+
+        if (v > 1) {
+            minus = v - 1;
+            $(this).parent("div").prev("input[type='text']").val(minus);
+            tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());;
+            divprice = parseInt($(this).parents(".rate-add").children(".product-price").children("span").text());
+            tabletotal = minus * tableprice;
+            divtotal = minus * divprice; $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
+            $(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
+            $(this).parents(".rate-add").children(".product-price-total").children("span").remove();
+            $(this).parents(".rate-add").children(".product-price-total").append("<span>" + divtotal + "</span>");
+        }
+        return vals();
+    });
+
+    $("select").on('change', function () {
+        var v = $(this).children("option:selected").text().split("₹")[1];
+        $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("Price ₹ " + "<span>" + v + "</span>");
+        $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("Total ₹ " + "<span>" + v + "</span>");
+        $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>");
+        $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>");
+
+    });
+});
+
+function vals() {
+    var total, totalquantity = 0, productprice, carttotal = 0;
+    $(".added-products .spinner input[type='text']").each(function () {
+        total = parseInt($(this).val());
+        totalquantity = total + totalquantity;
+    });
+    $(".added-products .product-price-total span").each(function () {
+        productprice = parseInt($(this).text());
+        carttotal = productprice + carttotal;
+    });
+    $(".cart-total span").remove();
+    $(".cart-total").append("<span>" + carttotal + "</span>");
+    $(".cart-icn span").remove();
+    $(".cart-icn").append("<span>" + totalquantity + "</span>");
+}
+
+$(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
+    return vals();
+
+});
+
+$(".remove").click(function () {
+    $(this).parents("div.well,tr").remove();
+    return vals();
+
+});
+
+function ajaxcalling(clickeditem) {
     //alert(clickeditem);
     $.ajax({
         url: '/Products/Getproducts?sub_category=' + clickeditem,

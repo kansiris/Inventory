@@ -115,12 +115,17 @@ namespace Inventory.Controllers
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var sample = Addtocartpartial(user.DbName, user.ID);
+                int counts= ProductService.checkcartdata(user.DbName,product_name,Measurement);
+                if (counts<1) {
                 int count = ProductService.Addtocart(user.DbName,user.ID, product_name, Quantity, Measurement,/* weight,*/ total_price);
-            if (count>0)
-            {
-                   return Json("success");
+                 if (count>0)
+                 return Json("success");
+                }
+                else
+                {
+                    return Json("unique");
+                }
             }
-          }
             return Json("unique");
         }
         public PartialViewResult Addtocartpartial(string dbname,string id)
