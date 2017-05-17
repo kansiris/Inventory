@@ -129,7 +129,23 @@ namespace Inventory.Controllers
                  }
             return Json("unique");
         }
-        
+
+        //for updatecart
+     public JsonResult UpdateCart(int cart_id,string Quantity,string total_price)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                int count=ProductService.Updatecart(user.DbName, cart_id, Quantity,total_price);
+                if (count>0) { 
+                    return Json("success");
+                }
+
+            }
+            return Json("unique");
+        }
+
         public PartialViewResult Addtocartpartial(string dbname,string id)
 
         {

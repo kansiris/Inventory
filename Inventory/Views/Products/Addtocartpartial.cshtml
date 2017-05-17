@@ -55,8 +55,8 @@
                                                 <label>Qty</label>
                                                 <input type="text" class="form-control" value="@item.Quantity">
                                                 <div class="input-group-btn-vertical">
-                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                    <button class="btn btn-default" type="button" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"><i class="fa fa-caret-up"></i></button>
+                                                    <button class="btn btn-default" type="button" onclick="updatecart1(@item.cart_id,@item.Quantity,@item.cost_price)"><i class="fa fa-caret-down"></i></button>
                                                 </div>
                                             </div>
                                         </div>

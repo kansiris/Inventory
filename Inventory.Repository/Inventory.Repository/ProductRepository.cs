@@ -173,6 +173,16 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "addtocart", id, product_name, cost_price, Quantity, Measurement, total_price);
         }
+
+        //Updatecart
+            public static int Updatecart(string dbname, int cart_id,string Quantity,string total_price)
+        {
+
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatecart", cart_id, Quantity,total_price);
+        }
+
         public static SqlDataReader Addtocartbyid(string dbname, String id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
