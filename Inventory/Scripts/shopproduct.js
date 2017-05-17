@@ -3,7 +3,7 @@
     $('.spinner .btn:first-of-type').click(function () {
         var plus, v;
         v = parseInt($(this).parent("div").prev("input[type='text']").val());
-
+        //alert(v);
         if (v > 0) {
             plus = v + 1;
             $(this).parent("div").prev("input[type='text']").val(plus);
@@ -43,11 +43,13 @@
         $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("Total ₹ " + "<span>" + v + "</span>");
         $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>");
         $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>");
+        $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1');
 
     });
 });
 
 function vals() {
+  
     var total, totalquantity = 0, productprice, carttotal = 0;
     $(".added-products .spinner input[type='text']").each(function () {
         total = parseInt($(this).val());
@@ -65,7 +67,7 @@ function vals() {
 
 $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
     return vals();
-
+    
 });
 
 $(".remove").click(function () {
@@ -90,8 +92,8 @@ function ajaxcalling(clickeditem) {
             else {
                 var url1 = 'Products/Getproductsbysubcategory?sub_category=' + data;
                 $('#allproducts').empty().load(url1);
-                var url2 = 'Products/Addtocartpartial';
-                $('#cartrecords').empty().load(url2);
+                //var url2 = 'Products/Addtocartpartial';
+                //$('#cartrecords').empty().load(url2);
             }
         },
         error: function (data)
@@ -108,7 +110,7 @@ function getproducts(value) {
 
 //removing from cart
 function removecart(cartid) {
-    alert(cartid);
+    //alert(cartid);
     $.ajax({
         url: '/Products/Removefromcart?cart_id=' + cartid,
         type: 'POST',
@@ -123,7 +125,7 @@ function removecart(cartid) {
                 alert("Removed from cart Successfully .");
                 var url = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url);
-                $('#allproducts').load();
+                //$('#allproducts').load();
             }
         },
         error: function (data)
@@ -136,7 +138,7 @@ function removecart(cartid) {
 
 function genaratepo() {
     var customerid = document.URL.split('=')[1];
-    alert(customerid);
+    //alert(customerid);
     location.href='/Products/GenaratePOs?cid='+customerid;
     
 }
