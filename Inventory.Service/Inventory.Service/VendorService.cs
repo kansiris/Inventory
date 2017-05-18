@@ -98,10 +98,10 @@ namespace Inventory.Service
 
             return VendorRepository.UpdateCompany1(company_Id, Company_Name, Email, logo, dbname);
         }
-        public static int deleteRecord(int company_Id, string dbname)
+        public static int deleteRecord(int company_Id,string status, string dbname)
         {
 
-            return VendorRepository.deleteRecord(company_Id, dbname);
+            return VendorRepository.deleteRecord(company_Id,status, dbname);
         }
         
             public static int deleteVendor(string Vendor_Id, string dbname)

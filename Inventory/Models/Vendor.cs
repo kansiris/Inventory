@@ -61,7 +61,8 @@ namespace Inventory.Models
         public string Adhar_Number { get; set; }
         
         public string Job_position { get; set; }
-       
+        public string status { get; set; }
+
         public string Note { get; set; }
        
         public string bill_street { get; set; }
