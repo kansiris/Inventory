@@ -1000,13 +1000,9 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-md-12">
+                                    <input type="hidden" value="@particularproduct.product_description" id="product_desc" />
                                     @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
                                     @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description", rows = "5"  })
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('#product_description').val('@particularproduct.product_description');
-                                        });
-                                    </script>
                                     @* @Html.TextArea("Attachments", new { @class = "form-control", id = "Attachments", rows="5", @Value = particularproduct.product_description });*@
                                 </div>
                             </div>
@@ -1144,7 +1140,9 @@
             });
 
             var productid = '@Request.QueryString["pid"]';
+
             if (productid != '') {
+                $('#product_description').val($('#product_desc').val());
                 var consumable = $('#product_consumable').val()
                 var type = $('#product_type').val();
                 var perishable = $('#product_perishability').val();

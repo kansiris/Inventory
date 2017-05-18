@@ -26,7 +26,7 @@
 
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
-    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" /><script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
 
 <div class="right_col" role="main">
@@ -322,7 +322,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <div class="row">
-                                        <div class="col-md-12 admin-product-image">
+                                        <ul class="col-md-12 admin-product-thumbs   ">
                                             @if (item.product_images != "")
                                             {
                                                 foreach (var item1 in item.product_images.Split(','))
@@ -332,7 +332,7 @@
                                             }
                                             else
                                             {<img src="images/default_product.png" alt="Product" />}
-                                        </div>
+                                        </ul>
                                     </div>
                                     @*<div class="row">
                                             <div class="col-md-12">
@@ -393,13 +393,9 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-xs-12 col-md-12">
+                                    <input type="hidden" value="@item.product_description" id="product_desc" />
                                     @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
                                     @Html.TextAreaFor(Model => Model.product_description,  new { @class="form-control", placeholder = "Product Description", @rows="5" }) @*@Value = item.product_description*@
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('#product_description').val('@item.product_description');
-                                        });
-                                    </script>
                                 </div>
                             </div>
                             <div class="row">
@@ -575,6 +571,7 @@ $("input[placeholder='Quantity in Hand']").blur(function(e) {
 $(document).ready(function(e) {
     $("input[type='text'], textarea").attr("readonly","true");
     $("input[type='text'].batchnum").removeAttr("readonly");
+    $('#product_description').val($('#product_desc').val());
     var consumable = $('#product_consumable').val()
     var type = $('#product_type').val();
     var perishable = $('#product_perishability').val();
