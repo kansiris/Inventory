@@ -112,7 +112,7 @@
                                                 <div class="btn-group">
                                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                                     <ul class="dropdown-menu">
-                                                        <li> <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
+                                                        <li> <a href="~/AddProduct?pid=@item.product_id"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
                                                         @if (item.status == "Active")
                                                         {
                                                             <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=InActive"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}

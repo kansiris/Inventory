@@ -51,7 +51,7 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12  col-md-6">
                                         @*<input type="text" class="form-control" placeholder="Product Name">*@
-                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required", autofocus = "autofocus" })
+                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required", autofocus = "autofocus"  })
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
                                         @*<input type="text" class="form-control" placeholder="Batch Number">*@
@@ -527,7 +527,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (ViewBag.AvailableWarehouses != null)
+                                        @if (ViewBag.AvailableWarehouses !=null)
                                         {
                                             //foreach (var item in ViewBag.AvailableWarehouses)
                                             for (int i = 0; i < ViewBag.AvailableWarehouses.Count; i++)
@@ -545,6 +545,32 @@
                                                     <td>
                                                         <div class="form-group col-xs-12 col-md-12">
                                                             @Html.TextBoxFor(Model => Model.Reorder_level[i], new { @Value = "0", @class = "form-control modified", placeholder = "Quantity1 in Hand" })
+                                                            @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        }
+
+                                        @if (ViewBag.AvailableQty != null)
+                                        {
+                                            //foreach (var item in ViewBag.AvailableWarehouses)
+                                            for (int i = 0; i < ViewBag.AvailableQty.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>@(++sno)</td>
+                                                    <td>@ViewBag.AvailableQty[i].Quantity_area</td>
+                                                    <td>
+                                                        <div class="form-group col-xs-12  col-md-12">
+                                                            @*col-md-7 col-md-push-2*@
+                                                            @*<input type="text" id="txtqty @sno" class="form-control" placeholder="Quantity in Hand" value="0">*@
+                                                            @Html.TextBoxFor(Model => Model.Quantity_Qty[i], new { Value = ViewBag.AvailableQty[i].Qty_Stock, @class = "form-control", placeholder = "Quantity in Hand" })
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group col-xs-12 col-md-12">
+                                                            @Html.TextBoxFor(Model => Model.Reorder_level[i], new { @Value = ViewBag.AvailableQty[i].Qty_Reorder, @class = "form-control modified", placeholder = "Quantity1 in Hand" })
                                                             @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
                                                         </div>
                                                     </td>
