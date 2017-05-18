@@ -11,6 +11,8 @@ namespace Inventory.Models
         
         public string cus_company_name { get; set; }
 
+        public string status { get; set; }
+
         public string cus_email { get; set; }
 
         public string cus_Note { get; set; }

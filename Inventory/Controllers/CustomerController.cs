@@ -25,6 +25,16 @@ namespace Inventory.Controllers
             if (list != null)
             ViewBag.cusjobpositions = AvailableJobPositions().Select(m => m.cus_Job_position).Distinct();
             ViewBag.jobpositions = "";
+            if (TempData["msg"] != null)
+            {
+                ViewBag.msg = TempData["msg"];
+            }
+            if (TempData["smsg"] != null)
+            {
+                ViewBag.smsg = TempData["smsg"];
+            }
+
+
             return View();
         }
        //Partial view for loading all customer compines
@@ -44,7 +54,8 @@ namespace Inventory.Controllers
                           cus_company_Id = int.Parse(row["cus_company_Id"].ToString()),
                           cus_company_name = row["cus_company_name"].ToString(),
                           cus_email = row["cus_email"].ToString(),
-                          cus_logo = row["cus_logo"].ToString()
+                          cus_logo = row["cus_logo"].ToString(),
+                          status= row["status"].ToString()
                       }).OrderByDescending(m => m.cus_company_Id).ToList();
             ViewBag.records = customer;
             return PartialView("CustomerCompany", ViewBag.records);
@@ -463,21 +474,39 @@ namespace Inventory.Controllers
         }
             return Json(null);
         }
-        public JsonResult deletecusRecord(int cus_company_Id)
+        //public JsonResult deletecusRecord(int cus_company_Id)
+        //{
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //        var data = CustomerService.deletecuscompRecord(cus_company_Id, user.DbName);
+        //        if (data > 0)
+        //        {
+        //            ViewBag.cus_company_Id = cus_company_Id;
+        //            return Json("sucess");
+        //        }
+        //        return Json("unique", JsonRequestBehavior.AllowGet);
+        //    }
+        //    return Json(null);
+        //}
+
+        public ActionResult deletecusRecord(int cus_company_Id, string status)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = CustomerService.deletecuscompRecord(cus_company_Id, user.DbName);
-            if (data > 0)
-            {
-                ViewBag.cus_company_Id = cus_company_Id;
-                return Json("sucess");
+                var data = CustomerService.deletecuscompRecord(cus_company_Id, status, user.DbName);
+                if (status == "Active")
+                    TempData["smsg"] = "Now Product " + cus_company_Id + " is " + status + "";
+                else
+                    TempData["msg"] = "Now Product " + cus_company_Id + " is " + status + "";
+                return RedirectToAction("Index", "Customer");
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
+
+
+            return View();
         }
-            return Json(null);
-        }
+
 
         public JsonResult deleteCustomer(string Customer_Id)
         {

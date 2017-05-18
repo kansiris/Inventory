@@ -1,297 +1,299 @@
 ﻿@if (ViewBag.records != null)
 {
-    <div class="row" id="allproducts">
-
-        <div class="table-responsive">
-            <table class="table  table-borderedtable-striped bulk_action" id="productstable">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th class="col-md-1">Image</th>
-                        <th class="col-md-3">Product Name</th>
-                        <th class="col-md-2">Description</th>
-                        <th class="col-md-1">Quantity</th>
-                        <th class="col-md-2">Price</th>
-                        <th class="col-md-2">Total</th>
-                        <th class="col-md-1">Add</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (ViewBag.records.Count != 0)
-                    {
-                        foreach (var item in ViewBag.records)
+    
+        <div class="row" id="allproducts">
+            <div class="table-responsive">
+                <table class="table  table-borderedtable-striped bulk_action" id="productstable">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th class="col-md-1">Image</th>
+                            <th class="col-md-3">Product Name</th>
+                            <th class="col-md-2">Description</th>
+                            <th class="col-md-1">Quantity</th>
+                            <th class="col-md-2">Price</th>
+                            <th class="col-md-2">Total</th>
+                            <th class="col-md-1">Add</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.records.Count != 0)
                         {
+                            foreach (var item in ViewBag.records)
+                            {
 
+                                <tr>
+                                    <td class="col-md-1 image">
+                                        @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                                        { <img src="~/ProductImages/@item.product_images" /> }
+                                        else
+                                        { <img src="~/images/default_product.png" /> }
+                                    </td>
+                                    <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
+                                    <td class="col-md-2 product-variation">
+                                        <select class="form-control">
+                                            @foreach (var item1 in item.distinctproducts.Split(','))
+                                            {
+                                                <option>@item1.Replace('?', '₹').Split('@')[0]</option>
+                                            }
+
+                                        </select>
+                                    </td>
+                                    <td class="col-md-1 quantity-changes">
+                                        @*<div class="col-xs-6 qty">*@
+                                        <div class="input-group spinner">
+                                            <label>Qty</label>
+                                            <input type="text" class="form-control" value="1" @*type="number"*@ onkeypress="return isNumberKey(event)">
+                                            <div class="input-group-btn-vertical">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            </div>
+                                        </div>
+                                        @*</div>*@
+                                    </td>
+                                    <td class="col-md-2 product-price">₹ <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                                    <td class="col-md-2 product-price-total">₹ <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                                    <td class="col-md-1 add-to-cart-table">
+                                        <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                        <i class="fa fa-times remove" aria-hidden="true"></i>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
                             <tr>
-                                <td class="col-md-1 image">
+                                <td colspan="6"><p>No Records Available</p></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" id="productstable1">
+                @if (ViewBag.records.Count != 0)
+                {
+                    foreach (var item in ViewBag.records)
+                    {
+                        <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
+                            <div class="well">
+                                <i class="fa fa-times remove" aria-hidden="true"></i>
+                                <div class="image">
+
                                     @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
                                     { <img src="~/ProductImages/@item.product_images" /> }
                                     else
                                     { <img src="~/images/default_product.png" /> }
-                                </td>
-                                <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
-                                <td class="col-md-2 product-variation">
+
+                                </div>
+                                <div class="img-title">
+                                    <span class="product-brand">@item.brand</span>
+                                    <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
+                                </div>
+                                <div class="product-variation">
                                     <select class="form-control">
+
                                         @foreach (var item1 in item.distinctproducts.Split(','))
                                         {
                                             <option>@item1.Replace('?', '₹').Split('@')[0]</option>
                                         }
 
                                     </select>
-                                </td>
-                                <td class="col-md-1 quantity-changes">
-                                    @*<div class="col-xs-6 qty">*@
-                                        <div class="input-group spinner">
-                                            <label>Qty</label>
-                                            <input type="text"  class="form-control" value="1" @*type="number"*@ onkeypress="return isNumberKey(event)">
-                                            <div class="input-group-btn-vertical">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                            </div>
-                                        </div>
-                                    @*</div>*@
-                                </td>
-                                <td class="col-md-2 product-price">₹ <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
-                                <td class="col-md-2 product-price-total">₹ <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
-                                <td class="col-md-1 add-to-cart-table">
-                                    <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                    <i class="fa fa-times remove" aria-hidden="true"></i>
-                                </td>
-
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6"><p>No Records Available</p></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="row" id="productstable1">
-            @if (ViewBag.records.Count != 0)
-            {
-                foreach (var item in ViewBag.records)
-                {
-                    <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
-                        <div class="well">
-                            <i class="fa fa-times remove" aria-hidden="true"></i>
-                            <div class="image">
-
-                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
-                                { <img src="~/ProductImages/@item.product_images" /> }
-                                else
-                                { <img src="~/images/default_product.png" /> }
-
-                            </div>
-                            <div class="img-title">
-                                <span class="product-brand">@item.brand</span>
-                                <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
-                            </div>
-                            <div class="product-variation">
-                                <select class="form-control">
-
-                                    @foreach (var item1 in item.distinctproducts.Split(','))
-                                    {
-                                        <option>@item1.Replace('?', '₹').Split('@')[0]</option>
-                                    }
-
-                                </select>
-                            </div>
-                            @*<div class="empty"></div>*@
-                            <div class="rate-add">
-                                <div class="product-price">
-                                    Price&nbsp;&nbsp;₹<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                                 </div>
-                                <div class="product-price-total">
-                                    Total&nbsp;&nbsp;₹<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
-                                </div>
-                                <div class="shipping">
-                                    <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                    Standard Delivery
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6 qty">
-                                        <div class="input-group spinner">
-                                            <label>Qty</label>
-                                            <input type="text" class="form-control" value="1" onkeypress="return isNumberKey(event)" id="quantity">
-                                            <div class="input-group-btn-vertical">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                            </div>
-                                        </div>
+                                @*<div class="empty"></div>*@
+                                <div class="rate-add">
+                                    <div class="product-price">
+                                        Price&nbsp;&nbsp;₹<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                                     </div>
-                                    <div class="col-xs-6 add-to-cart">
-                                        <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                                    <div class="product-price-total">
+                                        Total&nbsp;&nbsp;₹<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+                                    </div>
+                                    <div class="shipping">
+                                        <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                                        Standard Delivery
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 qty">
+                                            <div class="input-group spinner">
+                                                <label>Qty</label>
+                                                <input type="text" class="form-control" value="1" onkeypress="return isNumberKey(event)" id="quantity">
+                                                <div class="input-group-btn-vertical">
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 add-to-cart">
+                                            <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
-            else
-            {
-                <div><p>No Records Available</p></div>
-            }
+                else
+                {
+                    <div><p>No Records Available</p></div>
+                }
+            </div>
         </div>
-    </div>
-}
-@*<script src="~/Scripts/shopproduct.js"></script>*@
-<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-<script>
-
-    $(".add-to-cart > .btn").click(function () {
-        var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
-        var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
-        var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
-        var costprice = $(this).parents(".rate-add").children(".product-price").children("span").html();
-        var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
-
-        $.ajax({
-            url: '/Products/Addtocart',
-            type: 'POST',
-            data: JSON.stringify({ product_name: productname, Quantity: qty, Measurement: mesurment, cost_price:costprice , total_price: total }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "unique") {
-                    alert("not inserted");
-                }
-                else if (data == "exists") {
-                    alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
-                }
-                else {
-                    alert("Successfully Added To Cart.");
-                    var url = 'Products/Addtocartpartial';
-                    $('#cartrecords').empty().load(url);
-                   location.reload();
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
-
-    });
-
-    $(".add-to-cart-table > .btn").click(function () {
-
-        var mesurment = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
-        var productname = $(this).parent("td.add-to-cart-table").prevAll("td.product-name").children("a").text();
-        var price = $(this).parent("td.add-to-cart-table").prevAll("td.product-price").children("span").html();
-        var total = $(this).parent("td.add-to-cart-table").prevAll("td.product-price-total").children("span").html();
-        var qty = $(this).parent("td.add-to-cart-table").prevAll('td.quantity-changes').children("div.spinner").children("input").val();
-        $.ajax({
-            url: '/Products/Addtocart',
-            type: 'POST',
-            data: JSON.stringify({ product_name: productname, Quantity: qty, Measurement: mesurment, total_price: total }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "unique") {
-                    alert("not inserted");
-                } else if (data == "exists") {
-                    alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
-                }
-                else {
-                    alert("Successfully Added To Cart.");
-                    var url = 'Products/Addtocartpartial';
-                    $('#cartrecords').empty().load(url);
-                    location.reload();
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
-
-    });
-
-
-
-    $(window).scroll(function () {
-        var scrollTop = $(window).scrollTop();
-        if (scrollTop <= 250) {
-            $(".checkout").css("top", "250px");
-        } else if (scrollTop > 250) {
-            $(".checkout").css("top", "50px");
-        }
-    });
-    function isNumberKey(evt) {
-        
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            alert("Enter Number only");
-             return false;
-        }
-        return true;
-    }
-    //  //<!---------- Scroll Anima Right-Side-Bar ------------>
-    //<!---------- Scroll Anima Right-Side-Bar ------------>
-
-    $(window).scroll(function () {
-        var scrollTop = $(window).scrollTop();
-        if (scrollTop <= 250) {
-            $(".checkout").css("top", "250px");
-        } else if (scrollTop > 250) {
-            $(".checkout").css("top", "50px");
-        }
-    });
-
-    if (window.matchMedia('(max-width: 768px)').matches) {
-        $(window).scroll(function () {
-            $(".checkout").css({ "right": "40px", "top": "30%" });
-        });
-    }
-
-    if (window.matchMedia('(max-width: "480px")').matches) {
-
-        $(window).scroll(function () {
-            $(".checkout").css({ "right": "40px", "top": "20%" });
-
-        });
-
-    }
-
-    //<!---------- Scroll Anima Right-Side-Bar ------------>
-
-    //<!---------- mobile cart ------------>
-    $(".mobile-cart").click(function () {
-        $(this).toggleClass(" rotate");
-        if ($(this).hasClass("rotate")) {
-            $(".checkout").css({ "opacity": "1", "top": "20%", "right": "40px", "z-index": "2" });
-            $(this).children("i.fa-shopping-cart").css("display", "none");
-            $(this).children("i.fa-times").css("display", "block");
-        } else {
-            $(".checkout").css({ "opacity": "0", "z-index": "-99" });
-            $(this).children("i.fa-shopping-cart").css("display", "block");
-            $(this).children("i.fa-times").css("display", "none");
-        }
-        // $(".checkout").parent("div").css("position","fixed");
-    });
-    //<!---------- mobile cart ------------>
-</script>
-@*Error Message*@
-@if (ViewBag.msg != "" && ViewBag.msg != null)
-{
-    <script>
-        $("body").overhang({
-            type: "error",
-            message: '@ViewBag.msg',
-            closeConfirm: false
-        });
-    </script>
-}
-
-    @*Success Message*@
-    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
-    {
-        <script>
-            $("body").overhang({
-                type: "success",
-                message: '@ViewBag.smsg',
-                closeConfirm: false
-            });
-        </script>
-    }
     
+        }
+        @*<script src="~/Scripts/shopproduct.js"></script>*@
+        <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+        <script>
+
+            $(".add-to-cart > .btn").click(function () {
+                var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
+                var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
+                var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
+                var costprice = $(this).parents(".rate-add").children(".product-price").children("span").html();
+                var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
+                var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
+                alert(cid);
+                $.ajax({
+                    url: '/Products/Addtocart',
+                    type: 'POST',
+                    data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "unique") {
+                            alert("not inserted");
+                        }
+                        else if (data == "exists") {
+                            alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
+                        }
+                        else {
+                            alert("Successfully Added To Cart.");
+                            var url = 'Products/Addtocartpartial?cid=' + cid;
+                            $('#cartrecords').load(url);
+                            //location.reload();
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+
+            });
+
+            $(".add-to-cart-table > .btn").click(function () {
+
+                var mesurment = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
+                var productname = $(this).parent("td.add-to-cart-table").prevAll("td.product-name").children("a").text();
+                var price = $(this).parent("td.add-to-cart-table").prevAll("td.product-price").children("span").html();
+                var total = $(this).parent("td.add-to-cart-table").prevAll("td.product-price-total").children("span").html();
+                var qty = $(this).parent("td.add-to-cart-table").prevAll('td.quantity-changes').children("div.spinner").children("input").val();
+                var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
+                $.ajax({
+                    url: '/Products/Addtocart',
+                    type: 'POST',
+                    data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, total_price: total }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "unique") {
+                            alert("not inserted");
+                        } else if (data == "exists") {
+                            alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
+                        }
+                        else {
+                            alert("Successfully Added To Cart.");
+                            var url = 'Products/Addtocartpartial?cid=' + cid;
+                            $('#cartrecords').load(url);
+
+                        }
+                    },
+                    error: function (data)
+                    { alert("Failed!!!"); }
+                });
+
+            });
+
+
+
+            $(window).scroll(function () {
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop <= 250) {
+                    $(".checkout").css("top", "250px");
+                } else if (scrollTop > 250) {
+                    $(".checkout").css("top", "50px");
+                }
+            });
+            function isNumberKey(evt) {
+
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    alert("Enter Number only");
+                    return false;
+                }
+                return true;
+            }
+            //  //<!---------- Scroll Anima Right-Side-Bar ------------>
+            //<!---------- Scroll Anima Right-Side-Bar ------------>
+
+            $(window).scroll(function () {
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop <= 250) {
+                    $(".checkout").css("top", "250px");
+                } else if (scrollTop > 250) {
+                    $(".checkout").css("top", "50px");
+                }
+            });
+
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                $(window).scroll(function () {
+                    $(".checkout").css({ "right": "40px", "top": "30%" });
+                });
+            }
+
+            if (window.matchMedia('(max-width: "480px")').matches) {
+
+                $(window).scroll(function () {
+                    $(".checkout").css({ "right": "40px", "top": "20%" });
+
+                });
+
+            }
+
+            //<!---------- Scroll Anima Right-Side-Bar ------------>
+
+            //<!---------- mobile cart ------------>
+            $(".mobile-cart").click(function () {
+                $(this).toggleClass(" rotate");
+                if ($(this).hasClass("rotate")) {
+                    $(".checkout").css({ "opacity": "1", "top": "20%", "right": "40px", "z-index": "2" });
+                    $(this).children("i.fa-shopping-cart").css("display", "none");
+                    $(this).children("i.fa-times").css("display", "block");
+                } else {
+                    $(".checkout").css({ "opacity": "0", "z-index": "-99" });
+                    $(this).children("i.fa-shopping-cart").css("display", "block");
+                    $(this).children("i.fa-times").css("display", "none");
+                }
+                // $(".checkout").parent("div").css("position","fixed");
+            });
+            //<!---------- mobile cart ------------>
+        </script>
+        @*Error Message*@
+        @if (ViewBag.msg != "" && ViewBag.msg != null)
+        {
+            <script>
+                $("body").overhang({
+                    type: "error",
+                    message: '@ViewBag.msg',
+                    closeConfirm: false
+                });
+            </script>
+        }
+
+        @*Success Message*@
+        @if (ViewBag.smsg != "" && ViewBag.smsg != null)
+        {
+            <script>
+                $("body").overhang({
+                    type: "success",
+                    message: '@ViewBag.smsg',
+                    closeConfirm: false
+                });
+            </script>
+        }

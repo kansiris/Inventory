@@ -97,10 +97,10 @@ namespace Inventory.Service
 
             return CustomerRepository.UpdatecusCompany1(cus_company_Id, cus_company_name, cus_email, cus_logo, dbname);
         }
-        public static int deletecuscompRecord(int cus_company_Id, string dbname)
+        public static int deletecuscompRecord(int cus_company_Id,string status, string dbname)
         {
 
-            return CustomerRepository.deletecuscompRecord(cus_company_Id, dbname);
+            return CustomerRepository.deletecuscompRecord(cus_company_Id, status, dbname);
         }
 
         public static int deleteCustomer(string Customer_Id, string dbname)

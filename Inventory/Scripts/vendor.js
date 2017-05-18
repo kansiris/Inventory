@@ -313,41 +313,41 @@ $("#Mobile_No").keypress(function (e) {
 //<!------ Contact Person Pop Up Job Position ------->
 //Deleting particular company based on id
 
-function deleteRecord(id) {
-    // alert(id);
-    var retVal = confirm("Do you want to delete record...!");
-    if (retVal == true) {
-        $.ajax({
-            url: '/Vendor/deleteRecord',
-            type: 'POST',
-            data: JSON.stringify({ company_Id: id }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "unique") {
-                    alert("sai");
-                }
-                else {
-                    alert("Company Deleted Successfully");
-                    var url = 'Vendor/VendorCompany';
-                    $('#companyrecords').empty().load(url, function () { Pagination(); });
-                    $('#vendor-information').css('display', 'none');
-                    $('#additon').css('display', 'none');
-                    $(".cd-tabs").css('display', 'none');
+//function deleteRecord(id) {
+//    // alert(id);
+//    var retVal = confirm("Do you want to delete record...!");
+//    if (retVal == true) {
+//        $.ajax({
+//            url: '/Vendor/deleteRecord',
+//            type: 'POST',
+//            data: JSON.stringify({ company_Id: id }),
+//            dataType: 'json',
+//            contentType: 'application/json',
+//            success: function (data) {
+//                if (data == "unique") {
+//                    alert("sai");
+//                }
+//                else {
+//                    alert("Company Deleted Successfully");
+//                    var url = 'Vendor/VendorCompany';
+//                    $('#companyrecords').empty().load(url, function () { Pagination(); });
+//                    $('#vendor-information').css('display', 'none');
+//                    $('#additon').css('display', 'none');
+//                    $(".cd-tabs").css('display', 'none');
 
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
+//                }
+//            },
+//            error: function (data)
+//            { alert("Failed!!!"); }
+//        });
 
-        return true;
-    }
+//        return true;
+//    }
 
-    else {
-        return false;
-    }
-}
+//    else {
+//        return false;
+//    }
+//}
 //Assigning values to inputs
 function editFunction(array) {
     $('#company_Id').val(array.company_Id);

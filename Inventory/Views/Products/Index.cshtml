@@ -35,7 +35,9 @@
                 <form>
                     <input type="hidden" id="meas" value=""/>
                     <div class="row">
-                        <div class="form-title col-xs-12 col-md-9">Shop Products</div>
+                        <div class="form-title col-xs-6 col-md-6">Shop Products</div>
+                        <div class="form-title col-xs-2 col-md-3">Company-Name:@Request.QueryString["cname"]</div>
+                        @*<h1>@Request.QueryString["cname"]</h1>*@
                         <div class="top-bar col-xs-12 col-md-3">
                             <div class="icons pull-right">
                                 <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
@@ -218,7 +220,7 @@
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../build/js/custom.min.js"></script>
     <script type="text/javascript">
-
+        var sd = location.search.split('cname=')[2];
         $("#grid-view").click(function (e) {
             $("#productstable").css("display", "none");
             $("#productstable1").css("display", "block");
@@ -227,6 +229,7 @@
         $("#list-view").click(function (e) {
             $("#productstable").css("display", "block");
             $("#productstable1").css("display", "none");
+            var cname = location.search.split('cname=')[2];
             //location.reload();
         });
 

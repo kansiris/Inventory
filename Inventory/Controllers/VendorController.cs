@@ -27,6 +27,14 @@ namespace Inventory.Controllers
                     ViewBag.jobpositions = AvailableJobPositions().Select(m => m.Job_position).Distinct();
             else
             ViewBag.jobpositions = "";
+            if (TempData["msg"] != null)
+            {
+                ViewBag.msg = TempData["msg"];
+            }
+            if (TempData["smsg"] != null)
+            {
+                ViewBag.smsg = TempData["smsg"];
+            }
             return View();
         }
         //companypic upload
@@ -458,20 +466,21 @@ namespace Inventory.Controllers
             }
             return Json(null);
         }
-        public JsonResult deleteRecord(int company_Id)
+        public ActionResult deleteRecord(int company_Id, string status)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var data = VendorService.deleteRecord(company_Id, user.DbName);
-                if (data > 0)
-                {
-                    ViewBag.company_Id = company_Id;
-                    return Json("sucess");
-                }
-                return Json("unique", JsonRequestBehavior.AllowGet);
+                var data = VendorService.deleteRecord(company_Id, status, user.DbName);
+                if (status == "Active")
+                    TempData["smsg"] = "Now Product " + company_Id + " is " + status + "";
+                else
+                    TempData["msg"] = "Now Product " + company_Id + " is " + status + "";
+                return RedirectToAction("Index", "Vendor");
             }
-            return Json(null);
+
+            
+            return View();
         }
 
         public JsonResult deleteVendor(string Vendor_Id)
@@ -655,7 +664,8 @@ namespace Inventory.Controllers
                               company_Id = int.Parse(row["company_Id"].ToString()),
                               Company_Name = row["Company_Name"].ToString(),
                               Email = row["Email"].ToString(),
-                              logo = row["logo"].ToString()
+                              logo = row["logo"].ToString(),
+                              status= row["status"].ToString()
                           }).OrderByDescending(m => m.company_Id).ToList();
                 ViewBag.records = vendor;
                 return PartialView("VendorCompany", ViewBag.records);

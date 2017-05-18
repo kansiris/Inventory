@@ -273,42 +273,42 @@ $("#Mobile_No").keypress(function (e) {
 //<!------ Contact Person Pop Up Job Position ------->
 //Deleting particular company based on id
 
-function deleteRecord(id) {
-    //alert(id);
-    var retVal = confirm("Do you want to delete record...!");
-    if (retVal == true) {
-        $.ajax({
-            url: '/Customer/deletecusRecord',
-            type: 'POST',
-            data: JSON.stringify({ cus_company_Id: id }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "unique") {
-                    alert("sai");
-                }
-                else {
+//function deleteRecord(id) {
+//    //alert(id);
+//    var retVal = confirm("Do you want to delete record...!");
+//    if (retVal == true) {
+//        $.ajax({
+//            url: '/Customer/deletecusRecord',
+//            type: 'POST',
+//            data: JSON.stringify({ cus_company_Id: id }),
+//            dataType: 'json',
+//            contentType: 'application/json',
+//            success: function (data) {
+//                if (data == "unique") {
+//                    alert("sai");
+//                }
+//                else {
                     
-                    var url = 'Customer/CustomerCompany';
-                    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-                    alert("Company Deleted Successfully");
-                    $('#customer-information').css('display', 'none');
-                    $('#additonal').css('display', 'none');
-                    $(".cd-tabs").css('display', 'none');
+//                    var url = 'Customer/CustomerCompany';
+//                    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+//                    alert("Company Deleted Successfully");
+//                    $('#customer-information').css('display', 'none');
+//                    $('#additonal').css('display', 'none');
+//                    $(".cd-tabs").css('display', 'none');
 
-                }
-            },
-            error: function (data)
-            { alert("Failed!!!"); }
-        });
+//                }
+//            },
+//            error: function (data)
+//            { alert("Failed!!!"); }
+//        });
 
-        return true;
-    }
+//        return true;
+//    }
 
-    else {
-        return false;
-    }
-}
+//    else {
+//        return false;
+//    }
+//}
 //Assigning values to inputs
 function editFunction(array) {
     $('#cus_company_Id').val(array.cus_company_Id);

@@ -15,7 +15,7 @@ namespace Inventory.Controllers
     {
 
         // GET: Products
-        public ActionResult Index(string cid)
+        public ActionResult Index(string cid,string cname)
         {
             return View();
         }
@@ -108,22 +108,22 @@ namespace Inventory.Controllers
             return PartialView("allproducts", null);
         }
        
-        public JsonResult Addtocart(string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
+        public JsonResult Addtocart(string cid,string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 //var sample = Addtocartpartial(user.DbName, user.ID);
-                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement);
-
+                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement,cid);
+                
                 if (counts.HasRows)
                 {
                     return Json("exists");
                 }
                 else
                 {
-                   ProductService.Addtocart(user.DbName, user.ID, product_name, cost_price, Quantity, Measurement, total_price);
+                   ProductService.Addtocart(user.DbName, cid, product_name, cost_price, Quantity, Measurement, total_price);
                     return Json("success");
                 }
                  }
@@ -146,17 +146,17 @@ namespace Inventory.Controllers
             return Json("unique");
         }
 
-        public PartialViewResult Addtocartpartial(string dbname,string id)
+        public PartialViewResult Addtocartpartial(string cid)
 
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var records = ProductService.Addtocartbyid(user.DbName, user.ID);
+            var records = ProductService.Addtocartbyid(user.DbName, cid);
             var dt = new DataTable();
             dt.Load(records);
             List<Product> cartaddedproducts = (from DataRow row in dt.Rows
                                                select new Product()
                                                {
-                                                   ID= row["id"].ToString(),
+                                                   customer_id = row["customer_id"].ToString(),
                                                    cart_id= int.Parse(row["cart_id"].ToString()),
                                                    product_name = row["product_name"].ToString(),
                                                    cost_price = row["cost_price"].ToString(),
@@ -167,8 +167,8 @@ namespace Inventory.Controllers
                                                    total_price = row["total_price"].ToString(),
                                                }).ToList();
                         ViewBag.records = cartaddedproducts;
-            ViewBag.totalamount = cartaddedproducts.Select(m => int.Parse(m.total_price)).Sum();
-            ViewBag.cartqtycount = cartaddedproducts.Select(m => int.Parse(m.Quantity)).Sum();
+            ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
+            ViewBag.cartqtycount = cartaddedproducts.Select(m => float.Parse(m.Quantity)).Sum();
             return PartialView("Addtocartpartial", ViewBag.records);
                    }
         //for genRte pos
@@ -180,13 +180,13 @@ namespace Inventory.Controllers
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var dt = new DataTable();
-                var records = ProductService.Getcartdata(user.DbName, user.ID);
+                var records = ProductService.Getcartdata(user.DbName,cid);
                 dt.Load(records);
                 
                 List<Product> cartaddedproducts = (from DataRow row in dt.Rows
                                                    select new Product()
                                                    {
-                                                       ID = row["id"].ToString(),
+                                                       customer_id = row["customer_id"].ToString(),
                                                        cart_id = int.Parse(row["cart_id"].ToString()),
                                                        product_name = row["product_name"].ToString(),
                                                        //brand = row["brand"].ToString(),
@@ -198,7 +198,7 @@ namespace Inventory.Controllers
               
                 
                 ViewBag.records = cartaddedproducts;
-                ViewBag.totalamount = cartaddedproducts.Select(m => int.Parse(m.total_price)).Sum();
+                ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
                 return PartialView("GenaratePOs",ViewBag.records);
             }
             return PartialView("GenaratePOs", null);
