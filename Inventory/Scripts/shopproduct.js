@@ -125,7 +125,7 @@ function getproducts(value) {
                 $('#allproducts').load(url);
                 //var url2 = 'Products/Addtocartpartial?cid='+cid;
                 //$('#cartrecords').empty.load(url2);
-
+                
             }
         },
         error: function (data)

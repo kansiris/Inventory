@@ -142,7 +142,6 @@
         @*<script src="~/Scripts/shopproduct.js"></script>*@
         <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
         <script>
-
             $(".add-to-cart > .btn").click(function () {
                 var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
                 var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
@@ -166,7 +165,7 @@
                         }
                         else {
                             alert("Successfully Added To Cart.");
-                            var url = 'Products/Addtocartpartial?cid=' + cid;
+                            var url = 'Products/Addtocartpartial?cid='+cid;
                             $('#cartrecords').load(url);
                             //location.reload();
                         }
