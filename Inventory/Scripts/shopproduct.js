@@ -79,10 +79,11 @@ $(".remove").click(function () {
 
 function ajaxcalling(clickeditem) {
     //alert(clickeditem);
+    var cid = document.URL.split('=')[1].split('#')[0];
     $.ajax({
-        url: '/Products/Getproducts?sub_category=' + clickeditem,
+        url: '/Products/Getproducts',
         type: 'POST',
-        data: JSON.stringify({}),
+        data: JSON.stringify({ sub_category: clickeditem}),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
@@ -92,10 +93,10 @@ function ajaxcalling(clickeditem) {
             }
             else {
                 var url1 = 'Products/Getproductsbysubcategory?sub_category=' + data;
-                $('#allproducts').empty().load(url1);
-                var url2 = 'Products/Addtocartpartial';
-                $('#cartrecords').empty().load(url2);
-               //location.reload();
+                $('#allproducts').empty.load(url1);
+                //var url2 = 'Products/Addtocartpartial?cid='+cid;
+                //$('#cartrecords').empty.load(url2);
+               
             }
         },
         error: function (data)
@@ -105,14 +106,39 @@ function ajaxcalling(clickeditem) {
 
 
 function getproducts(value) {
-    ajaxcalling(value);
+    // ajaxcalling(value);
+    
+    var cid = document.URL.split('=')[1].split('#')[0];
+    $.ajax({
+        url: '/Products/Getproducts',
+        type: 'POST',
+        data: JSON.stringify({ sub_category: value }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            alert(data);
+            if (data == "unique") {
+                alert("nodata available");
+            }
+            else {
+                var url = 'Products/Getproductsbysubcategory?sub_category=' + data;
+                $('#allproducts').load(url);
+                //var url2 = 'Products/Addtocartpartial?cid='+cid;
+                //$('#cartrecords').empty.load(url2);
+
+            }
+        },
+        error: function (data)
+        { alert("Failed!!!"); }
+    });
 }
 
 
 
 //removing from cart
 function removecart(cartid) {
-    //alert(cartid);
+    var cid = location.search.split('cid=')[1];
+    //alert(cid);
     $.ajax({
         url: '/Products/Removefromcart?cart_id=' + cartid,
         type: 'POST',
@@ -125,10 +151,9 @@ function removecart(cartid) {
             }
             else {
                 alert("Removed from cart Successfully .");
-                var url = 'Products/Addtocartpartial';
-                $('#cartrecords').empty().load(url);
-                $('#allproducts').load();
-                location.reload();
+                var url = 'Products/Addtocartpartial?cid='+cid;
+                $('#cartrecords').empty.load(url);
+                
             }
         },
         error: function (data)
@@ -151,9 +176,10 @@ function updatecart(cartid, quantity, costprice) {
     //alert(cartid);
     //alert(quantity);
     //alert(costprice);
+    cid = location.search.split('cid=')[1];
     newquant = quantity + 1;
     newamunt = costprice * newquant;
-    //alert("new" + newquant);
+    //alert(cid);
     //alert("new" + newamunt);
 
     $.ajax({
@@ -168,9 +194,9 @@ function updatecart(cartid, quantity, costprice) {
             } 
             else {
                 alert("Successfully Updated Cart.");
-                var url = 'Products/Addtocartpartial';
-                $('#cartrecords').empty().load(url);
-               // location.reload();
+                var url = 'Products/Addtocartpartial?cid=' + cid;
+                $('#cartrecords').empty.load(url);
+               
             }
         },
         error: function (data)
@@ -184,7 +210,8 @@ function updatecart1(cartid, quantity, costprice) {
     //alert(costprice);
     newquant = quantity - 1;
     newamunt = costprice * newquant;
-    //alert("new" + newquant);
+    cid = location.search.split('cid=')[1];
+    //alert(cid);
     //alert("new" + newamunt);
 
     $.ajax({
@@ -199,8 +226,8 @@ function updatecart1(cartid, quantity, costprice) {
             }
             else {
                 alert("Successfully Updated Cart.");
-                var url = 'Products/Addtocartpartial';
-                $('#cartrecords').empty().load(url);
+                var url = 'Products/Addtocartpartial?cid='+cid;
+                $('#cartrecords').empty.load(url);
                 //location.reload();
             }
         },

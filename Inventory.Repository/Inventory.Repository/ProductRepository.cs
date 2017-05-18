@@ -166,12 +166,12 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getmeasurmentsbyproduct", product_name);
         }
-        public static int Addtocart(string dbname, string id, string product_name, string cost_price,  string Quantity, string Measurement, /*string weight,*/ string total_price)
+        public static int Addtocart(string dbname, string cid, string product_name, string cost_price,  string Quantity, string Measurement, /*string weight,*/ string total_price)
         {
            
                   GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "addtocart", id, product_name, cost_price, Quantity, Measurement, total_price);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "addtocart", cid, product_name, cost_price, Quantity, Measurement, total_price);
         }
 
         //Updatecart
@@ -183,11 +183,11 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteNonQuery(ConnectionString, "updatecart", cart_id, Quantity,total_price);
         }
 
-        public static SqlDataReader Addtocartbyid(string dbname, String id)
+        public static SqlDataReader Addtocartbyid(string dbname, string cid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "addtocartbyuserid", id);
+            return SqlHelper.ExecuteReader(ConnectionString, "addtocartbycustomerid", cid);
         }
 
         
@@ -202,14 +202,14 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "basedonidcartdata", id);
+            return SqlHelper.ExecuteReader(ConnectionString, "basedoncustomeridcartdata", id);
         }
 
-        public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement)
+        public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement,cid);
            
         }
     }

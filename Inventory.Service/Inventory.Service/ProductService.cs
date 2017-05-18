@@ -128,10 +128,10 @@ namespace Inventory.Service
             return ProductRepository.Getdescripton(dbname, product_name);
         }
 
-        public static int Addtocart(string dbname,string id, string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
+        public static int Addtocart(string dbname,string cid, string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
         {
             
-            return ProductRepository.Addtocart(dbname, id, product_name, cost_price, Quantity, Measurement, total_price);
+            return ProductRepository.Addtocart(dbname, cid, product_name, cost_price, Quantity, Measurement, total_price);
         }
         //Updatecart
             public static int Updatecart(string dbname, int cart_id, string Quantity,string total_price)
@@ -140,9 +140,9 @@ namespace Inventory.Service
             return ProductRepository.Updatecart(dbname, cart_id, Quantity,total_price);
         }
 
-        public static SqlDataReader Addtocartbyid(string dbname, string id)
+        public static SqlDataReader Addtocartbyid(string dbname, string cid)
         {
-            return ProductRepository.Addtocartbyid(dbname, id);
+            return ProductRepository.Addtocartbyid(dbname, cid);
         }
 
         
@@ -150,14 +150,14 @@ namespace Inventory.Service
         {
             return ProductRepository.Removefromcart(dbname, cart_id);
         }
-        public static SqlDataReader Getcartdata(string dbname, string id)
+        public static SqlDataReader Getcartdata(string dbname, string cid)
         {
-            return ProductRepository.Getcartdata(dbname, id);
+            return ProductRepository.Getcartdata(dbname, cid);
         }
         
-             public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement)
+             public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
         {
-            return ProductRepository.checkcartdata(dbname, product_name, Measurement);
+            return ProductRepository.checkcartdata(dbname, product_name, Measurement,cid);
         }
 
     }

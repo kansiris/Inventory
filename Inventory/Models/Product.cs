@@ -8,6 +8,8 @@ namespace Inventory.Models
     public class Product
     {
         public string ID { get; set; }
+        public string customer_id { get; set; }
+        
         public string product_id { get; set; }
         public string product_name { get; set; }
         public string batch_number { get; set; }
