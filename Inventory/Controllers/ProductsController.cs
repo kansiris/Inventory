@@ -51,6 +51,8 @@ namespace Inventory.Controllers
             return PartialView("allproducts", null);
         }
 
+       
+
         public JsonResult Getproducts(string sub_category)
         {
             var sample = Getproductsbysubcategory(sub_category);
