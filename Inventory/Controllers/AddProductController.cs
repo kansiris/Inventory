@@ -15,7 +15,7 @@ namespace Inventory.Controllers
     public class AddProductController : Controller
     {
         // GET: AddProduct
-        public ActionResult Index()
+        public ActionResult Index(string pid)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
@@ -25,7 +25,7 @@ namespace Inventory.Controllers
                 {
                     if (count["wcount"].ToString() != "0")
                     {
-                        ViewBag.count = "1";
+                        ViewBag.count = "addproduct";
                         ViewBag.weights = convert(user.DbName, "weight", "");
                         ViewBag.sizes = convert(user.DbName, "size", "");
                         ViewBag.colors = convert(user.DbName, "color", "");
@@ -37,12 +37,21 @@ namespace Inventory.Controllers
                     }
                     else
                     {
-                        ViewBag.count = "";
+                        ViewBag.count = "empty";
                     }
                 }
                 else
                 {
-                    ViewBag.count = "";
+                    ViewBag.count = "empty";
+                }
+                if (pid != "" && pid != null)
+                {
+                    ViewBag.AvailableWarehouses = "";
+                    ViewBag.count = "editproduct";
+                    ViewBag.Title = ":: Update Product ::";
+                    ViewBag.product = convertproduct(user.DbName, pid);
+                    ViewBag.AvailableQty = convertquantity(user.DbName, pid);
+                    ViewBag.total = ViewBag.AvailableQty[0].Quantity_Total;
                 }
             }
             return View();
@@ -213,8 +222,71 @@ namespace Inventory.Controllers
                              //conperson = row["Contact_person"].ToString(),
                              //Email = row["Email"].ToString(),
                              // Wh_logo = row["Wh_Image"].ToString()
-                         }).OrderByDescending(m => m.wh_Id).ToList();
+                         }).OrderByDescending(m => m.wh_Id).Take(5).ToList();
             return warehouse;
+        }
+
+        public List<Product> convertproduct(string dbname, string pid)
+        {
+            SqlDataReader data = ProductService.GetProduct(dbname, pid);
+            List<Product> product = new List<Product>();
+            if (data.HasRows)
+            {
+                DataTable dt = new DataTable();
+                dt.Load(data);
+                product = (from DataRow row in dt.Rows
+                           select new Product()
+                           {
+                               ID = row["ID"].ToString(),
+                               product_id = row["product_id"].ToString(),
+                               product_name = row["product_name"].ToString(),
+                               batch_number = row["Batch_number"].ToString(),
+                               brand = row["brand"].ToString(),
+                               model = row["model"].ToString(),
+                               category = row["category"].ToString(),
+                               sub_category = row["sub_category"].ToString(),
+                               cost_price = row["cost_price"].ToString(),
+                               selling_price = row["selling_price"].ToString(),
+                               tax = row["tax"].ToString(),
+                               discount = row["discount"].ToString(),
+                               shipping_price = row["shipping_price"].ToString(),
+                               total_price = row["total_price"].ToString(),
+                               Measurement = row["Measurement"].ToString(),
+                               weight = row["weight"].ToString(),
+                               size = row["size"].ToString(),
+                               color = row["color"].ToString(),
+                               item_shape = row["item_shape"].ToString(),
+                               product_consumable = row["product_consumable"].ToString(),
+                               product_type = row["product_type"].ToString(),
+                               product_perishability = row["product_perishability"].ToString(),
+                               product_expirydate = row["product_expirydate"].ToString(),
+                               product_description = row["product_description"].ToString(),
+                               product_tags = row["product_tags"].ToString(),
+                               product_images = row["product_images"].ToString(),
+                           }).Take(1).ToList();
+            }
+            return product;
+        }
+
+        public List<Product> convertquantity(string dbname, string pid)
+        {
+            SqlDataReader data = ProductService.GetQuantityInHand(dbname, pid);
+            List<Product> product = new List<Product>();
+            if (data.HasRows)
+            {
+                DataTable dt = new DataTable();
+                dt.Load(data);
+                product = (from DataRow row in dt.Rows
+                           select new Product()
+                           {
+                               Quantity_id = int.Parse(row["id"].ToString()),
+                               Quantity_area = row["area"].ToString(),
+                               Qty_Stock = row["Qty"].ToString(),
+                               Quantity_Total = row["Total"].ToString(),
+                               Qty_Reorder = row["Reorder_level"].ToString()
+                           }).ToList();
+            }
+            return product;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model Inventory.Models.Product
 @{
-    ViewBag.Title = ":: Add Product ::";
+    if (ViewBag.count == "editproduct") { ViewBag.Title = ":: Update Product ::"; }
+    else { ViewBag.Title = ":: Add Product ::"; }
     Layout = "~/Views/Shared/MainMaster.cshtml";
     var sno = 0;
 }
@@ -26,9 +27,9 @@
 
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
-    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" /><script src="~/vendors/jquery/dist/jquery.min.js"></script>
 }
-@if (ViewBag.count != "" && ViewBag.count != null)
+@if (ViewBag.count == "addproduct")
 {
     <div class="right_col" role="main">
         <div class="container">
@@ -51,7 +52,7 @@
                                 <div class="row">
                                     <div class="form-group col-xs-12  col-md-6">
                                         @*<input type="text" class="form-control" placeholder="Product Name">*@
-                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required", autofocus = "autofocus"  })
+                                        @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required", autofocus = "autofocus" })
                                     </div>
                                     <div class="form-group col-xs-12 col-md-6">
                                         @*<input type="text" class="form-control" placeholder="Batch Number">*@
@@ -164,7 +165,7 @@
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Cost Price</label>
                                         @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
-                                        @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price",required ="required" })
+                                        @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", required = "required" })
                                     </div>
                                     <div class="form-group col-xs-6 col-md-3">
                                         <label>Selling Price</label>
@@ -421,35 +422,35 @@
                                     </ul>
                                     <ul class="col-md-12 tabs-content">
                                         @*<li class="tab-1" id="tab-1">
-                                            <button type="button" id="btnupload" onclick="javascript: document.getElementById('fileUpload').click();" class="btn">Upload Here</button>
-                                           
-                                            <input type='file' multiple="multiple" accept="image/*" id='fileUpload' name="file" />
-                                            <div id="dvPreview" align="center" style="padding:30px">
-                                        </li>*@
+                                                <button type="button" id="btnupload" onclick="javascript: document.getElementById('fileUpload').click();" class="btn">Upload Here</button>
+
+                                                <input type='file' multiple="multiple" accept="image/*" id='fileUpload' name="file" />
+                                                <div id="dvPreview" align="center" style="padding:30px">
+                                            </li>*@
                                         <li class="tab-1" id="tab-1">
                                             <button type="button" class="btn" onclick="javascript: document.getElementById('fileUpload').click();">Upload Here</button>
                                             <input type="file" multiple="multiple" accept="image/*" id='fileUpload' name="file" style="display:none">
                                             <div class="row" id="dvPreview">
                                                 @*<div class="col-xs-12 col-md-12">
-                                                    <ul class="upload-thumbs">
-                                                        <li><img src="images/1.jpg" alt="1" /></li>
-                                                        <li><img src="images/2.jpg" alt="2" /></li>
-                                                        <li><img src="images/3.jpg" alt="3" /></li>
-                                                        <li><img src="images/4.jpg" alt="4" /></li>
-                                                        <li><img src="images/5.jpg" alt="5" /></li>
-                                                        <li><img src="images/6.jpg" alt="6" /></li>
-                                                        <li><img src="images/1.jpg" alt="1" /></li>
-                                                        <li><img src="images/2.jpg" alt="2" /></li>
-                                                        <li><img src="images/3.jpg" alt="3" /></li>
-                                                        <li><img src="images/4.jpg" alt="4" /></li>
-                                                        <li><img src="images/5.jpg" alt="5" /></li>
-                                                        <li><img src="images/6.jpg" alt="6" /></li>
-                                                    </ul>
-                                                </div>*@
+                                                        <ul class="upload-thumbs">
+                                                            <li><img src="images/1.jpg" alt="1" /></li>
+                                                            <li><img src="images/2.jpg" alt="2" /></li>
+                                                            <li><img src="images/3.jpg" alt="3" /></li>
+                                                            <li><img src="images/4.jpg" alt="4" /></li>
+                                                            <li><img src="images/5.jpg" alt="5" /></li>
+                                                            <li><img src="images/6.jpg" alt="6" /></li>
+                                                            <li><img src="images/1.jpg" alt="1" /></li>
+                                                            <li><img src="images/2.jpg" alt="2" /></li>
+                                                            <li><img src="images/3.jpg" alt="3" /></li>
+                                                            <li><img src="images/4.jpg" alt="4" /></li>
+                                                            <li><img src="images/5.jpg" alt="5" /></li>
+                                                            <li><img src="images/6.jpg" alt="6" /></li>
+                                                        </ul>
+                                                    </div>*@
                                             </div>
                                         </li>
                                         <li class="tab-2" id="tab-2">
-                                            @Html.HiddenFor(m=>m.product_images)
+                                            @Html.HiddenFor(m => m.product_images)
                                             <ul>
                                                 <li>
                                                     <input type="checkbox" name="checkbox" class="libselection">
@@ -527,7 +528,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (ViewBag.AvailableWarehouses !=null)
+                                        @if (ViewBag.AvailableWarehouses != null)
                                         {
                                             //foreach (var item in ViewBag.AvailableWarehouses)
                                             for (int i = 0; i < ViewBag.AvailableWarehouses.Count; i++)
@@ -601,7 +602,504 @@
         </div>
     </div>
 }
-else
+@if (ViewBag.count == "editproduct")
+{
+    <div class="right_col" role="main">
+        <div class="container">
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12 form-title">Update Product</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @foreach (var particularproduct in ViewBag.product)
+                {
+                    <div class="row">
+                        <div class="col-xs-12 col-md-9">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="form-group col-xs-12  col-md-6">
+                                            @*<input type="text" class="form-control" placeholder="Product Name">*@
+                                            @Html.TextBoxFor(Model => Model.product_name, new { @class = "form-control", placeholder = "Product Name", required = "required", autofocus = "autofocus", Value = particularproduct.product_name, @readonly = "true" })
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            @*<input type="text" class="form-control" placeholder="Batch Number">*@
+                                            @Html.TextBoxFor(Model => Model.batch_number, new { @class = "form-control", placeholder = "Batch Number", required = "required", Value = particularproduct.batch_number, @readonly = "true" })
+                                        </div>
+                                        @*<div class="form-group col-xs-12 col-md-6">
+                                                <input type="text" class="form-control" placeholder="Product ID">
+                                            </div>*@
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Brand Name">*@
+                                            @Html.TextBoxFor(Model => Model.brand, new { @class = "form-control selected-position", placeholder = "Brand Name", required = "required", Value = particularproduct.brand, @readonly = "true" })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Brand</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="allbrands">
+                                                    @if (ViewBag.brands.Count != 0)
+                                                    {
+                                                        foreach (var item in ViewBag.brands)
+                                                        {
+                                                            <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delbrand',@item.brand_id)" aria-hidden="true"></i>@item.brand</div>
+                                                        }
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Brand" id="addnewbrand">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addbrand"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                            @*<input type="text" class="form-control" placeholder="Brand Name">*@
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            @*<i class="fa fa-sort-desc" aria-hidden="true"></i>*@
+                                            @*<input type="text" class="form-control selected-position" placeholder="Model Number">*@
+                                            @Html.TextBoxFor(Model => Model.model, new { @class = "form-control selected-position", placeholder = "Model Name", required = "required", Value = particularproduct.model, @readonly = "true" })
+                                            @*<div class="display-positions">
+                                                    <div class="positions1 position">
+                                                        <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Model</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div id="subbrands"></div>
+                                                </div>
+                                                <div class="row add-position">
+                                                    <div class="row">
+                                                        <input type="text" class="form-control" placeholder="Enter Model" id="addnewmodel">
+                                                        <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addmodel"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                        <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                    </div>
+                                                    <div class="row positions"></div>
+                                                </div>*@
+                                            @*<input type="text" class="form-control" placeholder="Model Number">*@
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Category">*@
+                                            @Html.TextBoxFor(Model => Model.category, new { @class = "form-control selected-position", placeholder = "Category", Value = particularproduct.category })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Category</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="allcategories">
+                                                    @if (ViewBag.categories.Count != 0)
+                                                    {
+                                                        foreach (var item in ViewBag.categories)
+                                                        {
+                                                            <div class="positions1" onclick="getsub('category','@item.category_id')"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delcategory',@item.category_id)" aria-hidden="true"></i>@item.category</div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Category" id="addnewcategory">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addcategory"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Sub Category">*@
+                                            @Html.TextBoxFor(Model => Model.sub_category, new { @class = "form-control selected-position", placeholder = "Sub Category", Value = particularproduct.sub_category })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sub Category</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="subcategories"></div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Sub Category" id="addnewsubcategory"><input type="hidden" id="selectedcategoryid" />
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addsubcategory"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row text-left">
+                                        <div class="form-group col-xs-6 col-md-3">
+                                            <label>Cost Price</label>
+                                            @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
+                                            @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", required = "required", Value = particularproduct.cost_price })
+                                        </div>
+                                        <div class="form-group col-xs-6 col-md-3">
+                                            <label>Selling Price</label>
+                                            @*<input type="text" class="form-control" placeholder="Selling Price" value="0">*@
+                                            @Html.TextBoxFor(Model => Model.selling_price, new { @class = "form-control", placeholder = "Selling Price", Value = particularproduct.selling_price })
+                                        </div>
+                                        @*<div class="form-group col-xs-6 col-md-3">
+                                                <label>Tax(%)</label>
+                                                @*<input type="text" class="form-control" placeholder="Tax" value="0">
+                                                @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", Value = "0" })
+                                            </div>*@
+                                        <div class="form-group col-xs-6 col-md-3 tax">
+                                            <label>Tax (%)</label>
+                                            <label class="switch">
+                                                <input type="checkbox" id="checkbox1">
+                                                <div class="slider"></div>
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="Tax" value="@particularproduct.tax" disabled>
+                                        </div>
+                                        <div class="form-group col-xs-6 col-md-2">
+                                            <label>Discount(%)</label>
+                                            @*<input type="text" class="form-control" placeholder="Discount" value="0">*@
+                                            @Html.TextBoxFor(Model => Model.discount, new { @class = "form-control", placeholder = "Discount", Value = particularproduct.discount })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-6 col-md-3">
+                                            <label>Shipping</label>
+                                            @*<input type="text" class="form-control" placeholder="Shipping" value="0">*@
+                                            @Html.TextBoxFor(Model => Model.shipping_price, new { @class = "form-control", placeholder = "Shipping", Value = particularproduct.shipping_price })
+                                        </div>
+                                        <div class="form-group col-xs-6 col-md-9">
+                                            <label>Total</label>
+                                            @*<input type="text" class="form-control" placeholder="Total">*@
+                                            @Html.TextBoxFor(Model => Model.total_price, new { @class = "form-control", placeholder = "Total", Value = particularproduct.total_price })
+                                            <span>(Selling price + Tax + Shipping - Discount)</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            @*<input type="text" class="form-control" placeholder="Measurement">*@
+                                            @Html.TextBoxFor(Model => Model.Measurement, new { @class = "form-control", placeholder = "Measurement", required = "required", Value = particularproduct.Measurement })
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Weight">*@
+                                            @Html.TextBoxFor(Model => Model.weight, new { @class = "form-control selected-position", placeholder = "Weight", Value = particularproduct.weight })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="allweights">
+                                                    @if (ViewBag.weights.Count != 0)
+                                                    {
+                                                        foreach (var item in ViewBag.weights)
+                                                        {
+                                                            <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delweight',@item.weight_id)" aria-hidden="true"></i>@item.weight</div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Weight" id="addnewweight">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addweight"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Sizes">*@
+                                            @Html.TextBoxFor(Model => Model.size, new { @class = "form-control selected-position", placeholder = "Sizes", Value = particularproduct.size })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Sizes</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="allsizes">
+                                                    @if (ViewBag.sizes.Count != 0)
+                                                    {
+                                                        foreach (var item in ViewBag.sizes)
+                                                        {
+                                                            <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delsize',@item.size_id)" aria-hidden="true"></i>@item.size</div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Size" id="addnewsize">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addsize"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-3">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Colors">*@
+                                            @Html.TextBoxFor(Model => Model.color, new { @class = "form-control selected-position", placeholder = "Colors", Value = particularproduct.color })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Colors</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="allcolors">
+                                                    @if (ViewBag.colors.Count != 0)
+                                                    {
+                                                        foreach (var item in ViewBag.colors)
+                                                        {
+                                                            <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delcolor',@item.color_id)" aria-hidden="true"></i>@item.color</div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Color" id="addnewcolor">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addcolor"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-12">
+                                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                            @*<input type="text" class="form-control selected-position" placeholder="Item Shape">*@
+                                            @Html.TextBoxFor(Model => Model.item_shape, new { @class = "form-control selected-position", placeholder = "Item Shape", Value = particularproduct.item_shape })
+                                            <div class="display-positions">
+                                                <div class="positions1 position">
+                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <div id="allitemshapes">
+                                                    @if (ViewBag.itemshapes.Count != 0)
+                                                    {
+                                                        foreach (var item in ViewBag.itemshapes)
+                                                        {
+                                                            <div class="positions1"><i class="fa fa-trash-o pull-right" onclick="deleteitem('delitemshape','@item.itemshape_id')" aria-hidden="true"></i>@item.itemshape</div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row add-position">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" placeholder="Enter Item Shape" id="addnewitemshape">
+                                                    <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="additemshape"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+                                                    <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+                                                </div>
+                                                <div class="row positions"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label>
+                                                @*@Html.RadioButtonFor(Model=>Model.product_consumable, "Consumable",new { @class="consumable"})*@
+                                                @*<input type="radio" name="product_consumable" class="consumable" id="product_consumable">*@
+                                                Consumable
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="switch toggle-consumable">
+                                                <input type="checkbox" id="consumable">
+                                                <div class="slider"></div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label>
+                                                @Html.HiddenFor(Model => Model.product_consumable, new { Value = particularproduct.product_consumable })
+                                                @*@Html.RadioButtonFor(Model => Model.product_consumable, "Non-Consumable", new { @class = "non-consumable" })*@
+                                                @*<input type="radio" name="product_consumable" class="non-consumable" id="product_consumable">*@
+                                                Non-Consumable
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row quantity-veg-non">
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="veg">
+                                                @*@Html.RadioButtonFor(Model => Model.product_type, "Veg")*@
+                                                @*<input type="radio" name="optradio1" id="product_type">*@
+                                                Veg
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="switch veg-non">
+                                                <input type="checkbox" id="veg-non">
+                                                <div class="slider"></div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="non-veg">
+                                                @Html.HiddenFor(Model => Model.product_type, new { Value = particularproduct.product_type })
+                                                @*@Html.RadioButtonFor(Model => Model.product_type, "Non-Veg")*@
+                                                @*<input type="radio" name="optradio1" id="product_type">*@
+                                                Non-Veg
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row quantity-perishable-non">
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="Perishable">
+                                                @Html.HiddenFor(Model => Model.product_perishability, new { Value = particularproduct.product_perishability })
+                                                @*@Html.RadioButtonFor(Model => Model.product_perishability, "Perishable")*@
+                                                @*<input type="radio" name="optradio2" id="product_perishability">*@
+                                                Perishable
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="switch perishable-non">
+                                                <input type="checkbox" id="perishable">
+                                                <div class="slider"></div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group radio col-xs-4 col-md-4">
+                                            <label class="Non-Perishable">
+                                                @*@Html.RadioButtonFor(Model => Model.product_perishability, "Non-Perishable")*@
+                                                @*<input type="radio" name="optradio2" id="product_perishability">*@
+                                                Non-Perishable
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group ">
+                                                <label class="col-sm-3" for="date"> Expiry Date </label>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                                                        @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />*@
+                                                        @Html.TextBoxFor(Model => Model.product_expirydate, new { @class = "form-control", placeholder = "MM/DD/YYYY", Value = particularproduct.product_expirydate })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <ul class="col-md-12 admin-product-thumbs">
+                                            @if (particularproduct.product_images != "")
+                                            {
+                                                foreach (var item1 in particularproduct.product_images.Split(','))
+                                                {
+                                                    <img src="~/ProductImages/@item1" height="50px" width="50px" alt="Product" />
+                                                    <br />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="images/default_product.png" alt="Product" />}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-md-12">
+                                    @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
+                                    @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description", rows = "5"  })
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#product_description').val('@particularproduct.product_description');
+                                        });
+                                    </script>
+                                    @* @Html.TextArea("Attachments", new { @class = "form-control", id = "Attachments", rows="5", @Value = particularproduct.product_description });*@
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label>Add Tags<span>(Seperated by Comma)</span></label>
+                                    <ul id="myTags" value="@particularproduct.product_tags">
+                                        @foreach (var tag in particularproduct.product_tags.Split(','))
+                                        {
+                                            <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
+                                                <span class="tagit-label">@tag</span>
+                                                <a class="tagit-close"><span class="ui-icon ui-icon-close">!</span></a>
+                                                <input type="hidden" value="@tag" name="tags" class="tagit-hidden-field">
+                                            </li>
+                                        }
+                                    </ul>
+                                    @Html.HiddenFor(Model => Model.product_tags, new { Value = particularproduct.product_tags })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-2 pull-right">
+                                    @*<button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>*@
+                                    <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</a>
+                                </div>
+                                <div class="col-xs-12 col-md-2 pull-right">
+                                    <button type="submit" class="btn btn-primary" name="command" value="UpdateProduct" id="btnAddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Update Product</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 add-product-right">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Sno</th>
+                                                <th>Ware House</th>
+                                                <th>Quantity in Hand</th>
+                                                <th>Re-Order Level (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (ViewBag.AvailableQty != null)
+                                            {
+                                                //foreach (var item in ViewBag.AvailableWarehouses)
+                                                for (int i = 0; i < ViewBag.AvailableQty.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>@(++sno)</td>
+                                                        <td>@ViewBag.AvailableQty[i].Quantity_area</td>
+                                                        <td>
+                                                            <div class="form-group col-xs-12  col-md-12">
+                                                                @*col-md-7 col-md-push-2*@
+                                                                @*<input type="text" id="txtqty @sno" class="form-control" placeholder="Quantity in Hand" value="0">*@
+                                                                @Html.TextBoxFor(Model => Model.Quantity_Qty[i], new { Value = ViewBag.AvailableQty[i].Qty_Stock, @class = "form-control", placeholder = "Quantity in Hand" })
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group col-xs-12 col-md-12">
+                                                                @Html.TextBoxFor(Model => Model.Reorder_level[i], new { @Value = ViewBag.AvailableQty[i].Qty_Reorder, @class = "form-control modified", placeholder = "Quantity1 in Hand" })
+                                                                @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                }
+                                            }
+
+                                            <tr>
+                                                <td></td>
+                                                <td>Total</td>
+                                                <td colspan="2">
+                                                    <div class="form-group col-xs-12 col-md-12">
+                                                        @*<input type="text" class="form-control" placeholder="Total Quantity in Hand">*@
+                                                        @Html.TextBoxFor(Model => Model.Quantity_Total, new { @Value = ViewBag.total, @class = "form-control", placeholder = "Total Quantity in Hand" })
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </form>
+        </div>
+    </div>
+}
+@if (ViewBag.count == "empty")
 {
     <h2>No Warehouse Detected.Add warehouse by clicking <a href="/Warehouse">here</a></h2>
 }
@@ -644,6 +1142,34 @@ else
                 todayHighlight: true,
                 autoclose: true,
             });
+
+            var productid = '@Request.QueryString["pid"]';
+            if (productid != '') {
+                var consumable = $('#product_consumable').val()
+                var type = $('#product_type').val();
+                var perishable = $('#product_perishability').val();
+                //alert(consumable+','+type+','+perishable);
+                if (consumable == 'Non-Consumable') {
+                    $('#consumable').attr('checked', false).attr('readonly', 'true');
+                    $(".quantity-perishable-non, .quantity-veg-non").css("display", "none");
+                }
+                else {
+                    $('#consumable').attr('checked', true).attr('readonly', 'true');
+                    $(".quantity-perishable-non, .quantity-veg-non").css("display", "block");
+                    if (type == 'Veg') {
+                        $('#veg-non').attr('checked', false).attr('readonly', 'true');
+                    }
+                    else {
+                        $('#veg-non').attr('checked', true).attr('readonly', 'true');
+                    }
+                    if (perishable == 'Perishable') {
+                        $('#perishable').attr('checked', false).attr('readonly', 'true');
+                    }
+                    else {
+                        $('#perishable').attr('checked', true).attr('readonly', 'true');
+                    }
+                }
+            }
         });
     </script>
 
@@ -694,12 +1220,12 @@ else
         $("#add-image").click(function () {
             var imagelist = new Array();
             $("li#tab-2 > ul > li > input[type='checkbox']").each(function () {
-               
+
                 if ($(this).is(":checked")) {
                     var l = $("input[type='checkbox']:checked").length;
                     //alert(l);
                     if (l <= 6) {
-                        var v = $(this).next().attr("src"); imagelist.push(v.replace('images/','')); //selectedimages(v);
+                        var v = $(this).next().attr("src"); imagelist.push(v.replace('images/', '')); //selectedimages(v);
                         //alert(v);
                         $("ul.admin-product-thumbs").append("<li>" + "<img src='" + v + "'" + "alt='" + v + "'" + "/>" + "</li>");
                         $("<i class='fa fa-times' aria-hidden='true'></i>").insertBefore("ul.admin-product-thumbs > li > img");
@@ -715,7 +1241,7 @@ else
                         exit;
                     }
                 }
-                
+
                 $(".image-library").css("display", "none");
             });
             $('#product_images').val(imagelist);
@@ -909,18 +1435,18 @@ else
             $('#product_tags').val(arr);
         });
     </script>
-   
-@*Error Message*@
-@if (ViewBag.msg != "" && ViewBag.msg != null)
+
+    @*Error Message*@
+    @if (ViewBag.msg != "" && ViewBag.msg != null)
     {
-    <script>
+        <script>
             $("body").overhang({
-            type: "error",
+                type: "error",
                 message: '@ViewBag.msg',
                 closeConfirm: false
             });
-    </script>
-}
+        </script>
+    }
 
     @*Success Message*@
     @if (ViewBag.smsg != "" && ViewBag.smsg != null)
