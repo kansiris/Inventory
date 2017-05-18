@@ -133,9 +133,14 @@ namespace Inventory.Service
             
             return ProductRepository.Addtocart(dbname, id, product_name, cost_price, Quantity, Measurement, total_price);
         }
+        //Updatecart
+            public static int Updatecart(string dbname, int cart_id, string Quantity,string total_price)
+        {
 
-        
-             public static SqlDataReader Addtocartbyid(string dbname, string id)
+            return ProductRepository.Updatecart(dbname, cart_id, Quantity,total_price);
+        }
+
+        public static SqlDataReader Addtocartbyid(string dbname, string id)
         {
             return ProductRepository.Addtocartbyid(dbname, id);
         }
@@ -150,7 +155,7 @@ namespace Inventory.Service
             return ProductRepository.Getcartdata(dbname, id);
         }
         
-             public static int checkcartdata(string dbname, string product_name, string Measurement)
+             public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement)
         {
             return ProductRepository.checkcartdata(dbname, product_name, Measurement);
         }

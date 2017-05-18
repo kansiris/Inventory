@@ -107,28 +107,45 @@ namespace Inventory.Controllers
             }
             return PartialView("allproducts", null);
         }
-        //for Add to cart
-
-        public JsonResult Addtocart(string product_name, string cost_price,string Quantity,string Measurement, /*string weight,*/ string total_price)
+       
+        public JsonResult Addtocart(string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
         {
-            
+
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var sample = Addtocartpartial(user.DbName, user.ID);
-                int counts= ProductService.checkcartdata(user.DbName,product_name,Measurement);
-                if (counts<1) {
-                int count = ProductService.Addtocart(user.DbName,user.ID, product_name, cost_price, Quantity, Measurement, total_price);
-                 if (count>0)
-                 return Json("success");
+                //var sample = Addtocartpartial(user.DbName, user.ID);
+                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement);
+
+                if (counts.HasRows)
+                {
+                    return Json("exists");
                 }
                 else
                 {
-                    return Json("unique");
+                   ProductService.Addtocart(user.DbName, user.ID, product_name, cost_price, Quantity, Measurement, total_price);
+                    return Json("success");
                 }
+                 }
+            return Json("unique");
+        }
+
+        //for updatecart
+     public JsonResult UpdateCart(int cart_id,string Quantity,string total_price)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                int count=ProductService.Updatecart(user.DbName, cart_id, Quantity,total_price);
+                if (count>0) { 
+                    return Json("success");
+                }
+
             }
             return Json("unique");
         }
+
         public PartialViewResult Addtocartpartial(string dbname,string id)
 
         {

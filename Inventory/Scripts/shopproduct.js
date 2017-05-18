@@ -95,6 +95,7 @@ function ajaxcalling(clickeditem) {
                 $('#allproducts').empty().load(url1);
                 var url2 = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url2);
+               //location.reload();
             }
         },
         error: function (data)
@@ -127,7 +128,7 @@ function removecart(cartid) {
                 var url = 'Products/Addtocartpartial';
                 $('#cartrecords').empty().load(url);
                 $('#allproducts').load();
-                //location.reload();
+                location.reload();
             }
         },
         error: function (data)
@@ -144,3 +145,68 @@ function genaratepo() {
     location.href='/Products/GenaratePOs?cid='+customerid;
     
 }
+
+//updatecart
+function updatecart(cartid, quantity, costprice) {
+    //alert(cartid);
+    //alert(quantity);
+    //alert(costprice);
+    newquant = quantity + 1;
+    newamunt = costprice * newquant;
+    //alert("new" + newquant);
+    //alert("new" + newamunt);
+
+    $.ajax({
+        url: '/Products/UpdateCart',
+        type: 'POST',
+        data: JSON.stringify({ cart_id: cartid, Quantity: newquant, total_price: newamunt }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique") {
+                alert("not inserted");
+            } 
+            else {
+                alert("Successfully Updated Cart.");
+                var url = 'Products/Addtocartpartial';
+                $('#cartrecords').empty().load(url);
+               // location.reload();
+            }
+        },
+        error: function (data)
+        { alert("Failed!!!"); }
+    });
+
+}
+function updatecart1(cartid, quantity, costprice) {
+    //alert(cartid);
+    //alert(quantity);
+    //alert(costprice);
+    newquant = quantity - 1;
+    newamunt = costprice * newquant;
+    //alert("new" + newquant);
+    //alert("new" + newamunt);
+
+    $.ajax({
+        url: '/Products/UpdateCart',
+        type: 'POST',
+        data: JSON.stringify({ cart_id: cartid, Quantity: newquant, total_price: newamunt }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique") {
+                alert("not inserted");
+            }
+            else {
+                alert("Successfully Updated Cart.");
+                var url = 'Products/Addtocartpartial';
+                $('#cartrecords').empty().load(url);
+                //location.reload();
+            }
+        },
+        error: function (data)
+        { alert("Failed!!!"); }
+    });
+
+}
+

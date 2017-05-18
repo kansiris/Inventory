@@ -159,11 +159,14 @@
                 if (data == "unique") {
                     alert("not inserted");
                 }
+                else if (data == "exists") {
+                    alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
+                }
                 else {
                     alert("Successfully Added To Cart.");
                     var url = 'Products/Addtocartpartial';
                     $('#cartrecords').empty().load(url);
-                   // location.reload();
+                   location.reload();
                 }
             },
             error: function (data)
@@ -188,12 +191,14 @@
             success: function (data) {
                 if (data == "unique") {
                     alert("not inserted");
+                } else if (data == "exists") {
+                    alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
                 }
                 else {
                     alert("Successfully Added To Cart.");
                     var url = 'Products/Addtocartpartial';
                     $('#cartrecords').empty().load(url);
-                    //location.reload();
+                    location.reload();
                 }
             },
             error: function (data)
