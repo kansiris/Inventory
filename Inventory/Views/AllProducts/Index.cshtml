@@ -354,7 +354,11 @@
                 var v = $(this).children("a").text();
                 if (v == "Active") {
                     $(this).parents("tr").children("td").css("color", "#ccc");
-                    //alert(v);
+                    $(this).prev("li").children("a").css("pointer-events", "none"); // Edit Button
+                    $(this).next("li").children("a").css("pointer-events", "none"); // Add Stock Button
+                    $(this).prev("li").attr("title", "Activate Product");
+                    $(this).next("li").attr("title", "Activate Product");
+                    //alert($(this).parents(".btn-group").children(".dropdown-menu").children("li").children("a").text());
                 }
             });
         })
