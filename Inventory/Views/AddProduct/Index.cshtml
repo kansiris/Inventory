@@ -508,7 +508,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-2 pull-right">
                                 @*<button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>*@
-                                <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</a>
+                                <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</a>
                             </div>
                             <div class="col-xs-12 col-md-2 pull-right">
                                 <button type="submit" class="btn btn-primary" name="command" value="AddProduct" id="btnAddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button>
@@ -524,7 +524,7 @@
                                             <th>Sno</th>
                                             <th>Ware House</th>
                                             <th>Quantity in Hand</th>
-                                            <th>Re-Order Level (%)</th>
+                                            <th>Re-Order Level</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -758,7 +758,7 @@
                                                 <input type="checkbox" id="checkbox1">
                                                 <div class="slider"></div>
                                             </label>
-                                            <input type="text" class="form-control" placeholder="Tax" value="@particularproduct.tax" disabled>
+                                            <input type="text" id="tax" name="tax" class="form-control" placeholder="Tax" value="@particularproduct.tax" readonly="true">
                                         </div>
                                         <div class="form-group col-xs-6 col-md-2">
                                             <label>Discount(%)</label>
@@ -983,6 +983,7 @@
                                 <div class="col-md-5">
                                     <div class="row">
                                         <ul class="col-md-12 admin-product-thumbs">
+                                            @Html.HiddenFor(m=>m.product_images,new { Value= particularproduct.product_images })
                                             @if (particularproduct.product_images != "")
                                             {
                                                 foreach (var item1 in particularproduct.product_images.Split(','))
@@ -1024,7 +1025,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-2 pull-right">
                                     @*<button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>*@
-                                    <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</a>
+                                    <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel Updation</a>
                                 </div>
                                 <div class="col-xs-12 col-md-2 pull-right">
                                     <button type="submit" class="btn btn-primary" name="command" value="UpdateProduct" id="btnAddProduct"><i class="fa fa-plus-circle" aria-hidden="true"></i>Update Product</button>
@@ -1040,7 +1041,7 @@
                                                 <th>Sno</th>
                                                 <th>Ware House</th>
                                                 <th>Quantity in Hand</th>
-                                                <th>Re-Order Level (%)</th>
+                                                <th>Re-Order Level</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1389,9 +1390,9 @@
         // <!-- Toogle Function -->
         $(".tax #checkbox1").change(function () {
             if ($(this).is(":checked")) {
-                $(".tax input[placeholder='Tax']").prop('disabled', false);
+                $(".tax input[placeholder='Tax']").prop('readonly', false);
             } else {
-                $(".tax input[placeholder='Tax']").prop('disabled', true);
+                $(".tax input[placeholder='Tax']").prop('readonly', true);
             }
 
         });
