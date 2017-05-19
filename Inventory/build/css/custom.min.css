@@ -1049,6 +1049,7 @@ footer {
 article.media {
     width: 100%;
 
+
 }
 
 *, *:before, *:after {
@@ -2926,6 +2927,7 @@ ul.bar_tabs {
 
     ul.bar_tabs.right {
         padding-right: 14px;
+
     }
 
         ul.bar_tabs.right li {
@@ -5540,7 +5542,7 @@ form .top-button + div {
     }
 
 .table-responsive {
-    margin-bottom: 30px;
+   /* margin-bottom: 30px;*/
 }
 
 .btn-default {
@@ -6153,7 +6155,7 @@ ul.tagit input[type=text] {
 .img-title{
 	margin-bottom: 20px;}
 .img-title {
-    height: 50px;
+    height: 60px;
     overflow: hidden;
 }
 .product-variation select{}
@@ -6268,7 +6270,7 @@ a.product-name{
 	position: fixed;
 	max-width: 273px;
 	transition: ease 1s;
-	-o--webkit-transition: ease 1s;
+	-o-webkit-transition: ease 1s;
 	-ms-transition: ease 1s;
 	-moz-transition: ease 1s;
 	-webkit-transition: ease 1s;}
