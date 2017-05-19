@@ -66,7 +66,7 @@ function removecart(cartid) {
             else {
                 alert("Removed from cart Successfully .");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
-                $('#cartrecords').empty.load(url);
+                $('#cartrecords').load(url);
             }
         },
         error: function (data)
@@ -135,5 +135,14 @@ function updatecart1(cartid, quantity, costprice) {
     });
 }
 
+//for inserting purchseorder
+
+function insertpo(totalamount) {
+    
+    alert(totalamount);
+    alert($('#shipping_terms').value);
+
+
+}
 
 

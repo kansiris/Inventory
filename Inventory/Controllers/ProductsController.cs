@@ -195,6 +195,7 @@ namespace Inventory.Controllers
                                                        Quantity = row["Quantity"].ToString(),
                                                        //product_images = row["product_images"].ToString(),
                                                        Measurement = row["Measurement"].ToString(),
+                                                       cost_price = row["cost_price"].ToString(),
                                                        total_price = row["total_price"].ToString(),
                                                    }).ToList();
               
