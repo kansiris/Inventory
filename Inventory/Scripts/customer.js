@@ -715,7 +715,7 @@ function updatecusContact(clickedvalue) {
                         $('#cus_company_Id').val(data.ID);
                         $('#cuscompanyrecords').load(url, function () { Pagination(); });
                         var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
-                        $('#cuscontacttable').empty().load(url1, function () { Pagination(); });
+                        $('#cuscontacttable').empty().load(url1);
                         alert("Contact Details saved Successfully");
                         $("[id='Customer_contact_Fname']").val("");
                         $("[id='Customer_contact_Lname']").val("");
