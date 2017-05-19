@@ -5540,7 +5540,7 @@ form .top-button + div {
     }
 
 .table-responsive {
-    margin-bottom: 30px;
+   /* margin-bottom: 30px;*/
 }
 
 .btn-default {
@@ -6153,7 +6153,7 @@ ul.tagit input[type=text] {
 .img-title{
 	margin-bottom: 20px;}
 .img-title {
-    height: 50px;
+    height: 60px;
     overflow: hidden;
 }
 .product-variation select{}

@@ -16,7 +16,7 @@
 
         @if (ViewBag.records != null)
         {
-            <div class="col-xs-12" id="cartrecords">
+            <div class="col-xs-12">
 
                 <div class="added-products" style="padding:0px 0px 10px">
                     @foreach (var item in ViewBag.records)
@@ -29,26 +29,18 @@
                                 <img src="/images/default_product.png">
                             </div>
                             <div class="img-title">
-                                <span class="product-brand">@item.product_name</span>
+                               
                                 <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
                             </div>
-                            <div class="product-variation">
-                                <select class="form-control">
-                                    <option>@item.Measurement</option>
-                                </select>
-                            </div>
+                            
                             <div class="empty"><p>@item.Measurement</p><p></p></div>
                             <div class="rate-add">
                                     <div class="product-price"><span>@item.cost_price</span>
                                     </div>
-                                   
                                     <div class="product-price-total">
                                         ₹ <span id="price1">@item.total_price</span>
                                     </div>
-                                    <div class="shipping">
-                                        <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                        Standard Delivery
-                                    </div>
+                                    
                                     <div class="row">
                                         <div class="col-xs-6 qty">
                                             <div class="input-group spinner">
@@ -77,6 +69,6 @@
             <button class="btn btn-primary" type="button" onclick="genaratepo()">Generate Purchase Order</button>
         </div>
     </div>
+
 </div>
 
-<script src="~/Scripts/shopproduct.js"></script>

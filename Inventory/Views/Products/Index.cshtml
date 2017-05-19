@@ -37,7 +37,6 @@
                     <div class="row">
                         <div class="form-title col-xs-6 col-md-6">Shop Products</div>
                         <div class="form-title col-xs-2 col-md-3">@Request.QueryString["cname"]</div>
-                        @*<h1>@Request.QueryString["cname"]</h1>*@
                         <div class="top-bar col-xs-12 col-md-3">
                             <div class="icons pull-right">
                                 <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
@@ -209,16 +208,17 @@
 
 @section scripts{
     <!-- jQuery lib & Tabs -->
-    @*<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>*@
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/main.js"></script>
     <script src="~/Scripts/js/modernizr.js"></script>
     <!-- jQuery -->
-    @*<script src="../vendors/jquery/dist/jquery.min.js"></script>*@
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
 
 
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../build/js/custom.min.js"></script>
+<script src="~/Scripts/shopproduct.js"></script>
     <script type="text/javascript">
         var sd = location.search.split('cname=')[2];
         $("#grid-view").click(function (e) {
