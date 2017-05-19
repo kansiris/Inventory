@@ -43,7 +43,7 @@
                                 @{ Html.RenderAction("CustomerforPOs", "Products");}
                                 
                                 <div class="col-xs-12 col-md-3 margin-bottom">
-                                    <div class="row padding-bottom date"> Date : <script> document.write(new Date().toLocaleDateString('en-GB')); </script></div>
+                                    <div class="row padding-bottom date" id="po_date"> Date : <script> document.write(new Date().toLocaleDateString('en-GB'));</script></div>
                                     <div class="row total-amount"> Rs <span>@ViewBag.totalamount</span> </div>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-md-5 po-number">Purchase Order Number</div>
                                         <div class="col-xs-12 col-md-7">
-                                            <input type="text" class="form-control" placeholder="Enter PO Number">
+                                            <input type="text" id="ponumber" class="form-control" placeholder="Enter PO Number">
                                         </div>
                                     </div>
                                 </div>
@@ -64,16 +64,16 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="col-xs-6 col-md-2">Date</td>
+                                            <td class="col-xs-6 col-md-2">Payment Date</td>
                                             <td class="col-xs-6 col-md-4">
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                                                    <input class="form-control" id="payment_date" name="date" placeholder="MM/DD/YYYY" type="text" />
                                                 </div>
                                             </td>
                                             <td class="col-xs-6 col-md-2">Payment Terms</td>
                                             <td class="col-xs-6 col-md-4">
-                                                <input type="text" class="form-control" placeholder="" value="">
+                                                <input type="text" id="payment_terms" class="form-control" placeholder="" value="">
                                             </td>
                                         </tr>
                                         <tr>
@@ -81,12 +81,12 @@
                                             <td class="col-xs-6 col-md-4">
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                                                    <input class="form-control" id="shipping_date" name="date" placeholder="MM/DD/YYYY" type="text" />
                                                 </div>
                                             </td>
                                             <td class="col-xs-6 col-md-2">Shipping Terms</td>
                                             <td class="col-xs-6 col-md-4">
-                                                <input type="text" class="form-control" placeholder="" value="">
+                                                <input type="text" id="shipping_terms" class="form-control" placeholder="" value="">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -99,7 +99,7 @@
                                         <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                                             <thead class="thead-inverse">
                                                 <tr>
-                                                    <th class="col-md-2">Ptid</th>
+                                                    @*<th class="col-md-2">Ptid</th>*@
                                                     <th class="col-md-3">Product Name</th>
                                                     <th class="col-md-3">Description</th>
                                                     <th class="col-md-2">Quantity</th>
@@ -113,11 +113,11 @@
                                                     foreach (var item in ViewBag.records)
                                                     {
                                                         <tr>
-                                                            <td class="col-md-2 image">@item.cart_id </td>
+                                                            @*<td class="col-md-2 image">@item.cart_id </td>*@
                                                             <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
                                                             <td class="col-md-3 product-variation"><span>@item.Measurement</span></td>
                                                             <td class="col-md-2 quantity-changes">@item.Quantity</td>
-                                                            <td class="col-md-1 product-price">Rs <span>@item.total_price</span></td>
+                                                            <td class="col-md-1 product-price">Rs <span>@item.cost_price</span></td>
                                                             <td class="col-md-1 product-price">Rs <span>@item.total_price</span></td>
                                                         </tr>
                                                     }
@@ -140,11 +140,11 @@
                                     </div>
                                     <div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7"><input id="numberbox" type='number' max='100' style="width:100px">%</div>
+                                        <div class="col-xs-6 col-md-7"><input id="vat" type='number' max='100' style="width:100px">%</div>
                                     </div>
                                     <div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7"><input id="numberbox" type='number' max='100' style="width:100px">%</div>
+                                        <div class="col-xs-6 col-md-7"><input id="discount" type='number' max='100' style="width:100px">%</div>
                                     </div>
                                     <div class="row sub-total">
                                         <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
@@ -170,9 +170,9 @@
                     <div class="row margin-top">
                         <div class="col-xs-12 col-md-12">
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Submit </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor2" onclick="insertpo(@ViewBag.totalamount)"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Submit </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor4"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
                         </div>
                     </div>
                 </form>
@@ -192,6 +192,7 @@
     <script type="text/javascript" src="~/Scripts/js/tag-it.js" language="javascript"></script>
     <script type="text/javascript" src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
     <script src="~/Scripts/Product.js"></script>
+<script src="~/Scripts/shopproduct.js"></script>
     <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
     <script>
         $(document).ready(function () {
@@ -216,6 +217,16 @@
                 $(this).val('100');
             }
         });
+
+        ////for inserting purchseorder
+
+        //function insertpo(totalamount) {
+
+        //    alert(totalamount);
+        //    alert($('#shipping_terms').value);
+
+
+        //}
     </script>
 }
 
