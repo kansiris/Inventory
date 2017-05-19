@@ -145,6 +145,40 @@ namespace Inventory.Repository
         }
         #endregion
 
+        #region Add Product Log
+        public static int ProductFunctionalitieslog(string dbname, int id, string mainproduct_id, string product_id, string product_name, string batch_number, 
+            string brand, string model, string category, string sub_category, string cost_price, string selling_price, string tax,
+           string discount, string shipping_price, string total_price, string Measurement, string weight, string size, string color, string item_shape, 
+           string product_consumable,string product_type, string product_perishability, string product_expirydate, string product_description, 
+           string product_tags, string product_images,string created_date,string status)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "ProductFunctionalitieslog" , id, mainproduct_id,product_id, product_name, batch_number, brand, model, 
+                category, sub_category, cost_price, selling_price, tax, discount, shipping_price, total_price, Measurement, weight, size, color, item_shape, 
+                product_consumable, product_type, product_perishability, product_expirydate,product_description, product_tags, product_images,created_date,status);
+        }
+        #endregion
+
+        #region Add Quantity In Hand Log
+        public static int AddQuantityInHandLog(string dbname, int mainquantity_id,string product_id, string area, string Qty, string reorder, 
+            string Total,string vendor_id,string vendor)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "QuantityInHandLog", mainquantity_id.ToString(),product_id, area, Qty, reorder, Total,vendor_id,vendor);
+        }
+        #endregion
+
+        #region Get Product Log Max ID
+        public static SqlDataReader GetProductLogMaxID(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetProductLogMaxID");
+        }
+        #endregion
+
         //to get chicken products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {
