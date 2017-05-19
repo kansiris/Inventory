@@ -380,6 +380,7 @@
     <Content Include="images\image3.jpg" />
     <Content Include="images\img.jpg" />
     <Content Include="images\inbox.png" />
+    <Content Include="images\label.png" />
     <Content Include="images\loader.gif" />
     <Content Include="images\logo.jpg" />
     <Content Include="images\logo.png" />

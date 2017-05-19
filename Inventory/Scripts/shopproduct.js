@@ -140,9 +140,14 @@ function updatecart1(cartid, quantity, costprice) {
 function insertpo(totalamount) {
     
     alert(totalamount);
-    alert($('#shipping_terms').value);
+    alert($("[id='shipping_terms']").val());
+    alert($("[id='shipping_date']").val());
+    alert($("[id='payment_terms']").val());
+    alert($("[id='payment_date']").val());
+    alert($("[id='ponumber']").val());
+    
+    
 
 
 }
-
 

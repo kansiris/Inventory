@@ -6144,7 +6144,14 @@ ul.tagit input[type=text] {
 #productstable{
 	display: none;}
 .displayproduct{
-	background: #fff;}
+	background: #fff;
+	position: relative;}
+.label{
+	position: absolute;
+	top: -2px;
+	right: -2px;
+    display:none;
+}
 .displayproduct > .well{
 	border: 1px solid #e3e3e3;}
 .displayproduct > .well .image img{
