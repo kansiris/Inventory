@@ -35,27 +35,35 @@ namespace Inventory.Controllers
         {
             if (command == "Authenticate")
             {
-                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
-                if (value.Read())
+                try
                 {
-                    int active = int.Parse(value["IsActive"].ToString());
-                    value.Close();
-                    if (active > 0)
+                    SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
+                    if (value.Read())
                     {
-                        ViewBag.smsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
-                        return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
+                        int active = int.Parse(value["IsActive"].ToString());
+                        value.Close();
+                        if (active > 0)
+                        {
+                            ViewBag.smsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
+                            return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
+                        }
+                        ViewBag.umsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
+                        //return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                     }
-                    ViewBag.umsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
-                    //return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    else
+                    {
+                        ViewBag.msg = "Please Register";
+                        //return JavaScript("overhang()");
+                        //return Content("<script language='javascript' type='text/javascript'>" + JavaScript("overhang") +";location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                        //return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                        //ViewBag.invalid = "Confirm Your Email-ID then Login";   
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    ViewBag.msg = "Please Register";
-                    //return JavaScript("overhang()");
-                    //return Content("<script language='javascript' type='text/javascript'>" + JavaScript("overhang") +";location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
-                    //return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
-                    //ViewBag.invalid = "Confirm Your Email-ID then Login";   
+                    return RedirectToAction("Index", "ServerDown");
                 }
+                
             }
             if (command == "Insert")
             {
