@@ -27,6 +27,9 @@
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+
+               <!-- Over Hang -->
+<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 }
 
 <div class="right_col" role="main">
@@ -139,7 +142,14 @@
                                             <div class="form-group col-xs-6 col-md-5 tax">
                                                 <label>TaxApplicable(%)</label>
                                                 @*<input type="text" class="form-control" placeholder="Tax" value="0">*@
-                                                @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", required = "required", Value = item.tax })
+                                                @if (item.tax == "")
+                                                {
+                                                    @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", required = "required", Value = "0" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", required = "required", Value = item.tax })
+                                                }
                                             </div>
                                             <div class="form-group col-xs-6 col-md-2">
                                                 <label>Discount(%)</label>
@@ -331,7 +341,8 @@
                                                 }
                                             }
                                             else
-                                            {<img src="images/default_product.png" alt="Product" />}
+                                            {
+                                            <img src="images/default_product.png" alt="Product" />}
                                         </ul>
                                     </div>
                                     @*<div class="row">
@@ -395,14 +406,24 @@
                                 <div class="form-group col-xs-12 col-md-12">
                                     <input type="hidden" value="@item.product_description" id="product_desc" />
                                     @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
-                                    @Html.TextAreaFor(Model => Model.product_description,  new { @class="form-control", placeholder = "Product Description", @rows="5" }) @*@Value = item.product_description*@
+                                    @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description", @rows = "5" }) @*@Value = item.product_description*@
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>Add Tags<span>(Seperated by Comma)</span></label>
                                     @*<ul id="myTags"></ul>*@
-                                    @Html.TextBoxFor(Model => Model.product_tags, new { @class = "form-control", Value = item.product_tags.Replace("!"," ") })
+                                    @*@Html.TextBoxFor(Model => Model.product_tags, new { @class = "form-control", Value = item.product_tags.Replace("!"," ") })*@
+                                    <ul id="myTags">
+                                        @foreach (var tag in item.product_tags.Split(','))
+                                        {
+                                            <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
+                                                <span class="tagit-label">@tag</span>
+                                                <a class="tagit-close"><span class="ui-icon ui-icon-close">!</span></a>
+                                                <input type="hidden" value="@tag" name="tags" class="tagit-hidden-field">
+                                            </li>
+                                        }
+                                    </ul>
                                 </div>
                             </div>
                             <div class="row">
@@ -429,7 +450,7 @@
                                 @if (ViewBag.AvailableQty != null)
                                 {
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-12">
+                                        <div class="col-xs-12 col-md-12 add-product-right">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
@@ -445,26 +466,27 @@
                                                         <tr>
                                                             <td>@(++sno)</td>
                                                             <td>@qty.Quantity_area</td>
-                                                            <td>@Html.HiddenFor(Model=>Model.Qid,new { Value=qty.Quantity_id })
-                                                                <div class="form-group col-xs-12 col-md-12">
-                                                                    @*<input type="text" class="form-control" placeholder="Quantity in Hand" value="@qty.Qty_Stock">*@
-                                                                    @Html.TextBoxFor(Model => Model.Quantity_Qty, new { @class = "form-control", placeholder = "Quantity in Hand", Value = qty.Qty_Stock })
-                                                                </div>
-                                                            </td>
                                                             <td>
-                                                                <div class="form-group col-xs-12 col-md-12">
-                                                                    @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
-                                                                    @Html.TextBoxFor(Model => Model.Quantity_QtyStock, new { @class = "form-control modified", placeholder = "Quantity in Hand", Value = 0 })
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                                @Html.HiddenFor(Model => Model.Qid, new { Value = qty.Quantity_id })
+                                                            <div class="form-group col-xs-12 col-md-12">
+                                                                @*<input type="text" class="form-control" placeholder="Quantity in Hand" value="@qty.Qty_Stock">*@
+                                                                @Html.TextBoxFor(Model => Model.Quantity_Qty, new { @class = "form-control", placeholder = "Quantity in Hand", Value = qty.Qty_Stock })
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group col-xs-12 col-md-12">
+                                                                @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
+                                                                @Html.TextBoxFor(Model => Model.Quantity_QtyStock, new { @class = "form-control modified", placeholder = "Quantity in Hand", Value = 0 })
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                     }
                                                     <tr>
                                                         <td>Total</td>
                                                         <td colspan="3">
                                                             <div class="form-group col-xs-12">
                                                                 @*<input type="text" class="form-control" placeholder="Total Quantity in Hand" value="@ViewBag.total">*@
-                                                                @Html.TextBoxFor(Model => Model.Quantity_Total, new { @class = "form-control modified", placeholder = "Total Quantity in Hand", Value = @ViewBag.total,required="required" })
+                                                                @Html.TextBoxFor(Model => Model.Quantity_Total, new { @class = "form-control modified", placeholder = "Total Quantity in Hand", Value = @ViewBag.total, required = "required" })
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -497,9 +519,12 @@
     @*<!------ Tags With Space and comma ------->*@
     <script src="~/Scripts/js/jquery-ui.min.js"></script>
     <script src="~/Scripts/js/tag-it.js"></script>
+<!-- Over Hang -->
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
 
     <script type="text/javascript">
-        $('#myTags').tagit();
+        $('#myTags').tagit({ readOnly: true }).css("background-color", "#eee");
     </script>
 
     <script type="text/javascript">
@@ -600,16 +625,58 @@ $(document).ready(function(e) {
 
 $(".modified-toggle input[type='checkbox']").change(function(){
 	if($(this).is(":checked")){
-		$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").removeAttr('readonly');
-		}else{
-			$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").attr('readonly','true');}
-	});
+	    $(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").removeAttr('readonly');
+	    //$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").removeAttr('disabled');
+	}
+	else{
+	    $(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").attr('readonly', 'true');
+	    //$(this).parents(".modified-toggle").children("div.row").children("div.form-group").children("input[type='text']").attr('disabled', 'true');
+	}
+});
 
 $(".modified-toggle1 input[type='checkbox']").change(function(){
 	if($(this).is(":checked")){
 		$(this).parents(".modified-toggle1").find("input[type='text'].modified").removeAttr('readonly');
-		}
-	});
-//<!---- Text boxes disable / enable ------------>
+	}
+	else {
+	    $(this).parents(".modified-toggle1").find("input[type='text'].modified").attr('readonly', 'true');
+	}
+});
+
+$(".toggle-consumable #consumable").change(function () {
+    if ($(this).is(":checked")) {
+        $('#product_consumable').val("Consumable");
+        $(".quantity-veg-non, .quantity-perishable-non").css("display", "block");
+    } else {
+        $('#product_consumable').val("Non-Consumable");
+        $(".quantity-veg-non, .quantity-perishable-non").css("display", "none");
+    }
+});
+        //<!---- Text boxes disable / enable ------------>
+
     </script>
+
+    @*Error Message*@
+    @if (ViewBag.msg != "" && ViewBag.msg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "error",
+                message: '@ViewBag.msg',
+                closeConfirm: false
+            });
+        </script>
+    }
+
+    @*Success Message*@
+    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "success",
+                message: '@ViewBag.smsg',
+                closeConfirm: false
+            });
+        </script>
+    }
 }

@@ -22,6 +22,14 @@ namespace Inventory.Controllers
                 ViewBag.product = convertproduct(user.DbName, pid);
                 ViewBag.AvailableQty = convertquantity(user.DbName, pid);
                 ViewBag.total = ViewBag.AvailableQty[0].Quantity_Total;
+                if (TempData["msg"] != null)
+                {
+                    ViewBag.msg = TempData["msg"];
+                }
+                if (TempData["smsg"] != null)
+                {
+                    ViewBag.smsg = TempData["smsg"];
+                }
             }
             return View();
         }
@@ -41,9 +49,12 @@ namespace Inventory.Controllers
                         int response = ProductService.UpdateStock(user.DbName, product.Qid[i].ToString(), newstock.ToString(), product.Quantity_Total);
                     }
                     //addproductlog(pid, user.DbName, "1006", "StarBucks");  //Product & Quantity In Hand Log
-                    return Content("<script language='javascript' type='text/javascript'>alert('Stock Updated Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
+                    TempData["smsg"] = "Stock Updated Successfully!!!";
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Stock Updated Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
                 }
-                return Content("<script language='javascript' type='text/javascript'>alert('Failed To Update Stock');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
+                TempData["msg"] = "Failed To Update Stock";
+                return RedirectToAction("Index", "AllProducts");
+                //return Content("<script language='javascript' type='text/javascript'>alert('Failed To Update Stock');location.href='" + @Url.Action("Index", "AddProduct") + "'</script>"); // Stays in Same View
             }
             return View();
         }
