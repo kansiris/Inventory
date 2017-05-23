@@ -33,7 +33,6 @@
                                                 <li> <a onclick="viewCustomer(@item.cus_company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Customer</a> </li>
                                                 <li> <a onclick="getEditDetails(@item.cus_company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Customer</a> </li>
                                                
-                                                    @*<a onclick="deleteRecord(@item.cus_company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Customer</a>*@
                                                     @if (item.status == "Active")
                                                     {
                                                     <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=InActive"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}
@@ -41,8 +40,6 @@
                                                     {
                                                         <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=Active"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
 
-                                                    
-                                                    
                                                      ======================
                                                 
                                                 <li> <a href="~/Products?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>

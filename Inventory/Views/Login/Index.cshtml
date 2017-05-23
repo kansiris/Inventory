@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Authenticate</title>
-    
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -28,7 +28,7 @@
     <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/bootstrap.js"></script>
 
-    
+
     <style>
         ::-ms-reveal {
             display: none !important;
@@ -333,7 +333,7 @@
                 },
                 messages: {
                     First_Name: {
-                       required: "Please enter your first name"
+                        required: "Please enter your first name"
                     },
                     Last_Name: {
                         required: "Please enter your last name"
@@ -371,48 +371,48 @@
         });
 
         //function overhang() {
-            //$("body").overhang({
-            //    type: "error",
-            //    message: "Whoops! Something went wrong!",
-            //    closeConfirm: true
-            //});
+        //$("body").overhang({
+        //    type: "error",
+        //    message: "Whoops! Something went wrong!",
+        //    closeConfirm: true
+        //});
         //}
-    </script>
+</script>
     @*Error Message*@
     @if (ViewBag.msg != "" && ViewBag.msg != null)
     {
         <script>
-            $("body").overhang({
+        $("body").overhang({
             type: "error",
-                message: '@ViewBag.msg',
-                closeConfirm: false,
-                duration: 5,
-            });
-        </script>
+            message: '@ViewBag.msg',
+            closeConfirm: false,
+            duration: 5,
+        });
+</script>
     }
 
     @*Success Message*@
     @if (ViewBag.smsg != "" && ViewBag.smsg != null)
     {
         <script>
-            $("body").overhang({
-                type: "success",
-                message: '@ViewBag.smsg',
-                closeConfirm: false
-            });
-        </script>
+        $("body").overhang({
+            type: "success",
+            message: '@ViewBag.smsg',
+            closeConfirm: false
+        });
+</script>
     }
 
     @*Warning Message*@
     @if (ViewBag.umsg != "" && ViewBag.umsg != null)
     {
         <script>
-            $("body").overhang({
-                type: "warn",
-                message: '@ViewBag.umsg',
-                closeConfirm: false,
-                duration: 5,
-            });
+        $("body").overhang({
+            type: "warn",
+            message: '@ViewBag.umsg',
+            closeConfirm: false,
+            duration: 5,
+        });
         </script>
     }
 </body>

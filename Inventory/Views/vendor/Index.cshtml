@@ -27,6 +27,9 @@
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+
+     @*Over Hang*@ 
+<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 }
 <!-- page content -->
 <div class="right_col" role="main">
@@ -369,5 +372,48 @@
     <script src="../build/js/custom.min.js"></script>
 
     <script src="~/Scripts/vendor.js"></script>
+                    <!-- Over Hang -->
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
+@*Error Message*@
+@if (ViewBag.msg != "" && ViewBag.msg != null)
+    {
+    <script>
+        $("body").overhang({
+            type: "error",
+            message: '@ViewBag.msg',
+            closeConfirm: false,
+            duration: 5,
+        });
+    </script>
+}
 
+    @*Success Message*@
+    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
+    {
+        <script>
+        $("body").overhang({
+            type: "success",
+            message: '@ViewBag.smsg',
+            closeConfirm: false
+        });
+        </script>
+    }
+
+
+<script>
+        $(document).ready(function (e) {
+            $(".btn-group ul.dropdown-menu > li").each(function () {
+                var v = $(this).children("a").text();
+                if (v == "Active") {
+                    $(this).parents("tr").children("td").css("color", "#ccc");
+                    $(this).prev("li").children("a").css("pointer-events", "none"); // Edit Button
+                    $(this).next("li").children("a").css("pointer-events", "none"); // Add Stock Button
+                    $(this).prev("li").attr("title", "Activate Product");
+                    $(this).next("li").attr("title", "Activate Product");
+                    //alert($(this).parents(".btn-group").children(".dropdown-menu").children("li").children("a").text());
+                }
+            });
+        })
+</script>
 }

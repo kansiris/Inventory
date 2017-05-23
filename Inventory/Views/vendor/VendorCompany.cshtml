@@ -31,7 +31,7 @@
                                     <ul class="dropdown-menu">
                                         <li> <a onclick="viewVendor(@item.company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Vendor</a> </li>
                                         <li> <a onclick="getEditDetails(@item.company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Vendor</a> </li>
-                                        <li>
+                                       
                                             @*<a onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a>*@
 
                                             @if (item.status == "Active")
@@ -42,7 +42,7 @@
                                                 <li> <a href="~/Vendor/deleteRecord?company_Id=@item.company_Id&&status=Active"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
                                          
                                         ======================
-                                        </li>
+                                        
                                         @*<li> <hr /> </li>*@
                                         <li> <a><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
                                         <li> <a><i class="fa fa-building-o" aria-hidden="true"></i>Create Invoice</a> </li>
@@ -101,26 +101,5 @@
     </div>
 </div>
 }
-@if (ViewBag.msg != "" && ViewBag.msg != null)
-{
-    <script>
-            $("body").overhang({
-                type: "error",
-                message: '@ViewBag.msg',
-                closeConfirm: false
-            });
-    </script>
-}
 
-    @*Success Message*@
-    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
-    {
-        <script>
-            $("body").overhang({
-                type: "success",
-                message: '@ViewBag.smsg',
-                closeConfirm: false
-            });
-        </script>
-    }
     

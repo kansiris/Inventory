@@ -78,8 +78,13 @@ function removecart(cartid) {
 //for genarate pos
 
 function genaratepo() {
-    var customerid = document.URL.split('=')[1];
-    location.href = '/Products/GenaratePOs?cid=' + customerid;
+    var customerid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
+    alert(customerid);
+    var cname = document.URL.split('&&')[1].split('=')[1];
+    alert(cname);
+
+    location.href = '/Products/GenaratePOs?cid=' + customerid + '&cname=' + cname;
+
 
 }
 
@@ -135,19 +140,61 @@ function updatecart1(cartid, quantity, costprice) {
     });
 }
 
+//for grand total
+
+function calculate(totalprice) {
+    var vat = $('#vat').val();
+    var discount = $('#discount').val();
+    if (parseInt(vat) < 100 && parseInt(discount) < 100) {
+        var total = (parseInt(totalprice) + (parseInt(totalprice) * (parseInt(vat) / 100)) - (parseInt(discount) / 100));
+        $('#grandtotal').text(total.toFixed(2));
+    }
+}
+
 //for inserting purchseorder
 
 function insertpo(totalamount) {
-    
+    var cid=location.search.split('&')[0].split('cid=')[1];
+    var cname = location.search.split('&')[1].split('cname=')[1];
     alert(totalamount);
     alert($("[id='shipping_terms']").val());
     alert($("[id='shipping_date']").val());
     alert($("[id='payment_terms']").val());
     alert($("[id='payment_date']").val());
     alert($("[id='ponumber']").val());
-    
-    
+    alert($("[id='comment']").val());
+    alert($("[id='vat']").val());
+    alert($("[id='discount']").val());
+    var shipping_terms = $('#shipping_terms').val();
+    var shipping_date = $('#shipping_date').val();
+    var payment_terms = $('#payment_terms').val();
+    var payment_date = $('#payment_date').val();
+    var ponumber = $('#ponumber').val();
+    var comment = $('#comment').val();
+    var vat = $('#vat').val();
+    var discount = $('#discount').val();
+    var grand_total = $('#grandtotal').text();
+    var createddate = $('#po_date').text();
+  
+    $.ajax({
+        url: '/Products/GenratePurchaseOrder',
+        type: 'POST',
+        data: JSON.stringify({ cid: cid, cname: cname, Prchaseorder_no: ponumber, created_date: createddate, Payment_date: payment_date, shipping_date: shipping_date, payment_terms: payment_terms, shipping_terms: shipping_terms, remarks: comment, sub_total: totalamount, vat: vat, discount: discount, grand_total: grand_total }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique") {
+                alert("not inserted");
+            }
 
-
+            else {
+                alert("Successfully inseryted");
+                //var url = 'Products/Addtocartpartial?cid=' + cid;
+                //$('#cartrecords').load(url);
+            }
+        },
+        error: function (data)
+        { alert("Failed!!!"); }
+    });
 }
 

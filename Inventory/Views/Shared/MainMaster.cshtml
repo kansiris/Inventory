@@ -29,7 +29,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title> @ViewBag.Title </title>
+    <!-- Over Hang -->
     @RenderSection("css", required: false)
+    <!-- Over Hang -->
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
     @*<!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -120,6 +123,9 @@
     </div>
     
     @RenderSection("scripts", required: false)
+    <!-- Over Hang -->
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
     @*<!-- jQuery -->
         <script src="../vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->

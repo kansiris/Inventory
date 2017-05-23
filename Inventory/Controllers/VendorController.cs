@@ -473,9 +473,9 @@ namespace Inventory.Controllers
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var data = VendorService.deleteRecord(company_Id, status, user.DbName);
                 if (status == "Active")
-                    TempData["smsg"] = "Now Product " + company_Id + " is " + status + "";
+                    TempData["smsg"] = "Now Company with " + company_Id + " is " + status + "";
                 else
-                    TempData["msg"] = "Now Product " + company_Id + " is " + status + "";
+                    TempData["msg"] = "Now Company with " + company_Id + " is " + status + "";
                 return RedirectToAction("Index", "Vendor");
             }
 

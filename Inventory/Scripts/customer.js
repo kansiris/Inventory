@@ -271,53 +271,13 @@ $("#Mobile_No").keypress(function (e) {
     }
 });
 //<!------ Contact Person Pop Up Job Position ------->
-//Deleting particular company based on id
 
-//function deleteRecord(id) {
-//    //alert(id);
-//    var retVal = confirm("Do you want to delete record...!");
-//    if (retVal == true) {
-//        $.ajax({
-//            url: '/Customer/deletecusRecord',
-//            type: 'POST',
-//            data: JSON.stringify({ cus_company_Id: id }),
-//            dataType: 'json',
-//            contentType: 'application/json',
-//            success: function (data) {
-//                if (data == "unique") {
-//                    alert("sai");
-//                }
-//                else {
-                    
-//                    var url = 'Customer/CustomerCompany';
-//                    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-//                    alert("Company Deleted Successfully");
-//                    $('#customer-information').css('display', 'none');
-//                    $('#additonal').css('display', 'none');
-//                    $(".cd-tabs").css('display', 'none');
-
-//                }
-//            },
-//            error: function (data)
-//            { alert("Failed!!!"); }
-//        });
-
-//        return true;
-//    }
-
-//    else {
-//        return false;
-//    }
-//}
 //Assigning values to inputs
 function editFunction(array) {
     $('#cus_company_Id').val(array.cus_company_Id);
     $('#cus_company_name').val(array.cus_company_name);
     $('#cus_email').val(array.cus_email);
-    //$('#Bank_Acc_Number').val(array.Bank_Acc_Number);
-    //$('#Bank_Name').val(array.Bank_Name);
-    //$('#Bank_Branch').val(array.Bank_Branch);
-    //$('#IFSC_No').val(array.IFSC_No);
+    
     $('#cus_Note').val(array.cus_Note);
     if (array.cus_logo != "/images/user.png" && array.cus_logo != null && array.cus_logo != "") {
         $('#cuscompanypic').attr('src', 'data:image/;base64,' + array.cus_logo);
@@ -375,7 +335,7 @@ function getEditDetails(id) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("sai");
+                errormsg("sai");
             }
             else {
                 var array = JSON.parse(data);
@@ -389,14 +349,14 @@ function getEditDetails(id) {
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
 
 // particular customer
 function editcuscompany(clickedvalue) {
-    //alert(clickedvalue)
+ 
     $('#update').click(function () {
         $('#cuscompany').css('display', 'none');
     });
@@ -404,22 +364,22 @@ function editcuscompany(clickedvalue) {
     cuscompany_Id = $('#cus_company_Id').val();
     cusCompany_Name = $('#cus_company_name').val();
     cuslogo = $('#cuscompanypic').attr('src').replace('data:image/;base64,', '');
-    //alert(cuslogo);
+    
     cusEmail = $('#cus_email').val();
-    //alert(cusEmail);
+    
 
     if ((cusCompany_Name == "") || (cusEmail == "")) {
         if (cusCompany_Name == "")
-            alert("Please Enter Company Name");
+            warn("Please Enter Company Name");
         else
-            alert("Please Enter Email");
+            warnmsg("Please Enter Email");
     }
     else {
 
         var email = document.getElementById('cus_email');
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if (!filter.test(email.value)) {
-            alert('Please provide a valid email address');
+            warnmsg('Please provide a valid email address');
             email.focus;
             return false;
         }
@@ -436,21 +396,20 @@ function editcuscompany(clickedvalue) {
                             $('#savebutton').hide();
                             var url = 'Customer/CustomerCompany';
                             $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-                            alert("Company Updated Successfully");
+                            successmsg("Company Updated Successfully");
                             $('#customertable1').css("display", "none");
                             $('#additonal').css('display', 'block');
                         }
                         else {
-                            alert("not updated");
+                            errormsg("not updated");
                         }
                     },
                     error: function (data)
-                    { alert("Failed!!!");}
+                    { errormsg("Failed!!!");}
                 });
             }
             if (clickedvalue == 'Save') {
                 $.ajax({
-
                     url: '/Customer/savecuscompany',
                     type: 'POST',
                     data: JSON.stringify({ cus_company_name: cusCompany_Name, cus_email: cusEmail, cus_logo: cuslogo }),
@@ -463,7 +422,7 @@ function editcuscompany(clickedvalue) {
                             var url = 'Customer/CustomerCompany';
                             $('#cus_company_Id').val(data.ID);
                             $('#cuscompanyrecords').load(url, function () { Pagination(); });
-                            alert("company saved Successfully");
+                            successmsg("company saved Successfully");
                             $('customer-information1').css("display", "block");
                             $('#additonal').css('display', 'block');
                             cus_company_Id = $('#cus_company_Id').val();
@@ -471,14 +430,14 @@ function editcuscompany(clickedvalue) {
                             $('#customerrecords').empty().load(url);
                         }
                         else if (data = "exists") {
-                            alert("Company Name alredy exists..Please enter another name");
+                            existsmsg("Company Name alredy exists..Please enter another name");
                         }
                         else {
-                            alert("not saved");
+                            errormsg("not saved");
                         }
                     },
                     error: function (data)
-                    { alert("Failed!!!"); }
+                    { errormsg("Failed!!!"); }
                 });
             }
         }
@@ -511,9 +470,9 @@ function editcuscompanyaddress(clickedvalue) {
 
     if ((cus_company_name == "") || (cus_email == "")) {
         if (cus_company_name == "")
-            alert("Please Enter Company Name");
+            warnmsg("Please Enter Company Name");
         else if (cus_email == "")
-            alert("Please Enter Email");
+            warnmsg("Please Enter Email");
     }
     else {
         if (clickedvalue == 'updateaddress') {
@@ -527,14 +486,14 @@ function editcuscompanyaddress(clickedvalue) {
                     if (data == "sucess") {
                         $('#savebutton').hide();
 
-                        alert("Address Updated Successfully");
+                        successmsg("Address Updated Successfully");
                     }
                     else {
-                        alert("not updated");
+                        errormsg("not updated");
                     }
                 },
                 error: function (data)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
         if (clickedvalue == 'saveaddress') {
@@ -548,76 +507,18 @@ function editcuscompanyaddress(clickedvalue) {
                 success: function (data) {
                     if (data == "sucess") {
                         $('#savebutton').hide();
-                        alert("Address Saved Successfully");
+                        successmsg("Address Saved Successfully");
                     }
                     else {
-                        alert("not Saved");
+                        errormsg("not Saved");
                     }
                 },
                 error: function (data)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
     }
 }
-//Vendor Bank Details
-//function editcompanybankdetails(clickedvalue) {
-
-//    $('#updatebakdetails').click(function () {
-//        $('#company').css('display', 'none');
-//    });
-//    $('#updatebakdetails').click(function () {
-//        $('#additional').css('display', 'none');
-//    });
-//    company_Id = $('#company_Id').val();
-//    Bank_Acc_Number = $('#Bank_Acc_Number').val();
-//    Bank_Name = $('#Bank_Name').val();
-//    Bank_Branch = $('#Bank_Branch').val();
-//    IFSC_No = $('#IFSC_No').val();
-//    if (clickedvalue == 'updatebankdetails') {
-//        $.ajax({
-//            url: '/Vendor/updatecompanybankdetails',
-//            type: 'POST',
-//            data: JSON.stringify({ company_Id: company_Id, Bank_Acc_Number: Bank_Acc_Number, Bank_Name: Bank_Name, Bank_Branch: Bank_Branch, IFSC_No: IFSC_No }),
-//            dataType: 'json',
-//            contentType: 'application/json',
-//            success: function (data) {
-//                if (data == "sucess") {
-//                    $('#savebutton').hide();
-
-//                    alert("Bank details Updated Successfully");
-//                }
-//                else {
-//                    alert("not updated");
-//                }
-//            },
-//            error: function (data)
-//            { alert("Failed!!!"); }
-
-//        });
-//    }
-//    if (clickedvalue == 'savebankdetails') {
-//        $.ajax({
-//            url: '/Vendor/savecompanybankdetails',
-//            type: 'POST',
-//            data: JSON.stringify({ company_Id: company_Id, Bank_Acc_Number: Bank_Acc_Number, Bank_Name: Bank_Name, Bank_Branch: Bank_Branch, IFSC_No: IFSC_No }),
-//            dataType: 'json',
-//            contentType: 'application/json',
-//            success: function (data) {
-//                if (data == "sucess") {
-//                    $('#savebutton').hide();
-//                    alert("Bank details saved Successfully");
-//                }
-//                else {
-//                    alert("not saved");
-//                }
-//            },
-//            error: function (data)
-//            { alert("Failed!!!"); }
-
-//        });
-//    }
-//}
 
 //customer Note
 function updatecusnote(clickedvalue) {
@@ -641,14 +542,14 @@ function updatecusnote(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Notes Updated Successfully");
+                    successmsg("Notes Updated Successfully");
                 }
                 else {
-                    alert("not updated");
+                    errormsg("not updated");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
     }
     if (clickedvalue == 'Save Notes') {
@@ -661,14 +562,14 @@ function updatecusnote(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("Notes Saved Successfully");
+                    successmsg("Notes Saved Successfully");
                 }
                 else {
-                    alert("not Saved");
+                    errormsg("not Saved");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
     }
 }
@@ -694,7 +595,7 @@ function updatecusContact(clickedvalue) {
     var email = document.getElementById('Email_Id');
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!filter.test(email.value)) {
-        alert('Please provide a valid email address');
+        existsmsg('Please provide a valid email address');
         email.focus;
         return false;
     } else {
@@ -716,7 +617,7 @@ function updatecusContact(clickedvalue) {
                         $('#cuscompanyrecords').load(url, function () { Pagination(); });
                         var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                         $('#cuscontacttable').empty().load(url1);
-                        alert("Contact Details saved Successfully");
+                        successmsg("Contact Details saved Successfully");
                         $("[id='Customer_contact_Fname']").val("");
                         $("[id='Customer_contact_Lname']").val("");
                         $("[id='Mobile_No']").val("");
@@ -726,11 +627,11 @@ function updatecusContact(clickedvalue) {
                         $("#cuscontactpic").attr("src", "/images/user.png");
                     }
                     else {
-                        alert("not saved");
+                        errormsg("not saved");
                     }
                 },
                 error: function (json)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
         if (clickedvalue == 'updatecontact') {
@@ -749,7 +650,7 @@ function updatecusContact(clickedvalue) {
                         $('#cuscompanyrecords').load(url, function () { Pagination(); });
                         var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                         $('#cuscontacttable').empty().load(url1);
-                        alert("Contact Details updated Successfully");
+                        successmsg("Contact Details updated Successfully");
                         $('#cuscontactbutton').val("savecontact").text("Save Contact");
                         $("[id='Customer_contact_Fname']").val("");
                         $("[id='Customer_contact_Lname']").val("");
@@ -760,11 +661,11 @@ function updatecusContact(clickedvalue) {
                         $("#cuscontactpic").attr("src", "/images/user.png");
                     }
                     else {
-                        alert("not updated");
+                        errormsg("not updated");
                     }
                 },
                 error: function (data)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
     }
@@ -783,7 +684,7 @@ function editcuscontactperson(id) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("sai");
+                warnmsg("someproblem occured.");
             }
             else {
                 var array = JSON.parse(data);
@@ -801,7 +702,7 @@ function editcuscontactperson(id) {
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 
 }
@@ -823,15 +724,15 @@ function deleteCustomer(id) {
                     cus_company_Id = $('#cus_company_Id').val();
                     var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                     $('#customerrecords').load(url);
-                    alert("Contact Person Deleted Successfully");
+                    successmsg("Contact Person Deleted Successfully");
                    
                 }
                 else {
-                    alert("Not deleted");
+                    errormsg("Not deleted");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
         return true;
     }
@@ -857,20 +758,20 @@ function inviteCustomer(id) {
             contentType: 'application/json',
             success: function (data) {
                 if (data == "unique") {
-                    alert("sai");
+                    warnmsg("some problem occured");
                 }
                 else if (data == "Exists") {
-                    alert("Email Id Already Exists!!! Try Another");
+                    existsmsg("Email Id Already Exists!!! Try Another");
                 }
                 else {
                     cus_company_Id = $('#cus_company_Id').val();
                     var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                     $('#customerrecords').load(url);
-                    alert("Invitation sent Successfully.Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur");
+                    successmsg("Invitation sent Successfully.Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
         return true;
     }
@@ -885,7 +786,7 @@ function inviteCustomer(id) {
 function upload() {
     var ext = $('#fileupload').val().split('.').pop().toLowerCase();
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-        alert('Invalid File Type');
+        warnmsg('Invalid File Type');
     }
     else {
         var data = new FormData();
@@ -903,7 +804,7 @@ function upload() {
                 $("#cuscompanypic").attr("src", "data:image/;base64," + response);
             },
             error: function (er) {
-                alert("Failed To Upload Pic!!! Try Again");
+                warnmsg("Failed To Upload Pic!!! Try Again");
             }
         });
     }
@@ -912,7 +813,7 @@ function upload() {
 function upload1() {
     var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-        alert('Invalid File Type');
+        warnmsg('Invalid File Type');
     }
     else {
         var data = new FormData();
@@ -930,22 +831,12 @@ function upload1() {
                 $("#cuscontactpic").attr("src", "data:image/;base64," + response);
             },
             error: function (er) {
-                alert("Failed To Upload Pic!!! Try Again");
+                warnmsg("Failed To Upload Pic!!! Try Again");
             }
         });
     }
 }
-//// closeing view with close button
-//function closingview() {
-//    var url = 'Customer/CustomerCompany';
-//    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-//    $('#customer-information').css('display', 'none');
-//    $('#customer-information1').css('display', 'none');
-//    $('#additonal').css('display', 'none');
-//    $("#contacttable").css("display", "none");
-//    $(".cd-tabs").css("display", "none");
-//    $('#forclose').css('display', 'none');
-//}
+
 
 //View customer
 function viewCustomer(id) {
@@ -959,7 +850,7 @@ function viewCustomer(id) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("sai");
+                warnmsg("some problem occured");
             }
             else {
                 var array = JSON.parse(data);
@@ -992,7 +883,7 @@ function viewCustomer(id) {
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
@@ -1011,13 +902,13 @@ function addingcusjobpositions() {
             if (data.Result == "sucess") {
                 var url = 'Customer/CustomerCompany';
                 $('#cuscompanyrecords').load(url, function () { Pagination(); });
-                alert("Job position added Successfully.click close and select from list");
+                successmsg("Job position added Successfully.click close and select from list");
                 var array = data.ID;
                 forunderstand(array);
                 $('#newposition').val("");
             }
             else if (data = "exists") {
-                alert("That Job Position alredy exists..Please select or enter new Position");
+                errormsg("That Job Position alredy exists..Please select or enter new Position");
                 $('#newposition').val("");
             }
             else {
@@ -1026,7 +917,7 @@ function addingcusjobpositions() {
             }
         },
         error: function (data) {
-            alert("Failed!!!");
+            errormsg("Failed!!!");
             $('#newposition').val("");
         }
     });
@@ -1056,5 +947,38 @@ function forunderstand(array) {
             $(".add-position input[type='text']").val("");
         });
 
+    });
+}
+
+function errormsg(msg) {
+    $("body").overhang({
+        type: "error",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function successmsg(msg) {
+    $("body").overhang({
+        type: "success",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function existsmsg(msg) {
+    $("body").overhang({
+        type: "exists",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
+    });
+}
+
+function warnmsg(msg) {
+    $("body").overhang({
+        type: "warn",
+        message: msg,
+        duration: 3
     });
 }
