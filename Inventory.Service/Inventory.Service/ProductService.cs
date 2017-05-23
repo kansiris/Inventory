@@ -139,6 +139,13 @@ namespace Inventory.Service
         }
         #endregion
 
+        #region Update Product Stock & Re-Oreder Level
+        public static int UpdateReorder(string dbname, string id, string qty, string reorder, string total)
+        {
+            return ProductRepository.UpdateReorder(dbname, id, qty, reorder, total);
+        }
+        #endregion
+
         //to get subcategory products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {

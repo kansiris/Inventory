@@ -179,6 +179,15 @@ namespace Inventory.Repository
         }
         #endregion
 
+        #region Update Product Stock & Re-Oreder Level
+        public static int UpdateReorder(string dbname, string id, string qty,string reorder ,string total)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatereorder", id, qty, reorder,total);
+        }
+        #endregion
+
         //to get chicken products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {

@@ -29,13 +29,13 @@ namespace Inventory.Controllers
                               User_Site = row["User_Site"].ToString(),
                               UserTypeId = (int)row["UserTypeId"],
                               company_logo = row["company_logo"].ToString(),
-                              EmailId= row["EmailId"].ToString(),
+                              EmailId = row["EmailId"].ToString(),
                               First_Name = row["First_Name"].ToString()
                               //EmailId = row["EmailId"].ToString()
                           }).ToList();
             ViewBag.records = userMaster;
             value.Close();
-            if (TempData["msg"] != null )
+            if (TempData["msg"] != null)
             { ViewBag.msg = TempData["msg"]; }
             if (TempData["umsg"] != null)
             { ViewBag.umsg = TempData["umsg"]; }
@@ -43,34 +43,27 @@ namespace Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string email, string usertype, string loginpassword,string userid)
+        public ActionResult Index(string email, string usertype, string loginpassword, string userid)
         {
-            try
+            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+            UserMaster userMaster = new UserMaster();
+            if (value.HasRows)
             {
-                SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
-                UserMaster userMaster = new UserMaster();
-                if (value.HasRows)
+                userMaster = convert(value, userid);
+                if (userMaster.IsActive != 0)
                 {
-                    userMaster = convert(value,userid);
-                    if (userMaster.IsActive != 0)
-                    {
-                        value.Close();
-                        string userData = JsonConvert.SerializeObject(userMaster);
-                        ValidUser.SetAuthCookie(userData, userMaster.ID);
-                        return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
-                    }
-                    TempData["umsg"] = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
-                    return RedirectToAction("Index", "AvailableCompanies", new { email = email });
+                    value.Close();
+                    string userData = JsonConvert.SerializeObject(userMaster);
+                    ValidUser.SetAuthCookie(userData, userMaster.ID);
+                    return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
                 }
-                TempData["msg"] = "Invalid Login!!! Try Again";
+                TempData["umsg"] = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
                 return RedirectToAction("Index", "AvailableCompanies", new { email = email });
-                //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
             }
-            catch (Exception)
-            {
-                //throw r;
-                return RedirectToAction("Index", "ServerDown");
-            }
+            TempData["msg"] = "Invalid Login!!! Try Again";
+            return RedirectToAction("Index", "AvailableCompanies", new { email = email });
+            //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+
             //SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
             //UserMaster userMaster = new UserMaster();
             //if (value.HasRows)
@@ -86,7 +79,7 @@ namespace Inventory.Controllers
             //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
         }
 
-        public UserMaster convert(SqlDataReader sqlDataReader,string userid)
+        public UserMaster convert(SqlDataReader sqlDataReader, string userid)
         {
             DataTable dt = new DataTable();
             dt.Load(sqlDataReader);
@@ -111,7 +104,7 @@ namespace Inventory.Controllers
                               //Date_Format = row["Date_Format"].ToString(),
                               //Timezone = row["Timezone"].ToString(),
                               //Currency=row["Currency"].ToString()
-                          }).Where(m=>m.ID == userid).ToList();
+                          }).Where(m => m.ID == userid).ToList();
             return userMaster.First();
         }
     }

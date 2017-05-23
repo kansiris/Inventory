@@ -27,7 +27,8 @@
 
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
-    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" /><script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
 }
 @if (ViewBag.count == "addproduct")
 {
@@ -983,7 +984,7 @@
                                 <div class="col-md-5">
                                     <div class="row">
                                         <ul class="col-md-12 admin-product-thumbs">
-                                            @Html.HiddenFor(m=>m.product_images,new { Value= particularproduct.product_images })
+                                            @Html.HiddenFor(m => m.product_images, new { Value = particularproduct.product_images })
                                             @if (particularproduct.product_images != "")
                                             {
                                                 foreach (var item1 in particularproduct.product_images.Split(','))
@@ -995,6 +996,86 @@
                                             {
                                                 <img src="images/default_product.png" alt="Product" />}
                                         </ul>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-primary btn-xs pull-right add-popup"><i class="fa fa-plus-circle" aria-hidden="true"></i>Image</button>
+                                            </div>
+                                        </div>
+                                        <div class="row image-library">
+                                            <ul class="col-md-12 tabs">
+                                                <li class="tab-1"><a>Upload Images</a></li>
+                                                <li class="tab-2"><a>Library</a></li>
+                                                <i class="fa fa-times pull-right" aria-hidden="true"></i>
+                                            </ul>
+                                            <ul class="col-md-12 tabs-content">
+                                                @*<li class="tab-1" id="tab-1">
+                                                        <button type="button" id="btnupload" onclick="javascript: document.getElementById('fileUpload').click();" class="btn">Upload Here</button>
+
+                                                        <input type='file' multiple="multiple" accept="image/*" id='fileUpload' name="file" />
+                                                        <div id="dvPreview" align="center" style="padding:30px">
+                                                    </li>*@
+                                                <li class="tab-1" id="tab-1">
+                                                    <button type="button" class="btn" onclick="javascript: document.getElementById('fileUpload').click();">Upload Here</button>
+                                                    <input type="file" multiple="multiple" accept="image/*" id='fileUpload' name="file" style="display:none">
+                                                    <div class="row" id="dvPreview">
+                                                        @*<div class="col-xs-12 col-md-12">
+                                                                <ul class="upload-thumbs">
+                                                                    <li><img src="images/1.jpg" alt="1" /></li>
+                                                                    <li><img src="images/2.jpg" alt="2" /></li>
+                                                                    <li><img src="images/3.jpg" alt="3" /></li>
+                                                                    <li><img src="images/4.jpg" alt="4" /></li>
+                                                                    <li><img src="images/5.jpg" alt="5" /></li>
+                                                                    <li><img src="images/6.jpg" alt="6" /></li>
+                                                                    <li><img src="images/1.jpg" alt="1" /></li>
+                                                                    <li><img src="images/2.jpg" alt="2" /></li>
+                                                                    <li><img src="images/3.jpg" alt="3" /></li>
+                                                                    <li><img src="images/4.jpg" alt="4" /></li>
+                                                                    <li><img src="images/5.jpg" alt="5" /></li>
+                                                                    <li><img src="images/6.jpg" alt="6" /></li>
+                                                                </ul>
+                                                            </div>*@
+                                                    </div>
+                                                </li>
+                                                <li class="tab-2" id="tab-2">
+                                                    <ul>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox" class="libselection">
+                                                            <img src="images/1.jpg" alt="Image one" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox" class="libselection">
+                                                            <img src="images/2.jpg" alt="Image Two" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox" class="libselection">
+                                                            <img src="images/3.jpg" alt="Image Three" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox" class="libselection">
+                                                            <img src="images/4.jpg" alt="Image Four" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox" class="libselection">
+                                                            <img src="images/5.jpg" alt="Image Five" />
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkbox" class="libselection">
+                                                            <img src="images/6.jpg" alt="Image Six" />
+                                                        </li>
+                                                    </ul>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                                            <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="row">
+                                            <ul class="col-md-12 admin-product-thumbs"></ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1002,14 +1083,14 @@
                                 <div class="form-group col-xs-12 col-md-12">
                                     <input type="hidden" value="@particularproduct.product_description" id="product_desc" />
                                     @*<textarea class="form-control" rows="5" id="comment" placeholder="Product Description"></textarea>*@
-                                    @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description", rows = "5"  })
+                                    @Html.TextAreaFor(Model => Model.product_description, new { @class = "form-control", placeholder = "Product Description", rows = "5" })
                                     @* @Html.TextArea("Attachments", new { @class = "form-control", id = "Attachments", rows="5", @Value = particularproduct.product_description });*@
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>Add Tags<span>(Seperated by Comma)</span></label>
-                                    <ul id="myTags" value="@particularproduct.product_tags">
+                                    <ul id="myTags">
                                         @foreach (var tag in particularproduct.product_tags.Split(','))
                                         {
                                             <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
@@ -1051,7 +1132,7 @@
                                                 for (int i = 0; i < ViewBag.AvailableQty.Count; i++)
                                                 {
                                                     <tr>
-                                                        <td>@(++sno)</td>
+                                                        <td>@(++sno)</td>@Html.HiddenFor(m => m.Qid, new { Value = ViewBag.AvailableQty[i].Quantity_id })
                                                         <td>@ViewBag.AvailableQty[i].Quantity_area</td>
                                                         <td>
                                                             <div class="form-group col-xs-12  col-md-12">

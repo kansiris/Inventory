@@ -402,12 +402,13 @@
                                 <div class="form-group col-md-12">
                                     <label>Add Tags<span>(Seperated by Comma)</span></label>
                                     @*<ul id="myTags"></ul>*@
-                                    @Html.TextBoxFor(Model => Model.product_tags, new { @class = "form-control", Value = item.product_tags })
+                                    @Html.TextBoxFor(Model => Model.product_tags, new { @class = "form-control", Value = item.product_tags.Replace("!"," ") })
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-md-2 pull-right">
-                                    <button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                    @*<button type="button" class="btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>*@
+                                    <a href="~/AllProducts" class="btn-default btn cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel </a>
                                 </div>
                                 <div class="col-xs-12 col-md-2 pull-right">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Update Stock</button>
