@@ -154,45 +154,7 @@ $(document).ready(function (e) {
     });
 });
 
-//function Pagination() {
 
-//    $('#vendortable1').after('<div id="nav"></div>');
-//    var rowsShown = 3;
-//    var rowsTotal = $('#vendortable tbody tr').length;
-//    var numPages = rowsTotal / rowsShown;
-//    for (i = 0; i < numPages; i++) {
-//        var pageNum = i + 1;
-//        $('#nav').append('<a href="#" class="btn btn-success" rel="' + i + '">' + pageNum + '</a> ');
-//    }
-//    $('#vendortable tbody tr').hide();
-//    $('#vendortable tbody tr').slice(0, rowsShown).show();
-//    $('#nav a:first').addClass('active');
-//    $('#nav a').bind('click', function () {
-//        $('#nav a').removeClass('active');
-//        $(this).addClass('active');
-//        var currPage = $(this).attr('rel');
-//        var startItem = currPage * rowsShown;
-//        var endItem = startItem + rowsShown;
-//        $('#vendortable tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
-//                css('display', 'table-row').animate({ opacity: 1 }, 300);
-//    });
-
-
-
-//    $('#vendortable1 > div').hide();
-//    $('#vendortable1 > div').slice(0, rowsShown).show();
-//    $('#nav a:first').addClass('active');
-//    $('#nav a').bind('click', function () {
-
-//        $('#nav a').removeClass('active');
-//        $(this).addClass('active');
-//        var currPage = $(this).attr('rel');
-//        var startItem = currPage * rowsShown;
-//        var endItem = startItem + rowsShown;
-//        $('#vendortable1 > div').css('opacity', '0.0').hide().slice(startItem, endItem).
-//                css('display', 'table-row').animate({ opacity: 1 }, 300);
-//    });
-//}
 
 //<!------ Random Colors ------>
 
@@ -311,43 +273,7 @@ $("#Mobile_No").keypress(function (e) {
     }
 });
 //<!------ Contact Person Pop Up Job Position ------->
-//Deleting particular company based on id
 
-//function deleteRecord(id) {
-//    // alert(id);
-//    var retVal = confirm("Do you want to delete record...!");
-//    if (retVal == true) {
-//        $.ajax({
-//            url: '/Vendor/deleteRecord',
-//            type: 'POST',
-//            data: JSON.stringify({ company_Id: id }),
-//            dataType: 'json',
-//            contentType: 'application/json',
-//            success: function (data) {
-//                if (data == "unique") {
-//                    alert("sai");
-//                }
-//                else {
-//                    alert("Company Deleted Successfully");
-//                    var url = 'Vendor/VendorCompany';
-//                    $('#companyrecords').empty().load(url, function () { Pagination(); });
-//                    $('#vendor-information').css('display', 'none');
-//                    $('#additon').css('display', 'none');
-//                    $(".cd-tabs").css('display', 'none');
-
-//                }
-//            },
-//            error: function (data)
-//            { alert("Failed!!!"); }
-//        });
-
-//        return true;
-//    }
-
-//    else {
-//        return false;
-//    }
-//}
 //Assigning values to inputs
 function editFunction(array) {
     $('#company_Id').val(array.company_Id);
@@ -414,7 +340,7 @@ function getEditDetails(id) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("sai");
+                errormsg("some problem occured");
             }
             else {
                 var array = JSON.parse(data);
@@ -428,7 +354,7 @@ function getEditDetails(id) {
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
@@ -449,16 +375,16 @@ function editcompany(clickedvalue) {
 
     if ((Company_Name == "") || (Email == "")) {
         if (Company_Name == "")
-            alert("Please Enter Company Name");
+            warnmsg("Please Enter Company Name");
         else
-            alert("Please Enter Email");
+            warnmsg("Please Enter Email");
     }
     else {
 
         var email = document.getElementById('Email');
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if (!filter.test(email.value)) {
-            alert('Please provide a valid email address');
+            warnmsg('Please provide a valid email address');
             email.focus;
             return false;
         }
@@ -475,16 +401,15 @@ function editcompany(clickedvalue) {
                             $('#savebutton').hide();
                             var url = 'Vendor/VendorCompany';
                             $('#companyrecords').empty().load(url, function () { Pagination(); });
-                            successmes("Company Updated Successfully");
-                            //alert("Company Updated Successfully");
+                            successmsg("Company Updated Successfully");
                             $('#additon').css('display', 'block');
                         }
                         else {
-                            alert("not updated");
+                            errormsg("not updated");
                         }
                     },
                     error: function (data)
-                    { alert("Failed!!!"); }
+                    { errormsg("Failed!!!"); }
                 });
             }
             if (clickedvalue == 'Save') {
@@ -502,25 +427,23 @@ function editcompany(clickedvalue) {
                             var url = 'Vendor/VendorCompany';
                             $('#company_Id').val(data.ID);
                             $('#companyrecords').load(url, function () { Pagination(); });
-                            alert("Company saved.");
                             $("#additon").css("display", "block");
-                            //successmsg(data.Result);
+                            successmsg("Company Saved Succesfully.");
                             $('vendor-information1').css("display", "block");
-
                             company_Id = $('#company_Id').val();
                             var url = 'Vendor/VendorContact?id=' + company_Id + '';
                             $('#vendorrecords').empty().load(url);
 
                         }
                         else if (data = "exists") {
-                            alert("Company Name alredy exists..Please enter another name");
+                            existsmsg("Company Name alredy exists..Please enter another name");
                         }
                         else {
-                            alert("not saved");
+                            errormsg("not saved");
                         }
                     },
                     error: function (data)
-                    { alert("Failed!!!"); }
+                    { errormsg("Failed!!!"); }
                 });
             }
         }
@@ -537,7 +460,6 @@ function editcompanyaddress(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     company_Id = $('#company_Id').val();
-    // alert(company_Id);
     Company_Name = $('#Company_Name').val();
     Email = $('#Email').val();
     bill_street = $('#bill_street').val();
@@ -553,9 +475,9 @@ function editcompanyaddress(clickedvalue) {
 
     if ((Company_Name == "") || (Email == "")) {
         if (Company_Name == "")
-            alert("Please Enter Company Name");
+            warnmsg("Please Enter Company Name");
         else if (Email == "")
-            alert("Please Enter Email");
+            warnmsg("Please Enter Email");
     }
     else {
         if (clickedvalue == 'updateaddress') {
@@ -568,15 +490,14 @@ function editcompanyaddress(clickedvalue) {
                 success: function (data) {
                     if (data == "sucess") {
                         $('#savebutton').hide();
-
-                        alert("Address Updated Successfully");
+                        successmsg("Address Updated Successfully");
                     }
                     else {
-                        alert("not updated");
+                        errormsg("not updated");
                     }
                 },
                 error: function (data)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
         if (clickedvalue == 'saveaddress') {
@@ -589,14 +510,14 @@ function editcompanyaddress(clickedvalue) {
                 success: function (data) {
                     if (data == "sucess") {
                         $('#savebutton').hide();
-                        alert("Address Saved Successfully");
+                        successmsg("Address Saved Successfully");
                     }
                     else {
-                        alert("not Saved");
+                        errormsg("not Saved");
                     }
                 },
                 error: function (data)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
     }
@@ -625,15 +546,14 @@ function editcompanybankdetails(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-
-                    alert("Bank details Updated Successfully");
+                    successmsg("Bank details Updated Successfully");
                 }
                 else {
-                    alert("not updated");
+                    errormsg("not updated");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
 
         });
     }
@@ -647,14 +567,14 @@ function editcompanybankdetails(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("Bank details saved Successfully");
+                    successmsg("Bank details saved Successfully");
                 }
                 else {
-                    alert("not saved");
+                    errormsg("not saved");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
 
         });
     }
@@ -682,14 +602,14 @@ function updatecompanynote(clickedvalue) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
 
-                    alert("Notes Updated Successfully");
+                    successmsg("Notes Updated Successfully");
                 }
                 else {
-                    alert("not updated");
+                    errormsg("not updated");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
     }
     if (clickedvalue == 'Save Notes') {
@@ -702,14 +622,14 @@ function updatecompanynote(clickedvalue) {
             success: function (data) {
                 if (data == "sucess") {
                     $('#savebutton').hide();
-                    alert("Notes Saved Successfully");
+                    successmsg("Notes Saved Successfully");
                 }
                 else {
-                    alert("not Saved");
+                    errormsg("not Saved");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
     }
 }
@@ -724,7 +644,7 @@ function updateContact(clickedvalue) {
     });
     company_Id = $('#company_Id').val();
     Vendor_Id = $('#Vendor_Id').val();
-    // alert(clickedvalue);
+   
     Contact_PersonFname = $('#Contact_PersonFname').val();
     Contact_PersonLname = $('#Contact_PersonLname').val();
     Mobile_No = $('#Mobile_No').val();
@@ -735,7 +655,7 @@ function updateContact(clickedvalue) {
     var email = document.getElementById('emailid');
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!filter.test(email.value)) {
-        alert('Please provide a valid email address');
+        warnmsg('Please provide a valid email address');
         email.focus;
         return false;
     } else {
@@ -755,7 +675,7 @@ function updateContact(clickedvalue) {
                         $('#Vendor_Id').val(data.ID);
                         var url = 'Vendor/VendorContact?id=' + company_Id + '';
                         $('#vendorrecords').load(url);
-                        alert("Contact Details saved Successfully");
+                        successmsg("Contact Details saved Successfully");
                         $("[id='Contact_PersonFname']").val("");
                         $("[id='Contact_PersonLname']").val("");
                         $("[id='Mobile_No']").val("");
@@ -765,11 +685,11 @@ function updateContact(clickedvalue) {
                         $("#contactpic").attr("src", "/images/user.png");
                     }
                     else {
-                        alert("not saved");
+                        errormsg("not saved");
                     }
                 },
                 error: function (json)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
         if (clickedvalue == 'updatecontact') {
@@ -785,7 +705,7 @@ function updateContact(clickedvalue) {
                         company_Id = $('#company_Id').val();
                         var url = 'Vendor/VendorContact?id=' + company_Id + '';
                         $('#vendorrecords').load(url);
-                        alert("Contact Details updated Successfully");
+                        successmsg("Contact Details updated Successfully");
                         $('#contactbutton').val("savecontact").text("Save Contact");
                         $("[id='Contact_PersonFname']").val("");
                         $("[id='Contact_PersonLname']").val("");
@@ -796,11 +716,11 @@ function updateContact(clickedvalue) {
                         $("#contactpic").attr("src", "/images/user.png");
                     }
                     else {
-                        alert("not updated");
+                        errormsg("not updated");
                     }
                 },
                 error: function (data)
-                { alert("Failed!!!"); }
+                { errormsg("Failed!!!"); }
             });
         }
     }
@@ -808,7 +728,7 @@ function updateContact(clickedvalue) {
 //vendor contatc details editing based on vendor id
 
 function editcontactperson(id) {
-    //alert(id);
+  
     $('#contactbutton').val("updatecontact").text("Update Contact");
     $.ajax({
         url: '/Vendor/getVendorContact?Vendor_Id=' + id,
@@ -818,7 +738,7 @@ function editcontactperson(id) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("sai");
+                warnmsg("some problem occured");
             }
             else {
                 var array = JSON.parse(data);
@@ -836,7 +756,7 @@ function editcontactperson(id) {
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 
 }
@@ -844,7 +764,7 @@ function editcontactperson(id) {
 //vendor deleting
 
 function deleteVendor(id) {
-    //alert(id);
+    
     var retVal = confirm("Do you want to delete record...!");
     if (retVal == true) {
         $.ajax({
@@ -855,18 +775,17 @@ function deleteVendor(id) {
             contentType: 'application/json',
             success: function (data) {
                 if (data == "unique") {
-                    alert("Not deleted");
+                    errormsg("Not deleted");
                 }
                 else {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert("Contact Person Deleted Successfully");
-
-                }
+                    successmsg("Contact Person Deleted Successfully");
+                                    }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
         return true;
     }
@@ -879,9 +798,8 @@ function deleteVendor(id) {
 //vendor invite
 
 function inviteVendor(id) {
-    //alert(id);
+    
     company_Id = $('#company_Id').val()
-    //alert(company_Id);
     var retVal = confirm("Do you want to send invitation...!");
     if (retVal == true) {
         $.ajax({
@@ -892,20 +810,20 @@ function inviteVendor(id) {
             contentType: 'application/json',
             success: function (data) {
                 if (data == "unique") {
-                    alert("sai");
+                    warnmsg("some problem occured");
                 }
                 else if (data == "Exists") {
-                    alert("Email Id Already Exists!!! Try Another");
+                    existsmsg("Email Id Already Exists!!! Try Another");
                 }
                 else {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    alert("Invitation sent Successfully.Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur");
+                    successmsg("Invitation sent Successfully.Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur");
                 }
             },
             error: function (data)
-            { alert("Failed!!!"); }
+            { errormsg("Failed!!!"); }
         });
         return true;
     }
@@ -920,7 +838,7 @@ function inviteVendor(id) {
 function upload() {
     var ext = $('#fileupload').val().split('.').pop().toLowerCase();
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-        alert('Invalid File Type');
+        warnmsg('Invalid File Type');
     }
     else {
         var data = new FormData();
@@ -938,7 +856,7 @@ function upload() {
                 $("#companypic").attr("src", "data:image/;base64," + response);
             },
             error: function (er) {
-                alert("Failed To Upload Pic!!! Try Again");
+                errormsg("Failed To Upload Pic!!! Try Again");
             }
         });
     }
@@ -947,7 +865,7 @@ function upload() {
 function upload1() {
     var ext = $('#fileupload1').val().split('.').pop().toLowerCase();
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-        alert('Invalid File Type');
+        warnmsg('Invalid File Type');
     }
     else {
         var data = new FormData();
@@ -965,7 +883,7 @@ function upload1() {
                 $("#contactpic").attr("src", "data:image/;base64," + response);
             },
             error: function (er) {
-                alert("Failed To Upload Pic!!! Try Again");
+                errormsg("Failed To Upload Pic!!! Try Again");
             }
         });
     }
@@ -976,7 +894,7 @@ function upload1() {
 
 //View vendor
 function viewVendor(id) {
-    //alert(id);
+   
     $("#forclose").css("display", "block");
     $.ajax({
         url: '/Vendor/getAllDetails?company_Id=' + id,
@@ -986,7 +904,7 @@ function viewVendor(id) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("sai");
+                warnmsg("some problem occcured");
             }
             else {
                 var array = JSON.parse(data);
@@ -1016,20 +934,18 @@ function viewVendor(id) {
                 $("#forclose").css("display", "block");
                 $("#uploadtext").css("display", "none");
                 $("#uploadcontact").css("display", "none");
-                //$("#contactpic").attr("src", "/images/user.png");
-
+                
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
 function addingjobpositions(company_Id) {
     company_Id = $('#company_Id').val();
     Job_position = $('#newposition').val();
-    //alert(company_Id);
-    //alert(Job_position);
+    
     $.ajax({
         url: '/Vendor/addPosition',
         type: 'POST',
@@ -1040,22 +956,22 @@ function addingjobpositions(company_Id) {
             if (data.Result == "sucess") {
                 var url = 'Vendor/VendorCompany';
                 $('#companyrecords').load(url, function () { Pagination(); });
-                alert("Job position added Successfully.click close and select from list");
+                successmsg("Job position added Successfully.click close and select from list");
                 var array = data.ID;
                 forunderstand(array);
                 $('#newposition').val("");
             }
             else if (data = "exists") {
-                alert("That Job Position alredy exists..Please select or enter new Position");
+                existsmsg("That Job Position alredy exists..Please select or enter new Position");
                 $('#newposition').val("");
             }
             else {
-                alert("not saved");
+                errormsg("not saved");
                 $('#newposition').val("");
             }
         },
         error: function (data) {
-            alert("Failed!!!");
+            errormsg("Failed!!!");
             $('#newposition').val("");
         }
     });
@@ -1087,18 +1003,35 @@ function forunderstand(array) {
     });
 }
 
-//   function errormsg(msg) {
-//       $("body").overhang({
-//           type: "error",
-//           message: msg,
-//           closeConfirm: false
-//       });
-//   }
+   function errormsg(msg) {
+       $("body").overhang({
+           type: "error",
+           message: msg,
+           closeConfirm: false
+       });
+   }
 
-//function successmsg(msg) {
-//    $("body").overhang({
-//        type: "success",
-//        message: msg,
-//        closeConfirm: false
-//    });
-//}
+function successmsg(msg) {
+    $("body").overhang({
+        type: "success",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function existsmsg(msg) {
+    $("body").overhang({
+        type: "exists",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
+    });
+}
+
+function warnmsg(msg){
+$("body").overhang({
+    type: "warn",
+    message: msg,
+    duration: 3
+});
+}

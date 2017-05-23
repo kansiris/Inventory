@@ -175,7 +175,7 @@ namespace Inventory.Controllers
                    }
         //for genRte pos
         [HttpGet]
-        public PartialViewResult GenaratePOs(string cid)
+        public PartialViewResult GenaratePOs(string cid,string cname)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -198,9 +198,11 @@ namespace Inventory.Controllers
                                                        cost_price = row["cost_price"].ToString(),
                                                        total_price = row["total_price"].ToString(),
                                                    }).ToList();
-              
-                
+
+                var ff = cartaddedproducts.Count;
                 ViewBag.records = cartaddedproducts;
+                ViewBag.customer_id = cid;
+                ViewBag.company_name = cname;
                 ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
                 return PartialView("GenaratePOs",ViewBag.records);
             }
@@ -256,6 +258,44 @@ namespace Inventory.Controllers
             }
             return Json("unique");
         }
+        //for genarate purchase order
+        public JsonResult GenratePurchaseOrder(string cid,string cname,string created_date,string Prchaseorder_no,string Payment_date,string shipping_date,string payment_terms,string shipping_terms,string remarks,string sub_total,float vat,float discount,string grand_total)
+
+        {
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+           // int count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, remarks, sub_total, vat, discount, grand_total);
+            var dt = new DataTable();
+            var records = ProductService.Getcartdata(user.DbName, cid);
+            dt.Load(records);
+            List<Product> cartaddedproducts = (from DataRow row in dt.Rows
+                                               select new Product()
+                                               {
+                                                   customer_id = row["customer_id"].ToString(),
+                                                   product_name = row["product_name"].ToString(),
+                                                   cost_price = row["cost_price"].ToString(),
+                                                   Quantity = row["Quantity"].ToString(),
+                                                   //product_images = row["product_images"].ToString(),
+                                                   Measurement = row["Measurement"].ToString(),
+                                                   total_price = row["total_price"].ToString(),
+                                               }).ToList();
+            var ff=cartaddedproducts.Count;
+            int count = 0;
+            for(int i=1;i<=ff; i++)
+            {
+                string product_name = cartaddedproducts.Select(m => m.product_name).ToString();
+                string price = cartaddedproducts.Select(m => m.cost_price).ToString();
+                string quantity = cartaddedproducts.Select(m => m.Quantity).ToString();
+                string description= cartaddedproducts.Select(m => m.Measurement).ToString();
+                string total_price = sub_total;
+                count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, remarks, sub_total, vat, discount, grand_total, total_price);
+                count++;
+            }
+            
+            if (count>0) { 
+            return Json("success");
+        }
+                return Json("unique");
+       }
     }
 }
 
