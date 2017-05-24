@@ -439,7 +439,7 @@ function editcompany(clickedvalue) {
                             existsmsg("Company Name alredy exists..Please enter another name");
                         }
                         else {
-                            errormsg("not saved");
+                            errormsg("Not saved");
                         }
                     },
                     error: function (data)
@@ -493,7 +493,7 @@ function editcompanyaddress(clickedvalue) {
                         successmsg("Address Updated Successfully");
                     }
                     else {
-                        errormsg("not updated");
+                        errormsg("Not updated");
                     }
                 },
                 error: function (data)
@@ -513,7 +513,7 @@ function editcompanyaddress(clickedvalue) {
                         successmsg("Address Saved Successfully");
                     }
                     else {
-                        errormsg("not Saved");
+                        errormsg("Not Saved");
                     }
                 },
                 error: function (data)
@@ -549,7 +549,7 @@ function editcompanybankdetails(clickedvalue) {
                     successmsg("Bank details Updated Successfully");
                 }
                 else {
-                    errormsg("not updated");
+                    errormsg("Not updated");
                 }
             },
             error: function (data)
@@ -570,7 +570,7 @@ function editcompanybankdetails(clickedvalue) {
                     successmsg("Bank details saved Successfully");
                 }
                 else {
-                    errormsg("not saved");
+                    errormsg("Not saved");
                 }
             },
             error: function (data)
@@ -605,7 +605,7 @@ function updatecompanynote(clickedvalue) {
                     successmsg("Notes Updated Successfully");
                 }
                 else {
-                    errormsg("not updated");
+                    errormsg("Not updated");
                 }
             },
             error: function (data)
@@ -625,7 +625,7 @@ function updatecompanynote(clickedvalue) {
                     successmsg("Notes Saved Successfully");
                 }
                 else {
-                    errormsg("not Saved");
+                    errormsg("Not Saved");
                 }
             },
             error: function (data)
@@ -685,7 +685,7 @@ function updateContact(clickedvalue) {
                         $("#contactpic").attr("src", "/images/user.png");
                     }
                     else {
-                        errormsg("not saved");
+                        errormsg("Not saved");
                     }
                 },
                 error: function (json)

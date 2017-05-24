@@ -370,7 +370,7 @@ function editcuscompany(clickedvalue) {
 
     if ((cusCompany_Name == "") || (cusEmail == "")) {
         if (cusCompany_Name == "")
-            warn("Please Enter Company Name");
+            warnmsg("Please Enter Company Name");
         else
             warnmsg("Please Enter Email");
     }
