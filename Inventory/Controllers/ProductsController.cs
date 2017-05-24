@@ -25,6 +25,59 @@ namespace Inventory.Controllers
             return View();
         }
 
+        //for loading all categories and sub categories
+
+
+
+        public PartialViewResult AllCategories()
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = ProductService.GetAllCategories(user.DbName);
+                var dt = new DataTable();
+                dt.Load(records);
+                List<Product> product = new List<Product>();
+                product = (from DataRow row in dt.Rows
+                            select new Product()
+                            {
+                                ID = row["ID"].ToString(),
+                                category_id = row["category_id"].ToString(),
+                                category = row["category"].ToString()
+                            }).OrderByDescending(m => m.ID).ToList();
+                ViewBag.records = product;
+                return PartialView("AllCategories", ViewBag.records);
+            }
+
+            return PartialView("AllCategories", null);
+        }
+        //for loading all subcategories based on  category
+        public PartialViewResult AllSubCategories(string category_id)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = ProductService.GetAllSubCategories(user.DbName, category_id);
+                var dt = new DataTable();
+                dt.Load(records);
+                List<Product> product = new List<Product>();
+                product = (from DataRow row in dt.Rows
+                           select new Product()
+                           {
+                               //ID = row["ID"].ToString(),
+                               subcategory_id = row["subcategory_id"].ToString(),
+                               category_id= row["category_id"].ToString(),
+                               sub_category = row["sub_category"].ToString()
+                           }).OrderByDescending(m => m.ID).ToList();
+                ViewBag.records = product;
+                return PartialView("AllSubCategories", ViewBag.records);
+            }
+
+            return PartialView("AllCategories", null);
+        }
+
 
         [HttpGet]
         //for subcategory
