@@ -216,7 +216,8 @@ namespace Inventory.Controllers
                            Customer_contact_Fname = row["Customer_contact_Fname"].ToString(),
                            Customer_contact_Lname = row["Customer_contact_Lname"].ToString(),
                            Email_Id = row["Email_Id"].ToString(),
-                           image = row["image"].ToString()
+                           image = row["image"].ToString(),
+                           status= row["status"].ToString()
                        }).OrderByDescending(m => m.Customer_Id).ToList();
             return contact;
         }
@@ -474,21 +475,6 @@ namespace Inventory.Controllers
         }
             return Json(null);
         }
-        //public JsonResult deletecusRecord(int cus_company_Id)
-        //{
-        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-        //    {
-        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-        //        var data = CustomerService.deletecuscompRecord(cus_company_Id, user.DbName);
-        //        if (data > 0)
-        //        {
-        //            ViewBag.cus_company_Id = cus_company_Id;
-        //            return Json("sucess");
-        //        }
-        //        return Json("unique", JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json(null);
-        //}
 
         public ActionResult deletecusRecord(int cus_company_Id, string status)
         {
@@ -497,9 +483,9 @@ namespace Inventory.Controllers
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var data = CustomerService.deletecuscompRecord(cus_company_Id, status, user.DbName);
                 if (status == "Active")
-                    TempData["smsg"] = "Now Product " + cus_company_Id + " is " + status + "";
+                    TempData["smsg"] = "Now Company with company id " + cus_company_Id + " is " + status + "";
                 else
-                    TempData["msg"] = "Now Product " + cus_company_Id + " is " + status + "";
+                    TempData["msg"] = "Now Company with company id" + cus_company_Id + " is " + status + "";
                 return RedirectToAction("Index", "Customer");
             }
 
@@ -507,22 +493,39 @@ namespace Inventory.Controllers
             return View();
         }
 
-
-        public JsonResult deleteCustomer(string Customer_Id)
+        public JsonResult deleteCustomer(string Customer_Id, string status)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var data = CustomerService.deleteCustomer(Customer_Id, user.DbName);
-            if (data > 0)
-            {
-                ViewBag.Customer_Id = Customer_Id;
-                return Json("sucess");
+                    var data = CustomerService.deleteCustomer(Customer_Id,status, user.DbName);
+                  if (data > 0)
+                   {
+                 ViewBag.Customer_Id = Customer_Id;
+                  var result = new { Result = "sucess", ID = Customer_Id, stat = status };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                return Json("unique", JsonRequestBehavior.AllowGet);
             }
-            return Json("unique", JsonRequestBehavior.AllowGet);
-        }
             return Json(null);
         }
+
+
+        //public JsonResult deleteCustomer(string Customer_Id)
+        //{
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //    var data = CustomerService.deleteCustomer(Customer_Id, user.DbName);
+        //    if (data > 0)
+        //    {
+        //        ViewBag.Customer_Id = Customer_Id;
+        //        return Json("sucess");
+        //    }
+        //    return Json("unique", JsonRequestBehavior.AllowGet);
+        //}
+        //    return Json(null);
+        //}
         public JsonResult inviteCustomer(string Customer_Id, int cus_company_Id)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)

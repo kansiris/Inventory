@@ -104,10 +104,10 @@ namespace Inventory.Service
             return VendorRepository.deleteRecord(company_Id,status, dbname);
         }
         
-            public static int deleteVendor(string Vendor_Id, string dbname)
+            public static int deleteVendor(string Vendor_Id, string status, string dbname)
         {
 
-            return VendorRepository.deleteVendor(Vendor_Id, dbname);
+            return VendorRepository.deleteVendor(Vendor_Id,status, dbname);
         }
 
         public static SqlDataReader getVendorContact(string Vendor_Id, string dbname)

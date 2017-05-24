@@ -154,11 +154,11 @@ namespace Inventory.Repository
             return count;
         }
 
-        public static int deleteCustomer(string Customer_Id, string dbname)
+        public static int deleteCustomer(string Customer_Id,string status, string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteCustomer", Customer_Id);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteCustomer", Customer_Id,status);
             return count;
         }
 

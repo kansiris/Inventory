@@ -763,14 +763,12 @@ function editcontactperson(id) {
 
 //vendor deleting
 
-function deleteVendor(id) {
+function deleteVendor(id,status) {
     
-    var retVal = confirm("Do you want to delete record...!");
-    if (retVal == true) {
         $.ajax({
             url: '/Vendor/deleteVendor',
             type: 'POST',
-            data: JSON.stringify({ Vendor_Id: id }),
+            data: JSON.stringify({ Vendor_Id: id,status:status }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -781,7 +779,12 @@ function deleteVendor(id) {
                     company_Id = $('#company_Id').val();
                     var url = 'Vendor/VendorContact?id=' + company_Id + '';
                     $('#vendorrecords').load(url);
-                    successmsg("Contact Person Deleted Successfully");
+                    var vendorid = data.ID;
+                    var stati = data.stat;
+                    if (stati == "Active")
+                        successmsg("Now contact with  id" + vendorid + " is " + stati + "");
+                    else
+                        successmsg("Now contact with  id" + vendorid + " is " + stati + "");
                                     }
             },
             error: function (data)
@@ -789,11 +792,6 @@ function deleteVendor(id) {
         });
         return true;
     }
-
-    else {
-        return false;
-    }
-}
 
 //vendor invite
 
@@ -1034,4 +1032,11 @@ $("body").overhang({
     message: msg,
     duration: 3
 });
+}
+
+function confirmmsg(msg) {
+    $("body").overhang({
+        type: "confirm",
+        message: "msg"
+    });
 }
