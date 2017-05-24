@@ -166,7 +166,7 @@ header h1 {
   display: inline-block;
   height: 20px;
   width: 20px;
-  background-image: url("../img/vicons.svg");
+  /*background-image: url("../img/vicons.svg");*/
   background-repeat: no-repeat;
 }
 .cd-tabs-navigation a[data-content='inbox']::before {

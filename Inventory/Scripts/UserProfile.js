@@ -357,15 +357,15 @@
             datatype: "json",
             data: { userMaster : usermaster, userAddress : userAddress , ownerCompanyAddress : ownerCompanyAddress ,ownerStaff : staff },
             success: function (response) {
-                if (response == 'success') {
+                if (response.Result == 'success') {
                     var url='Login/ProfileProgressPartial';
                     $('#partialpage').load(url);
                     $('#fname').html($('#Item1_First_Name').val());
                     $('#lname').html($('#Item1_Last_Name').val());
                     //alert("Profile updated SuccessFully");
-                    successmsg("Profile updated SuccessFully");
+                    successmsg(response.msg);
                 }
-                else if(response == 'staffadded')
+                else if (response.Result == 'staffadded')
                 {
                     var url = 'UserProfile/GetStaffRecords?id='+id+'';
                     $('#partialdiv').empty().load(url,function(){ Pagination(); });
@@ -376,9 +376,9 @@
                     $("#allowaccess").prop('checked', false);
                     $("#permissionsarea").css("visibility", "hidden");
                     //alert("User Added SuccessFully!!!");
-                    successmsg("User Added SuccessFully");
+                    successmsg(response.msg);
                 }
-                else if (response == 'staffupdated') {
+                else if (response.Result == 'staffupdated') {
                     var url = 'UserProfile/GetStaffRecords?id='+id+'';
                     $('#partialdiv').empty().load(url,function(){ Pagination(); });
                     $('input[id^=Item4]').val('');
@@ -388,9 +388,12 @@
                     $("#allowaccess").prop('checked', false);
                     $("#permissionsarea").css("visibility", "hidden");
                     //alert("User Updated SuccessFully!!!");
-                    successmsg("User Updated SuccessFully");
+                    successmsg(response.msg);
                     $('#btnupdatestaff').hide();
                     $('#btnaddstaff').show();
+                }
+                else if (response.Result == 'Password') {
+                    errormsg(response.msg);
                 }
                 else {
                     errormsg("Failed To Update Profile");
@@ -483,7 +486,8 @@ function textval(){
     $(".display-positions .positions1").click(function(){
         var c = $(this).text();
         $(this).parent(".display-positions").prev("input.selected-position").val(c);
-        $(this).parent(".display-positions").css("display","none");
+        $(this).parent(".display-positions").css("display", "none");
+        $(this).parents(".add-position").css("display", "none");
     });
 }
 
@@ -503,6 +507,7 @@ $(".display-positions .position").click(function(){
         var v = $(this).prev("input[type='text']").val();
         var value = $("<div class='positions1'>" + "<i class='fa fa-trash-o pull-right' aria-hidden='true'></i>" + v + "</div>");
         //alert($.unique(value));
+        $(this).parents(".display-positions").prev("input.selected-position").val(v);
         $(this).parents(".add-position").prev(".display-positions").append(value);
         $(".positions1 > i").click(function(){
             $(this).parent(".positions1").remove();

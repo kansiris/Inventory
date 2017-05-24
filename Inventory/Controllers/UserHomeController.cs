@@ -17,9 +17,9 @@ namespace Inventory.Controllers
         // GET: UserHome
         public ActionResult Index(string email, string usertype, string Site)
         {
-            string date = DateTime.Now.AddDays(15).ToShortDateString();
+            string date = DateTime.Now.AddDays(16).ToShortDateString();
             List<UserMaster> userMaster = getuserdetails(email, usertype, Site);
-            DateTime futuredate = userMaster[0].SubscriptionDate.Value.AddDays(15); // adding 15 days to subscription date
+            DateTime futuredate = userMaster[0].SubscriptionDate.Value.AddDays(16); // adding 15 days to subscription date
             DateTime currentdate = DateTime.UtcNow; //getting current date
             TimeSpan diff = futuredate - currentdate; // calculating difference between 2 dates
             if (diff.Days < 0)

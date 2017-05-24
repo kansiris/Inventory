@@ -23,13 +23,13 @@ namespace Inventory.Controllers
         {
             var profile = loginService.GetUserProfile(int.Parse(id)); //Get's User Profile
             ViewBag.timeZoneInfos = new SelectList(TimeZoneInfo.GetSystemTimeZones(), "DisplayName", "DisplayName", profile[0].Timezone); //Available Time Zones
-            ViewBag.usercountry = new SelectList(CountryList(),"Value", "Text", profile[0].Ucountry); //CountryList(); 
+            ViewBag.usercountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ucountry); //CountryList(); 
             ViewBag.companycountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ccountry);//CountryList();//new SelectList(CountryList(), "EnglishName", "EnglishName", profile[0].Ccountry); //CountryList(); 
             //ViewBag.country = CountryList();
             //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
             ViewBag.profile = profile.Take(1); //current user record
             ViewBag.jobpositions = AvailableJobPositions(id);
-           // profile.Clear();
+            // profile.Clear();
             return View();
         }
 
@@ -81,39 +81,54 @@ namespace Inventory.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateUserProfile(string command, string id, UserMaster usermaster, UserAddress userAddress, OwnerCompanyAddress ownerCompanyAddress,OwnerStaff ownerStaff,string staffid)
+        public JsonResult UpdateUserProfile(string command, string id, UserMaster usermaster, UserAddress userAddress, OwnerCompanyAddress ownerCompanyAddress, OwnerStaff ownerStaff, string staffid)
         {
             int count = 0;
-            if (command == "Localization" || command == "Account" || command == "Essentials")
+            if (command == "Localization" || command == "Essentials")
             {
                 count = LoginService.updateuserprofile(command, int.Parse(id), usermaster.First_Name, usermaster.Last_Name, usermaster.Password, usermaster.Profile_Picture, usermaster.Date_Format, usermaster.Timezone, usermaster.Currency, usermaster.company_logo);
+                if (count > 0)
+                    return Json(new { Result = "success", msg = "" + command + " Updated SuccessFully!!!" });
+            }
+            if (command == "Account")
+            {
+                if (usermaster.Password != "" && usermaster.Password != null)
+                {
+                    count = LoginService.updateuserprofile(command, int.Parse(id), usermaster.First_Name, usermaster.Last_Name, usermaster.Password, usermaster.Profile_Picture, usermaster.Date_Format, usermaster.Timezone, usermaster.Currency, usermaster.company_logo);
+                    if (count > 0)
+                        return Json(new { Result = "success", msg = "" + command + " Updated SuccessFully!!!" });
+                }
+                else
+                    return Json(new { Result = "Password", msg = "Enter New Password" });
             }
             if (command == "useraddress")
             {
                 count = LoginService.updateuseraddress(int.Parse(id), userAddress.Line1, userAddress.Line2, userAddress.city, userAddress.state, userAddress.postalcode, userAddress.country);
+                if (count > 0)
+                    return Json(new { Result = "success", msg = "Your Details Updated SuccessFully!!!" });
             }
             if (command == "companyaddress")
             {
                 count = LoginService.updatecompanyaddress(int.Parse(id), ownerCompanyAddress.Line1, ownerCompanyAddress.Line2, ownerCompanyAddress.city, ownerCompanyAddress.state, ownerCompanyAddress.postalcode, ownerCompanyAddress.country);
+                if (count > 0)
+                    return Json(new { Result = "success", msg = "Company Address Updated SuccessFully!!!" });
             }
             if (command == "addstaff")
             {
-                count = LoginService.CreateStaff(int.Parse(id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position,ownerStaff.UserPic);
-                return Json("staffadded");
+                count = LoginService.CreateStaff(int.Parse(id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position, ownerStaff.UserPic);
+                return Json(new { Result = "staffadded", msg = "User Added SuccessFully!!!" });
             }
             if (command == "updatestaff")
             {
-                count = LoginService.UpdateStaff("staffdetails",int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position,ownerStaff.UserPic);
-                return Json("staffupdated");
+                count = LoginService.UpdateStaff("staffdetails", int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position, ownerStaff.UserPic);
+                return Json(new { Result = "staffupdated", msg = "User Updated SuccessFully!!!" });
             }
-            if (count > 0)
-                return Json("success");
             return Json("Failed");
         }
 
         public PartialViewResult GetStaffRecords(string id)
         {
-            var records = LoginService.GetStaff(int.Parse(id),"");
+            var records = LoginService.GetStaff(int.Parse(id), "");
             var dt = new DataTable();
             dt.Load(records);
             dt.DefaultView.Sort = "Staff_Id DESC";
@@ -142,20 +157,20 @@ namespace Inventory.Controllers
         public List<OwnerStaff> StaffDetails(DataTable dt)
         {
             List<OwnerStaff> ownerStaff = (from DataRow row in dt.Rows
-                          select new OwnerStaff()
-                          {
-                              Staff_Id = row["Staff_Id"].ToString(),
-                              Owner_id = int.Parse(row["Owner_id"].ToString()),
-                              First_Name = row["First_Name"].ToString(),
-                              Last_Name = row["Last_Name"].ToString(),
-                              Mobile_No = long.Parse(row["Mobile_No"].ToString()),
-                              Email = row["Email"].ToString(),
-                              Status_ID = int.Parse(row["Status_ID"].ToString()),
-                              Vendor_Access = int.Parse(row["Vendor_Access"].ToString()),
-                              Customer_Access = int.Parse(row["Customer_Access"].ToString()),
-                              Job_position = row["Job_position"].ToString(),
-                              UserPic=row["UserPic"].ToString()
-                          }).ToList();
+                                           select new OwnerStaff()
+                                           {
+                                               Staff_Id = row["Staff_Id"].ToString(),
+                                               Owner_id = int.Parse(row["Owner_id"].ToString()),
+                                               First_Name = row["First_Name"].ToString(),
+                                               Last_Name = row["Last_Name"].ToString(),
+                                               Mobile_No = long.Parse(row["Mobile_No"].ToString()),
+                                               Email = row["Email"].ToString(),
+                                               Status_ID = int.Parse(row["Status_ID"].ToString()),
+                                               Vendor_Access = int.Parse(row["Vendor_Access"].ToString()),
+                                               Customer_Access = int.Parse(row["Customer_Access"].ToString()),
+                                               Job_position = row["Job_position"].ToString(),
+                                               UserPic = row["UserPic"].ToString()
+                                           }).ToList();
             return ownerStaff;
         }
 
@@ -173,7 +188,7 @@ namespace Inventory.Controllers
             var dt = new DataTable();
             dt.Load(records);
             //records.Close();
-            List<OwnerJobPosition> positions= (from DataRow row in dt.Rows select new OwnerJobPosition() { Position_ID = int.Parse(row["Position_ID"].ToString()), ID = int.Parse(row["ID"].ToString()), Job_Position = row["Job_position"].ToString() }).ToList();
+            List<OwnerJobPosition> positions = (from DataRow row in dt.Rows select new OwnerJobPosition() { Position_ID = int.Parse(row["Position_ID"].ToString()), ID = int.Parse(row["ID"].ToString()), Job_Position = row["Job_position"].ToString() }).ToList();
             return positions;
         }
 
@@ -210,17 +225,17 @@ namespace Inventory.Controllers
             return View();
         }
 
-        public JsonResult JobPosition(string id,string position,string type,string PositionID)
+        public JsonResult JobPosition(string id, string position, string type, string PositionID)
         {
             int count = 0;
-            string id1 = id.Replace("&&type=upload","");
+            string id1 = id.Replace("&&type=upload", "");
             if (type == "addposition")
             {
-                count = LoginService.JobPositions("add", int.Parse(id1), position,null);
+                count = LoginService.JobPositions("add", int.Parse(id1), position, null);
                 var records = AvailableJobPositions(id1);
                 return Json(new { msg = "Position Added Successfullly!!!Click Close Button and Select Position", records = records });
             }
-            if (PositionID!="")
+            if (PositionID != "")
             {
                 count = LoginService.JobPositions("delete", 0, "", PositionID);
                 var records = AvailableJobPositions(id1);
