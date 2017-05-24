@@ -184,7 +184,7 @@
                                             <input type="checkbox" id="checkbox1">
                                             <div class="slider"></div>
                                         </label>
-                                        <input type="text" class="form-control" placeholder="Tax" value="0" disabled>
+                                        <input type="text" class="form-control" placeholder="Tax" value="0" readonly>
                                     </div>
                                     <div class="form-group col-xs-6 col-md-2">
                                         <label>Discount(%)</label>
@@ -603,7 +603,7 @@
         </div>
     </div>
 }
-@if (ViewBag.count == "editproduct")
+@if (ViewBag.count == "editproduct") //Editting Product
 {
     <div class="right_col" role="main">
         <div class="container">
@@ -642,7 +642,7 @@
                                         <div class="form-group col-xs-12 col-md-6">
                                             <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                             @*<input type="text" class="form-control selected-position" placeholder="Brand Name">*@
-                                            @Html.TextBoxFor(Model => Model.brand, new { @class = "form-control selected-position", placeholder = "Brand Name", required = "required", Value = particularproduct.brand, @readonly = "true" })
+                                            @Html.TextBoxFor(Model => Model.brand, new { @class = "form-control", placeholder = "Brand Name", required = "required", Value = particularproduct.brand, @readonly = "true" })
                                             <div class="display-positions">
                                                 <div class="positions1 position">
                                                     <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Brand</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -759,7 +759,7 @@
                                                 <input type="checkbox" id="checkbox1">
                                                 <div class="slider"></div>
                                             </label>
-                                            <input type="text" id="tax" name="tax" class="form-control" placeholder="Tax" value="@particularproduct.tax" readonly="true">
+                                            <input type="text" id="tax" name="tax" class="form-control" placeholder="Tax" value="@particularproduct.tax" readonly>
                                         </div>
                                         <div class="form-group col-xs-6 col-md-2">
                                             <label>Discount(%)</label>
@@ -1176,7 +1176,7 @@
         </div>
     </div>
 }
-@if (ViewBag.count == "empty")
+@if (ViewBag.count == "empty") // If Warehouse Count is 0
 {
     <h2>No Warehouse Detected.Add warehouse by clicking <a href="/Warehouse">here</a></h2>
 }
@@ -1193,12 +1193,18 @@
     <script src="~/Scripts/Product.js"></script>
     <script src="/Scripts/js/bootstrap-datepicker.min.js"></script>
     <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+           <!-- Over Hang -->
+<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 
     @*<!------ Tags With Space and comma ------->*@
     @*<script type="text/javascript" src="js/jquery-ui.min.js" language="javascript"></script>
         <script type="text/javascript" src="js/tag-it.js" language="javascript"></script>*@
     <script src="~/Scripts/js/jquery-ui.min.js"></script>
     <script src="~/Scripts/js/tag-it.js"></script>
+
+            <!-- Over Hang -->
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
 
     <script type="text/javascript">
         $('#myTags').tagit();
@@ -1473,7 +1479,7 @@
             if ($(this).is(":checked")) {
                 $(".tax input[placeholder='Tax']").prop('readonly', false);
             } else {
-                $(".tax input[placeholder='Tax']").prop('readonly', true);
+                $(".tax input[placeholder='Tax']").prop('readonly',true);
             }
 
         });
@@ -1485,6 +1491,16 @@
             } else {
                 $('#product_consumable').val("Non-Consumable");
                 $(".perishable-non, .veg-non").css("display", "none");
+            }
+        });
+
+        $(".toggle-consumable #consumable").change(function () {
+            if ($(this).is(":checked")) {
+                $('#product_consumable').val("Consumable");
+                $(".quantity-veg-non, .quantity-perishable-non").css("display", "block");
+            } else {
+                $('#product_consumable').val("Non-Consumable");
+                $(".quantity-veg-non, .quantity-perishable-non").css("display", "none");
             }
         });
 

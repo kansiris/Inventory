@@ -30,18 +30,18 @@
         datatype: "json",
         data: { product: product },
         success: function (response) {
-            if (response == 'Failed') { alert("Failed to Add Record!!! Try Again Later"); }
-            if (response.command == 'addweight') { alert(product.weight + " Added SuccessFully"); $('#addnewweight').val(''); $('#weight').val(product.weight); loadproducts(response); } //Weight
-            if (response.command == 'addsize') { alert(product.size + " Size Added SuccessFully"); $('#addnewsize').val(''); $('#size').val(product.size); loadproducts(response); } //Size
-            if (response.command == 'addcolor') { alert(product.color + " Color Added SuccessFully"); $('#addnewcolor').val(''); $('#color').val(product.color); loadproducts(response); } //Color
-            if (response.command == 'additemshape') { alert(product.item_shape + " Added SuccessFully"); $('#addnewitemshape').val(''); $('#item_shape').val(product.item_shape); loadproducts(response); } //Item Shape
-            if (response.command == 'addcategory') { alert(product.category + " Category Added SuccessFully"); $('#addnewcategory').val(''); $('#category').val(product.category); loadproducts(response); } //Category
-            if (response.command == 'addsubcategory') { alert(product.sub_category + " Sub-Category Added SuccessFully"); $('#addnewsubcategory').val(''); $('#sub_category').val(product.sub_category); loadproducts(response); } //Sub-Category
-            if (response.command == 'addbrand') { alert(product.brand + " Added SuccessFully"); $('#addnewbrand').val(''); $('#brand').val(product.brand); loadproducts(response); } //Brand
+            if (response == 'Failed') { errormsg("Failed to Add Record!!! Try Again Later"); }
+            if (response.command == 'addweight') { successmsg(product.weight + " Added SuccessFully"); $('#addnewweight').val(''); $('#weight').val(product.weight); loadproducts(response); } //Weight
+            if (response.command == 'addsize') { successmsg(product.size + " Size Added SuccessFully"); $('#addnewsize').val(''); $('#size').val(product.size); loadproducts(response); } //Size
+            if (response.command == 'addcolor') { successmsg(product.color + " Color Added SuccessFully"); $('#addnewcolor').val(''); $('#color').val(product.color); loadproducts(response); } //Color
+            if (response.command == 'additemshape') { successmsg(product.item_shape + " Added SuccessFully"); $('#addnewitemshape').val(''); $('#item_shape').val(product.item_shape); loadproducts(response); } //Item Shape
+            if (response.command == 'addcategory') { successmsg(product.category + " Category Added SuccessFully"); $('#addnewcategory').val(''); $('#category').val(product.category); loadproducts(response); } //Category
+            if (response.command == 'addsubcategory') { successmsg(product.sub_category + " Sub-Category Added SuccessFully"); $('#addnewsubcategory').val(''); $('#sub_category').val(product.sub_category); loadproducts(response); } //Sub-Category
+            if (response.command == 'addbrand') { successmsg(product.brand + " Added SuccessFully"); $('#addnewbrand').val(''); $('#brand').val(product.brand); loadproducts(response); } //Brand
             //if (response.command == 'addmodel') { alert(product.model + " Added SuccessFully"); } //Model
         },
         error: function (er) {
-            alert("Something Went Wrong!!!Try Again Later");
+            errormsg("Something Went Wrong!!!Try Again Later");
         }
     })
 }
@@ -55,7 +55,7 @@ function getsub(type, id) {
         data: { 'type': type, 'id': id },
         success: function (response) {
             if (response == 'empty') {
-                alert("No Sub-Caregories Available");
+                errormsg("No Sub-Caregories Available");
             }
             else {
                 if (type == 'category') {
@@ -75,7 +75,7 @@ function getsub(type, id) {
             }
         },
         error: function (er) {
-            alert("Something Went Wrong!!!Try Again Later");
+            errormsg("Something Went Wrong!!!Try Again Later");
         }
     })
 }
@@ -142,18 +142,18 @@ function deleteitem(command, productitemid) {
         datatype: "json",
         data: { command: command, id: productitemid ,product:product},
         success: function (response) {
-            if (response == 'Failed') { alert("Failed to Add Record!!! Try Again Later"); }
-            if (response.command == 'delweight') { alert("Weight Removed"); $('#weight').val(''); loadproducts(response); } //Weight
-            if (response.command == 'delsize') { alert("Size Removed"); $('#size').val(''); loadproducts(response); } //Size
-            if (response.command == 'delcolor') { alert("Color Removed"); $('#color').val(''); loadproducts(response); } //Color
-            if (response.command == 'delitemshape') { alert("Item Shape Removed"); $('#item_shape').val(''); loadproducts(response); } //Item Shape
-            if (response.command == 'delcategory') { alert("Category Removed"); $('#category').val(''); loadproducts(response); } //Category
-            if (response.command == 'delsubcategory') { alert("Sub-Category Removed"); $('#sub_category').val(''); loadproducts(response); } //Sub-Category
-            if (response.command == 'delbrand') { alert("Brand Removed"); $('#brand').val(''); loadproducts(response); } //Brand
+            if (response == 'Failed') { errormsg("Failed to Add Record!!! Try Again Later"); }
+            if (response.command == 'delweight') { errormsg("Weight Removed"); $('#weight').val(''); loadproducts(response); } //Weight
+            if (response.command == 'delsize') { errormsg("Size Removed"); $('#size').val(''); loadproducts(response); } //Size
+            if (response.command == 'delcolor') { errormsg("Color Removed"); $('#color').val(''); loadproducts(response); } //Color
+            if (response.command == 'delitemshape') { errormsg("Item Shape Removed"); $('#item_shape').val(''); loadproducts(response); } //Item Shape
+            if (response.command == 'delcategory') { errormsg("Category Removed"); $('#category').val(''); loadproducts(response); } //Category
+            if (response.command == 'delsubcategory') { errormsg("Sub-Category Removed"); $('#sub_category').val(''); loadproducts(response); } //Sub-Category
+            if (response.command == 'delbrand') { errormsg("Brand Removed"); $('#brand').val(''); loadproducts(response); } //Brand
             //if (response.command == 'delmodel') { alert(product.model + " Added SuccessFully"); } //Model
         },
         error: function (er) {
-            alert("Something Went Wrong!!!Try Again Later");
+            errormsg("Something Went Wrong!!!Try Again Later");
         }
     })
 }

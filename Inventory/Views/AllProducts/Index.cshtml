@@ -86,8 +86,9 @@
                         <table class="table  table-borderedtable-striped bulk_action" id="producttable">
                             <thead class="thead-inverse">
                                 <tr>
+                                    <th class="col-md-1"></th>
                                     <th class="col-md-1">Product ID</th>
-                                    <th class="col-md-3">Product</th>
+                                    <th class="col-md-2">Product</th>
                                     <th class="col-md-2">Brand</th>
                                     <th class="col-md-2">Model</th>
                                     <th class="col-md-2">Measurement</th>
@@ -102,8 +103,18 @@
                                     {
                                         <tr>
                                             @* class="vamsi"*@
+                                            <td class="col-md-1">
+                                            @if (item.product_images != "")
+                                            {
+                                                <img src="/ProductImages/@item.product_images.Split(',')[0]" alt="" class="img-responsive" width="50px" height="50px">
+                                            }
+                                            else
+                                            {
+                                                <img src="/images/image1.jpg" alt="" class="img-responsive">
+                                            }
+                                            </td>
                                             <td class="col-md-1">@item.product_id</td>
-                                            <td class="col-md-3">@item.product_name</td>
+                                            <td class="col-md-2">@item.product_name</td>
                                             <td class="col-md-2">@item.brand</td>
                                             <td class="col-md-2">@item.model</td>
                                             <td class="col-md-2">@item.Measurement @item.weight</td>
@@ -153,7 +164,16 @@
                                                     <li><i class="fa fa-money"></i><span> Total Price:</span>Rs.@item.total_price </li>
                                                 </ul>
                                             </div>
-                                            <div class="right col-xs-5 text-center"> <img src="/images/image1.jpg" alt="" class="img-responsive"> </div>
+                                            <div class="right col-xs-5 text-center"> 
+                                                @if (item.product_images != "")
+                                                {
+                                                    <img src="/ProductImages/@item.product_images.Split(',')[0]" alt="" class="img-responsive">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/images/image1.jpg" alt="" class="img-responsive">
+                                                }
+                                            </div>
                                         </div>
                                         <div class="col-xs-12 bottom text-center">
                                             <div class="col-xs-12 col-sm-6 emphasis">

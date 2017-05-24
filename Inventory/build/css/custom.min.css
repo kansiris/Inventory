@@ -6078,6 +6078,7 @@ ul.upload-thumbs li img{
 }
 .add-product-right input[type='text']{
     padding: 0 2px;
+    text-align:right;
 }
 /*============ Product Master ==================*/
 
@@ -6150,8 +6151,7 @@ ul.tagit input[type=text] {
 	position: absolute;
 	top: -2px;
 	right: -2px;
-    display:none;
-}
+	display: none;}
 .displayproduct > .well{
 	border: 1px solid #e3e3e3;}
 .displayproduct > .well .image img{
@@ -6870,13 +6870,14 @@ ul.terms-content li{
     table#vendortable > tbody > tr > td:nth-of-type(4)::before,
     table#customertable > tbody > tr > td:nth-of-type(4)::before{ content: "Action";}
 
-    table#producttable > tbody > tr > td:nth-of-type(1)::before{ content: "Product Id";}
-    table#producttable > tbody > tr > td:nth-of-type(2)::before{ content: "Product";}
-    table#producttable > tbody > tr > td:nth-of-type(3)::before{ content: "Brand";}
-    table#producttable > tbody > tr > td:nth-of-type(4)::before{ content: "Model";}
-    table#producttable > tbody > tr > td:nth-of-type(5)::before{ content: "Measurement";}
-    table#producttable > tbody > tr > td:nth-of-type(6)::before{ content: "Price";}
-    table#producttable > tbody > tr > td:nth-of-type(7)::before{ content: "Action";}
+    table#producttable > tbody > tr > td:nth-of-type(1)::before{ content: "";}
+    table#producttable > tbody > tr > td:nth-of-type(2)::before{ content: "Product Id";}
+    table#producttable > tbody > tr > td:nth-of-type(3)::before{ content: "Product";}
+    table#producttable > tbody > tr > td:nth-of-type(4)::before{ content: "Brand";}
+    table#producttable > tbody > tr > td:nth-of-type(5)::before{ content: "Model";}
+    table#producttable > tbody > tr > td:nth-of-type(6)::before{ content: "Measurement";}
+    table#producttable > tbody > tr > td:nth-of-type(7)::before{ content: "Price";}
+    table#producttable > tbody > tr > td:nth-of-type(8)::before{ content: "Action";}
 
     table#contacttable  > tbody > tr > td:nth-of-type(1)::before{ content: "";}
     table#contacttable  > tbody > tr > td:nth-of-type(2)::before{ content: "First Name";}
