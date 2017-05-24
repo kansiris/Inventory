@@ -182,7 +182,8 @@ namespace Inventory.Controllers
                            Contact_PersonFname = row["Contact_PersonFname"].ToString(),
                            Contact_PersonLname = row["Contact_PersonLname"].ToString(),
                            emailid = row["emailid"].ToString(),
-                           image= row["image"].ToString()
+                           image= row["image"].ToString(),
+                           status= row["status"].ToString()
                        }).OrderByDescending(m => m.Vendor_Id).ToList();
             return contact;
         }
@@ -473,9 +474,9 @@ namespace Inventory.Controllers
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var data = VendorService.deleteRecord(company_Id, status, user.DbName);
                 if (status == "Active")
-                    TempData["smsg"] = "Now Company with " + company_Id + " is " + status + "";
+                    TempData["smsg"] = "Now Company with company id" + company_Id + " is " + status + "";
                 else
-                    TempData["msg"] = "Now Company with " + company_Id + " is " + status + "";
+                    TempData["msg"] = "Now Company with company id" + company_Id + " is " + status + "";
                 return RedirectToAction("Index", "Vendor");
             }
 
@@ -483,16 +484,17 @@ namespace Inventory.Controllers
             return View();
         }
 
-        public JsonResult deleteVendor(string Vendor_Id)
+        public JsonResult deleteVendor(string Vendor_Id, string status)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var data = VendorService.deleteVendor(Vendor_Id, user.DbName);
+                var data = VendorService.deleteVendor(Vendor_Id,status, user.DbName);
                 if (data > 0)
                 {
                     ViewBag.Vendor_Id = Vendor_Id;
-                    return Json("sucess");
+                    var result = new { Result = "sucess", ID = Vendor_Id ,stat=status};
+                    return Json(result, JsonRequestBehavior.AllowGet);
                 }
                 return Json("unique", JsonRequestBehavior.AllowGet);
             }
@@ -638,6 +640,7 @@ namespace Inventory.Controllers
                         Mobile_No = data["Mobile_No"].ToString(),
                         Adhar_Number = data["Adhar_Number"].ToString(),
                         Vendor_Id = data["Vendor_Id"].ToString(),
+                        status= data["status"].ToString(),
                         image = data["image"].ToString()
 
                     };

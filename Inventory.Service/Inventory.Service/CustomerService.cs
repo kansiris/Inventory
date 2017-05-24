@@ -103,10 +103,10 @@ namespace Inventory.Service
             return CustomerRepository.deletecuscompRecord(cus_company_Id, status, dbname);
         }
 
-        public static int deleteCustomer(string Customer_Id, string dbname)
+        public static int deleteCustomer(string Customer_Id,string status ,string dbname)
         {
 
-            return CustomerRepository.deleteCustomer(Customer_Id, dbname);
+            return CustomerRepository.deleteCustomer(Customer_Id,status ,dbname);
         }
 
         public static SqlDataReader getCustomerContact(string Customer_Id, string dbname)

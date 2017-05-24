@@ -38,7 +38,12 @@
                                 <ul class="dropdown-menu">
                                     <li> <a href="#"  onclick="editcontactperson(@item.Vendor_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
                                     <li> <a href="#" onclick="inviteVendor(@item.Vendor_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Invite</a> </li>
-                                    <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a> </li>
+                                    @if (item.status == "Active")
+                                    {
+                                        <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id,'InActive')"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}
+                                    @if (item.status == "InActive")
+                                    {
+                                        <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id,'Active')"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
                                 </ul>
                             </div>
                         </td>
@@ -57,4 +62,19 @@
     </div>
 </div>
 }
+<script>
+        $(document).ready(function (e) {
+            $(".btn-group ul.dropdown-menu > li").each(function () {
+                var v = $(this).children("a").text();
+                if (v == "Active") {
+                    $(this).parents("tr").children("td").css("color", "#ccc");
+                    $(this).prev("li").prev("li").children("a").css("pointer-events", "none");//edit
+                    $(this).prev("li").children("a").css("pointer-events", "none"); // invite Button
+                    $(this).prev("li").attr("title", "Activate Contact");
+                    $(this).prev("li").prev("li").attr("title", "Activate Contact");
+                    
+                }
+            });
+        })
+</script>
 

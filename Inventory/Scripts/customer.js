@@ -709,22 +709,24 @@ function editcuscontactperson(id) {
 
 //customer deleting
 
-function deleteCustomer(id) {
-    //alert(id);
-    var retVal = confirm("Do you want to delete record...!");
-    if (retVal == true) {
+function deleteCustomer(id,status) {
         $.ajax({
             url: '/Customer/deleteCustomer',
             type: 'POST',
-            data: JSON.stringify({ Customer_Id: id }),
+            data: JSON.stringify({ Customer_Id: id,status:status }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                if (data == "sucess") {
+                if (data.Result == "sucess") {
                     cus_company_Id = $('#cus_company_Id').val();
                     var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                     $('#customerrecords').load(url);
-                    successmsg("Contact Person Deleted Successfully");
+                    var customerid = data.ID;
+                    var stati = data.stat;
+                    if (stati == "Active")
+                        successmsg("Now contact with  id  " + customerid + " is " + stati + "");
+                    else
+                        successmsg("Now contact with  id  " + customerid + " is " + stati + "");
                    
                 }
                 else {
@@ -736,11 +738,6 @@ function deleteCustomer(id) {
         });
         return true;
     }
-
-    else {
-        return false;
-    }
-}
 
 //Customer contact person invite
 

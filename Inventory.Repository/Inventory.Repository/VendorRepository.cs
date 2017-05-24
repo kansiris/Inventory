@@ -152,11 +152,11 @@ namespace Inventory.Repository
             return count;
         }
         
-             public static int deleteVendor(string Vendor_Id, string dbname)
+             public static int deleteVendor(string Vendor_Id, string status, string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteVendor", Vendor_Id);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "deleteVendor", Vendor_Id,status);
             return count;
         }
         

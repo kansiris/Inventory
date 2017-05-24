@@ -407,10 +407,18 @@
                 var v = $(this).children("a").text();
                 if (v == "Active") {
                     $(this).parents("tr").children("td").css("color", "#ccc");
+                    $(this).prev("li").prev("li").children("a").css("pointer-events", "none");//view
                     $(this).prev("li").children("a").css("pointer-events", "none"); // Edit Button
-                    $(this).next("li").children("a").css("pointer-events", "none"); // Add Stock Button
-                    $(this).prev("li").attr("title", "Activate Product");
-                    $(this).next("li").attr("title", "Activate Product");
+                    $(this).next("li").children("a").css("pointer-events", "none"); // create po  Button
+                    $(this).next("li").next("li").children("a").css("pointer-events", "none");//create invoice
+                    $(this).next("li").next("li").next("li").children("a").css("pointer-events", "none");//receive payment
+                    $(this).next("li").next("li").next("li").next("li").children("a").css("pointer-events", "none");//delivery note
+                    $(this).prev("li").attr("title", "Activate Company");
+                    $(this).next("li").attr("title", "Activate Company");
+                    $(this).prev("li").prev("li").attr("title", "Activate Company");
+                    $(this).next("li").next("li").attr("title", "Activate Company");
+                    $(this).next("li").next("li").next("li").attr("title", "Activate Company");
+                    $(this).next("li").next("li").next("li").next("li").attr("title", "Activate Company");
                     //alert($(this).parents(".btn-group").children(".dropdown-menu").children("li").children("a").text());
                 }
             });
