@@ -418,6 +418,7 @@
     <Content Include="Models\mar02.sql" />
     <Content Include="Models\mar14.sql" />
     <Content Include="Models\May08.sql" />
+    <Content Include="Models\May24.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\App.config" />
