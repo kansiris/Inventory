@@ -146,6 +146,19 @@ namespace Inventory.Service
         }
         #endregion
 
+        //to get all categories
+        public static SqlDataReader GetAllCategories(string dbname)
+        {
+            return ProductRepository.GetAllCategories(dbname);
+        }
+
+        //to get all subcategories based on category id
+        public static SqlDataReader GetAllSubCategories(string dbname,string category_id)
+        {
+            return ProductRepository.GetAllSubCategories(dbname, category_id);
+        }
+
+
         //to get subcategory products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {

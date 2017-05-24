@@ -4783,6 +4783,8 @@
     <Content Include="Views\Products\Addtocartpartial.cshtml" />
     <Content Include="Views\Products\GenaratePOs.cshtml" />
     <Content Include="Views\Products\CustomerforPOs.cshtml" />
+    <Content Include="Views\Products\AllCategories.cshtml" />
+    <Content Include="Views\Products\AllSubCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

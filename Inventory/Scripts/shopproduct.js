@@ -24,7 +24,6 @@ function ajaxcalling(clickeditem) {
 
 
 function getproducts(value) {
-
     var cid = document.URL.split('=')[1].split('#')[0];
     $.ajax({
         url: '/Products/Getproducts',

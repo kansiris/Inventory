@@ -1,0 +1,20 @@
+﻿@if (ViewBag.records != null)
+{
+    <div class="row categories">
+        <div class="column col-xs-12 sidebar-offcanvas" id="sidebar">
+            <ul class="nav" id="menu">
+                <li class="title"><span class="collapse in">Categories</span></li>
+                @if (ViewBag.records.Count != 0)
+                {
+                    foreach (var item in ViewBag.records)
+                    {
+                        <li class="leve12">
+                            <a href="#">@item.category<span class="caret"></span></a>
+                            @{Html.RenderAction("AllSubCategories", "Products", new { category_id = @item.category_id });}
+                        </li>
+                                    }
+                                }
+            </ul>
+        </div>
+    </div>
+                                }

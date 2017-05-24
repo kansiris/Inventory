@@ -188,6 +188,22 @@ namespace Inventory.Repository
         }
         #endregion
 
+        //to get all categories
+
+        public static SqlDataReader GetAllCategories(string dbname)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetAllCategories");
+        }
+       
+             public static SqlDataReader GetAllSubCategories(string dbname,string category_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetAllSubCategories", category_id);
+        }
+
         //to get chicken products
         public static SqlDataReader Getproductsbysubcategory(string dbname, string sub_category)
         {
