@@ -227,7 +227,13 @@ namespace Inventory.Controllers
             var maxid = ProductService.GetProductMaxID(dbname);
             int id = 0;
             if (maxid.Read())
-                id = int.Parse(maxid["id"].ToString()) + 1;
+            {
+                string pid = maxid["id"].ToString();
+                if (pid != "" && pid != null)
+                    id = int.Parse(pid) + 1;
+                else
+                    id = 1;
+            }
             else
                 id = 1;
             return id;
