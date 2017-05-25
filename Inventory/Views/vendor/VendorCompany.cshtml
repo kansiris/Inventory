@@ -36,10 +36,10 @@
 
                                             @if (item.status == "Active")
                                             {
-                                            <li> <a href="~/Vendor/deleteRecord?company_Id=@item.company_Id&&status=InActive"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}
+                                            <li> <a href="~/Vendor/deleteRecord?company_Id=@item.company_Id&&status=InActive"><i class="fa fa-toggle-off" aria-hidden="true"></i>InActive</a> </li>}
                                             @if (item.status == "InActive")
                                             {
-                                                <li> <a href="~/Vendor/deleteRecord?company_Id=@item.company_Id&&status=Active"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
+                                                <li> <a href="~/Vendor/deleteRecord?company_Id=@item.company_Id&&status=Active"><i class="fa fa-toggle-on" aria-hidden="true"></i>Active</a> </li>}
                                          
                                         ======================
                                         

@@ -428,7 +428,7 @@ function editcompany(clickedvalue) {
                             $('#company_Id').val(data.ID);
                             $('#companyrecords').load(url, function () { Pagination(); });
                             $("#additon").css("display", "block");
-                            successmsg("Company Saved Succesfully.");
+                            successmsg("Company Saved Successfully.");
                             $('vendor-information1').css("display", "block");
                             company_Id = $('#company_Id').val();
                             var url = 'Vendor/VendorContact?id=' + company_Id + '';

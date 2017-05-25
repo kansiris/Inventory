@@ -40,10 +40,10 @@
                                     <li> <a href="#" onclick="inviteVendor(@item.Vendor_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Invite</a> </li>
                                     @if (item.status == "Active")
                                     {
-                                        <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id,'InActive')"><i class="fa fa-trash-o" aria-hidden="true"></i>InActive</a> </li>}
+                                        <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id,'InActive')"><i class="fa fa-toggle-off" aria-hidden="true"></i>InActive</a> </li>}
                                     @if (item.status == "InActive")
                                     {
-                                        <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id,'Active')"><i class="fa fa-trash-o" aria-hidden="true"></i>Active</a> </li>}
+                                        <li> <a href="#" onclick="deleteVendor(@item.Vendor_Id,'Active')"><i class="fa fa-toggle-on" aria-hidden="true"></i>Active</a> </li>}
                                 </ul>
                             </div>
                         </td>
