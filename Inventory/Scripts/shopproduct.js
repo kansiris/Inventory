@@ -78,10 +78,8 @@ function removecart(cartid) {
 
 function genaratepo() {
     var customerid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
-    alert(customerid);
     var cname = document.URL.split('&&')[1].split('=')[1];
-    alert(cname);
-
+   
     location.href = '/Products/GenaratePOs?cid=' + customerid + '&cname=' + cname;
 
 
@@ -100,7 +98,7 @@ function updatecart(cartid, quantity, costprice) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("not inserted");
+                errormsg("Not Inserted");
             }
             else {
                 successmsg("Successfully Updated Cart.");
@@ -155,15 +153,15 @@ function calculate(totalprice) {
 function insertpo(totalamount) {
     var cid=location.search.split('&')[0].split('cid=')[1];
     var cname = location.search.split('&')[1].split('cname=')[1];
-    alert(totalamount);
-    alert($("[id='shipping_terms']").val());
-    alert($("[id='shipping_date']").val());
-    alert($("[id='payment_terms']").val());
-    alert($("[id='payment_date']").val());
-    alert($("[id='ponumber']").val());
-    alert($("[id='comment']").val());
-    alert($("[id='vat']").val());
-    alert($("[id='discount']").val());
+    //alert(totalamount);
+    //alert($("[id='shipping_terms']").val());
+    //alert($("[id='shipping_date']").val());
+    //alert($("[id='payment_terms']").val());
+    //alert($("[id='payment_date']").val());
+    //alert($("[id='ponumber']").val());
+    //alert($("[id='comment']").val());
+    //alert($("[id='vat']").val());
+    //alert($("[id='discount']").val());
     var shipping_terms = $('#shipping_terms').val();
     var shipping_date = $('#shipping_date').val();
     var payment_terms = $('#payment_terms').val();
@@ -173,15 +171,14 @@ function insertpo(totalamount) {
     var vat = $('#vat').val();
     var discount = $('#discount').val();
     var grand_total = $('#grandtotal').text();
-    var createddate = $('#po_date').text();
-    //Date of create Date :  document.write(new Date().toLocaleDateString('en-GB'));25/05/2017
-    var dateofcreate = createddate.split(';')[1];
-    alert("Date of create"+createddate.split(';')[1]);
+    var createddate = ($('#po_date').text()).split(';')[1];
+    //var dateofcreate = createddate.split(';')[1];
+    alert(cname);
   
     $.ajax({
         url: '/Products/GenratePurchaseOrder',
         type: 'POST',
-        data: JSON.stringify({ cid: cid, cname: cname, Prchaseorder_no: ponumber, created_date: dateofcreate, Payment_date: payment_date, shipping_date: shipping_date, payment_terms: payment_terms, shipping_terms: shipping_terms, remarks: comment, sub_total: totalamount, vat: vat, discount: discount, grand_total: grand_total }),
+        data: JSON.stringify({ cid: cid, cname: cname, Prchaseorder_no: ponumber, created_date: createddate, Payment_date: payment_date, shipping_date: shipping_date, payment_terms: payment_terms, shipping_terms: shipping_terms, remarks: comment, sub_total: totalamount, vat: vat, discount: discount, grand_total: grand_total }),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
@@ -190,7 +187,7 @@ function insertpo(totalamount) {
             }
 
             else {
-                successmsg("Successfully Inserted");
+                successmsg("Successfully PurchaseOrder Generated.");
                 //var url = 'Products/Addtocartpartial?cid=' + cid;
                 //$('#cartrecords').load(url);
             }

@@ -229,7 +229,7 @@
                 var costprice = $(this).parents(".rate-add").children(".product-price").children("span").html();
                 var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
                 var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
-                alert(cid);
+                //alert("cid:"+cid+",pname:"+productname+",cp:"+costprice+",qty:"+qty+",measurement:"+mesurment+",tp;"+total+"");
                 $.ajax({
                     url: '/Products/Addtocart',
                     type: 'POST',

@@ -162,7 +162,7 @@ namespace Inventory.Controllers
             return PartialView("allproducts", null);
         }
 
-        public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
+        public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -320,16 +320,16 @@ namespace Inventory.Controllers
         public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string remarks, string sub_total, float vat, float discount, string grand_total)
 
         {
-            DateTime newcreated_date = DateTime.ParseExact(created_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            DateTime newPayment_date = DateTime.ParseExact(Payment_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            DateTime newshipping_date = DateTime.ParseExact(shipping_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            //DateTime newcreated_date = DateTime.ParseExact(created_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            //DateTime newPayment_date = DateTime.ParseExact(Payment_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            //DateTime newshipping_date = DateTime.ParseExact(shipping_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             // int count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, remarks, sub_total, vat, discount, grand_total);
             var dt = new DataTable();
             var records = ProductService.Getcartdata(user.DbName, cid);
             dt.Load(records);
-           
-            List<Product> cartaddedproducts = (from DataRow row in dt.Rows
+            
+            List<Product> cartaddedproduct = (from DataRow row in dt.Rows
                                                select new Product()
                                                {
                                                    customer_id = row["customer_id"].ToString(),
@@ -340,16 +340,29 @@ namespace Inventory.Controllers
                                                    Measurement = row["Measurement"].ToString(),
                                                    total_price = row["total_price"].ToString(),
                                                }).ToList();
-            var ff = cartaddedproducts.Count;
+            var ff = cartaddedproduct.Count;
             int count = 0;
-            for (int i = 1; i <= ff; i++)
+            //foreach (var author in cartaddedproducts)
+            //{
+            //    Console.WriteLine(author);
+            //}
+            for (int i = 0; i < ff; i++)
             {
-                string product_name = cartaddedproducts.Select(m => m.product_name).ToString();
-                string price = cartaddedproducts.Select(m => m.cost_price).ToString();
-                string quantity = cartaddedproducts.Select(m => m.Quantity).ToString();
-                string description = cartaddedproducts.Select(m => m.Measurement).ToString();
+                string product_name = (cartaddedproduct.Select(m => m.product_name).ToList())[i];
+                //string product_name = product_names[i];
+                //string product_name = (cartaddedproducts.Select(m => m.product_name).ToString()).ToList();
+                //var prices = cartaddedproducts.Select(m => m.cost_price).ToList();
+                string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
+               
+                //var quantitys = cartaddedproducts.Select(m => m.Quantity).ToList();
+                string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
+               
+                //var descriptions = cartaddedproducts.Select(m => m.Measurement).ToList();
+                string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
+                
                 string total_price = sub_total;
-                count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, newcreated_date, Prchaseorder_no, newPayment_date, newshipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, remarks, sub_total, vat, discount, grand_total, total_price);
+
+                count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
                 count++;
             }
 
