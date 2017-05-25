@@ -377,6 +377,8 @@
                     $("#permissionsarea").css("visibility", "hidden");
                     //alert("User Added SuccessFully!!!");
                     successmsg(response.msg);
+                    var url1 = 'Login/ProfileProgressPartial';
+                    $('#partialpage').load(url1);
                 }
                 else if (response.Result == 'staffupdated') {
                     var url = 'UserProfile/GetStaffRecords?id='+id+'';

@@ -4778,7 +4778,6 @@ ul.notifications {
 
 /*======================== MY STYLES ==================*/
 .top-bar{
-	margin-bottom: 18px;
 	line-height: 37px;}
 .top-bar h1{
 	font-size: 24px;
@@ -4786,9 +4785,16 @@ ul.notifications {
 .top-bar .icons{
 	margin-right: 15px;
 	color: #0483c6;}
+form > div.row:first-of-type{
+	background: #e4e4e4;
+	border-radius: 3px;
+	margin-bottom: 15px;}
 .top-bar .icons i{
 	margin: 0 5px;
 	cursor: pointer;}
+.top-bar button.btn-primary{
+	margin-top: 3px;
+	margin-bottom: 0;}
 .blocks{
 	margin-bottom: 15px;}
 .blocks div .content{
@@ -5294,7 +5300,6 @@ footer {
     color: #333;
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 20px;
 	padding: 10px;
 	background: #e4e4e4;
 	border-radius: 5px;
