@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +16,7 @@ namespace Inventory.Controllers
     {
 
         // GET: Products
-        public ActionResult Index(string cid,string cname)
+        public ActionResult Index(string cid, string cname)
         {
             return View();
         }
@@ -26,7 +27,7 @@ namespace Inventory.Controllers
         }
 
         //for loading all categories and sub categories
-        
+
         public PartialViewResult AllCategories()
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -38,12 +39,12 @@ namespace Inventory.Controllers
                 dt.Load(records);
                 List<Product> product = new List<Product>();
                 product = (from DataRow row in dt.Rows
-                            select new Product()
-                            {
-                                ID = row["ID"].ToString(),
-                                category_id = row["category_id"].ToString(),
-                                category = row["category"].ToString()
-                            }).OrderByDescending(m => m.ID).ToList();
+                           select new Product()
+                           {
+                               ID = row["ID"].ToString(),
+                               category_id = row["category_id"].ToString(),
+                               category = row["category"].ToString()
+                           }).OrderByDescending(m => m.ID).ToList();
                 ViewBag.records = product;
                 return PartialView("AllCategories", ViewBag.records);
             }
@@ -66,7 +67,7 @@ namespace Inventory.Controllers
                            {
                                //ID = row["ID"].ToString(),
                                subcategory_id = row["subcategory_id"].ToString(),
-                               category_id= row["category_id"].ToString(),
+                               category_id = row["category_id"].ToString(),
                                sub_category = row["sub_category"].ToString()
                            }).OrderByDescending(m => m.ID).ToList();
                 ViewBag.records = product;
@@ -102,7 +103,7 @@ namespace Inventory.Controllers
             return PartialView("allproducts", null);
         }
 
-       
+
 
         public JsonResult Getproducts(string sub_category)
         {
@@ -160,38 +161,44 @@ namespace Inventory.Controllers
             }
             return PartialView("allproducts", null);
         }
-       
-        public JsonResult Addtocart(string cid,string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
+
+        public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, /*string weight,*/ string total_price)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 //var sample = Addtocartpartial(user.DbName, user.ID);
-                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement,cid);
-                
+                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement, cid);
+
                 if (counts.HasRows)
                 {
                     return Json("exists");
                 }
                 else
                 {
-                   ProductService.Addtocart(user.DbName, cid, product_name, cost_price, Quantity, Measurement, total_price);
-                    return Json("success");
+                    if (int.Parse(Quantity) > 0)
+                    {
+                        ProductService.Addtocart(user.DbName, cid, product_name, cost_price, Quantity, Measurement, total_price);
+                        return Json("success");
+                    }
+                    return Json("qty");
+
                 }
-                 }
+            }
             return Json("unique");
         }
 
         //for updatecart
-     public JsonResult UpdateCart(int cart_id,string Quantity,string total_price)
+        public JsonResult UpdateCart(int cart_id, string Quantity, string total_price)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                int count=ProductService.Updatecart(user.DbName, cart_id, Quantity,total_price);
-                if (count>0) { 
+                int count = ProductService.Updatecart(user.DbName, cart_id, Quantity, total_price);
+                if (count > 0)
+                {
                     return Json("success");
                 }
 
@@ -210,32 +217,32 @@ namespace Inventory.Controllers
                                                select new Product()
                                                {
                                                    customer_id = row["customer_id"].ToString(),
-                                                   cart_id= int.Parse(row["cart_id"].ToString()),
+                                                   cart_id = int.Parse(row["cart_id"].ToString()),
                                                    product_name = row["product_name"].ToString(),
                                                    cost_price = row["cost_price"].ToString(),
-                                                   Quantity= row["Quantity"].ToString(),
-                                                  //product_images = row["product_images"].ToString(),
+                                                   Quantity = row["Quantity"].ToString(),
+                                                   //product_images = row["product_images"].ToString(),
                                                    Measurement = row["Measurement"].ToString(),
                                                    //weight = row["brand"].ToString(),
                                                    total_price = row["total_price"].ToString(),
                                                }).ToList();
-                        ViewBag.records = cartaddedproducts;
+            ViewBag.records = cartaddedproducts;
             ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
             ViewBag.cartqtycount = cartaddedproducts.Select(m => float.Parse(m.Quantity)).Sum();
             return PartialView("Addtocartpartial", ViewBag.records);
-                   }
+        }
         //for genRte pos
         [HttpGet]
-        public PartialViewResult GenaratePOs(string cid,string cname)
+        public PartialViewResult GenaratePOs(string cid, string cname)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var dt = new DataTable();
-                var records = ProductService.Getcartdata(user.DbName,cid);
+                var records = ProductService.Getcartdata(user.DbName, cid);
                 dt.Load(records);
-                
+
                 List<Product> cartaddedproducts = (from DataRow row in dt.Rows
                                                    select new Product()
                                                    {
@@ -255,7 +262,7 @@ namespace Inventory.Controllers
                 ViewBag.customer_id = cid;
                 ViewBag.company_name = cname;
                 ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
-                return PartialView("GenaratePOs",ViewBag.records);
+                return PartialView("GenaratePOs", ViewBag.records);
             }
             return PartialView("GenaratePOs", null);
         }
@@ -266,7 +273,7 @@ namespace Inventory.Controllers
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-               
+
                 var dt = new DataTable();
                 var records = CustomerService.getAllDetailsByCompany_Id(user.DbName, cid);
                 dt.Load(records);
@@ -300,8 +307,8 @@ namespace Inventory.Controllers
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-               
-                int count = ProductService.Removefromcart(user.DbName,cart_id);
+
+                int count = ProductService.Removefromcart(user.DbName, cart_id);
                 if (count > 0)
                 {
                     return Json("success");
@@ -310,14 +317,18 @@ namespace Inventory.Controllers
             return Json("unique");
         }
         //for genarate purchase order
-        public JsonResult GenratePurchaseOrder(string cid,string cname,string created_date,string Prchaseorder_no,string Payment_date,string shipping_date,string payment_terms,string shipping_terms,string remarks,string sub_total,float vat,float discount,string grand_total)
+        public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string remarks, string sub_total, float vat, float discount, string grand_total)
 
         {
+            DateTime newcreated_date = DateTime.ParseExact(created_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime newPayment_date = DateTime.ParseExact(Payment_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime newshipping_date = DateTime.ParseExact(shipping_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-           // int count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, remarks, sub_total, vat, discount, grand_total);
+            // int count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, remarks, sub_total, vat, discount, grand_total);
             var dt = new DataTable();
             var records = ProductService.Getcartdata(user.DbName, cid);
             dt.Load(records);
+           
             List<Product> cartaddedproducts = (from DataRow row in dt.Rows
                                                select new Product()
                                                {
@@ -329,24 +340,25 @@ namespace Inventory.Controllers
                                                    Measurement = row["Measurement"].ToString(),
                                                    total_price = row["total_price"].ToString(),
                                                }).ToList();
-            var ff=cartaddedproducts.Count;
+            var ff = cartaddedproducts.Count;
             int count = 0;
-            for(int i=1;i<=ff; i++)
+            for (int i = 1; i <= ff; i++)
             {
                 string product_name = cartaddedproducts.Select(m => m.product_name).ToString();
                 string price = cartaddedproducts.Select(m => m.cost_price).ToString();
                 string quantity = cartaddedproducts.Select(m => m.Quantity).ToString();
-                string description= cartaddedproducts.Select(m => m.Measurement).ToString();
+                string description = cartaddedproducts.Select(m => m.Measurement).ToString();
                 string total_price = sub_total;
-                count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, remarks, sub_total, vat, discount, grand_total, total_price);
+                count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, newcreated_date, Prchaseorder_no, newPayment_date, newshipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, remarks, sub_total, vat, discount, grand_total, total_price);
                 count++;
             }
-            
-            if (count>0) { 
-            return Json("success");
+
+            if (count > 0)
+            {
+                return Json("success");
+            }
+            return Json("unique");
         }
-                return Json("unique");
-       }
     }
 }
 
