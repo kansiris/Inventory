@@ -8,6 +8,15 @@ namespace Inventory
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //Vendor
+            bundles.Add(new ScriptBundle("~/bundles/Vendors").Include("~/Scripts/vendor.js"));
+            //customer
+            bundles.Add(new ScriptBundle("~/bundles/Customers").Include("~/Scripts/customer.js"));
+
+            //shop product
+            bundles.Add(new ScriptBundle("~/bundles/shopproduct").Include("~/Scripts/shopproduct.js"));
+
+
             //User Profile
             bundles.Add(new ScriptBundle("~/bundles/profile").Include("~/Scripts/UserProfile.js"));
             //Add Product
