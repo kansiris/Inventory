@@ -81,7 +81,7 @@
                                             <td class="col-xs-6 col-md-4">
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="shipping_date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                                                    <input class="form-control" id="shipping_date" name="date" placeholder="MM/DD/YYYY" type="text" onchange="checkdate(this.value)"/>
                                                 </div>
                                             </td>
                                             <td class="col-xs-6 col-md-2">Shipping Terms</td>
@@ -196,10 +196,11 @@
     <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
     <script>
         $(document).ready(function () {
+            var createddate = ($('#po_date').text()).split(';')[1];
             var date_input = $('input[name="date"]'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
-                format: 'dd/mm/yyyy',
+                format: 'dd/MM/yyyy',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,
@@ -217,7 +218,17 @@
                 $(this).val('100');
             }
         });
-
+        function checkdate(dateval) {
+            alert(dateval);
+            var createddate = ($('#po_date').text()).split(';')[1];
+            if (dateval > createddate) {
+            $('input[name="date"]').val()=dateval;
+            }
+            else {
+                alert("plesae select a correct date");
+                $('input[name="date"]').val() = "";
+            }
+        }
     </script>
 }
 
