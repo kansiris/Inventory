@@ -362,6 +362,7 @@
     <Content Include="images\cropper.jpg" />
     <Content Include="images\default_product.png" />
     <Content Include="images\download %281%29.jpg" />
+    <Content Include="images\email1.png" />
     <Content Include="images\fav_icon.png" />
     <Content Include="images\flags%402x.png" />
     <Content Include="images\flags.png" />
