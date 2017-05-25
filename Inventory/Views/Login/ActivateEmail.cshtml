@@ -9,10 +9,37 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ActivateEmail</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <div> 
-        Email ID Verified. Click here To <a href="~/Login">Login</a>
+        @*@if (ViewBag.msg == "1")
+        {
+
+        }
+        Email ID Verified. Click here To <a href="~/Login">Login</a>*@
+        <div align="center" style="margin-top:150px"> 
+            @if (ViewBag.msg == "-1")
+            {
+                <p>Error During Verification Process Check After Some time</p>
+                //<img src="~/images/email1.png" /><br />
+                <a href="~/Login" class="btn btn-success">Log In</a>
+            }
+            @if (ViewBag.msg == "0")
+            {
+                <p>Email Id Not Verified</p>
+                //<img src="~/images/email1.png" /><br />
+                <a href="~/Login" class="btn btn-success">Log In</a>
+            }
+            @if (ViewBag.msg == "1")
+            {
+                <img src="~/images/email1.png" /><br />
+                <a href="~/Login" class="btn btn-success">Log In</a>
+            }
+        </div>
     </div>
 </body>
 </html>

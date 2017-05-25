@@ -69,7 +69,7 @@ namespace Inventory.Controllers
             {
                 SqlDataReader value1 = LoginService.Authenticateuser("email", userMaster.EmailId, null, null, 0);
                 int companycount = value1.Cast<object>().Count();
-                if (companycount > 2)
+                if (companycount  <= 2)
                 {
                     var data = LoginService.Authenticateuser("checkemail", userMaster.EmailId, null, userMaster.User_Site, 0);
                     if (data.HasRows)
@@ -97,10 +97,12 @@ namespace Inventory.Controllers
                             ViewBag.smsg = "Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.";
                             //return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                         }
+                        else
                         ViewBag.msg = "Registration Failed!!!!";
                         //return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                     }
                 }
+                else
                 ViewBag.umsg = "Free Companies Limit Reached!!!UpGrade Your Account To Add More";
             }
             return View();
@@ -135,7 +137,7 @@ namespace Inventory.Controllers
                 Server server = new Server(new ServerConnection(conn));
                 var db = new Database(server, DBname);
                 db.Create();
-                //db.ExecuteNonQuery(script); for local
+                //db.ExecuteNonQuery(script); //for local
                 //string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
                 //for server 
                 string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=user1234;";
@@ -190,10 +192,18 @@ namespace Inventory.Controllers
                         activateemail = LoginService.ActivateEmail(Email, ActivationCode);
                     }
                     if (activateemail < 0)
-                        ViewBag.msg = "Email ID Confirmation Failed!!!";
-                    return RedirectToAction("Index", "Login");
-                        //return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    {
+                        ViewBag.msg = "0"; //Email Not Verified
+                        //ViewBag.msg = "Email ID Confirmation Failed!!!";
+                        //return RedirectToAction("Index", "Login");
+                    }
+                    else
+                        ViewBag.msg = "1"; //First Time Verification
+                        //return View();
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
+                else
+                    ViewBag.msg = "-1"; //Already verified
             }
             return View();
         }
