@@ -4798,14 +4798,25 @@ form > div.row:first-of-type{
 .blocks{
 	margin-bottom: 15px;}
 .blocks div .content{
+	position: relative;
 	padding: 10px;
 	border-radius: 2px;
 	color: #fff;
 	font-size: 16px;
-	margin-bottom: 10px;}
+	margin-bottom: 10px;
+	height: 67px;}
+.blocks div .content p{
+	position: absolute;
+	right: 15px;
+	top: 15px;
+    font-size: 36px;
+    width: 55%;
+    margin-left: 10px;}
 .blocks div .content h2{
 	font-weight: 400;
-	margin-bottom: 5px;}
+	margin-bottom: 5px;
+	width: 40%;
+	line-height: 18px;}
 .blocks div:first-child .content{
 	background: #01aef0;}
 .blocks div:nth-child(2) .content{

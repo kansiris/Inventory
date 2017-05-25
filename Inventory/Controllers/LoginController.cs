@@ -163,11 +163,12 @@ namespace Inventory.Controllers
             //string readFile = reader.ReadToEnd();
             FileInfo File = new FileInfo(Server.MapPath("/Content/mailer.html"));
             string readFile = File.OpenText().ReadToEnd();
-            string body = "Hello " + First_Name + " " + Last_Name + ",";
-            body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
-            body += "<br /><br />Thanks";
-            string message = readFile + body;
+            readFile = readFile.Replace("[ActivationLink]",url);
+            //string body = "Hello " + First_Name + " " + Last_Name + ",";
+            //body += "<br /><br />Please click the following link to activate your account";
+            //body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
+            //body += "<br /><br />Thanks";
+            string message = readFile;//readFile + body;
             abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
 
