@@ -101,6 +101,8 @@
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../build/js/custom.min.js"></script>
 <script src="~/Scripts/shopproduct.js"></script>
+@Scripts.Render("~/bundles/shopproduct")
+    
     <script type="text/javascript">
         var sd = location.search.split('cname=')[2];
         $("#grid-view").click(function (e) {

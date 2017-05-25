@@ -26,9 +26,7 @@ namespace Inventory.Controllers
         }
 
         //for loading all categories and sub categories
-
-
-
+        
         public PartialViewResult AllCategories()
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
