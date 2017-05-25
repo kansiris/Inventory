@@ -6870,7 +6870,7 @@ ul.terms-content li{
     table#vendortable > tbody > tr > td:nth-of-type(4)::before,
     table#customertable > tbody > tr > td:nth-of-type(4)::before{ content: "Action";}
 
-    table#producttable > tbody > tr > td:nth-of-type(1)::before{ content: "";}
+    table#producttable > tbody > tr > td:nth-of-type(1)::before{ content: "Product Pic";}
     table#producttable > tbody > tr > td:nth-of-type(2)::before{ content: "Product Id";}
     table#producttable > tbody > tr > td:nth-of-type(3)::before{ content: "Product";}
     table#producttable > tbody > tr > td:nth-of-type(4)::before{ content: "Brand";}
@@ -6879,7 +6879,7 @@ ul.terms-content li{
     table#producttable > tbody > tr > td:nth-of-type(7)::before{ content: "Price";}
     table#producttable > tbody > tr > td:nth-of-type(8)::before{ content: "Action";}
 
-    table#contacttable  > tbody > tr > td:nth-of-type(1)::before{ content: "";}
+    table#contacttable  > tbody > tr > td:nth-of-type(1)::before{ content: "User Pic";}
     table#contacttable  > tbody > tr > td:nth-of-type(2)::before{ content: "First Name";}
     table#contacttable  > tbody > tr > td:nth-of-type(3)::before{ content: "Last Name";}
     table#contacttable  > tbody > tr > td:nth-of-type(4)::before{ content: "Mobile Number";}

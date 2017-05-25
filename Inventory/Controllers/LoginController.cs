@@ -69,7 +69,7 @@ namespace Inventory.Controllers
             {
                 SqlDataReader value1 = LoginService.Authenticateuser("email", userMaster.EmailId, null, null, 0);
                 int companycount = value1.Cast<object>().Count();
-                if (companycount <= 2)
+                if (companycount > 2)
                 {
                     var data = LoginService.Authenticateuser("checkemail", userMaster.EmailId, null, userMaster.User_Site, 0);
                     if (data.HasRows)
@@ -231,7 +231,7 @@ namespace Inventory.Controllers
             {
                 localization = 1;
             }
-            if (ownerstaff.Read())
+            if (ownerstaff.HasRows)
             {
                 users = 1;
             }
