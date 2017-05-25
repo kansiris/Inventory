@@ -238,22 +238,22 @@
                     contentType: 'application/json',
                     success: function (data) {
                         if (data == "unique") {
-                            alert("not inserted");
+                            errormsg("Not Inserted");
                         }
                         else if (data == "exists") {
-                            alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
+                            existsmsg("The product Alredy available in the cart.Please Incerese quantity if needed.");
                         }
                         else if (data == "qty") {
-                            alert("InValid Quantity");
+                            warnmsg("InValid Quantity");
                         }
                         else {
-                            alert("Successfully Added To Cart.");
+                            successmsg("Successfully Added To Cart.");
                             var url = 'Products/Addtocartpartial?cid=' + cid;
                             $('#cartrecords').load(url);
                         }
                     },
                     error: function (data)
-                    { alert("Failed!!!"); }
+                    { errormsg("Failed!!!"); }
                 });
 
             });
@@ -275,18 +275,18 @@
                     success: function (data) {
 
                         if (data == "unique") {
-                            alert("not inserted");
+                            errormsg("Not Inserted");
                         } else if (data == "exists") {
-                            alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
+                            existsmsg("The product Alredy available in the cart.Plz incerese quantity if needed.");
                         }
                         else {
-                            alert("Successfully Added To Cart.");
+                            successmsg("Successfully Added To Cart.");
                             var url = 'Products/Addtocartpartial?cid=' + cid;
                             $('#cartrecords').load(url);
                         }
                     },
                     error: function (data)
-                    { alert("Failed!!!"); }
+                    { errormsg("Failed!!!"); }
                 });
 
             });
@@ -303,7 +303,7 @@
             function isNumberKey(evt) {
                 var charCode = (evt.which) ? evt.which : event.keyCode
                 if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                    alert("Enter Number only");
+                    warnmsg("Enter Number only");
                     return false;
                 }
                 return true;
