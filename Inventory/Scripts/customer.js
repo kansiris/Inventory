@@ -422,7 +422,7 @@ function editcuscompany(clickedvalue) {
                             var url = 'Customer/CustomerCompany';
                             $('#cus_company_Id').val(data.ID);
                             $('#cuscompanyrecords').load(url, function () { Pagination(); });
-                            successmsg("company saved Successfully");
+                            successmsg("Company Saved Successfully");
                             $('customer-information1').css("display", "block");
                             $('#additonal').css('display', 'block');
                             cus_company_Id = $('#cus_company_Id').val();
@@ -430,7 +430,7 @@ function editcuscompany(clickedvalue) {
                             $('#customerrecords').empty().load(url);
                         }
                         else if (data = "exists") {
-                            existsmsg("Company Name alredy exists..Please enter another name");
+                            existsmsg("Company Name alredy exists..Please enter another Name");
                         }
                         else {
                             errormsg("not saved");

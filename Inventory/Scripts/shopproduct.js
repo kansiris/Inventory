@@ -174,11 +174,14 @@ function insertpo(totalamount) {
     var discount = $('#discount').val();
     var grand_total = $('#grandtotal').text();
     var createddate = $('#po_date').text();
+    //Date of create Date :  document.write(new Date().toLocaleDateString('en-GB'));25/05/2017
+    var dateofcreate = createddate.split(';')[1];
+    alert("Date of create"+createddate.split(';')[1]);
   
     $.ajax({
         url: '/Products/GenratePurchaseOrder',
         type: 'POST',
-        data: JSON.stringify({ cid: cid, cname: cname, Prchaseorder_no: ponumber, created_date: createddate, Payment_date: payment_date, shipping_date: shipping_date, payment_terms: payment_terms, shipping_terms: shipping_terms, remarks: comment, sub_total: totalamount, vat: vat, discount: discount, grand_total: grand_total }),
+        data: JSON.stringify({ cid: cid, cname: cname, Prchaseorder_no: ponumber, created_date: dateofcreate, Payment_date: payment_date, shipping_date: shipping_date, payment_terms: payment_terms, shipping_terms: shipping_terms, remarks: comment, sub_total: totalamount, vat: vat, discount: discount, grand_total: grand_total }),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {

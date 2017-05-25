@@ -243,6 +243,9 @@
                         else if (data == "exists") {
                             alert("The product Alredy available in the cart.Plz incerese quantity if needed.");
                         }
+                        else if (data == "qty") {
+                            alert("InValid Quantity");
+                        }
                         else {
                             alert("Successfully Added To Cart.");
                             var url = 'Products/Addtocartpartial?cid=' + cid;

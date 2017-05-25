@@ -194,7 +194,7 @@ namespace Inventory.Service
 
 
         //for genarating po
-        public static int GenaratePurchaseOrder(string dbname, string cid, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string product_name, string description, string quantity
+        public static int GenaratePurchaseOrder(string dbname, string cid, string cname, DateTime created_date, string Prchaseorder_no, DateTime Payment_date, DateTime shipping_date, string payment_terms, string shipping_terms, string product_name, string description, string quantity
                 , string price, string remarks, string sub_total, float vat, float discount, string grand_total,string total_price)
         {
             return ProductRepository.GenaratePurchaseOrder(dbname, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity,price,remarks,sub_total, vat, discount, grand_total, total_price);
