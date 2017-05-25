@@ -10,7 +10,7 @@ function ajaxcalling(clickeditem) {
         success: function (data) {
             alert(data);
             if (data == "unique") {
-                alert("nodata available");
+                errormsg("No Data Available");
             }
             else {
                 var url1 = 'Products/Getproductsbysubcategory?sub_category=' + data;
@@ -18,7 +18,7 @@ function ajaxcalling(clickeditem) {
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
@@ -34,7 +34,7 @@ function getproducts(value) {
         success: function (data) {
             alert(data);
             if (data == "unique") {
-                alert("nodata available");
+                errormsg("No Data Available");
             }
             else {
                 var url = 'Products/Getproductsbysubcategory?sub_category=' + data;
@@ -42,7 +42,7 @@ function getproducts(value) {
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
@@ -60,16 +60,16 @@ function removecart(cartid) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("no data available");
+                errormsg("No Data Available");
             }
             else {
-                alert("Removed from cart Successfully .");
+                successmsg("Removed from Cart Successfully .");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
                 $('#cartrecords').load(url);
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 
 }
@@ -100,16 +100,16 @@ function updatecart(cartid, quantity, costprice) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("not inserted");
+                errormsg("not inserted");
             }
             else {
-                alert("Successfully Updated Cart.");
+                successmsg("Successfully Updated Cart.");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
                 $('#cartrecords').load(url);
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 
 }
@@ -126,16 +126,16 @@ function updatecart1(cartid, quantity, costprice) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("not inserted");
+                errormsg("Not Inserted");
             }
             else {
-                alert("Successfully Updated Cart.");
+                successmsg("Successfully Updated Cart.");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
                 $('#cartrecords').load(url);
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
@@ -183,17 +183,49 @@ function insertpo(totalamount) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                alert("not inserted");
+                errormsg("Not Inserted");
             }
 
             else {
-                alert("Successfully inseryted");
+                successmsg("Successfully Inserted");
                 //var url = 'Products/Addtocartpartial?cid=' + cid;
                 //$('#cartrecords').load(url);
             }
         },
         error: function (data)
-        { alert("Failed!!!"); }
+        { errormsg("Failed!!!"); }
     });
 }
 
+function errormsg(msg) {
+    $("body").overhang({
+        type: "error",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function successmsg(msg) {
+    $("body").overhang({
+        type: "success",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function existsmsg(msg) {
+    $("body").overhang({
+        type: "exists",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
+    });
+}
+
+function warnmsg(msg) {
+    $("body").overhang({
+        type: "warn",
+        message: msg,
+        duration: 3
+    });
+}
