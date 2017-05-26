@@ -601,7 +601,7 @@
                                                     @Html.DropDownListFor(Model => Model.Item1.Date_Format, new SelectList(new List<Object> { new { Text = "Select Date Format", Value = "" }, new { Text = "DD/MM/YYYY", Value = "DD/MM/YYYY" }, new { Text = "MM/DD/YYYY", Value = "MM/DD/YYYY" }, new { Text = "YYYY/MM/DD", Value = "YYYY/MM/DD" } }, "value", "text", item.Date_Format), new { @class = "form-control" }) @*, @style = "width: 50%;"*@
                                                 </div>
                                                 <div class="form-group col-xs-12 col-md-4">
-                                                    @Html.DropDownListFor(Model => Model.Item1.Currency, new SelectList(new List<Object> { new { Text = "Select Currency", Value = "" }, new { Text = "Dollar($)", Value = "Dollar" }, new { Text = "Rupee(₹)", Value = "Rupee" } }, "value", "text", item.Currency), new { @class = "form-control" })
+                                                    @Html.DropDownListFor(Model => Model.Item1.Currency, new SelectList(new List<Object> { new { Text = "Select Currency", Value = "" }, new { Text = "Dollar($)", Value = "Dollar($)" }, new { Text = "Rupee(₹)", Value = "Rupee(₹)" } }, "value", "text", item.Currency), new { @class = "form-control" })
 
                                                     @*@Html.DropDownListFor(Model => Model.Item1.Date_Format, new List<SelectListItem>
                                                         {

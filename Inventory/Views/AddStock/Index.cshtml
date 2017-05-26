@@ -28,8 +28,8 @@
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 
-               <!-- Over Hang -->
-<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+    <!-- Over Hang -->
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 }
 
 <div class="right_col" role="main">
@@ -134,13 +134,13 @@
                                                 @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
                                                 @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", required = "required", Value = item.cost_price })
                                             </div>
-                                            <div class="form-group col-xs-6 col-md-2">
-                                                <label>Sell Price</label>
+                                            <div class="form-group col-xs-6 col-md-3">
+                                                <label>Selling Price</label>
                                                 @*<input type="text" class="form-control" placeholder="Selling Price" value="0">*@
                                                 @Html.TextBoxFor(Model => Model.selling_price, new { @class = "form-control", placeholder = "Selling Price", required = "required", Value = item.selling_price })
                                             </div>
-                                            <div class="form-group col-xs-6 col-md-5 tax">
-                                                <label>TaxApplicable(%)</label>
+                                            <div class="form-group col-xs-6 col-md-3 tax">
+                                                <label>Tax (%)</label>
                                                 @*<input type="text" class="form-control" placeholder="Tax" value="0">*@
                                                 @if (item.tax == "")
                                                 {
@@ -342,7 +342,7 @@
                                             }
                                             else
                                             {
-                                            <img src="images/default_product.png" alt="Product" />}
+                                                <img src="images/default_product.png" alt="Product" />}
                                         </ul>
                                     </div>
                                     @*<div class="row">
@@ -468,18 +468,18 @@
                                                             <td>@qty.Quantity_area</td>
                                                             <td>
                                                                 @Html.HiddenFor(Model => Model.Qid, new { Value = qty.Quantity_id })
-                                                            <div class="form-group col-xs-12 col-md-12">
-                                                                @*<input type="text" class="form-control" placeholder="Quantity in Hand" value="@qty.Qty_Stock">*@
-                                                                @Html.TextBoxFor(Model => Model.Quantity_Qty, new { @class = "form-control", placeholder = "Quantity in Hand", Value = qty.Qty_Stock })
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group col-xs-12 col-md-12">
-                                                                @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
-                                                                @Html.TextBoxFor(Model => Model.Quantity_QtyStock, new { @class = "form-control modified", placeholder = "Quantity in Hand", Value = 0 })
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                                <div class="form-group col-xs-12 col-md-12">
+                                                                    @*<input type="text" class="form-control" placeholder="Quantity in Hand" value="@qty.Qty_Stock">*@
+                                                                    @Html.TextBoxFor(Model => Model.Quantity_Qty, new { @class = "form-control", placeholder = "Quantity in Hand", Value = qty.Qty_Stock })
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group col-xs-12 col-md-12">
+                                                                    @*<input type="text" class="form-control modified" placeholder="Quantity in Hand" value="0">*@
+                                                                    @Html.TextBoxFor(Model => Model.Quantity_QtyStock, new { @class = "form-control modified", placeholder = "Quantity in Hand", Value = 0 })
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                     }
                                                     <tr>
                                                         <td>Total</td>
@@ -519,9 +519,9 @@
     @*<!------ Tags With Space and comma ------->*@
     <script src="~/Scripts/js/jquery-ui.min.js"></script>
     <script src="~/Scripts/js/tag-it.js"></script>
-<!-- Over Hang -->
-<script src="~/Scripts/js/jquery-ui.min.js"></script>
-<script src="~/Scripts/js/overhang.min.js"></script>
+    <!-- Over Hang -->
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
 
     <script type="text/javascript">
         $('#myTags').tagit({ readOnly: true }).css("background-color", "#eee");
