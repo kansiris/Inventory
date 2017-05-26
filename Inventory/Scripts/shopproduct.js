@@ -85,15 +85,26 @@ function genaratepo() {
 
 }
 
-//updatecart
+$('#plus').click(function () {
+    var qty = this.prev('input[type=text]').val();
+    alert(qty);
+});
+
+updatecart
 function updatecart(cartid, quantity, costprice) {
     cid = location.search.split('cid=')[1];
-    newquant = quantity + 1;
-    newamunt = costprice * newquant;
-    $.ajax({
+    
+    var inputqty = parseInt($('#qtyinput').val());
+    if (inputqty > 0) {
+        //newquant = quantity + 1;
+        //newamunt = costprice * newquant;
+        inputqty++;
+        newamunt = costprice * inputqty;
+
+      $.ajax({
         url: '/Products/UpdateCart',
         type: 'POST',
-        data: JSON.stringify({ cart_id: cartid, Quantity: newquant, total_price: newamunt }),
+        data: JSON.stringify({ cart_id: cartid, Quantity: inputqty, total_price: newamunt }),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
@@ -104,15 +115,25 @@ function updatecart(cartid, quantity, costprice) {
                 successmsg("Successfully Updated Cart.");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
                 $('#cartrecords').load(url);
+               
             }
         },
         error: function (data)
         { errormsg("Failed!!!"); }
     });
+    }
+    else {
+        errormsg("Invalid Quantity");
+        quantity = inputqty;
+        alert(quantity);
+    }
 
 }
 function updatecart1(cartid, quantity, costprice) {
-
+   
+    var inputqty = $('#qtyinput').val();
+    
+        if(inputqty>0){
     newquant = quantity - 1;
     newamunt = costprice * newquant;
     cid = location.search.split('cid=')[1];
@@ -135,6 +156,11 @@ function updatecart1(cartid, quantity, costprice) {
         error: function (data)
         { errormsg("Failed!!!"); }
     });
+    }
+    else {
+            errormsg("Invalid Quantity");
+            
+    }
 }
 
 //for grand total
@@ -196,6 +222,22 @@ function insertpo(totalamount) {
         { errormsg("Failed!!!"); }
     });
 }
+
+function checkponumber(passedvalue){
+    alert(passedvalue);
+}
+//function checknum(some) {
+//    alert(some);
+//    if(some<1){
+//        alert(Invalidquatity);
+//        updatecart();
+//    }
+//    else {
+
+//    }
+
+//}
+
 
 function errormsg(msg) {
     $("body").overhang({

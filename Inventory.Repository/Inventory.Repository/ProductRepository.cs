@@ -256,7 +256,14 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "insertpurchaseOrder", cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity,price, total_price,remarks, sub_total, vat, discount, grand_total);
         }
+        
+            public static int Emptycart(string dbname, string cid)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "emptycart", cid);
 
+        }
         public static int Removefromcart(string dbname, int cart_id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();

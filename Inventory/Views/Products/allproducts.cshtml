@@ -148,7 +148,7 @@
             var tableprice, divprice, tabletotal, divtotal;
             $('.spinner .btn:first-of-type').click(function () {
                 var plus, v;
-                v = parseInt($(this).parent("div").prev("input[type='text']").val());
+                v = parseInt($(this).parent("div").prev("input[type='text']").val());// alert(v);
                 if (v > 0) {
                     plus = v + 1;
                     $(this).parent("div").prev("input[type='text']").val(plus);
@@ -353,27 +353,4 @@
             });
         });
         //<!---------- mobile cart ------------>
-    </script>
-    @*Error Message*@
-    @if (ViewBag.msg != "" && ViewBag.msg != null)
-    {
-        <script>
-            $("body").overhang({
-                type: "error",
-                message: '@ViewBag.msg',
-                closeConfirm: false
-            });
         </script>
-    }
-
-    @*Success Message*@
-    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
-    {
-        <script>
-            $("body").overhang({
-                type: "success",
-                message: '@ViewBag.smsg',
-                closeConfirm: false
-            });
-        </script>
-    }

@@ -196,13 +196,11 @@ namespace Inventory.Controllers
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+               
                 int count = ProductService.Updatecart(user.DbName, cart_id, Quantity, total_price);
                 if (count > 0)
-                {
-                    return Json("success");
+                   return Json("success");
                 }
-
-            }
             return Json("unique");
         }
 
@@ -368,6 +366,7 @@ namespace Inventory.Controllers
 
             if (count > 0)
             {
+                ProductService.Emptycart(user.DbName, cid);
                 return Json("success");
             }
             return Json("unique");
