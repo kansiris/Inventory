@@ -204,6 +204,12 @@ namespace Inventory.Service
         {
             return ProductRepository.Removefromcart(dbname, cart_id);
         }
+
+        
+            public static int Emptycart(string dbname, string cid)
+        {
+            return ProductRepository.Emptycart(dbname, cid);
+        }
         public static SqlDataReader Getcartdata(string dbname, string cid)
         {
             return ProductRepository.Getcartdata(dbname, cid);
