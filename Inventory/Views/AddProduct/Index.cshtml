@@ -1361,6 +1361,7 @@
         $(".display-positions .position > i.fa-times").click(function () {
             $(this).parents(".display-positions").css("display", "none");
             $(this).parents(".display-positions").next(".add-position").css("display", "none");
+            return false;
         });
 
         function textval() {

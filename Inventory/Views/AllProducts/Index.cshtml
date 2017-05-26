@@ -70,19 +70,19 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="content">
                         <h2>Open Invoice</h2>
-                        <p>Rs&nbsp;10000</p>
+                        <p><text class="localization"></text>10000</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="content">
                         <h2>Over Due</h2>
-                        <p>Rs&nbsp;10000</p>
+                        <p><text class="localization"></text>10000</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="table-responsive">
+                    <div>
                         <table class="table  table-borderedtable-striped bulk_action" id="producttable">
                             <thead class="thead-inverse">
                                 <tr>
@@ -119,7 +119,7 @@
                                             <td class="col-md-2">@item.brand</td>
                                             <td class="col-md-2">@item.model</td>
                                             <td class="col-md-2">@item.Measurement @item.weight</td>
-                                            <td class="col-md-1">Rs.@item.total_price</td>
+                                            <td class="col-md-1"><text class="localization"></text>@item.total_price</td>
                                             <td class="col-md-1">
                                                 <div class="btn-group">
                                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
@@ -162,7 +162,7 @@
                                                 <p><strong>Model: </strong> @item.model </p>
                                                 <ul class="list-unstyled">
                                                     <li><i class="fa fa-building"></i><span> Measurement:</span> @item.Measurement @item.weight</li>
-                                                    <li><i class="fa fa-money"></i><span> Total Price:</span>Rs.@item.total_price </li>
+                                                    <li><i class="fa fa-money"></i><span> Total Price:</span><text class="localization"></text>@item.total_price </li>
                                                 </ul>
                                             </div>
                                             <div class="right col-xs-5 text-center"> 

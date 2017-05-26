@@ -1,5 +1,6 @@
 ﻿@if(Model != null)
 { 
+    <input type="hidden" value="@Model.Currency" id="currency"/>
 <ul class="nav navbar-nav navbar-right">
     <li class="">
         @*<img src="/images/img.jpg" alt="">*@
@@ -49,5 +50,11 @@
         </div>
     </a>
 </div>
-
+<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var currency = $('#currency').val().slice(-2).replace(')', '');
+            $('.localization').html(currency);
+        });
+    </script>
 }
