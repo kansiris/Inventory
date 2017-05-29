@@ -44,7 +44,7 @@
                                 
                                 <div class="col-xs-12 col-md-3 margin-bottom">
                                     <div class="row padding-bottom date" id="po_date"> Date : <script> document.write(new Date().toLocaleDateString('en-GB'));</script></div>
-                                    <div class="row total-amount"> Rs <span>@ViewBag.totalamount</span> </div>
+                                    <div class="row total-amount"> <text class="localization"></text> <span>@ViewBag.totalamount</span> </div>
                                 </div>
                             </div>
                             <div class="row padding-bottom">
@@ -81,7 +81,7 @@
                                             <td class="col-xs-6 col-md-4">
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="shipping_date" name="date" placeholder="MM/DD/YYYY" type="text" onchange="checkdate(this.value)"/>
+                                                    <input class="form-control" id="shipping_date" name="date" placeholder="MM/DD/YYYY" type="text"/>
                                                 </div>
                                             </td>
                                             <td class="col-xs-6 col-md-2">Shipping Terms</td>
@@ -117,8 +117,8 @@
                                                             <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
                                                             <td class="col-md-3 product-variation"><span>@item.Measurement</span></td>
                                                             <td class="col-md-2 quantity-changes">@item.Quantity</td>
-                                                            <td class="col-md-1 product-price">Rs <span>@item.cost_price</span></td>
-                                                            <td class="col-md-1 product-price">Rs <span>@item.total_price</span></td>
+                                                            <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.cost_price</span></td>
+                                                            <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
                                                         </tr>
                                                     }
                                                 }
@@ -136,7 +136,7 @@
                                 <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
                                     <div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7">Rs @ViewBag.totalamount</div>
+                                        <div class="col-xs-6 col-md-7"><text class="localization"></text> @ViewBag.totalamount</div>
                                     </div>
                                     <div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="row sub-total">
                                         <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right" >:</span></div>
-                                        <div class="col-xs-6 col-md-7" id="grandtotal">Rs 0.00</div>
+                                        <div class="col-xs-6 col-md-7" id="grandtotal"><text class="localization"></text> 0.00</div>
                                     </div>
                                 </div>
                             </div>
@@ -218,17 +218,17 @@
                 $(this).val('100');
             }
         });
-        function checkdate(dateval) {
-            alert(dateval);
-            var createddate = ($('#po_date').text()).split(';')[1];
-            if (dateval > createddate) {
-            $('input[name="date"]').val()=dateval;
-            }
-            else {
-                alert("plesae select a correct date");
-                $('input[name="date"]').val() = "";
-            }
-        }
+        //function checkdate(dateval) {
+        //    alert(dateval);
+        //    var createddate = ($('#po_date').text()).split(';')[1];
+        //    if (dateval > createddate) {
+        //    $('input[name="date"]').val()=dateval;
+        //    }
+        //    else {
+        //        alert("plesae select a correct date");
+        //        $('input[name="date"]').val() = "";
+        //    }
+        //}
     </script>
 }
 

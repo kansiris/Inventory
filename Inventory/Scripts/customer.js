@@ -947,6 +947,14 @@ function forunderstand(array) {
     });
 }
 
+//for displaying all pos
+function viewallpos(cid, cname) {
+    alert(cid);
+    location.href = '/Products/PosOfCustomer?cid=' + cid;
+}
+
+
+
 function errormsg(msg) {
     $("body").overhang({
         type: "error",

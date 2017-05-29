@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewBag.Title = "purchaseorder";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
+}
+<!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-progressbar -->
+<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+<!-- JQVMap -->
+<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+<!-- bootstrap-daterangepicker -->
+<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+
+<!--- Tabs in Graph Section ---->
+<link rel="stylesheet" type="text/css" href="~/Scripts/css/reset.css">
+<link rel="stylesheet" type="text/css" href="~/Scripts/css/styles.css">
+<div class="container body">
+    <div class="main_container">
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="container">
+                <form>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="row">
+                                <div class="form-title col-xs-12 col-md-12">Purchase Order</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row total-border">
+                        <div class="col-xs-12 col-md-12">
+                           
+                                @{ Html.RenderAction("CustomerforPOs", "Products");}
+
+                                @if (ViewBag.records != null)
+                                {
+                                    foreach (var item in ViewBag.records)
+                                    {
+                                        <div class="row margin-bottom">
+                                            <div class="col-xs-12 col-md-3 margin-bottom">
+                                                <div class="row padding-bottom date" id="po_date">
+                                                    Date :@item.created_date
+                                                </div>
+                                                <div class="row total-amount"> <text class="localization"></text> <span>@item.total_price</span> </div>
+                                            </div>
+                                        </div>
+                                    <div class="row padding-bottom">
+                                        <div class="col-xs-12 col-md-7 to-address margin-bottom"> <span>To : Xsilica Software Solutions</span> </div>
+                                        <div class="col-xs-12 col-md-5 margin-bottom">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-5 po-number">Purchase Order Number</div>
+                                                <div class="col-xs-12 col-md-7">
+                                                    <input type="text" id="ponumber" class="form-control" value="@item.Prchaseorder_no">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row po-date">
+                                        <table class="table table-bordered col-xs-12 col-md-12">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="col-xs-6 col-md-2">Payment Date</td>
+                                                    <td class="col-xs-6 col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                                                            <input class="form-control" id="payment_date" name="date" type="text" value="@item.Payment_date"/>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-xs-6 col-md-2">Payment Terms</td>
+                                                    <td class="col-xs-6 col-md-4">
+                                                        <input type="text" id="payment_terms" class="form-control"value="@item.payment_terms">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-xs-6 col-md-2">Shipping Date</td>
+                                                    <td class="col-xs-6 col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                                                            <input class="form-control" id="shipping_date" name="date" type="text" value="@item.shipping_date"/>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-xs-6 col-md-2">Shipping Terms</td>
+                                                    <td class="col-xs-6 col-md-4">
+                                                        <input type="text" id="shipping_terms" class="form-control" value="@item.shipping_terms">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    Html.RenderAction("ViewPoproducts", "Products");
+                                   
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6 remarks margin-top">
+                                            <label>Remarks</label>
+                                            <textarea class="form-control" rows="3" id="comment" >@item.remarks</textarea>
+                                        </div>
+                                        <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
+                                            <div class="row sub-total margin-bottom">
+                                                <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
+                                                <div class="col-xs-6 col-md-7"><text class="localization"></text> @item.sub_total</div>
+                                            </div>
+                                            <div class="row sub-total margin-bottom">
+                                                <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
+                                                <div class="col-xs-6 col-md-7"><input id="vat" value="@item.vat" max='100' style="width:100px" onchange="calculate(@ViewBag.totalamount)">%</div>
+                                            </div>
+                                            <div class="row sub-total margin-bottom">
+                                                <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
+                                                <div class="col-xs-6 col-md-7"><input id="discount" value="@item.discount" max='100' style="width:100px" onchange="calculate(@ViewBag.totalamount)">%</div>
+                                            </div>
+                                            <div class="row sub-total">
+                                                <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
+                                                <div class="col-xs-6 col-md-7" id="grandtotal"><text class="localization"></text> @item.grand_total</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <center><button type="button" id="backtocustomer">closeView</button></center>
+                                    @*<div class="row margin-top">
+                                        <div class="col-xs-12 col-md-6 margin-top margin-bottom terms-conditions">
+                                            <a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions</a>
+                                            <ul class="terms-content margin-top">
+                                                <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+                                                <li>2) Text has been the industry's standard dummy text ever since</li>
+                                                <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
+                                                <li>4) Here we have industry's standard dummy text ever since</li>
+                                                <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
+                                                <li>6) Enter content has been the industry's standard dummy text ever since</li>
+                                            </ul>
+                                        </div>
+                                    </div>*@
+                                    }
+                                }
+                            </div>
+                        </div>
+                        @*<div class="row margin-top">
+                                <div class="col-xs-12 col-md-12">
+                                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
+                                    <button type="button" class="btn btn-primary pull-right invite" onclick="insertpo(@ViewBag.totalamount)"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Submit </button>
+                                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+                                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor4"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                                </div>
+                            </div>*@
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+    </div>
+    @section scripts{
+        <script type="text/javascript" language="javascript" src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" language="javascript" src="~/Scripts/js/modernizr.js"></script>
+        <script type="text/javascript" language="javascript" src="~/Scripts/js/main.js"></script>
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/js/jquery-ui.min.js" language="javascript"></script>
+        <script type="text/javascript" src="~/Scripts/js/tag-it.js" language="javascript"></script>
+        <script type="text/javascript" src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+
+        <script src="~/Scripts/shopproduct.js"></script>
+        <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
+        <script>
+            $(document).ready(function () {
+                var createddate = ($('#po_date').text()).split(';')[1];
+                var date_input = $('input[name="date"]'); //our date input has the name "date"
+                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                date_input.datepicker({
+                    format: 'dd/MM/yyyy',
+                    container: container,
+                    todayHighlight: true,
+                    autoclose: true,
+                })
+            });
+        </script>
+        <script type="text/javascript">
+            $('#backtocustomer').click(function () {
+                document.location = '@Url.Action("Index", "Customer")';
+            });
+
+            $('#numberbox').keyup(function () {
+                if ($(this).val() > 100) {
+                    warnmsg("No numbers above 100");
+                    $(this).val('100');
+                }
+            });
+
+        </script>
+    }
+
+

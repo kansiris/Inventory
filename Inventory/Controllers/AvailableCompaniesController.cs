@@ -45,7 +45,7 @@ namespace Inventory.Controllers
         [HttpPost]
         public ActionResult Index(string email, string usertype, string loginpassword, string userid)
         {
-            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, userid, long.Parse(usertype));
             UserMaster userMaster = new UserMaster();
             if (value.HasRows)
             {

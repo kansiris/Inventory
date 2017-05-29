@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "PosOfCustomer";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
+}
+<!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-progressbar -->
+<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+<!-- JQVMap -->
+<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+<!-- bootstrap-daterangepicker -->
+<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+
+<!--- Tabs in Graph Section ---->
+<link rel="stylesheet" type="text/css" href="~/Scripts/css/reset.css">
+<link rel="stylesheet" type="text/css" href="~/Scripts/css/styles.css">
+
+
+@if (ViewBag.records != null)
+{
+    <div class="row" id="porecords">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div>
+                <table class="table  table-borderedtable-striped bulk_action" id="postable">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Prchaseorder Number</th>
+                            <th>Company Name</th>
+                            <th>Total Price</th>
+                            <th>Payment Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.records.Count != 0)
+                        {
+                            foreach (var item in ViewBag.records)
+                            {
+                                <tr>
+                                    <td>@item.Prchaseorder_no</td>
+                                    <td> @item.company_name </td>
+                                    <td> @item.total_price </td>
+                                    <td> @item.Payment_date </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                                            <ul class="dropdown-menu">
+                                                <li> <a onclick="viewpodetails(@item.Prchaseorder_no,@item.customer_id);" ><i class="fa fa-eye" aria-hidden="true"></i>View PO Details</a> </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6"><p>No Records Available</p></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" id="potable1" style="display:none">
+                @foreach (var item in ViewBag.records)
+                {
+                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                        <div class="well profile_view">
+                            <div class="col-sm-12">
+                                <h4 class="brief"><i>@item.Prchaseorder_no</i></h4>
+                                <div class="left col-xs-7">
+                                    <h2>@item.company_name</h2>
+                                    <p><strong>Total: </strong>@item.total_price</p>
+                                    <ul class="list-unstyled">
+                                        <li><i class="fa fa-building"></i><span> Address:</span> Nizampet </li>
+                                        <li><i class="fa fa-phone"></i><span> Payment date:</span>@item.Payment_date </li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            <div class="col-xs-12 bottom text-center">
+                                <div class="col-xs-12 col-sm-6 emphasis">
+                                    <p class="ratings"> <a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star"></span></a> <a href="#"><span class="fa fa-star-o"></span></a> </p>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 emphasis">
+                                    <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i> </button>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="viewpodetails(@item.Prchaseorder_no,@item.customer_id);"> <i class="fa fa-user"> </i> View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript" language="javascript" src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Scripts/js/modernizr.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Scripts/js/main.js"></script>
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/jquery-ui.min.js" language="javascript"></script>
+    <script type="text/javascript" src="~/Scripts/js/tag-it.js" language="javascript"></script>
+    <script type="text/javascript" src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
+@*Over Hang*@
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
+
+@Scripts.Render("~/bundles/ShopProduct")
+
+}
