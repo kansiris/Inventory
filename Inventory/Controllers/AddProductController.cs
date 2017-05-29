@@ -117,26 +117,26 @@ namespace Inventory.Controllers
                 }
                 #endregion
 
-                //#region Update Product
-                //if (command == "UpdateProduct")
-                //{
-                //    int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
-                //        product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
-                //        product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                //        product.product_description, product.product_tags.Replace("!",""), product.product_images);
-                //    if (count > 0)
-                //    {
-                //        for (int i = 0; i < product.Quantity_Qty.Count; i++)
-                //        {
-                //            int response = ProductService.UpdateReorder(user.DbName, product.Qid[i].ToString(), product.Quantity_Qty[i], product.Reorder_level[i], product.Quantity_Total);
-                //        }
-                //        TempData["smsg"] = "Product Updated Successfully!!!"; //Success Message
-                //    }
-                //    TempData["msg"] = "Failed To update product"; // Failure Message
+                #region Update Product
+                if (command == "UpdateProduct")
+                {
+                    int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
+                        product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
+                        product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
+                        product.product_description, product.product_tags.Replace("!", ""), product.product_images);
+                    if (count > 0)
+                    {
+                        for (int i = 0; i < product.Quantity_Qty.Count; i++)
+                        {
+                            int response = ProductService.UpdateReorder(user.DbName, product.Qid[i].ToString(), product.Quantity_Qty[i], product.Reorder_level[i], product.Quantity_Total);
+                        }
+                        TempData["smsg"] = "Product Updated Successfully!!!"; //Success Message
+                    }
+                    TempData["msg"] = "Failed To update product"; // Failure Message
                     return RedirectToAction("Index", "AllProducts");
 
-                //}
-                //#endregion
+                }
+                #endregion
             }
             return View();
         }
