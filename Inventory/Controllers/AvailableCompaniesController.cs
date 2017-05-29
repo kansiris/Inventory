@@ -45,7 +45,8 @@ namespace Inventory.Controllers
         [HttpPost]
         public ActionResult Index(string email, string usertype, string loginpassword, string userid)
         {
-            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+            //parameter_override (1)Here i'm passing user id in place of user_site which will not effect other conditions
+            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, userid, long.Parse(usertype)); 
             UserMaster userMaster = new UserMaster();
             if (value.HasRows)
             {

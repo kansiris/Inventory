@@ -35,8 +35,8 @@ namespace Inventory.Controllers
         {
             if (command == "Authenticate")
             {
-                try
-                {
+                //try
+                //{
                     SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
                     if (value.Read())
                     {
@@ -58,11 +58,11 @@ namespace Inventory.Controllers
                         //return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                         //ViewBag.invalid = "Confirm Your Email-ID then Login";   
                     }
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("Index", "ServerDown");
-                }
+                //}
+                //catch (Exception)
+                //{
+                //    return RedirectToAction("Index", "ServerDown");
+                //}
                 
             }
             if (command == "Insert")
