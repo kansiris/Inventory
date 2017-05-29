@@ -4787,6 +4787,9 @@
     <Content Include="Views\Products\CustomerforPOs.cshtml" />
     <Content Include="Views\Products\AllCategories.cshtml" />
     <Content Include="Views\Products\AllSubCategories.cshtml" />
+    <Content Include="Views\Products\PosOfCustomer.cshtml" />
+    <Content Include="Views\Products\ViewPoDetails.cshtml" />
+    <Content Include="Views\Products\ViewPoproducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

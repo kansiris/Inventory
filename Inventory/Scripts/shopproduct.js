@@ -79,10 +79,7 @@ function removecart(cartid) {
 function genaratepo() {
     var customerid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
     var cname = document.URL.split('&&')[1].split('=')[1];
-   
     location.href = '/Products/GenaratePOs?cid=' + customerid + '&cname=' + cname;
-
-
 }
 
 $('#plus').click(function () {
@@ -90,7 +87,7 @@ $('#plus').click(function () {
     alert(qty);
 });
 
-updatecart
+//updatecart
 function updatecart(cartid, quantity, costprice) {
     cid = location.search.split('cid=')[1];
     
@@ -127,7 +124,6 @@ function updatecart(cartid, quantity, costprice) {
         quantity = inputqty;
         alert(quantity);
     }
-
 }
 function updatecart1(cartid, quantity, costprice) {
    
@@ -223,21 +219,34 @@ function insertpo(totalamount) {
     });
 }
 
+
+
 function checkponumber(passedvalue){
     alert(passedvalue);
+
+    $.ajax({
+        url: '/Products/CheckPoNum',
+        type: 'POST',
+        data: JSON.stringify({ Prchaseorder_no: passedvalue }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique"){} 
+            else {
+                existsmsg("Purchase Order Number Alredy Exists.Please Enter a Unique Number");
+                $('#ponumber').val() = "";
+            }
+        },
+        error: function (data)
+        { errormsg("Failed!!!"); }
+    });
 }
-//function checknum(some) {
-//    alert(some);
-//    if(some<1){
-//        alert(Invalidquatity);
-//        updatecart();
-//    }
-//    else {
 
-//    }
-
-//}
-
+//for displaying all pos
+function viewpodetails(ponumber,cid) {
+    alert(ponumber);
+    location.href = '/Products/ViewPoDetails?Prchaseorder_no=' + ponumber+'&cid='+cid;
+}
 
 function errormsg(msg) {
     $("body").overhang({

@@ -277,13 +277,42 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "basedoncustomeridcartdata", id);
         }
+        //Getpodata
+            public static SqlDataReader Getpodata(string dbname, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "basedoncustomeridpodata", Prchaseorder_no);
+        }
 
+        //Getpoproductdata
+
+            public static SqlDataReader Getpoproductdata(string dbname, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "PoProductdetails", Prchaseorder_no);
+        }
         public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement,cid);
            
+        }
+        public static SqlDataReader checkponum(string dbname, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkponum", Prchaseorder_no);
+
+        }
+
+        public static SqlDataReader PosOfCustomer(string dbname, string cid)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "posofcustomer", cid);
         }
     }
 }

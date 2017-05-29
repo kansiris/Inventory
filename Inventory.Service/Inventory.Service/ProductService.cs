@@ -214,11 +214,31 @@ namespace Inventory.Service
         {
             return ProductRepository.Getcartdata(dbname, cid);
         }
-        
-             public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
+
+        public static SqlDataReader Getpodata(string dbname, string Prchaseorder_no)
+        {
+            return ProductRepository.Getpodata(dbname, Prchaseorder_no);
+        }
+
+        public static SqlDataReader Getpoproductdata(string dbname, string Prchaseorder_no)
+        {
+            return ProductRepository.Getpoproductdata(dbname, Prchaseorder_no);
+        }
+
+        public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
         {
             return ProductRepository.checkcartdata(dbname, product_name, Measurement,cid);
         }
 
+        public static SqlDataReader checkponum(string dbname, string Prchaseorder_no)
+        {
+            return ProductRepository.checkponum(dbname, Prchaseorder_no);
+        }
+        //for displayiung Po's
+
+        public static SqlDataReader PosOfCustomer(string dbname, string cid)
+        {
+            return ProductRepository.PosOfCustomer(dbname, cid);
+        }
     }
 }

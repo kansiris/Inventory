@@ -9,7 +9,7 @@ namespace Inventory.Models
     {
         public string ID { get; set; }
         public string customer_id { get; set; }
-        
+        public string company_name { get; set; }
         public string product_id { get; set; }
         public string product_name { get; set; }
         public string batch_number { get; set; }
@@ -23,6 +23,8 @@ namespace Inventory.Models
         public string selling_price { get; set; }
         public string tax { get; set; }
         public string discount { get; set; }
+        public string description { get; set; }
+
         public string shipping_price { get; set; }
         public string total_price { get; set; }
         public string Measurement { get; set; }
@@ -42,8 +44,18 @@ namespace Inventory.Models
         public string Quantity { get; set; }
         public int cart_id { get; set; }
 
-        public string status { get; set; }
         
+        public string payment_terms { get; set; }
+        public string shipping_terms { get; set; }
+        public string remarks { get; set; }
+        public string sub_total { get; set; }
+        public string vat { get; set; }
+        public string grand_total { get; set; }
+        public string shipping_date { get; set; }
+
+
+        public string status { get; set; }
+
         //Quantity In Hand Related Fields
         public int Quantity_id { get; set; }
         public string Quantity_area { get; set; }
@@ -54,5 +66,8 @@ namespace Inventory.Models
         public List<int> Qid { get; set; }
         public string Quantity_Total { get; set; }
         public string Qty_Reorder { get; set; }
+        public string Prchaseorder_no { get; set; }
+        public string Payment_date { get; set; }
+
     }
 }

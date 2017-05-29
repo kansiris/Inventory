@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.SqlClient;
 
 namespace Inventory.Controllers
 {
@@ -196,11 +197,11 @@ namespace Inventory.Controllers
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-               
+
                 int count = ProductService.Updatecart(user.DbName, cart_id, Quantity, total_price);
                 if (count > 0)
-                   return Json("success");
-                }
+                    return Json("success");
+            }
             return Json("unique");
         }
 
@@ -231,16 +232,14 @@ namespace Inventory.Controllers
         }
         //for genRte pos
         [HttpGet]
-        public PartialViewResult GenaratePOs(string cid, string cname)
+        public PartialViewResult GenaratePOs(string cid, string cname, string type)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var dt = new DataTable();
                 var records = ProductService.Getcartdata(user.DbName, cid);
                 dt.Load(records);
-
                 List<Product> cartaddedproducts = (from DataRow row in dt.Rows
                                                    select new Product()
                                                    {
@@ -318,58 +317,148 @@ namespace Inventory.Controllers
         public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string remarks, string sub_total, float vat, float discount, string grand_total)
 
         {
-            //DateTime newcreated_date = DateTime.ParseExact(created_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            //DateTime newPayment_date = DateTime.ParseExact(Payment_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            //DateTime newshipping_date = DateTime.ParseExact(shipping_date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            // int count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, remarks, sub_total, vat, discount, grand_total);
             var dt = new DataTable();
             var records = ProductService.Getcartdata(user.DbName, cid);
             dt.Load(records);
-            
+
             List<Product> cartaddedproduct = (from DataRow row in dt.Rows
-                                               select new Product()
-                                               {
-                                                   customer_id = row["customer_id"].ToString(),
-                                                   product_name = row["product_name"].ToString(),
-                                                   cost_price = row["cost_price"].ToString(),
-                                                   Quantity = row["Quantity"].ToString(),
-                                                   //product_images = row["product_images"].ToString(),
-                                                   Measurement = row["Measurement"].ToString(),
-                                                   total_price = row["total_price"].ToString(),
-                                               }).ToList();
+                                              select new Product()
+                                              {
+                                                  customer_id = row["customer_id"].ToString(),
+                                                  product_name = row["product_name"].ToString(),
+                                                  cost_price = row["cost_price"].ToString(),
+                                                  Quantity = row["Quantity"].ToString(),
+                                                  //product_images = row["product_images"].ToString(),
+                                                  Measurement = row["Measurement"].ToString(),
+                                                  total_price = row["total_price"].ToString(),
+                                              }).ToList();
             var ff = cartaddedproduct.Count;
             int count = 0;
-            //foreach (var author in cartaddedproducts)
-            //{
-            //    Console.WriteLine(author);
-            //}
-            for (int i = 0; i < ff; i++)
-            {
-                string product_name = (cartaddedproduct.Select(m => m.product_name).ToList())[i];
-                //string product_name = product_names[i];
-                //string product_name = (cartaddedproducts.Select(m => m.product_name).ToString()).ToList();
-                //var prices = cartaddedproducts.Select(m => m.cost_price).ToList();
-                string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
-               
-                //var quantitys = cartaddedproducts.Select(m => m.Quantity).ToList();
-                string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
-               
-                //var descriptions = cartaddedproducts.Select(m => m.Measurement).ToList();
-                string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
-                
-                string total_price = sub_total;
+            var counts = ProductService.checkponum(user.DbName, Prchaseorder_no);
 
-                count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
-                count++;
+            if (counts.HasRows)
+            {
+                return Json("exists");
             }
-
-            if (count > 0)
+            else
             {
-                ProductService.Emptycart(user.DbName, cid);
-                return Json("success");
+                for (int i = 0; i < ff; i++)
+                {
+                    string product_name = (cartaddedproduct.Select(m => m.product_name).ToList())[i];
+                    string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
+                    string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
+                    string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
+                    string total_price = sub_total;
+                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
+                    count++;
+                }
+
+                if (count > 0)
+                {
+                    ProductService.Emptycart(user.DbName, cid);
+                    return Json("success");
+                }
+                return Json("unique");
+            }
+        }
+
+        public JsonResult CheckPoNum(string Prchaseorder_no)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+
+                var count = ProductService.checkponum(user.DbName, Prchaseorder_no);
+                if (count.HasRows)
+                    return Json("exists");
             }
             return Json("unique");
+        }
+
+        //for displaying pos of customer
+        public PartialViewResult PosOfCustomer(string cid)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = ProductService.PosOfCustomer(user.DbName, cid);
+                dt.Load(records);
+                List<Product> posofcustom = (from DataRow row in dt.Rows
+                                             select new Product()
+                                             {
+                                                 customer_id = row["customer_id"].ToString(),
+                                                 company_name = row["company_name"].ToString(),
+                                                 Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                                 total_price = row["total_price"].ToString(),
+                                                 Payment_date = row["Payment_date"].ToString(),
+                                             }).ToList();
+                ViewBag.records = posofcustom;
+                return PartialView("PosOfCustomer", ViewBag.records);
+            }
+            return PartialView("PosOfCustomer", null);
+        }
+
+        //for view of pos details
+
+        //for displaying pos of customer
+        public PartialViewResult ViewPoDetails(string Prchaseorder_no,string cid)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = ProductService.Getpodata(user.DbName, Prchaseorder_no);
+                dt.Load(records);
+                List<Product> podetails = (from DataRow row in dt.Rows
+                                             select new Product()
+                                             {
+                                                 
+                                                 Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                                 payment_terms = row["payment_terms"].ToString(),
+                                                 shipping_terms = row["shipping_terms"].ToString(),
+                                                 remarks = row["remarks"].ToString(),
+                                                 sub_total = row["sub_total"].ToString(),
+                                                 vat = row["vat"].ToString(),
+                                                 discount = row["discount"].ToString(),
+                                                 grand_total = row["grand_total"].ToString(),
+                                                 total_price = row["total_price"].ToString(),
+                                                 created_date = row["created_date"].ToString(),
+                                                 Payment_date = row["Payment_date"].ToString(),
+                                                 shipping_date = row["shipping_date"].ToString(),
+                                             }).ToList();
+                ViewBag.records = podetails;
+                return PartialView("ViewPoDetails", ViewBag.records);
+            }
+            return PartialView("ViewPoDetails", null);
+        }
+
+        //for displaying pos of customer(multiple products partview)
+        public PartialViewResult ViewPoproducts(string Prchaseorder_no, string cid)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = ProductService.Getpoproductdata(user.DbName, Prchaseorder_no);
+                dt.Load(records);
+                List<Product> podetails = (from DataRow row in dt.Rows
+                                           select new Product()
+                                           {
+                                                         product_name = row["product_name"].ToString(),
+                                                        description = row["description"].ToString(),
+                                                        Quantity = row["Quantity"].ToString(),
+                                                       cost_price = row["cost_price"].ToString(),
+                                                       total_price = row["total_price"].ToString(),
+                                           }).ToList();
+                ViewBag.records = podetails;
+                return PartialView("ViewPoproducts", ViewBag.records);
+            }
+            return PartialView("ViewPoproducts", null);
         }
     }
 }
