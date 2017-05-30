@@ -21,6 +21,7 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "FranchisesSelectAllRows");
         }
         #endregion
+
         #region UserSelectRow
         public static SqlDataReader UserSelectRow(string Email_ID, string Password)
         {
@@ -28,6 +29,7 @@ namespace Inventory.Repository
             //return SqlHelper.ExecuteReader(ConnectionString, "getuser", new SqlParameter("@Email_ID", Email_ID) , new SqlParameter("@Password", Password));
         }
         #endregion
+
         #region UserInsertRow
         public static int UserInsertRow(string User_Type, string Description, string User_Id, string Remarks, string User_FName, string User_LName, string Email_ID, string Password, string Company_ID)
         {
@@ -35,6 +37,7 @@ namespace Inventory.Repository
             return count;
         }
         #endregion
+
         #region UserUpdateRow
         public static int UserUpdateRow(string User_Type, string Description, string User_Id, string Remarks, string User_FName, string User_LName, string Email_ID, string Password, string Company_ID)
         {
@@ -42,6 +45,7 @@ namespace Inventory.Repository
             return count;
         }
         #endregion
+
         #region FranchisesDeleteRow
         public static void FranchisesDeleteRow(string Franchise_Id)
         {
@@ -54,7 +58,6 @@ namespace Inventory.Repository
         }
         #endregion
 
-
         #region CreateUser
         public static int CreateUser(string EmailId, string First_Name, string Last_Name, string DB_Name,  DateTime Created_Date, string Password, int SubscriptionId,int UserTypeId,string User_Site,string CompanyName,string Phone,DateTime? SubscriptionDate,int IsActive,string activationcode, string Profile_Picture,
             string Date_Format, string Timezone, string Currency, string companylogo)
@@ -63,6 +66,7 @@ namespace Inventory.Repository
             return count;
         }
         #endregion
+
         #region Authenticateuser
         public static SqlDataReader Authenticateuser(string check,string Email_ID, string Password,string site,long usertypeid)
         {
@@ -70,6 +74,7 @@ namespace Inventory.Repository
             //return SqlHelper.ExecuteReader(ConnectionString, "getuser", new SqlParameter("@Email_ID", Email_ID) , new SqlParameter("@Password", Password));
         }
         #endregion
+
         #region GetUserType
         public static object GetUserTypeId(string type,long id)
         {
@@ -91,6 +96,7 @@ namespace Inventory.Repository
             return count;
         }
         #endregion
+
         #region EmailActivations
         public static int ActivatesEmail(string email,string activationcode,string DB_Name)
         {
@@ -112,6 +118,7 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "getusersite", site);
         }
         #endregion
+
         #region timezone
         public static int updatetimezone(string dateformat, string timezone,string id)
         {
@@ -175,9 +182,9 @@ namespace Inventory.Repository
         #endregion
 
         #region Update Staff
-        public static int UpdateStaff(string type,int staffid,  string firstname, string lastname, long mobile, string email, int vendoraccess, int customeraccess, string jobposition,string userpic)
+        public static int UpdateStaff(string type,int staffid,  string firstname, string lastname, long mobile, string email, int vendoraccess, int customeraccess, string jobposition,string userpic,string status)
         {
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatestaff",type, staffid, firstname, lastname, mobile,email, vendoraccess, customeraccess, jobposition,userpic);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString1, "updatestaff",type, staffid, firstname, lastname, mobile,email, vendoraccess, customeraccess, jobposition,userpic,status);
             return count;
         }
         #endregion
@@ -209,5 +216,6 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteNonQuery(ConnectionString1, "JobPositions", type, id,position,PositionID);
         }
         #endregion
+
     }
 }
