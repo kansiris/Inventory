@@ -49,8 +49,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="col-md-2 product-price">₹ <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
-                                <td class="col-md-2 product-price-total">₹ <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                                <td class="col-md-2 product-price"><text class="localization"></text> <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                                <td class="col-md-2 product-price-total"><text class="localization"></text> <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
                                 <td class="col-md-1 add-to-cart-table">
                                     <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                                     <i class="fa fa-times remove" aria-hidden="true"></i>
@@ -104,10 +104,10 @@
                             
                             <div class="rate-add">
                                 <div class="product-price">
-                                    Price&nbsp;&nbsp;₹<span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+                                    Price&nbsp;&nbsp;<text class="localization"></text><span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                                 </div>
                                 <div class="product-price-total">
-                                    Total&nbsp;&nbsp;₹<span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
+                                    Total&nbsp;&nbsp;<text class="localization"></text><span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                                 </div>
                                 <div class="shipping">
                                     <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
@@ -148,7 +148,7 @@
             var tableprice, divprice, tabletotal, divtotal;
             $('.spinner .btn:first-of-type').click(function () {
                 var plus, v;
-                v = parseInt($(this).parent("div").prev("input[type='text']").val());
+                v = parseInt($(this).parent("div").prev("input[type='text']").val());// alert(v);
                 if (v > 0) {
                     plus = v + 1;
                     $(this).parent("div").prev("input[type='text']").val(plus);
@@ -353,27 +353,4 @@
             });
         });
         //<!---------- mobile cart ------------>
-    </script>
-    @*Error Message*@
-    @if (ViewBag.msg != "" && ViewBag.msg != null)
-    {
-        <script>
-            $("body").overhang({
-                type: "error",
-                message: '@ViewBag.msg',
-                closeConfirm: false
-            });
         </script>
-    }
-
-    @*Success Message*@
-    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
-    {
-        <script>
-            $("body").overhang({
-                type: "success",
-                message: '@ViewBag.smsg',
-                closeConfirm: false
-            });
-        </script>
-    }

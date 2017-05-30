@@ -1,5 +1,7 @@
 ﻿@if(Model != null)
 { 
+    <input type="hidden" value="@Model.Currency" id="currency"/>
+    <input type="hidden" value="@Model.Date_Format" id="dateformat" />
 <ul class="nav navbar-nav navbar-right">
     <li class="">
         @*<img src="/images/img.jpg" alt="">*@
@@ -49,5 +51,13 @@
         </div>
     </a>
 </div>
-
+<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var currency = $('#currency').val().slice(-2).replace(')', '');
+            $('.localization').html(currency);
+            var dateformat = $('#dateformat').val();
+            alert(dateformat);
+        });
+    </script>
 }

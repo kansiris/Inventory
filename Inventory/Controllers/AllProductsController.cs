@@ -38,6 +38,7 @@ namespace Inventory.Controllers
                                         created_date = row["created_date"].ToString(),
                                         status = row["status"].ToString(),
                                         product_images = row["product_images"].ToString(),
+                                        Quantity_Total = row["Total"].ToString(),
                                     }).ToList();
                 Reordering(user.DbName);
                 if (TempData["msg"] != null)

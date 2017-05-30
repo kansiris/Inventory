@@ -79,21 +79,29 @@ function removecart(cartid) {
 function genaratepo() {
     var customerid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
     var cname = document.URL.split('&&')[1].split('=')[1];
-   
     location.href = '/Products/GenaratePOs?cid=' + customerid + '&cname=' + cname;
-
-
 }
+
+$('#plus').click(function () {
+    var qty = this.prev('input[type=text]').val();
+    alert(qty);
+});
 
 //updatecart
 function updatecart(cartid, quantity, costprice) {
     cid = location.search.split('cid=')[1];
-    newquant = quantity + 1;
-    newamunt = costprice * newquant;
-    $.ajax({
+    
+    var inputqty = parseInt($('#qtyinput').val());
+    if (inputqty > 0) {
+        //newquant = quantity + 1;
+        //newamunt = costprice * newquant;
+        inputqty++;
+        newamunt = costprice * inputqty;
+
+      $.ajax({
         url: '/Products/UpdateCart',
         type: 'POST',
-        data: JSON.stringify({ cart_id: cartid, Quantity: newquant, total_price: newamunt }),
+        data: JSON.stringify({ cart_id: cartid, Quantity: inputqty, total_price: newamunt }),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
@@ -104,15 +112,24 @@ function updatecart(cartid, quantity, costprice) {
                 successmsg("Successfully Updated Cart.");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
                 $('#cartrecords').load(url);
+               
             }
         },
         error: function (data)
         { errormsg("Failed!!!"); }
     });
-
+    }
+    else {
+        errormsg("Invalid Quantity");
+        quantity = inputqty;
+        alert(quantity);
+    }
 }
 function updatecart1(cartid, quantity, costprice) {
-
+   
+    var inputqty = $('#qtyinput').val();
+    
+        if(inputqty>0){
     newquant = quantity - 1;
     newamunt = costprice * newquant;
     cid = location.search.split('cid=')[1];
@@ -135,6 +152,11 @@ function updatecart1(cartid, quantity, costprice) {
         error: function (data)
         { errormsg("Failed!!!"); }
     });
+    }
+    else {
+            errormsg("Invalid Quantity");
+            
+    }
 }
 
 //for grand total
@@ -195,6 +217,35 @@ function insertpo(totalamount) {
         error: function (data)
         { errormsg("Failed!!!"); }
     });
+}
+
+
+
+function checkponumber(passedvalue){
+    alert(passedvalue);
+
+    $.ajax({
+        url: '/Products/CheckPoNum',
+        type: 'POST',
+        data: JSON.stringify({ Prchaseorder_no: passedvalue }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique"){} 
+            else {
+                existsmsg("Purchase Order Number Alredy Exists.Please Enter a Unique Number");
+                $('#ponumber').val() = "";
+            }
+        },
+        error: function (data)
+        { errormsg("Failed!!!"); }
+    });
+}
+
+//for displaying all pos
+function viewpodetails(ponumber,cid) {
+    alert(ponumber);
+    location.href = '/Products/ViewPoDetails?Prchaseorder_no=' + ponumber+'&cid='+cid;
 }
 
 function errormsg(msg) {

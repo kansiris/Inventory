@@ -5404,17 +5404,18 @@ form hr {
 
 .info-title {
     background: #e3e3e3;
-    padding: 10px 15px;
+    padding: 0px 15px;
     border-radius: 5px;
     color: #333;
     font-weight: bold;
-    line-height: 30px;
+    line-height: 42px;
 }
 
     .info-title .btn-success {
         background: #0b9144;
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 5px;
+		padding: 5px 15px;
     }
 
 /*form .customer-information ul.cd-tabs-navigation {
@@ -6926,4 +6927,13 @@ ul.terms-content li{
     table#productstable > tbody > tr > td:nth-of-type(5)::before{ content: "Price"}
     table#productstable > tbody > tr > td:nth-of-type(6)::before{ content: "Total"}
     table#productstable > tbody > tr > td:nth-of-type(7)::before{ content: "Add"}
+	}
+@media only screen and (max-width: 560px){
+	form .cd-tabs-navigation li{
+		width: 45%;
+		margin-bottom: 5px;}
+	form .cd-tabs-navigation li a,
+	form .cd-tabs-navigation a.selected{
+		width: 100%;}
+	
 	}

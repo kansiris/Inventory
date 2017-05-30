@@ -8,7 +8,7 @@
                     <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
                 </div>
                 <div class="col-xs-6 col-md-6 cart-total">
-                    Total: Rs <span>@ViewBag.totalamount</span>
+                    Total: <text class="localization"></text> <span>@ViewBag.totalamount</span>
                 </div>
             </div>
         </div>
@@ -38,15 +38,16 @@
                                     <div class="product-price"><span>@item.cost_price</span>
                                     </div>
                                     <div class="product-price-total">
-                                        ₹ <span id="price1">@item.total_price</span>
+                                        <text class="localization"></text> <span id="price1">@item.total_price</span>
                                     </div>
                                     
                                     <div class="row">
                                         <div class="col-xs-6 qty">
                                             <div class="input-group spinner">
                                                 <label>Qty</label>
-                                                <input type="text" class="form-control" value="@item.Quantity" min="1">
+                                                <input type="text" class="form-control" value="@item.Quantity" min="1" id="qtyinput">
                                                 <div class="input-group-btn-vertical">
+                                                    @*<button class="btn btn-default" type="button" id="plus"><i class="fa fa-caret-up"></i></button>*@
                                                     <button class="btn btn-default" type="button" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"><i class="fa fa-caret-up"></i></button>
                                                     <button class="btn btn-default" type="button" onclick="updatecart1(@item.cart_id,@item.Quantity,@item.cost_price)"><i class="fa fa-caret-down"></i></button>
                                                 </div>

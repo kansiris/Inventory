@@ -256,7 +256,14 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "insertpurchaseOrder", cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity,price, total_price,remarks, sub_total, vat, discount, grand_total);
         }
+        
+            public static int Emptycart(string dbname, string cid)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "emptycart", cid);
 
+        }
         public static int Removefromcart(string dbname, int cart_id)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
@@ -270,13 +277,42 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "basedoncustomeridcartdata", id);
         }
+        //Getpodata
+            public static SqlDataReader Getpodata(string dbname, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "basedoncustomeridpodata", Prchaseorder_no);
+        }
 
+        //Getpoproductdata
+
+            public static SqlDataReader Getpoproductdata(string dbname, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "PoProductdetails", Prchaseorder_no);
+        }
         public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement,cid);
            
+        }
+        public static SqlDataReader checkponum(string dbname, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkponum", Prchaseorder_no);
+
+        }
+
+        public static SqlDataReader PosOfCustomer(string dbname, string cid)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "posofcustomer", cid);
         }
     }
 }
