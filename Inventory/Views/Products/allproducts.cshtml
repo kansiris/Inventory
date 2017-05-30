@@ -19,13 +19,17 @@
                     {
                         foreach (var item in ViewBag.records)
                         {
-
+                            
                             <tr>
+                               
+                               
                                 <td class="col-md-1 image">
-                                    @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                                    @*@if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
                                     { <img src="~/ProductImages/@item.product_images" /> }
                                     else
                                     { <img src="~/images/default_product.png" /> }
+                                    <input type="hidden" class="form-control" value="@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1]">*@
+                                    @{Html.RenderAction("allImagesonPid", "Products", new { product_id = @item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1] });}
                                 </td>
                                 <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
                                 <td class="col-md-2 product-variation">
@@ -79,12 +83,13 @@
                         </div>
                         <div class="well">
                             <i class="fa fa-times remove" aria-hidden="true"></i>
+                            
                             <div class="image">
-
-                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                                @{Html.RenderAction("allImagesonPid", "Products", new { product_id = @item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1] });}
+                                @*@if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
                                 { <img src="~/ProductImages/@item.product_images" /> }
                                 else
-                                { <img src="~/images/default_product.png" /> }
+                                { <img src="~/images/default_product.png" /> }*@
 
                             </div>
                             <div class="img-title">

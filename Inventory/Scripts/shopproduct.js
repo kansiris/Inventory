@@ -24,6 +24,7 @@ function ajaxcalling(clickeditem) {
 
 
 function getproducts(value) {
+    alert(value);
     var cid = document.URL.split('=')[1].split('#')[0];
     $.ajax({
         url: '/Products/Getproducts',
@@ -175,15 +176,7 @@ function calculate(totalprice) {
 function insertpo(totalamount) {
     var cid=location.search.split('&')[0].split('cid=')[1];
     var cname = location.search.split('&')[1].split('cname=')[1];
-    //alert(totalamount);
-    //alert($("[id='shipping_terms']").val());
-    //alert($("[id='shipping_date']").val());
-    //alert($("[id='payment_terms']").val());
-    //alert($("[id='payment_date']").val());
-    //alert($("[id='ponumber']").val());
-    //alert($("[id='comment']").val());
-    //alert($("[id='vat']").val());
-    //alert($("[id='discount']").val());
+    
     var shipping_terms = $('#shipping_terms').val();
     var shipping_date = $('#shipping_date').val();
     var payment_terms = $('#payment_terms').val();
@@ -194,9 +187,7 @@ function insertpo(totalamount) {
     var discount = $('#discount').val();
     var grand_total = $('#grandtotal').text();
     var createddate = ($('#po_date').text()).split(';')[1];
-    //var dateofcreate = createddate.split(';')[1];
-    alert(cname);
-  
+    
     $.ajax({
         url: '/Products/GenratePurchaseOrder',
         type: 'POST',
@@ -222,7 +213,7 @@ function insertpo(totalamount) {
 
 
 function checkponumber(passedvalue){
-    alert(passedvalue);
+    //alert(passedvalue);
 
     $.ajax({
         url: '/Products/CheckPoNum',

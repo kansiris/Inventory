@@ -191,8 +191,13 @@ namespace Inventory.Service
         {
             return ProductRepository.Addtocartbyid(dbname, cid);
         }
+        //for images
 
-
+        
+            public static SqlDataReader Getimages(string dbname, string product_id)
+        {
+            return ProductRepository.Getimages(dbname, product_id);
+        }
         //for genarating po
         public static int GenaratePurchaseOrder(string dbname, string cid, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string product_name, string description, string quantity
                 , string price, string total_price, string remarks, string sub_total, float vat, float discount, string grand_total)

@@ -4790,6 +4790,7 @@
     <Content Include="Views\Products\PosOfCustomer.cshtml" />
     <Content Include="Views\Products\ViewPoDetails.cshtml" />
     <Content Include="Views\Products\ViewPoproducts.cshtml" />
+    <Content Include="Views\Products\allImagesonPid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

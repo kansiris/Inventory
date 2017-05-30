@@ -110,6 +110,7 @@ namespace Inventory.Controllers
         {
             var sample = Getproductsbysubcategory(sub_category);
             string myString = sub_category.Replace(" ", "-");
+            
             if (sample != null)
             {
                 return Json(myString);
@@ -157,10 +158,34 @@ namespace Inventory.Controllers
                                    distinctproducts = row["BATCHNOLIST"].ToString(),
                                }).ToList();
                 ViewBag.records = description;
-
+                
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
+        }
+
+
+        //for images
+
+        public PartialViewResult allImagesonPid(string product_id)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var dt = new DataTable();
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = ProductService.Getimages(user.DbName, product_id);
+                dt.Load(records);
+                List<Product> iamges = new List<Product>();
+                iamges = (from DataRow row in dt.Rows
+                          select new Product()
+                          {
+                              product_images = row["product_images"].ToString(),
+                          }).ToList();
+                ViewBag.records = iamges;
+
+                return PartialView("allImagesonPid", ViewBag.records);
+            }
+            return PartialView("allImagesonPid", null);
         }
 
         public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price)
@@ -351,7 +376,6 @@ namespace Inventory.Controllers
                     string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
                     string total_price = sub_total;
                     count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
-                    count++;
                 }
 
                 if (count > 0)
@@ -404,7 +428,7 @@ namespace Inventory.Controllers
         //for view of pos details
 
         //for displaying pos of customer
-        public PartialViewResult ViewPoDetails(string Prchaseorder_no,string cid)
+        public PartialViewResult ViewPoDetails(string Prchaseorder_no, string cid)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -414,22 +438,22 @@ namespace Inventory.Controllers
                 var records = ProductService.Getpodata(user.DbName, Prchaseorder_no);
                 dt.Load(records);
                 List<Product> podetails = (from DataRow row in dt.Rows
-                                             select new Product()
-                                             {
-                                                 
-                                                 Prchaseorder_no = row["Prchaseorder_no"].ToString(),
-                                                 payment_terms = row["payment_terms"].ToString(),
-                                                 shipping_terms = row["shipping_terms"].ToString(),
-                                                 remarks = row["remarks"].ToString(),
-                                                 sub_total = row["sub_total"].ToString(),
-                                                 vat = row["vat"].ToString(),
-                                                 discount = row["discount"].ToString(),
-                                                 grand_total = row["grand_total"].ToString(),
-                                                 total_price = row["total_price"].ToString(),
-                                                 created_date = row["created_date"].ToString(),
-                                                 Payment_date = row["Payment_date"].ToString(),
-                                                 shipping_date = row["shipping_date"].ToString(),
-                                             }).ToList();
+                                           select new Product()
+                                           {
+
+                                               Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                               payment_terms = row["payment_terms"].ToString(),
+                                               shipping_terms = row["shipping_terms"].ToString(),
+                                               remarks = row["remarks"].ToString(),
+                                               sub_total = row["sub_total"].ToString(),
+                                               vat = row["vat"].ToString(),
+                                               discount = row["discount"].ToString(),
+                                               grand_total = row["grand_total"].ToString(),
+                                               total_price = row["total_price"].ToString(),
+                                               created_date = row["created_date"].ToString(),
+                                               Payment_date = row["Payment_date"].ToString(),
+                                               shipping_date = row["shipping_date"].ToString(),
+                                           }).ToList();
                 ViewBag.records = podetails;
                 return PartialView("ViewPoDetails", ViewBag.records);
             }
@@ -449,11 +473,11 @@ namespace Inventory.Controllers
                 List<Product> podetails = (from DataRow row in dt.Rows
                                            select new Product()
                                            {
-                                                         product_name = row["product_name"].ToString(),
-                                                        description = row["description"].ToString(),
-                                                        Quantity = row["Quantity"].ToString(),
-                                                       cost_price = row["cost_price"].ToString(),
-                                                       total_price = row["total_price"].ToString(),
+                                               product_name = row["product_name"].ToString(),
+                                               description = row["description"].ToString(),
+                                               Quantity = row["Quantity"].ToString(),
+                                               cost_price = row["cost_price"].ToString(),
+                                               total_price = row["total_price"].ToString(),
                                            }).ToList();
                 ViewBag.records = podetails;
                 return PartialView("ViewPoproducts", ViewBag.records);
