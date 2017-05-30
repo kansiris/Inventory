@@ -131,7 +131,7 @@ namespace Inventory.Controllers
             //ViewBag.AvailableQty = convertquantity(dbname, pid);
             var AvailableQty = convertquantity(dbname, pid);
             //ViewBag.total = ViewBag.AvailableQty[0].Quantity_Total;
-            
+
             int productlog = ProductService.ProductFunctionalitieslog(dbname, id, product.ID, product.product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                         product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,

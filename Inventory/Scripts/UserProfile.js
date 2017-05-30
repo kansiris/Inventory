@@ -483,7 +483,7 @@ $("#refresh").click(function (e) {
     $(".overlay").show();
     var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
     var url = 'UserProfile/GetStaffRecords?id=' + id + '';
-    $('#partialdiv').empty().load(url, function () { Pagination(), loadstaff(); });
+    $('#partialdiv').empty().load(url, function () { Pagination(); });
     $(".overlay").hide();
 });
 //</script>
@@ -534,10 +534,10 @@ function loadstaff() {
         var v = $(this).children("a").text();
         if (v == "Active") {
             $(this).parents("tr").children("td").css("color", "#ccc");
-            $(this).prevAll("li").children("a").css("pointer-events", "none"); // Edit Button
-            $(this).prev("li").children("a").css("pointer-events", "none"); // Invite Button
-            $(this).prevAll("li").attr("title", "Activate Staff");
-            $(this).prev("li").attr("title", "Activate Staff");
+            $(this).prev("li").children("a").css("pointer-events", "none"); // Edit Button
+            $(this).prev("li").children("a").css("pointer-events", "none"); // Add Stock Button
+            $(this).prev("li").attr("title", "Activate Product");
+            $(this).prev("li").attr("title", "Activate Product");
             //alert($(this).parents(".btn-group").children(".dropdown-menu").children("li").children("a").text());
         }
     });

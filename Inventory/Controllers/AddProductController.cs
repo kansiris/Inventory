@@ -57,7 +57,7 @@ namespace Inventory.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string command, Product product, HttpPostedFileBase file,string pid)
+        public ActionResult Index(string command, Product product, HttpPostedFileBase file, string pid)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
@@ -150,7 +150,10 @@ namespace Inventory.Controllers
                         }
                         imagename = imagename.TrimStart(',');
                     }
-                    imagename = productimages + "," + imagename;
+                    if (imagename != null)
+                        imagename = productimages + "," + imagename;
+                    else
+                        imagename = productimages;
                     //int count = 0;
                     int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
