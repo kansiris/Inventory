@@ -120,7 +120,7 @@ namespace Inventory.Controllers
             }
             if (command == "updatestaff")
             {
-                count = LoginService.UpdateStaff("staffdetails", int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position, ownerStaff.UserPic);
+                count = LoginService.UpdateStaff("staffdetails", int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position, ownerStaff.UserPic,null);
                 return Json(new { Result = "staffupdated", msg = "User Updated SuccessFully!!!" });
             }
             return Json("Failed");
@@ -141,15 +141,24 @@ namespace Inventory.Controllers
 
         public JsonResult GetParticularStaff(string id, string command)
         {
-            var record = LoginService.GetStaff(int.Parse(id), command);
-            if (record.HasRows)
+            if (command == "particular")
             {
-                var dt = new DataTable();
-                dt.Load(record);
-                var data = StaffDetails(dt);
-                //record.Close();
-                return Json(data.FirstOrDefault());
-                //return Json( JsonConvert.SerializeObject(data));
+                var record = LoginService.GetStaff(int.Parse(id), command);
+                if (record.HasRows)
+                {
+                    var dt = new DataTable();
+                    dt.Load(record);
+                    var data = StaffDetails(dt);
+                    //record.Close();
+                    return Json(data.FirstOrDefault());
+                    //return Json( JsonConvert.SerializeObject(data));
+                }
+            }
+            if (command == "Active" || command == "InActive")
+            {
+                int count = LoginService.UpdateStaff("status", int.Parse(id), null, null, 0, null, 0, 0, null, null, command);
+                if (count > 0)
+                    return Json(command);
             }
             return Json("unique");
         }
@@ -243,5 +252,6 @@ namespace Inventory.Controllers
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
+        
     }
 }
