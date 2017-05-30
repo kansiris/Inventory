@@ -120,10 +120,42 @@ namespace Inventory.Controllers
                 #region Update Product
                 if (command == "UpdateProduct")
                 {
+                    string productimages = convertproduct(user.DbName, pid)[0].product_images;
+                    string imagename = "";
+                    //Uploaded Images
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        for (int i = 0; i < Request.Files.Count; i++)
+                        {
+                            var file1 = Request.Files[i];
+                            if (file1 != null && file1.ContentLength > 0)
+                            {
+                                imagename = imagename + "," + pid + "_" + file1.FileName;
+                                file1.SaveAs(Server.MapPath("~/ProductImages/" + pid + "_" + file1.FileName));
+                            }
+                        }
+                        imagename = imagename.TrimStart(',');
+                    }
+                    //Library Images
+                    if (product.product_images != null)
+                    {
+                        var images = product.product_images.Split(',');
+                        for (int i = 0; i < images.Count(); i++)
+                        {
+                            string fileName = pid + "_" + images[i];
+                            string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
+                            string spath = Server.MapPath("~/images/" + images[i] + "");
+                            System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
+                            imagename = imagename + "," + fileName;
+                        }
+                        imagename = imagename.TrimStart(',');
+                    }
+                    imagename = productimages + "," + imagename;
+                    //int count = 0;
                     int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                         product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                        product.product_description, product.product_tags.Replace("!", ""), product.product_images);
+                        product.product_description, product.product_tags.Replace("!", ""), imagename);
                     if (count > 0)
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)

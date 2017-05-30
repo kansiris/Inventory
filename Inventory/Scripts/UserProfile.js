@@ -267,12 +267,12 @@ function AssignStaff(staffid, command) {
                 errormsg("Failed To Fetch User Details!!! Try Again After Some Time ");
             }
             if (data == 'Active') {
-                successmsg("" + staffid + " is Active");
+                successmsg("Staff is Active");
                 var url = 'UserProfile/GetStaffRecords?id=' + location.search.split('id=')[1] + '';
                 $('#partialdiv').empty().load(url, function () { Pagination(),loadstaff(); });
             }
             if (data == 'InActive') {
-                errormsg("" + staffid + " is InActive");
+                errormsg("Staff is InActive");
                 var url = 'UserProfile/GetStaffRecords?id=' + location.search.split('id=')[1] + '';
                 $('#partialdiv').empty().load(url, function () { Pagination(), loadstaff(); });
             }
@@ -483,7 +483,7 @@ $("#refresh").click(function (e) {
     $(".overlay").show();
     var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
     var url = 'UserProfile/GetStaffRecords?id=' + id + '';
-    $('#partialdiv').empty().load(url, function () { Pagination(); });
+    $('#partialdiv').empty().load(url, function () { Pagination(), loadstaff(); });
     $(".overlay").hide();
 });
 //</script>
@@ -534,10 +534,10 @@ function loadstaff() {
         var v = $(this).children("a").text();
         if (v == "Active") {
             $(this).parents("tr").children("td").css("color", "#ccc");
-            $(this).prev("li").children("a").css("pointer-events", "none"); // Edit Button
-            $(this).prev("li").children("a").css("pointer-events", "none"); // Add Stock Button
-            $(this).prev("li").attr("title", "Activate Product");
-            $(this).prev("li").attr("title", "Activate Product");
+            $(this).prevAll("li").children("a").css("pointer-events", "none"); // Edit Button
+            $(this).prev("li").children("a").css("pointer-events", "none"); // Invite Button
+            $(this).prevAll("li").attr("title", "Activate Staff");
+            $(this).prev("li").attr("title", "Activate Staff");
             //alert($(this).parents(".btn-group").children(".dropdown-menu").children("li").children("a").text());
         }
     });
