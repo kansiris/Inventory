@@ -1502,6 +1502,7 @@
                 $('#product_consumable').val("Non-Consumable");
                 $(".perishable-non, .veg-non").css("display", "none");
             }
+            //alert($('#product_consumable').val());
         });
 
         $(".toggle-consumable #consumable").change(function () {
@@ -1512,6 +1513,7 @@
                 $('#product_consumable').val("Non-Consumable");
                 $(".quantity-veg-non, .quantity-perishable-non").css("display", "none");
             }
+            
         });
 
         $(".veg-non #checkbox1").change(function () {
@@ -1520,6 +1522,7 @@
             } else {
                 $('#product_type').val("Veg");
             }
+            //alert($('#product_type').val());
         });
 
         $(".perishable-non #checkbox1").change(function () {
