@@ -136,6 +136,7 @@ namespace Inventory.Controllers
                         }
                         imagename = imagename.TrimStart(',');
                     }
+
                     //Library Images
                     if (product.product_images != null)
                     {

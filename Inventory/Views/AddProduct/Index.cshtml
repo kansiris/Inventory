@@ -991,12 +991,13 @@
                                 <div class="col-md-5">
                                     <div class="row">
                                         <ul class="col-md-12 admin-product-thumbs">
-                                            @Html.HiddenFor(m => m.product_images, new { Value = particularproduct.product_images })
+                                            @Html.HiddenFor(m => m.product_images)
+                                            @*@Html.HiddenFor()*@
                                             @if (particularproduct.product_images != "")
                                             {
                                                 foreach (var item1 in particularproduct.product_images.Split(','))
                                                 {
-                                                    <li>   <img src="~/ProductImages/@item1" height="50px" width="50px" alt="Product" /></li>
+                                                    <li>   <img src="~/ProductImages/@item1" alt="Product Image" height="50px" width="50px" alt="Product" /></li>
                                                 }
                                             }
                                             else
