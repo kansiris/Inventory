@@ -1234,7 +1234,8 @@
                 todayHighlight: true,
                 autoclose: true,
             });
-
+            //$('#product_consumable').val("Non-Consumable");
+            
             var productid = '@Request.QueryString["pid"]';
 
             if (productid != '') {
@@ -1498,6 +1499,8 @@
             if ($(this).is(":checked")) {
                 $('#product_consumable').val("Consumable");
                 $(".perishable-non, .veg-non").css("display", "block");
+                $('#product_type').val('Veg');
+                $('#product_perishability').val('Perishable');
             } else {
                 $('#product_consumable').val("Non-Consumable");
                 $(".perishable-non, .veg-non").css("display", "none");
