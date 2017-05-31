@@ -225,6 +225,16 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getmeasurmentsbyproduct", product_name);
         }
+
+        //for images
+
+            public static SqlDataReader Getimages(string dbname, String product_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "Getimages", product_id);
+        }
+
         public static int Addtocart(string dbname, string cid, string product_name, string cost_price,  string Quantity, string Measurement, /*string weight,*/ string total_price)
         {
            

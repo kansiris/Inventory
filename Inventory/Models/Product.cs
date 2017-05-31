@@ -24,7 +24,8 @@ namespace Inventory.Models
         public string tax { get; set; }
         public string discount { get; set; }
         public string description { get; set; }
-
+        public string BATCHNOLIST { get; set; }
+        
         public string shipping_price { get; set; }
         public string total_price { get; set; }
         public string Measurement { get; set; }
