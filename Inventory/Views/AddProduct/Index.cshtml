@@ -991,12 +991,13 @@
                                 <div class="col-md-5">
                                     <div class="row">
                                         <ul class="col-md-12 admin-product-thumbs">
-                                            @Html.HiddenFor(m => m.product_images, new { Value = particularproduct.product_images })
+                                            @Html.HiddenFor(m => m.product_images)
+                                            @*@Html.HiddenFor()*@
                                             @if (particularproduct.product_images != "")
                                             {
                                                 foreach (var item1 in particularproduct.product_images.Split(','))
                                                 {
-                                                    <li>   <img src="~/ProductImages/@item1" height="50px" width="50px" alt="Product" /></li>
+                                                    <li>   <img src="~/ProductImages/@item1" alt="Product Image" height="50px" width="50px" alt="Product" /></li>
                                                 }
                                             }
                                             else
@@ -1233,7 +1234,8 @@
                 todayHighlight: true,
                 autoclose: true,
             });
-
+            //$('#product_consumable').val("Non-Consumable");
+            
             var productid = '@Request.QueryString["pid"]';
 
             if (productid != '') {
@@ -1497,10 +1499,13 @@
             if ($(this).is(":checked")) {
                 $('#product_consumable').val("Consumable");
                 $(".perishable-non, .veg-non").css("display", "block");
+                $('#product_type').val('Veg');
+                $('#product_perishability').val('Perishable');
             } else {
                 $('#product_consumable').val("Non-Consumable");
                 $(".perishable-non, .veg-non").css("display", "none");
             }
+            //alert($('#product_consumable').val());
         });
 
         $(".toggle-consumable #consumable").change(function () {
@@ -1511,6 +1516,7 @@
                 $('#product_consumable').val("Non-Consumable");
                 $(".quantity-veg-non, .quantity-perishable-non").css("display", "none");
             }
+            
         });
 
         $(".veg-non #checkbox1").change(function () {
@@ -1519,6 +1525,7 @@
             } else {
                 $('#product_type').val("Veg");
             }
+            //alert($('#product_type').val());
         });
 
         $(".perishable-non #checkbox1").change(function () {

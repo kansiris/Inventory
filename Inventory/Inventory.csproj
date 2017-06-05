@@ -229,6 +229,7 @@
     <Compile Include="Controllers\AdvancedFormController.cs" />
     <Compile Include="Controllers\AllProductsController.cs" />
     <Compile Include="Controllers\AvailableCompaniesController.cs" />
+    <Compile Include="Controllers\AvailablePOController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ChartJS2Controller.cs" />
     <Compile Include="Controllers\ChartJSController.cs" />
@@ -4791,6 +4792,7 @@
     <Content Include="Views\Products\ViewPoDetails.cshtml" />
     <Content Include="Views\Products\ViewPoproducts.cshtml" />
     <Content Include="Views\Products\allImagesonPid.cshtml" />
+    <Content Include="Views\AvailablePO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

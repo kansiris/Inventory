@@ -136,6 +136,7 @@ namespace Inventory.Controllers
                         }
                         imagename = imagename.TrimStart(',');
                     }
+
                     //Library Images
                     if (product.product_images != null)
                     {
@@ -150,7 +151,7 @@ namespace Inventory.Controllers
                         }
                         imagename = imagename.TrimStart(',');
                     }
-                    if (imagename != null)
+                    if (imagename != null && imagename != "")
                         imagename = productimages + "," + imagename;
                     else
                         imagename = productimages;

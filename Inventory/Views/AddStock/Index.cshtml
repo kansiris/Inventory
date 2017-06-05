@@ -267,7 +267,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        @Html.HiddenFor(Model => Model.product_consumable, new { Value = item.product_consumable })
+                                        @Html.HiddenFor(Model => Model.product_consumable, new { Value = item.product_consumable , disabled = "disabled" })
                                         <div class="form-group radio col-xs-4 col-md-4">
                                             <label>
                                                 Consumable
@@ -285,7 +285,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    @Html.HiddenFor(Model => Model.product_type, new { Value = item.product_type })
+                                    @Html.HiddenFor(Model => Model.product_type, new { Value = item.product_type, disabled = "disabled" })
                                     <div class="row quantity-veg-non">
                                         <div class="form-group radio col-xs-4 col-md-4">
                                             <label class="veg">Veg</label>
@@ -301,7 +301,7 @@
                                         </div>
                                     </div>
                                     <div class="row quantity-perishable-non">
-                                        @Html.HiddenFor(Model => Model.product_perishability, new { Value = item.product_perishability })
+                                        @Html.HiddenFor(Model => Model.product_perishability, new { Value = item.product_perishability, disabled = "disabled" })
                                         <div class="form-group radio col-xs-4 col-md-4">
                                             <label class="Perishable">Perishable</label>
                                         </div>
@@ -598,6 +598,9 @@ $(document).ready(function(e) {
     $("input[type='text'], textarea").attr("readonly","true");
     $("input[type='text'].batchnum").removeAttr("readonly");
     $('#product_description').val($('#product_desc').val());
+    $('#consumable').removeAttr("readonly").attr("disabled", true);
+    $('#veg-non').removeAttr("readonly").attr("disabled", true);
+    $('#perishable').removeAttr("readonly").attr("disabled", true);
     var consumable = $('#product_consumable').val()
     var type = $('#product_type').val();
     var perishable = $('#product_perishability').val();
