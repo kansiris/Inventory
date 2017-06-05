@@ -25,8 +25,11 @@
                         <div class="well">
                             <i class="fa fa-times remove" aria-hidden="true" onclick="removecart(@item.cart_id)"></i>
                             <div class="image">
-
-                                <img src="/images/default_product.png">
+                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                                { <img src="~/ProductImages/@item.product_images" /> }
+                                else
+                                { <img src="~/images/default_product.png" /> }
+                                
                             </div>
                             <div class="img-title">
                                

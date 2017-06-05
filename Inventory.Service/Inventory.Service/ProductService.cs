@@ -175,10 +175,10 @@ namespace Inventory.Service
             return ProductRepository.Getdescripton(dbname, product_name);
         }
 
-        public static int Addtocart(string dbname,string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price)
+        public static int Addtocart(string dbname,string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price,string product_images)
         {
             
-            return ProductRepository.Addtocart(dbname, cid, product_name, cost_price, Quantity, Measurement, total_price);
+            return ProductRepository.Addtocart(dbname, cid, product_name, cost_price, Quantity, Measurement, total_price, product_images);
         }
         //Updatecart
             public static int Updatecart(string dbname, int cart_id, string Quantity,string total_price)
@@ -228,6 +228,11 @@ namespace Inventory.Service
         public static SqlDataReader Getpoproductdata(string dbname, string Prchaseorder_no)
         {
             return ProductRepository.Getpoproductdata(dbname, Prchaseorder_no);
+        }
+        //for quty in hand
+        public static SqlDataReader GetqtyInHand(string dbname, string product_id)
+        {
+            return ProductRepository.GetqtyInHand(dbname, product_id);
         }
 
         public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)

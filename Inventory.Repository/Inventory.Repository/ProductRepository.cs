@@ -235,12 +235,12 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "Getimages", product_id);
         }
 
-        public static int Addtocart(string dbname, string cid, string product_name, string cost_price,  string Quantity, string Measurement, /*string weight,*/ string total_price)
+        public static int Addtocart(string dbname, string cid, string product_name, string cost_price,  string Quantity, string Measurement, string total_price,string product_images)
         {
            
                   GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "addtocart", cid, product_name, cost_price, Quantity, Measurement, total_price);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "addtocart", cid, product_name, cost_price, Quantity, Measurement, total_price, product_images);
         }
 
         //Updatecart
@@ -295,9 +295,17 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "basedoncustomeridpodata", Prchaseorder_no);
         }
 
+        //GetqtyInHand
+
+public static SqlDataReader GetqtyInHand(string dbname, string product_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetqtyInHand", product_id);
+        }
         //Getpoproductdata
 
-            public static SqlDataReader Getpoproductdata(string dbname, string Prchaseorder_no)
+        public static SqlDataReader Getpoproductdata(string dbname, string Prchaseorder_no)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);

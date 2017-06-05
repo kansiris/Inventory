@@ -196,11 +196,18 @@ function insertpo(totalamount) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("Not Inserted");
+                errormsg("alredy Inserted");
             }
 
             else {
                 successmsg("Successfully PurchaseOrder Generated.");
+                $("[id='ponumber']").val("");
+                $("[id='shipping_date']").val("");
+                $("[id='payment_terms']").val("");
+                $("[id='shipping_date']").val("");
+                $("[id='shipping_terms']").val("");
+                $("[id='payment_date']").val("");
+               
                 //var url = 'Products/Addtocartpartial?cid=' + cid;
                 //$('#cartrecords').load(url);
             }
@@ -225,7 +232,8 @@ function checkponumber(passedvalue){
             if (data == "unique"){} 
             else {
                 existsmsg("Purchase Order Number Alredy Exists.Please Enter a Unique Number");
-                $('#ponumber').val() = "";
+              
+                $("[id='ponumber']").val("");
             }
         },
         error: function (data)

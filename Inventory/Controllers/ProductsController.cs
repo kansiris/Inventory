@@ -110,7 +110,7 @@ namespace Inventory.Controllers
         {
             var sample = Getproductsbysubcategory(sub_category);
             string myString = sub_category.Replace(" ", "-");
-            
+
             if (sample != null)
             {
                 return Json(myString);
@@ -158,7 +158,7 @@ namespace Inventory.Controllers
                                    distinctproducts = row["BATCHNOLIST"].ToString(),
                                }).ToList();
                 ViewBag.records = description;
-                
+
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
@@ -188,15 +188,28 @@ namespace Inventory.Controllers
             return PartialView("allImagesonPid", null);
         }
 
-        public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price)
+
+        public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                //var sample = Addtocartpartial(user.DbName, user.ID);
-                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement, cid);
 
+                //var records = ProductService.GetqtyInHand(user.DbName, product_id);
+                //var dt = new DataTable();
+                //dt.Load(records);
+                //List<Product> qtyinhnd = new List<Product>();
+                //qtyinhnd = (from DataRow row in dt.Rows
+                //            select new Product()
+                //            {
+                //                Quantity = row["Qty"].ToString(),
+                //                Quantity_Total = row["Total"].ToString()
+                //            }).ToList();
+                //var quantity = qtyinhnd.Select(m => m.Quantity_Total);
+                //if (int.Parse(Quantity) < int.Parse(quantity.ToString()))
+                //{
+                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement, cid);
                 if (counts.HasRows)
                 {
                     return Json("exists");
@@ -205,12 +218,13 @@ namespace Inventory.Controllers
                 {
                     if (int.Parse(Quantity) > 0)
                     {
-                        ProductService.Addtocart(user.DbName, cid, product_name, cost_price, Quantity, Measurement, total_price);
+                        ProductService.Addtocart(user.DbName, cid, product_name, cost_price, Quantity, Measurement, total_price, product_images);
                         return Json("success");
                     }
                     return Json("qty");
-
                 }
+                //}
+                //return Json("qtyexcess");
             }
             return Json("unique");
         }
@@ -245,7 +259,7 @@ namespace Inventory.Controllers
                                                    product_name = row["product_name"].ToString(),
                                                    cost_price = row["cost_price"].ToString(),
                                                    Quantity = row["Quantity"].ToString(),
-                                                   //product_images = row["product_images"].ToString(),
+                                                   product_images = row["product_images"].ToString(),
                                                    Measurement = row["Measurement"].ToString(),
                                                    //weight = row["brand"].ToString(),
                                                    total_price = row["total_price"].ToString(),
