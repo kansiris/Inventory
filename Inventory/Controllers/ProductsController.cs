@@ -432,6 +432,7 @@ namespace Inventory.Controllers
                                                  company_name = row["company_name"].ToString(),
                                                  Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                  total_price = row["total_price"].ToString(),
+                                                 created_date= row["created_date"].ToString(),
                                                  Payment_date = row["Payment_date"].ToString(),
                                              }).ToList();
                 ViewBag.records = posofcustom;

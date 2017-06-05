@@ -285,12 +285,25 @@
                         <input type="checkbox" name="tds" value="tds" id="tds"> Apply TDS for this Customer
                         
                     </div>
+                    
                 </div>
                
                     <div class="row">
                         <div class="form-group col-md-6">
                             <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="Pan No">
                             @*<input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">*@
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="checkbox" name="taxexemption" value="taxexemption" id="taxexemption"> Tax Exemption
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @*<input type="file" name="fileupload2" id="fileupload2" style="display:none" onchange="upload2()">
+                            <button id="taxupload" onclick="javascript: document.getElementById('fileupload2').click();">Choose File</button>*@
+
+
+                            <input type="file" name="fileupload2" id="fileupload2" value="upload" onchange="upload2()">
+                            @*<input type="button" id="myFile" multiple size="50" value="upload" onclick="javascript: document.getElementById('fileupload2').click();">*@
                         </div>
 
                     </div>
@@ -301,7 +314,7 @@
         <div class="row">
             <div class="col-md-12">
                 <button type="button" class="btn btn-default pull-right" id="customer-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                <button type="button" class="btn btn-primary pull-right" id="taxid" value="savetaxdetails" onclick="editcompanybankdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Tax Details</button>
+                <button type="button" class="btn btn-primary pull-right" id="taxid" value="savetaxdetails" onclick="editcompanytaxdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Tax Details</button>
             </div>
         </div>
     </li>

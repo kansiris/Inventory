@@ -243,7 +243,7 @@ function checkponumber(passedvalue){
 
 //for displaying all pos
 function viewpodetails(ponumber,cid) {
-    alert(ponumber);
+    //alert(ponumber);
     location.href = '/Products/ViewPoDetails?Prchaseorder_no=' + ponumber+'&cid='+cid;
 }
 

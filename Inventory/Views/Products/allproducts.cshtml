@@ -73,9 +73,9 @@
         </div>
         <div class="row" id="productstable1">
             @if (ViewBag.records.Count != 0)
+            {
+                foreach (var item in ViewBag.records)
                 {
-                    foreach (var item in ViewBag.records)
-                    {
                     <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
                         <div class="label">
                             <img src="~/images/label.png" alt="Out of stock">
@@ -311,9 +311,7 @@
 
         });
 
-        function clidefunction(value) {
-            alert(value);
-        }
+
         //for cart window sliding
         $(window).scroll(function () {
             var scrollTop = $(window).scrollTop();

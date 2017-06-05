@@ -51,7 +51,7 @@ function forCancel() {
     $(".cd-tabs").css("display", "none");
     $("#cuscompanypic").attr("src", "/images/user.png");
     $("#cuscontactpic").attr("src", "/images/user.png");
-    
+
     //$("#vendor-information1 input").val("");
 }
 $("#customer-information1-cancel").click(function () {
@@ -146,7 +146,7 @@ $(document).ready(function (e) {
     Pagination();
     $("#customertable1").css("display", "none");
     $("#customer-information").css("display", "none");
-    
+
     // <!----- Table Pagination ---->
 
     // $("#vendor-information1").hide();
@@ -215,7 +215,7 @@ $(".display-positions .position > i.fa-times").click(function () {
     $(this).parents(".add-position").css("display", "none");
     $(this).parents(".display-positions").css("display", "none");
     $(this).parents(".display-positions").nextAll(".add-position").css("display", "none");
-    
+
 });
 
 function textval() {
@@ -277,7 +277,7 @@ function editFunction(array) {
     $('#cus_company_Id').val(array.cus_company_Id);
     $('#cus_company_name').val(array.cus_company_name);
     $('#cus_email').val(array.cus_email);
-    
+
     $('#cus_Note').val(array.cus_Note);
     if (array.cus_logo != "/images/user.png" && array.cus_logo != null && array.cus_logo != "") {
         $('#cuscompanypic').attr('src', 'data:image/;base64,' + array.cus_logo);
@@ -339,7 +339,7 @@ function getEditDetails(id) {
             }
             else {
                 var array = JSON.parse(data);
-                var url = 'Customer/CustomerContact?id=' + array.cus_company_Id ;
+                var url = 'Customer/CustomerContact?id=' + array.cus_company_Id;
                 $('#customerrecords').load(url);
                 editFunction(array);
                 $('#customer-information').css('display', 'block');
@@ -356,17 +356,17 @@ function getEditDetails(id) {
 
 // particular customer
 function editcuscompany(clickedvalue) {
- 
+
     $('#update').click(function () {
         $('#cuscompany').css('display', 'none');
     });
-    
+
     cuscompany_Id = $('#cus_company_Id').val();
     cusCompany_Name = $('#cus_company_name').val();
     cuslogo = $('#cuscompanypic').attr('src').replace('data:image/;base64,', '');
-    
+
     cusEmail = $('#cus_email').val();
-    
+
 
     if ((cusCompany_Name == "") || (cusEmail == "")) {
         if (cusCompany_Name == "")
@@ -405,7 +405,7 @@ function editcuscompany(clickedvalue) {
                         }
                     },
                     error: function (data)
-                    { errormsg("Failed!!!");}
+                    { errormsg("Failed!!!"); }
                 });
             }
             if (clickedvalue == 'Save') {
@@ -479,7 +479,7 @@ function editcuscompanyaddress(clickedvalue) {
             $.ajax({
                 url: '/Customer/updatecuscompanyaddress',
                 type: 'POST',
-                data: JSON.stringify({cus_company_Id: cus_company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
+                data: JSON.stringify({ cus_company_Id: cus_company_Id, bill_street: bill_street, bill_city: bill_city, bill_state: bill_state, bill_postalcode: bill_postalcode, bill_country: bill_country, ship_street: ship_street, ship_city: ship_city, ship_state: ship_state, ship_postalcode: ship_postalcode, ship_country: ship_country }),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
@@ -497,7 +497,7 @@ function editcuscompanyaddress(clickedvalue) {
             });
         }
         if (clickedvalue == 'saveaddress') {
-          
+
             $.ajax({
                 url: '/Customer/updatecuscompanyaddress',
                 type: 'POST',
@@ -600,7 +600,7 @@ function updatecusContact(clickedvalue) {
         return false;
     } else {
         if (clickedvalue == 'savecontact') {
-           
+
             $.ajax({
                 url: '/Customer/savecuscontactdetails',
                 type: 'POST',
@@ -709,35 +709,35 @@ function editcuscontactperson(id) {
 
 //customer deleting
 
-function deleteCustomer(id,status) {
-        $.ajax({
-            url: '/Customer/deleteCustomer',
-            type: 'POST',
-            data: JSON.stringify({ Customer_Id: id,status:status }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data.Result == "sucess") {
-                    cus_company_Id = $('#cus_company_Id').val();
-                    var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
-                    $('#customerrecords').load(url);
-                    var customerid = data.ID;
-                    var stati = data.stat;
-                    if (stati == "Active")
-                        successmsg("Now contact with  id  " + customerid + " is " + stati + "");
-                    else
-                        successmsg("Now contact with  id  " + customerid + " is " + stati + "");
-                   
-                }
-                else {
-                    errormsg("Not deleted");
-                }
-            },
-            error: function (data)
-            { errormsg("Failed!!!"); }
-        });
-        return true;
-    }
+function deleteCustomer(id, status) {
+    $.ajax({
+        url: '/Customer/deleteCustomer',
+        type: 'POST',
+        data: JSON.stringify({ Customer_Id: id, status: status }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data.Result == "sucess") {
+                cus_company_Id = $('#cus_company_Id').val();
+                var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
+                $('#customerrecords').load(url);
+                var customerid = data.ID;
+                var stati = data.stat;
+                if (stati == "Active")
+                    successmsg("Now contact with  id  " + customerid + " is " + stati + "");
+                else
+                    successmsg("Now contact with  id  " + customerid + " is " + stati + "");
+
+            }
+            else {
+                errormsg("Not deleted");
+            }
+        },
+        error: function (data)
+        { errormsg("Failed!!!"); }
+    });
+    return true;
+}
 
 //Customer contact person invite
 
@@ -886,9 +886,9 @@ function viewCustomer(id) {
 
 function addingcusjobpositions() {
     cuscompany_Id = $('#cus_company_Id').val()
-   // alert(cuscompany_Id);
+    // alert(cuscompany_Id);
     Jobposition = $('#newposition').val();
-   // alert(Jobposition);
+    // alert(Jobposition);
     $.ajax({
         url: '/Customer/addPosition',
         type: 'POST',
@@ -949,7 +949,7 @@ function forunderstand(array) {
 
 //for displaying all pos
 function viewallpos(cid, cname) {
-    alert(cid);
+    //alert(cid);
     location.href = '/Products/PosOfCustomer?cid=' + cid;
 }
 
@@ -987,3 +987,128 @@ function warnmsg(msg) {
         duration: 3
     });
 }
+
+// file upload
+function upload2() {
+    
+    var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
+    alert(ext);
+    if ($.inArray(ext, ['txt','doc', 'rtx']) == -1) {
+        warnmsg('Invalid File Type');
+    }
+    else {
+        var data = new FormData();
+        var files = $("#fileupload2").get(0).files;
+        alert(files);
+        if (files.length > 0) {
+            alert("hi" + files[0]);
+            data.append("file", files[0]);
+        }
+        $.ajax({
+            url: '/Customer/TaxExemptionfile',
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (sucess) {
+                //successmsg("File uploded success fully");
+            },
+            error: function (er) {
+                warnmsg("Failed To Upload Pic!!! Try Again");
+            }
+        });
+    }
+}
+
+//editcompanytaxdetails
+
+function editcompanytaxdetails(clickedvalue) {
+
+    cuscompany_Id = $('#cus_company_Id').val();
+    cusCompany_Name = $('#cus_company_name').val();
+    cuslogo = $('#cuscompanypic').attr('src').replace('data:image/;base64,', '');
+    var files = $("#my-input")[0].files;
+
+    for (var i = 0; i < files.length; i++) {
+        alert(files[i].name);
+    }
+    cusEmail = $('#cus_email').val();
+
+
+    if ((cusCompany_Name == "") || (cusEmail == "")) {
+        if (cusCompany_Name == "")
+            warnmsg("Please Enter Company Name");
+        else
+            warnmsg("Please Enter Email");
+    }
+    else {
+
+        var email = document.getElementById('cus_email');
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email.value)) {
+            warnmsg('Please provide a valid email address');
+            email.focus;
+            return false;
+        }
+        else {
+            if (clickedvalue == 'update') {
+                $.ajax({
+                    url: '/Customer/updatecuscompany',
+                    type: 'POST',
+                    data: JSON.stringify({ cus_company_Id: cuscompany_Id, cus_company_name: cusCompany_Name, cus_email: cusEmail, cus_logo: cuslogo }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data == "sucess") {
+                            $('#savebutton').hide();
+                            var url = 'Customer/CustomerCompany';
+                            $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+                            successmsg("Company Updated Successfully");
+                            $('#customertable1').css("display", "none");
+                            $('#additonal').css('display', 'block');
+                        }
+                        else {
+                            errormsg("not updated");
+                        }
+                    },
+                    error: function (data)
+                    { errormsg("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'Save') {
+                $.ajax({
+                    url: '/Customer/savecuscompany',
+                    type: 'POST',
+                    data: JSON.stringify({ cus_company_name: cusCompany_Name, cus_email: cusEmail, cus_logo: cuslogo }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (data.Result == "sucess") {
+                            $('#mySubmit').hide();
+                            $('#cuscompany_pic').children().attr('disabled', 'disabled');
+                            var url = 'Customer/CustomerCompany';
+                            $('#cus_company_Id').val(data.ID);
+                            $('#cuscompanyrecords').load(url, function () { Pagination(); });
+                            successmsg("Company Saved Successfully");
+                            $('customer-information1').css("display", "block");
+                            $('#additonal').css('display', 'block');
+                            cus_company_Id = $('#cus_company_Id').val();
+                            var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
+                            $('#customerrecords').empty().load(url);
+                        }
+                        else if (data = "exists") {
+                            existsmsg("Company Name alredy exists..Please enter another Name");
+                        }
+                        else {
+                            errormsg("not saved");
+                        }
+                    },
+                    error: function (data)
+                    { errormsg("Failed!!!"); }
+                });
+            }
+        }
+    }
+}
+
+
