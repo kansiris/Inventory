@@ -77,9 +77,9 @@
         </div>
         <div class="row" id="productstable1">
             @if (ViewBag.records.Count != 0)
+            {
+                foreach (var item in ViewBag.records)
                 {
-                    foreach (var item in ViewBag.records)
-                    {
                     <div class="col-md-4 col-sm-4 col-xs-12 displayproduct">
                         <div class="label">
                             <img src="~/images/label.png" alt="Out of stock">
@@ -197,7 +197,7 @@
         });
         //for measurment chnge
         $("select").on('change', function () {
-           
+
             var v = $(this).children("option:selected").text().split("₹")[1];
            //alert(v);
             $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("Price ₹ " + "<span>" + v + "</span>");
@@ -205,13 +205,12 @@
             $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>");
             $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>");
             $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1');
-            
+
             var productid = ($("[id='hiddenpid']").val()).split('}')[0];
-            
-            alert(($(this).parents(".rate-add").prevAll("div.image").find("img").attr('src', url)));
-            
-
-
+            @*var item=@ViewBag.records;
+            alert(item);
+            alert($(this).parents(".rate-add").prevAll("div.image").find("img").attr('src',item.split(',')[0]));*@
+            //alert(($(this).parents(".rate-add").prevAll("div.image").find("img").attr('src', url)));
         });
 
         //for total price quant
@@ -318,9 +317,7 @@
 
         });
 
-        function clidefunction(value) {
-            alert(value);
-        }
+
         //for cart window sliding
         $(window).scroll(function () {
             var scrollTop = $(window).scrollTop();
