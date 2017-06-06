@@ -235,14 +235,24 @@ namespace Inventory.Controllers
                 var data = CustomerService.getAllcusDetails(cus_company_Id, user.DbName);
 
                 long set1;
+                long set2;
+                long set3;
 
                 if (data.Read())
                 {
 
+                    if (data["tds_apply"].ToString() == "")
+                        set2 = 0;
+                    else
+                        set2 = long.Parse(data["tds_apply"].ToString());
                     if (data["cus_company_Id"].ToString() == "")
                         set1 = 0;
                     else
                         set1 = long.Parse(data["cus_company_Id"].ToString());
+                    if (data["tax_exemption"].ToString() == "")
+                        set3 = 0;
+                    else
+                        set3 = long.Parse(data["tax_exemption"].ToString());
 
                     Customer cs = new Customer
                     {
@@ -252,6 +262,11 @@ namespace Inventory.Controllers
                         cus_Note = data["cus_Note"].ToString(),
                         cus_logo = data["cus_logo"].ToString(),
                         Customer_Id = data["Customer_Id"].ToString(),
+                        tax_reg_no = data["tax_reg_no"].ToString(),
+                        pan_no = data["pan_no"].ToString(),
+                        tds_apply = int.Parse(set2.ToString()),
+                        tax_exemption = int.Parse(set3.ToString()),
+                        tax_files = data["tax_files"].ToString(),
                         bill_city = data["bill_city"].ToString(),
                         bill_country = data["bill_country"].ToString(),
                         bill_street = data["bill_street"].ToString(),
@@ -315,21 +330,7 @@ namespace Inventory.Controllers
             }
             return Json(null);
         }
-        //public JsonResult updatecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
-        //{
-        //    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-        //    var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
-        //    if (data > 0)
-        //    {
-        //        ViewBag.company_Id = company_Id;
-        //        ViewBag.Bank_Acc_Number = Bank_Acc_Number;
-        //        ViewBag.Bank_Name = Bank_Name;
-        //        ViewBag.Bank_Branch = Bank_Branch;
-        //        ViewBag.IFSC_No = IFSC_No;
-        //        return Json("sucess");
-        //    }
-        //    return Json("unique", JsonRequestBehavior.AllowGet);
-        //}
+
         public JsonResult updatecuscontactdetails(string Customer_Id, string Customer_contact_Fname, string Customer_contact_Lname, string Mobile_No,
                           string Email_Id, string Adhar_Number, string cus_Job_position, string image)
         {
@@ -443,21 +444,7 @@ namespace Inventory.Controllers
             }
             return Json(null);
         }
-        //public JsonResult savecompanybankdetails(int company_Id, string Bank_Acc_Number, string Bank_Name, string Bank_Branch, string IFSC_No)
-        //{
-        //    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-        //    var data = VendorService.UpdateCompany(company_Id, Bank_Acc_Number, Bank_Name, Bank_Branch, IFSC_No, user.DbName);
-        //    if (data > 0)
-        //    {
-        //        ViewBag.company_Id = company_Id;
-        //        ViewBag.Bank_Acc_Number = Bank_Acc_Number;
-        //        ViewBag.Bank_Name = Bank_Name;
-        //        ViewBag.Bank_Branch = Bank_Branch;
-        //        ViewBag.IFSC_No = IFSC_No;
-        //        return Json("sucess");
-        //    }
-        //    return Json("unique", JsonRequestBehavior.AllowGet);
-        //}
+
 
         public JsonResult savecuscontactdetails(int cus_company_Id, string Customer_contact_Fname, string Customer_contact_Lname, string Mobile_No,
                           string Email_Id, string Adhar_Number, string cus_Job_position, string image)
@@ -514,21 +501,7 @@ namespace Inventory.Controllers
         }
 
 
-        //public JsonResult deleteCustomer(string Customer_Id)
-        //{
-        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-        //    {
-        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-        //    var data = CustomerService.deleteCustomer(Customer_Id, user.DbName);
-        //    if (data > 0)
-        //    {
-        //        ViewBag.Customer_Id = Customer_Id;
-        //        return Json("sucess");
-        //    }
-        //    return Json("unique", JsonRequestBehavior.AllowGet);
-        //}
-        //    return Json(null);
-        //}
+
         public JsonResult inviteCustomer(string Customer_Id, int cus_company_Id)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -685,34 +658,53 @@ namespace Inventory.Controllers
         }
 
         //tax file upload
-
-        public ActionResult TaxExemptionfile(HttpPostedFileBase file, string Customer_Id)
+        [HttpPost]
+        public ActionResult TaxExemptionfile(HttpPostedFileBase file, int cus_company_Id, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string clickeditem)
         {
-
+            string filename = "";
+            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 if (file != null && file.ContentLength > 0)
                 {
-                    //var fileName = Path.GetFileName(file.FileName);
-                    //var path = Path.Combine(directory.ToString(), fileName);
-                    //file.SaveAs(path);
                     var streamfile = new StreamReader(file.InputStream);
                     var streamline = string.Empty;
-                    //var counter = 1;updatecus_taxdetails
                     List<string> taxfile = new List<string>();
-                    var createddate = DateTime.Now;
+                    
                     while ((streamline = streamfile.ReadLine()) != null)
                     {
                         taxfile.Add(streamline);
                     }
+                    //Uploaded Images
 
-                    //int count=CustomerService.update
-                    return Json("sucess");
+                    for (int i = 0; i < Request.Files.Count; i++)
+                    {
+                        var file1 = Request.Files[i];
+                        if (file1 != null && file1.ContentLength > 0)
+                        {
+                            filename = filename + "," + cus_company_Id + "_" + file1.FileName;
+                            file1.SaveAs(Server.MapPath("~/TaxFiles/" + cus_company_Id + "_" + file1.FileName));
+                        }
+                    }
                 }
-            }
+                }
+
+            filename = filename.TrimStart(',');
+
+                    if (clickeditem == "updatetaxdetails")
+                    {
+                        int count = CustomerService.Updatecustax(cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
+                        if (count > 0)
+                            return Json("success");
+                    }
+                    else
+                    {
+                        int count = CustomerService.Updatecustax(cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
+                        if (count > 0)
+                            return Json("success1");
+                    }
+            
             return Json("unsucess");
         }
-
-      
     }
 }
