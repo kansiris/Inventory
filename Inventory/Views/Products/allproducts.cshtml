@@ -86,9 +86,9 @@
                             <div class="image">
                                 @*@{Html.RenderAction("allImagesonPid", "Products", new { product_id = @item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1] });}*@
                                 @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
-                                { <img src="~/ProductImages/@item.product_images.Split(',')[0]" /> }
+                                { <img class="pimage" src="~/ProductImages/@item.product_images.Split(',')[0]" /> }
                                 else
-                                { <img src="~/images/default_product.png" /> }
+                                { <img class="pimage" src="~/images/default_product.png" /> }
                                 <input type="hidden" id="Pid" class="form-control" value="@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1]">
 
                             </div>
@@ -101,7 +101,7 @@
                                     @foreach (var item1 in item.distinctproducts.Split(','))
                                     {
                                         <option><text class="localization"></text>@item1.Replace('?', '₹').Split('@')[0]</option>
-                                        <option hidden id="hiddenpid">
+                                        <option hidden id="hiddenpid" class="hiddenpid">
                                             @item1.Split('@')[1] }
                                         </option>
                                     }
@@ -190,20 +190,21 @@
         });
         //for measurment chnge
         $("select").on('change', function () {
-
             var v = $(this).children("option:selected").text().split("₹")[1];
-            //alert(v);
             $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("Price ₹ " + "<span>" + v + "</span>");
             $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("Total ₹ " + "<span>" + v + "</span>");
-            $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>");
-            $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>");
-            $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1');
+            $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>"); 
+            $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>"); 
+            $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1'); // assigning default value to qty input
+            var productid = $(this).children("option:selected").next().text().replace(/ /g,'').replace('}',''); //particular product id
+            var v1 = $(this).parent(".product-variation").prevAll(".image").children("img").attr("src",''); // particular image
 
-            var productid = ($("[id='hiddenpid']").val()).split('}')[0];
-
-            alert(($(this).parents(".rate-add").prevAll("div.image").find("img").attr('src', url)));
-
-
+            $.ajax({url: "products/allImagesonPid?product_id="+productid+"", success: function(result){
+                if (result.images != '') {
+                    v1.attr("src",'/ProductImages/'+result.images);  }
+                else {
+                    v1.attr("src",'/images/default_product.png');   }
+            }});
 
         });
 

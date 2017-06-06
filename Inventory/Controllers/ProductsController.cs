@@ -188,6 +188,47 @@ namespace Inventory.Controllers
         //    }
         //    return PartialView("allImagesonPid", null);
         //}
+        [HttpGet]
+        public JsonResult allImagesonPid(string product_id)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                //getting particular image
+                #region particular image
+                var dt = new DataTable();
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = ProductService.Getimages(user.DbName, product_id);
+                dt.Load(records);
+                List<Product> images = new List<Product>();
+                images = (from DataRow row in dt.Rows
+                          select new Product()
+                          {
+                              product_images = row["product_images"].ToString(),
+                          }).ToList();
+                if (images.Count != 0)
+                    ViewBag.records = images[0].product_images.Split(',')[0];
+                else
+                    ViewBag.records = "";
+                #endregion
+                //getting qty in hand from warehouse
+                #region Qty in hand
+                records = ProductService.GetqtyInHand(user.DbName, product_id);
+                dt = new DataTable();
+                dt.Load(records);
+                List<Product> qtyinhnd = new List<Product>();
+                qtyinhnd = (from DataRow row in dt.Rows
+                            select new Product()
+                            {
+                                Quantity = row["Qty"].ToString(),
+                                Quantity_Total = row["Total"].ToString()
+                            }).ToList();
+                var quantity = qtyinhnd.Select(m => m.Quantity_Total);
+                #endregion
+                var result = new { images = ViewBag.records, qty = quantity };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return Json("unique", JsonRequestBehavior.AllowGet);
+        }
 
 
         public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
@@ -432,7 +473,7 @@ namespace Inventory.Controllers
                                                  company_name = row["company_name"].ToString(),
                                                  Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                  total_price = row["total_price"].ToString(),
-                                                 created_date= row["created_date"].ToString(),
+                                                 created_date = row["created_date"].ToString(),
                                                  Payment_date = row["Payment_date"].ToString(),
                                              }).ToList();
                 ViewBag.records = posofcustom;
