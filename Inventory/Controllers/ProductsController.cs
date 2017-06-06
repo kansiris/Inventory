@@ -156,6 +156,7 @@ namespace Inventory.Controllers
                                    product_name = row["product_name"].ToString(),
                                    brand = row["brand"].ToString(),
                                    distinctproducts = row["BATCHNOLIST"].ToString(),
+                                   product_images = row["productimage"].ToString(),
                                }).ToList();
                 ViewBag.records = description;
 
@@ -167,26 +168,26 @@ namespace Inventory.Controllers
 
         //for images
 
-        public PartialViewResult allImagesonPid(string product_id)
-        {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                var dt = new DataTable();
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var records = ProductService.Getimages(user.DbName, product_id);
-                dt.Load(records);
-                List<Product> iamges = new List<Product>();
-                iamges = (from DataRow row in dt.Rows
-                          select new Product()
-                          {
-                              product_images = row["product_images"].ToString(),
-                          }).ToList();
-                ViewBag.records = iamges;
+        //public PartialViewResult allImagesonPid(string product_id)
+        //{
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+        //        var dt = new DataTable();
+        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //        var records = ProductService.Getimages(user.DbName, product_id);
+        //        dt.Load(records);
+        //        List<Product> iamges = new List<Product>();
+        //        iamges = (from DataRow row in dt.Rows
+        //                  select new Product()
+        //                  {
+        //                      product_images = row["product_images"].ToString(),
+        //                  }).ToList();
+        //        ViewBag.records = iamges;
 
-                return PartialView("allImagesonPid", ViewBag.records);
-            }
-            return PartialView("allImagesonPid", null);
-        }
+        //        return PartialView("allImagesonPid", ViewBag.records);
+        //    }
+        //    return PartialView("allImagesonPid", null);
+        //}
 
 
         public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
