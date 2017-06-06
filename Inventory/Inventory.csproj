@@ -4797,6 +4797,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ProductImages\" />
+    <Folder Include="TaxFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

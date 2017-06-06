@@ -8,7 +8,7 @@ namespace Inventory.Models
     public class Customer
     {
         public int cus_company_Id { get; set; }
-        
+
         public string cus_company_name { get; set; }
 
         public string status { get; set; }
@@ -36,35 +36,39 @@ namespace Inventory.Models
         public string Mobile_No { get; set; }
 
         public string image { get; set; }
-            
+
         public string Bank_Acc_Number { get; set; }
 
         public int Paytym_Number { get; set; }
-        
-       public string Bank_Name { get; set; }
+
+        public string Bank_Name { get; set; }
 
         public string Bank_Branch { get; set; }
 
         public string IFSC_No { get; set; }
 
         public string bill_street { get; set; }
-     
+
         public string bill_city { get; set; }
-       
+
         public string bill_state { get; set; }
         public string bill_postalcode { get; set; }
-        
+
         public string bill_country { get; set; }
-       
+
         public string ship_street { get; set; }
         public string ship_city { get; set; }
-       
+
         public string ship_state { get; set; }
-       
+
         public string ship_postalcode { get; set; }
         public string ship_country { get; set; }
 
         public string activationcode { get; set; }
-
+        public string tax_reg_no { get; set; }
+        public string pan_no { get; set; }
+        public int tds_apply { get; set; }
+        public int tax_exemption { get; set; }
+        public string tax_files { get; set; }
     }
 }

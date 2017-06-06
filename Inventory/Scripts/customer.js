@@ -15,6 +15,7 @@ $("#add-customer").click(function () {
     $('#mySubmit1').val("saveaddress").text("Save Address");
     $('#bankid').val("savebankdetails").text("Save Bank Details");
     $('#notebutton').val("Save Notes").text("Save Notes");
+    $('#taxid').val("savetaxdetails").text("Save Tax Details");
     $('#cuscontactbutton').val("savecontact").text("Save Contact");
     $('#myform input[type=text]').attr("disabled", false);
     $('#myform textarea').attr("disabled", false);
@@ -36,6 +37,8 @@ $("#add-customer").click(function () {
     $("#uploadtext").css("display", "block");
     $("#uploadcontact").css("display", "block");
     $("#cuscontactpic").attr("src", "/images/user.png");
+    $("#tds").prop('checked', false);
+    $("#taxexemption").prop('checked', false);
 });
 $("#customer-information-cancel").click(function () {
     $("#customer-information input").val("");
@@ -284,6 +287,16 @@ function editFunction(array) {
     } else
         $('#cuscompanypic').attr('src', array.cus_logo);
     $('#Customer_Id').val(array.Customer_Id);
+    $('#tax_regno').val(array.tax_reg_no);
+    $('#pan_no').val(array.pan_no);
+    if (array.tds_apply == 1) {
+        $("#tds").prop('checked', 'checked');
+    }
+    if (array.tax_exemption == 1)
+        $("#taxexemption").prop('checked', 'checked');
+   
+    $('#fileupload2').attr('src', array.tax_files);
+
     $('#bill_city').val(array.bill_city);
     $('#bill_country').val(array.bill_country);
     $('#bill_state').val(array.bill_state);
@@ -316,6 +329,7 @@ function getEditDetails(id) {
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
     $('#notebutton').val("updatenote").text("Update Notes");
+    $('#taxid').val("updatetaxdetails").text("Update Tax Details");
     $('#cuscontactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
@@ -533,7 +547,7 @@ function updatecusnote(clickedvalue) {
     cusNote = $('#cus_Note').val();
     if (clickedvalue == 'updatenote') {
         $.ajax({
-            url: '/Customer/updatecuscompanynote?',
+            url: '/Customer/updatecuscompanynote',
             type: 'POST',
             data: JSON.stringify({ cus_company_Id: cuscompany_Id, cus_Note: cusNote }),
             dataType: 'json',
@@ -554,7 +568,7 @@ function updatecusnote(clickedvalue) {
     }
     if (clickedvalue == 'Save Notes') {
         $.ajax({
-            url: '/Customer/savecuscompanynote?',
+            url: '/Customer/savecuscompanynote',
             type: 'POST',
             data: JSON.stringify({ cus_company_Id: cuscompany_Id, cus_Note: cusNote }),
             dataType: 'json',
@@ -990,125 +1004,83 @@ function warnmsg(msg) {
 
 // file upload
 function upload2() {
-    
     var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
-    alert(ext);
     if ($.inArray(ext, ['txt','doc', 'rtx']) == -1) {
         warnmsg('Invalid File Type');
+        $('#fileupload2').val("")
     }
-    else {
-        var data = new FormData();
-        var files = $("#fileupload2").get(0).files;
-        alert(files);
-        if (files.length > 0) {
-            alert("hi" + files[0]);
-            data.append("file", files[0]);
-        }
-        $.ajax({
-            url: '/Customer/TaxExemptionfile',
-            type: "POST",
-            processData: false,
-            contentType: false,
-            data: data,
-            success: function (sucess) {
-                //successmsg("File uploded success fully");
-            },
-            error: function (er) {
-                warnmsg("Failed To Upload Pic!!! Try Again");
-            }
-        });
     }
-}
 
 //editcompanytaxdetails
 
 function editcompanytaxdetails(clickedvalue) {
-
-    cuscompany_Id = $('#cus_company_Id').val();
-    cusCompany_Name = $('#cus_company_name').val();
-    cuslogo = $('#cuscompanypic').attr('src').replace('data:image/;base64,', '');
-    var files = $("#my-input")[0].files;
-
-    for (var i = 0; i < files.length; i++) {
-        alert(files[i].name);
+    alert(clickedvalue);
+    cuscompany_Id =$('#cus_company_Id').val();
+    var data1 = new FormData();
+    var files = $("#fileupload2").get(0).files;
+    if (files.length > 0) {
+        data1.append("file", files[0]);
     }
-    cusEmail = $('#cus_email').val();
+    tax_reg_no = $('#tax_regno').val();
+    pan_no = $('#pan_no').val();
 
-
-    if ((cusCompany_Name == "") || (cusEmail == "")) {
-        if (cusCompany_Name == "")
-            warnmsg("Please Enter Company Name");
+    if ($("#tds").is(":checked")) 
+            $('#tds').val("1");
         else
-            warnmsg("Please Enter Email");
+            $('#tds').val("0");
+    if ($("#taxexemption").is(":checked")) {
+        $('#taxexemption').val("1");
     }
     else {
-
-        var email = document.getElementById('cus_email');
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (!filter.test(email.value)) {
-            warnmsg('Please provide a valid email address');
-            email.focus;
-            return false;
-        }
-        else {
-            if (clickedvalue == 'update') {
-                $.ajax({
-                    url: '/Customer/updatecuscompany',
-                    type: 'POST',
-                    data: JSON.stringify({ cus_company_Id: cuscompany_Id, cus_company_name: cusCompany_Name, cus_email: cusEmail, cus_logo: cuslogo }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (data == "sucess") {
-                            $('#savebutton').hide();
-                            var url = 'Customer/CustomerCompany';
-                            $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-                            successmsg("Company Updated Successfully");
-                            $('#customertable1').css("display", "none");
-                            $('#additonal').css('display', 'block');
-                        }
-                        else {
-                            errormsg("not updated");
-                        }
-                    },
-                    error: function (data)
-                    { errormsg("Failed!!!"); }
-                });
-            }
-            if (clickedvalue == 'Save') {
-                $.ajax({
-                    url: '/Customer/savecuscompany',
-                    type: 'POST',
-                    data: JSON.stringify({ cus_company_name: cusCompany_Name, cus_email: cusEmail, cus_logo: cuslogo }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (data.Result == "sucess") {
-                            $('#mySubmit').hide();
-                            $('#cuscompany_pic').children().attr('disabled', 'disabled');
-                            var url = 'Customer/CustomerCompany';
-                            $('#cus_company_Id').val(data.ID);
-                            $('#cuscompanyrecords').load(url, function () { Pagination(); });
-                            successmsg("Company Saved Successfully");
-                            $('customer-information1').css("display", "block");
-                            $('#additonal').css('display', 'block');
-                            cus_company_Id = $('#cus_company_Id').val();
-                            var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
-                            $('#customerrecords').empty().load(url);
-                        }
-                        else if (data = "exists") {
-                            existsmsg("Company Name alredy exists..Please enter another Name");
-                        }
-                        else {
-                            errormsg("not saved");
-                        }
-                    },
-                    error: function (data)
-                    { errormsg("Failed!!!"); }
-                });
-            }
-        }
+        $('#taxexemption').val("0");
     }
-}
+    tds_apply = $('#tds').val();
+    tax_exemption = $('#taxexemption').val();
+    alert(tds_apply);
+    alert(tax_exemption);
+    
+            if (clickedvalue == 'updatetaxdetails') {
+                $.ajax({
+                    url: '/Customer/TaxExemptionfile?cus_company_Id=' + cuscompany_Id + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
+                    type: 'POST',
+                    data: data1,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data == "success") {
+                            successmsg("Tax Details Updated Successfully");
+                        }
+                        else {
+                            errormsg("Not Updated");
+                        }
+                    },
+                    error: function (data)
+                    { errormsg("Failed!!!"); }
+                });
+            }
+            if (clickedvalue == 'savetaxdetails') {
+                $.ajax({
+                    url: '/Customer/TaxExemptionfile?cus_company_Id=' + cuscompany_Id + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
+                    type: 'POST',
+                    data: data1,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data == "success1") {
+                            successmsg("Tax Details Saved Successfully");
+                            //var x = document.getElementById("fileupload2").value;
+                            //document.getElementById("demo").innerHTML = x;
+                        }
+                        else {
+                            errormsg("Not Saved");
+                        }
+                    },
+                    error: function (data)
+                    { errormsg("Failed!!!"); }
+                });
+            }
+        }
+    //}
+//}
 
 
