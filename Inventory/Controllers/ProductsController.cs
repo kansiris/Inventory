@@ -222,7 +222,10 @@ namespace Inventory.Controllers
                                 Quantity = row["Qty"].ToString(),
                                 Quantity_Total = row["Total"].ToString()
                             }).ToList();
-                var quantity = qtyinhnd.Select(m => m.Quantity_Total);
+                var quantity="";
+                if (qtyinhnd.Count > 0)
+                {  quantity = qtyinhnd.FirstOrDefault().Quantity_Total; }//qtyinhnd.Select(m => m.Quantity_Total);
+                else { quantity = ""; }
                 #endregion
                 var result = new { images = ViewBag.records, qty = quantity };
                 return Json(result, JsonRequestBehavior.AllowGet);

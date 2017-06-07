@@ -90,7 +90,7 @@
                                 else
                                 { <img class="pimage" src="~/images/default_product.png" /> }
                                 <input type="hidden" id="Pid" class="form-control" value="@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1]">
-
+                                <input type="hidden" id="pqty" />
                             </div>
                             <div class="img-title">
                                 <span class="product-brand">@item.brand</span>
@@ -123,7 +123,7 @@
                                     <div class="col-xs-6 qty">
                                         <div class="input-group spinner">
                                             <label>Qty</label>
-                                            <input type="text" class="form-control" value="1" min="1" onkeypress="return isNumberKey(event,this.@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1])" id="quantity">
+                                            <input type="text" class="form-control quantity" value="1" min="1" id="quantity" > @*onkeypress="return isNumberKey(event,this.@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1])" *@
                                             <div class="input-group-btn-vertical">
                                                 <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
                                                 <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
@@ -134,6 +134,7 @@
                                         <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
+                                <div class="warehouse"><p class="product-name">Available Qty:<text class="availableqty"></text></p></div>
                             </div>
                         </div>
                     </div>
@@ -189,7 +190,26 @@
             return vals();
         });
         //for measurment chnge
-        $("select").on('change', function () {
+       
+        $("select").click(function () {
+            var productid = $(this).children("option:selected").next().text().replace(/ /g, '').replace('}', ''); //particular product id
+            var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
+            var whqty = $(this).parents(".product-variation").nextAll(".rate-add").children("div.warehouse").children("p").children("text");
+            $.ajax({
+                url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
+                    pqty.val(result.qty); whqty.html(result.qty); //$('#availableqty').html(result.qty);
+                    if (result.qty == '') { whqty.html(0); }
+                    if (result.images != '') {
+                        v1.attr("src", '/ProductImages/' + result.images);
+                    }
+                    else {
+                        v1.attr("src", '/images/default_product.png');
+                    }
+                }
+            });
+                whqty.html(result.qty); //$('#availableqty').html(result.qty);
+                if (result.qty == '') { whqty.html(0); }
+        }).on('change', function () {
             var v = $(this).children("option:selected").text().split("₹")[1];
             $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("Price ₹ " + "<span>" + v + "</span>");
             $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("Total ₹ " + "<span>" + v + "</span>");
@@ -198,8 +218,12 @@
             $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1'); // assigning default value to qty input
             var productid = $(this).children("option:selected").next().text().replace(/ /g,'').replace('}',''); //particular product id
             var v1 = $(this).parent(".product-variation").prevAll(".image").children("img").attr("src",''); // particular image
-
+            var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
+            var whqty = $(this).parents(".product-variation").nextAll(".rate-add").children("div.warehouse").children("p").children("text");
             $.ajax({url: "products/allImagesonPid?product_id="+productid+"", success: function(result){
+                //alert(result.qty);
+                pqty.val(result.qty); whqty.html(result.qty); //$('#availableqty').html(result.qty);
+                if (result.qty == '') { whqty.html(0); }
                 if (result.images != '') {
                     v1.attr("src",'/ProductImages/'+result.images);  }
                 else {
@@ -207,6 +231,27 @@
             }});
 
         });
+
+        //qty restriction
+        //$(this).closest('div.row').find("div.qty").children("div.spinner").children("input").change(function(){
+        //    alert($(this).parent(".product-variation").prevAll(".image").children("input#pqty").val());
+        //});
+
+        $('.quantity').on('input', function () {
+            var inputvalue = this.value;
+            //alert(inputvalue);
+            var v = $(this).closest('div.well').find("div.image").find("input#pqty").val();
+            if (parseInt(inputvalue) > parseInt(v)) {
+                errormsg("Quantity Exceeded");
+                $('#availableqty').html(v);
+                this.value = 1;
+                this.focus();
+            }
+        });
+        //function restrict() {
+        //    //alert($(this).parent(".product-variation").prevAll(".image").children("input#pqty").val());
+        //    alert('qty restrict');
+        //}
 
         //for total price quant
         function vals() {
