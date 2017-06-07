@@ -279,3 +279,14 @@ function warnmsg(msg) {
         duration: 3
     });
 }
+
+//for quntity to accept numbers only
+function isNumberKey(evt, value) {
+    
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        warnmsg("Enter Number only");
+        return false;
+    }
+    return true;
+}

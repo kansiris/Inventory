@@ -298,8 +298,12 @@
                                             </div>
 
                                             <div class="form-group col-md-6" id="fileid">
-                                                <input type="file" name="fileupload2" id="fileupload2" style="display:none" onchange="upload2()">
-
+                                                @*<input type="file" name="fileupload2" id="fileupload2" style="display:none" onchange="upload2()">*@
+                                               
+                                                <input type="file" name="fileupload2" id="fileupload2" onchange="onFileSelected(event)" style="display:none">
+                                                @*<textarea id="result" width="500px" height="500px" style="display:none"></textarea>*@
+                                                <img src="" id="forimg" width="200" height="200" style="display:none"/>
+                                                <div id="result" style="display:none;height: 400px;width: 500px;overflow: auto;border:dashed"></div>
                                             </div>
 
                                         </div>
@@ -418,6 +422,8 @@
 
 }
 
-
-
-
+@*for invoice i hve saved <script type="text/javascript">
+    $('#add-vendor1').click(function () {
+        document.location = '@Url.Action("Index", "Customer")';
+    });
+</script>*@

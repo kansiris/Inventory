@@ -39,6 +39,8 @@ $("#add-customer").click(function () {
     $("#cuscontactpic").attr("src", "/images/user.png");
     $("#tds").prop('checked', false);
     $("#taxexemption").prop('checked', false);
+    $('#result').css('display', 'none');
+    $('#forimg').css('display', 'none');
 });
 $("#customer-information-cancel").click(function () {
     $("#customer-information input").val("");
@@ -55,7 +57,6 @@ function forCancel() {
     $("#cuscompanypic").attr("src", "/images/user.png");
     $("#cuscontactpic").attr("src", "/images/user.png");
 
-    //$("#vendor-information1 input").val("");
 }
 $("#customer-information1-cancel").click(function () {
     forCancel();
@@ -123,9 +124,6 @@ $("#addresscheck").change(function () {
         $("[id='ship_state']").val($("[id='bill_state']").val());
         $("[id='ship_postalcode']").val($("[id='bill_postalcode']").val());
         $("[id='ship_country']").val($("[id='bill_country']").val());
-        //$("[id='tds']").val("1");
-        //$("[id='taxexemption']").val("1");
-        //$("[id='fileupload2']").css("display", "block");
         
     }
     else {
@@ -134,8 +132,7 @@ $("#addresscheck").change(function () {
         $("[id='ship_state']").val("");
         $("[id='ship_postalcode']").val("");
         $("[id='ship_country']").val("");
-        //$("[id='tds']").val("0");
-        //$("[id='taxexemption']").val("0");
+        
     }
 });
 
@@ -310,8 +307,9 @@ function editFunction(array) {
         $("#taxexemption").prop('checked', 'checked');
         $("#fileupload2").css('display','block');
     }
+    alert(array.tax_files);
     //$("#fileupload2").attr('value', array.tax_files);
-    $('#fileupload2').val(array.tax_files);
+    //$('#fileupload2').val(array.tax_files);
     $('#bill_city').val(array.bill_city);
     $('#bill_country').val(array.bill_country);
     $('#bill_state').val(array.bill_state);
@@ -322,7 +320,16 @@ function editFunction(array) {
     $('#ship_state').val(array.ship_state);
     $('#ship_street').val(array.ship_street);
     $('#ship_postalcode').val(array.ship_postalcode);
-   
+    if(array.tax_files.split('.')[1]=='jpg'){
+        $("#forimg").css('display', 'block');
+        $("#result").css('display', 'none');
+        $('#forimg').attr('src', 'Taxfiles/' + array.tax_files);
+    }
+    else {
+        $("#forimg").css('display', 'none');
+        $("#result").css('display', 'block');
+        result.innerHTML = $("#result").load('Taxfiles/' + array.tax_files);
+    }
 }
 
 //Get Particular customer Record
@@ -1019,14 +1026,44 @@ function warnmsg(msg) {
 }
 
 // file upload
-function upload2() {
+//function upload2() {
+//    var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
+//    if ($.inArray(ext, ['txt','doc', 'rtx']) == -1) {
+//        warnmsg('Invalid File Type');
+//        $('#fileupload2').val("")
+//    }
+   
+//    }
+
+
+function onFileSelected(event) {
     var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
-    if ($.inArray(ext, ['txt','doc', 'rtx']) == -1) {
+    if ($.inArray(ext, ['txt','doc','rtx','pdf','jpeg', 'gif','png','jpg','xls']) == -1) {
         warnmsg('Invalid File Type');
         $('#fileupload2').val("")
     }
+    var selectedFile = event.target.files[0];
+    //alert(ext);
+    var reader = new FileReader();
+    if (ext == 'jpeg' || ext == 'png' || ext == 'jpg' || ext == 'gif') {
+        $('#forimg').css('display', 'block');
+        $('#result').css('display', 'none');
+        reader.onload = function (event) {
+            $('#forimg').attr('src', event.target.result);
+        }
+        reader.readAsDataURL(selectedFile);
     }
+    else {
+        $('#result').css('display', 'block');
+        $('#forimg').css('display', 'none');
+    var result = document.getElementById("result");
+        reader.onload = function(event) {
+        result.innerHTML = event.target.result;
+    };
 
+}
+    reader.readAsText(selectedFile);
+}
 //editcompanytaxdetails
 
 function editcompanytaxdetails(clickedvalue) {
@@ -1042,7 +1079,7 @@ function editcompanytaxdetails(clickedvalue) {
     tds_apply = $('#tds').val();
     tax_exemption = $('#taxexemption').val();
     //alert(tax_exemption)
-    
+  
             if (clickedvalue == 'updatetaxdetails') {
                 $.ajax({
                     url: '/Customer/TaxExemptionfile?cus_company_Id=' + cuscompany_Id + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
