@@ -9,7 +9,7 @@ namespace Inventory.Controllers
     public class InvoiceController : Controller
     {
         // GET: Invoice
-        public ActionResult Index()
+        public ActionResult Index(string cid, string cname)
         {
             return View();
         }

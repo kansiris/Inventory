@@ -23,8 +23,8 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-@*Over Hang*@
-<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+    @*Over Hang*@
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </div>
-                @{ Html.RenderAction("CustomerCompany", "Customer");}
+            @{ Html.RenderAction("CustomerCompany", "Customer");}
 
             <div class="row" id="customer-information">
                 <div class="col-md-12 form-title">Customer Information</div>
@@ -166,7 +166,7 @@
                                             <h2 class="form-title col-md-6">Shipping address<a href="#">map</a></h2>
                                             <div class="checkbox col-md-6">
                                                 <label>
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="addresscheck">
                                                     Same as billing address
                                                 </label>
                                             </div>
@@ -275,46 +275,49 @@
                                 </div>
                             </li>
                             <li data-content="details">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="tax_regno" id="tax_regno" placeholder="Tax Reg. No"><span id="errmsg2" style="color:red"></span>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <input type="checkbox" name="tds" id="tds"> Apply TDS for this Customer
-                        
-                    </div>
-                    
-                </div>
-               
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="Pan No">
-                            @*<input type="text" class="form-control" name="Bank_Branch" id="Bank_Branch" placeholder="Bank Branch">*@
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="checkbox" name="taxexemption" id="taxexemption"> Tax Exemption
-                        </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="tax_regno" id="tax_regno" placeholder="Tax Reg. No"><span id="errmsg3" style="color:red"></span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="checkbox" name="tds" id="tds"> Apply TDS for this Customer
 
-                        <div class="form-group col-md-6" id="fileid">
-                            <input type="file" name="fileupload2" id="fileupload2"  onchange="upload2()">
-                            <p id="demo"></p>
-                            
-                        </div>
+                                            </div>
 
-                    </div>
+                                        </div>
 
-                </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <button type="button" class="btn btn-default pull-right" id="customer-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                <button type="button" class="btn btn-primary pull-right" id="taxid" value="savetaxdetails" onclick="editcompanytaxdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Tax Details</button>
-            </div>
-        </div>
-    </li>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="Pan No">
+                                                
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="checkbox" name="taxexemption" id="taxexemption"> Tax Exemption
+                                            </div>
+
+                                            <div class="form-group col-md-6" id="fileid">
+                                                @*<input type="file" name="fileupload2" id="fileupload2" style="display:none" onchange="upload2()">*@
+                                               
+                                                <input type="file" name="fileupload2" id="fileupload2" onchange="onFileSelected(event)" style="display:none">
+                                                @*<textarea id="result" width="500px" height="500px" style="display:none"></textarea>*@
+                                                <img src="" id="forimg" width="200" height="200" style="display:none"/>
+                                                <div id="result" style="display:none;height: 400px;width: 500px;overflow: auto;border:dashed"></div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="customer-information3-cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                        <button type="button" class="btn btn-primary pull-right" id="taxid" value="savetaxdetails" onclick="editcompanytaxdetails(this.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Tax Details</button>
+                                    </div>
+                                </div>
+                            </li>
 
                             <li data-content="notes">
                                 <div class="row">
@@ -363,23 +366,22 @@
 
     <script src="../build/js/custom.min.js"></script>
     <!-- Over Hang -->
-<script src="~/Scripts/js/jquery-ui.min.js"></script>
-<script src="~/Scripts/js/overhang.min.js"></script>
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
+ 
+    @Scripts.Render("~/bundles/Customers")
 
-    @*<script src="~/Scripts/customer.js"></script>*@
-@Scripts.Render("~/bundles/Customers")
-
-@*Error Message*@
-@if (ViewBag.msg != "" && ViewBag.msg != null)
+    @*Error Message*@
+    @if (ViewBag.msg != "" && ViewBag.msg != null)
     {
-    <script>
+        <script>
             $("body").overhang({
                 type: "error",
                 message: '@ViewBag.msg',
                 closeConfirm: false
             });
-    </script>
-}
+        </script>
+    }
 
     @*Success Message*@
     @if (ViewBag.smsg != "" && ViewBag.smsg != null)
@@ -394,7 +396,7 @@
     }
 
 
-<script>
+    <script>
         $(document).ready(function (e) {
             $(".btn-group ul.dropdown-menu > li").each(function () {
                 var v = $(this).children("a").text();
@@ -415,10 +417,13 @@
                 }
             });
         })
-</script>
+    </script>
+   
 
 }
 
-
-
-
+@*for invoice i hve saved <script type="text/javascript">
+    $('#add-vendor1').click(function () {
+        document.location = '@Url.Action("Index", "Customer")';
+    });
+</script>*@

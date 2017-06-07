@@ -1,0 +1,46 @@
+
+C:\Users\dell4>\java\jre7\bin\java -jar asb.jar dev
+connecting to: ssds-nse-sb-dev.servicebus.windows.net
+
+C:\Users\dell4>\java\jre7\bin\java -jar asb.jar dev
+connecting to: ssds-nse-sb-dev.servicebus.windows.net
+{"id":"E365412841","firstName":"Kelly Jing","lastName":"Kou","email":"umohan5601@gmail.com","emailVerified":false,"dateOfBirth":"1983-01-28","login":"bj15.01021.cn","password":"01053@Xaa12","homePhone":"13910820160","mobilePhone":"13910820160","workPhone":"13910820160","gender":1,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E451572931","firstName":"DERECK","lastName":"DUAN","email":null,"emailVerified":false,"dateOfBirth":null,"login":"086.bj15.dd","password":"Ws@1234","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"staff","staffRole":"R","staffActive":true}
+{"id":"E451572931","firstName":"DERECK","lastName":"DUAN","email":null,"emailVerified":false,"dateOfBirth":null,"login":"086.bj15.dd","password":"Ws@1234","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"staff","staffRole":"R","staffActive":true}
+{"id":"E450133163","firstName":"Lina","lastName":"Shao","email":"rameshbabu@xsilica.com","emailVerified":false,"dateOfBirth":"1985-02-14","login":"bj15.01603.cn","password":"N01801@","homePhone":"13581729888","mobilePhone":null,"workPhone":"13581729888","gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E450133163","firstName":"Lina","lastName":"Shao","email":null,"emailVerified":false,"dateOfBirth":"1985-02-14","login":"bj15.01603.cn","password":"N01801@","homePhone":"13581729888","mobilePhone":null,"workPhone":"13581729888","gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E470000036","firstName":"sdfsdf","lastName":"asdf","email":"uppala.kalyani@gmail.com","emailVerified":true,"dateOfBirth":null,"login":"bj15.01638.cn","password":"aaa111!","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E470000036","firstName":"sdfsdf","lastName":"asdf","email":"uppala.kalyani@gmail.com","emailVerified":false,"dateOfBirth":null,"login":"bj15.01638.cn","password":"aaa111!","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E450133163","firstName":"Lina","lastName":"Shao","email":"uppala.kalyani@gmail.com","emailVerified":false,"dateOfBirth":"1985-02-14","login":"bj15.01603.cn","password":"N01801@","homePhone":"13581729888","mobilePhone":null,"workPhone":"13581729888","gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E470000036","firstName":"sdfsdf","lastName":"asdf","email":null,"emailVerified":true,"dateOfBirth":null,"login":"bj15.01638.cn","password":"aaa111!","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E328280460","firstName":"Candy Yifei","lastName":"Wang","email":"uppala.kalyani@gmail.com","emailVerified":false,"dateOfBirth":"2013-06-30","login":"bj15.01248.cn","password":"01876@gmxX","homePhone":"13811757824","mobilePhone":"13811757824","workPhone":"13811757824","gender":1,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E469760011","firstName":"Test","lastName":"ResultEntry","email":"rameshbabu@xsilica.com","emailVerified":false,"dateOfBirth":null,"login":"bj15.01616.cn","password":"aaa111!","homePhone":null,"mobilePhone":null,"workPhone":"sssee","gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E328280460","firstName":"Candy Yifei","lastName":"Wang","email":"uppala.kalyani@gmail.com","emailVerified":true,"dateOfBirth":"2013-06-30","login":"bj15.01248.cn","password":"01876@gmxX","homePhone":"13811757824","mobilePhone":"13811757824","workPhone":"13811757824","gender":1,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"eventId":0,"deviceId":26,"value":1,"timestamp":"2015-07-22T07:28:38.8074581Z"}
+{"id":"E469760011","firstName":"Test","lastName":"ResultEntry","email":"rameshbabu@xsilica.com","emailVerified":true,"dateOfBirth":null,"login":"bj15.01616.cn","password":"aaa111!","homePhone":null,"mobilePhone":null,"workPhone":"sssee","gender":2,"centerId":"I23512","userType":"student","staffRole":null,"staffActive":false}
+{"id":"E305741717","firstName":"ASSIGNING","lastName":"CC","email":null,"emailVerified":false,"dateOfBirth":null,"login":"086.bj15.ad","password":"aaa111!","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"staff","staffRole":"SM","staffActive":true}
+java.net.SocketException: Connection reset
+        at java.net.SocketInputStream.read(Unknown Source)
+        at java.net.SocketInputStream.read(Unknown Source)
+        at sun.security.ssl.InputRecord.readFully(Unknown Source)
+        at sun.security.ssl.InputRecord.read(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.readRecord(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.readDataRecord(Unknown Source)
+        at sun.security.ssl.AppInputStream.read(Unknown Source)
+        at java.io.InputStream.read(Unknown Source)
+        at org.apache.qpid.amqp_1_0.client.TCPTransportProvider.doRead(TCPTransportProvider.java:234)
+        at org.apache.qpid.amqp_1_0.client.TCPTransportProvider.access$000(TCPTransportProvider.java:47)
+        at org.apache.qpid.amqp_1_0.client.TCPTransportProvider$1.run(TCPTransportProvider.java:185)
+        at java.lang.Thread.run(Unknown Source)
+
+C:\Users\dell4>\java\jre7\bin\java -jar asb.jar dev
+connecting to: ssds-nse-sb-dev.servicebus.windows.net
+{"id":"E272513693","firstName":"COCO  ","lastName":"COCO  ","email":"rameshbabu@xsilica.com","emailVerified":false,"dateOfBirth":null,"login":"086.bj15.cd","password":"Coco110427","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":1,"centerId":"I23512","userType":"staff","staffRole":"R","staffActive":true}
+{"id":"E272513693","firstName":"COCO  ","lastName":"COCO  ","email":"rameshbabu@xsilica.com","emailVerified":true,"dateOfBirth":null,"login":"086.bj15.cd","password":"Coco110427","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":1,"centerId":"I23512","userType":"staff","staffRole":"R","staffActive":true}
+
+C:\Users\dell4>
+C:\Users\dell4>\java\jre7\bin\java -jar asb.jar dev
+connecting to: ssds-nse-sb-dev.servicebus.windows.net
+{"id":"E353179844","firstName":"AUDIT","lastName":"AUDIT","email":null,"emailVerified":false,"dateOfBirth":null,"login":"086.bj15.aa","password":"Anytime8169","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"staff","staffRole":"LT","staffActive":true}
+{"id":"E353179844","firstName":"AUDIT","lastName":"AUDIT","email":null,"emailVerified":false,"dateOfBirth":null,"login":"086.bj15.aa","password":"Anytime8169","homePhone":null,"mobilePhone":null,"workPhone":null,"gender":2,"centerId":"I23512","userType":"staff","staffRole":"LT","staffActive":false}
+{"id":"E470170004","firstName":"NEWEMP","lastName":"NEWEMP","email":"","emailVerified":false,"dateOfBirth":null,"login":"086.bj15.np","password":"Xa=@123","homePhone":null,"mobilePhone":"","workPhone":"","gender":2,"centerId":"I23512","userType":"staff","staffRole":"CC","staffActive":true}
