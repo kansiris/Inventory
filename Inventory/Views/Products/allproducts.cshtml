@@ -195,6 +195,7 @@
             var productid = $(this).children("option:selected").next().text().replace(/ /g, '').replace('}', ''); //particular product id
             var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
             var whqty = $(this).parents(".product-variation").nextAll(".rate-add").children("div.warehouse").children("p").children("text");
+            var v1 = $(this).parent(".product-variation").prevAll(".image").children("img").attr("src",''); // particular image
             $.ajax({
                 url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
                     pqty.val(result.qty); whqty.html(result.qty); //$('#availableqty').html(result.qty);
