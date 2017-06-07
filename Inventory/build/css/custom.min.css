@@ -6174,7 +6174,8 @@ ul.tagit input[type=text] {
 .displayproduct > .well .image img{
 	margin: 0 auto;
 	display: block;
-	max-width: 150px;}
+	max-width: 150px;
+    height:150px}
 .product-variation,
 .img-title{
 	margin-bottom: 20px;}
