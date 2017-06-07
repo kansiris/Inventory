@@ -116,13 +116,17 @@ $("#refresh").click(function (e) {
 
 //<!-- Clone Shipping Address -->
 
-$("input[type='checkbox']").change(function () {
-    if ($("input[type='checkbox']").is(':checked')) {
+$("#addresscheck").change(function () {
+    if ($("#addresscheck").is(':checked')) {
         $("[id='ship_street']").val($("[id='bill_street']").val());
         $("[id='ship_city']").val($("[id='bill_city']").val());
         $("[id='ship_state']").val($("[id='bill_state']").val());
         $("[id='ship_postalcode']").val($("[id='bill_postalcode']").val());
         $("[id='ship_country']").val($("[id='bill_country']").val());
+        //$("[id='tds']").val("1");
+        //$("[id='taxexemption']").val("1");
+        //$("[id='fileupload2']").css("display", "block");
+        
     }
     else {
         $("[id='ship_street']").val("");
@@ -130,6 +134,8 @@ $("input[type='checkbox']").change(function () {
         $("[id='ship_state']").val("");
         $("[id='ship_postalcode']").val("");
         $("[id='ship_country']").val("");
+        //$("[id='tds']").val("0");
+        //$("[id='taxexemption']").val("0");
     }
 });
 
@@ -145,6 +151,7 @@ $(document).ready(function (e) {
 
     });
 
+   
     //  <!----- Table Pagination ---->
     Pagination();
     $("#customertable1").css("display", "none");
@@ -273,6 +280,13 @@ $("#Mobile_No").keypress(function (e) {
         return false;
     }
 });
+
+$("#tax_regno").keypress(function (e) {
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        $("#errmsg3").html("Enter Digits Only").show().fadeOut("slow");
+        return false;
+    }
+});
 //<!------ Contact Person Pop Up Job Position ------->
 
 //Assigning values to inputs
@@ -292,11 +306,12 @@ function editFunction(array) {
     if (array.tds_apply == 1) {
         $("#tds").prop('checked', 'checked');
     }
-    if (array.tax_exemption == 1)
+    if (array.tax_exemption == 1){
         $("#taxexemption").prop('checked', 'checked');
-   
-    $('#fileupload2').attr('src', array.tax_files);
-
+        $("#fileupload2").css('display','block');
+    }
+    //$("#fileupload2").attr('value', array.tax_files);
+    $('#fileupload2').val(array.tax_files);
     $('#bill_city').val(array.bill_city);
     $('#bill_country').val(array.bill_country);
     $('#bill_state').val(array.bill_state);
@@ -307,6 +322,7 @@ function editFunction(array) {
     $('#ship_state').val(array.ship_state);
     $('#ship_street').val(array.ship_street);
     $('#ship_postalcode').val(array.ship_postalcode);
+   
 }
 
 //Get Particular customer Record
@@ -923,7 +939,7 @@ function addingcusjobpositions() {
                 $('#newposition').val("");
             }
             else {
-                alert("not saved");
+                errormsg("Not Saved");
                 $('#newposition').val("");
             }
         },
@@ -1014,7 +1030,7 @@ function upload2() {
 //editcompanytaxdetails
 
 function editcompanytaxdetails(clickedvalue) {
-    alert(clickedvalue);
+    //alert(clickedvalue);
     cuscompany_Id =$('#cus_company_Id').val();
     var data1 = new FormData();
     var files = $("#fileupload2").get(0).files;
@@ -1023,21 +1039,9 @@ function editcompanytaxdetails(clickedvalue) {
     }
     tax_reg_no = $('#tax_regno').val();
     pan_no = $('#pan_no').val();
-
-    if ($("#tds").is(":checked")) 
-            $('#tds').val("1");
-        else
-            $('#tds').val("0");
-    if ($("#taxexemption").is(":checked")) {
-        $('#taxexemption').val("1");
-    }
-    else {
-        $('#taxexemption').val("0");
-    }
     tds_apply = $('#tds').val();
     tax_exemption = $('#taxexemption').val();
-    alert(tds_apply);
-    alert(tax_exemption);
+    //alert(tax_exemption)
     
             if (clickedvalue == 'updatetaxdetails') {
                 $.ajax({
@@ -1068,8 +1072,7 @@ function editcompanytaxdetails(clickedvalue) {
                     success: function (data) {
                         if (data == "success1") {
                             successmsg("Tax Details Saved Successfully");
-                            //var x = document.getElementById("fileupload2").value;
-                            //document.getElementById("demo").innerHTML = x;
+                            
                         }
                         else {
                             errormsg("Not Saved");
@@ -1079,8 +1082,25 @@ function editcompanytaxdetails(clickedvalue) {
                     { errormsg("Failed!!!"); }
                 });
             }
-        }
-    //}
-//}
+}
 
 
+        $('#taxexemption').change(function () {
+            if ($("#taxexemption").is(":checked")) {
+                $('#taxexemption').val("1");
+                $('#fileupload2').css('display', 'block');
+            }
+            else {
+                $('#taxexemption').val("0");
+                $('#fileupload2').css('display', 'none');
+            }
+        });
+        $('#tds').change(function () {
+            if ($("#tds").is(":checked")) {
+                $('#tds').val("1");
+            }
+            else {
+                $('#tds').val("0");
+            }
+        });
+ 
