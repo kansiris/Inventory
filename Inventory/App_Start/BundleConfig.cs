@@ -16,7 +16,8 @@ namespace Inventory
             //shop product
             bundles.Add(new ScriptBundle("~/bundles/ShopProduct").Include("~/Scripts/shopproduct.js"));
 
-
+            //create invoice
+            bundles.Add(new ScriptBundle("~/bundles/Invoices").Include("~/Scripts/invoice.js"));
             //User Profile
             bundles.Add(new ScriptBundle("~/bundles/profile").Include("~/Scripts/UserProfile.js"));
             //Add Product

@@ -307,7 +307,7 @@ function editFunction(array) {
         $("#taxexemption").prop('checked', 'checked');
         $("#fileupload2").css('display','block');
     }
-    alert(array.tax_files);
+    //alert(array.tax_files);
     //$("#fileupload2").attr('value', array.tax_files);
     //$('#fileupload2').val(array.tax_files);
     $('#bill_city').val(array.bill_city);

@@ -1,42 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+
 namespace Inventory.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
-    [Table("Invoice")]
-    public partial class Invoice
+   
+    public class Invoice
     {
-        [Key]
-        [StringLength(10)]
-        public string Invoice_Number { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? Amount { get; set; }
+        public string ID { get; set; }
+        public string customer_id { get; set; }
+        public string company_name { get; set; }
+        public string product_id { get; set; }
+        public string product_name { get; set; }
+        public string Quantity { get; set; }
+        public string cost_price { get; set; }
+        public string total_price { get; set; }
+        public string selling_price { get; set; }
+        public string tax { get; set; }
+        public string discount { get; set; }
+        public string description { get; set; }
+        public string payment_terms { get; set; }
+        public string shipping_terms { get; set; }
+        public string remarks { get; set; }
+        public string sub_total { get; set; }
+        public string vat { get; set; }
+        public string grand_total { get; set; }
+        public string shipping_date { get; set; }
+        public string created_date { get; set; }
+        
 
-        [StringLength(10)]
-        public string Staff_Id { get; set; }
-
-        [StringLength(10)]
-        public string Vendor_Id { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? Invoice_Date { get; set; }
-
-        [StringLength(50)]
-        public string Invoice_copy { get; set; }
-
-        public int? Payment_Id { get; set; }
-
-        [StringLength(100)]
-        public string Remarks { get; set; }
-
-        public virtual Vendor Vendor { get; set; }
-
-        public virtual Payment Payment { get; set; }
-
-        public virtual Staff Staff { get; set; }
+        public string Prchaseorder_no { get; set; }
+        public string Payment_date { get; set; }
+        public string status { get; set; }
+        public string totalQty { get; set; }
+        
     }
 }

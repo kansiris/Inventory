@@ -86,7 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InventoryMasterSP.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Invoice.cs" />
+    <Compile Include="InvoiceRepository.cs" />
     <Compile Include="InvoiceDetails.cs" />
     <Compile Include="Items.cs" />
     <Compile Include="LoginRepository.cs" />

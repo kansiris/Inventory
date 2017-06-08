@@ -433,7 +433,7 @@ namespace Inventory.Controllers
                     string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
                     string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
                     string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
-                    string total_price = sub_total;
+                    string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i]; 
                     count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
                 }
 

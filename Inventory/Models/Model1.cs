@@ -35,21 +35,21 @@ namespace Inventory.Models
                 .Property(e => e.Staff_Id)
                 .IsFixedLength();
 
-            modelBuilder.Entity<Invoice>()
-                .Property(e => e.Invoice_Number)
-                .IsFixedLength();
+            //modelBuilder.Entity<Invoice>()
+            //    .Property(e => e.Invoice_Number)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Invoice>()
-                .Property(e => e.Amount)
-                .HasPrecision(19, 4);
+            //modelBuilder.Entity<Invoice>()
+            //    .Property(e => e.Amount)
+            //    .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Invoice>()
-                .Property(e => e.Staff_Id)
-                .IsFixedLength();
+            //modelBuilder.Entity<Invoice>()
+            //    .Property(e => e.Staff_Id)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Invoice>()
-                .Property(e => e.Vendor_Id)
-                .IsFixedLength();
+            //modelBuilder.Entity<Invoice>()
+            //    .Property(e => e.Vendor_Id)
+            //    .IsFixedLength();
 
             modelBuilder.Entity<Item>()
                 .Property(e => e.SKU)
