@@ -123,7 +123,7 @@
                                     <div class="col-xs-6 qty">
                                         <div class="input-group spinner">
                                             <label>Qty</label>
-                                            <input type="text" class="form-control quantity" value="1" min="1" id="quantity" > @*onkeyup="return isNumberKey(event,this.@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1])"*@
+                                            <input type="text" class="form-control quantity" value="1" min="1" id="quantity" />@*onkeyup="return isNumberKey(event,this.@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1])" />*@
                                             <div class="input-group-btn-vertical">
                                                 <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
                                                 <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
@@ -189,8 +189,8 @@
             }
             return vals();
         });
+
         //for measurment chnge
-       
         $("select").click(function () {
             var productid = $(this).children("option:selected").next().text().replace(/ /g, '').replace('}', ''); //particular product id
             var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
@@ -208,8 +208,6 @@
                     }
                 }
             });
-                whqty.html(result.qty); //$('#availableqty').html(result.qty);
-                if (result.qty == '') { whqty.html(0); }
         }).on('change', function () {
             var v = $(this).children("option:selected").text().split("₹")[1];
             $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("Price ₹ " + "<span>" + v + "</span>");
@@ -233,26 +231,18 @@
 
         });
 
-        //qty restriction
-        //$(this).closest('div.row').find("div.qty").children("div.spinner").children("input").change(function(){
-        //    alert($(this).parent(".product-variation").prevAll(".image").children("input#pqty").val());
-        //});
-
-        $('.quantity').on('input', function () {
+        $('.quantity').on('input', function (evt) {
             var inputvalue = this.value;
-            //alert(inputvalue);
             var v = $(this).closest('div.well').find("div.image").find("input#pqty").val();
             if (parseInt(inputvalue) > parseInt(v)) {
                 errormsg("Quantity Exceeded");
                 $('#availableqty').html(v);
-                this.value = 1;
+                $(this).val("1");
                 this.focus();
             }
+        }).keypress(function(key) {
+            if(key.charCode < 48 || key.charCode > 57){ warnmsg("Enter Number only"); return false;}
         });
-        //function restrict() {
-        //    //alert($(this).parent(".product-variation").prevAll(".image").children("input#pqty").val());
-        //    alert('qty restrict');
-        //}
 
         //for total price quant
         function vals() {
