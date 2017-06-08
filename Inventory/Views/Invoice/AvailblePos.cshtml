@@ -1,0 +1,27 @@
+﻿@if (ViewBag.records != null)
+{
+    if (ViewBag.records.Count != 0)
+    {
+        foreach (var item in ViewBag.records)
+        {
+
+<tr>
+    <td class="col-md-1">
+        <label><input type="checkbox" value="@item.Prchaseorder_no" id="availpocheck"></label>
+    </td>
+    <td class="col-md-2">@item.Prchaseorder_no</td>
+    <td class="col-md-3">@item.created_date</td>
+    <td class="col-md-3">@item.totalQty</td>
+    <td class="col-md-3"><text class="localization"></text><span>@item.total_price</span></td>
+</tr>
+        }
+    }
+
+
+else {
+<tr>
+    <td colspan="5"><p>No PO's Available to create a Invoice</p></td>
+</tr>
+
+    }
+}

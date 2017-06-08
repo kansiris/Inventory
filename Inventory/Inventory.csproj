@@ -465,6 +465,7 @@
     <Content Include="Scripts\css\styles.css" />
     <Content Include="Scripts\customer.js" />
     <Content Include="Scripts\hideShowPassword.min.js" />
+    <Content Include="Scripts\invoice.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -4793,6 +4794,8 @@
     <Content Include="Views\Products\ViewPoproducts.cshtml" />
     <Content Include="Views\Products\allImagesonPid.cshtml" />
     <Content Include="Views\AvailablePO\Index.cshtml" />
+    <Content Include="Views\Invoice\AvailblePos.cshtml" />
+    <Content Include="Views\Invoice\GenarateInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
