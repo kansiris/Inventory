@@ -4,27 +4,15 @@
 </div>
 <div class="row margin-bottom">
     <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="images/logo.jpg" alt="Logo"> <span class="vendorname">Xsilica Software Solutions</span> </div>
-    <div class="address col-xs-12 col-md-3 margin-bottom">
-        <span>Billing Address</span><br>
-        Fedex Solutions Pvt.Ltd,<br>
-        H.No.8-2-120/112/B/5&amp;6,<br>
-        3rd Floor, BBR Forum,<br>
-        Road No.2, Banjara Hills,<br>
-        Hyderabad-500034.
-    </div>
-    <div class="address col-xs-12 col-md-3 margin-bottom">
-        <span>Shipping Address</span><br>
-        Fedex Solutions Pvt.Ltd,<br>
-        H.No.8-2-120/112/B/5&amp;6,<br>
-        3rd Floor, BBR Forum,<br>
-        Road No.2, Banjara Hills,<br>
-        Hyderabad-500034.
-    </div>
+    
+    @{ Html.RenderAction("GetCustomerdata", "Invoice");}
+  
     <div class="col-xs-12 col-md-3 margin-bottom">
-        <div class="row padding-bottom date"> Date : 05/10/2017 </div>
+        <div class="row padding-bottom date" id="createddatedeliv"></div>
         <div class="row invoice-total-amount"> Rs <span>40123</span> </div>
     </div>
 </div>
+
 <div class="row padding-top invoice">
     <div class="col-xs-12 col-md-12">
         <div class="total table-responsive">
@@ -101,3 +89,10 @@
     </div>
 </div>
 
+<script>
+        n = new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        document.getElementById("createddatedeliv").innerHTML = "Date :" + d + "/" + m + "/" + y;
+</script>

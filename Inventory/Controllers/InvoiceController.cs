@@ -62,13 +62,14 @@ namespace Inventory.Controllers
                     //int i = 0;
                     var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                     var dt = new DataTable();
-                    for (int i = 0; i <ponumsArray.Length; i++)
+                    for (int i = 0; i < ponumsArray.Length; i++)
                     {
                         var records = InvoiceService.GetPodata(user.DbName, cid, Prchaseorder_nos.Split(',')[i]);
                         dt.Load(records);
                         List<Invoice> productsinpos = (from DataRow row in dt.Rows
                                                        select new Invoice()
                                                        {
+                                                           customer_id = cid,
                                                            Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                            product_id = row["product_id"].ToString(),
                                                            product_name = row["product_name"].ToString(),
@@ -118,6 +119,7 @@ namespace Inventory.Controllers
                         List<Invoice> productsinpos = (from DataRow row in dt.Rows
                                                        select new Invoice()
                                                        {
+                                                           customer_id = cid,
                                                            Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                            product_id = row["product_id"].ToString(),
                                                            product_name = row["product_name"].ToString(),
@@ -128,10 +130,10 @@ namespace Inventory.Controllers
                                                        }).ToList();
                         ViewBag.records = productsinpos;
                     }
-                    return PartialView("GenarateInvoice", ViewBag.records);
+                    return PartialView("GenarateDeliveryNote", ViewBag.records);
                 }
             }
-            return PartialView("GenarateInvoice", null);
+            return PartialView("GenarateDeliveryNote", null);
         }
 
         //Genarate delivery note
@@ -144,6 +146,41 @@ namespace Inventory.Controllers
                 return Json("success");
             }
             return Json("unique");
+        }
+
+        //to get customer data
+
+        public PartialViewResult GetCustomerdata(string cid)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = CustomerService.getAllDetailsByCompany_Id(user.DbName, cid);
+                dt.Load(records);
+                List<Customer> customerdata = (from DataRow row in dt.Rows
+                                               select new Customer()
+                                               {
+                                                   cus_company_name = row["cus_company_name"].ToString(),
+                                                   cus_email = row["cus_email"].ToString(),
+                                                   cus_logo = row["cus_logo"].ToString(),
+                                                   bill_street = row["bill_street"].ToString(),
+                                                   bill_city = row["bill_city"].ToString(),
+                                                   bill_state = row["bill_state"].ToString(),
+                                                   bill_postalcode = row["bill_postalcode"].ToString(),
+                                                   bill_country = row["bill_country"].ToString(),
+                                                   ship_street = row["ship_street"].ToString(),
+                                                   ship_city = row["ship_city"].ToString(),
+                                                   ship_state = row["ship_state"].ToString(),
+                                                   ship_postalcode = row["ship_postalcode"].ToString(),
+                                                   ship_country = row["ship_country"].ToString()
+                                               }).ToList();
+                ViewBag.records = customerdata;
+                return PartialView("GetCustomerdata", ViewBag.records);
+            }
+
+            return PartialView("GetCustomerdata", null);
         }
 
     }
