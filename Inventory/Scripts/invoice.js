@@ -11,8 +11,25 @@
     $("#sravaniadded").css("display", "block");
     $("#sravaniadded1").css("display", "none");
     $("#fainalbuttons").css("display", "block");
-
-    location.href = '/Invoice/GenarateInvoice?cid=' + cid +'&Prchaseorder_nos=' + Prchaseorder_nos;
+    $.ajax({
+        url: '/Invoice/GenarateInvoicejson?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos,
+        type: 'POST',
+        data: JSON.stringify({}),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique") {
+                errormsg("No Data Available");
+            }
+            else{
+                successmsg("Invoice Genarated Successfully .");
+                var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
+                $('#sravaniadded').load(url);
+            }
+        },
+        error: function (data)
+        { errormsg("Failed!!!"); }
+    });
 }
 
 function genarateDelivNote() {

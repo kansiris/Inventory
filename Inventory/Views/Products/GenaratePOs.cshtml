@@ -99,7 +99,7 @@
                                         <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                                             <thead class="thead-inverse">
                                                 <tr>
-                                                    @*<th class="col-md-2">Ptid</th>*@
+                                                    <th class="col-md-2">Pid</th>
                                                     <th class="col-md-3">Product Name</th>
                                                     <th class="col-md-3">Description</th>
                                                     <th class="col-md-2">Quantity</th>
@@ -113,7 +113,7 @@
                                                     foreach (var item in ViewBag.records)
                                                     {
                                                         <tr>
-                                                            @*<td class="col-md-2 image">@item.cart_id </td>*@
+                                                            <td class="col-md-2 image">@item.product_id </td>
                                                             <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
                                                             <td class="col-md-3 product-variation"><span>@item.Measurement</span></td>
                                                             <td class="col-md-2 quantity-changes">@item.Quantity</td>

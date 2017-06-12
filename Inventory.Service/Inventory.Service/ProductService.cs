@@ -175,10 +175,10 @@ namespace Inventory.Service
             return ProductRepository.Getdescripton(dbname, product_name);
         }
 
-        public static int Addtocart(string dbname,string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price,string product_images)
+        public static int Addtocart(string dbname,string cid,string product_id, string product_name, string cost_price, string Quantity, string Measurement, string total_price,string product_images)
         {
             
-            return ProductRepository.Addtocart(dbname, cid, product_name, cost_price, Quantity, Measurement, total_price, product_images);
+            return ProductRepository.Addtocart(dbname, cid, product_id, product_name, cost_price, Quantity, Measurement, total_price, product_images);
         }
         //Updatecart
             public static int Updatecart(string dbname, int cart_id, string Quantity,string total_price)
@@ -199,10 +199,10 @@ namespace Inventory.Service
             return ProductRepository.Getimages(dbname, product_id);
         }
         //for genarating po
-        public static int GenaratePurchaseOrder(string dbname, string cid, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string product_name, string description, string quantity
+        public static int GenaratePurchaseOrder(string dbname, string cid, string product_id, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string product_name, string description, string quantity
                 , string price, string total_price, string remarks, string sub_total, float vat, float discount, string grand_total)
         {
-            return ProductRepository.GenaratePurchaseOrder(dbname, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity,price, total_price, remarks,sub_total, vat, discount, grand_total);
+            return ProductRepository.GenaratePurchaseOrder(dbname, cid, product_id, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity,price, total_price, remarks,sub_total, vat, discount, grand_total);
         }
         
             public static int Removefromcart(string dbname, int cart_id)

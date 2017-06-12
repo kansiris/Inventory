@@ -1,183 +1,105 @@
 ﻿
-@{
-    ViewBag.Title = "GenarateInvoice";
-    Layout = "~/Views/Shared/MainMaster.cshtml";
-}
+@*<div id="sravaniadded" style="display:none">*@
 
-<!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-<!-- iCheck -->
-<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-<!-- bootstrap-progressbar -->
-<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-<!-- JQVMap -->
-<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-<!-- bootstrap-daterangepicker -->
-<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-
-<!--- Tabs in Graph Section ---->
-<link rel="stylesheet" type="text/css" href="~/Scripts/css/reset.css">
-<link rel="stylesheet" type="text/css" href="~/Scripts/css/styles.css">
-<div class="container body">
-    <div class="main_container">
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <div class="container">
-                <form>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="row">
-                                <div class="form-title col-xs-12 col-md-12">Purchase Order</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row total-border">
-                        <div class="col-xs-12 col-md-12">
-                            <div class="row margin-bottom">
-                                @{ Html.RenderAction("CustomerforPOs", "Products");}
-
-                                <div class="col-xs-12 col-md-3 margin-bottom">
-                                    <div class="row padding-bottom date" id="po_date"> Date :
-                                    <script> document.write(new Date().toLocaleDateString('en-GB'));</script></div>
-                                    <div class="row total-amount"> <text class="localization"></text> <span>@ViewBag.totalamount</span> </div>
-                                </div>
-                            </div>
-                            <div class="row padding-bottom">
-                                <div class="col-xs-12 col-md-7 to-address margin-bottom"> <span>To : Xsilica Software Solutions</span> </div>
-                                <div class="col-xs-12 col-md-5 margin-bottom">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-5 po-number">Purchase Order Number</div>
-                                        <div class="col-xs-12 col-md-7">
-                                            <input type="text" id="ponumber" class="form-control" placeholder="Enter PO Number" onblur="checkponumber(this.value)">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row po-date">
-                                <table class="table table-bordered col-xs-12 col-md-12">
-                                    <thead>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-xs-6 col-md-2">Payment Date</td>
-                                            <td class="col-xs-6 col-md-4">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="payment_date" name="date" placeholder="MM/DD/YYYY" type="text" />
-                                                </div>
-                                            </td>
-                                            <td class="col-xs-6 col-md-2">Payment Terms</td>
-                                            <td class="col-xs-6 col-md-4">
-                                                <input type="text" id="payment_terms" class="form-control" placeholder="" value="">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-xs-6 col-md-2">Shipping Date</td>
-                                            <td class="col-xs-6 col-md-4">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="shipping_date" name="date" placeholder="MM/DD/YYYY" type="text" />
-                                                </div>
-                                            </td>
-                                            <td class="col-xs-6 col-md-2">Shipping Terms</td>
-                                            <td class="col-xs-6 col-md-4">
-                                                <input type="text" id="shipping_terms" class="form-control" placeholder="" value="">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="row padding-top po-order">
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="total table-responsive">
-                                        <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
-                                            <thead class="thead-inverse">
-                                                <tr>
-                                                    @*<th class="col-md-2">Ptid</th>*@
-                                                    <th class="col-md-3">Product Name</th>
-                                                    <th class="col-md-3">Description</th>
-                                                    <th class="col-md-2">Quantity</th>
-                                                    <th class="col-md-1">Price</th>
-                                                    <th class="col-md-1">Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if (ViewBag.records != null)
-                                                {
-                                                    foreach (var item in ViewBag.records)
-                                                    {
-                                                        <tr>
-                                                            @*<td class="col-md-2 image">@item.cart_id </td>*@
-                                                            <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
-                                                            <td class="col-md-3 product-variation"><span>@item.description</span></td>
-                                                            <td class="col-md-2 quantity-changes">@item.Quantity</td>
-                                                            <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.cost_price</span></td>
-                                                            <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
-                                                        </tr>
-                                                    }
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            
-                            <div class="row margin-top">
-                                <div class="col-xs-12 col-md-6 margin-top margin-bottom terms-conditions">
-                                    <a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions</a>
-                                    <ul class="terms-content margin-top">
-                                        <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
-                                        <li>2) Text has been the industry's standard dummy text ever since</li>
-                                        <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
-                                        <li>4) Here we have industry's standard dummy text ever since</li>
-                                        <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
-                                        <li>6) Enter content has been the industry's standard dummy text ever since</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </form>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="row">
+                <div class="form-title col-xs-12 col-md-12">Invoice</div>
             </div>
         </div>
     </div>
-    <!-- /page content -->
+    <div class="row margin-bottom">
+        <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
+        <div class="address col-xs-12 col-md-3 margin-bottom">
+            <span>Billing Address</span><br />
+            Fedex Solutions Pvt.Ltd,<br />
+            H.No.8-2-120/112/B/5&6,<br />
+            3rd Floor, BBR Forum,<br />
+            Road No.2, Banjara Hills,<br />
+            Hyderabad-500034.
+        </div>
+        <div class="address col-xs-12 col-md-3 margin-bottom">
+            <span>Shipping Address</span><br />
+            Fedex Solutions Pvt.Ltd,<br />
+            H.No.8-2-120/112/B/5&6,<br />
+            3rd Floor, BBR Forum,<br />
+            Road No.2, Banjara Hills,<br />
+            Hyderabad-500034.
+        </div>
+        <div class="col-xs-12 col-md-3 margin-bottom">
+            <div class="row padding-bottom date"> Date : 05/10/2017 </div>
+            <div class="row invoice-total-amount"> Rs <span>40123</span> </div>
+        </div>
+    </div>
+    <div class="row padding-bottom">
+        <div class="col-xs-12 col-md-7 to-address margin-bottom"> <span>To : Fedex Company</span> </div>
+        <div class="col-xs-12 col-md-5 margin-bottom">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
+                <div class="col-xs-12 col-md-8">
+                    <input type="text" class="form-control" placeholder="Enter Invoice">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row po-date">
+        <table class="table table-bordered col-xs-12 col-md-12">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-xs-6 col-md-2">Payment Date</td>
+                    <td class="col-xs-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                        </div>
+                    </td>
+                    <td class="col-xs-6 col-md-2">Payment Terms</td>
+                    <td class="col-xs-6 col-md-4">
+                        <input type="text" class="form-control" placeholder="" value="">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row padding-top invoice">
+        <div class="col-xs-12 col-md-12">
+            <div class="total table-responsive">
+                <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th class="col-md-2">PO No</th>
+                            <th class="col-md-2">Product id</th>
+                            <th class="col-md-3">Product Name</th>
+                            <th class="col-md-2">Description</th>
+                            <th class="col-md-1">Quantity</th>
+                            <th class="col-md-1">Price</th>
+                            <th class="col-md-1">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.records != null)
+                        {
+                            foreach (var item in ViewBag.records)
+                            {
+                                <tr>
+                                    <td class="col-md-2">@item.Prchaseorder_no</td>
+                                    <td class="col-md-2 image">@item.product_id </td>
+                                    <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
+                                    <td class="col-md-2 product-variation"><span>@item.description</span></td>
+                                    <td class="col-md-1 quantity-changes">@item.Quantity</td>
+                                    <td class="col-md-1 product-variation"><text class="localization"></text> <span>@item.cost_price</span></td>
+                                    <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
+                                </tr>
+                            }
+                        }
 
-</div>
-@section scripts{
-    <script type="text/javascript" language="javascript" src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" language="javascript" src="~/Scripts/js/modernizr.js"></script>
-    <script type="text/javascript" language="javascript" src="~/Scripts/js/main.js"></script>
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/js/jquery-ui.min.js" language="javascript"></script>
-    <script type="text/javascript" src="~/Scripts/js/tag-it.js" language="javascript"></script>
-    <script type="text/javascript" src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
- @Scripts.Render("~/bundles/Invoices")
-    <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
-    <script>
-        $(document).ready(function () {
-            var createddate = ($('#po_date').text()).split(';')[1];
-            var date_input = $('input[name="date"]'); //our date input has the name "date"
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            date_input.datepicker({
-                format: 'dd/MM/yyyy',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-            })
-        });
-    </script>
-   
-}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
+@*</div>*@

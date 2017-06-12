@@ -196,9 +196,11 @@ function insertpo(totalamount) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("alredy Inserted");
+                errormsg("alredy Purchase order Gernarated.Go To View Pos to view");
             }
-
+            else if (data == "exists") {
+                errormsg("alredy Purchase order Gernarated.Go To ViewPos to view");
+            }
             else {
                 successmsg("Successfully PurchaseOrder Generated.");
                 $("[id='ponumber']").val("");
@@ -207,7 +209,8 @@ function insertpo(totalamount) {
                 $("[id='shipping_date']").val("");
                 $("[id='shipping_terms']").val("");
                 $("[id='payment_date']").val("");
-               
+                
+                window.location = '/Products/PosOfCustomer?cid=' + cid;
                 //var url = 'Products/Addtocartpartial?cid=' + cid;
                 //$('#cartrecords').load(url);
             }

@@ -279,7 +279,8 @@
             var costprice = $(this).parents(".rate-add").children(".product-price").children("span").html();
             var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
             var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
-            var productid=$("[id='Pid']").val();
+            var productid=$(this).parents(".rate-add").prevAll("div.image").children("input").val();
+            //alert($(this).parents(".rate-add").prevAll("div.image").children("input").val());
             var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
             //alert(img);
             $.ajax({
@@ -322,11 +323,11 @@
             var qty = $(this).parent("td.add-to-cart-table").prevAll('td.quantity-changes').children("div.qty").children("div.spinner").children("input").val();
             var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
             var img = ($(this).parents("td.add-to-cart-table").prevAll("td.image").children("img").attr('src')).split('/')[2];
-
+            var productid=$(this).parents("td.add-to-cart-table").prevAll("td.image").children("input").val();
             $.ajax({
                 url: '/Products/Addtocart',
                 type: 'POST',
-                data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total ,product_images:img}),
+                data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total ,product_images:img,product_id : productid}),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {

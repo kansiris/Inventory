@@ -4796,6 +4796,7 @@
     <Content Include="Views\AvailablePO\Index.cshtml" />
     <Content Include="Views\Invoice\AvailblePos.cshtml" />
     <Content Include="Views\Invoice\GenarateInvoice.cshtml" />
+    <Content Include="Views\Invoice\GenarateDeliveryNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

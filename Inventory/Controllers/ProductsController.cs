@@ -234,7 +234,7 @@ namespace Inventory.Controllers
         }
 
 
-        public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
+        public JsonResult Addtocart(string cid,string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -263,7 +263,7 @@ namespace Inventory.Controllers
                 {
                     if (int.Parse(Quantity) > 0)
                     {
-                        ProductService.Addtocart(user.DbName, cid, product_name, cost_price, Quantity, Measurement, total_price, product_images);
+                        ProductService.Addtocart(user.DbName, cid, product_id, product_name, cost_price, Quantity, Measurement, total_price, product_images);
                         return Json("success");
                     }
                     return Json("qty");
@@ -329,6 +329,7 @@ namespace Inventory.Controllers
                                                    {
                                                        customer_id = row["customer_id"].ToString(),
                                                        cart_id = int.Parse(row["cart_id"].ToString()),
+                                                       product_id = row["product_id"].ToString(),
                                                        product_name = row["product_name"].ToString(),
                                                        //brand = row["brand"].ToString(),
                                                        Quantity = row["Quantity"].ToString(),
@@ -410,6 +411,7 @@ namespace Inventory.Controllers
                                               select new Product()
                                               {
                                                   customer_id = row["customer_id"].ToString(),
+                                                  product_id = row["product_id"].ToString(),
                                                   product_name = row["product_name"].ToString(),
                                                   cost_price = row["cost_price"].ToString(),
                                                   Quantity = row["Quantity"].ToString(),
@@ -429,12 +431,13 @@ namespace Inventory.Controllers
             {
                 for (int i = 0; i < ff; i++)
                 {
+                    string product_id = (cartaddedproduct.Select(m => m.product_id).ToList())[i];
                     string product_name = (cartaddedproduct.Select(m => m.product_name).ToList())[i];
                     string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
                     string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
                     string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
                     string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i]; 
-                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
+                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
                 }
 
                 if (count > 0)
@@ -475,7 +478,7 @@ namespace Inventory.Controllers
                                                  customer_id = row["customer_id"].ToString(),
                                                  company_name = row["company_name"].ToString(),
                                                  Prchaseorder_no = row["Prchaseorder_no"].ToString(),
-                                                 total_price = row["total_price"].ToString(),
+                                                 //total_price = row["total_price"].ToString(),
                                                  created_date = row["created_date"].ToString(),
                                                  Payment_date = row["Payment_date"].ToString(),
                                              }).ToList();
@@ -509,7 +512,7 @@ namespace Inventory.Controllers
                                                vat = row["vat"].ToString(),
                                                discount = row["discount"].ToString(),
                                                grand_total = row["grand_total"].ToString(),
-                                               total_price = row["total_price"].ToString(),
+                                               //total_price = row["total_price"].ToString(),
                                                created_date = row["created_date"].ToString(),
                                                Payment_date = row["Payment_date"].ToString(),
                                                shipping_date = row["shipping_date"].ToString(),
