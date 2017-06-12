@@ -25,7 +25,7 @@
                         <div class="well">
                             <i class="fa fa-times remove" aria-hidden="true" onclick="removecart(@item.cart_id)"></i>
                             <div class="image">
-                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png" && item.product_images != "default_product.png")
                                 { <img src="~/ProductImages/@item.product_images" /> }
                                 else
                                 { <img src="~/images/default_product.png" /> }
@@ -48,7 +48,7 @@
                                         <div class="col-xs-6 qty">
                                             <div class="input-group spinner">
                                                 <label>Qty</label>
-                                                <input type="text" class="form-control" value="@item.Quantity" min="1" id="qtyinput">
+                                                <input type="text" class="form-control" value="@item.Quantity" min="1" id="qtyinput" onfocus="this.select();">
                                                 <div class="input-group-btn-vertical">
                                                     @*<button class="btn btn-default" type="button" id="plus"><i class="fa fa-caret-up"></i></button>*@
                                                     <button class="btn btn-default" type="button" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"><i class="fa fa-caret-up"></i></button>
