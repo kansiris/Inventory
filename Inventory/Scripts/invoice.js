@@ -1,18 +1,17 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
-    //alert(cid);
+    var cname = document.URL.split('&&')[1].split('=')[1];
 
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
     }).toArray();
-    //alert(Prchaseorder_nos.length);
 
     $("#completediv").css("display", "block");
     $("#sravaniadded").css("display", "block");
     $("#sravaniadded1").css("display", "none");
-    $("#fainalbuttons").css("display", "block");
+
     $.ajax({
-        url: '/Invoice/GenarateInvoicejson?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos,
+        url: '/Invoice/GenarateInvoicejson?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname,
         type: 'POST',
         data: JSON.stringify({}),
         dataType: 'json',
@@ -21,9 +20,8 @@
             if (data == "unique") {
                 errormsg("No Data Available");
             }
-            else{
-                //successmsg("Invoice Genarated Successfully .");
-                var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
+            else {
+                var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname;
                 $('#sravaniadded').load(url);
             }
         },
@@ -34,15 +32,15 @@
 
 function genarateDelivNote() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
-    //alert(cid);
+
     $("#completediv").css("display", "block");
     $("#sravaniadded1").css("display", "block");
     $("#sravaniadded").css("display", "none");
-    $("#fainalbuttons").css("display", "block");
+
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
     }).toArray();
-    //alert(Prchaseorder_nos.length);
+    ;
 
     $.ajax({
         url: '/Invoice/GenarateDelivjson?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos,
@@ -55,7 +53,6 @@ function genarateDelivNote() {
                 errormsg("No Data Available");
             }
             else {
-                //successmsg("Delivery note Genarated Successfully .");
                 var url = 'Invoice/GenarateDeliveryNote?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
                 $('#sravaniadded1').load(url);
             }
@@ -67,16 +64,15 @@ function genarateDelivNote() {
 
 function genarateDelivInvoice() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
-    //alert(cid);
+    var cname = document.URL.split('&&')[1].split('=')[1];
     $("#completediv").css("display", "block");
     $("#sravaniadded").css("display", "block");
     $("#sravaniadded1").css("display", "block");
-    $("#fainalbuttons").css("display", "block");
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
     }).toArray();
-    //alert(Prchaseorder_nos.length);
-    var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
+
+    var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname;
     $('#sravaniadded').load(url);
     var url1 = 'Invoice/GenarateDeliveryNote?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
     $('#sravaniadded1').load(url1);

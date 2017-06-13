@@ -222,9 +222,9 @@ namespace Inventory.Controllers
                                 Quantity = row["Qty"].ToString(),
                                 Quantity_Total = row["Total"].ToString()
                             }).ToList();
-                var quantity="";
+                var quantity = "";
                 if (qtyinhnd.Count > 0)
-                {  quantity = qtyinhnd.FirstOrDefault().Quantity_Total; }//qtyinhnd.Select(m => m.Quantity_Total);
+                { quantity = qtyinhnd.FirstOrDefault().Quantity_Total; }//qtyinhnd.Select(m => m.Quantity_Total);
                 else { quantity = ""; }
                 #endregion
                 var result = new { images = ViewBag.records, qty = quantity };
@@ -234,7 +234,7 @@ namespace Inventory.Controllers
         }
 
 
-        public JsonResult Addtocart(string cid,string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
+        public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -421,14 +421,17 @@ namespace Inventory.Controllers
                                               }).ToList();
             var ff = cartaddedproduct.Count;
             int count = 0;
-            var counts = ProductService.checkponum(user.DbName, Prchaseorder_no);
+            //var counts = ProductService.checkponum(user.DbName, Prchaseorder_no);
 
-            if (counts.HasRows)
+            //if (counts.HasRows)
+            //{
+            //    return Json("exists");
+            //}
+            if (Prchaseorder_no != "")
             {
-                return Json("exists");
-            }
-            else
-            {
+                //    return Json("nodata");
+                //}
+                //else { 
                 for (int i = 0; i < ff; i++)
                 {
                     string product_id = (cartaddedproduct.Select(m => m.product_id).ToList())[i];
@@ -436,17 +439,16 @@ namespace Inventory.Controllers
                     string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
                     string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
                     string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
-                    string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i]; 
+                    string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i];
                     count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
                 }
-
                 if (count > 0)
                 {
                     ProductService.Emptycart(user.DbName, cid);
                     return Json("success");
                 }
-                return Json("unique");
             }
+            return Json("unique");
         }
 
         public JsonResult CheckPoNum(string Prchaseorder_no)

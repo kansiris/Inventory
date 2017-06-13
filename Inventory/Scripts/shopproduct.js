@@ -196,12 +196,10 @@ function insertpo(totalamount) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("alredy Purchase order Gernarated.Go To View Pos to view");
+                errormsg("Please Enter Purchase Order Number");
             }
-            else if (data == "exists") {
-                errormsg("alredy Purchase order Gernarated.Go To ViewPos to view");
-            }
-            else {
+            
+            if (data == "success") {
                 successmsg("Successfully PurchaseOrder Generated.");
                 $("[id='ponumber']").val("");
                 $("[id='shipping_date']").val("");
@@ -209,7 +207,6 @@ function insertpo(totalamount) {
                 $("[id='shipping_date']").val("");
                 $("[id='shipping_terms']").val("");
                 $("[id='payment_date']").val("");
-                
                 window.location = '/Products/PosOfCustomer?cid=' + cid;
                 //var url = 'Products/Addtocartpartial?cid=' + cid;
                 //$('#cartrecords').load(url);
@@ -232,10 +229,11 @@ function checkponumber(passedvalue){
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            if (data == "unique"){} 
+            if (data == "unique") {
+
+            }
             else {
                 existsmsg("Purchase Order Number Alredy Exists.Please Enter a Unique Number");
-              
                 $("[id='ponumber']").val("");
             }
         },

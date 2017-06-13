@@ -63,7 +63,7 @@
                                     <thead>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        @*<tr>
                                             <td class="col-xs-6 col-md-2">Payment Date</td>
                                             <td class="col-xs-6 col-md-4">
                                                 <div class="input-group">
@@ -75,13 +75,13 @@
                                             <td class="col-xs-6 col-md-4">
                                                 <input type="text" id="payment_terms" class="form-control" placeholder="" value="">
                                             </td>
-                                        </tr>
+                                        </tr>*@
                                         <tr>
                                             <td class="col-xs-6 col-md-2">Shipping Date</td>
                                             <td class="col-xs-6 col-md-4">
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="shipping_date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+                                                    <input class="form-control" id="shipping_date" name="date" placeholder="DD/MM/YYYY" type="text"/>
                                                 </div>
                                             </td>
                                             <td class="col-xs-6 col-md-2">Shipping Terms</td>
@@ -191,8 +191,7 @@
     <script type="text/javascript" src="~/Scripts/js/jquery-ui.min.js" language="javascript"></script>
     <script type="text/javascript" src="~/Scripts/js/tag-it.js" language="javascript"></script>
     <script type="text/javascript" src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
-   
-     <script src="~/Scripts/shopproduct.js"></script>
+   @Scripts.Render("~/bundles/ShopProduct")
     <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
     <script>
         $(document).ready(function () {
@@ -218,6 +217,10 @@
                 $(this).val('100');
             }
         });
+
+        function checkshipdate(){
+            alert($('#shipping_date').val());
+        }
         //function checkdate(dateval) {
         //    alert(dateval);
         //    var createddate = ($('#po_date').text()).split(';')[1];

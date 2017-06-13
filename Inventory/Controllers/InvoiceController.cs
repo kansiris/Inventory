@@ -49,7 +49,7 @@ namespace Inventory.Controllers
         }
 
         //for generating invoice
-        public PartialViewResult GenarateInvoice(string cid, string Prchaseorder_nos)
+        public PartialViewResult GenarateInvoice(string cid, string Prchaseorder_nos, string customer_name)
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -70,6 +70,7 @@ namespace Inventory.Controllers
                                                        select new Invoice()
                                                        {
                                                            customer_id = cid,
+                                                           company_name=customer_name,
                                                            Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                            product_id = row["product_id"].ToString(),
                                                            product_name = row["product_name"].ToString(),
@@ -77,18 +78,29 @@ namespace Inventory.Controllers
                                                            description = row["description"].ToString(),
                                                            cost_price = row["cost_price"].ToString(),
                                                            total_price = row["total_price"].ToString(),
+                                                           vat = row["vat"].ToString(),
+                                                           discount = row["discount"].ToString(),
+                                                           sub_total = row["sub_total"].ToString(),
+                                                           grand_total = row["grand_total"].ToString(),
                                                        }).ToList();
                         ViewBag.records = productsinpos;
+                        ViewBag.customer_id = cid;
+                        ViewBag.company_name = customer_name;
+                        ViewBag.vat = productsinpos.Select(m => m.vat).First();
+                        ViewBag.discount = productsinpos.Select(m => m.discount).First();
+                        ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
+                        ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
                     }
+
                     return PartialView("GenarateInvoice", ViewBag.records);
                 }
             }
             return PartialView("GenarateInvoice", null);
         }
 
-        public JsonResult GenarateInvoicejson(string cid, string Prchaseorder_nos)
+        public JsonResult GenarateInvoicejson(string cid, string Prchaseorder_nos, string customer_name)
         {
-            var sample = GenarateInvoice(cid, Prchaseorder_nos);
+            var sample = GenarateInvoice(cid, Prchaseorder_nos, customer_name);
 
             if (sample != null)
             {
@@ -127,8 +139,17 @@ namespace Inventory.Controllers
                                                            description = row["description"].ToString(),
                                                            cost_price = row["cost_price"].ToString(),
                                                            total_price = row["total_price"].ToString(),
+                                                           vat = row["vat"].ToString(),
+                                                           discount = row["discount"].ToString(),
+                                                           sub_total = row["sub_total"].ToString(),
+                                                           grand_total = row["grand_total"].ToString(),
                                                        }).ToList();
                         ViewBag.records = productsinpos;
+                        ViewBag.customer_id = cid;
+                        ViewBag.vat = productsinpos.Select(m => m.vat).First();
+                        ViewBag.discount = productsinpos.Select(m => m.discount).First();
+                        ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
+                        ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
                     }
                     return PartialView("GenarateDeliveryNote", ViewBag.records);
                 }
