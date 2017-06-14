@@ -98,7 +98,7 @@ namespace Inventory.Controllers
                                                          product_name = row["product_name"].ToString(),
                                                          brand = row["brand"].ToString(),
                                                          distinctproducts = row["BATCHNOLIST"].ToString(),
-
+                                                         product_images = row["productimage"].ToString(),
                                                      }).ToList();
                 ViewBag.records = subcategoryproducts;
                 return PartialView("allproducts", ViewBag.records);
