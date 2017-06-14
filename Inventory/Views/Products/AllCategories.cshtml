@@ -9,7 +9,7 @@
                     foreach (var item in ViewBag.records)
                     {
                         <li class="leve12">
-                            <a href="#">@item.category<span class="caret"></span></a>
+                            <a>@item.category<span class="caret"></span></a>
                             @{Html.RenderAction("AllSubCategories", "Products", new { category_id = @item.category_id });}
                         </li>
                                     }
