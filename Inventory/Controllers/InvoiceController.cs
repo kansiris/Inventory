@@ -70,7 +70,7 @@ namespace Inventory.Controllers
                                                        select new Invoice()
                                                        {
                                                            customer_id = cid,
-                                                           company_name=customer_name,
+                                                           company_name = customer_name,
                                                            Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                            product_id = row["product_id"].ToString(),
                                                            product_name = row["product_name"].ToString(),
@@ -204,5 +204,35 @@ namespace Inventory.Controllers
             return PartialView("GetCustomerdata", null);
         }
 
+        //to insert invoice data
+
+        public JsonResult InsertInvoice(string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date,string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount,string Prchaseorder_nos)
+        {
+
+           
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                     int count= InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos);
+                if(count>0)
+                return Json("success");
+                }
+            return Json("unique");
+        //Invoice_no,vendor_name, customer_id, company_name, created_date, payment_date, grand_total,payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos
+        }
+
+        //for checking invoice number
+
+        public JsonResult CheckInvoiceNum(string Invoice_no)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var count = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
+                if (count.HasRows)
+                    return Json("exists");
+            }
+            return Json("unique");
+        }
     }
 }

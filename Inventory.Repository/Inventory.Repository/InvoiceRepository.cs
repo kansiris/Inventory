@@ -28,5 +28,21 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "getpodatabasedonponum", cid, Prchaseorder_no);
         }
 
+        
+             public static SqlDataReader checkinvoicenum(string dbname,string Invoice_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkInvoicenum",Invoice_no);
+        }
+
+        public static int InsertInvoice(string dbname, string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        {
+
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoinsertinvoice", Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos);
+        }
+
     }
 }
