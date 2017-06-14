@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
                 <div class="col-xs-12 col-md-8">
-                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkponumber(this.value)" />
+                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoivenumber(this.value)" />
                 </div>
             </div>
         </div>
@@ -130,7 +130,9 @@
         <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
     </div>
 </div>
+
 <script>
+    
     $(document).ready(function () {
         var currency = $('#currency').val().slice(-2).replace(')', '');
         $('.localization').html(currency);
@@ -161,4 +163,5 @@
             document.location = '@Url.Action("Index", "Customer")';
         });
 
+    
 </script>

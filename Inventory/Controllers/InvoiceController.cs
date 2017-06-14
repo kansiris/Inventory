@@ -206,19 +206,28 @@ namespace Inventory.Controllers
 
         //to insert invoice data
 
-        public JsonResult InsertInvoice(string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date,string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount,string Prchaseorder_nos)
+        public JsonResult InsertInvoice(string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
         {
 
-           
+
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                     int count= InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos);
-                if(count>0)
-                return Json("success");
+                if (Prchaseorder_nos != null)
+                {
+                    Array ponumsArray = Prchaseorder_nos.Split(',');
+                    int count = 0;
+                    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                    for (int i = 0; i < ponumsArray.Length; i++)
+                    {
+                        count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i]);
+                        count++;
+                    }
+                    if (count > 0)
+                        return Json("success");
                 }
+            }
             return Json("unique");
-        //Invoice_no,vendor_name, customer_id, company_name, created_date, payment_date, grand_total,payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos
+            //Invoice_no,vendor_name, customer_id, company_name, created_date, payment_date, grand_total,payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos
         }
 
         //for checking invoice number
