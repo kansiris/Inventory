@@ -69,7 +69,8 @@ namespace Inventory.Controllers
                                //ID = row["ID"].ToString(),
                                subcategory_id = row["subcategory_id"].ToString(),
                                category_id = row["category_id"].ToString(),
-                               sub_category = row["sub_category"].ToString()
+                               sub_category = row["sub_category"].ToString(),
+                               Quantity = row["availableqty"].ToString(),
                            }).OrderByDescending(m => m.ID).ToList();
                 ViewBag.records = product;
                 return PartialView("AllSubCategories", ViewBag.records);
@@ -97,7 +98,7 @@ namespace Inventory.Controllers
                                                          product_name = row["product_name"].ToString(),
                                                          brand = row["brand"].ToString(),
                                                          distinctproducts = row["BATCHNOLIST"].ToString(),
-                                                        
+                                                         product_images = row["productimage"].ToString(),
                                                      }).ToList();
                 ViewBag.records = subcategoryproducts;
                 return PartialView("allproducts", ViewBag.records);
