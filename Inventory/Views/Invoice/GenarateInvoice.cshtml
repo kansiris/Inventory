@@ -36,7 +36,7 @@
                 <td class="col-xs-6 col-md-4">
                     <div class="input-group">
                         <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />
+                        <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" />
                     </div>
                 </td>
                 <td class="col-xs-6 col-md-2">Payment Terms</td>
@@ -149,5 +149,10 @@
         y = n.getFullYear();
         m = n.getMonth() + 1;
         d = n.getDate();
-        document.getElementById("createddate").innerHTML = "Date :" +d + "/" + m + "/" + y;
+        document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
+
+        $('#back-invoice').click(function () {
+            document.location = '@Url.Action("Index", "Customer")';
+        });
+
 </script>

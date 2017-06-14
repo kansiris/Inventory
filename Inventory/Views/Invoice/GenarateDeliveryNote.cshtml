@@ -105,4 +105,10 @@
         m = n.getMonth() + 1;
         d = n.getDate();
         document.getElementById("createddatedeliv").innerHTML = "Date :" + d + "/" + m + "/" + y;
+
+
+        $('#back-invoice').click(function () {
+            document.location = '@Url.Action("Index", "Customer")';
+        });
+
 </script>
