@@ -209,12 +209,12 @@
 
         function checkshipdate() {
             var shipdate=$('#shipping_date').val();
-            var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
+            //var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
             var today = new Date();
             var dd = today.getDate();
-            var MMM = today.getMonth();
+            var MMM = today.getMonth()+1;
             var yyyy = today.getFullYear();
-            today = dd + '/' + m_names[MMM] + '/' + yyyy;
+            today = dd + '/' + MMM + '/' + yyyy;
             //alert(today);
             if(shipdate<today){
                 warnmsg("Select a Valid Date.");
