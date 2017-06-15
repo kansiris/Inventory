@@ -196,7 +196,13 @@ function insertpo(totalamount) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("Please Enter Purchase Order Number");
+                errormsg("PurchaseOrder alredy Generated.");
+                $("[id='ponumber']").val("");
+                $("[id='shipping_date']").val("");
+                $("[id='payment_terms']").val("");
+                $("[id='shipping_date']").val("");
+                $("[id='shipping_terms']").val("");
+                $("[id='payment_date']").val("");
             }
             
             if (data == "success") {

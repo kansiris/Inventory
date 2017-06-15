@@ -402,7 +402,7 @@ namespace Inventory.Controllers
             return Json("unique");
         }
         //for genarate purchase order
-        public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string Payment_date, string shipping_date, string payment_terms, string shipping_terms, string remarks, string sub_total, float vat, float discount, string grand_total)
+        public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string shipping_date, string shipping_terms, string remarks, string sub_total, float vat, float discount, string grand_total)
 
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -443,7 +443,7 @@ namespace Inventory.Controllers
                     string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
                     string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
                     string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i];
-                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, Payment_date, shipping_date, payment_terms, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
+                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
                 }
                 if (count > 0)
                 {
@@ -483,9 +483,9 @@ namespace Inventory.Controllers
                                                  customer_id = row["customer_id"].ToString(),
                                                  company_name = row["company_name"].ToString(),
                                                  Prchaseorder_no = row["Prchaseorder_no"].ToString(),
-                                                 //total_price = row["total_price"].ToString(),
                                                  created_date = row["created_date"].ToString(),
-                                                 Payment_date = row["Payment_date"].ToString(),
+                                                 deliverynote_status = row["deliverynote_status"].ToString(),
+                                                 invoice_status = row["invoice_status"].ToString(),
                                              }).ToList();
                 ViewBag.records = posofcustom;
                 return PartialView("PosOfCustomer", ViewBag.records);
@@ -510,7 +510,7 @@ namespace Inventory.Controllers
                                            {
 
                                                Prchaseorder_no = row["Prchaseorder_no"].ToString(),
-                                               payment_terms = row["payment_terms"].ToString(),
+                                               //payment_terms = row["payment_terms"].ToString(),
                                                shipping_terms = row["shipping_terms"].ToString(),
                                                remarks = row["remarks"].ToString(),
                                                sub_total = row["sub_total"].ToString(),
@@ -519,7 +519,7 @@ namespace Inventory.Controllers
                                                grand_total = row["grand_total"].ToString(),
                                                //total_price = row["total_price"].ToString(),
                                                created_date = row["created_date"].ToString(),
-                                               Payment_date = row["Payment_date"].ToString(),
+                                               //Payment_date = row["Payment_date"].ToString(),
                                                shipping_date = row["shipping_date"].ToString(),
                                            }).ToList();
                 ViewBag.records = podetails;
