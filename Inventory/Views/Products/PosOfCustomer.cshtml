@@ -55,12 +55,22 @@
                                     @*<td> @item.total_price </td>*@
                                     <td> @item.created_date </td>
                                     @*<td> @item.Payment_date </td>*@
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
+                                    @if (int.Parse(@item.deliverynote_status) == 1) {
+                                    <td><input type="checkbox" id="fordeliv" checked disabled/></td>
+                                    }
+                                    else { 
+                                    <td><input type="checkbox" id="fordeliv" disabled/></td>
+                                    }
+                                    @if (int.Parse(@item.invoice_status) == 1) {
+                                    <td><input type="checkbox" id="forinvoice" checked disabled/></td>
+                                    }
+                                    else {
+                                    <td><input type="checkbox" id="fordeliv" disabled/></td>
+                                    }
                                     <td>
                                         <div class="btn-group">
                                             <button onclick="viewpodetails('@item.Prchaseorder_no',@item.customer_id);" title="View PO Details">View PO</button>
-                                           </div>
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -74,7 +84,7 @@
                     </tbody>
                 </table>
             </div>
-           <center><button type="button" id="back-invoice">Back</button></center>
+            <center><button type="button" id="back-invoice">Back</button></center>
         </div>
     </div>
 }
@@ -89,15 +99,29 @@
     <script type="text/javascript" src="~/Scripts/js/tag-it.js" language="javascript"></script>
     <script type="text/javascript" src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
-@*Over Hang*@
-<script src="~/Scripts/js/jquery-ui.min.js"></script>
-<script src="~/Scripts/js/overhang.min.js"></script>
+    @*Over Hang*@
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
 
-@Scripts.Render("~/bundles/ShopProduct")
-<script>
-    $('#back-invoice').click(function () {
-        document.location = '@Url.Action("Index", "Customer")';
-    });
+    @Scripts.Render("~/bundles/ShopProduct")
+    <script>
+        $('#back-invoice').click(function () {
+            document.location = '@Url.Action("Index", "Customer")';
+        });
+        
+        //$(document).ready(function (e) {
+           
+        //    //if ($('#fordeliv').val() == 1)
+        //    if($("[id='fordeliv']").val()==1)
+        //        $("#fordeliv").prop('checked', true);
+        //    else
+        //        $("#fordeliv").prop('checked', false);
+      
+        //    if ($("[id='forinvoice']").val() == 1)
+        //        $("#forinvoice").prop('checked', true);
+        //    else
+        //        $("#forinvoice").prop('checked', false);
+        //});
     </script>
 
 }

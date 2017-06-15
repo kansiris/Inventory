@@ -31,5 +31,12 @@ namespace Inventory.Service
             return InvoiceRepository.InsertInvoice(dbname, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos);
         }
 
+        //update po
+        public static int UpdatePoforInvoice(string dbname,string customer_id,string Prchaseorder_nos,string invoice_status)
+        {
+
+            return InvoiceRepository.UpdatePoforInvoice(dbname,customer_id,Prchaseorder_nos, invoice_status);
+        }
+
     }
 }

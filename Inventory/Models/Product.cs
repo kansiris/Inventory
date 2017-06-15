@@ -53,7 +53,8 @@ namespace Inventory.Models
         public string vat { get; set; }
         public string grand_total { get; set; }
         public string shipping_date { get; set; }
-
+        public string deliverynote_status { get; set; }
+        public string invoice_status { get; set; }
 
         public string status { get; set; }
 

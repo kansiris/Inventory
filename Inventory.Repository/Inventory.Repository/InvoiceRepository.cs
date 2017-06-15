@@ -43,6 +43,11 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoinsertinvoice", Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos);
         }
-
+        public static int UpdatePoforInvoice(string dbname, string customer_id, string Prchaseorder_nos,string invoice_status)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoupdateinvoicestatus",customer_id,Prchaseorder_nos, invoice_status);
+        }
     }
 }

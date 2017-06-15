@@ -1,8 +1,8 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
     var cname = document.URL.split('&&')[1].split('=')[1];
-    //alert($("#availpocheck").prop('checked'));
-    var checkboxval = $("#availpocheck").prop('checked');
+    var checkboxval = $("input:checkbox:checked").prop('checked');
+    //var checkboxval = $("#availpocheck").prop('checked');
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
     }).toArray();
@@ -36,7 +36,8 @@
 
 function genarateDelivNote() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
-    var checkboxval = $("#availpocheck").prop('checked');
+    var checkboxval = $("input:checkbox:checked").prop('checked');
+    //var checkboxval = $("#availpocheck").prop('checked');
     if (checkboxval == true) {
         $("#completediv").css("display", "block");
         $("#deliverynote").css("display", "block");
@@ -73,7 +74,10 @@ function genarateDelivNote() {
 function genarateDelivInvoice() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
     var cname = document.URL.split('&&')[1].split('=')[1];
-    var checkboxval = $("#availpocheck").prop('checked');
+    
+    var checkboxval = $("input:checkbox:checked").prop('checked');
+    //alert(checkboxval);
+    //var checkboxval = $("#availpocheck").prop('checked');
     if (checkboxval == true) {
         $("#completediv").css("display", "block");
         $("#invoicegenration").css("display", "block");
@@ -81,7 +85,6 @@ function genarateDelivInvoice() {
         var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
             return this.value;
         }).toArray();
-
         var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname;
         $('#invoicegenration').load(url);
         var url1 = 'Invoice/GenarateDeliveryNote?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
@@ -109,7 +112,11 @@ function saveInvoice(cid) {
     var Discount = (document.getElementById("discount").textContent).split('%')[0];
     var Grandtotal1 = (document.getElementById("grandtotal1").textContent);
     var Prchaseordernos = $("input:checkbox:checked").map(function () { return this.value;}).toArray();
-    alert(Prchaseordernos);
+    //alert(Prchaseordernos);
+    if (invoiceNum == "") {
+        errormsg("Please Enter Invoice Number");
+    }
+    else{
     $.ajax({
         url: '/Invoice/InsertInvoice?Prchaseorder_nos=' + Prchaseordernos,
         type: 'POST',
@@ -118,40 +125,54 @@ function saveInvoice(cid) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("No Data Available");
+                errormsg("Please Enter Invoice Number");
+
             }
             else {
                 successmsg("Invoice saved successfully");
-            }
-        },
-        error: function (data)
-        { errormsg("Failed!!!"); }
-
-    });
-
-}
-
-
-function checkinvoivenumber(passedvalue) {
-    alert(passedvalue);
-
-    $.ajax({
-        url: '/Invoice/CheckInvoiceNum',
-        type: 'POST',
-        data: JSON.stringify({ Invoice_no: passedvalue }),
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            if (data == "unique") {
-
-            }
-            else {
-                existsmsg("Invoice Number Alredy Exists.Please Enter a Unique Number");
                 $("[id='invoicenum']").val("");
+               
+               $("[id='date']").val("");
+                //$("[id='vendor_name']").val("");
+                $("[id='paymentterms']").val("");
+                $("[id='comment']").val("");
+                
             }
         },
         error: function (data)
         { errormsg("Failed!!!"); }
+
     });
+    }
 }
+
+
+function checkinvoicenumber(passedvalue) {
+    //alert(passedvalue);
+    if (passedvalue == "") {
+        errormsg("please enter Invoice number");
+    }
+    else {
+        $.ajax({
+            url: '/Invoice/CheckInvoiceNum',
+            type: 'POST',
+            data: JSON.stringify({ Invoice_no: passedvalue }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                   
+                }
+                else {
+                    existsmsg("Invoice Number Alredy Exists.Please Enter a Unique Number");
+                    $("[id='invoicenum']").val("");
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
+        });
+    }
+}
+
+
 

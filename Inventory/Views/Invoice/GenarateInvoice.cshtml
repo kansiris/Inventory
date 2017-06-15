@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
                 <div class="col-xs-12 col-md-8">
-                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoivenumber(this.value)" />
+                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoicenumber(this.value)"/>
                 </div>
             </div>
         </div>
@@ -145,8 +145,6 @@
         var crdate = d + "/" + m + "/" + y;
         document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
 
-        //$('#createddate').dateformat(dateformat);
-        
             var createddate = ($('#po_date').text()).split(';')[1];
             var date_input = $('input[name="date"]'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
