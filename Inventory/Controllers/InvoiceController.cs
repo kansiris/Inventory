@@ -222,21 +222,17 @@ namespace Inventory.Controllers
                     {
                         status = 1.ToString();
                         count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i]);
-                        if (count > 0) { 
-                            InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i],status);
+                        if (count > 0)
+                        {
+                            InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
                         }
                         count++;
                     }
                     if (count > 0)
-                    {
-                        
-                             return Json("success");
-                    }
-                       
+                        return Json("success");
                 }
             }
             return Json("unique");
-            //Invoice_no,vendor_name, customer_id, company_name, created_date, payment_date, grand_total,payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos
         }
 
         //for checking invoice number
@@ -249,6 +245,38 @@ namespace Inventory.Controllers
                 var count = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
                 if (count.HasRows)
                     return Json("exists");
+            }
+            return Json("unique");
+        }
+
+
+        //to insert DeliveryNote data
+
+        public JsonResult InsertDeliveryNote(string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        {
+
+            string status;
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                if (Prchaseorder_nos != null && Invoice_no != null)
+                {
+                    Array ponumsArray = Prchaseorder_nos.Split(',');
+                    int count = 0;
+                    CheckInvoiceNum(Invoice_no);
+                    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                    for (int i = 0; i < ponumsArray.Length; i++)
+                    {
+                        status = 1.ToString();
+                        count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i]);
+                        if (count > 0)
+                        {
+                            InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
+                        }
+                        count++;
+                    }
+                    if (count > 0)
+                        return Json("success");
+                }
             }
             return Json("unique");
         }

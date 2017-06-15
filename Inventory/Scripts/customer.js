@@ -168,7 +168,7 @@ $(document).ready(function (e) {
 function Pagination() {
 
     $('#customertable1').after('<div id="nav"></div>');
-    var rowsShown = 3;
+    var rowsShown = 10;
     var rowsTotal = $('#customertable tbody tr').length;
     var numPages = rowsTotal / rowsShown;
     for (i = 0; i < numPages; i++) {

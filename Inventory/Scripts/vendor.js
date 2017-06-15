@@ -164,7 +164,7 @@ function Pagination() {
         $('#vendortable tbody tr').css({ "display": "table", "width": "100%" });
     }
     $('#vendortable1').after('<div id="nav"></div>');
-    var rowsShown = 3;
+    var rowsShown = 10;
     var rowsTotal = $('#vendortable tbody tr').length;
     var numPages = rowsTotal / rowsShown;
     for (i = 0; i < numPages; i++) {
