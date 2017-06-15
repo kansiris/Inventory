@@ -761,7 +761,7 @@
                                             </label>
                                             @if (particularproduct.tax != "")
                                             {
-                                            <input type="text" id="tax" name="tax" class="form-control" placeholder="Tax" value="@particularproduct.tax" readonly>
+                                                <input type="text" id="tax" name="tax" class="form-control" placeholder="Tax" value="@particularproduct.tax" readonly>
                                             }
                                             else
                                             {
@@ -1103,7 +1103,13 @@
                                         {
                                             <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
                                                 <span class="tagit-label">@tag</span>
-                                                <a class="tagit-close"><span class="ui-icon ui-icon-close">!</span></a>
+                                                <a class="tagit-close">
+                                                    @if (tag != "")
+                                                    {
+                                                        <span class="ui-icon ui-icon-close">!</span>}
+                                                    else
+                                                    { <span class="ui-icon ui-icon-close"></span>}
+                                                </a>
                                                 <input type="hidden" value="@tag" name="tags" class="tagit-hidden-field">
                                             </li>
                                         }
@@ -1201,8 +1207,8 @@
     @*<script src="~/Scripts/Product.js"></script>*@
     <script src="/Scripts/js/bootstrap-datepicker.min.js"></script>
     <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
-           <!-- Over Hang -->
-<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+    <!-- Over Hang -->
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 
     @*<!------ Tags With Space and comma ------->*@
     @*<script type="text/javascript" src="js/jquery-ui.min.js" language="javascript"></script>
@@ -1210,10 +1216,10 @@
     <script src="~/Scripts/js/jquery-ui.min.js"></script>
     <script src="~/Scripts/js/tag-it.js"></script>
 
-            <!-- Over Hang -->
-<script src="~/Scripts/js/jquery-ui.min.js"></script>
-<script src="~/Scripts/js/overhang.min.js"></script>
-@Scripts.Render("~/bundles/product")
+    <!-- Over Hang -->
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
+    @Scripts.Render("~/bundles/product")
 
     <script type="text/javascript">
         $('#myTags').tagit();
@@ -1235,7 +1241,7 @@
                 autoclose: true,
             });
             //$('#product_consumable').val("Non-Consumable");
-            
+
             var productid = '@Request.QueryString["pid"]';
 
             if (productid != '') {
@@ -1490,7 +1496,7 @@
             if ($(this).is(":checked")) {
                 $(".tax input[placeholder='Tax']").prop('readonly', false);
             } else {
-                $(".tax input[placeholder='Tax']").prop('readonly',true);
+                $(".tax input[placeholder='Tax']").prop('readonly', true);
             }
 
         });
@@ -1516,7 +1522,7 @@
                 $('#product_consumable').val("Non-Consumable");
                 $(".quantity-veg-non, .quantity-perishable-non").css("display", "none");
             }
-            
+
         });
 
         $(".veg-non #checkbox1").change(function () {

@@ -19,54 +19,54 @@
                     {
                         foreach (var item in ViewBag.records)
                         {
-                            <tr>
-                                <td class="col-md-1 image">
-                                    @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                    <tr>
+                        <td class="col-md-1 image">
+                            @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
                                     { <img src="~/ProductImages/@item.product_images.Split(',')[0]" /> }
                                     else
                                     { <img src="~/images/default_product.png" /> }
-                                    <input type="hidden" class="form-control" value="@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1]">
-                                    <input type="hidden" id="Pid" class="form-control" value="@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1]">
-                                    @*@{Html.RenderAction("allImagesonPid", "Products", new { product_id = @item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1] });}*@
-                                </td>
-                                <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
-                                <td class="col-md-2 product-variation">
-                                    <select class="form-control">
-                                        @foreach (var item1 in item.distinctproducts.Split(','))
+                            <input type="hidden" class="form-control" value="@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1]">
+                            <input type="hidden" id="Pid" class="form-control" value="@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1]">
+                            @*@{Html.RenderAction("allImagesonPid", "Products", new { product_id = @item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1] });}*@
+                        </td>
+                        <td class="col-md-3 product-name"><a href="#" title=@item.product_name>@item.product_name</a></td>
+                        <td class="col-md-2 product-variation">
+                            <select class="form-control">
+                                @foreach (var item1 in item.distinctproducts.Split(','))
                                         {
-                                            <option><text class="localization"></text>@item1.Replace('?', '₹').Split('@')[0]</option>
-                                            <option hidden id="hiddenpid">
-                                                @item1.Split('@')[1] }
-                                            </option>
+                                        <option><text class="localization"></text>@item1.Replace('?', '₹').Split('@')[0]</option>
+                                        <option hidden id="hiddenpid">
+                                            @item1.Split('@')[1] }
+                                        </option>
                                         }
-                                    </select>
-                                </td>
-                                <td class="col-md-1 quantity-changes">
-                                    <div class="col-xs-6 qty">
-                                        <div class="input-group spinner">
-                                            <label>Qty</label>
-                                            <input type="text" class="form-control" value="1" onkeypress="return isNumberKey(event,this.@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1])">
-                                            <div class="input-group-btn-vertical">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                                            </div>
-                                        </div>
+                            </select>
+                        </td>
+                        <td class="col-md-1 quantity-changes">
+                            <div class="col-xs-6 qty">
+                                <div class="input-group spinner">
+                                    <label>Qty</label>
+                                    <input type="text" class="form-control" value="1" onkeypress="return isNumberKey(event,this.@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[1])">
+                                    <div class="input-group-btn-vertical">
+                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
                                     </div>
-                                </td>
-                                <td class="col-md-2 product-price"><text class="localization"></text> <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
-                                <td class="col-md-2 product-price-total"><text class="locstabalization"></text> <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
-                                <td class="col-md-1 add-to-cart-table">
-                                    <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                    <i class="fa fa-times remove" aria-hidden="true"></i>
-                                </td>
-                            </tr>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-md-2 product-price"><text class="localization"></text> <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                        <td class="col-md-2 product-price-total"><text class="locstabalization"></text> <span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span></td>
+                        <td class="col-md-1 add-to-cart-table">
+                            <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                            <i class="fa fa-times remove" aria-hidden="true"></i>
+                        </td>
+                    </tr>
                         }
                     }
                     else
                     {
-                        <tr>
-                            <td colspan="6"><p>No Records Available</p></td>
-                        </tr>
+                    <tr>
+                        <td colspan="6"><p>No Records Available</p></td>
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -100,7 +100,7 @@
                                 <select class="form-control">
                                     @foreach (var item1 in item.distinctproducts.Split(','))
                                     {
-                                        <option><text class="localization"></text>@item1.Replace('?', '₹').Split('@')[0]</option>
+                                        <option>@item1.Replace("?", ViewBag.loc).Split('@')[0]</option>
                                         <option hidden id="hiddenpid" class="hiddenpid">
                                             @item1.Split('@')[1] }
                                         </option>
@@ -116,9 +116,9 @@
                                     Total&nbsp;&nbsp;<text class="localization"></text><span id="price1">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                                 </div>
                                 @*<div class="shipping">
-                                    <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
-                                    Standard Delivery
-                                </div>*@
+                                        <i class="fa fa-truck fa-lg" aria-hidden="true"></i>
+                                        Standard Delivery
+                                    </div>*@
                                 <div class="row">
                                     <div class="col-xs-6 qty">
                                         <div class="input-group spinner">
@@ -138,16 +138,16 @@
                                     <p class="product-name">
                                         Available Qty:<text class="availableqty">@item.Quantity_Total</text>
                                         @*<text class="availableqty">
-                                            @if (item.Quantity_Total != null)
-                                            {
-                                                @item.Quantity_Total
+                                                @if (item.Quantity_Total != null)
+                                                {
+                                                    @item.Quantity_Total
 
-                                            }
-                                            else
-                                            {
-                                                
-                                            }
-                                        </text>*@
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            </text>*@
                                         @*@if (item.Quantity_Total != null)
                                             {<text class="availableqty"> @item.Quantity_Total  </text>}
 
@@ -211,238 +211,237 @@
 
         //for measurment chnge
         $("select").ready(function(){
-            $('.displayproduct').each(function(){
-                var whqty = $(this).find(".rate-add").children("div.warehouse").children("p").children("text").html();
-                if (whqty == 0 || whqty == '') {
-                    $(this).find("div.label").css('display','block');
-                    $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled',true);
-                }
-            });
-        }).click(function () {
-            var productid = $(this).children("option:selected").next().text().replace(/ /g, '').replace('}', ''); //particular product id
-            var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
-            var whqty = $(this).parents(".product-variation").nextAll(".rate-add").children("div.warehouse").children("p").children("text");
-            var v1 = $(this).parent(".product-variation").prevAll(".image").children("img").attr("src", ''); // particular image
-            $.ajax({
-                url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
-                    pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
-                    if (result.qty == '') { whqty.empty().html(0); }
-                    if (result.images != '') {
-                        v1.attr("src", '/ProductImages/' + result.images);
-                    }
-                    else {
-                        v1.attr("src", '/images/default_product.png');
-                    }
-                }
-            });
-        }).on('change', function () {
-            var v = $(this).children("option:selected").text().split("₹")[1];
-            $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("Price ₹ " + "<span>" + v + "</span>");
-            $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("Total ₹ " + "<span>" + v + "</span>");
-            $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>");
-            $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>");
-            $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1'); // assigning default value to qty input
-            var productid = $(this).children("option:selected").next().text().replace(/ /g, '').replace('}', ''); //particular product id
-            var v1 = $(this).parent(".product-variation").prevAll(".image").children("img").attr("src", ''); // particular image
-            var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
-            var whqty = $(this).parents(".product-variation").nextAll(".rate-add").children("div.warehouse").children("p").children("text");
-            $.ajax({
-                url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
-                    //alert(result.qty);
-                    pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
-                    if (result.qty == '') { whqty.empty().html(0); }
-                    if (result.images != '') {
-                        v1.attr("src", '/ProductImages/' + result.images);
-                    }
-                    else {
-                        v1.attr("src", '/images/default_product.png');
-                    }
-                }
-            });
-
-        });
-
-        $('.quantity').on('input', function (evt) {
-            var inputvalue = this.value;
-            var v = $(this).closest('div.well').find("div.image").find("input#pqty").val();
-            if (parseInt(inputvalue) > parseInt(v)) {
-                errormsg("Quantity Exceeded");
-                $('#availableqty').empty().html(v);
-                $(this).val("1");
-                this.focus();
+            var whqty = $(this).find(".rate-add").children("div.warehouse").children("p").children("text").html();
+            if (whqty == 0 || whqty == '') {
+                $(this).find("div.label").css('display','block');
+                $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled',true);
             }
-        }).keypress(function (key) {
-            if (key.charCode < 48 || key.charCode > 57) { warnmsg("Enter Number only"); return false; }
+        });
+    }).click(function () {
+        var productid = $(this).children("option:selected").next().text().replace(/ /g, '').replace('}', ''); //particular product id
+        var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
+        var whqty = $(this).parents(".product-variation").nextAll(".rate-add").children("div.warehouse").children("p").children("text");
+        var v1 = $(this).parent(".product-variation").prevAll(".image").children("img").attr("src", ''); // particular image
+        $.ajax({
+            url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
+                pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
+                if (result.qty == '') { whqty.empty().html(0); }
+                if (result.images != '') {
+                    v1.attr("src", '/ProductImages/' + result.images);
+                }
+                else {
+                    v1.attr("src", '/images/default_product.png');
+                }
+            }
+        });
+    }).on('change', function () {
+        var v = $(this).children("option:selected").text().split("₹")[1];
+        $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price").empty().append("Price ₹ " + "<span>" + v + "</span>");
+        $(this).parents(".product-variation").nextAll(".rate-add").children(".product-price-total").empty().append("Total ₹ " + "<span>" + v + "</span>");
+        $(this).parents(".product-variation").nextAll(".product-price").empty().append("₹ " + "<span>" + v + "</span>");
+        $(this).parents(".product-variation").nextAll(".product-price-total").empty().append("₹ " + "<span>" + v + "</span>");
+        $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val('1'); // assigning default value to qty input
+        var productid = $(this).children("option:selected").next().text().replace(/ /g, '').replace('}', ''); //particular product id
+        var v1 = $(this).parent(".product-variation").prevAll(".image").children("img").attr("src", ''); // particular image
+        var pqty = $(this).parent(".product-variation").prevAll(".image").children("input#pqty");
+        var whqty = $(this).parents(".product-variation").nextAll(".rate-add").children("div.warehouse").children("p").children("text");
+        $.ajax({
+            url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
+                //alert(result.qty);
+                pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
+                if (result.qty == '') { whqty.empty().html(0); }
+                if (result.images != '') {
+                    v1.attr("src", '/ProductImages/' + result.images);
+                }
+                else {
+                    v1.attr("src", '/images/default_product.png');
+                }
+            }
         });
 
-        //for total price quant
-        function vals() {
-            var total, totalquantity = 0, productprice, carttotal = 0;
-            $(".added-products .spinner input[type='text']").each(function () {
-                total = parseInt($(this).val());
-                totalquantity = total + totalquantity;
-            });
-            $(".added-products .product-price-total span").each(function () {
-                productprice = parseInt($(this).text());
-                carttotal = productprice + carttotal;
-            });
-            $(".cart-total span").remove();
-            $(".cart-total").append("<span>" + carttotal + "</span>");
-            $(".cart-icn span").remove();
-            $(".cart-icn").append("<span>" + totalquantity + "</span>");
+    });
+
+    $('.quantity').on('input', function (evt) {
+        var inputvalue = this.value;
+        var v = $(this).closest('div.well').find("div.image").find("input#pqty").val();
+        if (parseInt(inputvalue) > parseInt(v)) {
+            errormsg("Quantity Exceeded");
+            $('#availableqty').empty().html(v);
+            $(this).val("1");
+            this.focus();
         }
-        //for add to cart
-        $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
-            return vals();
+    }).keypress(function (key) {
+        if (key.charCode < 48 || key.charCode > 57) { warnmsg("Enter Number only"); return false; }
+    });
 
+    //for total price quant
+    function vals() {
+        var total, totalquantity = 0, productprice, carttotal = 0;
+        $(".added-products .spinner input[type='text']").each(function () {
+            total = parseInt($(this).val());
+            totalquantity = total + totalquantity;
         });
-        //for remove cart
-        $(".remove").click(function () {
-            $(this).parents("div.well,tr").remove();
-            return vals();
-
+        $(".added-products .product-price-total span").each(function () {
+            productprice = parseInt($(this).text());
+            carttotal = productprice + carttotal;
         });
-        //for add to cart fro grid
-        $(".add-to-cart > .btn").click(function () {
-            var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
-            var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
-            var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
-            var costprice = $(this).parents(".rate-add").children(".product-price").children("span").html();
-            var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
-            var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
-            var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
-            //alert($(this).parents(".rate-add").prevAll("div.image").children("input").val());
-            var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
-            //alert(img);
-            $.ajax({
-                url: '/Products/Addtocart',
-                type: 'POST',
-                data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total, product_images: img, product_id: productid }),
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data == "unique") {
-                        errormsg("Not Inserted");
-                    }
-                    else if (data == "exists") {
-                        existsmsg("The product Alredy available in the cart.Please Incerese quantity if needed.");
-                    }
-                    else if (data == "qty") {
-                        warnmsg("InValid Quantity");
-                    }
+        $(".cart-total span").remove();
+        $(".cart-total").append("<span>" + carttotal + "</span>");
+        $(".cart-icn span").remove();
+        $(".cart-icn").append("<span>" + totalquantity + "</span>");
+    }
+    //for add to cart
+    $(".add-to-cart-table > .btn, .add-to-cart > .btn").click(function () {
+        return vals();
 
-                    else if (data == "qtyexcess") {
-                        warnmsg("This much quantity not available");
-                    }
-                    else {
-                        successmsg("Successfully Added To Cart.");
-                        var url = 'Products/Addtocartpartial?cid=' + cid;
-                        $('#cartrecords').load(url);
-                    }
-                },
-                error: function (data)
-                { errormsg("Failed!!!"); }
-            });
+    });
+    //for remove cart
+    $(".remove").click(function () {
+        $(this).parents("div.well,tr").remove();
+        return vals();
 
-        });
-        //for add to cart fro table
-        $(".add-to-cart-table > .btn").click(function () {
-            var mesurment = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
-            var productname = $(this).parent("td.add-to-cart-table").prevAll("td.product-name").children("a").text();
-            var costprice = $(this).parent("td.add-to-cart-table").prevAll("td.product-price").children("span").html();
-            var total = $(this).parent("td.add-to-cart-table").prevAll("td.product-price-total").children("span").html();
-            var qty = $(this).parent("td.add-to-cart-table").prevAll('td.quantity-changes').children("div.qty").children("div.spinner").children("input").val();
-            var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
-            var img = ($(this).parents("td.add-to-cart-table").prevAll("td.image").children("img").attr('src')).split('/')[2];
-            var productid = $(this).parents("td.add-to-cart-table").prevAll("td.image").children("input").val();
-            $.ajax({
-                url: '/Products/Addtocart',
-                type: 'POST',
-                data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total, product_images: img, product_id: productid }),
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function (data) {
+    });
+    //for add to cart fro grid
+    $(".add-to-cart > .btn").click(function () {
+        var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
+        var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
+        var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
+        var costprice = $(this).parents(".rate-add").children(".product-price").children("span").html();
+        var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
+        var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
+        var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
+        //alert($(this).parents(".rate-add").prevAll("div.image").children("input").val());
+        var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
+        //alert(img);
+        $.ajax({
+            url: '/Products/Addtocart',
+            type: 'POST',
+            data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total, product_images: img, product_id: productid }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    errormsg("Not Inserted");
+                }
+                else if (data == "exists") {
+                    existsmsg("The product Alredy available in the cart.Please Incerese quantity if needed.");
+                }
+                else if (data == "qty") {
+                    warnmsg("InValid Quantity");
+                }
 
-                    if (data == "unique") {
-                        errormsg("Not Inserted");
-                    } else if (data == "exists") {
-                        existsmsg("The product Alredy available in the cart.Plz incerese quantity if needed.");
-                    }
-                    else {
-                        successmsg("Successfully Added To Cart.");
-                        var url = 'Products/Addtocartpartial?cid=' + cid;
-                        $('#cartrecords').load(url);
-                    }
-                },
-                error: function (data)
-                { errormsg("Failed!!!"); }
-            });
-
+                else if (data == "qtyexcess") {
+                    warnmsg("This much quantity not available");
+                }
+                else {
+                    successmsg("Successfully Added To Cart.");
+                    var url = 'Products/Addtocartpartial?cid=' + cid;
+                    $('#cartrecords').load(url);
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
         });
 
+    });
+    //for add to cart fro table
+    $(".add-to-cart-table > .btn").click(function () {
+        var mesurment = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
+        var productname = $(this).parent("td.add-to-cart-table").prevAll("td.product-name").children("a").text();
+        var costprice = $(this).parent("td.add-to-cart-table").prevAll("td.product-price").children("span").html();
+        var total = $(this).parent("td.add-to-cart-table").prevAll("td.product-price-total").children("span").html();
+        var qty = $(this).parent("td.add-to-cart-table").prevAll('td.quantity-changes').children("div.qty").children("div.spinner").children("input").val();
+        var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
+        var img = ($(this).parents("td.add-to-cart-table").prevAll("td.image").children("img").attr('src')).split('/')[2];
+        var productid = $(this).parents("td.add-to-cart-table").prevAll("td.image").children("input").val();
+        $.ajax({
+            url: '/Products/Addtocart',
+            type: 'POST',
+            data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total, product_images: img, product_id: productid }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
 
-        //for cart window sliding
+                if (data == "unique") {
+                    errormsg("Not Inserted");
+                } else if (data == "exists") {
+                    existsmsg("The product Alredy available in the cart.Plz incerese quantity if needed.");
+                }
+                else {
+                    successmsg("Successfully Added To Cart.");
+                    var url = 'Products/Addtocartpartial?cid=' + cid;
+                    $('#cartrecords').load(url);
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
+        });
+
+    });
+
+
+    //for cart window sliding
+    $(window).scroll(function () {
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop <= 250) {
+            $(".checkout").css("top", "250px");
+        } else if (scrollTop > 250) {
+            $(".checkout").css("top", "50px");
+        }
+    });
+    ////for quntity to accept numbers only
+    //function isNumberKey(evt,value) {
+    //    alert(value);
+    //    var charCode = (evt.which) ? evt.which : event.keyCode
+    //    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    //        warnmsg("Enter Number only");
+    //        return false;
+    //    }
+    //    return true;
+    //};
+    //  //<!---------- Scroll Anima Right-Side-Bar ------------>
+    //<!---------- Scroll Anima Right-Side-Bar ------------>
+
+    $(window).scroll(function () {
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop <= 250) {
+            $(".checkout").css("top", "250px");
+        } else if (scrollTop > 250) {
+            $(".checkout").css("top", "50px");
+        }
+    });
+
+    if (window.matchMedia('(max-width: 768px)').matches) {
         $(window).scroll(function () {
-            var scrollTop = $(window).scrollTop();
-            if (scrollTop <= 250) {
-                $(".checkout").css("top", "250px");
-            } else if (scrollTop > 250) {
-                $(".checkout").css("top", "50px");
-            }
+            $(".checkout").css({ "right": "40px", "top": "30%" });
         });
-        ////for quntity to accept numbers only
-        //function isNumberKey(evt,value) {
-        //    alert(value);
-        //    var charCode = (evt.which) ? evt.which : event.keyCode
-        //    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        //        warnmsg("Enter Number only");
-        //        return false;
-        //    }
-        //    return true;
-        //};
-        //  //<!---------- Scroll Anima Right-Side-Bar ------------>
-        //<!---------- Scroll Anima Right-Side-Bar ------------>
+    }
+
+    if (window.matchMedia('(max-width: "480px")').matches) {
 
         $(window).scroll(function () {
-            var scrollTop = $(window).scrollTop();
-            if (scrollTop <= 250) {
-                $(".checkout").css("top", "250px");
-            } else if (scrollTop > 250) {
-                $(".checkout").css("top", "50px");
-            }
+            $(".checkout").css({ "right": "40px", "top": "20%" });
+
         });
 
-        if (window.matchMedia('(max-width: 768px)').matches) {
-            $(window).scroll(function () {
-                $(".checkout").css({ "right": "40px", "top": "30%" });
-            });
+    }
+
+    //<!---------- Scroll Anima Right-Side-Bar ------------>
+
+    //<!---------- mobile cart ------------>
+    $(".mobile-cart").click(function () {
+        $(this).toggleClass(" rotate");
+        if ($(this).hasClass("rotate")) {
+            $(".checkout").css({ "opacity": "1", "top": "20%", "right": "40px", "z-index": "2" });
+            $(this).children("i.fa-shopping-cart").css("display", "none");
+            $(this).children("i.fa-times").css("display", "block");
+        } else {
+            $(".checkout").css({ "opacity": "0", "z-index": "-99" });
+            $(this).children("i.fa-shopping-cart").css("display", "block");
+            $(this).children("i.fa-times").css("display", "none");
         }
-
-        if (window.matchMedia('(max-width: "480px")').matches) {
-
-            $(window).scroll(function () {
-                $(".checkout").css({ "right": "40px", "top": "20%" });
-
-            });
-
-        }
-
-        //<!---------- Scroll Anima Right-Side-Bar ------------>
-
-        //<!---------- mobile cart ------------>
-        $(".mobile-cart").click(function () {
-            $(this).toggleClass(" rotate");
-            if ($(this).hasClass("rotate")) {
-                $(".checkout").css({ "opacity": "1", "top": "20%", "right": "40px", "z-index": "2" });
-                $(this).children("i.fa-shopping-cart").css("display", "none");
-                $(this).children("i.fa-times").css("display", "block");
-            } else {
-                $(".checkout").css({ "opacity": "0", "z-index": "-99" });
-                $(this).children("i.fa-shopping-cart").css("display", "block");
-                $(this).children("i.fa-times").css("display", "none");
-            }
-            // $(".checkout").parent("div").css("position","fixed");
-        });
+        // $(".checkout").parent("div").css("position","fixed");
+    });
     });
     //<!---------- mobile cart ------------>
 </script>
