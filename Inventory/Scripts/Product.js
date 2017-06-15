@@ -59,6 +59,7 @@ function getsub(type, id) {
             }
             else {
                 if (type == 'category') {
+                    $('#sub_category').val('');
                     var value = "";
                     for (var i = 0; i < response.length; i++) {
                         value = value + "<div class='positions1'><i class='fa fa-trash-o pull-right' onclick=deleteitem('delsubcategory','" + response[i].subcategory_id + "') aria-hidden='true'></i>" + response[i].subcategory + "</div>";

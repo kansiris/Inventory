@@ -15,7 +15,7 @@ namespace Inventory.Controllers
 {
     public class ProductsController : Controller
     {
-
+        LoginService loginService = new LoginService();
         // GET: Products
         public ActionResult Index(string cid, string cname)
         {
@@ -162,7 +162,7 @@ namespace Inventory.Controllers
                                    Quantity_Total = row["quantity"].ToString(),
                                }).ToList();
                 ViewBag.records = description;
-
+                ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")","");
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
