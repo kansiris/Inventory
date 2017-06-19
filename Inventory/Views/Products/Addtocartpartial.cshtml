@@ -14,60 +14,34 @@
         </div>
         <hr>
 
-        @if (ViewBag.records != null)
-        {
-            <div class="col-xs-12">
-
-                <div class="added-products" style="padding:0px 0px 10px">
-                    @foreach (var item in ViewBag.records)
-                    {
-
-                        <div class="well">
-                            <i class="fa fa-times remove" aria-hidden="true" onclick="removecart(@item.cart_id)"></i>
-                            <div class="image">
-                                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png" && item.product_images != "default_product.png")
-                                { <img src="~/ProductImages/@item.product_images" /> }
-                                else
-                                { <img src="~/images/default_product.png" /> }
-                                
+            @foreach (var item in ViewBag.records)
+            {
+            <div class="added-products">
+                <div class="image">
+                    @*<img src="images/thumb7.jpg" alt="Image 1">*@
+                    @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png" && item.product_images != "default_product.png")
+                    { <img src="~/ProductImages/@item.product_images" alt="@item.product_images"/> }
+                    else
+                    { <img src="~/images/default_product.png" /> }
+                </div>
+                <div class="product-body-info">
+                    <div class="title" title="@item.product_name">@item.product_name</div>
+                    <div class="product-variation">@item.Measurement</div>
+                    <div class="row">
+                        <div class="spinner">
+                            <div class="input-group">
+                                <button class="btn btn-default" type="button"><i class="fa fa-minus-circle" onclick="updatecart1(@item.cart_id,@item.Quantity,@item.cost_price)"></i></button>
+                                <input type="text" class="form-control" value="@item.Quantity" min="1" id="qtyinput" onfocus="this.select();">
+                                <button class="btn btn-default" type="button"><i class="fa fa-plus-circle" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"></i></button>
                             </div>
-                            <div class="img-title">
-                               
-                                <a href="#" class="product-name" title="@item.product_name">@item.product_name</a>
-                            </div>
-                            
-                            <div class="empty"><p>@item.Measurement</p><p></p></div>
-                            <div class="rate-add">
-                                    <div class="product-price"><span>@item.cost_price</span>
-                                    </div>
-                                    <div class="product-price-total">
-                                        <text class="localization"></text> <span id="price1">@item.total_price</span>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-xs-6 qty">
-                                            <div class="input-group spinner">
-                                                <label>Qty</label>
-                                                <input type="text" class="form-control" value="@item.Quantity" min="1" id="qtyinput" onfocus="this.select();">
-                                                <div class="input-group-btn-vertical">
-                                                    @*<button class="btn btn-default" type="button" id="plus"><i class="fa fa-caret-up"></i></button>*@
-                                                    <button class="btn btn-default" type="button" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"><i class="fa fa-caret-up"></i></button>
-                                                    <button class="btn btn-default" type="button" onclick="updatecart1(@item.cart_id,@item.Quantity,@item.cost_price)"><i class="fa fa-caret-down"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 add-to-cart">
-                                            <button class="btn btn-primary" type="button">Add <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
                         </div>
-                    }
-
+                        <div class="product-price">&nbsp X &nbsp;<i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>@item.cost_price</span></div>
+                        <div class="total-product-price"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>@item.total_price</span></div>
+                    </div>
                 </div>
             </div>
-          
-        }
+                }
+            
         <div class="col-xs-12">
 
             <button class="btn btn-primary" type="button" onclick="genaratepo()">Generate Purchase Order</button>

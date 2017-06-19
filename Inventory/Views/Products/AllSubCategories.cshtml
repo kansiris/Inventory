@@ -5,10 +5,13 @@
     {
         foreach (var item in ViewBag.records)
         {
-   <ul class="nav nav-stacked left-submenu">
+   @*<ul class="nav nav-stacked left-submenu">
        
     <li><a href="" onclick="getproducts('@item.sub_category')" id="chicken">@item.sub_category<text>[@item.Quantity]</text></a></li>
-   </ul>
+   </ul>*@
+            <ul class="nav nav-stacked left-submenu">
+                <li><a href="" onclick="getproducts('@item.sub_category')" id="chicken">@item.sub_category<text>[@item.Quantity]</text></a></li>
+            </ul>
         }
     }
 }

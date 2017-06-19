@@ -28,7 +28,7 @@
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
-<div class="container body">
+@*<div class="container body">
     <div class="main_container">
         <!-- page content -->
         <div class="right_col" role="main">
@@ -87,116 +87,465 @@
         </div>
         <!-- /page content -->
     </div>
+</div>*@
+
+
+
+<div class="container body">
+    <div class="main_container">
+        <!-- top navigation -->
+        
+        <!-- top navigation -->
+        <!-- page content -->
+        <div class="container-fluid padding-left-0 padding-right-0 padding-top-10 padding-bottom-10 top-strip">
+            <div class="row">
+                <div class="form-title col-xs-12 col-md-8">Shop Products</div>
+                <div class="top-bar col-xs-12 col-md-4">
+                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Product </button>
+                    <div class="icons pull-right">
+                        <div class="cart-icn">
+                            <span class="cart-total-items">14</span>
+                            <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-inr" aria-hidden="true"></i>
+                            <span class="cart-total">300</span>
+                        </div>
+                        <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
+                        <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
+                        <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
+                        <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right_col" role="main">
+            <div class="container">
+                <form>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-2 padding-left-0 padding-right-0">
+                            @{ Html.RenderAction("AllCategories", "Products");}
+                        </div>
+                        <div class="col-xs-12 col-md-10  padding-left-0 padding-right-0">
+                            @{ Html.RenderAction("allproducts", "Products");}
+                            @*<div class="table-responsive">
+                                <table class="table  table-borderedtable-striped bulk_action" id="productstable">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <th class="col-md-1">Image</th>
+                                            <th class="col-md-3">Product Name</th>
+                                            <th class="col-md-2">Descrption</th>
+                                            <th class="col-md-1">Quantity</th>
+                                            <th class="col-md-2">Price</th>
+                                            <th class="col-md-2">Total</th>
+                                            <th class="col-md-1">Add</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-md-1 image">
+                                                <img src="images/image1.jpg" alt="Img 1" />
+                                            </td>
+                                            <td class="col-md-3 product-name"><a href="#" title="vamsi">Product One</a></td>
+                                            <td class="col-md-2 product-variation">
+                                                <select class="form-control">
+                                                    <option>50 gm</option>
+                                                    <option>100 gm</option>
+                                                    <option>500 gm</option>
+                                                </select>
+                                            </td>
+                                            <td class="col-md-1 quantity-changes">
+                                                <div class="input-group spinner">
+                                                    <label>Qty</label>
+                                                    <input type="text" class="form-control" value="1">
+                                                    <div class="input-group-btn-vertical">
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-md-2 product-price">Rs <span>20</span></td>
+                                            <td class="col-md-2 product-price-total">Rs <span>20</span></td>
+                                            <td class="col-md-1 add-to-cart-table">
+                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                                <i class="fa fa-times remove" aria-hidden="true"></i>
+                                            </td>
+                                            <td class="empty"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-1 image">
+                                                <img src="images/image2.jpg" alt="Img 2" />
+                                            </td>
+                                            <td class="col-md-3 product-name"><a href="#" title="vamsi">Product Two</a></td>
+                                            <td class="col-md-2 product-variation">
+                                                <select class="form-control">
+                                                    <option>50 gm</option>
+                                                    <option>100 gm</option>
+                                                    <option>500 gm</option>
+                                                </select>
+                                            </td>
+                                            <td class="col-md-1 quantity-changes">
+                                                <div class="input-group spinner">
+                                                    <label>Qty</label>
+                                                    <input type="text" class="form-control" value="1">
+                                                    <div class="input-group-btn-vertical">
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-md-2 product-price">Rs <span>40</span></td>
+                                            <td class="col-md-2 product-price-total">Rs <span>40</span></td>
+                                            <td class="col-md-1 add-to-cart-table">
+                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                                <i class="fa fa-times remove" aria-hidden="true"></i>
+                                            </td>
+                                            <td class="empty"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-1 image">
+                                                <img src="images/image3.jpg" alt="Img 3" />
+                                            </td>
+                                            <td class="col-md-3 product-name"><a href="#" title="vamsi">Product Three</a></td>
+                                            <td class="col-md-2 product-variation">
+                                                <select class="form-control">
+                                                    <option>50 gm</option>
+                                                    <option>100 gm</option>
+                                                    <option>500 gm</option>
+                                                </select>
+                                            </td>
+                                            <td class="col-md-1 quantity-changes">
+                                                <div class="input-group spinner">
+                                                    <label>Qty</label>
+                                                    <input type="text" class="form-control" value="1">
+                                                    <div class="input-group-btn-vertical">
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-md-2 product-price">Rs <span>120</span></td>
+                                            <td class="col-md-2 product-price-total">Rs <span>120</span></td>
+                                            <td class="col-md-1 add-to-cart-table">
+                                                <button class="btn" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                                <i class="fa fa-times remove" aria-hidden="true"></i>
+                                            </td>
+                                            <td class="empty"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row" id="productstable1">
+                                <div class="col-xs-12 col-sm-4 col-md-3 displayproduct">
+                                    <i class="fa fa-times remove" aria-hidden="true"></i>
+                                    <div class="label">
+                                        <img src="images/label.png" alt="Out of stock">
+                                    </div>
+                                    <div class="well">
+                                        <i class="fa fa-times remove" aria-hidden="true"></i>
+                                        <div class="image">
+                                            <img src="images/thumb1.jpg" alt="Image 1">
+                                        </div>
+                                        <div class="img-title">
+                                            <span class="product-brand">Brand Name</span>
+                                            <a href="#" class="product-name">Fortune Soya Health Refined Soyabean Oil</a>
+                                        </div>
+                                        <div class="product-price-total">
+                                            Rs <span>300</span>
+                                        </div>
+                                        <div class="rate-add">
+                                            <div class="row margin-bottom-20">
+                                                <div class="col-xs-6 col-sm-6 col-md-6 product-price">
+                                                    <b class="cross">X</b>Rs <span>300</span>
+                                                </div>
+                                                <div class="product-variation">
+                                                    <span><b>2</b> <var>GM</var> <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i></span>
+                                                    <ul>
+                                                        <li>2 GM - RS 300</li>
+                                                        <li>5 KG - RS 750</li>
+                                                        <li>8 KG - RS 1200</li>
+                                                        <li>10 KG - RS 1500</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-bottom-20">
+                                                <div class="col-xs-6 spinner">
+                                                    <div class="input-group">
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-minus-circle"></i></button>
+                                                        <input type="text" class="form-control" value="1">
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-plus-circle"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 add-to-cart">
+                                                    <button class="btn btn-primary1" type="button">Add to cart</button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="stock-avai">Availablity : <span>25</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="right-side-bar">
+                            <div class="row checkout">
+                                <div class="col-xs-12 col-md-12 check-title">
+                                    My Cart(<span>0</span> Items)
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-12 right-side-products">
+                                    @{ Html.RenderAction("Addtocartpartial", "Products");}
+                                     @*<div class="added-products">
+                                      <div class="image">
+                                        <img src="images/thumb7.jpg" alt="Image 1">
+                                      </div>
+                                      <div class="product-body-info">
+                                        <div class="title">Product One</div>
+                                        <div class="product-variation">5 KG</div>
+                                        <div class="row">
+                                          <div class="spinner">
+                                          <div class="input-group">
+                                          <button class="btn btn-default" type="button"><i class="fa fa-minus-circle"></i></button>
+                                          <input type="text" class="form-control" value="1">
+                                          <button class="btn btn-default" type="button"><i class="fa fa-plus-circle"></i></button>
+                                        </div>
+                                        </div>
+                                          <div class="product-price">&nbsp X &nbsp;<i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>20</span></div>
+                                          <div class="total-product-price"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>20</span></div>
+                                        </div>
+                                      </div>
+                                    </div>*@
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 generate-po padding-left-0 padding-right-0">
+                                    <div class="generate-po-strip">
+                                        <a href="#">Generate Product Order</a>
+                                        <p><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span class="cart-total">000</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /page content -->
+        
+    </div>
+    <div class="row mobile-cart">
+        <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+        <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+    </div>
 </div>
 
 @section scripts{
     <!-- jQuery lib & Tabs -->
-    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/js/main.js"></script>
-    <script src="~/Scripts/js/modernizr.js"></script>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../build/js/custom.min.js"></script>
-    @*Over Hang*@
-    <script src="~/Scripts/js/jquery-ui.min.js"></script>
-    <script src="~/Scripts/js/overhang.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/modernizr.js"></script>
+<script type="text/javascript" language="javascript" src="js/main.js"></script>
+<!-- jQuery lib & Tabs -->
+<!-- jQuery -->
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+@Scripts.Render("~/bundles/ShopProduct")
+<script type="text/javascript">
+//<!------------ List / Grid Views and reload page -------------->
+  $("#grid-view").click(function(e) {
+    $("#productstable").css("display","none");
+	$("#productstable1").css("display","block");
+});
 
-    @Scripts.Render("~/bundles/ShopProduct")
+//  $("#list-view").click(function(e) {
+//    $("#productstable").css("display","block");
+//	$("#productstable1").css("display","none");
+//	//location.reload();
+//});
 
-    <script type="text/javascript">
-        var sd = location.search.split('cname=')[2];
-        $("#grid-view").click(function (e) {
-            $("#productstable").css("display", "none");
-            $("#productstable1").css("display", "block");
-        });
+  $("#refresh").click(function(e) {
+    location.reload();
+});
+//<!------------ List / Grid Views and reload page -------------->
 
-        $("#list-view").click(function (e) {
-            $("#productstable").css("display", "block");
-            $("#productstable1").css("display", "none");
-            var cname = location.search.split('cname=')[2];
-            //location.reload();
-        });
+//<!------------ Quantity changes / Prices Multiple -------------->
+  $(document).ready(function(e) {
+		 var tableprice, divprice, tabletotal, divtotal, divpriceright;
+$('.spinner > .input-group .btn:first-of-type').click(function(){
+	var minus, v;
+	 v = parseInt($(this).next("input[type='text']").val());
+	if(v > 1){
+		 minus = v - 1;
+		$(this).next("input[type='text']").val(minus);
+		 //tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());;
+		 divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+		 divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+		 //tabletotal = minus * tableprice;
+		 divtotal = minus * divprice;
+		 divtotalright = minus * divpriceright;
+		 //$(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
+		//$(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
+		//$(this).parents(".rate-add").children(".product-price-total").children("span").remove();
+		$(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
+		$(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
+		}
+		return vals();
+	});
+$('.spinner > .input-group .btn:last-of-type').click(function(){
+	//alert("plus");
+	var plus, v;
+	 v = parseInt($(this).prev("input[type='text']").val());
+	if(v > 0){
+		plus = v + 1;
+		$(this).prev("input[type='text']").val(plus);
+		 //tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
+		 divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+		 divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+		// alert(divprice);
+		 //tabletotal = plus * tableprice;
+		 divtotal = plus * divprice;
+		 divtotalright = plus * divpriceright;
+		// $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
+		//$(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
+		//$(this).parents(".rate-add").children(".product-price-total").children("span").remove();
+		$(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
+		$(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
+		}
+		return vals();
+	});
+});
 
-        $("#refresh").click(function (e) {
-            location.reload();
-        });
-        //<!------------ List / Grid Views and reload page -------------->
+//<!------------ Quantity changes / Prices Multiple -------------->
 
-
-
-        //  //<!---------- Scroll Anima Right-Side-Bar ------------>
-
-        $(window).scroll(function () {
-            var scrollTop = $(window).scrollTop();
-            if (scrollTop <= 250) {
-                $(".checkout").css("top", "250px");
-            } else if (scrollTop > 250) {
-                $(".checkout").css("top", "50px");
-            }
-        });
-
-        //  //<!---------- Scroll Anima Right-Side-Bar ------------>
-        //<!---------- Scroll Anima Right-Side-Bar ------------>
-
-        $(window).scroll(function () {
-            var scrollTop = $(window).scrollTop();
-            if (scrollTop <= 250) {
-                $(".checkout").css("top", "250px");
-            } else if (scrollTop > 250) {
-                $(".checkout").css("top", "50px");
-            }
-        });
-
-        if (window.matchMedia('(max-width: 768px)').matches) {
-            $(window).scroll(function () {
-                $(".checkout").css({ "right": "40px", "top": "30%" });
-            });
-        }
-
-        if (window.matchMedia('(max-width: "480px")').matches) {
-
-            $(window).scroll(function () {
-                $(".checkout").css({ "right": "40px", "top": "20%" });
-
-            });
-
-        }
-
-        //<!---------- Scroll Anima Right-Side-Bar ------------>
-
-        //<!---------- mobile cart ------------>
-        $(".mobile-cart").click(function () {
-            $(this).toggleClass(" rotate");
-            if ($(this).hasClass("rotate")) {
-                $(".checkout").css({ "opacity": "1", "top": "20%", "right": "40px", "z-index": "2" });
-                $(this).children("i.fa-shopping-cart").css("display", "none");
-                $(this).children("i.fa-times").css("display", "block");
-            } else {
-                $(".checkout").css({ "opacity": "0", "z-index": "-99" });
-                $(this).children("i.fa-shopping-cart").css("display", "block");
-                $(this).children("i.fa-times").css("display", "none");
-            }
-            // $(".checkout").parent("div").css("position","fixed");
-        });
-        //<!---------- mobile cart ------------>
-
-        $("#sidebar li.leve12, #sidebar li").click(function () {
-            $(this).children("a").css("font-weight", "700");
-            $(this).children("ul.left-submenu").toggle("slow");
-            $(this).nextAll("li").children("a").css("font-weight", "normal");
-            $(this).prevAll("li").children("a").css("font-weight", "normal");
-            $(this).nextAll("li").children("ul.left-submenu").css("display", "none");
-            $(this).prevAll("li").children("ul.left-submenu").css("display", "none");
-        });
-        $("#sidebar li.leve12 ul.left-submenu li").click(function () {
-            $(this).parent("ul.left-submenu").css("display", "block");
-            $(this).children("a").css("color", "#0288d1");
-            return false;
-        });
-
-    </script>
-
+//<!---------- Strip Qty / Total Prices(on Load time) ---------------------->
+function cartstrip(){
+var qty = $(".check-title > span").text();
+var pototal = $(".generate-po-strip > p > span").text();
+$(".cart-icn").children("span.cart-total-items").empty().append(qty);
+$(".cart-icn").children("span.cart-total").empty().append(pototal);
 }
+$(document).ready(function(e) {
+    return cartstrip();
+});
+//<!---------- Strip Qty / Total Prices(on Load time) ---------------------->
+
+//<!------------ Product units / prices selection -------------->
+
+$(".product-variation > ul > li").click(function(){
+			var txt = $(this).text();
+			var qtynum = txt.split(" ")[0];
+			var qtyunits = txt.split(" ")[1];
+			var price = txt.split(" ")[4];
+			$(this).parents(".product-variation").prev(".product-price").children("span").empty();
+			$(this).parent("ul").prev("span").children("b").empty();
+			$(this).parent("ul").prev("span").children("var").empty();
+			$(this).parents(".product-variation").prev(".product-price").children("span").append(price);
+			$(this).parent("ul").prev("span").children("b").append(qtynum);
+			$(this).parent("ul").prev("span").children("var").append(qtyunits);
+			});
+//<!------------ Product units / prices selection -------------->
+
+//<!----------- Quantity Add in Right Bar ---------------->
+	$(".add-to-cart").click(function(){
+		var createDiv = $("<div class='added-products'></div>");
+		var addDiv = $(".right-side-products").append(createDiv);
+var right = $(".right-side-products").children(".added-products");
+$(this).parents(".well").prevAll("i.remove").clone(true,true).appendTo(right);
+$(this).parents(".rate-add").prevAll(".image").clone(true,true).appendTo(right);
+$(this).parents(".rate-add").prevAll(".img-title").children(".product-name").clone(true,true).appendTo(right);
+$(this).parents(".rate-add").children("div:first-of-type").children(".product-variation").clone(true,true).appendTo(right);
+$(this).parents(".rate-add").children("div:nth-of-type(2)").children(".spinner").clone(true,true).appendTo(right);
+$(this).parents(".rate-add").children("div:first-of-type").children(".product-price").clone(true,true).appendTo(right);
+$(this).parents(".rate-add").prev(".product-price-total").clone(true,true).appendTo(right);
+$(".added-products").children(".image").nextAll(".image").remove();
+$(".added-products").children(".product-name").nextAll(".product-name").remove();
+$(".added-products").children(".product-variation").nextAll(".product-variation").remove();
+$(".added-products").children(".spinner").nextAll(".spinner").remove();
+$(".added-products").children(".product-price").nextAll(".product-price").remove();
+$(".added-products").children(".product-price-total").nextAll(".product-price-total").remove();
+return vals();
+return cartstrip();
+});
+$(".product-variation > ul > li").click(function(){
+var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
+$(this).parents(".rate-add").prev(".product-price-total").children("span").empty();
+$(this).parents(".rate-add").prev(".product-price-total").children("span").append(productprice);
+});
+
+$(".add-to-cart-table > .btn").click(function(){
+  var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
+  var txt = $(this).parent("td.add-to-cart-table").next("td.empty");
+	$(txt).empty().append("<p>" + v + "</p>");
+  $(this).parents("tr").clone(true,true).appendTo(".added-products");
+  $(".added-products").css("padding","0px 0px 10px");
+});
+
+function vals(){
+	var total, totalquantity = 0, productprice, carttotal = 0;
+	$(".added-products .spinner input[type='text']").each(function(){
+		total = parseInt($(this).val());
+		totalquantity = total + totalquantity;
+		});
+	$(".added-products .product-price-total span").each(function(){
+		productprice = parseInt($(this).text());
+		carttotal = productprice + carttotal;
+		});
+		$("span.cart-total").empty();
+	$("span.cart-total").append(carttotal);
+	$(".check-title > span").empty();
+	$(".check-title > span").append(totalquantity);
+		}
+$(".remove").click(function(){
+	$(this).parent(".added-products").remove();
+	return vals();
+	return cartstrip();
+	});
+$(".check-title > i.fa-times").click(function(){
+	$(".checkout").css({"right":"-350px","transition":"1s ease","-webkit-transition":"1s ease"});
+	$(".right-side-bar").css({"width":"0%","background":"rgba(0,0,0,.6)"});
+	});
+$(".cart-icn").click(function(){
+	$(".checkout").css({"right":"0","transition":"1s ease","-webkit-transition":"1s ease"});
+	$(".right-side-bar").css({"width":"100%","background":"rgba(0,0,0,.6)"});
+	});
+//<!----------- Quantity Add in Right Bar ---------------->
+
+//<!------------ Left Side Bar ------------------->
+$("#sidebar li.leve12, #sidebar li").click(function(){
+  $(this).children("a").css("font-weight","700");
+  $(this).children("ul.left-submenu").toggle("slow");
+  $(this).nextAll("li").children("a").css("font-weight","normal");
+  $(this).prevAll("li").children("a").css("font-weight","normal");
+  $(this).nextAll("li").children("ul.left-submenu").css("display","none");
+  $(this).prevAll("li").children("ul.left-submenu").css("display","none");
+ });
+ $("#sidebar li.leve12 ul.left-submenu li").click(function(){
+	  $(this).parent("ul.left-submenu").css("display","block");
+	  $(this).children("a").css("color","#0288d1");
+	  return false;
+	  });
+//<!------------ Left Side Bar ------------------->
+
+
+$(".product-variation").click(function(){
+	  $(this).children("ul").toggle();
+	});
+
+//<!---------- mobile cart ------------>
+ $(".mobile-cart").click(function(){
+	   $(this).toggleClass(" rotate");
+	   if($(this).hasClass("rotate")){
+	   $(".checkout").css({"opacity":"1","top":"20%","right":"40px","z-index":"2"});
+	   $(this).children("i.fa-shopping-cart").css("display","none");
+	   $(this).children("i.fa-times").css("display","block");
+	   }else{
+		   $(".checkout").css({"opacity":"0","z-index":"-99"});
+	   $(this).children("i.fa-shopping-cart").css("display","block");
+	   $(this).children("i.fa-times").css("display","none");
+	   }
+	  // $(".checkout").parent("div").css("position","fixed");
+	 });
+//!---------- mobile cart ------------>
+</script>
+    }
 
