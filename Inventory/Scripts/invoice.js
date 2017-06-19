@@ -125,15 +125,13 @@ function saveInvoice(cid) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("Please Enter Invoice Number");
+                errormsg("Invoice generated already.");
 
             }
             else {
                 successmsg("Invoice saved successfully");
                 $("[id='invoicenum']").val("");
-               
                $("[id='date']").val("");
-                //$("[id='vendor_name']").val("");
                 $("[id='paymentterms']").val("");
                 $("[id='comment']").val("");
                 
@@ -146,6 +144,51 @@ function saveInvoice(cid) {
     }
 }
 
+
+function saveDeliverynote(cid) {
+    var vendorname = document.getElementById("vendor_name").textContent;
+    var customerid = cid;
+       var createddate = (document.getElementById("createddate").textContent).split(':')[1];
+       var grandtotl = (document.getElementById("grandTotal").textContent);
+       //alert(grandtotl);
+    var delivnotenum = $("[id='delivnotenum']").val();
+    var Comment = $("[id='coMment']").val();
+    //alert(Comment);
+    var Subtotal = (document.getElementById("subTotal").textContent);
+   // alert(Subtotal);
+    var Vat = (document.getElementById("vAt").textContent).split('%')[0];
+    //alert(Vat);
+    var Discount = (document.getElementById("disCount").textContent).split('%')[0];
+    //alert(Discount);
+    var Grandtotal1 = (document.getElementById("grandTotal1").textContent);
+    var Prchaseordernos = $("input:checkbox:checked").map(function () { return this.value; }).toArray();
+    if (delivnotenum == "") {
+        errormsg("Please Enter Delivery Note Number");
+    }
+    else {
+        $.ajax({
+            url: '/Invoice/InsertDeliveryNote?Prchaseorder_nos=' + Prchaseordernos,
+            type: 'POST',
+            data: JSON.stringify({ Delivernote_no: delivnotenum, vendor_name: vendorname, customer_id: customerid, created_date: createddate, grand_total: grandtotl, comment: Comment, sub_total: Subtotal, vat: Vat, discount: Discount }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    errormsg("Delivery Note not generated");
+
+                }
+                else {
+                    successmsg("Delivery Note saved successfully");
+                    $("[id='delivnotenum']").val("");
+                    $("[id='comment']").val("");
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
+
+        });
+    }
+}
 
 function checkinvoicenumber(passedvalue) {
     //alert(passedvalue);
@@ -174,5 +217,51 @@ function checkinvoicenumber(passedvalue) {
     }
 }
 
+function checkdelivnote(passedvalue) {
+    //alert(passedvalue);
+    if (passedvalue == "") {
+        errormsg("please enter delivery Note number");
+    }
+    else {
+        $.ajax({
+            url: '/Invoice/CheckDeliveryNoteNum',
+            type: 'POST',
+            data: JSON.stringify({ Delivernote_no: passedvalue }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                }
+                else {
+                    existsmsg("Deliverynote Number Alredy Exists.Please Enter a Unique Number");
+                    $("[id='delivnotenum']").val("");
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
+        });
+    }
+}
+function checkstatus(invoice, deliv) {
+    //alert(value);
+   // alert(deliv);
+    if (invoice == 1 && deliv == 0) {
+        $("#GenarateDelivNote").css("display", "block");
+        $("#GenarateInvoice").css("display", "none");
+        $("#GenarateDelivInvoice").css("display", "none");
+    }
+
+    if (deliv == 1 &&  invoice == 0) {
+        $("#GenarateInvoice").css("display", "block");
+        $("#GenarateDelivNote").css("display", "none");
+        $("#GenarateDelivInvoice").css("display", "none");
+    }
+    if (invoice == 0 && deliv==0) {
+        $("#GenarateDelivInvoice").css("display", "block");
+        $("#GenarateDelivNote").css("display", "none");
+        $("#GenarateInvoice").css("display", "none");
+    }
+
+}
 
 

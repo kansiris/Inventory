@@ -25,10 +25,10 @@ namespace Inventory.Service
             return InvoiceRepository.checkinvoicenum(dbname, Invoice_no);
         }
 
-        public static int InsertInvoice(string dbname, string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        public static int InsertInvoice(string dbname, string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos,string status)
         {
 
-            return InvoiceRepository.InsertInvoice(dbname, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos);
+            return InvoiceRepository.InsertInvoice(dbname, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos,status);
         }
 
         //update po
@@ -36,6 +36,23 @@ namespace Inventory.Service
         {
 
             return InvoiceRepository.UpdatePoforInvoice(dbname,customer_id,Prchaseorder_nos, invoice_status);
+        }
+        public static int InsertDeliverynote(string dbname, string Delivernote_no, string vendor_name, string customer_id, string created_date, string grand_total,string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        {
+
+            return InvoiceRepository.InsertDeliverynote(dbname, Delivernote_no, vendor_name, customer_id,created_date, grand_total,comment, sub_total, vat, discount, Prchaseorder_nos);
+        }
+
+        
+            public static SqlDataReader checkdeliverynotenum(string dbname, string Delivernote_no)
+        {
+            return InvoiceRepository.checkdeliverynotenum(dbname, Delivernote_no);
+        }
+
+        public static int UpdatePoforDeliveryNote(string dbname, string customer_id, string Prchaseorder_nos, string deliverynote_status)
+        {
+
+            return InvoiceRepository.UpdatePoforDeliveryNote(dbname, customer_id, Prchaseorder_nos, deliverynote_status);
         }
 
     }

@@ -36,6 +36,9 @@ namespace Inventory.Models
         public string Payment_date { get; set; }
         public string status { get; set; }
         public string totalQty { get; set; }
-        
+
+        public string invoice_status { get; set; }
+        public string deliverynote_status { get; set; }
+
     }
 }
