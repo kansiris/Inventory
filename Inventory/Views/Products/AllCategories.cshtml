@@ -1,74 +1,45 @@
 ﻿@*@if (ViewBag.records != null)
+    {
+        <div class="row categories">
+            <div class="column col-xs-12 sidebar-offcanvas" id="sidebar">
+                <ul class="nav" id="menu">
+                    <li class="title"><span class="collapse in">Categories</span></li>
+                    @if (ViewBag.records.Count != 0)
+                    {
+                        foreach (var item in ViewBag.records)
+                        {
+                            <li class="leve12">
+                                <a>@item.category<span class="caret"></span></a>
+                                @{Html.RenderAction("AllSubCategories", "Products", new { category_id = @item.category_id });}
+                            </li>
+                                 }
+                                 }
+                </ul>
+            </div>
+        </div>
+    }*@
+
+@if (ViewBag.records != null)
 {
-    <div class="row categories">
+    <div class="row">
         <div class="column col-xs-12 sidebar-offcanvas" id="sidebar">
             <ul class="nav" id="menu">
-                <li class="title"><span class="collapse in">Categories</span></li>
+                <li class="title">Categories</li>
                 @if (ViewBag.records.Count != 0)
                 {
                     foreach (var item in ViewBag.records)
                     {
                         <li class="leve12">
-                            <a>@item.category<span class="caret"></span></a>
+                            <a href="#">@item.category <span class="caret"></span></a>
+                            @*<ul class="nav nav-stacked left-submenu">
+                                <li><a href="#">View One</a></li>
+                                <li><a href="#">View Two</a></li>
+                            </ul>*@
                             @{Html.RenderAction("AllSubCategories", "Products", new { category_id = @item.category_id });}
                         </li>
-                             }
-                             }
+                    }
+                }
             </ul>
         </div>
     </div>
-}*@
-
-@if (ViewBag.records != null)
-{
-    <div class="row categories">
-        <div class="column col-xs-12 sidebar-offcanvas" id="sidebar">
-            <ul class="nav" id="menu">
-                <li class="title">Categories</li>
-                @*<li><a href="#">Category 1</a></li>
-                <li><a href="#">Category 2</a></li>*@
-            @if (ViewBag.records.Count != 0)
-            {
-                foreach (var item in ViewBag.records)
-                {
-                <li class="leve12">
-                <a>@item.category <span class="caret"></span></a>
-                    @{Html.RenderAction("AllSubCategories", "Products", new { category_id = @item.category_id });}
-                @*<ul class="nav nav-stacked left-submenu">
-                    <li><a href="#">View One</a></li>
-                    <li><a href="#">View Two</a></li>
-                </ul>*@
-            </li>
-                }
-            }
-            @*<li><a href="#">Category 3</a></li>
-            <li><a href="#">Category 4</a></li>
-            <li class="leve12">
-                <a href="#">Category Menu 2<span class="caret"></span></a>
-                <ul class="nav nav-stacked left-submenu">
-                    <li><a href="#">View One</a></li>
-                    <li><a href="#">View Two</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Category 1</a></li>
-            <li><a href="#">Category 2</a></li>
-            <li class="leve12">
-                <a href="#">Category Menu <span class="caret"></span></a>
-                <ul class="nav nav-stacked left-submenu">
-                    <li><a href="#">View One</a></li>
-                    <li><a href="#">View Two</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Category 3</a></li>
-            <li><a href="#">Category 4</a></li>
-            <li class="leve12">
-                <a href="#">Category Menu 2<span class="caret"></span></a>
-                <ul class="nav nav-stacked left-submenu">
-                    <li><a href="#">View One</a></li>
-                    <li><a href="#">View Two</a></li>
-                </ul>
-            </li>*@
-        </ul>
-    </div>
-</div>
 }
