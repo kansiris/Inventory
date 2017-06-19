@@ -55,11 +55,21 @@ namespace Inventory.Service
             return InvoiceRepository.UpdatePoforDeliveryNote(dbname, customer_id, Prchaseorder_nos, deliverynote_status);
         }
 
-        
 
-            public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
+        public static int UpdatePoinCustomer(string dbname, string customer_id, string new_pos)
+        {
+
+            return InvoiceRepository.UpdatePoinCustomer(dbname, customer_id, new_pos);
+        }
+
+        public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
         {
             return InvoiceRepository.Getproductdetails(dbname, cid, Prchaseorder_no);
+        }
+
+        public static SqlDataReader Getposforcustomer(string dbname, string cid, string invoice_status)
+        {
+            return InvoiceRepository.Getposforcustomer(dbname, cid, invoice_status);
         }
 
     }

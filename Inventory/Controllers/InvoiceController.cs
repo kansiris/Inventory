@@ -229,6 +229,16 @@ namespace Inventory.Controllers
                         if (count > 0)
                         {
                             InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
+                            var dt = new DataTable();
+                            var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
+                            dt.Load(records);
+                            List<Invoice> pos = (from DataRow row in dt.Rows
+                                                 select new Invoice()
+                                                 {
+                                                     new_pos = row["pos"].ToString(),
+                                                 }).ToList();
+                            string new_pos = (pos.Select(m => m.new_pos).ToList())[i];
+                            InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, new_pos);
                         }
                         count++;
                     }
@@ -307,8 +317,8 @@ namespace Inventory.Controllers
                             string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];
                             string description = (productsinpo.Select(m => m.description).ToList())[i];
                             //string total_price = (productsinpo.Select(m => m.total_price).ToList())[i];
-                            string deliver_quantity = 3.ToString();
-                            string total_price = (int.Parse(deliver_quantity )* float.Parse(cost_price)).ToString();
+                            string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];//after this will be chnaged.
+                            string total_price = (int.Parse(deliver_quantity) * float.Parse(cost_price)).ToString();
                             count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date, grand_total, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
                             count++;
                         }
@@ -325,5 +335,10 @@ namespace Inventory.Controllers
             }
             return Json("unique");
         }
+
+        //to update pos in customer_company
+
+
+
     }
 }

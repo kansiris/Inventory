@@ -444,10 +444,22 @@ namespace Inventory.Controllers
                     string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
                     string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i];
                     count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
+                    string status = 0.ToString();
+                    var dt1 = new DataTable();
+                    var records1 = InvoiceService.Getposforcustomer(user.DbName, cid, status);
+                    List<Invoice> pos = (from DataRow row in dt.Rows
+                                         select new Invoice()
+                                         {
+                                             total_pos = row["pos"].ToString(),
+                                         }).ToList();
+                    string total_pos = pos.Select(m => m.new_pos).ToList()[i];
+                   // InvoiceService.UpdatetotalPoinCustomer(user.DbName, cid, total_pos); need to write this method
+
                 }
                 if (count > 0)
                 {
                     ProductService.Emptycart(user.DbName, cid);
+                    
                     return Json("success");
                 }
             }

@@ -74,13 +74,26 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoupdatedelivstatus", customer_id, Prchaseorder_nos, deliverynote_status);
         }
 
-        
+        public static int UpdatePoinCustomer(string dbname, string customer_id, string new_pos)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatePOsinCustomer_company", customer_id, new_pos);
+        }
 
-            public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
+        public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "getproductdetails", cid, Prchaseorder_no);
         }
+        
+            public static SqlDataReader Getposforcustomer(string dbname, string cid, string invoice_status)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "togetallpos", cid, invoice_status);
+        }
+
     }
 }
