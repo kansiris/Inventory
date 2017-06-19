@@ -134,6 +134,7 @@ function saveInvoice(cid) {
                $("[id='date']").val("");
                 $("[id='paymentterms']").val("");
                 $("[id='comment']").val("");
+               // location.reload();
                 
             }
         },
@@ -181,6 +182,9 @@ function saveDeliverynote(cid) {
                     successmsg("Delivery Note saved successfully");
                     $("[id='delivnotenum']").val("");
                     $("[id='comment']").val("");
+                    var cname = document.URL.split('&&')[1].split('=')[1];
+                    //window.location='/Invoice?cid='+customerid'&cname='+cname;
+                    location.href = '/Invoice?cid='+ customerid +'&cname=' + cname;
                 }
             },
             error: function (data)

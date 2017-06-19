@@ -37,10 +37,10 @@ namespace Inventory.Service
 
             return InvoiceRepository.UpdatePoforInvoice(dbname,customer_id,Prchaseorder_nos, invoice_status);
         }
-        public static int InsertDeliverynote(string dbname, string Delivernote_no, string vendor_name, string customer_id, string created_date, string grand_total,string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        public static int InsertDeliverynote(string dbname, string Delivernote_no, string vendor_name, string customer_id, string created_date, string grand_total,string comment, string sub_total, string vat, string discount, string Prchaseorder_nos,string product_id, string product_name, string description, string po_quantity, string deliver_quantity, string cost_price, string total_price)
         {
 
-            return InvoiceRepository.InsertDeliverynote(dbname, Delivernote_no, vendor_name, customer_id,created_date, grand_total,comment, sub_total, vat, discount, Prchaseorder_nos);
+            return InvoiceRepository.InsertDeliverynote(dbname, Delivernote_no, vendor_name, customer_id,created_date, grand_total,comment, sub_total, vat, discount, Prchaseorder_nos,product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
         }
 
         
@@ -53,6 +53,13 @@ namespace Inventory.Service
         {
 
             return InvoiceRepository.UpdatePoforDeliveryNote(dbname, customer_id, Prchaseorder_nos, deliverynote_status);
+        }
+
+        
+
+            public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
+        {
+            return InvoiceRepository.Getproductdetails(dbname, cid, Prchaseorder_no);
         }
 
     }
