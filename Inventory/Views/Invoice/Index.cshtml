@@ -42,9 +42,11 @@
                             <tr>
                                 <th class="col-md-1">Select</th>
                                 <th class="col-md-2">PO No</th>
-                                <th class="col-md-3">PO Date</th>
-                                <th class="col-md-3">Total Item</th>
-                                <th class="col-md-3">Amount</th>
+                                <th class="col-md-2">PO Date</th>
+                                <th class="col-md-2">Total Item</th>
+                                <th class="col-md-2">Amount</th>
+                                <th class="col-md-2">DeliveryNote</th>
+                                <th class="col-md-2">Invoice</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,10 +57,10 @@
             </div>
             <div class="row margin-bottom">
                 <div class="col-xs-12 col-sm-12 col-md-12 invoice-buttons">
-                    <button type="button" class="btn btn-primary pull-right invite" id="back-invoice1"> <i class="fa fa-download" aria-hidden="true"></i> Back</button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateDelivNote" onclick="genarateDelivNote()"> <i class="fa fa-download" aria-hidden="true"></i> Generate Delivery Note</button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateInvoice" onclick="genarateInvoice()"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice</button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateDelivInvoice" onclick="genarateDelivInvoice()"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice & Delivery Note </button>
+                    <button type="button" class="btn btn-primary pull-right invite" id="back-invoice1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateDelivNote" onclick="genarateDelivNote()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Delivery Note</button>
+                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateInvoice" onclick="genarateInvoice()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice</button>
+                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateDelivInvoice" onclick="genarateDelivInvoice()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice & Delivery Note </button>
                 </div>
             </div>
             <div class="row total-border" id="completediv" style="display:none">
@@ -104,7 +106,7 @@
                 autoclose: true,
             })
             //<!-------------- Date Picker  ----------->
-
+            
         });
 
         function add() {
@@ -138,7 +140,7 @@
         });
         //<!------ Qty Disturbed to WareHouses  ------->
         //	<!-------------- Auto Value assign to Quantity text boxes  ----------->
-       
+
         $('#back-invoice1').click(function () {
             document.location = '@Url.Action("Index", "Customer")';
         });

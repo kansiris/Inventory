@@ -39,10 +39,14 @@ namespace Inventory.Controllers
                                                   Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                   total_price = row["total_price"].ToString(),
                                                   created_date = row["created_date"].ToString(),
-                                                  //Payment_date = row["Payment_date"].ToString(),
+                                                  invoice_status = row["invoice_status"].ToString(),
+                                                  deliverynote_status = row["deliverynote_status"].ToString(),
                                                   totalQty = row["totalQty"].ToString()
-                                              }).ToList();
+                                              }).OrderByDescending(m => m.invoice_status).ToList();
                 ViewBag.records = availablepos;
+                ViewBag.invoice_status = availablepos.Select(m => m.invoice_status);
+                ViewBag.deliverynote_status = availablepos.Select(m => m.deliverynote_status);
+
                 return PartialView("AvailblePos", ViewBag.records);
             }
             return PartialView("AvailblePos", null);
@@ -221,10 +225,20 @@ namespace Inventory.Controllers
                     for (int i = 0; i < ponumsArray.Length; i++)
                     {
                         status = 1.ToString();
-                        count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i]);
+                        count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status);
                         if (count > 0)
                         {
                             InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
+                            var dt = new DataTable();
+                            var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
+                            dt.Load(records);
+                            List<Invoice> pos = (from DataRow row in dt.Rows
+                                                 select new Invoice()
+                                                 {
+                                                     new_pos = row["pos"].ToString(),
+                                                 }).ToList();
+                            string new_pos = (pos.Select(m => m.new_pos).ToList())[i];
+                            InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, new_pos);
                         }
                         count++;
                     }
@@ -249,28 +263,69 @@ namespace Inventory.Controllers
             return Json("unique");
         }
 
+        //for checking delivery note  number
+
+        public JsonResult CheckDeliveryNoteNum(string Delivernote_no)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var count = InvoiceService.checkdeliverynotenum(user.DbName, Delivernote_no);
+                if (count.HasRows)
+                    return Json("exists");
+            }
+            return Json("unique");
+        }
 
         //to insert DeliveryNote data
 
-        public JsonResult InsertDeliveryNote(string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        public JsonResult InsertDeliveryNote(string Delivernote_no, string vendor_name, string customer_id, string created_date, string grand_total, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
         {
 
-            string status;
+            string deliv_status;
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                if (Prchaseorder_nos != null && Invoice_no != null)
+                if (Prchaseorder_nos != null && Delivernote_no != null)
                 {
                     Array ponumsArray = Prchaseorder_nos.Split(',');
                     int count = 0;
-                    CheckInvoiceNum(Invoice_no);
+                    CheckDeliveryNoteNum(Delivernote_no);
                     var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                    for (int i = 0; i < ponumsArray.Length; i++)
+
+                    for (int j = 0; j < ponumsArray.Length; j++)
                     {
-                        status = 1.ToString();
-                        count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i]);
+                        var dt = new DataTable();
+                        var records = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[j]);
+                        dt.Load(records);
+                        List<Invoice> productsinpo = (from DataRow row in dt.Rows
+                                                      select new Invoice()
+                                                      {
+                                                          //customer_id = row["customer_id"].ToString(),
+                                                          product_id = row["product_id"].ToString(),
+                                                          product_name = row["product_name"].ToString(),
+                                                          cost_price = row["cost_price"].ToString(),
+                                                          Quantity = row["Quantity"].ToString(),
+                                                          description = row["description"].ToString(),
+                                                          total_price = row["total_price"].ToString(),
+                                                      }).ToList();
+                        var ff = productsinpo.Count;
+                        for (int i = 0; i < ff; i++)
+                        {
+                            string product_id = (productsinpo.Select(m => m.product_id).ToList())[i];
+                            string product_name = (productsinpo.Select(m => m.product_name).ToList())[i];
+                            string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[i];
+                            string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];
+                            string description = (productsinpo.Select(m => m.description).ToList())[i];
+                            //string total_price = (productsinpo.Select(m => m.total_price).ToList())[i];
+                            string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];//after this will be chnaged.
+                            string total_price = (int.Parse(deliver_quantity) * float.Parse(cost_price)).ToString();
+                            count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date, grand_total, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
+                            count++;
+                        }
+                        deliv_status = 1.ToString();
                         if (count > 0)
                         {
-                            InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
+                            InvoiceService.UpdatePoforDeliveryNote(user.DbName, customer_id, Prchaseorder_nos.Split(',')[j], deliv_status);
                         }
                         count++;
                     }
@@ -280,5 +335,10 @@ namespace Inventory.Controllers
             }
             return Json("unique");
         }
+
+        //to update pos in customer_company
+
+
+
     }
 }

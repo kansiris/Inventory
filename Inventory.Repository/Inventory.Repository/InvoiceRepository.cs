@@ -36,12 +36,12 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "checkInvoicenum",Invoice_no);
         }
 
-        public static int InsertInvoice(string dbname, string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        public static int InsertInvoice(string dbname, string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos,string status)
         {
 
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoinsertinvoice", Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoinsertinvoice", Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos,status);
         }
         public static int UpdatePoforInvoice(string dbname, string customer_id, string Prchaseorder_nos,string invoice_status)
         {
@@ -49,5 +49,51 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoupdateinvoicestatus",customer_id,Prchaseorder_nos, invoice_status);
         }
+
+        public static int InsertDeliverynote(string dbname, string Delivernote_no, string vendor_name, string customer_id,string created_date, string grand_total, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos, string product_id, string product_name, string description, string po_quantity, string deliver_quantity, string cost_price, string total_price)
+        {
+
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoinsertdeliverynote", Delivernote_no, vendor_name, customer_id,created_date, grand_total, comment, sub_total, vat, discount, Prchaseorder_nos, product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
+        }
+
+        public static SqlDataReader checkdeliverynotenum(string dbname, string Delivernote_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkDeliverynotenum", Delivernote_no);
+        }
+
+        
+
+            public static int UpdatePoforDeliveryNote(string dbname, string customer_id, string Prchaseorder_nos, string deliverynote_status)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoupdatedelivstatus", customer_id, Prchaseorder_nos, deliverynote_status);
+        }
+
+        public static int UpdatePoinCustomer(string dbname, string customer_id, string new_pos)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatePOsinCustomer_company", customer_id, new_pos);
+        }
+
+        public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getproductdetails", cid, Prchaseorder_no);
+        }
+        
+            public static SqlDataReader Getposforcustomer(string dbname, string cid, string invoice_status)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "togetallpos", cid, invoice_status);
+        }
+
     }
 }

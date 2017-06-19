@@ -6,10 +6,13 @@ using System.Data.Entity.Spatial;
 
 namespace Inventory.Models
 {
-   
+
     public class Invoice
     {
 
+        public string total_pos { get; set; }
+
+        public string new_pos { get; set; }
         public string ID { get; set; }
         public string customer_id { get; set; }
         public string company_name { get; set; }
@@ -30,12 +33,15 @@ namespace Inventory.Models
         public string grand_total { get; set; }
         public string shipping_date { get; set; }
         public string created_date { get; set; }
-        
+
 
         public string Prchaseorder_no { get; set; }
         public string Payment_date { get; set; }
         public string status { get; set; }
         public string totalQty { get; set; }
-        
+
+        public string invoice_status { get; set; }
+        public string deliverynote_status { get; set; }
+
     }
 }
