@@ -553,6 +553,8 @@ namespace Inventory.Controllers
                 List<Product> podetails = (from DataRow row in dt.Rows
                                            select new Product()
                                            {
+                                               Prchaseorder_no= Prchaseorder_no,
+                                               product_id= row["product_id"].ToString(),
                                                product_name = row["product_name"].ToString(),
                                                description = row["description"].ToString(),
                                                Quantity = row["Quantity"].ToString(),

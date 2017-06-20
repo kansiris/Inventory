@@ -11,7 +11,7 @@ namespace Inventory.Models
     {
 
         public string total_pos { get; set; }
-
+        public string Invoice_no { get; set; }
         public string new_pos { get; set; }
         public string ID { get; set; }
         public string customer_id { get; set; }

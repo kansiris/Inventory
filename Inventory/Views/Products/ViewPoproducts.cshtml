@@ -4,12 +4,13 @@
             <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                 <thead class="thead-inverse">
                     <tr>
-
+                        <th class="col-md-2">PO Number</th>
+                        <th class="col-md-2">Product Id</th>
                         <th class="col-md-3">Product Name</th>
-                        <th class="col-md-3">Description</th>
-                        <th class="col-md-2">Quantity</th>
-                        <th class="col-md-1">Price</th>
-                        <th class="col-md-1">Total</th>
+                        <th class="col-md-2">Description</th>
+                        <th class="col-md-1">Quantity</th>
+                        <th class="col-md-2">Price</th>
+                        <th class="col-md-3">Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,11 +19,13 @@
                         foreach (var item in ViewBag.records)
                         {
                             <tr>
-                                <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
-                                <td class="col-md-3 product-variation"><span>@item.description</span></td>
-                                <td class="col-md-2 quantity-changes">@item.Quantity</td>
-                                <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.cost_price</span></td>
-                                <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
+                                <td class="col-md-2"><span>@item.Prchaseorder_no</span></td>
+                                <td class="col-md-2">@item.product_id</td>
+                                <td class="col-md-3 product-name">@item.product_name</td>
+                                <td class="col-md-2 product-variation"><span>@item.description</span></td>
+                                <td class="col-md-1 quantity-changes">@item.Quantity</td>
+                                <td class="col-md-2 product-price"><text class="localization"></text> <span>@item.cost_price</span></td>
+                                <td class="col-md-3 product-total-price"><text class="localization"></text> <span>@item.total_price</span></td>
                             </tr>
                         }
                     }

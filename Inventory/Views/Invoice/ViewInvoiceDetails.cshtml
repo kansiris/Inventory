@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
+}
+
+@section css{
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
+
+    <!--- Tabs in Graph Section ---->
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+
+    <!-- Over Hang -->
+    @*<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />*@
+    <link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+}
+
+<div class="right_col" role="main" id="sai">
+    <div class="container">
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="row">
+            <div class="form-title col-xs-12 col-md-12">Invoice</div>
+        </div>
+    </div>
+</div>
+
+<div class="row margin-bottom">
+    <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="~/images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
+    @{ Html.RenderAction("GetCustomerdata", "Invoice");}
+    <div class="col-xs-12 col-md-3 margin-bottom">
+        <div class="row padding-bottom date" id="createddate"></div>
+        <div class="row invoice-total-amount" id="grandtotal"> <text class="localization"></text>@ViewBag.grand_total </div>
+    </div>
+
+    <div class="row padding-bottom">
+        <div class="col-xs-12 col-md-7 to-address margin-bottom" id="companyname"> <span>To : @ViewBag.company_name</span> </div>
+        <div class="col-xs-12 col-md-5 margin-bottom">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
+                <div class="col-xs-12 col-md-8">
+                    <input type="text" class="form-control" placeholder="Enter Invoice" value="@ViewBag.Invoice_no"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row po-date">
+    <table class="table table-bordered col-xs-12 col-md-12">
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-xs-6 col-md-2">Payment Due Date</td>
+                <td class="col-xs-6 col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                        <input class="form-control" type="text" value="@ViewBag.Payment_date" />
+                    </div>
+                </td>
+                <td class="col-xs-6 col-md-2">Payment Terms</td>
+                <td class="col-xs-6 col-md-4">
+                    <input type="text" class="form-control" value="@ViewBag.payment_terms">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@{Html.RenderAction("ViewPoproducts", "Products"); }
+@*@{ Html.RenderAction("GetCustomerdata", "Invoice");}*@
+@*<div class="row padding-top invoice">
+    <div class="col-xs-12 col-md-12">
+        <div class="total table-responsive">
+            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="col-md-2">PO No</th>
+                        <th class="col-md-2">Product id</th>
+                        <th class="col-md-3">Product Name</th>
+                        <th class="col-md-2">Description</th>
+                        <th class="col-md-1">Quantity</th>
+                        <th class="col-md-1">Price</th>
+                        <th class="col-md-1">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.records != null)
+                    {
+                        foreach (var item in ViewBag.records)
+                        {
+                            <tr>
+                                <td class="col-md-2">@item.Prchaseorder_no</td>
+                                <td class="col-md-2 image">@item.product_id </td>
+                                <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
+                                <td class="col-md-2 product-variation"><span>@item.description</span></td>
+                                <td class="col-md-1 quantity-changes">@item.Quantity</td>
+                                <td class="col-md-1 product-variation"><text class="localization"></text> <span>@item.cost_price</span></td>
+                                <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>*@
+<div class="row">
+    <div class="col-xs-12 col-md-6 remarks margin-top">
+        <label>Remarks</label>
+        <textarea class="form-control" rows="3">@ViewBag.remarks</textarea>
+    </div>
+    <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
+        <div class="row sub-total margin-bottom">
+            <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
+            <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+        </div>
+        <div class="row sub-total margin-bottom">
+            <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
+            <div class="col-xs-6 col-md-7" id="vat">@ViewBag.vat%</div>
+        </div>
+        <div class="row sub-total margin-bottom">
+            <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
+            <div class="col-xs-6 col-md-7" id="discount">@ViewBag.discount%</div>
+        </div>
+        <div class="row sub-total">
+            <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
+            <div class="col-xs-6 col-md-7" id="grandtotal1"><text class="localization"></text>@ViewBag.grand_total</div>
+        </div>
+    </div>
+</div>
+<div class="row margin-top">
+    <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
+        <a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions</a>
+        <ul class="terms-content margin-top">
+            <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+            <li>2) Text has been the industry's standard dummy text ever since</li>
+            <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
+            <li>4) Here we have industry's standard dummy text ever since</li>
+            <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
+            <li>6) Enter content has been the industry's standard dummy text ever since</li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+
+    <center><button type="button" id="backtocustomer">closeView</button></center>
+</div>
+
+@section scripts{
+    <!-- jQuery lib & Tabs -->
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+    <!-- jQuery lib & Tabs -->
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<!------ Tags With Space and comma ------->*@
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/tag-it.js"></script>
+
+    <script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+    @Scripts.Render("~/bundles/Invoices")
+    
+   <script>
+            $('#backtocustomer').click(function () {
+                document.location = '@Url.Action("Index", "Customer")';
+            });
+       $("#sai").find("input, select, textarea").attr("disabled", true);
+</script>
+
+    }

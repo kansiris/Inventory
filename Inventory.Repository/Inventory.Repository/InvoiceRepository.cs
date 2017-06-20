@@ -95,5 +95,12 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "togetallpos", cid, invoice_status);
         }
 
+        
+               public static SqlDataReader Getinvoicedata(string dbname, string cid, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getinvoicedata", cid, Prchaseorder_no);
+        }
     }
 }
