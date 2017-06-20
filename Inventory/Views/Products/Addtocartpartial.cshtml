@@ -3,34 +3,34 @@
         My Cart(<span>@ViewBag.cartqtycount</span> Items)
         <i class="fa fa-times" aria-hidden="true"></i>
     </div>
-@foreach (var item in ViewBag.records)
-{
     <div class="col-xs-12 right-side-products">
-        <div class="added-products">
-            <div class="image">
-                @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png" && item.product_images != "default_product.png")
+        @foreach (var item in ViewBag.records)
+        {
+            <div class="added-products">
+                <div class="image">
+                    @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png" && item.product_images != "default_product.png")
                 { <img src="~/ProductImages/@item.product_images" alt="@item.product_images" /> }
                 else
                 { <img src="~/images/default_product.png" /> }
-            </div>
-            <div class="product-body-info">
-                <div class="title" title="@item.product_name">@item.product_name</div>
-                <div class="product-variation">@item.Measurement</div>
-                <div class="row">
-                    <div class="spinner">
-                        <div class="input-group">
-                            <button class="btn btn-default" type="button"><i class="fa fa-minus-circle" onclick="updatecart1(@item.cart_id,@item.Quantity,@item.cost_price)"></i></button>
-                            <input type="text" class="form-control" value="@item.Quantity" min="1" id="qtyinput" onfocus="this.select();">
-                            <button class="btn btn-default" type="button"><i class="fa fa-plus-circle" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"></i></button>
+                </div>
+                <div class="product-body-info">
+                    <div class="title" title="@item.product_name">@item.product_name</div>
+                    <div class="product-variation">@item.Measurement</div>
+                    <div class="row">
+                        <div class="spinner">
+                            <div class="input-group">
+                                <button class="btn btn-default" type="button"><i class="fa fa-minus-circle" onclick="updatecart1(@item.cart_id,@item.Quantity,@item.cost_price)"></i></button>
+                                <input type="text" class="form-control" value="@item.Quantity" min="1" id="qtyinput" onfocus="this.select();">
+                                <button class="btn btn-default" type="button"><i class="fa fa-plus-circle" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"></i></button>
+                            </div>
                         </div>
+                        <div class="product-price">&nbsp X &nbsp;<i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>@item.cost_price</span></div>
+                        <div class="total-product-price"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>@item.total_price</span></div>
                     </div>
-                    <div class="product-price">&nbsp X &nbsp;<i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>@item.cost_price</span></div>
-                    <div class="total-product-price"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>@item.total_price</span></div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-}
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 generate-po padding-left-0 padding-right-0">
         <div class="generate-po-strip">
             <a href="#" onclick="genaratepo()">Generate Product Order</a>
@@ -38,3 +38,40 @@
         </div>
     </div>
 </div>
+
+
+
+@*<div class="row checkout" id="cartrecords">
+        <div class="col-xs-12 col-md-12 check-title">
+            My Cart(<span>@ViewBag.cartqtycount</span> Items)
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        <div class="col-xs-12 right-side-products">
+            <div class="added-products">
+                <div class="image">
+                    <img src="images/thumb7.jpg" alt="Image 1">
+                </div>
+                <div class="product-body-info">
+                    <div class="title">Product One</div>
+                    <div class="product-variation">5 KG</div>
+                    <div class="row">
+                        <div class="spinner">
+                            <div class="input-group">
+                                <button class="btn btn-default" type="button"><i class="fa fa-minus-circle"></i></button>
+                                <input type="text" class="form-control" value="1">
+                                <button class="btn btn-default" type="button"><i class="fa fa-plus-circle"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-price">&nbsp X &nbsp;<i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>20</span></div>
+                        <div class="total-product-price"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span>20</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 generate-po padding-left-0 padding-right-0">
+            <div class="generate-po-strip">
+                <a href="#">Generate Product Order</a>
+                <p><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<span class="cart-total">000</span></p>
+            </div>
+        </div>
+    </div>*@

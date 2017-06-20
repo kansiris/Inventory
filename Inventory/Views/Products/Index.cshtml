@@ -156,6 +156,9 @@
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*Over Hang*@
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>
     @Scripts.Render("~/bundles/ShopProduct")
     <script type="text/javascript">
         //<!------------ List / Grid Views and reload page -------------->
@@ -238,37 +241,89 @@
 
         //<!------------ Product units / prices selection -------------->
 
-        $(".product-variation > ul > li").click(function () {
-            var txt = $(this).text();
-            var qtynum = txt.split(" ")[0];
-            var qtyunits = txt.split(" ")[1];
-            var price = txt.split("-")[1].replace(/[^0-9\.]/g, "");
-            $(this).parents(".product-variation").find("#variantselection").val(txt);
-            alert(txt + "," + qtynum + "," + qtyunits + "," + price);
-            //alert($(this).parents(".product-variation").find("#variantselection").val(txt));
-            //$('#variantselection').empty().val(txt);
-            $(this).parents(".product-variation").prev(".product-price").children("span").empty();
-            $(this).parent("ul").prev("span").children("b").empty();
-            $(this).parent("ul").prev("span").children("var").empty();
-            $(this).parents(".product-variation").prev(".product-price").children("span").append(price);
-            $(this).parent("ul").prev("span").children("b").append(qtynum);
-            $(this).parent("ul").prev("span").children("var").append(qtyunits);
-        });
+        $(".product-variation > ul > li")
+        //    .ready(function () {
+        //    //var whqty = $(this).find(".rate-add").children("div.warehouse").children("p").children("text").html();
+        //    var whqty = $(this).find(".rate-add").children("div:last-of-type").find("span").html();
+        //    alert(whqty);
+        //    if (whqty == 0 || whqty == '') {
+        //        alert("out of stock");
+        //        //$(this).find("div.label").css('display','block');
+        //        //$(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled',true);
+        //    }
+        //})
+            .click(function () {
+                var txt = $(this).text();
+                var qtynum = txt.split(" ")[0];
+                var qtyunits = txt.split(" ")[1];
+                var price = txt.split("-")[1].replace(/[^0-9\.]/g, "");
+                $(this).parents(".product-variation").find("#variantselection").val(txt);
+                $(this).parents(".product-variation").prev(".product-price").children("span").empty();
+                $(this).parents(".product-variation").children("span").children("b").empty();
+                $(this).parents(".product-variation").children("span").children("var").empty();
+                $(this).parents(".product-variation").prev(".product-price").children("span").append(price);
+                $(this).parents(".product-variation").children("span").children("b").append(qtynum);
+                $(this).parents(".product-variation").children("span").children("var").append(qtyunits);
+
+                var image = $(this).parents(".rate-add").prevAll(".image").children("img").attr("src", '');
+                var pqty = $(this).parents(".rate-add").prevAll(".image").children("input#pqty");
+                var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
+                alert(productid);
+                //$.ajax({
+                //    url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
+                //        pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
+                //        if (result.qty == '') { whqty.empty().html(0); }
+                //        if (result.images != '') {
+                //            image.attr("src", '/ProductImages/' + result.images);
+                //        }
+                //        else {
+                //            image.attr("src", '/images/default_product.png');
+                //        }
+                //    }
+                //});
+            });
         //<!------------ Product units / prices selection -------------->
 
         //<!----------- Quantity Add in Right Bar ---------------->
         $(".add-to-cart").click(function () {
-            //var mesurment = $(this).parents(".rate-add").prevAll("div.product-variation").children("select").children("option:selected").val().split(" ")[0];
-            var mesurment = $(this).parents(".rate-add").children(".margin-bottom-20").children(".product-variation").html();
-            alert(mesurment);
-            //var qty = $(this).closest('div.row').find("div.qty").children("div.spinner").children("input").val();
-            //var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
-            //var costprice = $(this).parents(".rate-add").children(".product-price").children("span").html();
-            //var total = $(this).parents(".rate-add").children(".product-price-total").children("span").html();
-            //var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
-            //var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
-            ////alert($(this).parents(".rate-add").prevAll("div.image").children("input").val());
-            //var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
+            var mesurment = $(this).parents(".rate-add").children(".margin-bottom-20").children(".product-variation").find("#variantselection").val();
+            var qty = $(this).parents(".rate-add").children("div:first-of-type").next("div").find(".spinner").children("div").find(".quantity").val();
+            var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
+            var costprice = $(this).parents(".rate-add").children("div:first-of-type").children(".product-price").children("span").html();
+            var total = parseInt(costprice) * parseInt(qty);
+            var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
+            var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
+            var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
+            $.ajax({
+                url: '/Products/Addtocart',
+                type: 'POST',
+                data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total, product_images: img, product_id: productid }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "unique") {
+                        errormsg("Not Inserted");
+                    }
+                    else if (data == "exists") {
+                        existsmsg("The product Alredy available in the cart.Please Increase quantity if needed.");
+                    }
+                    else if (data == "qty") {
+                        warnmsg("InValid Quantity");
+                    }
+
+                    else if (data == "qtyexcess") {
+                        warnmsg("This much quantity not available");
+                    }
+                    else {
+                        successmsg("Successfully Added To Cart.");
+                        var url = 'Products/Addtocartpartial?cid=' + cid;
+                        $('#cartrecords').load(url);
+                    }
+                },
+                error: function (data)
+                { errormsg("Failed!!!"); }
+            });
+            return vals();
         });
         $(".product-variation > ul > li").click(function () {
             var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
@@ -294,6 +349,7 @@
                 productprice = parseInt($(this).text());
                 carttotal = productprice + carttotal;
             });
+            //alert($(this).val());
             $("span.cart-total").empty();
             $("span.cart-total").append(carttotal);
             $(".check-title > span").empty();
