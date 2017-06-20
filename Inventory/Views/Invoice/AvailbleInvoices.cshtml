@@ -1,0 +1,132 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
+}
+
+@section css{
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
+
+    <!--- Tabs in Graph Section ---->
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+
+    <!-- Over Hang -->
+    @*<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />*@
+    <link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+}
+
+<div class="right_col" role="main">
+    <div class="container">
+        <form>
+            <div class="row invoice-table margin-top margin-bottom">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                
+                                <th class="col-md-2">Invoice No</th>
+                                <th class="col-md-2">Company Name</th>
+                                <th class="col-md-2">PurchaseOrder No</th>
+                                <th class="col-md-2">Payment Date</th>
+                                <th class="col-md-2">Grand Total</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (ViewBag.records != null)
+                            {
+                                if (ViewBag.records.Count != 0)
+                                {
+                                    foreach (var item in ViewBag.records)
+                                    {
+
+                                        <tr>
+                                            <td class="col-md-2">@item.Invoice_no</td>
+                                            <td class="col-md-2">@item.company_name</td>
+                                            <td class="col-md-2">@item.Prchaseorder_no</td>
+                                            <td class="col-md-2">@item.Payment_date</td>
+                                            <td class="col-md-2"><text class="localization"></text>@item.grand_total</td>
+                                        </tr>
+                                    }
+                                }
+
+
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5"><p>No Invoice's Available</p></td>
+                                    </tr>
+
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <center><button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button></center>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    <!-- jQuery lib & Tabs -->
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+    <!-- jQuery lib & Tabs -->
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<!------ Tags With Space and comma ------->*@
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/tag-it.js"></script>
+
+    <script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+    @Scripts.Render("~/bundles/Invoices")
+    <script>
+        $(document).ready(function () {
+            var dateformat = $('#dateformat').val().toLowerCase();//replace('DD', 'dd').replace('YYYY', 'yyyy').replace('MM','mm');
+            //alert(dateformat);
+            //alert($('#currency').val());
+            //<!-------------- Date Picker ----------->
+            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: dateformat,
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+            //<!-------------- Date Picker  ----------->
+
+        });
+
+        $('#back-invoice').click(function () {
+            document.location = '@Url.Action("Index", "Customer")';
+        });
+    </script>
+}
+
+

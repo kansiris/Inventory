@@ -390,5 +390,31 @@ namespace Inventory.Controllers
             }
             return PartialView("ViewInvoiceDetails", null);
         }
+
+        //to get all invoices
+        public PartialViewResult AvailbleInvoices(string cid)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = InvoiceService.AvailableInvoices(user.DbName, cid);
+                dt.Load(records);
+                List<Invoice> availableinvoices = (from DataRow row in dt.Rows
+                                              select new Invoice()
+                                              {
+                                                  //customer_id = row["customer_id"].ToString(),
+                                                  Invoice_no = row["Invoice_no"].ToString(),
+                                                  company_name = row["company_name"].ToString(),
+                                                  Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                                  grand_total = row["grand_total"].ToString(),
+                                                  Payment_date = row["payment_date"].ToString(),
+                                              }).ToList();
+                ViewBag.records = availableinvoices;
+               
+                return PartialView("AvailbleInvoices", ViewBag.records);
+            }
+            return PartialView("AvailbleInvoices", null);
+        }
     }
 }

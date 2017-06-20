@@ -270,8 +270,8 @@ function checkstatus(invoice, deliv) {
 
 //view invoice
 function viewinvoicedetails(ponumber, cid) {
-    alert(ponumber);
-    alert(cid);
+    //alert(ponumber);
+    //alert(cid);
 
 
 }

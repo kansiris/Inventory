@@ -8,7 +8,7 @@ function ajaxcalling(clickeditem) {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            alert(data);
+            //alert(data);
             if (data == "unique") {
                 errormsg("No Data Available");
             }
@@ -24,7 +24,7 @@ function ajaxcalling(clickeditem) {
 
 
 function getproducts(value) {
-    alert(value);
+    //alert(value);
     var cid = document.URL.split('=')[1].split('#')[0];
     $.ajax({
         url: '/Products/Getproducts',
@@ -33,7 +33,7 @@ function getproducts(value) {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            alert(data);
+            //alert(data);
             if (data == "unique") {
                 errormsg("No Data Available");
             }
@@ -85,7 +85,7 @@ function genaratepo() {
 
 $('#plus').click(function () {
     var qty = this.prev('input[type=text]').val();
-    alert(qty);
+    //alert(qty);
 });
 
 //updatecart
@@ -123,7 +123,7 @@ function updatecart(cartid, quantity, costprice) {
     else {
         errormsg("Invalid Quantity");
         quantity = inputqty;
-        alert(quantity);
+        //alert(quantity);
     }
 }
 function updatecart1(cartid, quantity, costprice) {
@@ -300,8 +300,8 @@ function isNumberKey(evt, value) {
 
 //view invoice
 function viewinvoicedetails(ponumber, cid) {
-    alert(ponumber);
-    alert(cid);
+    //alert(ponumber);
+    //alert(cid);
     location.href = '/Invoice/ViewInvoiceDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
 
 }

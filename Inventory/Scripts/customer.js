@@ -1064,6 +1064,11 @@ function onFileSelected(event) {
 }
     reader.readAsText(selectedFile);
 }
+
+function viewallinvoices(cid) {
+    alert(cid);
+    location.href = '/Invoice/AvailbleInvoices?cid=' + cid;
+}
 //editcompanytaxdetails
 
 function editcompanytaxdetails(clickedvalue) {
@@ -1140,4 +1145,7 @@ function editcompanytaxdetails(clickedvalue) {
                 $('#tds').val("0");
             }
         });
+
+
+       
  

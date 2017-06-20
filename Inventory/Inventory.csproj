@@ -4799,6 +4799,7 @@
     <Content Include="Views\Invoice\GenarateDeliveryNote.cshtml" />
     <Content Include="Views\Invoice\GetCustomerdata.cshtml" />
     <Content Include="Views\Invoice\ViewInvoiceDetails.cshtml" />
+    <Content Include="Views\Invoice\AvailbleInvoices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

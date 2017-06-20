@@ -20,7 +20,13 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "availablePos", cid);
         }
-
+        //AvailableInvoices
+            public static SqlDataReader AvailableInvoices(string dbname, string cid)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "availableInvoices", cid);
+        }
         public static SqlDataReader GetPodata(string dbname, string cid,string Prchaseorder_no)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
