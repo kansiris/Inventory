@@ -297,3 +297,11 @@ function isNumberKey(evt, value) {
     }
     return true;
 }
+
+//view invoice
+function viewinvoicedetails(ponumber, cid) {
+    alert(ponumber);
+    alert(cid);
+    location.href = '/Invoice/ViewInvoiceDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
+
+}

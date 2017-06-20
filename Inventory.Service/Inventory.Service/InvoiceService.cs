@@ -72,5 +72,11 @@ namespace Inventory.Service
             return InvoiceRepository.Getposforcustomer(dbname, cid, invoice_status);
         }
 
+        
+             public static SqlDataReader Getinvoicedata(string dbname, string cid, string Prchaseorder_no)
+        {
+            return InvoiceRepository.Getinvoicedata(dbname, cid, Prchaseorder_no);
+        }
+
     }
 }

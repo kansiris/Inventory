@@ -339,6 +339,52 @@ namespace Inventory.Controllers
         //to update pos in customer_company
 
 
+        //view invoice
+        //public PartialViewResult ViewInvoiceDetails(string cid, string Prchaseorder_no)
+        //{
 
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+
+        //        if (Prchaseorder_no != null)
+        //        {
+                   
+        //            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //            var dt = new DataTable();
+                   
+        //                var records = InvoiceService.Getinvoicedata(user.DbName, cid, Prchaseorder_no);
+        //                dt.Load(records);
+        //            List<Invoice> productsinpos = (from DataRow row in dt.Rows
+        //                                           select new Invoice()
+        //                                           {
+        //                                               customer_id = cid,
+        //                                               company_name = row["company_name"].ToString(),
+        //                                               Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+        //                                               Invoice_no = row["Invoice_no"].ToString(),
+        //                                                   //product_id = row["product_id"].ToString(),
+        //                                                   //product_name = row["product_name"].ToString(),
+        //                                                   //Quantity = row["Quantity"].ToString(),
+        //                                                   // description = row["description"].ToString(),
+        //                                                   //cost_price = row["cost_price"].ToString(),
+        //                                                   //total_price = row["total_price"].ToString(),
+        //                                                   vat = row["vat"].ToString(),
+        //                                                   discount = row["discount"].ToString(),
+        //                                                   sub_total = row["sub_total"].ToString(),
+        //                                                   grand_total = row["grand_total"].ToString(),
+        //                                               }).ToList();
+        //                ViewBag.records = productsinpos;
+        //                ViewBag.customer_id = cid;
+        //                ViewBag.company_name = productsinpos.Select(m => m.company_name).First();
+        //                ViewBag.vat = productsinpos.Select(m => m.vat).First();
+        //                ViewBag.discount = productsinpos.Select(m => m.discount).First();
+        //                ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
+        //                ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
+                   
+
+        //            return PartialView("ViewInvoiceDetails", ViewBag.records);
+        //        }
+        //    }
+        //    return PartialView("ViewInvoiceDetails", null);
+        //}
     }
 }

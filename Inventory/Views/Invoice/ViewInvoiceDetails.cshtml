@@ -8,24 +8,24 @@
 
 <div class="row margin-bottom">
     <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
-    @{ Html.RenderAction("ViewInvoiceDetails", "Invoice");}
+    @{ Html.RenderAction("GetCustomerdata", "Invoice");}
     <div class="col-xs-12 col-md-3 margin-bottom">
         <div class="row padding-bottom date" id="createddate"></div>
         <div class="row invoice-total-amount" id="grandtotal"> <text class="localization"></text>@ViewBag.grand_total </div>
     </div>
-   
+
     <div class="row padding-bottom">
         <div class="col-xs-12 col-md-7 to-address margin-bottom" id="companyname"> <span>To : @ViewBag.company_name</span> </div>
         <div class="col-xs-12 col-md-5 margin-bottom">
             <div class="row">
                 <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
                 <div class="col-xs-12 col-md-8">
-                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoicenumber(this.value)"/>
+                    <input type="text" class="form-control" placeholder="Enter Invoice"/>@ViewBag.company_name
                 </div>
             </div>
         </div>
     </div>
-    </div>
+</div>
 <div class="row po-date">
     <table class="table table-bordered col-xs-12 col-md-12">
         <thead>
@@ -47,7 +47,8 @@
         </tbody>
     </table>
 </div>
-<div class="row padding-top invoice">
+@{ Html.RenderAction("GetCustomerdata", "Invoice");}
+@*<div class="row padding-top invoice">
     <div class="col-xs-12 col-md-12">
         <div class="total table-responsive">
             <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
@@ -83,7 +84,7 @@
             </table>
         </div>
     </div>
-</div>
+</div>*@
 <div class="row">
     <div class="col-xs-12 col-md-6 remarks margin-top">
         <label>Remarks</label>
@@ -121,7 +122,7 @@
         </ul>
     </div>
 </div>
-<div class="row margin-top">
+@*<div class="row margin-top">
     <div class="col-xs-12 col-md-12 invoice-buttons">
         <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice" onclick="saveInvoice(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
         <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
@@ -129,10 +130,10 @@
         <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
         <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
     </div>
-</div>
+</div>*@
 
 <script>
-    
+
     $(document).ready(function () {
         var currency = $('#currency').val().slice(-2).replace(')', '');
         $('.localization').html(currency);
@@ -155,11 +156,11 @@
                 autoclose: true,
             })
         });
-    
+
 
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';
         });
 
-    
+
 </script>
