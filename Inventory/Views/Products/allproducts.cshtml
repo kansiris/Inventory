@@ -385,29 +385,7 @@
     //  //<!---------- Scroll Anima Right-Side-Bar ------------>
     //<!---------- Scroll Anima Right-Side-Bar ------------>
 
-    $(window).scroll(function () {
-        var scrollTop = $(window).scrollTop();
-        if (scrollTop <= 250) {
-            $(".checkout").css("top", "250px");
-        } else if (scrollTop > 250) {
-            $(".checkout").css("top", "50px");
-        }
-    });
-
-    if (window.matchMedia('(max-width: 768px)').matches) {
-        $(window).scroll(function () {
-            $(".checkout").css({ "right": "40px", "top": "30%" });
-        });
-    }
-
-    if (window.matchMedia('(max-width: "480px")').matches) {
-
-        $(window).scroll(function () {
-            $(".checkout").css({ "right": "40px", "top": "20%" });
-
-        });
-
-    }
+    
 
     //<!---------- Scroll Anima Right-Side-Bar ------------>
 
