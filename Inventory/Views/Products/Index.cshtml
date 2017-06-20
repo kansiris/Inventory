@@ -363,8 +363,7 @@
             return vals();
             return cartstrip();
         });
-        $(".check-title > i.fa-times").click(function () {
-
+        $(document).on('click', '.check-title > i.fa-times', function () {
             $(".checkout").css({ "right": "-350px", "transition": "1s ease", "-webkit-transition": "1s ease" });
             $(".right-side-bar").css({ "width": "0%", "background": "rgba(0,0,0,.6)" });
         });
