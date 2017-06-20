@@ -6859,7 +6859,7 @@ tr > td.product-name a:hover{
 	font-weight: 700;}
 .right-side-bar{
 	position: fixed;
-	z-index: 3;
+	z-index: 9;
 	top: 0;
 	right: 0px;
 	bottom: 0;}
