@@ -447,13 +447,14 @@ namespace Inventory.Controllers
                     string status = 0.ToString();
                     var dt1 = new DataTable();
                     var records1 = InvoiceService.Getposforcustomer(user.DbName, cid, status);
-                    List<Invoice> pos = (from DataRow row in dt.Rows
+                    dt1.Load(records1);
+                    List<Invoice> pos = (from DataRow row in dt1.Rows
                                          select new Invoice()
                                          {
                                              total_pos = row["pos"].ToString(),
                                          }).ToList();
-                    string total_pos = pos.Select(m => m.new_pos).ToList()[i];
-                   // InvoiceService.UpdatetotalPoinCustomer(user.DbName, cid, total_pos); need to write this method
+                    string total_pos = pos.Select(m => m.total_pos).ToList().First();
+                   InvoiceService.UpdatetotalPoinCustomer(user.DbName, cid, total_pos);
 
                 }
                 if (count > 0)

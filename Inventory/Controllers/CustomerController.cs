@@ -58,7 +58,9 @@ namespace Inventory.Controllers
                                 cus_company_name = row["cus_company_name"].ToString(),
                                 cus_email = row["cus_email"].ToString(),
                                 cus_logo = row["cus_logo"].ToString(),
-                                status = row["status"].ToString()
+                                status = row["status"].ToString(),
+                                new_POs = row["new_POs"].ToString(),
+                                total_POs = row["total_POs"].ToString()
                             }).OrderByDescending(m => m.cus_company_Id).ToList();
                 ViewBag.records = customer;
                 return PartialView("CustomerCompany", ViewBag.records);
