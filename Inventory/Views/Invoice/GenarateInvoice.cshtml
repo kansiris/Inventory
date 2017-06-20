@@ -8,7 +8,7 @@
 
 <div class="row margin-bottom">
     <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
-    @{ Html.RenderAction("ViewInvoiceDetails", "Invoice");}
+    @{ Html.RenderAction("GetCustomerdata", "Invoice");}
     <div class="col-xs-12 col-md-3 margin-bottom">
         <div class="row padding-bottom date" id="createddate"></div>
         <div class="row invoice-total-amount" id="grandtotal"> <text class="localization"></text>@ViewBag.grand_total </div>

@@ -1,4 +1,39 @@
-﻿<div class="row">
+﻿@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/MainMaster.cshtml";
+}
+
+@section css{
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
+
+    <!--- Tabs in Graph Section ---->
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+
+    <!-- Over Hang -->
+    @*<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />*@
+    <link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+}
+
+<div class="right_col" role="main" id="sai">
+    <div class="container">
+<div class="row">
     <div class="col-xs-12 col-md-12">
         <div class="row">
             <div class="form-title col-xs-12 col-md-12">Invoice</div>
@@ -7,7 +42,7 @@
 </div>
 
 <div class="row margin-bottom">
-    <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
+    <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="~/images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
     @{ Html.RenderAction("GetCustomerdata", "Invoice");}
     <div class="col-xs-12 col-md-3 margin-bottom">
         <div class="row padding-bottom date" id="createddate"></div>
@@ -20,7 +55,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
                 <div class="col-xs-12 col-md-8">
-                    <input type="text" class="form-control" placeholder="Enter Invoice"/>@ViewBag.company_name
+                    <input type="text" class="form-control" placeholder="Enter Invoice" value="@ViewBag.Invoice_no"/>
                 </div>
             </div>
         </div>
@@ -36,18 +71,19 @@
                 <td class="col-xs-6 col-md-4">
                     <div class="input-group">
                         <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                        <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" />
+                        <input class="form-control" type="text" value="@ViewBag.Payment_date" />
                     </div>
                 </td>
                 <td class="col-xs-6 col-md-2">Payment Terms</td>
                 <td class="col-xs-6 col-md-4">
-                    <input type="text" class="form-control" id="paymentterms">
+                    <input type="text" class="form-control" value="@ViewBag.payment_terms">
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-@{ Html.RenderAction("GetCustomerdata", "Invoice");}
+@{Html.RenderAction("ViewPoproducts", "Products"); }
+@*@{ Html.RenderAction("GetCustomerdata", "Invoice");}*@
 @*<div class="row padding-top invoice">
     <div class="col-xs-12 col-md-12">
         <div class="total table-responsive">
@@ -88,7 +124,7 @@
 <div class="row">
     <div class="col-xs-12 col-md-6 remarks margin-top">
         <label>Remarks</label>
-        <textarea class="form-control" rows="3" id="comment" placeholder=""></textarea>
+        <textarea class="form-control" rows="3">@ViewBag.remarks</textarea>
     </div>
     <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
         <div class="row sub-total margin-bottom">
@@ -122,45 +158,34 @@
         </ul>
     </div>
 </div>
-@*<div class="row margin-top">
-    <div class="col-xs-12 col-md-12 invoice-buttons">
-        <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice" onclick="saveInvoice(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
-        <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
-        <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
-        <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
-        <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+
     </div>
-</div>*@
 
-<script>
+    <center><button type="button" id="backtocustomer">closeView</button></center>
+</div>
 
-    $(document).ready(function () {
-        var currency = $('#currency').val().slice(-2).replace(')', '');
-        $('.localization').html(currency);
-        var dateformat = $('#dateformat').val().toLowerCase();
-        n = new Date();
-       // alert(n.toString(""+dateformat+""));
-        y = n.getFullYear();
-        m = n.getMonth() + 1;
-        d = n.getDate();
-        var crdate = d + "/" + m + "/" + y;
-        document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
+@section scripts{
+    <!-- jQuery lib & Tabs -->
+    <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Scripts/js/modernizr.js"></script>
+    <!-- jQuery lib & Tabs -->
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<!------ Tags With Space and comma ------->*@
+    <script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/tag-it.js"></script>
 
-            var createddate = ($('#po_date').text()).split(';')[1];
-            var date_input = $('input[name="date"]'); //our date input has the name "date"
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            date_input.datepicker({
-                format: dateformat,
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-            })
-        });
-
-
-        $('#back-invoice').click(function () {
-            document.location = '@Url.Action("Index", "Customer")';
-        });
-
-
+    <script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+    @Scripts.Render("~/bundles/Invoices")
+    
+   <script>
+            $('#backtocustomer').click(function () {
+                document.location = '@Url.Action("Index", "Customer")';
+            });
+       $("#sai").find("input, select, textarea").attr("disabled", true);
 </script>
+
+    }
