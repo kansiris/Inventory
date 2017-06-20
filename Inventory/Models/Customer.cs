@@ -70,5 +70,8 @@ namespace Inventory.Models
         public int tds_apply { get; set; }
         public int tax_exemption { get; set; }
         public string tax_files { get; set; }
+        public string new_POs { get; set; }
+        public string total_POs { get; set; }
+
     }
 }

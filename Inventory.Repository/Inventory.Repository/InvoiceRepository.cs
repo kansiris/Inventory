@@ -80,7 +80,13 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "updatePOsinCustomer_company", customer_id, new_pos);
         }
-
+        
+             public static int UpdatetotalPoinCustomer(string dbname, string customer_id, string total_pos)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatetotalPOsinCustomer_company", customer_id, total_pos);
+        }
         public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
