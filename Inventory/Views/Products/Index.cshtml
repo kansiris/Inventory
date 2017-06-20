@@ -130,8 +130,10 @@
                     </div>
                     <div class="row">
                         <div class="right-side-bar">
-                            @{ Html.RenderAction("Addtocartpartial", "Products");}
-                        </div>
+                            <div class="row checkout" id="cartrecords">
+                                @{ Html.RenderAction("Addtocartpartial", "Products");}
+                                </div>
+                            </div>
                     </div>
                 </form>
             </div>
@@ -300,6 +302,7 @@
                 data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total, product_images: img, product_id: productid }),
                 dataType: 'json',
                 contentType: 'application/json',
+                
                 success: function (data) {
                     if (data == "unique") {
                         errormsg("Not Inserted");
@@ -317,7 +320,7 @@
                     else {
                         successmsg("Successfully Added To Cart.");
                         var url = 'Products/Addtocartpartial?cid=' + cid;
-                        $('#cartrecords').load(url);
+                        $('#cartrecords').empty().load(url);
                     }
                 },
                 error: function (data)
@@ -361,6 +364,7 @@
             return cartstrip();
         });
         $(".check-title > i.fa-times").click(function () {
+
             $(".checkout").css({ "right": "-350px", "transition": "1s ease", "-webkit-transition": "1s ease" });
             $(".right-side-bar").css({ "width": "0%", "background": "rgba(0,0,0,.6)" });
         });
