@@ -4,14 +4,31 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div>
                 <table class="table  table-borderedtable-striped bulk_action" id="customertable">
-                    <thead class="thead-inverse">
+                    @*<thead class="thead-inverse">
                         <tr>
                             <th>Logo</th>
                             <th>Company Name</th>
                             <th colspan="2" style="text-align:center">Purchase Orders</th>
-                            <th>Action</th>
+                            <th>Action</th>*@
+
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th rowspan="2" style="padding: 25px 5px;">Logo</th>
+                            <th rowspan="2" style="padding: 25px 5px;">Company Name</th>
+                            <th colspan="2" style="text-align: center;border: 1px solid #fff;">Purchase Order</th>
+                            <th colspan="2" style="text-align: center;border: 1px solid #fff;">Payment</th>
+                            <th rowspan="2" style="padding: 25px 5px;">Action</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center;border-right: 1px solid #fff;">New</th>
+                            <th style="text-align: center;border-right: 1px solid #fff;">Total</th>
+                            <th style="text-align: center;border-right: 1px solid #fff;">Due</th>
+                            <th style="text-align: center;">Over Due</th>
                         </tr>
                     </thead>
+
+                    @*</tr>
+                    </thead>*@
                     <tbody>
                         @if (ViewBag.records.Count != 0)
                         {
@@ -25,46 +42,46 @@
                                         { <img src="~/images/user.png" class="img-circle img-responsive" onmouseover="viewCustomer(@item.cus_company_Id)" /> }
                                     </td>
                                     <td> @item.cus_company_name </td>
-                                    @*<td>@item.total_POs</td>*@
-                                    @if (item.total_POs == null || item.total_POs == "")
+                                    @if (item.new_POs == null || item.new_POs == "")
                                     {
-                                        <td>total pos  0</td>
+                                        <td style="text-align: center">0</td>
                                     }
                                     else
                                     {
-                                        <td>total pos @item.total_POs</td>
+                                        <td style="text-align: center">@item.new_POs</td>
                                     }
-
-                                    @if (item.new_POs == null || item.new_POs == "")
+                                    @if (item.total_POs == null || item.total_POs == "")
                                     {
-                                        <td>new_POs 0</td>
+                                        <td style="text-align: center">0</td>
                                     }
-                                    else { 
-                                    <td>new_POs @item.new_POs</td>
+                                    else
+                                    {
+                                        <td style="text-align: center">@item.total_POs</td>
                                     }
+                                    <td style="text-align: center">Testing</td>
+                                    <td style="text-align: center">Testing</td>
                                     <td>
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                             <ul class="dropdown-menu">
                                                 <li> <a onclick="viewCustomer(@item.cus_company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Customer</a> </li>
                                                 <li> <a onclick="getEditDetails(@item.cus_company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Customer</a> </li>
-                                               
-                                                    @if (item.status == "Active")
-                                                    {
-                                                    <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=InActive"><i class="fa fa-toggle-off" aria-hidden="true"></i>InActive</a> </li>}
-                                                    @if (item.status == "InActive")
-                                                    {
-                                                        <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=Active"><i class="fa fa-toggle-on" aria-hidden="true"></i>Active</a> </li>}
 
-                                                     ======================
-                                                
+                                                @if (item.status == "Active")
+                                                {
+                                                    <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=InActive"><i class="fa fa-toggle-off" aria-hidden="true"></i>InActive</a> </li>}
+                                                @if (item.status == "InActive")
+                                                {
+                                                    <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=Active"><i class="fa fa-toggle-on" aria-hidden="true"></i>Active</a> </li>}
+
+                                                ======================
+
                                                 <li> <a href="~/Products?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
                                                 <li> <a onclick="viewallpos(@item.cus_company_Id)"><i class="fa fa-building-o" aria-hidden="true"></i>View PO's</a> </li>
                                                 <li> <a href="~/Invoice?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
                                                 <li> <a onclick="viewallinvoices(@item.cus_company_Id)"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a> </li>
                                                 <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
                                                 <li> <a><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>
-                                                @*<li> <a onclick="deleteRecord(@item.company_Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Vendor</a> </li>*@
                                             </ul>
                                         </div>
                                     </td>
@@ -97,9 +114,9 @@
                                 </div>
                                 <div class="right col-xs-5 text-center">
                                     @if (item.cus_logo != "" && item.cus_logo != null && item.cus_logo != "/images/user.png")
-                                    { <img src="data:image;base64,@item.cus_logo" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
+                                    { <img src="data:image;base64,@item.cus_logo" class="img-circle img-responsive" /> }
                                     else
-                                    { <img src="~/images/user.png" style="width:128px;height:128px;border-radius:50%;margin-left:10px;" /> }
+                                    { <img src="~/images/user.png" class="img-circle img-responsive" /> }
                                 </div>
                             </div>
                             <div class="col-xs-12 bottom text-center">
