@@ -1066,9 +1066,11 @@ function onFileSelected(event) {
 }
 
 function viewallinvoices(cid) {
-    alert(cid);
+    //alert(cid);
     location.href = '/Invoice/AvailbleInvoices?cid=' + cid;
 }
+
+
 //editcompanytaxdetails
 
 function editcompanytaxdetails(clickedvalue) {

@@ -185,10 +185,10 @@
     <script>
         $(document).ready(function () {
             var createddate = ($('#po_date').text()).split(';')[1];
-            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var date_input = $('input[name="date"]'); //our date input has the name "date".it is checking for shipng date also
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
-                format: 'dd/MM/yyyy',
+                format: 'dd/mm/yyyy',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,
@@ -209,14 +209,12 @@
 
         function checkshipdate() {
             var shipdate=$('#shipping_date').val();
-            //var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
             var today = new Date();
             var dd = today.getDate();
             var MMM = today.getMonth()+1;
             var yyyy = today.getFullYear();
             today = dd + '/' + MMM + '/' + yyyy;
-            //alert(today);
-            if(shipdate<today){
+            if(shipdate<today || shipdate.split('/')[1]<MMM || shipdate.split('/')[2]<yyyy){
                 warnmsg("Select a Valid Date.");
                 $('#shipping_date').val("");
             }

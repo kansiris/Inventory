@@ -66,9 +66,9 @@
                                             <td class="col-md-2">@item.company_name</td>
                                             <td class="col-md-2">@item.Prchaseorder_no</td>
                                             <td class="col-md-2">@item.Payment_date</td>
-                                            <td class="col-md-2"><text class="localization"></text>@item.grand_total</td>
+                                            <td class="col-md-2">@item.grand_total</td>@*<text class="localization"></text>*@
                                             <td class="col-md-2">
-                                                <input type="button" onclick="viewinvoicedetails('@item.Prchaseorder_no',@item.customer_id);" value="View Invoice"/>
+                                                <input type="button" onclick="viewinvoicedetail(@item.Prchaseorder_no,@item.customer_id)" value="View Invoice"/>
                                             </td>
                                         </tr>
                                     }
@@ -126,6 +126,12 @@
             //<!-------------- Date Picker  ----------->
 
         });
+        //view invoice
+        function viewinvoicedetail(ponumber, cid) {
+            //alert(ponumber);
+            //alert(cid);
+            location.href = '/Invoice/ViewInvoiceDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
+        }
 
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';

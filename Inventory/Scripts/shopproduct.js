@@ -239,7 +239,7 @@ function checkponumber(passedvalue){
 
             }
             else {
-                existsmsg("Purchase Order Number Alredy Exists.Please Enter a Unique Number");
+                existsmsg("Purchase Order Number Already Exists.Please Enter a Unique Number");
                 $("[id='ponumber']").val("");
             }
         },

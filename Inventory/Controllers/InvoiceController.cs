@@ -403,7 +403,7 @@ namespace Inventory.Controllers
                 List<Invoice> availableinvoices = (from DataRow row in dt.Rows
                                               select new Invoice()
                                               {
-                                                  //customer_id = row["customer_id"].ToString(),
+                                                  customer_id = row["customer_id"].ToString(),
                                                   Invoice_no = row["Invoice_no"].ToString(),
                                                   company_name = row["company_name"].ToString(),
                                                   Prchaseorder_no = row["Prchaseorder_no"].ToString(),

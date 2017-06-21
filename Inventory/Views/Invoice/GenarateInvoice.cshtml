@@ -36,7 +36,7 @@
                 <td class="col-xs-6 col-md-4">
                     <div class="input-group">
                         <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                        <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" />
+                        <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()"/>
                     </div>
                 </td>
                 <td class="col-xs-6 col-md-2">Payment Terms</td>
@@ -131,9 +131,9 @@
     </div>
 </div>
 
+
 <script>
-    
-    $(document).ready(function () {
+      $(document).ready(function () {
         var currency = $('#currency').val().slice(-2).replace(')', '');
         $('.localization').html(currency);
         var dateformat = $('#dateformat').val().toLowerCase();
@@ -144,22 +144,38 @@
         d = n.getDate();
         var crdate = d + "/" + m + "/" + y;
         document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
-
             var createddate = ($('#po_date').text()).split(';')[1];
             var date_input = $('input[name="date"]'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
-                format: dateformat,
+                format: 'dd/mm/yyyy',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,
             })
         });
-    
-
+    function checkpaydate() {
+        var paydate=$('#date').val();
+        var today = new Date();
+        var dd = today.getDate();
+        var MMM = today.getMonth()+1;
+        var yyyy = today.getFullYear();
+        today = dd + '/' + MMM + '/' + yyyy;
+        if(paydate<today || paydate.split('/')[1]<MMM || paydate.split('/')[2]<yyyy){
+            warnmsg("Select a Valid Date.");
+            $('#date').val("");
+        }
+    }
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';
         });
 
-    
+    function warnmsg(msg) {
+        $("body").overhang({
+            type: "warn",
+            message: msg,
+            duration: 3
+        });
+    }
 </script>
+   
