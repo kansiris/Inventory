@@ -42,13 +42,14 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                
+
                                 <th class="col-md-2">Invoice No</th>
                                 <th class="col-md-2">Company Name</th>
                                 <th class="col-md-2">PurchaseOrder No</th>
                                 <th class="col-md-2">Payment Date</th>
                                 <th class="col-md-2">Grand Total</th>
-                               
+                                <th class="col-md-2">Action</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -66,6 +67,9 @@
                                             <td class="col-md-2">@item.Prchaseorder_no</td>
                                             <td class="col-md-2">@item.Payment_date</td>
                                             <td class="col-md-2"><text class="localization"></text>@item.grand_total</td>
+                                            <td class="col-md-2">
+                                                <input type="button" onclick="viewinvoicedetails('@item.Prchaseorder_no',@item.customer_id);" value="View Invoice"/>
+                                            </td>
                                         </tr>
                                     }
                                 }

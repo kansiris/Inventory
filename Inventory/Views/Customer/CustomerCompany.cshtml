@@ -20,27 +20,27 @@
                                 <tr>
                                     <td>
                                         @if (item.cus_logo != "" && item.cus_logo != null && item.cus_logo != "/images/user.png")
-                                        { <img src="data:image;base64,@item.cus_logo" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" onmouseover="viewCustomer(@item.cus_company_Id)" /> }
+                                        { <img src="data:image;base64,@item.cus_logo" class="img-circle img-responsive" onmouseover="viewCustomer(@item.cus_company_Id)" /> }
                                         else
-                                        { <img src="~/images/user.png" style="width:29px;height:29px;border-radius:50%;margin-left:10px;" onmouseover="viewCustomer(@item.cus_company_Id)" /> }
+                                        { <img src="~/images/user.png" class="img-circle img-responsive" onmouseover="viewCustomer(@item.cus_company_Id)" /> }
                                     </td>
                                     <td> @item.cus_company_name </td>
                                     @*<td>@item.total_POs</td>*@
                                     @if (item.total_POs == null || item.total_POs == "")
                                     {
-                                        <td> 0</td>
+                                        <td>total pos  0</td>
                                     }
                                     else
                                     {
-                                        <td> @item.total_POs</td>
+                                        <td>total pos @item.total_POs</td>
                                     }
 
                                     @if (item.new_POs == null || item.new_POs == "")
                                     {
-                                        <td> 0</td>
+                                        <td>new_POs 0</td>
                                     }
                                     else { 
-                                    <td> @item.new_POs</td>
+                                    <td>new_POs @item.new_POs</td>
                                     }
                                     <td>
                                         <div class="btn-group">

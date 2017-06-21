@@ -60,16 +60,16 @@ namespace Inventory.Service
         }
 
 
-        public static int UpdatePoinCustomer(string dbname, string customer_id, string new_pos)
+        public static int UpdatePoinCustomer(string dbname, string customer_id, string total_pos)
         {
 
-            return InvoiceRepository.UpdatePoinCustomer(dbname, customer_id, new_pos);
+            return InvoiceRepository.UpdatePoinCustomer(dbname, customer_id, total_pos);
         }
 
-        public static int UpdatetotalPoinCustomer(string dbname, string customer_id, string total_pos)
+        public static int UpdatenewPoinCustomer(string dbname, string customer_id, string new_pos)
         {
 
-            return InvoiceRepository.UpdatetotalPoinCustomer(dbname, customer_id, total_pos);
+            return InvoiceRepository.UpdatenewPoinCustomer(dbname, customer_id, new_pos);
         }
 
         public static SqlDataReader Getproductdetails(string dbname, string cid, string Prchaseorder_no)
