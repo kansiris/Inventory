@@ -4781,12 +4781,11 @@ form > .row:first-of-type.blocks{
 	margin-top: 80px;}
 form > .row:first-of-type{
 	margin-bottom: 20px;}
-.localization {
-    display: inline-block;
-padding-left: 10px;
-font-weight: 700;
-font-size: 15px;
-}
+.localization{
+	display: inline-block;
+    padding-left: 10px;
+    font-weight: 700;
+    font-size: 15px;}
 .top-bar{
 	line-height: 37px;}
 .top-bar h1{
@@ -4880,6 +4879,7 @@ font-size: 15px;
 .nav.navbar-nav > li > a {
     color: #fff !important;
     font-size: 14px;
+	display: inline-block;
 }
 
     .navbar-default .navbar-nav > .active > a,
@@ -6495,8 +6495,7 @@ a.product-name{
 	float: left;
 	width: 100px;
 	height: 100px;
-    margin-right: 5px;
-}
+	margin-right: 5px;}
 .added-products > .image > img{
 	width: 100px;
 	height: 100px;}
@@ -6859,7 +6858,7 @@ tr > td.product-name a:hover{
 	font-weight: 700;}
 .right-side-bar{
 	position: fixed;
-	z-index: 9;
+	z-index: 10;
 	top: 0;
 	right: 0px;
 	bottom: 0;}
@@ -7060,6 +7059,17 @@ ul.terms-content li{
 	
 	}
 @media only screen and (min-width: 320px) and (max-width: 768px){
+	.navbar-nav{
+		margin-left: 5px;
+		margin-right: 5px;}
+	.progress{
+		float: left;
+		width: 80%;
+		margin-left: 15px;}
+	.profile-part > div > p:last-of-type{
+		left: 35%;}
+	.profile-part > div:last-of-type > a{
+		float: left;}
 	.po-date .input-group,
 	.po-date .form-control{
 		width: 100%;}
@@ -7202,8 +7212,10 @@ ul.terms-content li{
     table#productstable > tbody > tr > td:nth-of-type(7)::before{ content: "Add"}
 	}
 @media only screen and (max-width: 560px){
+	form ul.cd-tabs-navigation{
+		width: 100%;}
 	form .cd-tabs-navigation li{
-		width: 45%;
+		width: 49%;
 		margin-bottom: 5px;}
 	form .cd-tabs-navigation li a,
 	form .cd-tabs-navigation a.selected{
