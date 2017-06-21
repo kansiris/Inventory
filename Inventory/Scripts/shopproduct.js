@@ -197,7 +197,7 @@ function insertpo(totalamount) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg("PurchaseOrder alredy Generated.");
+                errormsg(" Please Enter PurchaseOrder Number");
                 $("[id='ponumber']").val("");
                 $("[id='shipping_date']").val("");
                 $("[id='payment_terms']").val("");
@@ -240,7 +240,7 @@ function checkponumber(passedvalue){
 
             }
             else {
-                existsmsg("Purchase Order Number Alredy Exists.Please Enter a Unique Number");
+                existsmsg("Purchase Order Number Already Exists.Please Enter a Unique Number");
                 $("[id='ponumber']").val("");
             }
         },

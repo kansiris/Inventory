@@ -218,7 +218,6 @@
                     //tabletotal = plus * tableprice;
                     divtotal = plus * divprice;
                     divtotalright = plus * divpriceright;
-                    alert(divtotal + ',' + divtotalright);
                     // $(this).parents(".quantity-changes").nextAll(".product-price-total").children("span").remove();
                     //$(this).parents(".quantity-changes").nextAll(".product-price-total").append("<span>" + tabletotal + "</span>");
                     //$(this).parents(".rate-add").children(".product-price-total").children("span").remove();
@@ -308,29 +307,22 @@
                 
                 success: function (data) {
                     if (data == "unique") {
-                        //errormsg("Not Inserted");
-                        alert("Not Inserted");
+                        errormsg("Not Inserted");
                     }
                     else if (data == "exists") {
-                        //existsmsg("The product is Already available in the cart.Please Increase quantity if needed.");
-                        //existsmsg("Product Exists in Cart Increase Quantity in Cart");
-                        alert("Product Exists in Cart Increase Quantity in Cart");
+                        existsmsg("The product Already available in the cart.Please Increase quantity if needed.");
                     }
                     else if (data == "qty") {
-                        //warnmsg("InValid Quantity");
-                        alert("InValid Quantity");
+                        warnmsg("InValid Quantity");
                     }
 
                     else if (data == "qtyexcess") {
-                        //warnmsg("This much quantity not available");
-                        alert("This much quantity not available");
+                        warnmsg("This much quantity not available");
                     }
                     else {
-                        //successmsg("Successfully Added To Cart.");
-                        alert("Successfully Added To Cart.");
+                        successmsg("Successfully Added To Cart.");
                         var url = 'Products/Addtocartpartial?cid=' + cid;
                         $('#cartrecords').empty().load(url);
-
                     }
                 },
                 error: function (data)

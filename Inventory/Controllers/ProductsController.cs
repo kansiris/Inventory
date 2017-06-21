@@ -424,17 +424,10 @@ namespace Inventory.Controllers
                                               }).ToList();
             var ff = cartaddedproduct.Count;
             int count = 0;
-            //var counts = ProductService.checkponum(user.DbName, Prchaseorder_no);
-
-            //if (counts.HasRows)
-            //{
-            //    return Json("exists");
-            //}
+            
             if (Prchaseorder_no != "")
             {
-                //    return Json("nodata");
-                //}
-                //else { 
+               
                 for (int i = 0; i < ff; i++)
                 {
                     string product_id = (cartaddedproduct.Select(m => m.product_id).ToList())[i];
@@ -451,10 +444,10 @@ namespace Inventory.Controllers
                     List<Invoice> pos = (from DataRow row in dt1.Rows
                                          select new Invoice()
                                          {
-                                             total_pos = row["pos"].ToString(),
+                                             new_pos = row["pos"].ToString(),
                                          }).ToList();
-                    string total_pos = pos.Select(m => m.total_pos).ToList().First();
-                   InvoiceService.UpdatetotalPoinCustomer(user.DbName, cid, total_pos);
+                    string new_pos = pos.Select(m => m.new_pos).ToList().First();
+                   InvoiceService.UpdatenewPoinCustomer(user.DbName, cid, new_pos);
 
                 }
                 if (count > 0)

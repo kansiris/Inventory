@@ -235,10 +235,10 @@ namespace Inventory.Controllers
                             List<Invoice> pos = (from DataRow row in dt.Rows
                                                  select new Invoice()
                                                  {
-                                                     new_pos = row["pos"].ToString(),
+                                                  total_pos = row["pos"].ToString(),
                                                  }).ToList();
-                            string new_pos = (pos.Select(m => m.new_pos).ToList())[i];
-                            InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, new_pos);
+                            string total_pos = (pos.Select(m => m.total_pos).ToList())[i];
+                            InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
                         }
                         count++;
                     }
@@ -403,7 +403,7 @@ namespace Inventory.Controllers
                 List<Invoice> availableinvoices = (from DataRow row in dt.Rows
                                               select new Invoice()
                                               {
-                                                  //customer_id = row["customer_id"].ToString(),
+                                                  customer_id = row["customer_id"].ToString(),
                                                   Invoice_no = row["Invoice_no"].ToString(),
                                                   company_name = row["company_name"].ToString(),
                                                   Prchaseorder_no = row["Prchaseorder_no"].ToString(),
