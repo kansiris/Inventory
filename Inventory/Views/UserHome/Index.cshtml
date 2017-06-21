@@ -32,7 +32,7 @@
         @foreach (var item in ViewBag.record)
         {
             <div class="row profile-part">
-                <div class="col-md-6">
+                <div class="col-xs-12 col-md-6">
                     <div class="top-button" id="pic">
                         @*<img src="/images/profilepic.png" alt="Profile Pic" />*@
                         @*<input type="file" value="" id="fileupload" accept="image/gif, image/jpeg, image/png">
@@ -58,7 +58,7 @@
                     <br /><br />
                     <p style="font-size:medium">  (@ViewBag.accessexpiry)</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-xs-12 col-md-6">
                     @*<a href="/UserProfile?email=@Model.EmailId&&usertype=@Model.UserTypeId&&site=@Model.User_Site">*@
                     <a href="~/UserProfile?id=@item.ID">
                         <i class="fa fa-pencil" aria-hidden="true"></i>Edit My Profile
