@@ -74,6 +74,7 @@
     <div class="row" id="productstable1">
         @if (ViewBag.records.Count != 0)
         {
+            <input type="hidden" id="productcount" value="@ViewBag.records.Count" />
         foreach (var item in ViewBag.records)
         {
         <div class="col-xs-12 col-sm-4 col-md-3 displayproduct">
@@ -85,7 +86,7 @@
                 <i class="fa fa-times remove" aria-hidden="true"></i>
                 <div class="image">
                     @*<img src="images/thumb1.jpg" alt="Image 1">*@
-                    @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png")
+                    @if (item.product_images.Split(',')[0] != "" && item.product_images.Split(',')[0] != null)
                     { <img class="pimage" src="~/ProductImages/@item.product_images.Split(',')[0]" alt="@item.product_images.Split(',')[0]" /> }
                     else
                     { <img class="pimage" src="~/images/default_product.png" /> }
@@ -149,3 +150,6 @@
 </div>
 }
 <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+<script>
+    window.onload = function () { $('#productcount').html(@ViewBag.records.Count);};
+</script>
