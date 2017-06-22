@@ -174,7 +174,24 @@
         <!-- Custom Theme Scripts -->
         <script src="../build/js/custom.min.js"></script>*@
 
+
+
+
     <script>
+        //<!---------- Scroll Anima Top Strip ------------>
+        $(window).scroll(function () {
+            var scrollTop = $(window).scrollTop();
+            if (scrollTop > 20) {
+                $(".top-strip").css({ "top": "0" });
+            } else {
+                $(".top-strip").css({ "top": "59px" });
+            }
+        });
+        $(".navbar-header > button.navbar-toggle").click(function () {
+            $(".top-strip").toggleClass(" fixed")
+        });
+        //<!---------- Scroll Anima Top Strip ------------>
+
         //<!----------------- Top Menu Active ----------------->
         $("ul.nav > li").click(function () {
             $(this).prevAll("li").removeClass("active");

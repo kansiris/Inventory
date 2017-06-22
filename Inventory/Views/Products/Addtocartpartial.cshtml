@@ -28,7 +28,7 @@
                         <button class="btn btn-default" type="button"><i class="fa fa-plus-circle" onclick="updatecart(@item.cart_id,@item.Quantity,@item.cost_price)"></i></button>
                     </div>
                 </div><div class="col-xs-6 col-sm-6 col-md-6 product-price">
-                    <b class="cross">X</b><div class="localization"></div> <span>@item.cost_price</span>
+                     <b class="cross">X</b><div class="localization"></div> <span>@item.cost_price</span>
                 </div><div class="product-price-total">
                           <div class="localization"></div> <span>@item.total_price</span>
                 </div>
@@ -44,11 +44,15 @@
 
 
 <script src="/Scripts/js/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
 <script>
         $(document).ready(function () {
             var currency = $('#currency').val().slice(-2).replace(')', '');
             $('.localization').html(currency);
             var dateformat = $('#dateformat').val();
+            $('.cart-total-items').html(@ViewBag.cartqtycount);
+            $('.cart-total').html(@ViewBag.totalamount);
             //alert(dateformat);
         });
 </script>

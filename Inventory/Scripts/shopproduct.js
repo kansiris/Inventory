@@ -306,3 +306,8 @@ function viewinvoicedetails(ponumber, cid) {
     location.href = '/Invoice/ViewInvoiceDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
 
 }
+
+function allproducts() {
+    var url = '/Products/allproducts';
+    $('#allproducts').empty().load(url);
+}

@@ -96,7 +96,7 @@
         <!-- top navigation -->
         <!-- top navigation -->
         <!-- page content -->
-        <div class="container-fluid padding-left-0 padding-right-0 padding-top-10 padding-bottom-10 top-strip">
+        <div class="container-fluid padding-left-0 padding-right-0 padding-top-10 padding-bottom-10 top-strip fixed">
             <div class="row">
                 <div class="form-title col-xs-12 col-md-8">Shop Products</div>
                 <div class="top-bar col-xs-12 col-md-4">
@@ -245,9 +245,9 @@
         //<!------------ Product units / prices selection -------------->
 
         $(".product-variation > ul > li")
-        //    .ready(function () {
-        //    //var whqty = $(this).find(".rate-add").children("div.warehouse").children("p").children("text").html();
-        //    var whqty = $(this).find(".rate-add").children("div:last-of-type").find("span").html();
+        //    .each(function () {
+        //    var whqty = $(this).find(".rate-add").children("div.warehouse").children("p").children("text").html();
+        //        //var whqty = $(this).find(".rate-add").children("div:last-of-type").find("span").html();
         //    alert(whqty);
         //    if (whqty == 0 || whqty == '') {
         //        alert("out of stock");
@@ -270,20 +270,22 @@
 
                 var image = $(this).parents(".rate-add").prevAll(".image").children("img").attr("src", '');
                 var pqty = $(this).parents(".rate-add").prevAll(".image").children("input#pqty");
-                var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
-                alert(productid);
-                //$.ajax({
-                //    url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
-                //        pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
-                //        if (result.qty == '') { whqty.empty().html(0); }
-                //        if (result.images != '') {
-                //            image.attr("src", '/ProductImages/' + result.images);
-                //        }
-                //        else {
-                //            image.attr("src", '/images/default_product.png');
-                //        }
-                //    }
-                //});
+                var productid = $(this).next("li").html().replace('}', ' ');
+                var whqty = $(this).parents(".rate-add").children("div:last-of-type").children("div").children("span");
+                //alert(whqty);
+                $.ajax({
+                    url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
+                        //pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
+                        whqty.empty().html(result.qty);
+                        if (result.qty == '') { whqty.empty().html(0); }
+                        if (result.images != '') {
+                            image.attr("src", '/ProductImages/' + result.images).attr("alt", result.images);
+                        }
+                        else {
+                            image.attr("src", '/images/default_product.png');
+                        }
+                    }
+                });
             });
         //<!------------ Product units / prices selection -------------->
 
@@ -320,7 +322,8 @@
                         warnmsg("This much quantity not available");
                     }
                     else {
-                        successmsg("Successfully Added To Cart.");
+                        //successmsg("Successfully Added To Cart.");
+                        alert("Successfully Added To Cart.");
                         var url = 'Products/Addtocartpartial?cid=' + cid;
                         $('#cartrecords').empty().load(url);
                     }
@@ -328,7 +331,7 @@
                 error: function (data)
                 { errormsg("Failed!!!"); }
             });
-            return vals();
+             return vals();
         });
         $(".product-variation > ul > li").click(function () {
             var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
@@ -354,9 +357,9 @@
                 productprice = parseInt($(this).text());
                 carttotal = productprice + carttotal;
             });
-            $("span.cart-total").empty().html(carttotal);
-            $(".check-title > span").empty().html(totalquantity);
-            $("span.cart-total-items").empty().html(totalquantity);
+            //$("span#carttotal").empty().html(carttotal);
+            //$(".check-title > span").empty().html(totalquantity);
+            //$("span.cart-total-items").empty().html(totalquantity);
         }
         $(".remove").click(function () {
             return vals();
@@ -395,16 +398,7 @@
         });
         //<!---------- Product Variation ------------>
 
-        //<!---------- Scroll Anima Top Strip ------------>
-        $(window).scroll(function () {
-            var scrollTop = $(window).scrollTop();
-            if (scrollTop > 20) {
-                $(".top-strip").css({ "top": "0" });
-            } else {
-                $(".top-strip").css({ "top": "59px" });
-            }
-        });
-        //<!---------- Scroll Anima Top Strip ------------>
+        
 
         //<!---------- mobile cart ------------>
         $(".mobile-cart").click(function () {
