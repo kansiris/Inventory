@@ -997,7 +997,7 @@
                                             {
                                                 foreach (var item1 in particularproduct.product_images.Split(','))
                                                 {
-                                                    <li>   <img src="~/ProductImages/@item1" alt="Product Image" height="50px" width="50px" alt="Product" /></li>
+                                                    <li class="image">   <img src="~/ProductImages/@item1" alt="Product Image" height="50px" width="50px" alt="Product" /> <i class="fa fa-times remove" aria-hidden="true"></i></li> @*onclick="removeimage('@item1')"*@
                                                 }
                                             }
                                             else
@@ -1230,6 +1230,14 @@
         <link rel="stylesheet" href="css/bootstrap-datepicker3.css" />*@
     <script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
     <link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <script>
+        $(".remove").click(function () {
+            var image = $(this).prev("img").attr('src').split('/')[2];
+            removeimage(image);
+            $(this).parents("li.image").remove();
+        });
+    </script>
+
     <script>
         $(document).ready(function () {
             var date_input = $('#product_expirydate'); //our date input has the name "date"
