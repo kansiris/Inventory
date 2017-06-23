@@ -64,7 +64,8 @@ function removecart(cartid) {
                 errormsg("No Data Available");
             }
             else {
-                successmsg("Removed from Cart Successfully .");
+                alert("Removed from Cart Successfully .");
+                //successmsg("Removed from Cart Successfully .");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
                 $('#cartrecords').load(url);
             }
@@ -303,4 +304,9 @@ function viewinvoicedetails(ponumber, cid) {
     //alert(cid);
     location.href = '/Invoice/ViewInvoiceDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
 
+}
+
+function allproducts() {
+    var url = '/Products/allproducts';
+    $('#allproducts').empty().load(url);
 }
