@@ -94,13 +94,22 @@
             <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
             <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
         </div>
-        <div class="row sub-total margin-bottom">
+        @*<div class="row sub-total margin-bottom">
             <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
             <div class="col-xs-6 col-md-7" id="vat">@ViewBag.vat%</div>
         </div>
         <div class="row sub-total margin-bottom">
             <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
             <div class="col-xs-6 col-md-7" id="discount">@ViewBag.discount%</div>
+        </div>*@
+
+        <div class="row sub-total margin-bottom">
+            <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
+            <div class="col-xs-6 col-md-7"><input id="vat" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
+        </div>
+        <div class="row sub-total margin-bottom">
+            <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
+            <div class="col-xs-6 col-md-7"><input id="discount" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
         </div>
         <div class="row sub-total">
             <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
@@ -178,4 +187,4 @@
         });
     }
 </script>
-   
+  

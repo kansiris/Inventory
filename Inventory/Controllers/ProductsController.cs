@@ -402,7 +402,7 @@ namespace Inventory.Controllers
             return Json("unique");
         }
         //for genarate purchase order
-        public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string shipping_date, string shipping_terms, string remarks, string sub_total, float vat, float discount, string grand_total)
+        public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string shipping_date, string shipping_terms, string remarks, string sub_total, string grand_total)// float vat, float discount,
 
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -436,7 +436,7 @@ namespace Inventory.Controllers
                     string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
                     string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
                     string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i];
-                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, vat, discount, grand_total);
+                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, grand_total);
                     string status = 0.ToString();
                     var dt1 = new DataTable();
                     var records1 = InvoiceService.Getposforcustomer(user.DbName, cid, status);
@@ -520,8 +520,8 @@ namespace Inventory.Controllers
                                                shipping_terms = row["shipping_terms"].ToString(),
                                                remarks = row["remarks"].ToString(),
                                                sub_total = row["sub_total"].ToString(),
-                                               vat = row["vat"].ToString(),
-                                               discount = row["discount"].ToString(),
+                                               //vat = row["vat"].ToString(),
+                                               //discount = row["discount"].ToString(),
                                                grand_total = row["grand_total"].ToString(),
                                                //total_price = row["total_price"].ToString(),
                                                created_date = row["created_date"].ToString(),

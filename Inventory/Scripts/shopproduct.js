@@ -176,22 +176,21 @@ function calculate(totalprice) {
 function insertpo(totalamount) {
     var cid=location.search.split('&')[0].split('cid=')[1];
     var cname = location.search.split('&')[1].split('cname=')[1];
-    
     var shipping_terms = $('#shipping_terms').val();
     var shipping_date = $('#shipping_date').val();
     var payment_terms = $('#payment_terms').val();
     var payment_date = $('#payment_date').val();
     var ponumber = $('#ponumber').val();
     var comment = $('#comment').val();
-    var vat = $('#vat').val();
-    var discount = $('#discount').val();
-    var grand_total = $('#grandtotal').text();
+    //var vat = $('#vat').val();
+    //var discount = $('#discount').val();
+    //var grand_total = $('#grandtotal').text();
     var createddate = ($('#po_date').text()).split(';')[1];
     
     $.ajax({
         url: '/Products/GenratePurchaseOrder',
         type: 'POST',
-        data: JSON.stringify({ cid: cid, cname: cname, Prchaseorder_no: ponumber, created_date: createddate, Payment_date: payment_date, shipping_date: shipping_date, payment_terms: payment_terms, shipping_terms: shipping_terms, remarks: comment, sub_total: totalamount, vat: vat, discount: discount, grand_total: grand_total }),
+        data: JSON.stringify({ cid: cid, cname: cname, Prchaseorder_no: ponumber, created_date: createddate, Payment_date: payment_date, shipping_date: shipping_date, payment_terms: payment_terms, shipping_terms: shipping_terms, remarks: comment, sub_total: totalamount, grand_total: totalamount }),
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {

@@ -259,11 +259,11 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "addtocartbycustomerid", cid);
         }
         //for genarating purchase order
-        public static int GenaratePurchaseOrder(string dbname, string cid,string product_id,string cname, string created_date, string Prchaseorder_no,  string shipping_date, string shipping_terms, string product_name, string description, string quantity, string price, string total_price, string remarks, string sub_total, float vat, float discount, string grand_total)
+        public static int GenaratePurchaseOrder(string dbname, string cid,string product_id,string cname, string created_date, string Prchaseorder_no,  string shipping_date, string shipping_terms, string product_name, string description, string quantity, string price, string total_price, string remarks, string sub_total,/* float vat, float discount,*/ string grand_total)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "insertpurchaseOrder", cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity,price, total_price,remarks, sub_total, vat, discount, grand_total);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "insertpurchaseOrder", cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity,price, total_price,remarks, sub_total,/* vat, discount,*/ grand_total);
         }
         
             public static int Emptycart(string dbname, string cid)

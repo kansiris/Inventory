@@ -32,7 +32,7 @@
 
 
 <!-- page content -->
-<div class="container-fluid padding-left-0 padding-right-0 padding-top-10 padding-bottom-10 top-strip">
+<div class="container-fluid padding-left-0 padding-right-0 padding-top-10 padding-bottom-10 top-strip fixed">
     <div class="row">
         <div class="form-title col-xs-12 col-md-8">Customer</div>
         <div class="top-bar col-xs-12 col-md-4">
@@ -442,6 +442,9 @@ if(scrollTop > 20){
 $(".top-strip").css({"top":"0"});
 }else{
 $(".top-strip").css({"top":"59px"});}
+});
+$(".navbar-header > button.navbar-toggle").click(function () {
+    $(".top-strip").toggleClass(" fixed")
 });
 </script>
 <!---------- Scroll Anima Top Strip ------------>

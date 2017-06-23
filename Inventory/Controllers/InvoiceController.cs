@@ -82,16 +82,16 @@ namespace Inventory.Controllers
                                                            description = row["description"].ToString(),
                                                            cost_price = row["cost_price"].ToString(),
                                                            total_price = row["total_price"].ToString(),
-                                                           vat = row["vat"].ToString(),
-                                                           discount = row["discount"].ToString(),
+                                                           //vat = row["vat"].ToString(),
+                                                           //discount = row["discount"].ToString(),
                                                            sub_total = row["sub_total"].ToString(),
                                                            grand_total = row["grand_total"].ToString(),
                                                        }).ToList();
                         ViewBag.records = productsinpos;
                         ViewBag.customer_id = cid;
                         ViewBag.company_name = customer_name;
-                        ViewBag.vat = productsinpos.Select(m => m.vat).First();
-                        ViewBag.discount = productsinpos.Select(m => m.discount).First();
+                        //ViewBag.vat = productsinpos.Select(m => m.vat).First();
+                       // ViewBag.discount = productsinpos.Select(m => m.discount).First();
                         ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
                         ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
                     }
@@ -143,14 +143,14 @@ namespace Inventory.Controllers
                                                            description = row["description"].ToString(),
                                                            cost_price = row["cost_price"].ToString(),
                                                            total_price = row["total_price"].ToString(),
-                                                           vat = row["vat"].ToString(),
-                                                           discount = row["discount"].ToString(),
+                                                           //vat = row["vat"].ToString(),
+                                                           //discount = row["discount"].ToString(),
                                                            sub_total = row["sub_total"].ToString(),
                                                            grand_total = row["grand_total"].ToString(),
                                                        }).ToList();
                         ViewBag.records = productsinpos;
                         ViewBag.customer_id = cid;
-                        ViewBag.vat = productsinpos.Select(m => m.vat).First();
+                       // ViewBag.vat = productsinpos.Select(m => m.vat).First();
                         ViewBag.discount = productsinpos.Select(m => m.discount).First();
                         ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
                         ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
@@ -279,7 +279,7 @@ namespace Inventory.Controllers
 
         //to insert DeliveryNote data
 
-        public JsonResult InsertDeliveryNote(string Delivernote_no, string vendor_name, string customer_id, string created_date, string grand_total, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
+        public JsonResult InsertDeliveryNote(string Delivernote_no, string vendor_name, string customer_id, string created_date, string comment, string sub_total, string Prchaseorder_nos)
         {
 
             string deliv_status;
@@ -319,7 +319,7 @@ namespace Inventory.Controllers
                             //string total_price = (productsinpo.Select(m => m.total_price).ToList())[i];
                             string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];//after this will be chnaged.
                             string total_price = (int.Parse(deliver_quantity) * float.Parse(cost_price)).ToString();
-                            count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date, grand_total, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
+                            count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date,comment, sub_total,Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
                             count++;
                         }
                         deliv_status = 1.ToString();
