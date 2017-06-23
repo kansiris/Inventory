@@ -64,8 +64,7 @@ function removecart(cartid) {
                 errormsg("No Data Available");
             }
             else {
-                alert("Removed from Cart Successfully .");
-                //successmsg("Removed from Cart Successfully .");
+                successmsg("Removed from Cart Successfully .");
                 var url = 'Products/Addtocartpartial?cid=' + cid;
                 $('#cartrecords').load(url);
             }

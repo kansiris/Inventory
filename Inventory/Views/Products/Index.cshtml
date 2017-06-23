@@ -133,8 +133,8 @@
                         <div class="right-side-bar">
                             <div class="row checkout" id="cartrecords">
                                 @{ Html.RenderAction("Addtocartpartial", "Products");}
-                                </div>
                             </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -290,8 +290,8 @@
         //<!------------ Product units / prices selection -------------->
 
         //<!----------- Quantity Add in Right Bar ---------------->
-         $(".add-to-cart").click(function () {
-        //$(document).on("click",".add-to-cart", function(){
+        $(".add-to-cart").click(function () {
+            //$(document).on("click",".add-to-cart", function(){
             var mesurment = $(this).parents(".rate-add").children(".margin-bottom-20").children(".product-variation").find("#variantselection").val().split('-')[0];
             var qty = $(this).parents(".rate-add").children("div:first-of-type").next("div").find(".spinner").children("div").find(".quantity").val();
             var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
@@ -306,13 +306,14 @@
                 data: JSON.stringify({ cid: cid, product_name: productname, Quantity: qty, Measurement: mesurment, cost_price: costprice, total_price: total, product_images: img, product_id: productid }),
                 dataType: 'json',
                 contentType: 'application/json',
-                
+
                 success: function (data) {
                     if (data == "unique") {
                         errormsg("Not Inserted");
                     }
                     else if (data == "exists") {
-                        existsmsg("The product Already available in the cart.Please Increase quantity if needed.");
+                        //existsmsg("The product Already available in the cart.Please Increase quantity if needed.");
+                        existsmsg("Product Exists in Cart Increase Quantity in Cart");
                     }
                     else if (data == "qty") {
                         warnmsg("InValid Quantity");
@@ -322,8 +323,8 @@
                         warnmsg("This much quantity not available");
                     }
                     else {
-                        //successmsg("Successfully Added To Cart.");
-                        alert("Successfully Added To Cart.");
+                        successmsg("Successfully Added " + productname + " with Quantity " + qty + " To Cart.");
+                        // alert("Successfully Added To Cart.");
                         var url = 'Products/Addtocartpartial?cid=' + cid;
                         $('#cartrecords').empty().load(url);
                     }
@@ -331,7 +332,7 @@
                 error: function (data)
                 { errormsg("Failed!!!"); }
             });
-             return vals();
+            return vals();
         });
         $(".product-variation > ul > li").click(function () {
             var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
@@ -398,7 +399,7 @@
         });
         //<!---------- Product Variation ------------>
 
-        
+
 
         //<!---------- mobile cart ------------>
         $(".mobile-cart").click(function () {
