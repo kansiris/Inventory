@@ -208,16 +208,23 @@
         });
 
         function checkshipdate() {
-            var shipdate=$('#shipping_date').val();
+            var shipdate = $('#shipping_date').val();
+            //alert(shipdate);
             var today = new Date();
             var dd = today.getDate();
-            var MMM = today.getMonth()+1;
+            var MMM = today.getMonth() + 1;
+            if (MMM < 10) {
+                MMM = '0' + MMM
+            }
             var yyyy = today.getFullYear();
-            today = dd + '/' + MMM + '/' + yyyy;
-            if(shipdate<today || shipdate.split('/')[1]<MMM || shipdate.split('/')[2]<yyyy){
+            today1 = dd + '/' + MMM + '/' + yyyy;//shipdate.split('/')[0] < dd || shipdate.split('/')[1] < MMM || shipdate.split('/')[2] < yyyy
+            a = new Date(yyyy, MMM, dd);
+            b = new Date(shipdate.split('/')[2], shipdate.split('/')[1], shipdate.split('/')[0]);
+            if (b <= a) {
                 warnmsg("Select a Valid Date.");
                 $('#shipping_date').val("");
             }
+           
         }
 
     </script>

@@ -1,6 +1,6 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&')[0].split('=')[1];
-    alert(cid);
+    //alert(cid);
     var cname = document.URL.split('&')[1].split('=')[1];
     var checkboxval = $("input:checkbox:checked").prop('checked');
     //var checkboxval = $("#availpocheck").prop('checked');
@@ -109,7 +109,7 @@ function saveInvoice(cid) {
     var paymenterms = $("[id='paymentterms']").val();
     var Comment = $("[id='comment']").val();
     var Subtotal = ((document.getElementById("subtotal").textContent).split('$')[1]);
-    alert(Subtotal);
+    //alert(Subtotal);
     var Vat = $("[id='vat']").val();//(document.getElementById("vat").textContent).split('%')[0];
     var Discount = $("[id='discount']").val(); //(document.getElementById("discount").textContent).split('%')[0];
     var Grandtotal1 = ((document.getElementById("grandtotal1").textContent).split('$')[1]);
@@ -153,7 +153,7 @@ function saveDeliverynote(cid) {
     var customerid = cid;
        var createddate = (document.getElementById("createddate").textContent).split(':')[1];
        var grandtotl = (document.getElementById("grandTotal").textContent);
-       alert(grandtotl);
+      // alert(grandtotl);
     var delivnotenum = $("[id='delivnotenum']").val();
     var Comment = $("[id='coMment']").val();
     //alert(Comment);
