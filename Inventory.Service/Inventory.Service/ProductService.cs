@@ -200,9 +200,9 @@ namespace Inventory.Service
         }
         //for genarating po
         public static int GenaratePurchaseOrder(string dbname, string cid, string product_id, string cname, string created_date, string Prchaseorder_no,string shipping_date,string shipping_terms, string product_name, string description, string quantity
-                , string price, string total_price, string remarks, string sub_total, float vat, float discount, string grand_total)
+                , string price, string total_price, string remarks, string sub_total,/* float vat, float discount,*/ string grand_total)
         {
-            return ProductRepository.GenaratePurchaseOrder(dbname, cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity,price, total_price, remarks,sub_total, vat, discount, grand_total);
+            return ProductRepository.GenaratePurchaseOrder(dbname, cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity,price, total_price, remarks,sub_total,/* vat, discount,*/ grand_total);
         }
         
             public static int Removefromcart(string dbname, int cart_id)

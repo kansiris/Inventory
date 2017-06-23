@@ -88,12 +88,12 @@
                                         <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                                             <thead class="thead-inverse">
                                                 <tr>
-                                                    <th class="col-md-2">Pid</th>
+                                                    <th class="col-md-1">Pid</th>
                                                     <th class="col-md-3">Product Name</th>
                                                     <th class="col-md-3">Description</th>
                                                     <th class="col-md-2">Quantity</th>
-                                                    <th class="col-md-1">Price</th>
-                                                    <th class="col-md-1">Total</th>
+                                                    <th class="col-md-2">Price In <text class="localization"></text> </th>
+                                                    <th class="col-md-2">Total In <text class="localization"></text> </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,12 +102,12 @@
                                                     foreach (var item in ViewBag.records)
                                                     {
                                                         <tr>
-                                                            <td class="col-md-2 image">@item.product_id </td>
+                                                            <td class="col-md-1 id">@item.product_id </td>
                                                             <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
                                                             <td class="col-md-3 product-variation"><span>@item.Measurement</span></td>
                                                             <td class="col-md-2 quantity-changes">@item.Quantity</td>
-                                                            <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.cost_price</span></td>
-                                                            <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
+                                                            <td class="col-md-2 product-price" style="text-align:left"><span>@item.cost_price</span></td>
+                                                            <td class="col-md-2 product-price" style="text-align:right"><span>@item.total_price</span></td>
                                                         </tr>
                                                     }
                                                 }
@@ -124,21 +124,21 @@
                                 </div>
                                 <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
                                     <div class="row sub-total margin-bottom">
-                                        <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7"><text class="localization"></text> @ViewBag.totalamount</div>
+                                        <div class="col-xs-6 col-md-5">Total<span class="pull-right">:</span></div>
+                                        <div class="col-xs-6 col-md-7" style="text-align:right"><text class="localization"></text> @ViewBag.totalamount</div>
                                     </div>
-                                    <div class="row sub-total margin-bottom">
+                                    @*<div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
                                         <div class="col-xs-6 col-md-7"><input id="vat" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.totalamount)">%</div>
                                     </div>
                                     <div class="row sub-total margin-bottom">
                                         <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
                                         <div class="col-xs-6 col-md-7"><input id="discount" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.totalamount)">%</div>
-                                    </div>
-                                    <div class="row sub-total">
-                                        <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7" id="grandtotal"><text class="localization"></text> @ViewBag.totalamount</div>
-                                    </div>
+                                    </div>*@
+                                    @*<div class="row sub-total">
+                                        <div class="col-xs-4 col-md-5">Grand Total<span class="pull-right">:</span></div>
+                                        <div class="col-xs-4 col-md-7" id="grandtotal" style="text-align:right"><text class="localization"></text> @ViewBag.totalamount</div>
+                                    </div>*@
                                 </div>
                             </div>
                             <div class="row margin-top">
