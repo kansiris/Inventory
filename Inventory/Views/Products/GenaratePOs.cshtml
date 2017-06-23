@@ -127,18 +127,6 @@
                                         <div class="col-xs-6 col-md-5">Total<span class="pull-right">:</span></div>
                                         <div class="col-xs-6 col-md-7" style="text-align:right"><text class="localization"></text> @ViewBag.totalamount</div>
                                     </div>
-                                    @*<div class="row sub-total margin-bottom">
-                                        <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7"><input id="vat" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.totalamount)">%</div>
-                                    </div>
-                                    <div class="row sub-total margin-bottom">
-                                        <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
-                                        <div class="col-xs-6 col-md-7"><input id="discount" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.totalamount)">%</div>
-                                    </div>*@
-                                    @*<div class="row sub-total">
-                                        <div class="col-xs-4 col-md-5">Grand Total<span class="pull-right">:</span></div>
-                                        <div class="col-xs-4 col-md-7" id="grandtotal" style="text-align:right"><text class="localization"></text> @ViewBag.totalamount</div>
-                                    </div>*@
                                 </div>
                             </div>
                             <div class="row margin-top">
@@ -209,7 +197,6 @@
 
         function checkshipdate() {
             var shipdate = $('#shipping_date').val();
-            //alert(shipdate);
             var today = new Date();
             var dd = today.getDate();
             var MMM = today.getMonth() + 1;
@@ -217,14 +204,13 @@
                 MMM = '0' + MMM
             }
             var yyyy = today.getFullYear();
-            today1 = dd + '/' + MMM + '/' + yyyy;//shipdate.split('/')[0] < dd || shipdate.split('/')[1] < MMM || shipdate.split('/')[2] < yyyy
+            today1 = dd + '/' + MMM + '/' + yyyy;
             a = new Date(yyyy, MMM, dd);
             b = new Date(shipdate.split('/')[2], shipdate.split('/')[1], shipdate.split('/')[0]);
             if (b <= a) {
                 warnmsg("Select a Valid Date.");
                 $('#shipping_date').val("");
             }
-           
         }
 
     </script>

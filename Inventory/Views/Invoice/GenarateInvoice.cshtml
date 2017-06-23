@@ -11,7 +11,7 @@
     @{ Html.RenderAction("GetCustomerdata", "Invoice");}
     <div class="col-xs-12 col-md-3 margin-bottom">
         <div class="row padding-bottom date" id="createddate"></div>
-        <div class="row invoice-total-amount" id="grandtotal"> <text class="localization"></text>@ViewBag.grand_total </div>
+        <div class="row invoice-total-amount" id="grandtotal"><text class="localization"></text>@ViewBag.grand_total </div>
     </div>
    
     <div class="row padding-bottom">
@@ -58,8 +58,8 @@
                         <th class="col-md-3">Product Name</th>
                         <th class="col-md-2">Description</th>
                         <th class="col-md-1">Quantity</th>
-                        <th class="col-md-1">Price</th>
-                        <th class="col-md-1">Total</th>
+                        <th class="col-md-1">Price In <text class="localization"></text></th>
+                        <th class="col-md-1">Total In <text class="localization"></text></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,8 +73,8 @@
                                 <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
                                 <td class="col-md-2 product-variation"><span>@item.description</span></td>
                                 <td class="col-md-1 quantity-changes">@item.Quantity</td>
-                                <td class="col-md-1 product-variation"><text class="localization"></text> <span>@item.cost_price</span></td>
-                                <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
+                                <td class="col-md-1 product-variation"><span>@item.cost_price</span></td>
+                                <td class="col-md-1 product-price"><span>@item.total_price</span></td>
                             </tr>
                         }
                     }

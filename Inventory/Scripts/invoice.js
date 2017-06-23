@@ -1,9 +1,8 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&')[0].split('=')[1];
-    //alert(cid);
-    var cname = document.URL.split('&')[1].split('=')[1];
+    var cname = document.URL.split('&&')[1].split('=')[1];
+    alert(cname);
     var checkboxval = $("input:checkbox:checked").prop('checked');
-    //var checkboxval = $("#availpocheck").prop('checked');
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
     }).toArray();
@@ -38,13 +37,11 @@
 function genarateDelivNote() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
     var checkboxval = $("input:checkbox:checked").prop('checked');
-    //var checkboxval = $("#availpocheck").prop('checked');
     if (checkboxval == true) {
         $("#completediv").css("display", "block");
         $("#deliverynote").css("display", "block");
         $("#invoicegenration").css("display", "none");
-
-        var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
+                var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
             return this.value;
         }).toArray();
         ;
@@ -77,8 +74,6 @@ function genarateDelivInvoice() {
     var cname = document.URL.split('&&')[1].split('=')[1];
     
     var checkboxval = $("input:checkbox:checked").prop('checked');
-    //alert(checkboxval);
-    //var checkboxval = $("#availpocheck").prop('checked');
     if (checkboxval == true) {
         $("#completediv").css("display", "block");
         $("#invoicegenration").css("display", "block");
@@ -109,13 +104,12 @@ function saveInvoice(cid) {
     var paymenterms = $("[id='paymentterms']").val();
     var Comment = $("[id='comment']").val();
     var Subtotal = ((document.getElementById("subtotal").textContent).split('$')[1]);
-    //alert(Subtotal);
-    var Vat = $("[id='vat']").val();//(document.getElementById("vat").textContent).split('%')[0];
-    var Discount = $("[id='discount']").val(); //(document.getElementById("discount").textContent).split('%')[0];
+  
+    var Vat = $("[id='vat']").val();
+    var Discount = $("[id='discount']").val(); 
     var Grandtotal1 = ((document.getElementById("grandtotal1").textContent).split('$')[1]);
     var Prchaseordernos = $("input:checkbox:checked").map(function () { return this.value;}).toArray();
-    //alert(Prchaseordernos);
-    if (invoiceNum == "") {
+        if (invoiceNum == "") {
         errormsg("Please Enter Invoice Number");
     }
     else{
@@ -128,7 +122,6 @@ function saveInvoice(cid) {
         success: function (data) {
             if (data == "unique") {
                 errormsg("Invoice generated already.");
-
             }
             else {
                 successmsg("Invoice saved successfully");
@@ -137,12 +130,10 @@ function saveInvoice(cid) {
                 $("[id='paymentterms']").val("");
                 $("[id='comment']").val("");
                 location.href = '/Invoice?cid=' + customerid + '&cname=' + companyName;
-                
             }
         },
         error: function (data)
         { errormsg("Failed!!!"); }
-
     });
     }
 }
@@ -153,10 +144,8 @@ function saveDeliverynote(cid) {
     var customerid = cid;
        var createddate = (document.getElementById("createddate").textContent).split(':')[1];
        var grandtotl = (document.getElementById("grandTotal").textContent);
-      // alert(grandtotl);
     var delivnotenum = $("[id='delivnotenum']").val();
     var Comment = $("[id='coMment']").val();
-    //alert(Comment);
     var Subtotal = (document.getElementById("subTotal").textContent);
    
     var Prchaseordernos = $("input:checkbox:checked").map(function () { return this.value; }).toArray();
@@ -173,26 +162,22 @@ function saveDeliverynote(cid) {
             success: function (data) {
                 if (data == "unique") {
                     errormsg("Delivery Note not generated");
-
                 }
                 else {
                     successmsg("Delivery Note saved successfully");
                     $("[id='delivnotenum']").val("");
                     $("[id='comment']").val("");
                     var cname = (document.URL.split('&&')[1]).split('=')[1];
-                   
                     location.href = '/Invoice?cid='+ customerid +'&cname=' + cname;
                 }
             },
             error: function (data)
             { errormsg("Failed!!!"); }
-
         });
     }
 }
 
 function checkinvoicenumber(passedvalue) {
-    //alert(passedvalue);
     if (passedvalue == "") {
         errormsg("please enter Invoice number");
     }
@@ -205,7 +190,6 @@ function checkinvoicenumber(passedvalue) {
             contentType: 'application/json',
             success: function (data) {
                 if (data == "unique") {
-                   
                 }
                 else {
                     existsmsg("Invoice Number Alredy Exists.Please Enter a Unique Number");
@@ -219,7 +203,6 @@ function checkinvoicenumber(passedvalue) {
 }
 
 function checkdelivnote(passedvalue) {
-    //alert(passedvalue);
     if (passedvalue == "") {
         errormsg("please enter delivery Note number");
     }
@@ -244,8 +227,6 @@ function checkdelivnote(passedvalue) {
     }
 }
 function checkstatus(invoice, deliv) {
-    //alert(value);
-   // alert(deliv);
     if (invoice == 1 && deliv == 0) {
         $("#GenarateDelivNote").css("display", "block");
         $("#GenarateInvoice").css("display", "none");
@@ -267,28 +248,18 @@ function checkstatus(invoice, deliv) {
 
 //view invoice
 function viewinvoicedetails(ponumber, cid) {
-    //alert(ponumber);
-    //alert(cid);
 }
 
 function calculate(totalprice) {
     var vat = $('#vat').val();
     var discount = $('#discount').val();
-    if (parseInt(vat) < 100 && parseInt(discount) < 100) {
+    if (parseInt(vat) <= 100 && parseInt(discount) <= 100) {
         var total = (parseInt(totalprice) + (parseInt(totalprice) * (parseInt(vat) / 100)) - (parseInt(discount) / 100));
         $('#grandtotal1').text(total.toFixed(2));
         $('#grandtotal').text(total.toFixed(2));
     }
+    else {
+        errormsg("Please Enter < 100 %");
+    }
 }
-
-//function calculate1(totalprice) {
-//    var vat = $('#vAt').val();
-//    var discount = $('#disCount').val();
-//    if (parseInt(vat) < 100 && parseInt(discount) < 100) {
-//        var total = (parseInt(totalprice) + (parseInt(totalprice) * (parseInt(vat) / 100)) - (parseInt(discount) / 100));
-//        $('#grandTotal1').text(total.toFixed(2));
-//        $('#grandTotal').text(total.toFixed(2));
-//    }
-//}
-
 
