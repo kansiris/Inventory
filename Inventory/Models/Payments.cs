@@ -7,10 +7,10 @@ namespace Inventory.Models
     using System.Data.Entity.Spatial;
 
     [Table("Payment")]
-    public partial class Payment
+    public partial class Payments
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Payment()
+        public Payments()
         {
             Invoices = new HashSet<Invoice>();
         }

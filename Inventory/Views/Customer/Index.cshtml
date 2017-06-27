@@ -92,7 +92,7 @@
             @{ Html.RenderAction("CustomerCompany", "Customer");}
 
             <div class="row" id="customer-information">
-                <div class="col-md-12 form-title">Customer Information</div>
+                <div class="col-md-12 form-title margin-bottom-20">Customer Information</div>
                 <div class="col-md-6">
                     <div class="row">
                         @Html.HiddenFor(Model => Model.cus_company_Id, new { Value = @ViewBag.cus_company_Id })
