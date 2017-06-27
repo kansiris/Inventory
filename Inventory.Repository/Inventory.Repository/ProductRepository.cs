@@ -188,6 +188,16 @@ namespace Inventory.Repository
         }
         #endregion
 
+        #region Product Image Removal
+        public static int removeproductimage(string dbname, string id,string updatedimage)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "removeproductimage", id, updatedimage);
+
+        }
+        #endregion
+
         //to get all categories
 
         public static SqlDataReader GetAllCategories(string dbname)

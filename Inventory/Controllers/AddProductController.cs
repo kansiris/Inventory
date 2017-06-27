@@ -359,5 +359,22 @@ namespace Inventory.Controllers
             }
             return product;
         }
+
+        public JsonResult removeproductimage(string image)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                string id = image.Split('_')[0];
+                var product = convertproduct(user.DbName, id);
+                var productimage = product[0].product_images.Split(',').ToList();//.Remove(image);
+                productimage.Remove(image);
+                string updatedimage = String.Join(",", productimage);
+                int count = ProductService.removeproductimage(user.DbName, id, updatedimage);
+                if (count > 0)
+                return Json("success");
+            }
+            return Json(JsonRequestBehavior.AllowGet);
+        }
     }
 }

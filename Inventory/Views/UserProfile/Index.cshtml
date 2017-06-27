@@ -671,6 +671,7 @@
 </div>
 <!-- /page content -->
 @section scripts{
+@Scripts.Render("~/bundles/profile")
     <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/js/main.js"></script>
     <script src="~/Scripts/js/modernizr.js"></script>
@@ -687,10 +688,10 @@
     <script src="~/build/js/custom.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <!-- Over Hang -->
-    <script src="~/Scripts/js/jquery-ui.min.js"></script>
-    <script src="~/Scripts/js/overhang.min.js"></script>
+    @*<script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>*@
     @*<script src="~/Scripts/UserProfile.js"></script>*@
-    @Scripts.Render("~/bundles/profile")
+    
     <script>
         function validateEmail(emailField) {
             var reg = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

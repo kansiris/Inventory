@@ -159,3 +159,20 @@ function deleteitem(command, productitemid) {
         }
     })
 }
+
+function removeimage(image) {
+    $.ajax({
+        url: '/AddProduct/removeproductimage',
+        type: "POST",
+        datatype: "json",
+        data: { image: image },
+        success: function (response) {
+            if (response == "success") {
+                successmsg("Image Removed");
+            }
+        },
+        error: function (er) {
+            errormsg("Something Went Wrong!!!Try Again Later");
+        }
+    })
+}

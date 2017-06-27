@@ -146,6 +146,14 @@ namespace Inventory.Service
         }
         #endregion
 
+        #region Product Image Removal
+        public static int removeproductimage(string dbname, string id,string updatedimage)
+        {
+            return ProductRepository.removeproductimage(dbname, id, updatedimage);
+
+        }
+        #endregion
+
         //to get all categories
         public static SqlDataReader GetAllCategories(string dbname)
         {
