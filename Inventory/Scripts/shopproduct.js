@@ -85,7 +85,7 @@ function genaratepo() {
 
 $('#plus').click(function () {
     var qty = this.prev('input[type=text]').val();
-    //alert(qty);
+    alert(qty);
 });
 
 //updatecart
@@ -99,26 +99,26 @@ function updatecart(cartid, quantity, costprice) {
         inputqty++;
         newamunt = costprice * inputqty;
 
-      $.ajax({
-        url: '/Products/UpdateCart',
-        type: 'POST',
-        data: JSON.stringify({ cart_id: cartid, Quantity: inputqty, total_price: newamunt }),
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            if (data == "unique") {
-                errormsg("Not Inserted");
-            }
-            else {
-                successmsg("Successfully Updated Cart.");
-                var url = 'Products/Addtocartpartial?cid=' + cid;
-                $('#cartrecords').load(url);
+    //  $.ajax({
+    //    url: '/Products/UpdateCart',
+    //    type: 'POST',
+    //    data: JSON.stringify({ cart_id: cartid, Quantity: inputqty, total_price: newamunt }),
+    //    dataType: 'json',
+    //    contentType: 'application/json',
+    //    success: function (data) {
+    //        if (data == "unique") {
+    //            errormsg("Not Inserted");
+    //        }
+    //        else {
+    //            successmsg("Successfully Updated Cart.");
+    //            var url = 'Products/Addtocartpartial?cid=' + cid;
+    //            $('#cartrecords').load(url);
                
-            }
-        },
-        error: function (data)
-        { errormsg("Failed!!!"); }
-    });
+    //        }
+    //    },
+    //    error: function (data)
+    //    { errormsg("Failed!!!"); }
+    //});
     }
     else {
         errormsg("Invalid Quantity");

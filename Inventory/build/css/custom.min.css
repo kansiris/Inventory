@@ -5324,6 +5324,7 @@ footer {
 	padding: 10px;
 	background: #c7ebfe;
 	border-radius: 5px;
+	margin-bottom: 15px;
 }
 
     .form-title a {
@@ -6915,6 +6916,7 @@ tr > td.product-name a:hover{
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 39px;
+	display: table;
 	}
 .address{
 	font-size: 14px;
@@ -6960,7 +6962,7 @@ tr > td.product-name a:hover{
 .terms-conditions a{
 	color: #0288d1;
 	font-weight: 700;}
-.invoice-conditions a{
+#invoice-conditions a{
 	color: #8086c2;
 	font-weight: 700;}
 .terms-conditions a > i{
@@ -7015,9 +7017,47 @@ ul.terms-content li{
 	border-radius: 5px;
 	float: right;}
 .payment-method .payment-option{
-	background: #eee;}
-.payment-option .checkbox label{
+	padding: 5px 10px;
+	display: inline-block;}
+.payment-option .radio{
+	margin-top: 5px;
+	margin-bottom: 5px;}
+.payment-option .radio label{
 	line-height: 20px;
+	}
+#cheque-details,
+#credit-details,
+#baltransfer-details,
+#cash-details,
+#wallet-details{
+	display: none;
+	position: absolute;
+	left: 0;
+	background: #eee;
+	margin-right: 10px;
+	padding: 5px;}
+.payment-right{
+	background: #eee;
+	padding-top: 20px;}
+.add-condition-block{
+	background: rgba(0,0,0,.6);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	z-index: 2;
+	display: none;}
+.add-conditions{
+	width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	background: #FFF;
+    padding: 20px;
+    border-radius: 5px;
 	}
 /*============ Generate Purchase Order / invoice ==================*/
 
@@ -7044,7 +7084,8 @@ ul.terms-content li{
 	-moz-transition: 1s ease;
 	-webkit-transition: .5s ease;}
 .top-strip .form-title{
-	background: transparent;}
+	background: transparent;
+	margin-bottom: 0;}
 .stock-status{
 	position: absolute;
 	top: 10px;
@@ -7062,7 +7103,8 @@ ul.terms-content li{
 	text-align: center;}
 .fixed{
 	position: fixed;}
-
+.text-bold{
+	font-weight: bold;}
 /*========== Media Quries ===============*/
 
 @media only screen and (min-width: 768px) and (max-width: 800px){
