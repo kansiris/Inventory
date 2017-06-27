@@ -11,7 +11,7 @@ namespace Inventory.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Payment_Method_Types()
         {
-            Payments = new HashSet<Payment>();
+            Payments = new HashSet<Payments>();
         }
 
         [Key]
@@ -22,6 +22,6 @@ namespace Inventory.Models
         public string Description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<Payments> Payments { get; set; }
     }
 }

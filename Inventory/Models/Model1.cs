@@ -15,7 +15,7 @@ namespace Inventory.Models
         public virtual DbSet<Franchise> Franchises { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Item> Items { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Payments> Payments { get; set; }
         public virtual DbSet<Payment_Method_Types> Payment_Method_Types { get; set; }
         public virtual DbSet<Purchase_Order> Purchase_Order { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
@@ -71,7 +71,7 @@ namespace Inventory.Models
                 .Property(e => e.Selling_Price)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Payment>()
+            modelBuilder.Entity<Payments>()
                 .Property(e => e.Payment_Amount)
                 .HasPrecision(19, 4);
 

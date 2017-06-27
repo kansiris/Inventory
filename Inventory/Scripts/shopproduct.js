@@ -91,7 +91,6 @@ $('#plus').click(function () {
 //updatecart
 function updatecart(cartid, quantity, costprice) {
     cid = location.search.split('cid=')[1];
-    
     var inputqty = parseInt($('#qtyinput').val());
     if (inputqty > 0) {
         //newquant = quantity + 1;

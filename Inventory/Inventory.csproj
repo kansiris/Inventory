@@ -262,6 +262,7 @@
     <Compile Include="Controllers\MediaGalleryController.cs" />
     <Compile Include="Controllers\MorisJSController.cs" />
     <Compile Include="Controllers\OtherChartsController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\PlainPageController.cs" />
     <Compile Include="Controllers\PricingTablesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -294,7 +295,7 @@
     <Compile Include="Models\OwnerCompanyAddress.cs" />
     <Compile Include="Models\OwnerStaff.cs" />
     <Compile Include="Models\OwnerStaffStatus.cs" />
-    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Payments.cs" />
     <Compile Include="Models\Payment_Method_Types.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductItems.cs" />
@@ -4800,6 +4801,7 @@
     <Content Include="Views\Invoice\GetCustomerdata.cshtml" />
     <Content Include="Views\Invoice\ViewInvoiceDetails.cshtml" />
     <Content Include="Views\Invoice\AvailbleInvoices.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
