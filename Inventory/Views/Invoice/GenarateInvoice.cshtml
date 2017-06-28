@@ -379,8 +379,11 @@
             }
             var yyyy = today.getFullYear();
             today1 = dd + '/' + MMM + '/' + yyyy;
-            a = new Date(yyyy, MMM, dd);
-            b = new Date(paydate.split('/')[2], paydate.split('/')[1], paydate.split('/')[0]);
+            alert(today1);
+            a = new Date(yyyy,MMM,dd);
+            alert(a);
+            b = new Date(paydate.split('/')[2], paydate.split('/')[0], paydate.split('/')[1]);
+            alert(b);
             if (b <= a) {
                 warnmsg("Select a Valid Date.");
                 $('#pay_date').val("");
