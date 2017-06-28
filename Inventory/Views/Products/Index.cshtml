@@ -184,7 +184,7 @@
         //<!------------ Quantity changes / Prices Multiple -------------->
         $(document).ready(function (e) {
             var tableprice, divprice, tabletotal, divtotal, divpriceright;
-            $('.spinner > .input-group .btn:first-of-type').click(function () {
+            $('.productsection > .spinner > .input-group .btn:first-of-type').click(function () {
                 var minus, v;
                 v = parseInt($(this).next("input[type='text']").val());
                 if (v > 1) {
@@ -204,7 +204,7 @@
                 }
                 return vals();
             });
-            $('.spinner > .input-group .btn:last-of-type').click(function () {
+            $('.productsection > .spinner > .input-group .btn:last-of-type').click(function () {
                 //alert("plus");
                 var plus, v;
                 v = parseInt($(this).prev("input[type='text']").val());
@@ -225,6 +225,87 @@
                     $(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
                 }
                 return vals();
+            });
+
+            $(document).on('click', '.decrease', function () {
+                var minus, v;
+                v = parseInt($(this).next("input[type='text']").val());
+                if (v > 1) {
+                    minus = v - 1;
+                    $(this).next("input[type='text']").val(minus);
+                    divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+                    divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    divtotal = minus * divprice;
+                    divtotalright = minus * divpriceright;
+                    $(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
+                    $(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
+                    var cartid = $(this).parents('.spinner').prevAll("input.cartid").val();
+                    var inputqty = minus;
+                    var newamunt = divtotalright;
+                    var cid = location.search.split('cid=')[1];
+                    //updatecart1(cartid, inputqty, newamunt);
+                    $.ajax({
+                        url: '/Products/UpdateCart',
+                        type: 'POST',
+                        data: JSON.stringify({ cart_id: cartid, Quantity: inputqty, total_price: newamunt }),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data == "unique") {
+                                errormsg("Not Inserted");
+                            }
+                            else {
+                                successmsg("Successfully Updated Cart.");
+                                var url = 'Products/Addtocartpartial?cid=' + cid;
+                                $('#cartrecords').load(url);
+                            }
+                        },
+                        error: function (data)
+                        { errormsg("Failed!!!"); }
+                    });
+                }
+                return vals();
+            });
+            $(document).on('click', '.increase', function () {
+                //alert("plus");
+                var plus, v;
+                v = parseInt($(this).prev("input[type='text']").val());
+                if (v > 0) {
+                    plus = v + 1;
+                    $(this).prev("input[type='text']").val(plus);
+                    divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+                    divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    divtotal = plus * divprice;
+                    divtotalright = plus * divpriceright;
+                    $(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
+                    $(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
+                    var cartid = $(this).parents('.spinner').prevAll("input.cartid").val();
+                    var inputqty = plus;
+                    var newamunt = divtotalright;
+                    var cid = location.search.split('cid=')[1];
+                    //updatecart(cartid, inputqty, newamunt);
+                    $.ajax({
+                        url: '/Products/UpdateCart',
+                        type: 'POST',
+                        data: JSON.stringify({ cart_id: cartid, Quantity: inputqty, total_price: newamunt }),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data == "unique") {
+                                errormsg("Not Inserted");
+                            }
+                            else {
+                                successmsg("Successfully Updated Cart.");
+                                var url = 'Products/Addtocartpartial?cid=' + cid;
+                                $('#cartrecords').load(url);
+
+                            }
+                        },
+                        error: function (data)
+                        { errormsg("Failed!!!"); }
+                    });
+                }
+                //return vals();
             });
         });
 
@@ -417,6 +498,10 @@
             }
         }).keypress(function (key) {
             if (key.charCode < 48 || key.charCode > 57) { warnmsg("Enter Number only"); return false; }
+        });
+
+        $('.cartqty').keypress(function (key) {
+            if (key.charCode < 48 || key.charCode > 57) { alert("Enter Number only"); return false; }
         });
 
         //<!---------- mobile cart ------------>

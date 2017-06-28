@@ -91,33 +91,33 @@ $('#plus').click(function () {
 //updatecart
 function updatecart(cartid, quantity, costprice) {
     cid = location.search.split('cid=')[1];
-    var inputqty = parseInt($('#qtyinput').val());
-    if (inputqty > 0) {
-        //newquant = quantity + 1;
-        //newamunt = costprice * newquant;
-        inputqty++;
-        newamunt = costprice * inputqty;
+    //var inputqty = parseInt($('#qtyinput').val());
+    if (quantity > 0) {
+        //    //newquant = quantity + 1;
+        //    //newamunt = costprice * newquant;
+        //    inputqty++;
+        //    newamunt = costprice * inputqty;
 
-    //  $.ajax({
-    //    url: '/Products/UpdateCart',
-    //    type: 'POST',
-    //    data: JSON.stringify({ cart_id: cartid, Quantity: inputqty, total_price: newamunt }),
-    //    dataType: 'json',
-    //    contentType: 'application/json',
-    //    success: function (data) {
-    //        if (data == "unique") {
-    //            errormsg("Not Inserted");
-    //        }
-    //        else {
-    //            successmsg("Successfully Updated Cart.");
-    //            var url = 'Products/Addtocartpartial?cid=' + cid;
-    //            $('#cartrecords').load(url);
-               
-    //        }
-    //    },
-    //    error: function (data)
-    //    { errormsg("Failed!!!"); }
-    //});
+        $.ajax({
+            url: '/Products/UpdateCart',
+            type: 'POST',
+            data: JSON.stringify({ cart_id: cartid, Quantity: quantity, total_price: costprice }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    errormsg("Not Inserted");
+                }
+                else {
+                    successmsg("Successfully Updated Cart.");
+                    var url = 'Products/Addtocartpartial?cid=' + cid;
+                    $('#cartrecords').load(url);
+
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
+        });
     }
     else {
         errormsg("Invalid Quantity");
@@ -126,36 +126,36 @@ function updatecart(cartid, quantity, costprice) {
     }
 }
 function updatecart1(cartid, quantity, costprice) {
-   
-    var inputqty = $('#qtyinput').val();
-    
-        if(inputqty>0){
-    newquant = quantity - 1;
-    newamunt = costprice * newquant;
-    cid = location.search.split('cid=')[1];
-    $.ajax({
-        url: '/Products/UpdateCart',
-        type: 'POST',
-        data: JSON.stringify({ cart_id: cartid, Quantity: newquant, total_price: newamunt }),
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            if (data == "unique") {
-                errormsg("Not Inserted");
-            }
-            else {
-                successmsg("Successfully Updated Cart.");
-                var url = 'Products/Addtocartpartial?cid=' + cid;
-                $('#cartrecords').load(url);
-            }
-        },
-        error: function (data)
-        { errormsg("Failed!!!"); }
-    });
+
+    //var inputqty = $('#qtyinput').val();
+
+    if (quantity > 0) {
+        //newquant = quantity - 1;
+        //newamunt = costprice * newquant;
+        cid = location.search.split('cid=')[1];
+        $.ajax({
+            url: '/Products/UpdateCart',
+            type: 'POST',
+            data: JSON.stringify({ cart_id: cartid, Quantity: quantity, total_price: costprice }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data == "unique") {
+                    errormsg("Not Inserted");
+                }
+                else {
+                    successmsg("Successfully Updated Cart.");
+                    var url = 'Products/Addtocartpartial?cid=' + cid;
+                    $('#cartrecords').load(url);
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
+        });
     }
     else {
-            errormsg("Invalid Quantity");
-            
+        errormsg("Invalid Quantity");
+
     }
 }
 
@@ -173,7 +173,7 @@ function calculate(totalprice) {
 //for inserting purchseorder
 
 function insertpo(totalamount) {
-    var cid=location.search.split('&')[0].split('cid=')[1];
+    var cid = location.search.split('&')[0].split('cid=')[1];
     var cname = location.search.split('&')[1].split('cname=')[1];
     var shipping_terms = $('#shipping_terms').val();
     var shipping_date = $('#shipping_date').val();
@@ -185,7 +185,7 @@ function insertpo(totalamount) {
     //var discount = $('#discount').val();
     //var grand_total = $('#grandtotal').text();
     var createddate = ($('#po_date').text()).split(';')[1];
-    
+
     $.ajax({
         url: '/Products/GenratePurchaseOrder',
         type: 'POST',
@@ -202,7 +202,7 @@ function insertpo(totalamount) {
                 $("[id='shipping_terms']").val("");
                 $("[id='payment_date']").val("");
             }
-            
+
             if (data == "success") {
                 successmsg("Successfully PurchaseOrder Generated.");
                 $("[id='ponumber']").val("");
@@ -223,7 +223,7 @@ function insertpo(totalamount) {
 
 
 
-function checkponumber(passedvalue){
+function checkponumber(passedvalue) {
     //alert(passedvalue);
 
     $.ajax({
@@ -247,9 +247,9 @@ function checkponumber(passedvalue){
 }
 
 //for displaying all pos
-function viewpodetails(ponumber,cid) {
+function viewpodetails(ponumber, cid) {
     //alert(ponumber);
-    location.href = '/Products/ViewPoDetails?Prchaseorder_no=' + ponumber+'&cid='+cid;
+    location.href = '/Products/ViewPoDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
 }
 
 function errormsg(msg) {
@@ -287,7 +287,7 @@ function warnmsg(msg) {
 
 //for quntity to accept numbers only
 function isNumberKey(evt, value) {
-    
+
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
         warnmsg("Enter Number only");

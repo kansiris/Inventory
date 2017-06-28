@@ -309,7 +309,7 @@ namespace Inventory.Controllers
                                                    Quantity = row["Quantity"].ToString(),
                                                    product_images = row["product_images"].ToString(),
                                                    Measurement = row["Measurement"].ToString(),
-                                                   //weight = row["brand"].ToString(),
+                                                   Quantity_Total = row["warehouseqty"].ToString(),
                                                    total_price = row["total_price"].ToString(),
                                                }).ToList();
             ViewBag.records = cartaddedproducts;
