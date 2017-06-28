@@ -103,7 +103,14 @@ function saveInvoice(cid) {
     var invoiceNum = $("[id='invoicenum']").val();
     var paymenterms = $("[id='paymentterms']").val();
     var Comment = $("[id='comment']").val();
-    var Subtotal = ((document.getElementById("subtotal").textContent).split('$')[1]);
+    if (document.getElementById("subtotal").textContent.startsWith('$')) {
+        var Subtotal = ((document.getElementById("subtotal").textContent).split('$')[1]);
+    }
+    else{
+        var Subtotal = ((document.getElementById("subtotal").textContent).split('₹')[1]);
+    }
+    alert(Subtotal);
+    //var cgst=
   
     var Vat = $("[id='vat']").val();
     var Discount = $("[id='discount']").val(); 
