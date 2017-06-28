@@ -246,7 +246,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Paid Amount </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="usr">
+                                                <input type="text" class="form-control" id="paidamt" onkeyup="calculateamount(this.value)">
                                             </div>
                                         </div>
                                     </div>
@@ -254,7 +254,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Previous Balance </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control pre-balance" id="usr">
+                                                <input type="text" class="form-control pre-balance" id="previousamt">
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +262,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Current Balance </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="usr">
+                                                <input type="text" class="form-control" id="currntamt">
                                             </div>
                                         </div>
                                     </div>
@@ -347,6 +347,11 @@
         document.location = '@Url.Action("Index", "Customer")';
     });
 
+
+    function calculateamount(paidamunt) {
+        var previous = $("#previousamt").val();
+        $("#currntamt").val(previous - paidamunt);
+    }
     //<!----------------- Payment Section------------->
 
     window.enableText = function (e) {
