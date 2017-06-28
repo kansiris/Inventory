@@ -90,11 +90,11 @@
                                     <td class="col-md-1 quantity-changes">@item.Quantity</td>
                                     <td class="col-md-1 product-variation"><span>@item.cost_price</span></td>
                                     <td class="col-md-1 quantity-changes">2</td>
-                                    <td class="col-md-1 quantity-changes">2</td>
-                                    <td class="col-md-1 quantity-changes">2</td>
-                                    <td class="col-md-1 quantity-changes">2</td>
-                                    <td class="col-md-1 quantity-changes">2</td>
-                                    <td class="col-md-1 quantity-changes">2</td>
+                                    <td class="col-md-1 quantity-changes">435</td>
+                                    <td class="col-md-1 quantity-changes">4</td>
+                                    <td class="col-md-1 quantity-changes">654</td>
+                                    <td class="col-md-1 quantity-changes">3</td>
+                                    <td class="col-md-1 quantity-changes">789</td>
                                     <td class="col-md-1 product-price"><span>@item.total_price</span></td>
                                 </tr>
                             }
@@ -117,27 +117,27 @@
             </div>
             <div class="row sub-total margin-bottom">
                 <div class="col-xs-6 col-md-5">Add : CGST<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>454</div>
             </div>
             <div class="row sub-total margin-bottom">
                 <div class="col-xs-6 col-md-5">Add : SGST<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>543</div>
             </div>
             <div class="row sub-total margin-bottom">
                 <div class="col-xs-6 col-md-5">Add : IGST<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>342</div>
             </div>
             <div class="row sub-total margin-bottom">
                 <div class="col-xs-6 col-md-5">Tax Amount : GST<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>4213</div>
             </div>
             <div class="row sub-total margin-bottom">
                 <div class="col-xs-6 col-md-5">Total Amount After Tax<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>42435</div>
             </div>
             <div class="row sub-total margin-bottom">
                 <div class="col-xs-6 col-md-5"> GST Payable on Reverse Charge<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>6546</div>
             </div>
 
           
@@ -316,17 +316,28 @@
     </div>
 </div>
 <script>
-        $(document).ready(function () {
-            var createddate = ($('#po_date').text()).split(';')[1];
-            var date_input = $('input[name="date"]'); //our date input has the name "date".it is checking for shipng date also
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            date_input.datepicker({
-                format: 'dd/mm/yyyy',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-            })
-        });
+    $(document).ready(function () {
+        var currency = $('#currency').val().slice(-2).replace(')', '');
+        $('.localization').html(currency);
+        var dateformat = $('#dateformat').val().toLowerCase();
+        n = new Date();
+        // alert(n.toString(""+dateformat+""));
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        var crdate = d + "/" + m + "/" + y;
+        document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
+
+        var createddate = ($('#po_date').text()).split(';')[1];
+        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: dateformat,
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    });
 </script>
 <script>
    
@@ -346,7 +357,7 @@
 
         function checkpaydate() {
             var paydate = $('#pay_date').val();
-            alert(paydate);
+            //alert(paydate);
             var today = new Date();
             var dd = today.getDate();
             var MMM = today.getMonth() + 1;
@@ -355,15 +366,16 @@
             }
             var yyyy = today.getFullYear();
             today1 = dd + '/' + MMM + '/' + yyyy;
-            alert(today1);
+            //alert(today1);
             a = new Date(yyyy,MMM,dd);
-            alert(a);
+            //alert(a);
             b = new Date(paydate.split('/')[2], paydate.split('/')[0], paydate.split('/')[1]);
-            alert(b);
+            //alert(b);
             if (b <= a) {
                 warnmsg("Select a Valid Date.");
                 $('#pay_date').val("");
             }
+            $('#pay_date').val(paydate);
         }
 
 
