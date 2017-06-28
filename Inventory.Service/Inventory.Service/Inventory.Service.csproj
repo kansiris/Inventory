@@ -43,6 +43,7 @@
     <Compile Include="CustomerService.cs" />
     <Compile Include="InvoiceService.cs" />
     <Compile Include="LoginService.cs" />
+    <Compile Include="PaymentsService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VendorService.cs" />

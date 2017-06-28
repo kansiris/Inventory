@@ -42,7 +42,7 @@
                     <td class="col-xs-6 col-md-4">
                         <div class="input-group">
                             <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                            <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()" />
+                            <input class="form-control" id="pay_date" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()" />
                         </div>
                     </td>
                     <td class="col-xs-6 col-md-2">Payment Terms</td>
@@ -140,18 +140,7 @@
                 <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
             </div>
 
-            @*<div class="row sub-total margin-bottom">
-                <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7"><input id="vat" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
-            </div>
-            <div class="row sub-total margin-bottom">
-                <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7"><input id="discount" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
-            </div>
-            <div class="row sub-total">
-                <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="grandtotal1"><text class="localization"></text>@ViewBag.grand_total</div>
-            </div>*@
+          
         </div>
     </div>
     <div class="row margin-top">
@@ -188,7 +177,11 @@
     </div>
 
     <div class="row margin-bottom">
-        <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="images/logo.jpg" alt="Logo" /> <span class="vendorname">Xsilica Software Solutions</span> </div>
+        <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="images/logo.jpg" alt="Logo" /> 
+        <span class="vendorname">Xsilica Software Solutions</span>
+            <br />
+            <span class="text-bold">GSTIN : <b>ATX14678CB</b></span>
+         </div>
         @{ Html.RenderAction("GetCustomerdata", "Invoice");}
         <div class="col-xs-12 col-md-3 margin-bottom">
             <div class="row padding-bottom date" id="createddate"></div>
@@ -206,17 +199,7 @@
                 </div>
             </div>
         </div>
-        @*<div class="row padding-bottom">
-            <div class="col-xs-12 col-md-7 to-address margin-bottom" id="companyname"> <span>To : @ViewBag.company_name</span> </div>
-            <div class="col-xs-12 col-md-5 margin-bottom">
-                <div class="row">
-                    <div class="col-xs-12 col-md-4 po-number">Invoice Number</div>
-                    <div class="col-xs-12 col-md-8">
-                        <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoicenumber(this.value)" />
-                    </div>
-                </div>
-            </div>
-        </div>*@
+       
     </div>
     <div class="row po-date">
         <table class="table table-bordered col-xs-12 col-md-12">
@@ -224,13 +207,21 @@
             </thead>
             <tbody>
                 <tr>
+
                     <td class="col-xs-6 col-md-2">Payment Due Date</td>
                     <td class="col-xs-6 col-md-4">
                         <div class="input-group">
                             <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                            <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()" />
+                            <input class="form-control" id="pay_date" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()" />
                         </div>
                     </td>
+                    @*<td class="col-xs-6 col-md-2">Payment Due Date</td>
+                    <td class="col-xs-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                            <input class="form-control" id="paydate" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()" />
+                        </div>
+                    </td>*@
                     <td class="col-xs-6 col-md-2">Payment Terms</td>
                     <td class="col-xs-6 col-md-4">
                         <input type="text" class="form-control" id="paymentterms">
@@ -325,20 +316,9 @@
     </div>
 </div>
 <script>
-      $(document).ready(function () {
-        var currency = $('#currency').val().slice(-2).replace(')', '');
-        $('.localization').html(currency);
-        //alert(currency);
-        var dateformat = $('#dateformat').val().toLowerCase();
-        n = new Date();
-       // alert(n.toString(""+dateformat+""));
-        y = n.getFullYear();
-        m = n.getMonth() + 1;
-        d = n.getDate();
-        var crdate = d + "/" + m + "/" + y;
-        document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
+        $(document).ready(function () {
             var createddate = ($('#po_date').text()).split(';')[1];
-            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var date_input = $('input[name="date"]'); //our date input has the name "date".it is checking for shipng date also
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
                 format: 'dd/mm/yyyy',
@@ -346,40 +326,59 @@
                 todayHighlight: true,
                 autoclose: true,
             })
-      });
-      var currency = $('#currency').val().slice(-2).replace(')', '');
-      if (currency == "$") {
-          $('#invoicegenration').css("display", "block");
-          $('#fordollar').css("display", "block");
-          $('#forrupee').css("display", "none");
-      }
-      else {
-          $('#invoicegenration').css("display", "block");
-          $('#forrupee').css("display", "block");
-          $('#fordollar').css("display", "none");
-      }
-    function checkpaydate() {
-        var paydate=$('#date').val();
-        var today = new Date();
-        var dd = today.getDate();
-        var MMM = today.getMonth()+1;
-        var yyyy = today.getFullYear();
-        today = dd + '/' + MMM + '/' + yyyy;
-        if(paydate<today || paydate.split('/')[1]<MMM || paydate.split('/')[2]<yyyy){
-            warnmsg("Select a Valid Date.");
-            $('#date').val("");
+        });
+</script>
+<script>
+   
+    var currency = $('#currency').val().slice(-2).replace(')', '');
+       $('.localization').html(currency);
+        var currency = $('#currency').val().slice(-2).replace(')', '');
+        if (currency == "$") {
+            $('#invoicegenration').css("display", "block");
+            $('#fordollar').css("display", "block");
+            $('#forrupee').css("display", "none");
         }
-    }
+        else {
+            $('#invoicegenration').css("display", "block");
+            $('#forrupee').css("display", "block");
+            $('#fordollar').css("display", "none");
+        }
+
+        function checkpaydate() {
+            var paydate = $('#pay_date').val();
+            alert(paydate);
+            var today = new Date();
+            var dd = today.getDate();
+            var MMM = today.getMonth() + 1;
+            if (MMM < 10) {
+                MMM = '0' + MMM
+            }
+            var yyyy = today.getFullYear();
+            today1 = dd + '/' + MMM + '/' + yyyy;
+            alert(today1);
+            a = new Date(yyyy,MMM,dd);
+            alert(a);
+            b = new Date(paydate.split('/')[2], paydate.split('/')[0], paydate.split('/')[1]);
+            alert(b);
+            if (b <= a) {
+                warnmsg("Select a Valid Date.");
+                $('#pay_date').val("");
+            }
+        }
+
+
+
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';
         });
 
-    function warnmsg(msg) {
-        $("body").overhang({
-            type: "warn",
-            message: msg,
-            duration: 3
-        });
-    }
+        function warnmsg(msg) {
+            $("body").overhang({
+                type: "warn",
+                message: msg,
+                duration: 3
+            });
+        }
+
 </script>
   
