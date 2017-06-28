@@ -140,18 +140,7 @@
                 <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
             </div>
 
-            @*<div class="row sub-total margin-bottom">
-                <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7"><input id="vat" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
-            </div>
-            <div class="row sub-total margin-bottom">
-                <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7"><input id="discount" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
-            </div>
-            <div class="row sub-total">
-                <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
-                <div class="col-xs-6 col-md-7" id="grandtotal1"><text class="localization"></text>@ViewBag.grand_total</div>
-            </div>*@
+          
         </div>
     </div>
     <div class="row margin-top">
@@ -340,20 +329,7 @@
         });
 </script>
 <script>
-    //$(document).ready(function () {
-    //    var currency = $('#currency').val().slice(-2).replace(')', '');
-    //    $('.localization').html(currency);
-
-    //        var createddate = ($('#po_date').text()).split(';')[1];
-    //        var date_input = $('input[name="date"]'); //our date input has the name "date".it is checking for shipng date also
-    //        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-    //        date_input.datepicker({
-    //            format: 'dd/mm/yyyy',
-    //            container: container,
-    //            todayHighlight: true,
-    //            autoclose: true,
-    //        })
-    //    });
+   
     var currency = $('#currency').val().slice(-2).replace(')', '');
        $('.localization').html(currency);
         var currency = $('#currency').val().slice(-2).replace(')', '');
