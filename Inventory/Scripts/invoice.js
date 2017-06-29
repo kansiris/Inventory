@@ -109,7 +109,7 @@ function saveInvoice(cid) {
     else{
         var Subtotal = ((document.getElementById("subtotal").textContent).split('₹')[1]);
     }
-    alert(Subtotal);
+    //alert(Subtotal);
     //var cgst=
   
     var Vat = $("[id='vat']").val();

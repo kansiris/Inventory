@@ -42,12 +42,12 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString, "checkInvoicenum",Invoice_no);
         }
 
-        public static int InsertInvoice(string dbname, string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos,string status, string product_id, string product_name, string cost_price, string po_quantity, string total_price)
+        public static int InsertInvoice(string dbname, string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos,string status, string product_id, string product_name, string cost_price, string po_quantity, string total_price, string cgst_rate, string cgst_amount, string sgst_rate, string sgst_amount, string igst_rate, string igst_amount)
         {
 
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoinsertinvoice", Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos,status, product_id, product_name, cost_price, po_quantity, total_price);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "sptoinsertinvoice", Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos,status, product_id, product_name, cost_price, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
         }
         public static int UpdatePoforInvoice(string dbname, string customer_id, string Prchaseorder_nos,string invoice_status)
         {

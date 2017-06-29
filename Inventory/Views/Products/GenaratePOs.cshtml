@@ -43,8 +43,10 @@
                                 @{ Html.RenderAction("CustomerforPOs", "Products");}
 
                                 <div class="col-xs-12 col-md-3 margin-bottom">
-                                    <div class="row padding-bottom date" id="po_date"> Date :
-                                    <script> document.write(new Date().toLocaleDateString('en-GB'));</script></div>
+                                    <div class="row padding-bottom date" id="po_date">
+                                        Date :
+                                        <script> document.write(new Date().toLocaleDateString('en-GB'));</script>
+                                    </div>
                                     <div class="row total-amount"> <text class="localization"></text> <span>@ViewBag.totalamount</span> </div>
                                 </div>
                             </div>
@@ -64,7 +66,7 @@
                                     <thead>
                                     </thead>
                                     <tbody>
-                                        
+
                                         <tr>
                                             <td class="col-xs-6 col-md-2">Shipping Date</td>
                                             <td class="col-xs-6 col-md-4">
@@ -207,7 +209,6 @@
             today1 = dd + '/' + MMM + '/' + yyyy;
             a = new Date(yyyy, MMM, dd);
             b = new Date(shipdate.split('/')[2], shipdate.split('/')[1], shipdate.split('/')[0]);
-            alert(b);
             if (b <= a) {
                 warnmsg("Select a Valid Date.");
                 $('#shipping_date').val("");

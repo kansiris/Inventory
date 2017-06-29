@@ -85,7 +85,7 @@ function genaratepo() {
 
 $('#plus').click(function () {
     var qty = this.prev('input[type=text]').val();
-    alert(qty);
+    //alert(qty);
 });
 
 //updatecart
