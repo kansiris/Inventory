@@ -33,7 +33,6 @@ namespace Inventory.Controllers
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var records = ProductService.GetAllCategories(user.DbName);
                 var dt = new DataTable();
@@ -49,7 +48,6 @@ namespace Inventory.Controllers
                 ViewBag.records = product;
                 return PartialView("AllCategories", ViewBag.records);
             }
-
             return PartialView("AllCategories", null);
         }
         //for loading all subcategories based on  category
@@ -57,7 +55,6 @@ namespace Inventory.Controllers
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var records = ProductService.GetAllSubCategories(user.DbName, category_id);
                 var dt = new DataTable();
@@ -75,19 +72,14 @@ namespace Inventory.Controllers
                 ViewBag.records = product;
                 return PartialView("AllSubCategories", ViewBag.records);
             }
-
             return PartialView("AllCategories", null);
         }
-
-
         [HttpGet]
         //for subcategory
         public PartialViewResult Getproductsbysubcategory(string sub_category)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var records = ProductService.Getproductsbysubcategory(user.DbName, sub_category);
                 var dt = new DataTable();
@@ -105,8 +97,6 @@ namespace Inventory.Controllers
             }
             return PartialView("allproducts", null);
         }
-
-
 
         public JsonResult Getproducts(string sub_category)
         {
@@ -142,7 +132,6 @@ namespace Inventory.Controllers
             return null;
         }
 
-
         public PartialViewResult allproducts()
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -162,7 +151,7 @@ namespace Inventory.Controllers
                                    Quantity_Total = row["quantity"].ToString(),
                                }).ToList();
                 ViewBag.records = description;
-                ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")","");
+                ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")", "");
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
@@ -239,11 +228,9 @@ namespace Inventory.Controllers
 
         public JsonResult Addtocart(string cid, string product_name, string cost_price, string Quantity, string Measurement, string total_price, string product_images, string product_id)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-
                 //var records = ProductService.GetqtyInHand(user.DbName, product_id);
                 //var dt = new DataTable();
                 //dt.Load(records);
@@ -280,7 +267,6 @@ namespace Inventory.Controllers
         //for updatecart
         public JsonResult UpdateCart(int cart_id, string Quantity, string total_price)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -293,29 +279,32 @@ namespace Inventory.Controllers
         }
 
         public PartialViewResult Addtocartpartial(string cid)
-
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var records = ProductService.Addtocartbyid(user.DbName, cid);
-            var dt = new DataTable();
-            dt.Load(records);
-            List<Product> cartaddedproducts = (from DataRow row in dt.Rows
-                                               select new Product()
-                                               {
-                                                   customer_id = row["customer_id"].ToString(),
-                                                   cart_id = int.Parse(row["cart_id"].ToString()),
-                                                   product_name = row["product_name"].ToString(),
-                                                   cost_price = row["cost_price"].ToString(),
-                                                   Quantity = row["Quantity"].ToString(),
-                                                   product_images = row["product_images"].ToString(),
-                                                   Measurement = row["Measurement"].ToString(),
-                                                   Quantity_Total = row["warehouseqty"].ToString(),
-                                                   total_price = row["total_price"].ToString(),
-                                               }).ToList();
-            ViewBag.records = cartaddedproducts;
-            ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
-            ViewBag.cartqtycount = cartaddedproducts.Select(m => float.Parse(m.Quantity)).Sum();
-            return PartialView("Addtocartpartial", ViewBag.records);
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var records = ProductService.Addtocartbyid(user.DbName, cid);
+                var dt = new DataTable();
+                dt.Load(records);
+                List<Product> cartaddedproducts = (from DataRow row in dt.Rows
+                                                   select new Product()
+                                                   {
+                                                       customer_id = row["customer_id"].ToString(),
+                                                       cart_id = int.Parse(row["cart_id"].ToString()),
+                                                       product_name = row["product_name"].ToString(),
+                                                       cost_price = row["cost_price"].ToString(),
+                                                       Quantity = row["Quantity"].ToString(),
+                                                       product_images = row["product_images"].ToString(),
+                                                       Measurement = row["Measurement"].ToString(),
+                                                       Quantity_Total = row["warehouseqty"].ToString(),
+                                                       total_price = row["total_price"].ToString(),
+                                                   }).ToList();
+                ViewBag.records = cartaddedproducts;
+                ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
+                ViewBag.cartqtycount = cartaddedproducts.Select(m => float.Parse(m.Quantity)).Sum();
+                return PartialView("Addtocartpartial", ViewBag.records);
+            }
+            return PartialView("Addtocartpartial", "");
         }
         //for genRte pos
         [HttpGet]
@@ -354,11 +343,9 @@ namespace Inventory.Controllers
 
         public PartialViewResult CustomerforPOs(string cid)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-
                 var dt = new DataTable();
                 var records = CustomerService.getAllDetailsByCompany_Id(user.DbName, cid);
                 dt.Load(records);
@@ -385,7 +372,6 @@ namespace Inventory.Controllers
             return PartialView("CustomerforPOs", null);
         }
 
-
         //removing from cart
         public JsonResult Removefromcart(int cart_id)
         {
@@ -403,7 +389,6 @@ namespace Inventory.Controllers
         }
         //for genarate purchase order
         public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string shipping_date, string shipping_terms, string remarks, string sub_total, string grand_total)// float vat, float discount,
-
         {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var dt = new DataTable();
@@ -424,10 +409,10 @@ namespace Inventory.Controllers
                                               }).ToList();
             var ff = cartaddedproduct.Count;
             int count = 0;
-            
+
             if (Prchaseorder_no != "")
             {
-               
+
                 for (int i = 0; i < ff; i++)
                 {
                     string product_id = (cartaddedproduct.Select(m => m.product_id).ToList())[i];
@@ -447,13 +432,12 @@ namespace Inventory.Controllers
                                              new_pos = row["pos"].ToString(),
                                          }).ToList();
                     string new_pos = pos.Select(m => m.new_pos).ToList().First();
-                   InvoiceService.UpdatenewPoinCustomer(user.DbName, cid, new_pos);
-
+                    InvoiceService.UpdatenewPoinCustomer(user.DbName, cid, new_pos);
+                    //UpdateStock(user.DbName, product_id,quantity);
                 }
                 if (count > 0)
                 {
                     ProductService.Emptycart(user.DbName, cid);
-                    
                     return Json("success");
                 }
             }
@@ -476,7 +460,6 @@ namespace Inventory.Controllers
         //for displaying pos of customer
         public PartialViewResult PosOfCustomer(string cid)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -504,7 +487,6 @@ namespace Inventory.Controllers
         //for displaying pos of customer
         public PartialViewResult ViewPoDetails(string Prchaseorder_no, string cid)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -537,7 +519,6 @@ namespace Inventory.Controllers
         //for displaying pos of customer(multiple products partview)
         public PartialViewResult ViewPoproducts(string Prchaseorder_no, string cid)
         {
-
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -547,8 +528,8 @@ namespace Inventory.Controllers
                 List<Product> podetails = (from DataRow row in dt.Rows
                                            select new Product()
                                            {
-                                               Prchaseorder_no= Prchaseorder_no,
-                                               product_id= row["product_id"].ToString(),
+                                               Prchaseorder_no = Prchaseorder_no,
+                                               product_id = row["product_id"].ToString(),
                                                product_name = row["product_name"].ToString(),
                                                description = row["description"].ToString(),
                                                Quantity = row["Quantity"].ToString(),
@@ -559,6 +540,14 @@ namespace Inventory.Controllers
                 return PartialView("ViewPoproducts", ViewBag.records);
             }
             return PartialView("ViewPoproducts", null);
+        }
+
+        public void UpdateStock(string dbname, string product_id, string quantity)
+        {
+            var records = ProductService.GetQuantityInHand(dbname, product_id);
+            DataTable dt = new DataTable();
+            dt.Load(records);
+            Product qty = (from DataRow row in dt.Rows select new Product() { Quantity_Total = row["Total"].ToString() }).FirstOrDefault();
         }
     }
 }

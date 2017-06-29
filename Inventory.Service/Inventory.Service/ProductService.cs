@@ -154,6 +154,13 @@ namespace Inventory.Service
         }
         #endregion
 
+        #region Update Product Stock
+        public static int UpdateStock(string dbname, string id, string total)
+        {
+            return ProductRepository.UpdateStock(dbname, id, total);
+        }
+        #endregion
+
         //to get all categories
         public static SqlDataReader GetAllCategories(string dbname)
         {
