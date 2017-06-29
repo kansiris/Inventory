@@ -547,7 +547,9 @@ namespace Inventory.Controllers
             var records = ProductService.GetQuantityInHand(dbname, product_id);
             DataTable dt = new DataTable();
             dt.Load(records);
-            Product qty = (from DataRow row in dt.Rows select new Product() { Quantity_Total = row["Total"].ToString() }).FirstOrDefault();
+            List<Product> qty = (from DataRow row in dt.Rows select new Product() { Quantity = row["Qty"].ToString(), Quantity_Total = row["Total"].ToString() }).ToList();
+            string updatedqty = qty.Select(m => m.Quantity).Max();
+            string updatedTotal = qty.Select(m => m.Quantity_Total).Take(1).ToString();
         }
     }
 }
