@@ -11,5 +11,8 @@
         
     }
     $('#paidamt').val(sum);
+    var previous = $("#previousamt").val();
+    $("#currntamt").val(previous - sum);
+    
 }
 

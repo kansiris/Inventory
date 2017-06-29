@@ -246,7 +246,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Paid Amount </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="paidamt" onloadeddata="calculateamount(this.value)">
+                                                <input type="text" class="form-control" id="paidamt">
                                             </div>
                                         </div>
                                     </div>
@@ -349,10 +349,10 @@
     });
 
 
-    function calculateamount(paidamunt) {
-        var previous = $("#previousamt").val();
-        $("#currntamt").val(previous - paidamunt);
-    }
+    //function calculateamount(paidamunt) {
+    //    var previous = $("#previousamt").val();
+    //    $("#currntamt").val(previous - paidamunt);
+    //}
     //<!----------------- Payment Section------------->
 
     window.enableText = function (e) {
