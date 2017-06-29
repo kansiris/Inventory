@@ -46,7 +46,7 @@ namespace Inventory.Controllers
                     for (int i = 0; i < product.Quantity_QtyStock.Count; i++)
                     {
                         int newstock = int.Parse(product.Quantity_Qty[i]) + int.Parse(product.Quantity_QtyStock[i]);
-                        int response = ProductService.UpdateStock(user.DbName, product.Qid[i].ToString(), newstock.ToString(), product.Quantity_Total);
+                        int response = ProductService.UpdateStock(user.DbName, product.Qid[i].ToString(),int.Parse(newstock.ToString()), product.Quantity_Total);
                     }
                     //addproductlog(pid, user.DbName, "1006", "StarBucks");  //Product & Quantity In Hand Log
                     TempData["smsg"] = "Stock Updated Successfully!!!";
@@ -140,7 +140,7 @@ namespace Inventory.Controllers
             {
                 for (int i = 0; i < AvailableQty.Count; i++)
                 {
-                    int response = ProductService.AddQuantityInHandLog(dbname, AvailableQty[i].Quantity_id, pid, AvailableQty[i].Quantity_area, AvailableQty[i].Qty_Stock, AvailableQty[i].Qty_Reorder, AvailableQty[i].Quantity_Total, vendorid, vendor);
+                    int response = ProductService.AddQuantityInHandLog(dbname, AvailableQty[i].Quantity_id, pid, AvailableQty[i].Quantity_area,int.Parse(AvailableQty[i].Qty_Stock), AvailableQty[i].Qty_Reorder, AvailableQty[i].Quantity_Total, vendorid, vendor);
                 }
             }
         }

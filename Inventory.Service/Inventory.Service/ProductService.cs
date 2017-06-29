@@ -64,7 +64,7 @@ namespace Inventory.Service
         #endregion
 
         #region Add Quantity In Hand
-        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty, string reorder, string Total)
+        public static int AddQuantityInHand(string dbname, string product_id, string area, int Qty, string reorder, string Total)
         {
             return ProductRepository.AddQuantityInHand(dbname, product_id, area, Qty, reorder, Total);
         }
@@ -99,7 +99,7 @@ namespace Inventory.Service
         #endregion
 
         #region Update Stock
-        public static int UpdateStock(string dbname, string id, string qty,string total)
+        public static int UpdateStock(string dbname, string id, int qty,string total)
         {
             return ProductRepository.UpdateStock(dbname,id,qty,total);
         }
@@ -126,7 +126,7 @@ namespace Inventory.Service
         #endregion
 
         #region Add Quantity In Hand Log
-        public static int AddQuantityInHandLog(string dbname, int mainquantity_id, string product_id, string area, string Qty,string reorder,string Total, string vendor_id, string vendor)
+        public static int AddQuantityInHandLog(string dbname, int mainquantity_id, string product_id, string area, int Qty,string reorder,string Total, string vendor_id, string vendor)
         {
             return ProductRepository.AddQuantityInHandLog(dbname, mainquantity_id, product_id, area, Qty, reorder, Total, vendor_id, vendor);
         }
@@ -140,7 +140,7 @@ namespace Inventory.Service
         #endregion
 
         #region Update Product Stock & Re-Oreder Level
-        public static int UpdateReorder(string dbname, string id, string qty, string reorder, string total)
+        public static int UpdateReorder(string dbname, string id, int qty, string reorder, string total)
         {
             return ProductRepository.UpdateReorder(dbname, id, qty, reorder, total);
         }
@@ -154,12 +154,26 @@ namespace Inventory.Service
         }
         #endregion
 
-        #region Update Product Stock
-        public static int UpdateStock(string dbname, string id, string total)
+        #region Update Max Warehouse Qty
+        public static int updateMaxWarehouseQty(string dbname, string product_id, string id, int qty, string total)
         {
-            return ProductRepository.UpdateStock(dbname, id, total);
+            return ProductRepository.updateMaxWarehouseQty(dbname, product_id,id,qty, total);
         }
         #endregion
+
+        #region Get Max Warehouse Qty
+        public static SqlDataReader GetMaxWarehouseQty(string dbname, string id)
+        {
+            return ProductRepository.GetMaxWarehouseQty(dbname, id);
+        }
+        #endregion
+
+        //#region Update Product Stock
+        //public static int UpdateStock(string dbname, string id, string total)
+        //{
+        //    return ProductRepository.UpdateStock(dbname, id, total);
+        //}
+        //#endregion
 
         //to get all categories
         public static SqlDataReader GetAllCategories(string dbname)
