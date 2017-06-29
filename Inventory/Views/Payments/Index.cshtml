@@ -70,7 +70,7 @@
                                                     <th class="col-md-3">Amount In <text class="localization"></text></th>
                                                 </tr>
                                             </thead>
-                                            @*@{ Html.RenderAction("InvoicesForPayment", "Payments");}*@
+                                           
                                             @if (ViewBag.records != null)
                                             {
                                                 foreach (var item in ViewBag.records)
@@ -78,7 +78,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="col-md-1">
-                                                                <label><input type="checkbox" value=""></label>
+                                                                <label><input type="checkbox" value="@item.total_price" onclick="addtotal()"></label>
                                                             </td>
                                                             <td class="col-md-2">@item.Prchaseorder_no</td>
                                                             <td class="col-md-3">@item.created_date</td>
@@ -246,7 +246,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Paid Amount </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="paidamt" onkeyup="calculateamount(this.value)">
+                                                <input type="text" class="form-control" id="paidamt" onloadeddata="calculateamount(this.value)">
                                             </div>
                                         </div>
                                     </div>
@@ -303,6 +303,7 @@
                             <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                            <button type="button" class="btn btn-primary pull-right save" id="save-payments"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
                 </form>
@@ -329,7 +330,7 @@
 <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
 
 <!-------------- Date Picker lib ----------->
-
+@Scripts.Render("~/bundles/Payments")
 <script>
 @*<!-------------- Date Picker ----------->*@
     $(document).ready(function () {
@@ -428,4 +429,17 @@
     var invoicetotalamount = parseInt($(".invoice-total-amount > span").text());
         $("input[type='text'].pre-balance").val(invoicetotalamount);
     //<!-------------- balance block ----------->
+        //var checkboxval = $("input:checkbox:checked").prop('checked');
+        //function addtotal(){
+        ////    alert(totalval);
+        //    var totalamnt = $("input:checkbox:checked").map(function () {
+        //        return this.value;
+        //    }).toArray();
+        //    alert(totalamnt.length);
+        //    var i = 0;
+        //    for(i;i<totalamnt.length;i++){
+        //        totalamnt = totalamnt + totalamnt[i];
+        //    }
+        //    alert(totalamnt);
+        //}
 </script>

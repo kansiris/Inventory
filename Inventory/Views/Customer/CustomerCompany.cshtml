@@ -75,13 +75,11 @@
                                                {
                                                     <li> <a onclick="viewallinvoices(@item.cus_company_Id)" style="display:none"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a> </li>
                                                     <li> <a href="~/Payments?cid=@item.cus_company_Id&&cname=@item.cus_company_name" style="display:none"><i class="fa fa-money" aria-hidden="true"></i>Receive Payment</a> </li>
-
                                                 }
                                                 else
                                                 {
                                                     <li> <a onclick="viewallinvoices(@item.cus_company_Id)"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a> </li>
                                                     <li> <a href="~/Payments?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Receive Payment</a> </li>
-
                                                 }
                                                 <li> <a><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>
                                             </ul>
