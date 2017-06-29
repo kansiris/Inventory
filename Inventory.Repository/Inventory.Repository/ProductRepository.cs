@@ -83,7 +83,7 @@ namespace Inventory.Repository
         #endregion
 
         #region Add Quantity In Hand
-        public static int AddQuantityInHand(string dbname, string product_id, string area, string Qty, string reorder, string Total)
+        public static int AddQuantityInHand(string dbname, string product_id, string area, int Qty, string reorder, string Total)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -128,7 +128,7 @@ namespace Inventory.Repository
         #endregion
 
         #region Update Stock
-        public static int UpdateStock(string dbname, string id, string qty, string total)
+        public static int UpdateStock(string dbname, string id, int qty, string total)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -161,7 +161,7 @@ namespace Inventory.Repository
         #endregion
 
         #region Add Quantity In Hand Log
-        public static int AddQuantityInHandLog(string dbname, int mainquantity_id, string product_id, string area, string Qty, string reorder,
+        public static int AddQuantityInHandLog(string dbname, int mainquantity_id, string product_id, string area, int Qty, string reorder,
             string Total, string vendor_id, string vendor)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
@@ -180,7 +180,7 @@ namespace Inventory.Repository
         #endregion
 
         #region Update Product Stock & Re-Oreder Level
-        public static int UpdateReorder(string dbname, string id, string qty, string reorder, string total)
+        public static int UpdateReorder(string dbname, string id, int qty, string reorder, string total)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -199,11 +199,29 @@ namespace Inventory.Repository
         #endregion
 
         #region Update Product Stock
-        public static int UpdateStock(string dbname, string id, string total)
+        public static int UpdateProductStock(string dbname, string id, string total)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "updateproductqty", id, total);
+        }
+        #endregion
+
+        #region Get Max Warehouse Qty
+        public static SqlDataReader GetMaxWarehouseQty(string dbname, string id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "GetMaxWarehouseQty", id);
+        }
+        #endregion
+
+        #region Update Max Warehouse Qty
+        public static int updateMaxWarehouseQty(string dbname, string product_id, string id, int qty, string total)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updateMaxWarehouseQty", product_id, id, qty, total);
         }
         #endregion
 

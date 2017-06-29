@@ -433,7 +433,7 @@ namespace Inventory.Controllers
                                          }).ToList();
                     string new_pos = pos.Select(m => m.new_pos).ToList().First();
                     InvoiceService.UpdatenewPoinCustomer(user.DbName, cid, new_pos);
-                    //UpdateStock(user.DbName, product_id,quantity);
+                    UpdateStock(user.DbName, product_id,quantity);
                 }
                 if (count > 0)
                 {
@@ -544,12 +544,13 @@ namespace Inventory.Controllers
 
         public void UpdateStock(string dbname, string product_id, string quantity)
         {
-            var records = ProductService.GetQuantityInHand(dbname, product_id);
+            var records = ProductService.GetMaxWarehouseQty(dbname, product_id);
             DataTable dt = new DataTable();
             dt.Load(records);
-            List<Product> qty = (from DataRow row in dt.Rows select new Product() { Quantity = row["Qty"].ToString(), Quantity_Total = row["Total"].ToString() }).ToList();
-            string updatedqty = qty.Select(m => m.Quantity).Max();
-            string updatedTotal = qty.Select(m => m.Quantity_Total).Take(1).ToString();
+            Product qty = (from DataRow row in dt.Rows select new Product() { ID = row["id"].ToString(), Quantity = row["Qty"].ToString(), Quantity_Total = row["Total"].ToString() }).FirstOrDefault();
+            int updatedqty = int.Parse(qty.Quantity) - int.Parse(quantity);
+            int updatedTotal = int.Parse(qty.Quantity_Total) - int.Parse(quantity);
+            int count = ProductService.updateMaxWarehouseQty(dbname,product_id,qty.ID,updatedqty,updatedTotal.ToString());
         }
     }
 }

@@ -106,7 +106,7 @@ namespace Inventory.Controllers
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)
                         {
-                            int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, product.Quantity_Qty[i], product.Reorder_level[i], product.Quantity_Total);
+                            int response = ProductService.AddQuantityInHand(user.DbName, product_id, ViewBag.AvailableWarehouses[i].wh_Shortname, int.Parse(product.Quantity_Qty[i]), product.Reorder_level[i], product.Quantity_Total);
                         }
                         TempData["smsg"] = "Product Added Successfully!!!";
                         //return Content("<script language='javascript' type='text/javascript'>alert('Product Added Successfully!!!');location.href='" + @Url.Action("Index", "AllProducts") + "'</script>"); // Redirects to AllProducts View
@@ -168,7 +168,7 @@ namespace Inventory.Controllers
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)
                         {
-                            int response = ProductService.UpdateReorder(user.DbName, product.Qid[i].ToString(), product.Quantity_Qty[i], product.Reorder_level[i], product.Quantity_Total);
+                            int response = ProductService.UpdateReorder(user.DbName, product.Qid[i].ToString(),int.Parse(product.Quantity_Qty[i]), product.Reorder_level[i], product.Quantity_Total);
                         }
                         TempData["smsg"] = "Product Updated Successfully!!!"; //Success Message
                     }
