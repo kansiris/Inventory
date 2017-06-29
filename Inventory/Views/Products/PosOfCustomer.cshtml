@@ -36,9 +36,7 @@
                         <tr>
                             <th>PO Number</th>
                             <th>Company Name</th>
-                            @*<th>Total Price</th>*@
                             <th>PO Created Date</th>
-                            @*<th>Payment Date</th>*@
                             <th>Delivery Note</th>
                             <th>Invoice</th>
                             <th>Action</th>
@@ -52,37 +50,44 @@
                                 <tr>
                                     <td>@item.Prchaseorder_no</td>
                                     <td> @item.company_name </td>
-                                    @*<td> @item.total_price </td>*@
                                     <td> @item.created_date </td>
-                                    @*<td> @item.Payment_date </td>*@
-                                    @if (int.Parse(@item.deliverynote_status) == 1) {
-                                    <td><input type="checkbox" id="fordeliv" checked disabled/></td>
+                                    @if (int.Parse(@item.deliverynote_status) == 1)
+                                    {
+                                        <td><input type="checkbox" id="fordeliv" checked disabled /></td>
                                     }
-                                    else { 
-                                    <td><input type="checkbox" id="fordeliv" disabled/></td>
+                                    else
+                                    {
+                                        <td><input type="checkbox" id="fordeliv" disabled /></td>
                                     }
-                                    @if (int.Parse(@item.invoice_status) == 1) {
-                                    <td><input type="checkbox" id="forinvoice" checked disabled/></td>
+                                    @if (int.Parse(@item.invoice_status) == 1)
+                                    {
+                                        <td><input type="checkbox" id="forinvoice" checked disabled /></td>
                                     }
-                                    else {
-                                    <td><input type="checkbox" id="fordeliv" disabled/></td>
+                                    else
+                                    {
+                                        <td><input type="checkbox" id="fordeliv" disabled /></td>
                                     }
-                                    @*<td>
-                                        <div class="btn-group">
-                                            <button onclick="viewpodetails('@item.Prchaseorder_no',@item.customer_id);" title="View PO Details">View PO</button>
-                                        </div>
-                                    </td>*@
 
-                                   <td>
+                                    <td>
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                             <ul class="dropdown-menu">
                                                 <li> <a onclick="viewpodetails('@item.Prchaseorder_no',@item.customer_id);" title="View PO Details"><i class="fa fa-eye" aria-hidden="true"></i>View PO Details</a> </li>
-                                                @*<li> <a onclick="viewallpos(@item.cus_company_Id)"><i class="fa fa-building-o" aria-hidden="true"></i>View PO's</a> </li>*@
-                                                <li> <a href="~/Invoice?cid=@item.customer_id&&cname=@item.company_name"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
-                                                <li> <a onclick="viewinvoicedetails('@item.Prchaseorder_no',@item.customer_id);"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a></li>
-                                                <li> <a><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>
-                                                <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
+                                                
+                                                @if (int.Parse(@item.invoice_status) == 1)
+                                                {
+                                                    <li> <a href="~/Invoice?cid=@item.customer_id&&cname=@item.company_name" style="display:none"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
+                                                    <li> <a onclick="viewinvoicedetails('@item.Prchaseorder_no',@item.customer_id);"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a></li>
+                                                    <li> <a><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>
+                                                    <li> <a><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
+                                                }
+                                                else
+                                                {
+                                                    <li> <a href="~/Invoice?cid=@item.customer_id&&cname=@item.company_name"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
+                                                    <li> <a onclick="viewinvoicedetails('@item.Prchaseorder_no',@item.customer_id);" style="display:none"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a></li>
+                                                    <li> <a style="display:none"><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>
+                                                    <li> <a style="display:none"><i class="fa fa-money" aria-hidden="true"></i>Make Payment</a> </li>
+                                                }
                                             </ul>
                                         </div>
                                     </td>
@@ -123,15 +128,15 @@
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';
         });
-        
+
         //$(document).ready(function (e) {
-           
+
         //    //if ($('#fordeliv').val() == 1)
         //    if($("[id='fordeliv']").val()==1)
         //        $("#fordeliv").prop('checked', true);
         //    else
         //        $("#fordeliv").prop('checked', false);
-      
+
         //    if ($("[id='forinvoice']").val() == 1)
         //        $("#forinvoice").prop('checked', true);
         //    else
