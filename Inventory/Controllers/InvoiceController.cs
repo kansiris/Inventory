@@ -324,12 +324,22 @@ namespace Inventory.Controllers
                             //string total_price = (productsinpo.Select(m => m.total_price).ToList())[i];
                             string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];//after this will be chnaged.
                             string total_price = (int.Parse(po_quantity) * float.Parse(cost_price)).ToString();
+
+                            //dummy values for time sake
+                            string cgst_rate = 2.ToString();
+                            string cgst_amount = 200.ToString();
+                            string sgst_rate = 3.ToString();
+                            string sgst_amount = 300.ToString();
+                            string igst_rate = 4.ToString();
+                            string igst_amount = 400.ToString();
+
+
                             count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status
-                                , product_id, product_name, cost_price, po_quantity, total_price);
+                                , product_id, product_name, cost_price, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
                             count++;
                         }
 
-                        
+
                         //count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status);
                         if (count > 0)
                         {
