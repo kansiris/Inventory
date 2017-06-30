@@ -10,9 +10,17 @@
         sum = sum + parseInt(totalamnt[i]);
         
     }
-    $('#paidamt').val(sum);
-    var previous = $("#previousamt").val();
-    $("#currntamt").val(previous - sum);
+    $('#invoicedamt').val(sum);
+    //var previous = $("#previousamt").val();
+    //var recevdamnt = $("#paidamt").val();
+    //$("#currntamt").val(parseInt(previous) + sum);
     
+}
+
+function calculateamnt() {
+    var invamt = $("#invoicedamt").val();
+    var previous = $("#previousamt").val();
+    var recevdamnt = $("#paidamt").val();
+    $("#currntamt").val((parseInt(previous) - recevdamnt));
 }
 
