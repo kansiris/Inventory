@@ -8,8 +8,14 @@
     var lent = totalamnt.length;
     for (var i = 0; i < lent; i++) {
         sum = sum + parseInt(totalamnt[i]);
-        
     }
-    $('#paidamt').val(sum);
+    $('#invoicedamt').val(sum);
+}
+
+function calculateamnt() {
+    var invamt = $("#invoicedamt").val();
+    var previous = $("#previousamt").val();
+    var recevdamnt = $("#paidamt").val();
+    $("#currntamt").val((parseInt(previous) - recevdamnt));
 }
 
