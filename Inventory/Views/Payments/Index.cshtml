@@ -188,6 +188,18 @@
                                                     <input type="text" class="form-control" id="usr">
                                                 </div>
                                             </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label>IFSC Code </label>
+                                                    <input type="text" class="form-control" id="usr">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label>Branch Name </label>
+                                                    <input type="text" class="form-control" id="usr">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="payment-option">
@@ -209,7 +221,7 @@
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <label>Card Holder name</label>
+                                                    <label>Holder name</label>
                                                     <input type="text" class="form-control" id="usr">
                                                 </div>
                                             </div>
@@ -242,16 +254,26 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 payment-right">
+
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-5 col-md-5"> Paid Amount </div>
+                                        <div class="col-xs-12 col-sm-5 col-md-5"> Invoiced Amount </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="paidamt" onloadeddata="calculateamount(this.value)">
+                                                <input type="text" class="form-control" id="invoicedamt">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-5 col-md-5"> Received Amount </div>
+                                        <div class="col-xs-12 col-sm-7 col-md-7">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="paidamt" onkeyup="calculateamnt()">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-5 col-md-5"> Previous Balance </div>
+                                        <div class="col-xs-12 col-sm-5 col-md-5"> Opening Balance </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
                                                 <input type="text" class="form-control pre-balance" id="previousamt">
@@ -303,7 +325,7 @@
                             <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
-                            <button type="button" class="btn btn-primary pull-right save" id="save-payments"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                            <button type="button" class="btn btn-primary pull-right save" id="save-payments" onclick="savepayments()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
                 </form>
@@ -349,10 +371,10 @@
     });
 
 
-    function calculateamount(paidamunt) {
-        var previous = $("#previousamt").val();
-        $("#currntamt").val(previous - paidamunt);
-    }
+    //function calculateamount(paidamunt) {
+    //    var previous = $("#previousamt").val();
+    //    $("#currntamt").val(previous - paidamunt);
+    //}
     //<!----------------- Payment Section------------->
 
     window.enableText = function (e) {
