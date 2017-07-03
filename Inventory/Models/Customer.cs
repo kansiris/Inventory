@@ -72,6 +72,8 @@ namespace Inventory.Models
         public string tax_files { get; set; }
         public string new_POs { get; set; }
         public string total_POs { get; set; }
+        public string due { get; set; }
+        public string overdue { get; set; }
 
     }
 }

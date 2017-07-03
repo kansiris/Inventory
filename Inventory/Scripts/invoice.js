@@ -96,7 +96,7 @@ function saveInvoice(cid) {
     var vendorname = document.getElementById("vendor_name").textContent;
     
     var customerid = cid;
-    var paydate = $("[id='date']").val();
+    var paydate = $("[id='pay_date']").val();
     var createddate = (document.getElementById("createddate").textContent).split(':')[1];
     var grandtotl = (document.getElementById("grandtotal").textContent);
     var companyName = (document.getElementById("companyname").textContent).split(':')[1];

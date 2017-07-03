@@ -50,8 +50,26 @@
                                     {
                                         <td style="text-align: center">@item.total_POs</td>
                                     }
-                                    <td style="text-align: center">Testing</td>
-                                    <td style="text-align: center">Testing</td>
+                                    @*<td style="text-align: center">0</td>
+                                    <td style="text-align: center">0</td>*@
+
+                                    @if (item.due == null || item.due == "")
+                                    {
+                                        <td style="text-align: center">0</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align: center">@item.due</td>
+                                    }
+                                    @if (item.overdue == null || item.overdue == "")
+                                    {
+                                        <td style="text-align: center">0</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align: center">@item.overdue</td>
+                                    }
+
                                     <td>
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>

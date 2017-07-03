@@ -50,9 +50,9 @@
                                 @{ Html.RenderAction("CustomerforPOs", "Products");}
                                 
                                 <div class="col-xs-12 col-md-3 margin-bottom">
-                                    <div class="row padding-bottom date"> Date :
+                                    <div class="row padding-bottom date" id="paymentsddate"> Date :
                                     <script> document.write(new Date().toLocaleDateString('en-GB'));</script> </div>
-                                    <div class="row invoice-total-amount"> <text class="localization"></text> <span>@ViewBag.total_price</span> </div>
+                                    <div class="row invoice-total-amount" id="invoicedtotal"> <text class="localization"></text> <span>@ViewBag.total_price</span> </div>
                                 </div>
                             </div>
 
@@ -111,19 +111,19 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="chequedate" name="date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Bank name</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="bankname">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Cheque No</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="chequeno">
                                                 </div>
                                             </div>
                                         </div>
@@ -142,19 +142,19 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="creditdate" name="date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Card Holder name</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="creditcardholdername">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Last 4 digits </label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="creditcardlast4digits">
                                                 </div>
                                             </div>
                                         </div>
@@ -162,7 +162,7 @@
                                     <div class="payment-option">
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="optradio" id="radio-baltransfer" onchange="enableText(this)">
+                                                <input type="radio" name="optradio" id="radio-banktransfer" onchange="enableText(this)">
                                                 Bank Transfer
                                             </label>
                                         </div>
@@ -173,31 +173,31 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="banktransferdate" name="date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Name</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="banknametrans">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Transaction Id </label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="transactionid">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>IFSC Code </label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="ifsccode">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Branch Name </label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="branchname">
                                                 </div>
                                             </div>
                                         </div>
@@ -216,13 +216,13 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="cashdate" name="date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Holder name</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="holdername">
                                                 </div>
                                             </div>
                                         </div>
@@ -241,13 +241,13 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="walletdate" name="date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Mobile Number</label>
-                                                    <input type="text" class="form-control" id="usr">
+                                                    <input type="text" class="form-control" id="mobilenumber">
                                                 </div>
                                             </div>
                                         </div>
@@ -325,7 +325,7 @@
                             <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
-                            <button type="button" class="btn btn-primary pull-right save" id="save-payments" onclick="savepayments()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                            <button type="button" class="btn btn-primary pull-right save" id="save-payments" onclick="savepayments(@ViewBag.customer_id,'@ViewBag.company_name')"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
                         </div>
                     </div>
                 </form>
@@ -401,7 +401,7 @@
             creditdetails.style.display = "none";
         }
 
-        if (e.id == 'radio-baltransfer') {
+        if (e.id == 'radio-banktransfer') {
             baltransferdetails.readOnly = false;
             baltransferdetails.style.display = "block";
         } else {
@@ -451,17 +451,5 @@
     var invoicetotalamount = parseInt($(".invoice-total-amount > span").text());
         $("input[type='text'].pre-balance").val(invoicetotalamount);
     //<!-------------- balance block ----------->
-        //var checkboxval = $("input:checkbox:checked").prop('checked');
-        //function addtotal(){
-        ////    alert(totalval);
-        //    var totalamnt = $("input:checkbox:checked").map(function () {
-        //        return this.value;
-        //    }).toArray();
-        //    alert(totalamnt.length);
-        //    var i = 0;
-        //    for(i;i<totalamnt.length;i++){
-        //        totalamnt = totalamnt + totalamnt[i];
-        //    }
-        //    alert(totalamnt);
-        //}
+       
 </script>
