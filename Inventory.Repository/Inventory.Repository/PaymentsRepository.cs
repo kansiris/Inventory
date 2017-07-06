@@ -40,5 +40,29 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteNonQuery(ConnectionString, "updatecustomerdues", customer_id, due, overdue);
         }
 
+        //updateopenamunt_invoice
+             public static int Updateinvoice(string dbname, string Prchaseorder_no,string open_amount)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updateopenamunt_invoice", Prchaseorder_no, open_amount);
+        }
+
+        //to check customerid in payments
+
+        public static SqlDataReader checkcustomerinPayments(string dbname, string customer_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkforcustomerinPayments", customer_id);
+        }
+
+        //forpayments podetails
+        public static SqlDataReader ForPaymentinvoicetotal(string dbname, string Prchaseorder_no)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "forpaymentponum", Prchaseorder_no);
+        }
     }
 }

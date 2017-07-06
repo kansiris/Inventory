@@ -1,7 +1,7 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&')[0].split('=')[1];
     var cname = document.URL.split('&&')[1].split('=')[1];
-    //alert(cname);
+    alert(cname);
     var checkboxval = $("input:checkbox:checked").prop('checked');
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
@@ -98,7 +98,13 @@ function saveInvoice(cid) {
     var customerid = cid;
     var paydate = $("[id='pay_date']").val();
     var createddate = (document.getElementById("createddate").textContent).split(':')[1];
-    var grandtotl = (document.getElementById("grandtotal").textContent);
+    //var grandtotl = (document.getElementById("grandtotal").textContent);
+    if (document.getElementById("grandtotal").textContent.startsWith('$')) {
+        var grandtotl = ((document.getElementById("grandtotal").textContent).split('$')[1]);
+    }
+    else {
+        var grandtotl = ((document.getElementById("grandtotal").textContent).split('₹')[1]);
+    }
     var companyName = (document.getElementById("companyname").textContent).split(':')[1];
     var invoiceNum = $("[id='invoicenum']").val();
     var paymenterms = $("[id='paymentterms']").val();

@@ -409,6 +409,7 @@ namespace Inventory.Controllers
                                                        company_name = row["company_name"].ToString(),
                                                        Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                        Invoice_no = row["Invoice_no"].ToString(),
+                                                       created_date = row["created_date"].ToString(),
                                                        Payment_date = row["payment_date"].ToString(),
                                                        payment_terms = row["payment_terms"].ToString(),
                                                        remarks = row["comment"].ToString(),
@@ -423,6 +424,7 @@ namespace Inventory.Controllers
                     ViewBag.records = productsinpos;
                     ViewBag.customer_id = cid;
                     ViewBag.Invoice_no = productsinpos.Select(m => m.Invoice_no).First();
+                    ViewBag.created_date = productsinpos.Select(m => m.created_date).First();
                     ViewBag.Payment_date = productsinpos.Select(m => m.Payment_date).First();
                     ViewBag.payment_terms = productsinpos.Select(m => m.payment_terms).First();
                     ViewBag.remarks = productsinpos.Select(m => m.remarks).First();

@@ -29,9 +29,22 @@ namespace Inventory.Service
         //update due in customer
         public static int Updatecustomerdue(string dbname, string customer_id, string due, string overdue)
         {
-
             return PaymentsRepository.Updatecustomerdue(dbname, customer_id, due, overdue);
         }
+        //Updateinvoice
+             public static int Updateinvoice(string dbname, string Prchaseorder_no, string open_amount)
+        {
+            return PaymentsRepository.Updateinvoice(dbname, Prchaseorder_no, open_amount);
+        }
+        public static SqlDataReader checkcustomerinPayments(string dbname, string customer_id)
+        {
+            return PaymentsRepository.checkcustomerinPayments(dbname, customer_id);
+        }
 
+        //ForPaymentinvoicetotal
+             public static SqlDataReader ForPaymentinvoicetotal(string dbname, string Prchaseorder_no)
+        {
+            return PaymentsRepository.ForPaymentinvoicetotal(dbname, Prchaseorder_no);
+        }
     }
 }
