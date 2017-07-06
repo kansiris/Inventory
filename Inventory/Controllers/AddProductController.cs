@@ -149,12 +149,13 @@ namespace Inventory.Controllers
                             System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
                             imagename = imagename + "," + fileName;
                         }
-                        imagename = imagename.TrimStart(',');
+                        //imagename = imagename.TrimStart(',');
                     }
                     if (imagename != null && imagename != "")
                         imagename = productimages + "," + imagename;
                     else
                         imagename = productimages;
+                    imagename = imagename.TrimStart(',');
                     if (product.product_tags == "" || product.product_tags == null)
                         product.product_tags = "";
                     else
