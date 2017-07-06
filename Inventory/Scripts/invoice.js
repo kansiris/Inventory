@@ -1,7 +1,7 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&')[0].split('=')[1];
     var cname = document.URL.split('&&')[1].split('=')[1];
-    alert(cname);
+    //alert(cname);
     var checkboxval = $("input:checkbox:checked").prop('checked');
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
