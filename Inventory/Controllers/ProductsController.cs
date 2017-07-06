@@ -141,16 +141,37 @@ namespace Inventory.Controllers
                 var records = ProductService.Getdistinctproducts(user.DbName);
                 dt.Load(records);
                 List<Product> description = new List<Product>();
-                description = (from DataRow row in dt.Rows
-                               select new Product()
-                               {
-                                   product_name = row["product_name"].ToString(),
-                                   brand = row["brand"].ToString(),
-                                   distinctproducts = row["BATCHNOLIST"].ToString(),
-                                   product_images = row["productimage"].ToString(),
-                                   Quantity_Total = row["quantity"].ToString(),
-                               }).ToList();
-                ViewBag.records = description;
+                var products = (from DataRow row in dt.Rows
+                                select new Product()
+                                {
+                                    product_name = row["product_name"].ToString(),
+                                    brand = row["brand"].ToString(),
+                                    distinctproducts = row["BATCHNOLIST"].ToString(),
+                                    product_images = row["productimage"].ToString(),
+                                    Quantity_Total = row["quantity"].ToString(),
+                                    Qty_Stock = row["ids"].ToString(),
+                                }).ToList();
+                List<Product> sorteddata =new List<Product>();
+                for (int i = 0; i < products.Count; i++)
+                {
+                    if (products[i].Quantity_Total == "0" || products[i].Quantity_Total == "")
+                    {
+
+                    }
+                    else
+                    {
+                        sorteddata.Add(new Product {
+                            product_name = products[i].product_name,
+                            brand = products[i].brand,
+                            distinctproducts = products[i].distinctproducts,
+                            product_images = products[i].product_images,
+                            Quantity_Total = products[i].Quantity_Total,
+                            Qty_Stock = products[i].Qty_Stock,
+                        });
+                    }
+                }
+                //ViewBag.records = sorteddata;
+                ViewBag.records = products;
                 ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")", "");
                 return PartialView("allproducts", ViewBag.records);
             }

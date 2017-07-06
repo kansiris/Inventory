@@ -153,3 +153,17 @@
 <script>
     window.onload = function () { $('#productcount').html(@ViewBag.records.Count);};
 </script>
+
+<script src="/Scripts/js/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var currency = $('#currency').val().slice(-2).replace(')', '');
+        $('.localization').html(currency);
+        var dateformat = $('#dateformat').val();
+        $('.cart-total-items').html(@ViewBag.cartqtycount);
+        $('.cart-total').html(@ViewBag.totalamount);
+        //alert(dateformat);
+    });
+</script>
