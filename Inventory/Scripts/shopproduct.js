@@ -215,6 +215,9 @@ function insertpo(totalamount) {
                 //var url = 'Products/Addtocartpartial?cid=' + cid;
                 //$('#cartrecords').load(url);
             }
+            if (data == "out of stock") {
+                warnmsg("out of stock");
+            }
         },
         error: function (data)
         { errormsg("Failed!!!"); }
