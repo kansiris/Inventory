@@ -184,7 +184,7 @@
         //<!------------ Quantity changes / Prices Multiple -------------->
         $(document).ready(function (e) {
             var tableprice, divprice, tabletotal, divtotal, divpriceright;
-            $('.productsection > .spinner > .input-group .btn:first-of-type').click(function () {
+            $(document).on('click', '.productsection > .spinner > .input-group .btn:first-of-type', function () {
                 var minus, v;
                 v = parseInt($(this).next("input[type='text']").val());
                 if (v > 1) {
@@ -204,7 +204,7 @@
                 }
                 return vals();
             });
-            $('.productsection > .spinner > .input-group .btn:last-of-type').click(function () {
+            $(document).on('click', '.productsection > .spinner > .input-group .btn:last-of-type', function () {
                 //alert("plus");
                 var plus, v;
                 v = parseInt($(this).prev("input[type='text']").val());
@@ -326,6 +326,8 @@
 
         //<!------------ Product units / prices selection -------------->
 
+        //$(document).on('load','.displayproduct', function (){
+
         $('.displayproduct').each(function () {
             var whqty = $(this).find(".rate-add").children("div.warehouse").children("div").children("span").html();
             var pqty = $(this).find(".rate-add").prevAll(".image").children("input#pqty");
@@ -335,46 +337,48 @@
                 pqty.val(0);
                 $(this).find("div.label").css('display', 'block');
                 $(this).find(".rate-add").children("div.warehouse").children("div").children("span").html(0);
-                $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled',true);
+                $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled', true);
             }
         });
 
-        $(".product-variation > ul > li").click(function () {
-                var txt = $(this).text();
-                var qtynum = txt.split(" ")[0];
-                var qtyunits = txt.split(" ")[1];
-                var price = txt.split("-")[1].replace(/[^0-9\.]/g, "");
-                $(this).parents(".product-variation").find("#variantselection").val(txt);
-                $(this).parents(".product-variation").prev(".product-price").children("span").empty();
-                $(this).parents(".product-variation").children("span").children("b").empty();
-                $(this).parents(".product-variation").children("span").children("var").empty();
-                $(this).parents(".product-variation").prev(".product-price").children("span").append(price);
-                $(this).parents(".product-variation").children("span").children("b").append(qtynum);
-                $(this).parents(".product-variation").children("span").children("var").append(qtyunits);
+        $(document).on('click', '.product-variation > ul > li', function () {
+            //$(".product-variation > ul > li").click(function () {
+            var txt = $(this).text();
+            var qtynum = txt.split(" ")[0];
+            var qtyunits = txt.split(" ")[1];
+            var price = txt.split("-")[1].replace(/[^0-9\.]/g, "");
+            $(this).parents(".product-variation").find("#variantselection").val(txt);
+            $(this).parents(".product-variation").prev(".product-price").children("span").empty();
+            $(this).parents(".product-variation").children("span").children("b").empty();
+            $(this).parents(".product-variation").children("span").children("var").empty();
+            $(this).parents(".product-variation").prev(".product-price").children("span").append(price);
+            $(this).parents(".product-variation").children("span").children("b").append(qtynum);
+            $(this).parents(".product-variation").children("span").children("var").append(qtyunits);
 
-                var image = $(this).parents(".rate-add").prevAll(".image").children("img").attr("src", '');
-                var pqty = $(this).parents(".rate-add").prevAll(".image").children("input#pqty");
-                var productid = $(this).next("li").html().replace('}', ' ');
-                var whqty = $(this).parents(".rate-add").children("div:last-of-type").children("div").children("span");
-                //alert(whqty);
-                $.ajax({
-                    url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
-                        pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
-                        whqty.empty().html(result.qty);
-                        if (result.qty == '') { whqty.empty().html(0); }
-                        if (result.images != '') {
-                            image.attr("src", '/ProductImages/' + result.images).attr("alt", result.images);
-                        }
-                        else {
-                            image.attr("src", '/images/default_product.png');
-                        }
+            var image = $(this).parents(".rate-add").prevAll(".image").children("img").attr("src", '');
+            var pqty = $(this).parents(".rate-add").prevAll(".image").children("input#pqty");
+            var productid = $(this).next("li").html().replace('}', ' ');
+            var whqty = $(this).parents(".rate-add").children("div:last-of-type").children("div").children("span");
+            //alert(whqty);
+            $.ajax({
+                url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
+                    pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
+                    whqty.empty().html(result.qty);
+                    if (result.qty == '') { whqty.empty().html(0); }
+                    if (result.images != '') {
+                        image.attr("src", '/ProductImages/' + result.images).attr("alt", result.images);
                     }
-                });
+                    else {
+                        image.attr("src", '/images/default_product.png');
+                    }
+                }
             });
+        });
         //<!------------ Product units / prices selection -------------->
 
         //<!----------- Quantity Add in Right Bar ---------------->
-        $(".add-to-cart").click(function () {
+        $(document).on('click', '.add-to-cart', function () {
+            // $(".add-to-cart").click(function () {
             //$(document).on("click",".add-to-cart", function(){
             var mesurment = $(this).parents(".rate-add").children(".margin-bottom-20").children(".product-variation").find("#variantselection").val().split('-')[0];
             var qty = $(this).parents(".rate-add").children("div:first-of-type").next("div").find(".spinner").children("div").find(".quantity").val();
@@ -419,13 +423,13 @@
             return vals();
         });
 
-        $(".product-variation > ul > li").click(function () {
+        $(document).on('click', '.product-variation > ul > li', function () {
             var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
             $(this).parents(".rate-add").prev(".product-price-total").children("span").empty();
             $(this).parents(".rate-add").prev(".product-price-total").children("span").append(productprice);
         });
 
-        $(".add-to-cart-table > .btn").click(function () {
+        $(document).on('click', '.add-to-cart-table > .btn', function () {
             var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
             var txt = $(this).parent("td.add-to-cart-table").next("td.empty");
             $(txt).empty().append("<p>" + v + "</p>");
@@ -448,7 +452,7 @@
             //$("span.cart-total-items").empty().html(totalquantity);
         }
 
-        $(".remove").click(function () {
+        $(document).on('click', '.remove', function () {
             return vals();
             return cartstrip();
         });
@@ -458,14 +462,14 @@
             $(".right-side-bar").css({ "width": "0%", "background": "rgba(0,0,0,.6)" });
         });
 
-        $(".cart-icn").click(function () {
+        $(document).on('click', '.cart-icn', function () {
             $(".checkout").css({ "right": "0", "transition": "1s ease", "-webkit-transition": "1s ease" });
             $(".right-side-bar").css({ "width": "100%", "background": "rgba(0,0,0,.6)" });
         });
         //<!----------- Quantity Add in Right Bar ---------------->
 
         //<!------------ Left Side Bar ------------------->
-        $("#sidebar li.leve12, #sidebar li").click(function () {
+        $(document).on('click', '#sidebar li.leve12, #sidebar li', function () {
             $(this).children("a").css("font-weight", "700");
             $(this).children("ul.left-submenu").toggle("slow");
             $(this).nextAll("li").children("a").css("font-weight", "normal");
@@ -474,7 +478,8 @@
             $(this).prevAll("li").children("ul.left-submenu").css("display", "none");
         });
 
-        $("#sidebar li.leve12 ul.left-submenu li").click(function () {
+
+        $(document).on('click', '#sidebar li.leve12 ul.left-submenu li', function () {
             $(this).parent("ul.left-submenu").css("display", "block");
             $(this).children("a").css("color", "#0288d1");
             return false;
@@ -482,7 +487,8 @@
         //<!------------ Left Side Bar ------------------->
 
         //<!---------- Product Variation ------------>
-        $(".product-variation").click(function () {
+
+        $(document).on('click', '.product-variation', function () {
             $(this).children("ul").toggle();
         });
         //<!---------- Product Variation ------------>
@@ -491,7 +497,7 @@
             var inputvalue = this.value;
             var v = $(this).closest('div.well').find("div.image").find("input#pqty").val();
             if (parseInt(inputvalue) > parseInt(v)) {
-                errormsg("Quantity Exceeded!!!Availability Qty is "+v+"");
+                errormsg("Quantity Exceeded!!!Availability Qty is " + v + "");
                 $('#availableqty').empty().html(v);
                 $(this).val("1");
                 this.select();

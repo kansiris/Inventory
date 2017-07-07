@@ -56,6 +56,7 @@ function getsub(type, id) {
         success: function (response) {
             if (response == 'empty') {
                 $('#sub_category').val('');
+                $('#subcategories').empty();
                 errormsg("No Sub-Caregories Available");
             }
             else {
