@@ -66,74 +66,63 @@ namespace Inventory.Controllers
            , cash_date, cash_card_holdername, wallet_date, wallet_number, invoiced_amount, Received_amount, opening_balance, current_balance, bank_transfer_IFSCcode, bank_transfer_branchname, Customer_comapnyId, Customer_company_name, remarks);
                 if (count > 0)
                 {
-                    //DateTime myDate=null;
-                    string overdue=0.ToString();
-                    string due= 0.ToString();
+                    string overdue = "0";
+                    string due = "0"; int updatedopenamt = 0; int updatedreceivedamount = int.Parse(Received_amount); int updatedinvoiceamount = int.Parse(invoiced_amount);
                     Array ponumsArray = Prchaseorder_no.Split(',');
                     for (int i = 0; i < ponumsArray.Length; i++)
                     {
-                        var dt = new DataTable();
-                        var records = PaymentsService.ForPaymentinvoicetotal(user.DbName, Prchaseorder_no.Split(',')[i]);
-                        dt.Load(records);
-                        List<Invoice> invoicetotl = (from DataRow row in dt.Rows
-                                                     select new Invoice()
-                                                     {
-                                                         Payment_date = row["payment_date"].ToString(),
-                                                         sub_total = row["sub_total"].ToString(),
-                                                         open_amount = row["open_amount"].ToString()
-                                                     }).ToList();
-                        string Payment_due_date = "05/07/2017";//(invoicetotl.Select(m => m.Payment_date)).First();
-                        string open_amount = (invoicetotl.Select(m => m.open_amount)).First();
-                        DateTime myDate = DateTime.Parse(Payment_due_date);
-                        string updatedopenamt = 0.ToString();
-                        if (open_amount != "" && open_amount != null && open_amount != "0" && int.Parse(open_amount) >= int.Parse(Received_amount))
-                            updatedopenamt = (int.Parse(open_amount) - int.Parse(Received_amount)).ToString();
-                        else
-                            break;
-                        PaymentsService.Updateinvoice(user.DbName, Prchaseorder_no.Split(',')[i], updatedopenamt);
-                        
-                        DateTime myDate1 = DateTime.Parse(payments_date);
-                       
-                        if (myDate < myDate1)
+                        if (int.Parse(Received_amount) > 0)
                         {
-                            due = 0.ToString();
-                            overdue = current_balance;
-                        }
-                        else
-                        {
-                            due = current_balance;
-                            overdue = 0.ToString();
+                            var dt = new DataTable();
+                            var records = PaymentsService.ForPaymentinvoicetotal(user.DbName, Prchaseorder_no.Split(',')[i]);
+                            dt.Load(records);
+                            List<Invoice> invoicetotl = (from DataRow row in dt.Rows
+                                                         select new Invoice()
+                                                         {
+                                                             Payment_date = row["payment_date"].ToString(),
+                                                             sub_total = row["sub_total"].ToString(),
+                                                             open_amount = row["open_amount"].ToString()
+                                                         }).ToList();
+                            string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
+                            DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            Payment_due_date = Payment_due_date1.ToString("dd/MM/yyyy");
+                            DateTime paymentsdonedate = DateTime.Parse(payments_date);
+                            string open_amount = invoicetotl.FirstOrDefault().open_amount; //(invoicetotl.Select(m => m.open_amount)).First();
+                            DateTime myPayment_due_date = DateTime.Parse(Payment_due_date);
+                            //string updatedopenamt = "0";
+                            if (open_amount != "" && open_amount != null && open_amount != "0")  // && int.Parse(open_amount) >= int.Parse(Received_amount)
+                            {
+                                if ((int.Parse(open_amount)) >= (int.Parse(Received_amount)))
+                                {
+                                    updatedopenamt = (int.Parse(open_amount) - int.Parse(Received_amount));
+                                    PaymentsService.Updateinvoice(user.DbName, Prchaseorder_no.Split(',')[i], updatedopenamt.ToString());
+                                    Received_amount = "0";
+                                }
+                                else
+                                {
+                                    updatedreceivedamount = (int.Parse(Received_amount) - int.Parse(open_amount));
+                                    if (updatedreceivedamount > 0)
+                                    {
+                                        Received_amount = updatedreceivedamount.ToString();
+                                        updatedopenamt = 0;
+                                        PaymentsService.Updateinvoice(user.DbName, Prchaseorder_no.Split(',')[i], updatedopenamt.ToString());
+                                    }
+                                }
+                            }
+                            else
+                                break;
+                            if (myPayment_due_date < paymentsdonedate)
+                                overdue = updatedopenamt.ToString();
+                            else
+                                due = updatedopenamt.ToString();
                         }
                     }
-                        //var dt = new DataTable();
-                        //var records = InvoiceService.AvailablePos(user.DbName, Customer_comapnyId);
-                        //dt.Load(records);
-                        //List<Invoice> availablepos = (from DataRow row in dt.Rows
-                        //                              select new Invoice()
-                        //                              {
-                        //                                  created_date = row["created_date"].ToString()
-                        //                              }).ToList();
-                        //string created_date = (availablepos.Select(m => m.created_date)).First();
-                        //DateTime myDate = DateTime.Parse(created_date);
-                        //DateTime myDate1 = DateTime.Parse(payments_date);
-                        //string overdue;
-                        //string due;
-                        //if (myDate < myDate1)
-                        //{
-                        //    due = 0.ToString();
-                        //    overdue = current_balance;
-                        //}
-                        //else
-                        //{
-                        //    due = current_balance;
-                        //    overdue = 0.ToString();
-                        //}
-                        int counts = PaymentsService.Updatecustomerdue(user.DbName, Customer_comapnyId, due, overdue);
-                        if (counts > 0)
-                            return Json("success");
-                    }
+                    int counts = PaymentsService.Updatecustomerdue(user.DbName, Customer_comapnyId, due, overdue);
+                    if (counts > 0)
+                        return Json("success");
                 }
-            
+            }
+
             return Json("unique");
         }
     }

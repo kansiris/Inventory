@@ -333,18 +333,20 @@
         var date_input = $('input[name="date"]'); //our date input has the name "date"
         var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
-            format:'dd/mm/yyyy',
+            format: currency,
             container: container,
             todayHighlight: true,
             autoclose: true,
         })
     });
+    
 </script>
 <script>
    
     var currency = $('#currency').val().slice(-2).replace(')', '');
        $('.localization').html(currency);
-        var currency = $('#currency').val().slice(-2).replace(')', '');
+       var currency = $('#currency').val().slice(-2).replace(')', '');
+       //alert(currency);
         if (currency == "$") {
             $('#invoicegenration').css("display", "block");
             $('#fordollar').css("display", "block");

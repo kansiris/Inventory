@@ -986,8 +986,8 @@ function forunderstand(array) {
 
 //for displaying all pos
 function viewallpos(cid, cname) {
-    //alert(cid);
-    location.href = '/Products/PosOfCustomer?cid=' + cid;
+    alert(cname);
+    location.href = '/Products/PosOfCustomer?cid=' + cid + '&cname=' + cname;
 }
 
 

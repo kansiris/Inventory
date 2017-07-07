@@ -23,60 +23,40 @@ function savepayments(cid, cname) {
     var ponum = $("input:checkbox:checked").map(function () {
         return this.value.split(',')[1];
     }).toArray();
-    alert(ponum+'sai');
+    //alert(ponum+'sai');
     var paymentsddate = (document.getElementById("paymentsddate").textContent).split(';')[1];
     var invoicedtotal = (document.getElementById("invoicedtotal").textContent).split('₹')[1];
     if (document.getElementById('radio-cheque').checked) {
          var chequedate = $("#chequedate").val();
-        //alert(chequedate);
         var bankname = $("#bankname").val();
-        //alert(bankname);
         var chequeno = $("#chequeno").val();
-        //alert(chequeno);
     } 
     if (document.getElementById('radio-credit').checked) {
         var creditdate = $("#creditdate").val();
-        //alert(creditdate);
         var creditcardholdername = $("#creditcardholdername").val();
-        //alert(creditcardholdername);
         var creditcardlast4digits = $("#creditcardlast4digits").val();
-        //alert(creditcardlast4digits);
     } 
     
     if (document.getElementById('radio-banktransfer').checked) {
         var banktransferdate = $("#banktransferdate").val();
-        //alert(banktransferdate);
         var banknametrans = $("#banknametrans").val();
-        //alert(banknametrans);
         var transactionid = $("#transactionid").val();
-        //alert(transactionid);
         var ifsccode = $("#ifsccode").val();
-        //alert(ifsccode);
         var branchname = $("#branchname").val();
-        //alert(branchname);
     }
     if (document.getElementById('radio-cash').checked) {
         var cashdate = $("#cashdate").val();
-       // alert(cashdate);
         var holdername = $("#holdername").val();
-        //alert(holdername);
     }
     if (document.getElementById('radio-wallet').checked) {
         var walletdate = $("#walletdate").val();
-        //alert(walletdate);
         var mobilenumber = $("#mobilenumber").val();
-        //alert(mobilenumber);
     } 
     var invamt = $("#invoicedamt").val();
     var previous = $("#previousamt").val();
     var recevdamnt = $("#paidamt").val();
     var currntamt = $("#currntamt").val();
     var comment = $("#comment").val();
-    //alert(invamt);
-    //alert(previous);
-    //alert(recevdamnt);
-    //alert(currntamt);
-
     $.ajax({
         url: '/Payments/InsertPayments?Prchaseorder_no='+ponum,
         type: 'POST',
@@ -94,26 +74,6 @@ function savepayments(cid, cname) {
             else {
                 successmsg("Payments saved successfully");
                 location.reload();
-                //$("#invoicedamt").val("");
-                //$("#previousamt").val("");
-                //$("#paidamt").val("");
-                //$("#currntamt").val("");
-                //$("[id='comment']").val("");
-                //$("#chequedate").val("");
-                //$("#bankname").val("");
-                //$("#chequeno").val("");
-                //$("#creditdate").val("");
-                //$("#creditcardholdername").val("");
-                //$("#creditcardlast4digits").val("");
-                //$("#banktransferdate").val("");
-                //$("#banknametrans").val("");
-                //$("#transactionid").val("");
-                //$("#ifsccode").val("");
-                //$("#branchname").val("");
-                //$("#cashdate").val("");
-                //$("#holdername").val("");
-                //$("#walletdate").val("");
-                //$("#mobilenumber").val("");
             }
         },
         error: function (data)

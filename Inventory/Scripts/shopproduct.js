@@ -174,7 +174,9 @@ function calculate(totalprice) {
 
 function insertpo(totalamount) {
     var cid = location.search.split('&')[0].split('cid=')[1];
-    var cname = location.search.split('&')[1].split('cname=')[1];
+    var cname = location.search.split('cname=')[1];
+    
+   //alert(cname);
     var shipping_terms = $('#shipping_terms').val();
     var shipping_date = $('#shipping_date').val();
     var payment_terms = $('#payment_terms').val();

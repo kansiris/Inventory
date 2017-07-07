@@ -447,7 +447,7 @@ namespace Inventory.Controllers
                     int removeditems = UpdateStock(user.DbName, product_id, quantity);
                     if (removeditems > 0)
                     {
-                        count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname, created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, grand_total);
+                        count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname.Replace("%20", " "), created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, grand_total);
                         string status = 0.ToString();
                         var dt1 = new DataTable();
                         var records1 = InvoiceService.Getposforcustomer(user.DbName, cid, status);
@@ -493,7 +493,7 @@ namespace Inventory.Controllers
         }
 
         //for displaying pos of customer
-        public PartialViewResult PosOfCustomer(string cid)
+        public PartialViewResult PosOfCustomer(string cid,string cname)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
@@ -505,7 +505,7 @@ namespace Inventory.Controllers
                                              select new Product()
                                              {
                                                  customer_id = row["customer_id"].ToString(),
-                                                 company_name = row["company_name"].ToString(),
+                                                 company_name = cname,
                                                  Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                  created_date = row["created_date"].ToString(),
                                                  deliverynote_status = row["deliverynote_status"].ToString(),
