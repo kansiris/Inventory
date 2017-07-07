@@ -14,12 +14,14 @@ namespace Inventory.Controllers
 {
     public class AddProductController : Controller
     {
+        LoginService loginService = new LoginService();
         // GET: AddProduct
         public ActionResult Index(string pid)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                ViewBag.country = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault().Ucountry;
                 var count = ProductService.GetWarehouseCount(user.DbName);
                 if (count.Read())
                 {
