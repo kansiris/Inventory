@@ -248,12 +248,18 @@ namespace Inventory.Controllers
             {
                 users = 1;
             }
-            if (basic > 0) { Progress = ProgressBar.Level1; colour = "Red"; }
-            if (basic > 0 && caddress > 0 || basic > 0 && uaddress > 0 || basic > 0 && users > 0 || basic > 0 && localization > 0) { Progress = ProgressBar.Level2; colour = "Blue"; }
-            if (basic > 0 && caddress > 0 && uaddress > 0 || basic > 0 && uaddress > 0 && localization > 0 || basic > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && users > 0) { Progress = ProgressBar.Level3; colour = "Orange"; }
-            //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || basic > 0 && uaddress > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
-            if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || caddress > 0 && uaddress > 0 && localization > 0 && users > 0 || uaddress > 0 && localization > 0 && users > 0 && basic > 0 || localization > 0 && users > 0 && basic > 0 && caddress > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
-            if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level5; colour = "Green"; }
+            int total = basic + caddress + uaddress + localization + users;
+            if (total == 1) { Progress = ProgressBar.Level1; colour = "Red"; }
+            if (total == 2) { Progress = ProgressBar.Level2; colour = "Blue"; }
+            if (total == 3) { Progress = ProgressBar.Level3; colour = "Orange"; }
+            if (total == 4) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+            if (total == 5) { Progress = ProgressBar.Level5; colour = "Green"; }
+            //if (basic > 0) { Progress = ProgressBar.Level1; colour = "Red"; }
+            //if (basic > 0 && caddress > 0 || basic > 0 && uaddress > 0 || basic > 0 && users > 0 || basic > 0 && localization > 0) { Progress = ProgressBar.Level2; colour = "Blue"; }
+            //if (basic > 0 && caddress > 0 && uaddress > 0 || basic > 0 && uaddress > 0 && localization > 0 || basic > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && users > 0) { Progress = ProgressBar.Level3; colour = "Orange"; }
+            ////if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || basic > 0 && uaddress > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+            //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || caddress > 0 && uaddress > 0 && localization > 0 && users > 0 || uaddress > 0 && localization > 0 && users > 0 && basic > 0 || localization > 0 && users > 0 && basic > 0 && caddress > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+            //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level5; colour = "Green"; }
             ViewBag.Progress = Progress;
             ViewBag.color = colour;
             ownerstaff.Close();
