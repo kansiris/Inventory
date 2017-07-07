@@ -1,6 +1,6 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&')[0].split('=')[1];
-    var cname = document.URL.split('&&')[1].split('=')[1];
+    var cname = location.search.split('cname=')[1];
     //alert(cname);
     var checkboxval = $("input:checkbox:checked").prop('checked');
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
@@ -18,12 +18,13 @@
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                if (data == "unique") {
-                    errormsg("No Data Available");
-                }
-                else {
+                if (data == "success") {
+                    
                     var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname;
                     $('#invoicegenration').load(url);
+                }
+                else {
+                    errormsg("No Data Available");
                 }
             },
             error: function (data)
@@ -71,7 +72,7 @@ function genarateDelivNote() {
 
 function genarateDelivInvoice() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
-    var cname = document.URL.split('&&')[1].split('=')[1];
+    var cname = location.search.split('cname=')[1];
     
     var checkboxval = $("input:checkbox:checked").prop('checked');
     if (checkboxval == true) {
