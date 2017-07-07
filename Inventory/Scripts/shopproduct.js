@@ -213,7 +213,7 @@ function insertpo(totalamount) {
                 $("[id='shipping_date']").val("");
                 $("[id='shipping_terms']").val("");
                 $("[id='payment_date']").val("");
-                window.location = '/Products/PosOfCustomer?cid=' + cid;
+                window.location = '/Products/PosOfCustomer?cid=' + cid+'&cname='+cname;
                 //var url = 'Products/Addtocartpartial?cid=' + cid;
                 //$('#cartrecords').load(url);
             }
