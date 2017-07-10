@@ -285,7 +285,7 @@ namespace Inventory.Controllers
                                                  {
                                                      total_pos = row["pos"].ToString(),
                                                  }).ToList();
-                            string total_pos = (pos.Select(m => m.total_pos).ToList())[i];
+                            string total_pos = (pos.Select(m => m.total_pos).ToList()).FirstOrDefault();
                             InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
                         }
                         count++;

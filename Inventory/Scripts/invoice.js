@@ -79,13 +79,13 @@ function genarateDelivInvoice() {
         $("#completediv").css("display", "block");
         $("#invoicegenration").css("display", "block");
         $("#deliverynote").css("display", "block");
-        var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
-            return this.value;
-        }).toArray();
-        var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname;
-        $('#invoicegenration').load(url);
-        var url1 = 'Invoice/GenarateDeliveryNote?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
-        $('#deliverynote').load(url1);
+        //var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
+        //    return this.value;
+        //}).toArray();
+        //var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname;
+        //$('#invoicegenration').load(url);
+        //var url1 = 'Invoice/GenarateDeliveryNote?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
+        //$('#deliverynote').load(url1);
 
     } else {
         errormsg("Please select atleast one PO");

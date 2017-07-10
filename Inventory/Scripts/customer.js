@@ -307,9 +307,7 @@ function editFunction(array) {
         $("#taxexemption").prop('checked', 'checked');
         $("#fileupload2").css('display','block');
     }
-    //alert(array.tax_files);
-    //$("#fileupload2").attr('value', array.tax_files);
-    //$('#fileupload2').val(array.tax_files);
+    
     $('#bill_city').val(array.bill_city);
     $('#bill_country').val(array.bill_country);
     $('#bill_state').val(array.bill_state);
@@ -337,7 +335,6 @@ function getEditDetails(id) {
     $('#mySubmit').val("update").text("Update Company");
     $('#mySubmit').show();
     $('#mySubmit1').show();
-    //$('#bankid').show();
     $('#cuscontactbutton').show();
     $('#notebutton').show();
     $("#cuscontactpic").attr("src", "/images/user.png");
@@ -491,7 +488,7 @@ function editcuscompanyaddress(clickedvalue) {
         $('#additional').css('display', 'none');
     });
     cus_company_Id = $('#cus_company_Id').val();
-    //alert(cus_company_Id);
+
     cus_company_name = $('#cus_company_name').val();
     cus_email = $('#cus_email').val();
     bill_street = $('#bill_street').val();
@@ -621,7 +618,6 @@ function updatecusContact(clickedvalue) {
     });
     cuscompany_Id = $('#cus_company_Id').val();
     CustomerId = $('#Customer_Id').val();
-    //alert(Customer_Id);
     Customercontact_Fname = $('#Customer_contact_Fname').val();
     Customercontact_Lname = $('#Customer_contact_Lname').val();
     MobileNo = $('#Mobile_No').val();
@@ -682,7 +678,6 @@ function updatecusContact(clickedvalue) {
                     if (data == "sucess") {
                         $('#savebutton').hide();
                         cus_company_Id = $('#cus_company_Id').val();
-                        //alert(cus_company_Id);
                         var url = 'Customer/CustomerCompany';
                         $('#cuscompanyrecords').load(url, function () { Pagination(); });
                         var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
@@ -710,8 +705,7 @@ function updatecusContact(clickedvalue) {
 //customer contact details editing based on customer id
 
 function editcuscontactperson(id) {
-    //alert(id);
-    //alert($('#contactbutton').val());
+    
     $('#cuscontactbutton').val("updatecontact").text("Update Contact");
     $.ajax({
         url: '/Customer/getCustomerContact?Customer_Id=' + id,
@@ -779,9 +773,9 @@ function deleteCustomer(id, status) {
 //Customer contact person invite
 
 function inviteCustomer(id) {
-    //alert(id);
+
     cus_company_Id = $('#cus_company_Id').val()
-    //alert(company_Id);
+ 
     var retVal = confirm("Do you want to send invitation...!");
     if (retVal == true) {
         $.ajax({
@@ -874,7 +868,7 @@ function upload1() {
 
 //View customer
 function viewCustomer(id) {
-    //alert(id);
+
     $('#forclose').css('display', 'block');
     $.ajax({
         url: '/customer/getAllcusDetails?cus_company_Id=' + id,
@@ -923,9 +917,9 @@ function viewCustomer(id) {
 
 function addingcusjobpositions() {
     cuscompany_Id = $('#cus_company_Id').val()
-    // alert(cuscompany_Id);
+
     Jobposition = $('#newposition').val();
-    // alert(Jobposition);
+
     $.ajax({
         url: '/Customer/addPosition',
         type: 'POST',
@@ -986,7 +980,7 @@ function forunderstand(array) {
 
 //for displaying all pos
 function viewallpos(cid, cname) {
-    alert(cname);
+    //alert(cname);
     location.href = '/Products/PosOfCustomer?cid=' + cid + '&cname=' + cname;
 }
 

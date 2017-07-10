@@ -8,7 +8,6 @@ function ajaxcalling(clickeditem) {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            //alert(data);
             if (data == "unique") {
                 errormsg("No Data Available");
             }
@@ -24,7 +23,6 @@ function ajaxcalling(clickeditem) {
 
 
 function getproducts(value) {
-    //alert(value);
     var cid = document.URL.split('=')[1].split('#')[0];
     $.ajax({
         url: '/Products/Getproducts',
@@ -33,7 +31,6 @@ function getproducts(value) {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            //alert(data);
             if (data == "unique") {
                 errormsg("No Data Available");
             }
@@ -85,19 +82,13 @@ function genaratepo() {
 
 $('#plus').click(function () {
     var qty = this.prev('input[type=text]').val();
-    //alert(qty);
+    
 });
 
 //updatecart
 function updatecart(cartid, quantity, costprice) {
     cid = location.search.split('cid=')[1];
-    //var inputqty = parseInt($('#qtyinput').val());
     if (quantity > 0) {
-        //    //newquant = quantity + 1;
-        //    //newamunt = costprice * newquant;
-        //    inputqty++;
-        //    newamunt = costprice * inputqty;
-
         $.ajax({
             url: '/Products/UpdateCart',
             type: 'POST',
@@ -122,7 +113,6 @@ function updatecart(cartid, quantity, costprice) {
     else {
         errormsg("Invalid Quantity");
         quantity = inputqty;
-        //alert(quantity);
     }
 }
 function updatecart1(cartid, quantity, costprice) {
@@ -130,8 +120,6 @@ function updatecart1(cartid, quantity, costprice) {
     //var inputqty = $('#qtyinput').val();
 
     if (quantity > 0) {
-        //newquant = quantity - 1;
-        //newamunt = costprice * newquant;
         cid = location.search.split('cid=')[1];
         $.ajax({
             url: '/Products/UpdateCart',
@@ -175,17 +163,12 @@ function calculate(totalprice) {
 function insertpo(totalamount) {
     var cid = location.search.split('&')[0].split('cid=')[1];
     var cname = location.search.split('cname=')[1];
-    
-   //alert(cname);
     var shipping_terms = $('#shipping_terms').val();
     var shipping_date = $('#shipping_date').val();
     var payment_terms = $('#payment_terms').val();
     var payment_date = $('#payment_date').val();
     var ponumber = $('#ponumber').val();
     var comment = $('#comment').val();
-    //var vat = $('#vat').val();
-    //var discount = $('#discount').val();
-    //var grand_total = $('#grandtotal').text();
     var createddate = ($('#po_date').text()).split(';')[1];
 
     $.ajax({
@@ -214,8 +197,6 @@ function insertpo(totalamount) {
                 $("[id='shipping_terms']").val("");
                 $("[id='payment_date']").val("");
                 window.location = '/Products/PosOfCustomer?cid=' + cid+'&cname='+cname;
-                //var url = 'Products/Addtocartpartial?cid=' + cid;
-                //$('#cartrecords').load(url);
             }
             if (data == "out of stock") {
                 warnmsg("out of stock");
@@ -229,8 +210,6 @@ function insertpo(totalamount) {
 
 
 function checkponumber(passedvalue) {
-    //alert(passedvalue);
-
     $.ajax({
         url: '/Products/CheckPoNum',
         type: 'POST',
@@ -253,7 +232,7 @@ function checkponumber(passedvalue) {
 
 //for displaying all pos
 function viewpodetails(ponumber, cid) {
-    //alert(ponumber);
+  
     location.href = '/Products/ViewPoDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
 }
 
@@ -303,8 +282,7 @@ function isNumberKey(evt, value) {
 
 //view invoice
 function viewinvoicedetails(ponumber, cid) {
-    //alert(ponumber);
-    //alert(cid);
+    
     location.href = '/Invoice/ViewInvoiceDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
 
 }
