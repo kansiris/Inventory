@@ -6,36 +6,35 @@ namespace Inventory.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Payment")]
-    public partial class Payments
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Payments()
-        {
-            Invoices = new HashSet<Invoice>();
-        }
+    [Table("Payments")]
+    public class Payments
+    { 
+        public string payments_date { get; set; }
+        public string cheque_date { get; set; }
+        public string cheque_bankname { get; set; }
+        public string cheque_num { get; set; }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Payment_Id { get; set; }
+        public string creditORdebitcard_date { get; set; }
+        public string card_holder_name { get; set; }
+        public string card_last4digits { get; set; }
+        public string bank_taransfer_date { get; set; }
+        public string bank_transfer_name { get; set; }
+        public string bank_transaction_id { get; set; }
+        public string cash_date { get; set; }
+        public string cash_card_holdername { get; set; }
+        public string wallet_date { get; set; }
+        public string wallet_number { get; set; }
+        public string invoiced_amount { get; set; }
+        public string Received_amount { get; set; }
+        public string opening_balance { get; set; }
+        public string current_balance { get; set; }
+        public string bank_transfer_IFSCcode { get; set; }
+        public string bank_transfer_branchname { get; set; }
+        public string Customer_comapnyId { get; set; }
+        public string remarks { get; set; }
+  
+        public string Customer_company_name { get; set; }
 
-        [StringLength(50)]
-        public string Payment_Method { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? Payment_Amount { get; set; }
-
-        public string Description { get; set; }
-
-        [StringLength(100)]
-        public string Remarks { get; set; }
-
-        [Column(TypeName = "date")]
-        public DateTime? Payment_Date { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Invoice> Invoices { get; set; }
-
-        public virtual Payment_Method_Types Payment_Method_Types { get; set; }
     }
 }

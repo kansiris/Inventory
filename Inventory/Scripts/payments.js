@@ -24,10 +24,12 @@ function savepayments(cid, cname) {
         return this.value.split(',')[1];
     }).toArray();
     //alert(ponum+'sai');
+
+
     var paymentsddate = (document.getElementById("paymentsddate").textContent).split(';')[1];
     var invoicedtotal = (document.getElementById("invoicedtotal").textContent).split('₹')[1];
     if (document.getElementById('radio-cheque').checked) {
-         var chequedate = $("#chequedate").val();
+        var chequedate = $("#chequedate").val();
         var bankname = $("#bankname").val();
         var chequeno = $("#chequeno").val();
     } 
@@ -57,27 +59,55 @@ function savepayments(cid, cname) {
     var recevdamnt = $("#paidamt").val();
     var currntamt = $("#currntamt").val();
     var comment = $("#comment").val();
-    $.ajax({
-        url: '/Payments/InsertPayments?Prchaseorder_no='+ponum,
-        type: 'POST',
-        data: JSON.stringify({
-           payments_date: paymentsddate, cheque_date: chequedate, cheque_bankname: bankname, cheque_num: chequeno, creditORdebitcard_date: creditdate, card_holder_name: creditcardholdername, card_last4digits: creditcardlast4digits, bank_taransfer_date: banktransferdate, bank_transfer_name: banknametrans, bank_transaction_id: transactionid,
-            cash_date: cashdate, cash_card_holdername: holdername, wallet_date: walletdate, wallet_number: mobilenumber, invoiced_amount: invamt, Received_amount: recevdamnt, opening_balance: previous, current_balance: currntamt, bank_transfer_IFSCcode: ifsccode, bank_transfer_branchname: branchname
-            , Customer_comapnyId: cid, Customer_company_name: cname, remarks: comment
-        }),
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            if (data == "unique") {
-                errormsg("Payments already completed.");
-            }
-            else {
-                successmsg("Payments saved successfully");
-                location.reload();
-            }
-        },
-        error: function (data)
-        { errormsg("Failed!!!"); }
-    });
+
+
+    var Payments = {
+        payments_date:paymentsddate,
+        cheque_date:chequedate, 
+        cheque_bankname:bankname,
+        cheque_num:chequeno, 
+        creditORdebitcard_date:creditdate, 
+        card_holder_name:creditcardholdername, 
+        card_last4digits:creditcardlast4digits, 
+        bank_taransfer_date:banktransferdate,
+        bank_transfer_name:banknametrans,
+        bank_transaction_id:transactionid, 
+        cash_date:cashdate, 
+        cash_card_holdername:holdername, 
+        wallet_date:walletdate, 
+        wallet_number:mobilenumber,
+        invoiced_amount:invamt, 
+        Received_amount:recevdamnt, 
+        opening_balance:previous, 
+        current_balance:currntamt, 
+        bank_transfer_IFSCcode:ifsccode,
+        bank_transfer_branchname: branchname,
+        Customer_company_name:cname,
+            Customer_comapnyId:cid,
+        remarks:comment
+}
+$.ajax({
+    url: '/Payments/InsertPayments?Prchaseorder_no='+ponum,
+    type: 'POST',
+    data: JSON.stringify({ paymentsdetail: Payments }),
+    //data: JSON.stringify({
+    //    payments_date: paymentsddate, cheque_date: chequedate, cheque_bankname: bankname, cheque_num: chequeno, creditORdebitcard_date: creditdate, card_holder_name: creditcardholdername, card_last4digits: creditcardlast4digits, bank_taransfer_date: banktransferdate, bank_transfer_name: banknametrans, bank_transaction_id: transactionid,
+    //    cash_date: cashdate, cash_card_holdername: holdername, wallet_date: walletdate, wallet_number: mobilenumber, invoiced_amount: invamt, Received_amount: recevdamnt, opening_balance: previous, current_balance: currntamt, bank_transfer_IFSCcode: ifsccode, bank_transfer_branchname: branchname
+    //    , Customer_comapnyId: cid, Customer_company_name: cname, remarks: comment
+    //}),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+        if (data == "unique") {
+            errormsg("Payments already completed.");
+        }
+        else {
+            successmsg("Payments saved successfully");
+            location.reload();
+        }
+    },
+    error: function (data)
+    { errormsg("Failed!!!"); }
+});
 }
 

@@ -19,7 +19,6 @@
             contentType: 'application/json',
             success: function (data) {
                 if (data == "success") {
-                    
                     var url = 'Invoice/GenarateInvoice?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos + '&customer_name=' + cname;
                     $('#invoicegenration').load(url);
                 }
@@ -139,6 +138,8 @@ function saveInvoice(cid) {
             }
             else {
                 successmsg("Invoice saved successfully");
+                
+                $("[id='saveinvoice']").css("display","none");
                 $("[id='invoicenum']").val("");
                $("[id='date']").val("");
                 $("[id='paymentterms']").val("");
