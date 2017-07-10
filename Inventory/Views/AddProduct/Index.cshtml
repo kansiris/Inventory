@@ -29,6 +29,7 @@
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
     <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+
 }
 @if (ViewBag.count == "addproduct")
 {
@@ -1342,7 +1343,6 @@
     <script src="~/Scripts/js/tag-it.js"></script>
 
     <!-- Over Hang -->
-    <script src="~/Scripts/js/jquery-ui.min.js"></script>
     <script src="~/Scripts/js/overhang.min.js"></script>
     @Scripts.Render("~/bundles/product")
 
@@ -1353,8 +1353,8 @@
     @*<!-------------- Date Picker ----------->*@
     @*<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap-datepicker3.css" />*@
-    <script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
-    <link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    @*<script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>*@
+ 
     <script>
         $(".remove").click(function () {
             var image = $(this).prev("img").attr('src').split('/')[2];
@@ -1478,7 +1478,7 @@
                     }
                 }
 
-                $(".image-library").css("display", "none");
+                $(".library").css("display", "none");
             });
             $('#product_images').val(imagelist);
             //<!--------- Thumb Image ------>
