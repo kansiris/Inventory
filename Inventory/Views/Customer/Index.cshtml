@@ -51,28 +51,16 @@
         <form method="post" action="#" id="myform">
             @Html.HiddenFor(Model => Model.cus_company_Id, new { Value = @ViewBag.cus_company_Id })
             @Html.HiddenFor(Model => Model.Customer_Id, new { Value = @ViewBag.Customer_Id })
-            @*<div class="row">
-                <div class="form-title col-xs-12 col-md-8">Customer</div>
-                <div class="top-bar col-xs-12 col-md-4">
-                    <button type="button" class="btn btn-primary pull-right invite" id="add-customer"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Customer </button>
-                    <div class="icons pull-right">
-                        <i class="fa fa-list-ol fa-lg" aria-hidden="true" id="list-view"></i>
-                        <i class="fa fa-th fa-lg" aria-hidden="true" id="grid-view"></i>
-                        <i class="fa fa-refresh fa-lg" aria-hidden="true" id="refresh"></i>
-                        <i class="fa fa-cog fa-lg" aria-hidden="true" id="settings"></i>
-                    </div>
-                </div>
-            </div>*@
             <div class="row blocks">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="content">
-                        <h2>Estimate</h2>
+                        <h2>New PO's</h2>
                         <p><text class="localization"></text>10000</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="content">
-                        <h2>Unbilled Activity</h2>
+                        <h2>Invoiced PO's</h2>
                         <p><text class="localization"></text>10000</p>
                     </div>
                 </div>
@@ -244,9 +232,9 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            @*<div class="form-group col-md-6">
                                                 <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="Aadhaar Number"><span id="errmsg1" style="color:red"></span>
-                                            </div>
+                                            </div>*@
                                             <div class="form-group col-md-6">
                                                 <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                                 <input type="text" class="form-control selected-position" name="cus_Job_position" id="cus_Job_position" placeholder="Job position">
@@ -293,6 +281,15 @@
                             <li data-content="details">
                                 <div class="row">
                                     <div class="col-md-8">
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="Adhar_Number" id="Adhar_Number" placeholder="Aadhaar Number"><span id="errmsg1" style="color:red"></span>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="GSTIN_Number" id="GSTIN_Number" placeholder="GSTIN Number"><span id="errmsg1" style="color:red"></span>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <input type="text" class="form-control" name="tax_regno" id="tax_regno" placeholder="Tax Reg. No"><span id="errmsg3" style="color:red"></span>
@@ -301,7 +298,7 @@
                                                 <input type="checkbox" name="tds" id="tds"> Apply TDS for this Customer
 
                                             </div>
-
+                                           
                                         </div>
 
                                         <div class="row">
@@ -313,16 +310,16 @@
                                                 <input type="checkbox" name="taxexemption" id="taxexemption"> Tax Exemption
                                             </div>
 
-                                            <div class="form-group col-md-6" id="fileid">
-                                                @*<input type="file" name="fileupload2" id="fileupload2" style="display:none" onchange="upload2()">*@
-                                               
-                                                <input type="file" name="fileupload2" id="fileupload2" onchange="onFileSelected(event)" style="display:none">
-                                                @*<textarea id="result" width="500px" height="500px" style="display:none"></textarea>*@
-                                                <img src="" id="forimg" width="200" height="200" style="display:none"/>
-                                                <div id="result" style="display:none;height: 400px;width: 500px;overflow: auto;border:dashed"></div>
-                                            </div>
+                                                <div class="form-group col-md-6" id="fileid">
+                                                    @*<input type="file" name="fileupload2" id="fileupload2" style="display:none" onchange="upload2()">*@
 
-                                        </div>
+                                                    <input type="file" name="fileupload2" id="fileupload2" onchange="onFileSelected(event)" style="display:none">
+                                                    @*<textarea id="result" width="500px" height="500px" style="display:none"></textarea>*@
+                                                    <img src="" id="forimg" width="200" height="200" style="display:none" />
+                                                    <div id="result" style="display:none;height: 400px;width: 500px;overflow: auto;border:dashed"></div>
+                                                </div>
+
+                                            </div>
 
                                     </div>
                                 </div>
