@@ -132,8 +132,8 @@
                     <div id="dvPreview" align="center" style="padding:30px">
                 </li>*@
                                 <li class="tab-1" id="tab-1">
-                                    <button type="button" class="btn" onclick="javascript: document.getElementById('fileUpload').click();">Upload Here</button>
-                                    <input type="file" multiple="multiple" accept="image/*" id='fileUpload' name="file" style="display:none">
+                                    <button type="button" class="btn" onclick="javascript: document.getElementById('fileUpload1').click();">Upload Here</button>
+                                    <input type="file" multiple="multiple" accept="image/*" id='fileUpload1' name="file" style="display:none">
                                     @*<div class="row" id="dvPreview">
                     <div class="col-xs-12 col-md-12">
         <ul class="upload-thumbs">
@@ -180,14 +180,16 @@
                                             <input type="checkbox" name="checkbox" class="libselection">
                                             <img src="images/6.jpg" alt="Image Six" />
                                         </li>
+                                        @*<div class="row" id="dvPreview"></div>*@
                                     </ul>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                                            <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
+                                    
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                                <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+</li>
                             </ul>
 
                         </div>
@@ -1472,6 +1474,7 @@
                                 $(".admin-product-image img").attr("src", "images/default_product.png");
                             }
                         });
+                        //$("ul.admin-product-thumbs").append("<div  class='row' id='dvPreview'></div>");
                     } else {
                         alert("Select Less than Six");
                         exit;
@@ -1756,4 +1759,37 @@ $("#tabs > i.fa-times").click(function(){
         });
 </script>
     @*<!--------- Mesurement validations ------------->*@
+
+    <script>
+        $("#fileUpload1").change(function () {
+            if (typeof (FileReader) != "undefined") {
+                //var dvPreview = $("#dvPreview");
+                //dvPreview.html("");
+                var dvPreview = $('ul.tabs-content > li > ul');
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                $($(this)[0].files).each(function () {
+                    var file = $(this);
+                    if (regex.test(file[0].name.toLowerCase())) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var img = $("<img />");
+                            img.attr("style", "height:90px;width:90px");
+                            img.attr("src", e.target.result);
+                            img.addClass();
+                            //dvPreview.append(img);
+                            dvPreview.append("<li><input type='checkbox' name='checkbox' class='libselection'><img style='height:90px;width:90px' src=" + e.target.result + "></img></li>");
+                        }
+                        reader.readAsDataURL(file[0]);
+                    } else {
+                        alert(file[0].name + " is not a valid image file.");
+                        dvPreview.html("");
+                        return false;
+                    }
+                   // document.getElementById("fileUpload1").value = "";
+                });
+            } else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
+        });
+    </script>
 }
