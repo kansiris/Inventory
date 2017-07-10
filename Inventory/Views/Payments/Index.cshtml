@@ -28,7 +28,7 @@
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
-
+@*@Scripts.Render("~/bundles/Payments")*@
 }
 <div class="container body">
     <div class="main_container">
@@ -370,7 +370,8 @@
 <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
 
 <!-------------- Date Picker lib ----------->
-@Scripts.Render("~/bundles/Payments")
+
+<script src="/Scripts/payments.js"></script>
 <script>
 @*<!-------------- Date Picker ----------->*@
     $(document).ready(function () {
