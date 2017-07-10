@@ -71,18 +71,18 @@ namespace Inventory.Models
                 .Property(e => e.Selling_Price)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Payments>()
-                .Property(e => e.Payment_Amount)
-                .HasPrecision(19, 4);
+            //modelBuilder.Entity<Payments>()
+            //    .Property(e => e.Payment_Amount)
+            //    .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Payment_Method_Types>()
-                .Property(e => e.Description)
-                .IsFixedLength();
+            //modelBuilder.Entity<Payment_Method_Types>()
+            //    .Property(e => e.Description)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Payment_Method_Types>()
-                .HasMany(e => e.Payments)
-                .WithOptional(e => e.Payment_Method_Types)
-                .HasForeignKey(e => e.Payment_Method);
+            //modelBuilder.Entity<Payment_Method_Types>()
+            //    .HasMany(e => e.Payments)
+            //    .WithOptional(e => e.Payment_Method_Types)
+            //    .HasForeignKey(e => e.Payment_Method);
 
             modelBuilder.Entity<Purchase_Order>()
                 .Property(e => e.PO_No)
