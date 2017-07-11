@@ -36,7 +36,9 @@
 
 function genarateDelivNote() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
+    //alert(cid);
     var checkboxval = $("input:checkbox:checked").prop('checked');
+    //alert(checkboxval);
     if (checkboxval == true) {
         $("#completediv").css("display", "block");
         $("#deliverynote").css("display", "block");
@@ -44,8 +46,7 @@ function genarateDelivNote() {
                 var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
             return this.value;
         }).toArray();
-        ;
-
+        //alert(Prchaseorder_nos);
         $.ajax({
             url: '/Invoice/GenarateDelivjson?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos,
             type: 'POST',
@@ -57,7 +58,7 @@ function genarateDelivNote() {
                     errormsg("No Data Available");
                 }
                 else {
-                    var url = 'Invoice/GenarateDeliveryNote?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
+                    var url = 'GenarateDeliveryNote?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos;
                     $('#deliverynote').load(url);
                 }
             },
@@ -241,25 +242,21 @@ function checkdelivnote(passedvalue) {
         });
     }
 }
-function checkstatus(invoice, deliv) {
-    if (invoice == 1 && deliv == 0) {
-        $("#GenarateDelivNote").css("display", "block");
-        $("#GenarateInvoice").css("display", "none");
-        $("#GenarateDelivInvoice").css("display", "none");
-    }
-
-    if (deliv == 1 &&  invoice == 0) {
+function checkstatus(invoice) {
+    if (invoice == 0) 
         $("#GenarateInvoice").css("display", "block");
+    else
         $("#GenarateDelivNote").css("display", "none");
-        $("#GenarateDelivInvoice").css("display", "none");
-    }
-    if (invoice == 0 && deliv==0) {
-        $("#GenarateDelivInvoice").css("display", "block");
-        $("#GenarateDelivNote").css("display", "block");
-        $("#GenarateInvoice").css("display", "block");
-    }
-
 }
+  
+
+function checkstatus1(deliv) {
+    if (deliv == 0) 
+        $("#GenarateDelivNote").css("display", "block");
+    else 
+        $("#GenarateDelivNote").css("display", "none");
+}
+
 
 //view invoice
 function viewinvoicedetails(ponumber, cid) {

@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-md-12 to-address margin-top margin-bottom"> <span>Delivery Note</span> </div>
 </div>
 <div class="row margin-bottom">
-    <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="images/logo.jpg" alt="Logo"> <span class="vendorname">Xsilica Software Solutions</span> </div>
+    <div class="col-xs-12 col-md-3 logo margin-bottom"> <img src="/images/logo.jpg" alt="Logo"> <span class="vendorname">Xsilica Software Solutions</span> </div>
 
     @{ Html.RenderAction("GetCustomerdata", "Invoice");}
 
@@ -91,7 +91,7 @@
         <button type="button" class="btn btn-primary pull-right invite" id="cleardeliv"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
         <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
         <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
-        <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+        <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
     </div>
 </div>
 
@@ -110,3 +110,43 @@
     });
 
 </script>
+<!------------- E-Mail------------->
+<script type="text/javascript">
+  // window.onload = function () {
+$("#add-vendor3").click(function(){
+       var Detdiv = document.getElementById("vendortable").outerHTML;
+return email(Detdiv);
+});
+$("#add-vendor4").click(function(){
+       var Detdiv = document.getElementById("vendortable1").outerHTML;
+return email(Detdiv);
+});
+   //}
+
+function email(v){
+//var Detdiv = $('#div_Detdiv').html();
+       var Detdivobj = {};
+       Detdivobj.Detdiv = Detdiv;
+       //Detdivobj.oid = document.getElementById("hdnoid").value;
+       $.ajax({
+           type: "POST",
+           //url: window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/OrderConfirmation/EmailOrderConfirmation',
+           //url: "/OrderConfirmation/EmailOrderConfirmation",
+url: "/controller/method",
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           data: {},
+           data: JSON.stringify(Detdivobj),
+           //data: { content: $('#div_Detdiv').html() },
+           // data: sendInfo,
+           success: function (data) {
+               alert("Order details and feedback form sent to your email id");
+           },
+           error: function (data) {
+               alert("E-Mail Sending Failed!!!");
+           }
+       });
+}
+
+</script>
+<!------------- E-Mail------------->

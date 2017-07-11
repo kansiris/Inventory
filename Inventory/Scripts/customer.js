@@ -1064,7 +1064,9 @@ function viewallinvoices(cid) {
     location.href = '/Invoice/AvailbleInvoices?cid=' + cid;
 }
 
-
+function viewposfordeliv(cid,cname) {
+    location.href = '/Invoice/AvailblePosforDeliv?cid=' + cid;
+}
 //editcompanytaxdetails
 
 function editcompanytaxdetails(clickedvalue) {

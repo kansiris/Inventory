@@ -40,16 +40,47 @@ namespace Inventory.Controllers
                                                   total_price = row["total_price"].ToString(),
                                                   created_date = row["created_date"].ToString(),
                                                   invoice_status = row["invoice_status"].ToString(),
-                                                  deliverynote_status = row["deliverynote_status"].ToString(),
+                                                  //deliverynote_status = row["deliverynote_status"].ToString(),
                                                   totalQty = row["totalQty"].ToString()
                                               }).OrderByDescending(m => m.invoice_status).ToList();
                 ViewBag.records = availablepos;
                 ViewBag.invoice_status = availablepos.Select(m => m.invoice_status);
-                ViewBag.deliverynote_status = availablepos.Select(m => m.deliverynote_status);
+                //ViewBag.deliverynote_status = availablepos.Select(m => m.deliverynote_status);
 
                 return PartialView("AvailblePos", ViewBag.records);
             }
             return PartialView("AvailblePos", null);
+        }
+        //availble pos fro deliverynote
+
+        public PartialViewResult AvailblePosforDeliv(string cid)
+        {
+
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = InvoiceService.AvailablePosforDeliv(user.DbName, cid);
+                dt.Load(records);
+                List<Invoice> availablepos = (from DataRow row in dt.Rows
+                                              select new Invoice()
+                                              {
+                                                  customer_id = row["customer_id"].ToString(),
+                                                  company_name = row["company_name"].ToString(),
+                                                  Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                                  total_price = row["total_price"].ToString(),
+                                                  created_date = row["created_date"].ToString(),
+                                                  //invoice_status = row["invoice_status"].ToString(),
+                                                  deliverynote_status = row["deliverynote_status"].ToString(),
+                                                  totalQty = row["totalQty"].ToString()
+                                              }).OrderByDescending(m => m.invoice_status).ToList();
+                ViewBag.records = availablepos;
+                //ViewBag.deliverynote_status = availablepos.Select(m => m.invoice_status);
+                ViewBag.deliverynote_status = availablepos.Select(m => m.deliverynote_status);
+
+                return PartialView("AvailblePosforDeliv", ViewBag.records);
+            }
+            return PartialView("AvailblePosforDeliv", null);
         }
 
         //for generating invoice

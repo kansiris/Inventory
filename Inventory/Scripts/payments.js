@@ -61,7 +61,7 @@ function savepayments(cid, cname) {
     var comment = $("#comment").val();
 
 
-    var Payments = {
+    var payments = {
         payments_date:paymentsddate,
         cheque_date:chequedate, 
         cheque_bankname:bankname,
@@ -83,13 +83,14 @@ function savepayments(cid, cname) {
         bank_transfer_IFSCcode:ifsccode,
         bank_transfer_branchname: branchname,
         Customer_company_name:cname,
-            Customer_comapnyId:cid,
+         Customer_comapnyId:cid,
         remarks:comment
-}
+    }
+    alert(payments.payments_date);
 $.ajax({
-    url: '/Payments/InsertPayments?Prchaseorder_no='+ponum,
+    url: '/Payments/InsertPayments?Prchaseorder_no=' + ponum,
     type: 'POST',
-    data: JSON.stringify({ paymentsdetail: Payments }),
+    data: JSON.stringify({ payments: payments }),
     //data: JSON.stringify({
     //    payments_date: paymentsddate, cheque_date: chequedate, cheque_bankname: bankname, cheque_num: chequeno, creditORdebitcard_date: creditdate, card_holder_name: creditcardholdername, card_last4digits: creditcardlast4digits, bank_taransfer_date: banktransferdate, bank_transfer_name: banknametrans, bank_transaction_id: transactionid,
     //    cash_date: cashdate, cash_card_holdername: holdername, wallet_date: walletdate, wallet_number: mobilenumber, invoiced_amount: invamt, Received_amount: recevdamnt, opening_balance: previous, current_balance: currntamt, bank_transfer_IFSCcode: ifsccode, bank_transfer_branchname: branchname

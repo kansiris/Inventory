@@ -14,8 +14,15 @@ namespace Inventory.Service
         {
             return InvoiceRepository.AvailablePos(dbname, cid);
         }
+
+       // AvailablePosforDeliv
+
+             public static SqlDataReader AvailablePosforDeliv(string dbname, string cid)
+        {
+            return InvoiceRepository.AvailablePosforDeliv(dbname, cid);
+        }
         //AvailableInvoices
-            public static SqlDataReader AvailableInvoices(string dbname, string cid)
+        public static SqlDataReader AvailableInvoices(string dbname, string cid)
         {
             return InvoiceRepository.AvailableInvoices(dbname, cid);
         }

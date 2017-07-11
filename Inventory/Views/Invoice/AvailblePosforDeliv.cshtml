@@ -40,16 +40,51 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th class="col-md-2">Select</th>
+                                <th class="col-md-1">Select</th>
                                 <th class="col-md-2">PO No</th>
                                 <th class="col-md-2">PO Date</th>
                                 <th class="col-md-2">Total Item</th>
                                 <th class="col-md-2">Amount</th>
-                                <th class="col-md-2">Invoice</th>
+                                <th class="col-md-2">Delivery Note</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @{ Html.RenderAction("AvailblePos", "Invoice");}
+                          
+                            @if (ViewBag.records != null)
+                            {
+                                if (ViewBag.records.Count != 0)
+                                {
+                                    foreach (var item in ViewBag.records)
+                                    {
+
+                                        <tr>
+                                            <td class="col-md-1">
+                                                <label><input type="checkbox" value="@item.Prchaseorder_no" id="availpocheck" onclick="checkstatus1(@item.deliverynote_status)"></label>
+                                            </td>
+                                            <td class="col-md-2">@item.Prchaseorder_no</td>
+                                            <td class="col-md-2">@item.created_date</td>
+                                            <td class="col-md-2">@item.totalQty</td>
+                                            <td class="col-md-2"><text class="localization"></text><span>@item.total_price</span></td>
+
+                                            @if (int.Parse(@item.deliverynote_status) == 1)
+                                            {
+                                                <td class="col-md-3">Generated</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="col-md-3">Not Generated</td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6"><p>No PO's Available to create a Delivery Note</p></td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -57,16 +92,16 @@
             <div class="row margin-bottom">
                 <div class="col-xs-12 col-sm-12 col-md-12 invoice-buttons">
                     <button type="button" class="btn btn-primary pull-right invite" id="back-invoice1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateInvoice" onclick="genarateInvoice()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice</button>
-                   </div>
+                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateDelivNote" onclick="genarateDelivNote()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Delivery Note</button>
+                    </div>
             </div>
             <div class="row total-border" id="completediv" style="display:none">
-                <div id="invoicegenration" style="display:none">
-                    @{ Html.RenderAction("GenarateInvoice", "Invoice");}
+                <div id="deliverynote" style="display:none">
+                    @{ Html.RenderAction("GenarateDeliveryNote", "Invoice");}
                 </div>
             </div>
-    </form>
-</div>
+        </form>
+    </div>
 </div>
 
 @section scripts{
@@ -100,10 +135,10 @@
                 autoclose: true,
             })
             //<!-------------- Date Picker  ----------->
-            
+
         });
 
-       
+
         //	<!-------------- Auto Value assign to Quantity text boxes  ----------->
 
         $('#back-invoice1').click(function () {
@@ -114,3 +149,5 @@
         });
     </script>
 }
+
+

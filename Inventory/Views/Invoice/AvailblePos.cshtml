@@ -7,7 +7,7 @@
 
 <tr>
     <td class="col-md-1">
-        <label><input type="checkbox" value="@item.Prchaseorder_no" id="availpocheck" onclick="checkstatus(@item.invoice_status,@item.deliverynote_status)"></label>
+        <label><input type="checkbox" value="@item.Prchaseorder_no" id="availpocheck" onclick="checkstatus(@item.invoice_status)"></label>
     </td>
     <td class="col-md-2">@item.Prchaseorder_no</td>
     <td class="col-md-2">@item.created_date</td>
@@ -16,33 +16,19 @@
     
     @if (int.Parse(@item.invoice_status) == 1)
     {
-        @*<td><input type="checkbox" id="forinvoice" checked disabled /></td>*@
         <td class="col-md-3">Generated</td>
     }
     else
     {
-        @*<td><input type="checkbox" id="fordeliv" disabled /></td>*@
-        <td class="col-md-3">Not Generated</td>
-    }
-
-    @if (int.Parse(@item.deliverynote_status) == 1)
-    {
-        @*<td><input type="checkbox" id="fordeliv" checked disabled /></td>*@
-        <td class="col-md-3">Generated</td>
-    }
-    else
-    {
-        @*<td><input type="checkbox" id="fordeliv" disabled /></td>*@
         <td class="col-md-3">Not Generated</td>
     }
 </tr>
         }
     }
 
-
 else {
 <tr>
-    <td colspan="5"><p>No PO's Available to create a Invoice</p></td>
+    <td colspan="6"><p>No PO's Available to create a Invoice</p></td>
 </tr>
 
     }

@@ -18,10 +18,17 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "availablePos", cid);
+            return SqlHelper.ExecuteReader(ConnectionString, "availablePosforInvoice", cid);
+        }
+
+        public static SqlDataReader AvailablePosforDeliv(string dbname, string cid)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "availablePosforDeliv", cid);
         }
         //AvailableInvoices
-            public static SqlDataReader AvailableInvoices(string dbname, string cid)
+        public static SqlDataReader AvailableInvoices(string dbname, string cid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);

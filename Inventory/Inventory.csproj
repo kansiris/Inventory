@@ -4803,6 +4803,8 @@
     <Content Include="Views\Invoice\ViewInvoiceDetails.cshtml" />
     <Content Include="Views\Invoice\AvailbleInvoices.cshtml" />
     <Content Include="Views\Payments\Index.cshtml" />
+    <Content Include="Views\Invoice\DeliveryNoteindex.cshtml" />
+    <Content Include="Views\Invoice\AvailblePosforDeliv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

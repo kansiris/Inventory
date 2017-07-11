@@ -84,44 +84,7 @@
     </table>
 </div>
 @{Html.RenderAction("ViewPoproducts", "Products"); }
-@*@{ Html.RenderAction("GetCustomerdata", "Invoice");}*@
-@*<div class="row padding-top invoice">
-    <div class="col-xs-12 col-md-12">
-        <div class="total table-responsive">
-            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th class="col-md-2">PO No</th>
-                        <th class="col-md-2">Product id</th>
-                        <th class="col-md-3">Product Name</th>
-                        <th class="col-md-2">Description</th>
-                        <th class="col-md-1">Quantity</th>
-                        <th class="col-md-1">Price</th>
-                        <th class="col-md-1">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (ViewBag.records != null)
-                    {
-                        foreach (var item in ViewBag.records)
-                        {
-                            <tr>
-                                <td class="col-md-2">@item.Prchaseorder_no</td>
-                                <td class="col-md-2 image">@item.product_id </td>
-                                <td class="col-md-3 product-name"><a href="#">@item.product_name</a></td>
-                                <td class="col-md-2 product-variation"><span>@item.description</span></td>
-                                <td class="col-md-1 quantity-changes">@item.Quantity</td>
-                                <td class="col-md-1 product-variation"><text class="localization"></text> <span>@item.cost_price</span></td>
-                                <td class="col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
-                            </tr>
-                        }
-                    }
 
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>*@
 <div class="row">
     <div class="col-xs-12 col-md-6 remarks margin-top">
         <label>Remarks</label>

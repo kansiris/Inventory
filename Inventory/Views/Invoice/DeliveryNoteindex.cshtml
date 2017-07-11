@@ -40,12 +40,14 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th class="col-md-2">Select</th>
+                                <th class="col-md-1">Select</th>
                                 <th class="col-md-2">PO No</th>
                                 <th class="col-md-2">PO Date</th>
                                 <th class="col-md-2">Total Item</th>
                                 <th class="col-md-2">Amount</th>
-                                <th class="col-md-2">Invoice</th>
+                                @*<th class="col-md-2">Invoice</th>*@
+                                <th class="col-md-2">Delivery Note</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -57,16 +59,21 @@
             <div class="row margin-bottom">
                 <div class="col-xs-12 col-sm-12 col-md-12 invoice-buttons">
                     <button type="button" class="btn btn-primary pull-right invite" id="back-invoice1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateInvoice" onclick="genarateInvoice()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice</button>
-                   </div>
-            </div>
-            <div class="row total-border" id="completediv" style="display:none">
-                <div id="invoicegenration" style="display:none">
-                    @{ Html.RenderAction("GenarateInvoice", "Invoice");}
+                    <button type="button" class="btn btn-primary pull-right invite" id="GenarateDelivNote" onclick="genarateDelivNote()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Delivery Note</button>
+                    @*<button type="button" class="btn btn-primary pull-right invite" id="GenarateInvoice" onclick="genarateInvoice()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice</button>*@
+                    @*<button type="button" class="btn btn-primary pull-right invite" id="GenarateDelivInvoice" onclick="genarateDelivInvoice()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice & Delivery Note </button>*@
                 </div>
             </div>
-    </form>
-</div>
+            <div class="row total-border" id="completediv" style="display:none">
+                @*<div id="invoicegenration" style="display:none">
+                    @{ Html.RenderAction("GenarateInvoice", "Invoice");}
+                </div>*@
+                <div id="deliverynote" style="display:none">
+                    @{ Html.RenderAction("GenarateDeliveryNote", "Invoice");}
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 @section scripts{
@@ -100,10 +107,39 @@
                 autoclose: true,
             })
             //<!-------------- Date Picker  ----------->
-            
+
         });
 
-       
+        function add() {
+            var len = $("#autoAddQty .table-striped tbody > tr input[placeholder='Quantity in Hand']").length;
+            var i = 0, total = 0;
+            $("#autoAddQty .table-striped tbody > tr input[placeholder='Quantity in Hand']").each(function () {
+                if (i <= len) {
+                    var val = parseInt($(this).val());
+                    total += val;
+                }
+                i++;
+            });
+            TotalQty = $("input[placeholder='Total Quantity in Hand']").val(total);
+            //alert("TotalQty: " + TotalQty.val());
+            return false;
+        }
+        $(document).ready(function (e) {
+            return add();
+        });
+        $("input[placeholder='Quantity in Hand']").blur(function (e) {
+            return add();
+        });
+        $("button.qtybutton").click(function () {
+            if (TotalNewQty == (TotalQty.val())) {
+                alert("Processed");
+            } else {
+                alert("Total Quantity is not Equal's to New Quantity");
+                alert("TotalNewQty is : " + TotalNewQty);
+                alert("TotalQty is : " + TotalQty.val());
+            }
+        });
+        //<!------ Qty Disturbed to WareHouses  ------->
         //	<!-------------- Auto Value assign to Quantity text boxes  ----------->
 
         $('#back-invoice1').click(function () {
