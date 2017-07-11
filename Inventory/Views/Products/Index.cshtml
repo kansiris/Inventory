@@ -359,6 +359,7 @@
             var pqty = $(this).parents(".rate-add").prevAll(".image").children("input#pqty");
             var productid = $(this).next("li").html().replace('}', ' ');
             var whqty = $(this).parents(".rate-add").children("div:last-of-type").children("div").children("span");
+            $(this).parents(".rate-add").prevAll("div.image").children("input").val(productid);
             //alert(whqty);
             $.ajax({
                 url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
@@ -388,6 +389,7 @@
             var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
             var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
             var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
+            //alert(productid);
             $.ajax({
                 url: '/Products/Addtocart',
                 type: 'POST',

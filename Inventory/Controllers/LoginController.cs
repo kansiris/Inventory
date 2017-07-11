@@ -131,7 +131,7 @@ namespace Inventory.Controllers
                 //value.Close();
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user1234;"; //for server
-                FileInfo File = new FileInfo(Server.MapPath("../Models/May24.sql"));
+                FileInfo File = new FileInfo(Server.MapPath("../Models/july112017.sql"));
                 string script = File.OpenText().ReadToEnd();
                 SqlConnection conn = new SqlConnection(sqlConnectionString);
                 Server server = new Server(new ServerConnection(conn));

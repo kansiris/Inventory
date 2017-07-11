@@ -418,6 +418,7 @@
     <Content Include="Models\April04.sql" />
     <Content Include="Models\April19.sql" />
     <Content Include="Models\Inventory.csproj" />
+    <Content Include="Models\july112017.sql" />
     <Content Include="Models\mar02.sql" />
     <Content Include="Models\mar14.sql" />
     <Content Include="Models\May08.sql" />
