@@ -4447,7 +4447,8 @@ fieldset {
             }
 
             .wizard_horizontal ul.wizard_steps li a.selected:before, .step_no {
-                background: #34495E;
+                /*background: #34495E;*/
+				background: #0483c6;
                 color: #fff;
             }
 
@@ -4559,7 +4560,8 @@ fieldset {
             }
 
             .wizard_verticle ul.wizard_steps li a.selected:before, .step_no {
-                background: #34495E;
+                /*background: #34495E;*/
+				background: #0483c6;
                 color: #fff;
             }
 
@@ -4927,7 +4929,7 @@ form > .row:first-of-type{
     height: 100px;
     border-radius: 50%;
     position: relative;
-    float: left;
+	margin: auto;
     /*left: -50px;
     margin-left: 50%;*/
     /*background: #f29c13;*/
@@ -5529,7 +5531,8 @@ ul.cd-tabs-content li div > img{
 
 form .top-button + div {
     width: 100%;
-    float: left;
+    /*float: left;*/
+	text-align: center;
     margin-top: 20px;
 }
 
@@ -5741,6 +5744,16 @@ strong{
 	width: 100%;}
 #nav{
 	margin-bottom: 15px;}
+.smart-wizard .form-title{
+	margin-bottom: 40px;}
+#wizard{
+	margin-top: 20px;
+	clear: both;}
+.actionBar > a{
+	display: none;}
+.step_descr small{
+	font-weight: 700;
+	color: #000;}
 
 /*================ Vendor Information ================*/
 

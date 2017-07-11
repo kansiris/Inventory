@@ -32,7 +32,7 @@
     <!-- Over Hang -->
     @RenderSection("css", required: false)
     <!-- Over Hang -->
-    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+    @*<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />*@
     @*<!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -85,9 +85,11 @@
                                     <li><a href="~/AllProducts">Products</a></li>
                                     <li><a href="~/AddStock">Add Stock</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
+                                    <li><a href="#">Return Goods</a></li>
+                                    <li><a href="#">Exchange Goods</a></li>
+                                    <li><a href="#">Manage Goods</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
+                                    <li><a href="#">Account Summary</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -121,11 +123,11 @@
             <!-- /footer content -->
         </div>
     </div>
-    
+
     @RenderSection("scripts", required: false)
     <!-- Over Hang -->
-    <script src="~/Scripts/js/jquery-ui.min.js"></script>
-    <script src="~/Scripts/js/overhang.min.js"></script>
+    @*<script src="~/Scripts/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/js/overhang.min.js"></script>*@
     @*<!-- jQuery -->
         <script src="../vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -234,29 +236,29 @@
     </script>
 
     @*<script>
-    function errormsg(msg) {
-        $("body").overhang({
-            type: "error",
-            message: msg,
-            closeConfirm: false
-        });
-    }
+        function errormsg(msg) {
+            $("body").overhang({
+                type: "error",
+                message: msg,
+                closeConfirm: false
+            });
+        }
 
-    function successmsg(msg) {
-        $("body").overhang({
-            type: "success",
-            message: msg,
-            closeConfirm: false
-        });
-    }
-    function existsmsg(msg) {
-        $("body").overhang({
-            type: "exists",
-            message: msg,
-            duration: 3,
-            closeConfirm: false
-        });
-    }
-    </script>*@
+        function successmsg(msg) {
+            $("body").overhang({
+                type: "success",
+                message: msg,
+                closeConfirm: false
+            });
+        }
+        function existsmsg(msg) {
+            $("body").overhang({
+                type: "exists",
+                message: msg,
+                duration: 3,
+                closeConfirm: false
+            });
+        }
+        </script>*@
 </body>
 </html>

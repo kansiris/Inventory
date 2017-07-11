@@ -81,7 +81,7 @@ namespace Inventory.Controllers
                             if (file1 != null && file1.ContentLength > 0)
                             {
                                 imagename = imagename + "," + product_id + "_" + file1.FileName;
-                                file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + file1.FileName));
+                                file1.SaveAs(Server.MapPath("~/images/" + product_id + "_" + file1.FileName));
                             }
                         }
                         imagename = imagename.TrimStart(',');
@@ -92,11 +92,14 @@ namespace Inventory.Controllers
                         var images = product.product_images.Split(',');
                         for (int i = 0; i < images.Count(); i++)
                         {
-                            string fileName = product_id + "_" + images[i];
-                            string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
-                            string spath = Server.MapPath("~/images/" + images[i] + "");
-                            System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
-                            imagename = imagename + "," + fileName;
+                            if (images[i].Length < 7)
+                            {
+                                string fileName = product_id + "_" + images[i];
+                                string pathString = System.IO.Path.Combine(Server.MapPath("~/images/"), fileName);
+                                string spath = Server.MapPath("~/images/" + images[i] + "");
+                                System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
+                                imagename = imagename + "," + fileName;
+                            }
                         }
                         imagename = imagename.TrimStart(',');
                     }
