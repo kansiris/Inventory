@@ -85,8 +85,8 @@ namespace Inventory.Controllers
                                                              open_amount = row["open_amount"].ToString()
                                                          }).ToList();
                             string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
-                            DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "MM/dd/yyyy", CultureInfo.InvariantCulture);
-                            Payment_due_date = Payment_due_date1.ToString("dd/MM/yyyy");
+                            DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
+                            Payment_due_date = Payment_due_date1.ToString("dd/mm/yyyy");
                             DateTime paymentsdonedate = DateTime.Parse(payments.payments_date);
                             string open_amount = invoicetotl.FirstOrDefault().open_amount; //(invoicetotl.Select(m => m.open_amount)).First();
                             DateTime myPayment_due_date = DateTime.Parse(Payment_due_date);

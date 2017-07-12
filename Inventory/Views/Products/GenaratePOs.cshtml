@@ -17,7 +17,8 @@
 <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 <!-- bootstrap-daterangepicker -->
 <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
+@*Over Hang*@
+<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 
@@ -170,8 +171,14 @@
     <script type="text/javascript" src="~/Scripts/js/jquery-ui.min.js" language="javascript"></script>
     <script type="text/javascript" src="~/Scripts/js/tag-it.js" language="javascript"></script>
     <script type="text/javascript" src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+
     @Scripts.Render("~/bundles/ShopProduct")
     <link rel="stylesheet" href="~/Scripts/css/bootstrap-datepicker3.css" />
+<script src="~/Scripts/js/bootstrap-datepicker.min.js"></script>
+<link href="~/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
+<!-- Over Hang -->
+@*<script src="~/Scripts/js/jquery-ui.min.js"></script>*@
+<script src="~/Scripts/js/overhang.min.js"></script>
     <script>
         $(document).ready(function () {
             var dateformat = $('#dateformat').val().toLowerCase();
