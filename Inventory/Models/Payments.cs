@@ -8,7 +8,8 @@ namespace Inventory.Models
 
     [Table("Payments")]
     public class Payments
-    { 
+    {
+        public string poid { get; set; }
         public string payments_date { get; set; }
         public string cheque_date { get; set; }
         public string cheque_bankname { get; set; }

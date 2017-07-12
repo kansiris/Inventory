@@ -35,7 +35,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="container">
-                <form>
+                <form method="post">
                     <div class="row total-border">
                         <div class="col-xs-12 col-md-12">
                             <div class="row">
@@ -47,13 +47,15 @@
                             </div>
                             <div class="row margin-bottom">
                                 @{ Html.RenderAction("CustomerforPOs", "Products");}
-
+                                @Html.HiddenFor(m => m.Customer_comapnyId)
+                                @Html.HiddenFor(m => m.Customer_company_name)
                                 <div class="col-xs-12 col-md-3 margin-bottom">
-                                    <div class="row padding-bottom date" id="paymentsddate">
+                                    <div class="row padding-bottom date" id="payment_date" name="payment_date">
                                         Date :
                                         <script> document.write(new Date().toLocaleDateString('en-GB'));</script>
                                     </div>
-                                    <div class="row invoice-total-amount" id="invoicedtotal"> <text class="localization"></text> <span>@ViewBag.total_price</span> </div>
+                                    @Html.HiddenFor(m => m.payments_date)
+                                    <div class="row invoice-total-amount" id="invoicedtotal" name="invoicedtotal"> <text class="localization"></text> <span>@ViewBag.total_price</span> </div>
                                 </div>
                             </div>
 
@@ -61,6 +63,7 @@
                             <div class="row padding-top invoice" id="invoicedetails">
                                 <div class="row invoice-table margin-top margin-bottom">
                                     <div class="col-md-12">
+                                        @Html.HiddenFor(m=>m.poid)
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
@@ -128,19 +131,19 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="chequedate" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="cheque_date" name="cheque_date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Bank name</label>
-                                                    <input type="text" class="form-control" id="bankname">
+                                                    <input type="text" class="form-control" id="cheque_bankname" name="cheque_bankname">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Cheque No</label>
-                                                    <input type="text" class="form-control" id="chequeno">
+                                                    <input type="text" class="form-control" id="cheque_num" name="cheque_num">
                                                 </div>
                                             </div>
                                         </div>
@@ -159,19 +162,19 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="creditdate" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="creditORdebitcard_date" name="creditORdebitcard_date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Card Holder name</label>
-                                                    <input type="text" class="form-control" id="creditcardholdername">
+                                                    <input type="text" class="form-control" id="card_holder_name" name="card_holder_name">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Last 4 digits </label>
-                                                    <input type="text" class="form-control" id="creditcardlast4digits">
+                                                    <input type="text" class="form-control" id="card_last4digits" name="card_last4digits">
                                                 </div>
                                             </div>
                                         </div>
@@ -190,31 +193,31 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="banktransferdate" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="bank_taransfer_date" name="bank_taransfer_date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Name</label>
-                                                    <input type="text" class="form-control" id="banknametrans">
+                                                    <input type="text" class="form-control" id="bank_transfer_name" name="bank_transfer_name">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Transaction Id </label>
-                                                    <input type="text" class="form-control" id="transactionid">
+                                                    <input type="text" class="form-control" id="bank_transaction_id" name="bank_transaction_id">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>IFSC Code </label>
-                                                    <input type="text" class="form-control" id="ifsccode">
+                                                    <input type="text" class="form-control" id="bank_transfer_IFSCcode" name="bank_transfer_IFSCcode">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Branch Name </label>
-                                                    <input type="text" class="form-control" id="branchname">
+                                                    <input type="text" class="form-control" id="bank_transfer_branchname" name="bank_transfer_branchname">
                                                 </div>
                                             </div>
                                         </div>
@@ -233,13 +236,13 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="cashdate" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="cash_date" name="cash_date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Cashier Name</label>
-                                                    <input type="text" class="form-control" id="holdername">
+                                                    <input type="text" class="form-control" id="cash_card_holdername" name="cash_card_holdername">
                                                 </div>
                                             </div>
                                         </div>
@@ -258,13 +261,13 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="walletdate" name="date" placeholder="DD/MM/YYYY" type="text">
+                                                    <input class="form-control" id="wallet_date" name="wallet_date" placeholder="DD/MM/YYYY" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Mobile Number</label>
-                                                    <input type="text" class="form-control" id="mobilenumber">
+                                                    <input type="text" class="form-control" id="wallet_number" name="wallet_number">
                                                 </div>
                                             </div>
                                         </div>
@@ -276,7 +279,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Invoiced Amount </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="invoicedamt">
+                                                <input type="text" class="form-control" id="invoiced_amount" name="invoiced_amount">
                                             </div>
                                         </div>
                                     </div>
@@ -285,7 +288,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Received Amount </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="paidamt" onkeyup="calculateamnt()">
+                                                <input type="text" class="form-control" id="Received_amount" name="Received_amount" onkeyup="calculateamnt()">
                                             </div>
                                         </div>
                                     </div>
@@ -293,7 +296,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Opening Balance </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control pre-balance" id="previousamt">
+                                                <input type="text" class="form-control pre-balance" id="opening_balance" name="opening_balance">
                                             </div>
                                         </div>
                                     </div>
@@ -301,7 +304,7 @@
                                         <div class="col-xs-12 col-sm-5 col-md-5"> Current Balance </div>
                                         <div class="col-xs-12 col-sm-7 col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="currntamt">
+                                                <input type="text" class="form-control" id="current_balance" name="current_balance">
                                             </div>
                                         </div>
                                     </div>
@@ -332,7 +335,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-6 remarks margin-top">
                                     <label>Remarks</label>
-                                    <textarea class="form-control" rows="3" id="comment"></textarea>
+                                    <textarea class="form-control" rows="3" id="remarks" name="remarks"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -342,7 +345,7 @@
                             <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
-                            <button type="button" class="btn btn-primary pull-right save" id="save-payments" onclick="savepayments(@ViewBag.customer_id,'@ViewBag.company_name')"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                            <button type="submit" class="btn btn-primary pull-right save" id="save-payments" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>@*onclick="savepayments(@ViewBag.customer_id,'@ViewBag.company_name')"*@
                         </div>
                     </div>
                 </form>
@@ -364,7 +367,7 @@
 <script src="/Scripts/js/bootstrap-datepicker.min.js"></script>
 <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
 <!-- Over Hang -->
-<script src="~/Scripts/js/jquery-ui.min.js"></script>
+@*<script src="~/Scripts/js/jquery-ui.min.js"></script>*@
 <script src="~/Scripts/js/overhang.min.js"></script>
 <!-------------- Date Picker lib ----------->
 
@@ -372,10 +375,46 @@
 <script>
 @*<!-------------- Date Picker ----------->*@
     $(document).ready(function () {
-        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var date_input = $('input[name="date"]');
+        var date_input1 = $('input[name="cheque_date"]');//our date input has the name "date"
+        var date_input2 = $('input[name="creditORdebitcard_date"]');
+        var date_input3 = $('input[name="bank_taransfer_date"]');
+        var date_input4 = $('input[name="cash_date"]');
+        var date_input5 = $('input[name="wallet_date"]');
         var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var dateformat = $('#dateformat').val().toLowerCase();
         date_input.datepicker({
-            format: 'mm/dd/yyyy',
+            format: dateformat,
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+        date_input1.datepicker({
+            format: dateformat,
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+        date_input2.datepicker({
+            format: dateformat,
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+        date_input3.datepicker({
+            format: dateformat,
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+        date_input4.datepicker({
+            format: dateformat,
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+        date_input5.datepicker({
+            format: dateformat,
             container: container,
             todayHighlight: true,
             autoclose: true,
