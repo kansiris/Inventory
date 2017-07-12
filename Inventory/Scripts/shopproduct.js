@@ -196,7 +196,7 @@ function insertpo(totalamount) {
                 $("[id='shipping_date']").val("");
                 $("[id='shipping_terms']").val("");
                 $("[id='payment_date']").val("");
-                window.location = '/Products/PosOfCustomer?cid=' + cid+'&cname='+cname;
+                location.href = '/Products/PosOfCustomer?cid=' + cid + '&cname=' + cname;//window.location
             }
             if (data == "out of stock") {
                 warnmsg("out of stock");

@@ -23,9 +23,6 @@ function savepayments(cid, cname) {
     var ponum = $("input:checkbox:checked").map(function () {
         return this.value.split(',')[1];
     }).toArray();
-    //alert(ponum+'sai');
-
-
     var paymentsddate = (document.getElementById("paymentsddate").textContent).split(';')[1];
     var invoicedtotal = (document.getElementById("invoicedtotal").textContent).split('₹')[1];
     if (document.getElementById('radio-cheque').checked) {
@@ -59,8 +56,6 @@ function savepayments(cid, cname) {
     var recevdamnt = $("#paidamt").val();
     var currntamt = $("#currntamt").val();
     var comment = $("#comment").val();
-
-
     var payments = {
         payments_date:paymentsddate,
         cheque_date:chequedate, 
@@ -86,7 +81,7 @@ function savepayments(cid, cname) {
          Customer_comapnyId:cid,
         remarks:comment
     }
-    alert(payments.payments_date);
+    //alert(payments.payments_date);
 $.ajax({
     url: '/Payments/InsertPayments?Prchaseorder_no=' + ponum,
     type: 'POST',
