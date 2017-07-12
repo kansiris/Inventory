@@ -6,29 +6,28 @@
     Layout = "~/Views/Shared/MainMaster.cshtml";
 }
 @section css{
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+  <!-- Bootstrap -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-progressbar -->
+<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+<!-- JQVMap -->
+<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+<!-- bootstrap-daterangepicker -->
+<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
-    @*Over Hang*@
-    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
-    <!--- Tabs in Graph Section ---->
-    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
-    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
-@*@Scripts.Render("~/bundles/Payments")*@
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+@*Over Hang*@
+<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+<!--- Tabs in Graph Section ---->
+<link href="~/Scripts/css/reset.css" rel="stylesheet" />
+<link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 }
 <div class="container body">
     <div class="main_container">
@@ -59,7 +58,7 @@
                             </div>
 
                             <div class="row po-date"></div>
-                            <div class="row padding-top invoice">
+                            <div class="row padding-top invoice" id="invoicedetails">
                                 <div class="row invoice-table margin-top margin-bottom">
                                     <div class="col-md-12">
                                         <table class="table table-bordered">
@@ -361,14 +360,12 @@
 <!-- Bootstrap -->
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../build/js/custom.min.js"></script>
-<!-- Over Hang -->
-<script src="~/Scripts/js/jquery-ui.min.js"></script>
-<script src="~/Scripts/js/overhang.min.js"></script>
-
 <!-------------- Date Picker lib ----------->
 <script src="/Scripts/js/bootstrap-datepicker.min.js"></script>
 <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
-
+<!-- Over Hang -->
+<script src="~/Scripts/js/jquery-ui.min.js"></script>
+<script src="~/Scripts/js/overhang.min.js"></script>
 <!-------------- Date Picker lib ----------->
 
 <script src="/Scripts/payments.js"></script>

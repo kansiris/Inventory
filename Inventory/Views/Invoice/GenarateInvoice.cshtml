@@ -333,7 +333,7 @@
         var date_input = $('input[name="date"]'); //our date input has the name "date"
         var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
-            format: currency,
+            format: dateformat,
             container: container,
             todayHighlight: true,
             autoclose: true,
@@ -359,7 +359,6 @@
         }
         function checkpaydate() {
             var paydate = $('#pay_date').val();
-            //alert(paydate);
             var today = new Date();
             var dd = today.getDate();
             var MMM = today.getMonth() + 1;
@@ -375,26 +374,6 @@
                 $('#pay_date').val("");
             }
         }
-        //function checkpaydate() {
-        //    var paydate = $('#pay_date').val();
-        //    alert(paydate.format('dd/mm/yyyy'));
-        //    var today = new Date();
-        //    var dd = today.getDate();
-        //    var MMM = today.getMonth() + 1;
-        //    if (MMM < 10) {
-        //        MMM = '0' + MMM
-        //    }
-           
-        //    var yyyy = today.getFullYear();
-        //    a = new Date(yyyy,MMM,dd);
-        //    b = new Date(paydate.split('/')[2], paydate.split('/')[0], paydate.split('/')[1]);
-        //    if (b <= a) {
-        //        warnmsg("Select a Valid Date.");
-        //        $('#pay_date').val("");
-        //    }
-           
-        //} 
-
 
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';
@@ -408,6 +387,7 @@
             });
         }
 
+        
 </script>
 <!------------- E-Mail------------->
 <script type="text/javascript">

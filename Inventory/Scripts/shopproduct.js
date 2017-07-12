@@ -248,6 +248,7 @@ function successmsg(msg) {
     $("body").overhang({
         type: "success",
         message: msg,
+        duration: 3,
         closeConfirm: false
     });
 }

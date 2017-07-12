@@ -138,15 +138,16 @@ function saveInvoice(cid) {
                 errormsg("Invoice generated already.");
             }
             else {
-                successmsg("Invoice saved successfully");
-                
+                successmsg("Invoice Created successfully");
                 $("[id='saveinvoice']").css("display","none");
                 $("[id='invoicenum']").val("");
                $("[id='date']").val("");
                 $("[id='paymentterms']").val("");
                 $("[id='comment']").val("");
-                location.href = '/Invoice?cid=' + customerid + '&cname=' + companyName;
+                $("#completediv").css("display", "none");
+                location.reload();
             }
+            //location.href = '/Invoice?cid=' + customerid + '&cname=' + companyName;
         },
         error: function (data)
         { errormsg("Failed!!!"); }
@@ -158,8 +159,9 @@ function saveInvoice(cid) {
 function saveDeliverynote(cid) {
     var vendorname = document.getElementById("vendor_name").textContent;
     var customerid = cid;
-       var createddate = (document.getElementById("createddate").textContent).split(':')[1];
-       var grandtotl = (document.getElementById("grandTotal").textContent);
+    
+    var createddate = (document.getElementById("createddatedeliv").textContent).split(':')[1];
+    var grandtotl = (document.getElementById("grandTotal").textContent);
     var delivnotenum = $("[id='delivnotenum']").val();
     var Comment = $("[id='coMment']").val();
     var Subtotal = (document.getElementById("subTotal").textContent);
@@ -180,11 +182,11 @@ function saveDeliverynote(cid) {
                     errormsg("Delivery Note not generated");
                 }
                 else {
-                    successmsg("Delivery Note saved successfully");
+                    successmsg("Delivery Note Generated successfully");
                     $("[id='delivnotenum']").val("");
                     $("[id='comment']").val("");
-                    var cname = (document.URL.split('&&')[1]).split('=')[1];
-                    location.href = '/Invoice?cid='+ customerid +'&cname=' + cname;
+                    //var cname = (document.URL.split('&&')[1]).split('=')[1];
+                    location.reload();
                 }
             },
             error: function (data)
@@ -274,4 +276,47 @@ function calculate(totalprice) {
         errormsg("Please Enter < 100 %");
     }
 }
+
+
+
+function successmsg(msg) {
+    $("body").overhang({
+        type: "success",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function existsmsg(msg) {
+    $("body").overhang({
+        type: "exists",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
+    });
+}
+
+function warnmsg(msg) {
+    $("body").overhang({
+        type: "warn",
+        message: msg,
+        duration: 3
+    });
+}
+
+
+function errormsg(msg) {
+    $("body").overhang({
+        type: "error",
+        message: msg
+    });
+}
+function confirmmsg(msg) {
+    $("body").overhang({
+        type: "confirm",
+        message: msg
+    });
+}
+
+
 
