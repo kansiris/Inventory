@@ -81,6 +81,7 @@ namespace Inventory.Controllers
                             if (file1 != null && file1.ContentLength > 0)
                             {
                                 imagename = imagename + "," + product_id + "_" + file1.FileName;
+                                file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + file1.FileName));
                                 file1.SaveAs(Server.MapPath("~/images/" + product_id + "_" + file1.FileName));
                             }
                         }
@@ -92,14 +93,11 @@ namespace Inventory.Controllers
                         var images = product.product_images.Split(',');
                         for (int i = 0; i < images.Count(); i++)
                         {
-                            if (images[i].Length < 7)
-                            {
-                                string fileName = product_id + "_" + images[i];
-                                string pathString = System.IO.Path.Combine(Server.MapPath("~/images/"), fileName);
-                                string spath = Server.MapPath("~/images/" + images[i] + "");
-                                System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
-                                imagename = imagename + "," + fileName;
-                            }
+                            string fileName = product_id + "_" + images[i];
+                            string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
+                            string spath = Server.MapPath("~/images/" + images[i] + "");
+                            System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
+                            imagename = imagename + "," + fileName;
                         }
                         imagename = imagename.TrimStart(',');
                     }
@@ -165,16 +163,16 @@ namespace Inventory.Controllers
                         product.product_tags = "";
                     else
                         product.product_tags = product.product_tags.Replace("!", "");
-                        //int count = 0;
-                        int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
-                            product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
-                            product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                            product.product_description, product.product_tags, imagename);
+                    //int count = 0;
+                    int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
+                        product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
+                        product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
+                        product.product_description, product.product_tags, imagename);
                     if (count > 0)
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)
                         {
-                            int response = ProductService.UpdateReorder(user.DbName, product.Qid[i].ToString(),int.Parse(product.Quantity_Qty[i]), product.Reorder_level[i], product.Quantity_Total);
+                            int response = ProductService.UpdateReorder(user.DbName, product.Qid[i].ToString(), int.Parse(product.Quantity_Qty[i]), product.Reorder_level[i], product.Quantity_Total);
                         }
                         TempData["smsg"] = "Product Updated Successfully!!!"; //Success Message
                     }
@@ -378,7 +376,7 @@ namespace Inventory.Controllers
                 string updatedimage = String.Join(",", productimage);
                 int count = ProductService.removeproductimage(user.DbName, id, updatedimage);
                 if (count > 0)
-                return Json("success");
+                    return Json("success");
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
