@@ -23,18 +23,28 @@ function savepayments(cid, cname) {
     var ponum = $("input:checkbox:checked").map(function () {
         return this.value.split(',')[1];
     }).toArray();
-    var paymentsddate = (document.getElementById("paymentsddate").textContent).split(';')[1];
+    var paymentsddate = (document.getElementById("paymentsddate").textContent).split(';')[1].trimRight();
     var invoicedtotal = (document.getElementById("invoicedtotal").textContent).split('₹')[1];
     if (document.getElementById('radio-cheque').checked) {
         var chequedate = $("#chequedate").val();
         var bankname = $("#bankname").val();
         var chequeno = $("#chequeno").val();
-    } 
+    }
+    else {
+        var chequedate = "";
+        var bankname = "";
+        var chequeno = "";
+    }
     if (document.getElementById('radio-credit').checked) {
         var creditdate = $("#creditdate").val();
         var creditcardholdername = $("#creditcardholdername").val();
         var creditcardlast4digits = $("#creditcardlast4digits").val();
-    } 
+    }
+    else {
+        var creditdate = "";
+        var creditcardholdername = "";
+        var creditcardlast4digits = "";
+    }
     
     if (document.getElementById('radio-banktransfer').checked) {
         var banktransferdate = $("#banktransferdate").val();
@@ -43,14 +53,29 @@ function savepayments(cid, cname) {
         var ifsccode = $("#ifsccode").val();
         var branchname = $("#branchname").val();
     }
+    else {
+        var banktransferdate = "";
+        var banknametrans = "";
+        var transactionid = "";
+        var ifsccode = "";
+        var branchname = "";
+    }
     if (document.getElementById('radio-cash').checked) {
         var cashdate = $("#cashdate").val();
         var holdername = $("#holdername").val();
     }
+    else {
+        var cashdate = "";
+        var holdername = "";
+    }
     if (document.getElementById('radio-wallet').checked) {
         var walletdate = $("#walletdate").val();
         var mobilenumber = $("#mobilenumber").val();
-    } 
+    }
+    else {
+        var walletdate = "";
+        var mobilenumber = "";
+    }
     var invamt = $("#invoicedamt").val();
     var previous = $("#previousamt").val();
     var recevdamnt = $("#paidamt").val();
