@@ -158,6 +158,34 @@
                                 <li class="tab-2" id="tab-2">
                                     @Html.HiddenFor(m => m.product_images)
                                     <ul>
+                                        @foreach (var library in ViewBag.libraryimages)
+                                        {
+                                            <li>
+                                                <input type="checkbox" name="checkbox" class="libselection">
+                                                <img src="images/@library" alt="Image one" />
+                                            </li>
+                                        }
+                                        
+                                        @*<li>
+                                            <input type="checkbox" name="checkbox" class="libselection">
+                                            <img src="images/2.jpg" alt="Image Two" />
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" name="checkbox" class="libselection">
+                                            <img src="images/3.jpg" alt="Image Three" />
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" name="checkbox" class="libselection">
+                                            <img src="images/4.jpg" alt="Image Four" />
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" name="checkbox" class="libselection">
+                                            <img src="images/5.jpg" alt="Image Five" />
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" name="checkbox" class="libselection">
+                                            <img src="images/6.jpg" alt="Image Six" />
+                                        </li>
                                         <li>
                                             <input type="checkbox" name="checkbox" class="libselection">
                                             <img src="images/1.jpg" alt="Image one" />
@@ -181,31 +209,7 @@
                                         <li>
                                             <input type="checkbox" name="checkbox" class="libselection">
                                             <img src="images/6.jpg" alt="Image Six" />
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" name="checkbox" class="libselection">
-                                            <img src="images/1.jpg" alt="Image one" />
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" name="checkbox" class="libselection">
-                                            <img src="images/2.jpg" alt="Image Two" />
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" name="checkbox" class="libselection">
-                                            <img src="images/3.jpg" alt="Image Three" />
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" name="checkbox" class="libselection">
-                                            <img src="images/4.jpg" alt="Image Four" />
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" name="checkbox" class="libselection">
-                                            <img src="images/5.jpg" alt="Image Five" />
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" name="checkbox" class="libselection">
-                                            <img src="images/6.jpg" alt="Image Six" />
-                                        </li>
+                                        </li>*@
                                     </ul>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -1804,7 +1808,9 @@ $("#tabs > i.fa-times").click(function(){
                             img.attr("src", e.target.result);
                             img.addClass();
                             //dvPreview.append(img);
-                            dvPreview.append("<li><input type='checkbox' name='checkbox' class='libselection'><img style='height:90px;width:90px' src=" + e.target.result + "></img></li>");
+                            dvPreview.prepend("<li><input type='checkbox' name='checkbox' class='libselection'><img style='height:90px;width:90px' src=" + e.target.result + "></img></li>");
+                            $('#tab-2').css({ "opacity": "1", "z-index": "1" });
+                            $('#tab-1').css({ "opacity": "0", "z-index": "-1" });
                         }
                         reader.readAsDataURL(file[0]);
                     } else {

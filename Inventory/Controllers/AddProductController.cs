@@ -22,6 +22,7 @@ namespace Inventory.Controllers
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 ViewBag.country = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault().Ucountry;
+                ViewBag.libraryimages = Directory.GetFiles(Server.MapPath("/images/")).Select(Path.GetFileName).ToList();
                 var count = ProductService.GetWarehouseCount(user.DbName);
                 if (count.Read())
                 {
