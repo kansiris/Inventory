@@ -131,6 +131,7 @@ namespace Inventory.Controllers
         //   string current_balance, string bank_transfer_IFSCcode, string bank_transfer_branchname, string Customer_comapnyId, string Customer_company_name, string remarks)
         //{
         //inserting payments
+        [HttpPost]
         public JsonResult InsertPayments(string Prchaseorder_no, Payments payments)
         {
         
