@@ -94,11 +94,14 @@ namespace Inventory.Controllers
                         var images = product.product_images.Split(',');
                         for (int i = 0; i < images.Count(); i++)
                         {
-                            string fileName = product_id + "_" + user.UserSite + "_" + images[i];
-                            string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
-                            string spath = Server.MapPath("~/images/" + images[i] + "");
-                            System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
-                            imagename = imagename + "," + fileName;
+                            if (images[i] != "data:image/png;base64" && images[i].Length < 100)
+                            {
+                                string fileName = product_id + "_" + user.UserSite + "_" + images[i];
+                                string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
+                                string spath = Server.MapPath("~/images/" + images[i] + "");
+                                System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
+                                imagename = imagename + "," + fileName;
+                            }
                         }
                         imagename = imagename.TrimStart(',');
                     }
