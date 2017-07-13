@@ -208,7 +208,7 @@
                                                     </div>
                                                     <button type="button" class="btn btn-primary signin" onclick="password()" id="btnlogin" value="Authenticate">Sign In</button>
                                                     <button type="button" class="btn btn-default next" onclick="get(@item.UserTypeId,@item.ID)">Select</button>  @*data-toggle="modal" data-target=".bs-example-modal-sm"*@
-
+                                                    <div align="center"><a class="reset_pass" href="#">Lost your password?</a></div>
 
                                                     @*<div id="password @item.UserTypeId" style="display:none">*@
                                                     @*<input type="hidden" id="usertype" name="usertype" />
@@ -366,6 +366,12 @@
             var password = $(this).prevAll(".form-group.password").append('<input type="password" class="form-control loginpassword" id="loginpassword" name="loginpassword" autofocus="autofocus" placeholder="Enter Password"/>').css("margin-bottom", "0");
             $(password).children("input[type='password']").css("display", "block");
             $(this).css({ "display": "none", "margin-bottom": "0" });
+            $(this).parents("div").prevAll("div").children(".thumbnail").children(".form-group.password").children("input[type='password']").remove();
+            $(this).parents("div").prevAll("div").children(".thumbnail").children("button.next").css("display", "block");
+            $(this).parents("div").prevAll("div").children(".thumbnail").children("button.signin").css("display", "none");
+            $(this).parents("div").nextAll("div").children(".thumbnail").children(".form-group.password").children("input[type='password']").remove();
+            $(this).parents("div").nextAll("div").children(".thumbnail").children("button.next").css("display", "block");
+            $(this).parents("div").nextAll("div").children(".thumbnail").children("button.signin").css("display", "none");
         });
     </script>
     @*<script>
