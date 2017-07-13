@@ -108,7 +108,7 @@ namespace Inventory.Controllers
                     int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                         product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                        product.product_description, product.product_tags, imagename);
+                        product.product_description, product.product_tags, imagename,product.SGST,product.CGST,product.IGST,product.HSNcode);
                     if (count > 0)
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)
@@ -172,7 +172,7 @@ namespace Inventory.Controllers
                     int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                         product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                        product.product_description, product.product_tags, imagename);
+                        product.product_description, product.product_tags, imagename, product.SGST, product.CGST, product.IGST, product.HSNcode);
                     if (count > 0)
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)
