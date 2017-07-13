@@ -990,8 +990,8 @@
                                         @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
                                         @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", required = "required", Value = particularproduct.cost_price })
                                     </div>
-                                    <div class="form-group col-xs-6 col-md-3">
-                                        <label>Selling Price</label>
+                                    <div class="form-group col-xs-6 col-md-2">
+                                        <label>Sell Price</label>
                                         @*<input type="text" class="form-control" placeholder="Selling Price" value="0">*@
                                         @Html.TextBoxFor(Model => Model.selling_price, new { @class = "form-control", placeholder = "Selling Price", Value = particularproduct.selling_price })
                                     </div>
@@ -1000,7 +1000,7 @@
                                             @*<input type="text" class="form-control" placeholder="Tax" value="0">
                                             @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", Value = "0" })
                                         </div>*@
-                                    <div class="form-group col-xs-6 col-md-3 tax">
+                                    <div class="form-group col-xs-6 col-md-5 tax">
                                         @if (ViewBag.country == "India")
                                             {
                                             <label>Tax (%)</label>
