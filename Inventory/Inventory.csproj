@@ -415,6 +415,7 @@
     <Content Include="images\user.png" />
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
+    <Content Include="Models\13july2017.sql" />
     <Content Include="Models\April04.sql" />
     <Content Include="Models\April19.sql" />
     <Content Include="Models\Inventory.csproj" />
