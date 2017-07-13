@@ -998,6 +998,7 @@ function successmsg(msg) {
     $("body").overhang({
         type: "success",
         message: msg,
+        duration: 3,
         closeConfirm: false
     });
 }
@@ -1015,7 +1016,8 @@ function warnmsg(msg) {
     $("body").overhang({
         type: "warn",
         message: msg,
-        duration: 3
+        duration: 3,
+        closeConfirm: false
     });
 }
 
