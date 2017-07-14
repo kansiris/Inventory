@@ -284,6 +284,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Franchise.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -291,7 +292,14 @@
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\Model2.Context1.cs" />
+    <Compile Include="Models\Model2.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model2.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\OwnerCompanyAddress.cs" />
     <Compile Include="Models\OwnerStaff.cs" />
     <Compile Include="Models\OwnerStaffStatus.cs" />
@@ -416,18 +424,25 @@
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
     <Content Include="Models\13july2017.sql" />
+    <Content Include="Models\14july2017.sql" />
     <Content Include="Models\April04.sql" />
     <Content Include="Models\April19.sql" />
+    <Content Include="Models\createdbscript.sql" />
+    <Content Include="Models\finalscript.sql" />
     <Content Include="Models\Inventory.csproj" />
+    <Content Include="Models\inventoryscript.sql" />
     <Content Include="Models\july112017.sql" />
     <Content Include="Models\mar02.sql" />
     <Content Include="Models\mar14.sql" />
     <Content Include="Models\May08.sql" />
     <Content Include="Models\May24.sql" />
+    <Content Include="Models\Model2.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model2.Context2.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\updatedscript.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Models\App.config" />
-    <Content Include="Models\packages.config" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
@@ -453,6 +468,8 @@
     <Content Include="fonts\opensans-semibold-webfont.woff2" />
     <Content Include="fonts\opensans-semibolditalic-webfont.woff" />
     <Content Include="fonts\opensans-semibolditalic-webfont.woff2" />
+    <Content Include="Models\App.config" />
+    <Content Include="Models\packages.config" />
     <None Include="Properties\PublishProfiles\Inventory.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\css\bootstrap-datepicker3.css" />
