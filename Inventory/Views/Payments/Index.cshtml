@@ -350,7 +350,7 @@
                         <div class="col-xs-12 col-md-12 invoice-buttons">
                             <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
                             <button type="submit" class="btn btn-primary pull-right save" id="save-payments" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>@*onclick="savepayments(@ViewBag.customer_id,'@ViewBag.company_name')"*@
                         </div>
                     </div>
@@ -486,7 +486,7 @@
 
     }
 
-  
+
     //<!----------------- Payment Section------------->
 
     //<!-------------- Add custom Conditions ----------->
@@ -513,4 +513,39 @@
     $("input[type='text'].pre-balance").val(invoicetotalamount);
     //<!-------------- balance block ----------->
 
+
+//<!------------- E-Mail------------->
+
+$("#add-vendor3").click(function(){
+    var Detdiv = document.getElementById("invoicedetails").outerHTML;
+return email(Detdiv);
+});
+
+
+function email(v){
+       var Detdivobj = {};
+       Detdivobj.Detdiv = v;
+       alert(v);
+       //$.ajax({
+       //    type: "POST",
+       //    url: "/Payments/Email",
+       //    contentType: "application/json; charset=utf-8",
+       //    dataType: "json",
+       //    data: {},
+       //    data: JSON.stringify({ EmailId: Detdivobj }),
+       //    //data: { content: $('#div_Detdiv').html() },
+       //    // data: sendInfo,
+       //    success: function (data) {
+       //        alert("Order details and feedback form sent to your email id");
+       //    },
+       //    error: function (data) {
+       //        alert("E-Mail Sending Failed!!!");
+       //    }
+       //});
+}
+
 </script>
+<!------------- E-Mail------------->
+
+
+

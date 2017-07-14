@@ -145,8 +145,6 @@ namespace Inventory.Controllers
             if (ActivationCode != null && ActivationCode != "")
             {
                 int activateemail = 0;
-
-
                 activateemail = LoginService.ActivatesEmail(Email_Id, ActivationCode, DBName);
 
             }
