@@ -94,7 +94,7 @@ namespace Inventory.Controllers
                         var images = product.product_images.Split(',');
                         for (int i = 0; i < images.Count(); i++)
                         {
-                            if (images[i] != "data:image/png;base64" && images[i].Length < 100)
+                            if (!images[i].StartsWith("data:image")  && images[i].Length < 100) //!= "data:image/png;base64" && images[i] != "data:image/jpeg;base64"
                             {
                                 string fileName = product_id + "_" + user.UserSite + "_" + images[i];
                                 string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
