@@ -1021,16 +1021,6 @@ function warnmsg(msg) {
     });
 }
 
-// file upload
-//function upload2() {
-//    var ext = $('#fileupload2').val().split('.').pop().toLowerCase();
-//    if ($.inArray(ext, ['txt','doc', 'rtx']) == -1) {
-//        warnmsg('Invalid File Type');
-//        $('#fileupload2').val("")
-//    }
-   
-//    }
-
 
 function onFileSelected(event) {
     var ext = $('#fileupload2').val().split('.').pop().toLowerCase();

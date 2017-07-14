@@ -1,7 +1,6 @@
 ﻿function genarateInvoice() {
     var cid = document.URL.split('?')[1].split('&')[0].split('=')[1];
     var cname = location.search.split('cname=')[1];
-    //alert(cname);
     var checkboxval = $("input:checkbox:checked").prop('checked');
     var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
         return this.value;
@@ -36,9 +35,7 @@
 
 function genarateDelivNote() {
     var cid = document.URL.split('?')[1].split('&&')[0].split('=')[1];
-    //alert(cid);
     var checkboxval = $("input:checkbox:checked").prop('checked');
-    //alert(checkboxval);
     if (checkboxval == true) {
         $("#completediv").css("display", "block");
         $("#deliverynote").css("display", "block");
@@ -46,7 +43,6 @@ function genarateDelivNote() {
                 var Prchaseorder_nos = $("input:checkbox:checked").map(function () {
             return this.value;
         }).toArray();
-        //alert(Prchaseorder_nos);
         $.ajax({
             url: '/Invoice/GenarateDelivjson?cid=' + cid + '&Prchaseorder_nos=' + Prchaseorder_nos,
             type: 'POST',
@@ -116,9 +112,7 @@ function saveInvoice(cid) {
     else{
         var Subtotal = ((document.getElementById("subtotal").textContent).split('₹')[1]);
     }
-    //alert(Subtotal);
-    //var cgst=
-  
+    
     var Vat = $("[id='vat']").val();
     var Discount = $("[id='discount']").val(); 
     var Grandtotal1 = ((document.getElementById("grandtotal1").textContent).split('$')[1]);

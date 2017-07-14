@@ -40,13 +40,10 @@ namespace Inventory.Controllers
                                                   total_price = row["total_price"].ToString(),
                                                   created_date = row["created_date"].ToString(),
                                                   invoice_status = row["invoice_status"].ToString(),
-                                                  //deliverynote_status = row["deliverynote_status"].ToString(),
                                                   totalQty = row["totalQty"].ToString()
                                               }).OrderByDescending(m => m.invoice_status).ToList();
                 ViewBag.records = availablepos;
                 ViewBag.invoice_status = availablepos.Select(m => m.invoice_status);
-                //ViewBag.deliverynote_status = availablepos.Select(m => m.deliverynote_status);
-
                 return PartialView("AvailblePos", ViewBag.records);
             }
             return PartialView("AvailblePos", null);
@@ -70,12 +67,10 @@ namespace Inventory.Controllers
                                                   Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                   total_price = row["total_price"].ToString(),
                                                   created_date = row["created_date"].ToString(),
-                                                  //invoice_status = row["invoice_status"].ToString(),
                                                   deliverynote_status = row["deliverynote_status"].ToString(),
                                                   totalQty = row["totalQty"].ToString()
                                               }).OrderByDescending(m => m.invoice_status).ToList();
                 ViewBag.records = availablepos;
-                //ViewBag.deliverynote_status = availablepos.Select(m => m.invoice_status);
                 ViewBag.deliverynote_status = availablepos.Select(m => m.deliverynote_status);
 
                 return PartialView("AvailblePosforDeliv", ViewBag.records);
@@ -93,8 +88,6 @@ namespace Inventory.Controllers
                 if (Prchaseorder_nos != null)
                 {
                     Array ponumsArray = Prchaseorder_nos.Split(',');
-
-                    //int i = 0;
                     var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                     var dt = new DataTable();
                     for (int i = 0; i < ponumsArray.Length; i++)
@@ -113,16 +106,12 @@ namespace Inventory.Controllers
                                                            description = row["description"].ToString(),
                                                            cost_price = row["cost_price"].ToString(),
                                                            total_price = row["total_price"].ToString(),
-                                                           //vat = row["vat"].ToString(),
-                                                           //discount = row["discount"].ToString(),
                                                            sub_total = row["sub_total"].ToString(),
                                                            grand_total = row["grand_total"].ToString(),
                                                        }).ToList();
                         ViewBag.records = productsinpos;
                         ViewBag.customer_id = cid;
                         ViewBag.company_name = customer_name;
-                        //ViewBag.vat = productsinpos.Select(m => m.vat).First();
-                        // ViewBag.discount = productsinpos.Select(m => m.discount).First();
                         ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
                         ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
                     }
@@ -155,8 +144,6 @@ namespace Inventory.Controllers
                 if (Prchaseorder_nos != null)
                 {
                     Array ponumsArray = Prchaseorder_nos.Split(',');
-
-                    //int i = 0;
                     var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                     var dt = new DataTable();
                     for (int i = 0; i < ponumsArray.Length; i++)
@@ -174,14 +161,11 @@ namespace Inventory.Controllers
                                                            description = row["description"].ToString(),
                                                            cost_price = row["cost_price"].ToString(),
                                                            total_price = row["total_price"].ToString(),
-                                                           //vat = row["vat"].ToString(),
-                                                           //discount = row["discount"].ToString(),
                                                            sub_total = row["sub_total"].ToString(),
                                                            grand_total = row["grand_total"].ToString(),
                                                        }).ToList();
                         ViewBag.records = productsinpos;
                         ViewBag.customer_id = cid;
-                        // ViewBag.vat = productsinpos.Select(m => m.vat).First();
                         ViewBag.discount = productsinpos.Select(m => m.discount).First();
                         ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
                         ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
@@ -241,11 +225,6 @@ namespace Inventory.Controllers
 
         //to insert invoice data
 
-
-
-       
-
-
         public JsonResult InsertInvoice(string Invoice_no, string vendor_name, string customer_id, string company_name, string created_date, string payment_date, string grand_total, string payment_terms, string comment, string sub_total, string vat, string discount, string Prchaseorder_nos)
         {
 
@@ -268,7 +247,6 @@ namespace Inventory.Controllers
                         List<Invoice> productsinpo = (from DataRow row in dts.Rows
                                                       select new Invoice()
                                                       {
-                                                          //customer_id = row["customer_id"].ToString(),
                                                           product_id = row["product_id"].ToString(),
                                                           product_name = row["product_name"].ToString(),
                                                           cost_price = row["cost_price"].ToString(),
@@ -285,7 +263,6 @@ namespace Inventory.Controllers
                             string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[j];
                             string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];
                             string description = (productsinpo.Select(m => m.description).ToList())[j];
-                            //string total_price = (productsinpo.Select(m => m.total_price).ToList())[i];
                             string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];//after this will be chnaged.
                             string total_price = (int.Parse(po_quantity) * float.Parse(cost_price)).ToString();
 
@@ -302,9 +279,6 @@ namespace Inventory.Controllers
                                 , product_id, product_name, cost_price, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
                             count++;
                         }
-
-
-                        //count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status);
                         if (count > 0)
                         {
                             InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
@@ -379,7 +353,6 @@ namespace Inventory.Controllers
                         List<Invoice> productsinpo = (from DataRow row in dt.Rows
                                                       select new Invoice()
                                                       {
-                                                          //customer_id = row["customer_id"].ToString(),
                                                           product_id = row["product_id"].ToString(),
                                                           product_name = row["product_name"].ToString(),
                                                           cost_price = row["cost_price"].ToString(),
@@ -395,7 +368,6 @@ namespace Inventory.Controllers
                             string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[i];
                             string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];
                             string description = (productsinpo.Select(m => m.description).ToList())[i];
-                            //string total_price = (productsinpo.Select(m => m.total_price).ToList())[i];
                             string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];//after this will be chnaged.
                             string total_price = (int.Parse(deliver_quantity) * float.Parse(cost_price)).ToString();
                             count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date, comment, sub_total, Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
@@ -444,9 +416,6 @@ namespace Inventory.Controllers
                                                        Payment_date = row["payment_date"].ToString(),
                                                        payment_terms = row["payment_terms"].ToString(),
                                                        remarks = row["comment"].ToString(),
-                                                       // description = row["description"].ToString(),
-                                                       //cost_price = row["cost_price"].ToString(),
-                                                       //total_price = row["total_price"].ToString(),
                                                        vat = row["vat"].ToString(),
                                                        discount = row["discount"].ToString(),
                                                        sub_total = row["sub_total"].ToString(),
