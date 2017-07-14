@@ -94,18 +94,21 @@ namespace Inventory.Controllers
                         var images = product.product_images.Split(',');
                         for (int i = 0; i < images.Count(); i++)
                         {
-                            string fileName = product_id + "_" + user.UserSite + "_" + images[i];
-                            string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
-                            string spath = Server.MapPath("~/images/" + images[i] + "");
-                            System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
-                            imagename = imagename + "," + fileName;
+                            if (images[i] != "data:image/png;base64" && images[i].Length < 100)
+                            {
+                                string fileName = product_id + "_" + user.UserSite + "_" + images[i];
+                                string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
+                                string spath = Server.MapPath("~/images/" + images[i] + "");
+                                System.IO.File.Copy(spath, pathString); //copy image from images folder to productimages folder
+                                imagename = imagename + "," + fileName;
+                            }
                         }
                         imagename = imagename.TrimStart(',');
                     }
                     int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                         product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                        product.product_description, product.product_tags, imagename);
+                        product.product_description, product.product_tags, imagename,product.SGST,product.CGST,product.IGST,product.HSNcode);
                     if (count > 0)
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)
@@ -169,7 +172,7 @@ namespace Inventory.Controllers
                     int count = ProductService.ProductFunctionalities(command, user.DbName, 1, pid, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                         product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                        product.product_description, product.product_tags, imagename);
+                        product.product_description, product.product_tags, imagename, product.SGST, product.CGST, product.IGST, product.HSNcode);
                     if (count > 0)
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)

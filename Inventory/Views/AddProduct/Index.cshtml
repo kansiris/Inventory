@@ -63,40 +63,40 @@
                                     <ul class="row sub-column">
                                         <li class="col-md-3 level2-sub-column">
                                             <ul>
-                                                <li data-content="row1">Column 1 Row 1</li>
-                                                <li data-content="row2">Column 1 Row 2</li>
-                                                <li data-content="row3">Column 1 Row 3</li>
+                                                <li data-content="row1">Eggs, Honey & Milk Products</li>
+                                                @*<li data-content="row2">Column 1 Row 2</li>
+                                                <li data-content="row3">Column 1 Row 3</li>*@
                                             </ul>
                                         </li>
                                         <li class="col-md-3 level2-sub-column">
                                             <ul>
-                                                <li data-content="row1">Column 2 Row 1</li>
+                                                <li data-content="row1">Edible Products Of Animal Origin, Not Elsewhere Specified Or Included</li>
                                                 <li data-content="row2" class="level3-sub-column">
                                                     <ul>
-                                                        <li data-content="sub-row2">Column 2 Row 2.1</li>
-                                                        <li>Column 2 Row 2.2</li>
+                                                        @*<li data-content="sub-row2">Column 2 Row 2.1</li>*@
+                                                        <li>Products Consisting Of Natural Milk Constituents</li>
                                                     </ul>
                                                 </li>
-                                                <li data-content="row3">Column 2 Row 3</li>
+                                                @*<li data-content="row3">Column 2 Row 3</li>*@
                                             </ul>
                                         </li>
                                         <li class="col-md-3 level2-sub-column">
                                             <ul>
-                                                <li data-content="row1">Column 3 Row 1</li>
+                                                <li data-content="row1">5</li>
                                                 <li data-content="sub-row2" class="level3-sub-column">
                                                     <ul>
-                                                        <li>Column 3 Row 2.1.1</li>
-                                                        <li>Column 3 Row 2.1.2</li>
+                                                        <li>5</li>
+                                                        @*<li>Column 3 Row 2.1.2</li>*@
                                                     </ul>
                                                 </li>
-                                                <li>Column 3 Row 3</li>
+                                                @*<li>Column 3 Row 3</li>*@
                                             </ul>
                                         </li>
                                         <li class="col-md-3 level2-sub-column">
                                             <ul>
-                                                <li>Column 4 Row 1</li>
-                                                <li>Column 4 Row 2</li>
-                                                <li>Column 4 Row 3</li>
+                                                <li>0410</li>
+                                                <li>0404</li>
+                                                @*<li>Column 4 Row 3</li>*@
                                             </ul>
                                         </li>
                                     </ul>
@@ -371,9 +371,9 @@
                                                 <div class="slider"></div>
                                             </label>
                                             <div class="row">
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" placeholder="cgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" placeholder="sgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" placeholder="igst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="CGST" name="CGST" placeholder="cgst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control"  id="SGST" name="SGST" placeholder="sgst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" id="IGST" name="IGST" placeholder="igst" value="0" disabled></div>
                                             </div>
                                             }
                                     </div>
@@ -513,7 +513,7 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6" id="select-product">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control" placeholder="HSN Code">
+                                        <input type="text" class="form-control" id="HSNcode" name="HSNcode" placeholder="HSN Code">
                                         <!--<div class="display-positions">
                                           <div class="positions1 position">
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -752,6 +752,75 @@
     <div class="right_col" role="main">
         <div class="container">
             <form method="post" enctype="multipart/form-data">
+                <div id="tabs">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <div class="row search-box">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search Here" />
+                            </div>
+                            <div class="input-group">
+                                <button value="Search">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row dropdown-tabs">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <ul class="dropdown-tabs-navigastion">
+                                <li data-content="hsn" class="selected">HSN(<span>0</span>)</li>
+                                <li data-content="sac">SAC(<span>0</span>)</li>
+                                <li data-content="vamsi">vamsi(<span>0</span>)</li>
+                            </ul>
+                            <ul class="dropdown-tabs-content">
+                                <!--<li data-content="hsn" class="selected">HSN content is here</li>-->
+                                <li data-content="hsn" class="selected">
+                                    <ul class="row sub-column">
+                                        <li class="col-md-3 level2-sub-column">
+                                            <ul>
+                                                <li data-content="row1">Column 1 Row 1</li>
+                                                <li data-content="row2">Column 1 Row 2</li>
+                                                <li data-content="row3">Column 1 Row 3</li>
+                                            </ul>
+                                        </li>
+                                        <li class="col-md-3 level2-sub-column">
+                                            <ul>
+                                                <li data-content="row1">Column 2 Row 1</li>
+                                                <li data-content="row2" class="level3-sub-column">
+                                                    <ul>
+                                                        <li data-content="sub-row2">Column 2 Row 2.1</li>
+                                                        <li>Column 2 Row 2.2</li>
+                                                    </ul>
+                                                </li>
+                                                <li data-content="row3">Column 2 Row 3</li>
+                                            </ul>
+                                        </li>
+                                        <li class="col-md-3 level2-sub-column">
+                                            <ul>
+                                                <li data-content="row1">Column 3 Row 1</li>
+                                                <li data-content="sub-row2" class="level3-sub-column">
+                                                    <ul>
+                                                        <li>Column 3 Row 2.1.1</li>
+                                                        <li>Column 3 Row 2.1.2</li>
+                                                    </ul>
+                                                </li>
+                                                <li>Column 3 Row 3</li>
+                                            </ul>
+                                        </li>
+                                        <li class="col-md-3 level2-sub-column">
+                                            <ul>
+                                                <li>Column 4 Row 1</li>
+                                                <li>Column 4 Row 2</li>
+                                                <li>Column 4 Row 3</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li data-content="sac">SAC content is here</li>
+                                <li data-content="vamsi">vamsi content is here</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="row">
@@ -766,6 +835,40 @@
                 @foreach (var particularproduct in ViewBag.product)
                 {
                 <div class="row">
+                    <div class="library">
+                        <div class="row image-library padding-left-0 padding-right-0">
+                            <ul class="col-md-12 tabs">
+                                <li class="tab-1"><a>Upload Images</a></li>
+                                <li class="tab-2"><a>Library</a></li>
+                                <i class="fa fa-times pull-right" aria-hidden="true"></i>
+                            </ul>
+                            <ul class="col-md-12 tabs-content">
+                                <li class="tab-1" id="tab-1">
+                                    <button type="button" class="btn" onclick="javascript: document.getElementById('fileUpload1').click();">Upload Here</button>
+                                    <input type="file" multiple="multiple" accept="image/*" id='fileUpload1' name="file" style="display:none">
+                                </li>
+                                <li class="tab-2" id="tab-2">
+                                    @Html.HiddenFor(m => m.product_images)
+                                    <ul>
+                                        @foreach (var library in ViewBag.libraryimages)
+                                        {
+                                            <li>
+                                                <input type="checkbox" name="checkbox" class="libselection">
+                                                <img src="images/@library" alt="Image one" />
+                                            </li>
+                                        }
+                                    </ul>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                            <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-md-9">
                         <div class="row">
                             <div class="col-md-7">
@@ -887,8 +990,8 @@
                                         @*<input type="text" class="form-control" placeholder="Cost Price" value="0">*@
                                         @Html.TextBoxFor(Model => Model.cost_price, new { @class = "form-control", placeholder = "Cost Price", required = "required", Value = particularproduct.cost_price })
                                     </div>
-                                    <div class="form-group col-xs-6 col-md-3">
-                                        <label>Selling Price</label>
+                                    <div class="form-group col-xs-6 col-md-2">
+                                        <label>Sell Price</label>
                                         @*<input type="text" class="form-control" placeholder="Selling Price" value="0">*@
                                         @Html.TextBoxFor(Model => Model.selling_price, new { @class = "form-control", placeholder = "Selling Price", Value = particularproduct.selling_price })
                                     </div>
@@ -897,7 +1000,7 @@
                                             @*<input type="text" class="form-control" placeholder="Tax" value="0">
                                             @Html.TextBoxFor(Model => Model.tax, new { @class = "form-control", placeholder = "Tax", Value = "0" })
                                         </div>*@
-                                    <div class="form-group col-xs-6 col-md-3 tax">
+                                    <div class="form-group col-xs-6 col-md-5 tax">
                                         @if (ViewBag.country == "India")
                                             {
                                             <label>Tax (%)</label>
@@ -922,9 +1025,9 @@
                                                 <div class="slider"></div>
                                             </label>
                                             <div class="row">
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" placeholder="cgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" placeholder="sgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" placeholder="igst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="CGST" name="CGST" placeholder="cgst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="SGST" name="SGST" placeholder="sgst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" id="IGST" name="IGST" placeholder="igst" value="0" disabled></div>
                                             </div>
                                             }
                                     </div>
@@ -1035,7 +1138,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-xs-12 col-md-12">
+                                    <div class="form-group col-xs-12 col-md-6">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                         @*<input type="text" class="form-control selected-position" placeholder="Item Shape">*@
                                         @Html.TextBoxFor(Model => Model.item_shape, new { @class = "form-control selected-position", placeholder = "Item Shape", Value = particularproduct.item_shape })
@@ -1061,6 +1164,27 @@
                                             </div>
                                             <div class="row positions"></div>
                                         </div>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6" id="select-product">
+                                        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                        <input type="text" class="form-control" id="HSNcode" name="HSNcode" placeholder="HSN Code">
+                                        <!--<div class="display-positions">
+          <div class="positions1 position">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+          <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bottle</div>
+          <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Pouch</div>
+          <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Box</div>
+          <div class="positions1"><i class="fa fa-trash-o pull-right" aria-hidden="true"></i>Bag</div>
+        </div>
+        <div class="row add-position">
+          <div class="row">
+            <input type="text" class="form-control" placeholder="Enter Position">
+            <button type="button" class="btn btn-primary btn-sm add-button"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
+            <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
+          </div>
+          <div class="row positions"></div>
+        </div>-->
                                     </div>
                                 </div>
 
@@ -1150,103 +1274,33 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="row">
+                                    <div class="col-md-12 admin-product-image"> <img src="images/default_product.png" alt="Product" /> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary btn-xs pull-right add-popup"><i class="fa fa-plus-circle" aria-hidden="true"></i>Image</button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <ul class="col-md-12 admin-product-thumbs">
                                         @Html.HiddenFor(m => m.product_images)
                                         @*@Html.HiddenFor()*@
                                         @if (particularproduct.product_images != "")
+                                        {
+                                            foreach (var item1 in particularproduct.product_images.Split(','))
                                             {
-                                                foreach (var item1 in particularproduct.product_images.Split(','))
-                                                {
-                                            <li class="image">   <img src="~/ProductImages/@item1" alt="Product Image" height="50px" width="50px" alt="Product" /> <i class="fa fa-times remove" aria-hidden="true"></i></li> @*onclick="removeimage('@item1')"*@
-                                                }
+                                                <li class="image">   <img src="~/ProductImages/@item1" alt="Product Image" height="50px" width="50px" alt="Product" /> <i class="fa fa-times remove" aria-hidden="true"></i></li> @*onclick="removeimage('@item1')"*@
                                             }
-                                            else
-                                            {
+                                        }
+                                        else
+                                        {
                                             <img src="images/default_product.png" alt="Product" />}
                                     </ul>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary btn-xs pull-right add-popup"><i class="fa fa-plus-circle" aria-hidden="true"></i>Image</button>
-                                        </div>
-                                    </div>
-                                    <div class="row image-library">
-                                        <ul class="col-md-12 tabs">
-                                            <li class="tab-1"><a>Upload Images</a></li>
-                                            <li class="tab-2"><a>Library</a></li>
-                                            <i class="fa fa-times pull-right" aria-hidden="true"></i>
-                                        </ul>
-                                        <ul class="col-md-12 tabs-content">
-                                            @*<li class="tab-1" id="tab-1">
-                                                    <button type="button" id="btnupload" onclick="javascript: document.getElementById('fileUpload').click();" class="btn">Upload Here</button>
-
-                                                    <input type='file' multiple="multiple" accept="image/*" id='fileUpload' name="file" />
-                                                    <div id="dvPreview" align="center" style="padding:30px">
-                                                </li>*@
-                                            <li class="tab-1" id="tab-1">
-                                                <button type="button" class="btn" onclick="javascript: document.getElementById('fileUpload').click();">Upload Here</button>
-                                                <input type="file" multiple="multiple" accept="image/*" id='fileUpload' name="file" style="display:none">
-                                                <div class="row" id="dvPreview">
-                                                    @*<div class="col-xs-12 col-md-12">
-                                                            <ul class="upload-thumbs">
-                                                                <li><img src="images/1.jpg" alt="1" /></li>
-                                                                <li><img src="images/2.jpg" alt="2" /></li>
-                                                                <li><img src="images/3.jpg" alt="3" /></li>
-                                                                <li><img src="images/4.jpg" alt="4" /></li>
-                                                                <li><img src="images/5.jpg" alt="5" /></li>
-                                                                <li><img src="images/6.jpg" alt="6" /></li>
-                                                                <li><img src="images/1.jpg" alt="1" /></li>
-                                                                <li><img src="images/2.jpg" alt="2" /></li>
-                                                                <li><img src="images/3.jpg" alt="3" /></li>
-                                                                <li><img src="images/4.jpg" alt="4" /></li>
-                                                                <li><img src="images/5.jpg" alt="5" /></li>
-                                                                <li><img src="images/6.jpg" alt="6" /></li>
-                                                            </ul>
-                                                        </div>*@
-                                                </div>
-                                            </li>
-                                            <li class="tab-2" id="tab-2">
-                                                <ul>
-                                                    <li>
-                                                        <input type="checkbox" name="checkbox" class="libselection">
-                                                        <img src="images/1.jpg" alt="Image one" />
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" name="checkbox" class="libselection">
-                                                        <img src="images/2.jpg" alt="Image Two" />
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" name="checkbox" class="libselection">
-                                                        <img src="images/3.jpg" alt="Image Three" />
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" name="checkbox" class="libselection">
-                                                        <img src="images/4.jpg" alt="Image Four" />
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" name="checkbox" class="libselection">
-                                                        <img src="images/5.jpg" alt="Image Five" />
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" name="checkbox" class="libselection">
-                                                        <img src="images/6.jpg" alt="Image Six" />
-                                                    </li>
-                                                </ul>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                                                        <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                    <div class="row">
-                                        <ul class="col-md-12 admin-product-thumbs"></ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="form-group col-xs-12 col-md-12">
                                 <input type="hidden" value="@particularproduct.product_description" id="product_desc" />
