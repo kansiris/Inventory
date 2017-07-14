@@ -88,7 +88,7 @@ namespace Inventory.Controllers
 
 
                             //string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
-                           // DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
+                            // DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
                             //Payment_due_date = Payment_due_date1.ToString("dd/mm/yyyy");
                             //DateTime paymentsdonedate1 = DateTime.ParseExact(payments.payments_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
                             //string paymentsdonedate = paymentsdonedate1.ToString("dd/mm/yyyy");
@@ -125,7 +125,7 @@ namespace Inventory.Controllers
                     int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue);
                     if (counts > 0)
                         TempData["smsg"] = "Payment saved Successfully!!!";
-                    return RedirectToAction("Index", "Payments",new {cid=payments.Customer_comapnyId,cname=payments.Customer_company_name });
+                    return RedirectToAction("Index", "Payments", new { cid = payments.Customer_comapnyId, cname = payments.Customer_company_name });
                 }
             }
             TempData["msg"] = "Failed To Save";
@@ -205,25 +205,16 @@ namespace Inventory.Controllers
 
         //for email of invoice
 
-        public void Email(string EmailId)
+        public void Email(string Invoicedata)
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
-            string EmailId1 = "sravani.siddeswara@xsilica.com";
+            string EmailId = "sravani.siddeswara@xsilica.com";
             string activationCode = Guid.NewGuid().ToString();
-            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId1;
-            //string message = body;
-            //StreamReader reader = new StreamReader(Server.MapPath("../Content/mailer.html"));
-            //string readFile = reader.ReadToEnd();
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
             FileInfo File = new FileInfo(Server.MapPath("/Content/mailer.html"));
-            //string readFile = File.OpenText().ReadToEnd();
-            //readFile = readFile.Replace("[ActivationLink]", url);
-            //string body = "Hello " + First_Name + " " + Last_Name + ",";
-            //body += "<br /><br />Please click the following link to activate your account";
-            //body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
-            //body += "<br /><br />Thanks";
-            string message = EmailId;//readFile + body;
-            abc.EmailAvtivation(EmailId1, message, "Account Activation");
+            string message = Invoicedata;//readFile + body;
+            abc.EmailAvtivation(EmailId, message, "Invoice details");
         }
 
 

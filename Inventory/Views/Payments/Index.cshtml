@@ -525,23 +525,23 @@ return email(Detdiv);
 function email(v){
        var Detdivobj = {};
        Detdivobj.Detdiv = v;
-       alert(v);
-       //$.ajax({
-       //    type: "POST",
-       //    url: "/Payments/Email",
-       //    contentType: "application/json; charset=utf-8",
-       //    dataType: "json",
-       //    data: {},
-       //    data: JSON.stringify({ EmailId: Detdivobj }),
-       //    //data: { content: $('#div_Detdiv').html() },
-       //    // data: sendInfo,
-       //    success: function (data) {
-       //        alert("Order details and feedback form sent to your email id");
-       //    },
-       //    error: function (data) {
-       //        alert("E-Mail Sending Failed!!!");
-       //    }
-       //});
+       alert(Detdivobj);
+       $.ajax({
+           type: "POST",
+           url: "/Payments/Email",
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           data: {},
+           data: JSON.stringify({ Invoicedata: v }),
+           //data: { content: $('#div_Detdiv').html() },
+           // data: sendInfo,
+           success: function (data) {
+               alert("Order details and feedback form sent to your email id");
+           },
+           error: function (data) {
+               alert("E-Mail Sending Failed!!!");
+           }
+       });
 }
 
 </script>
