@@ -58,7 +58,7 @@ namespace Inventory.Controllers
 
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var count = PaymentsService.InsertPayments(user.DbName, payments.payments_date, payments.cheque_date, payments.cheque_bankname, payments.cheque_num, payments.creditORdebitcard_date, payments.card_holder_name, payments.card_last4digits, payments.bank_taransfer_date, payments.bank_transfer_name, payments.bank_transaction_id
-   , payments.cash_date, payments.cash_card_holdername, payments.wallet_date, payments.wallet_number, payments.invoiced_amount, payments.Received_amount, payments.opening_balance, payments.current_balance, payments.bank_transfer_IFSCcode, payments.bank_transfer_branchname, payments.Customer_comapnyId, payments.Customer_company_name, payments.remarks);
+      , payments.cash_date, payments.cash_card_holdername, payments.wallet_date, payments.wallet_number, payments.invoiced_amount, payments.Received_amount, payments.opening_balance, payments.current_balance, payments.bank_transfer_IFSCcode, payments.bank_transfer_branchname, payments.Customer_comapnyId, payments.Customer_company_name, payments.remarks);
                 if (count > 0)
                 {
                     string overdue = "0";
@@ -79,13 +79,22 @@ namespace Inventory.Controllers
                                                              open_amount = row["open_amount"].ToString()
                                                          }).ToList();
                             string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
-                            DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
-                            Payment_due_date = Payment_due_date1.ToString("dd/mm/yyyy");
+                            string open_amount = invoicetotl.FirstOrDefault().open_amount;
+
+                            string[] strDate = Payment_due_date.Split('/');
+                            DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
+                            string[] enddate = payments.payments_date.Split('/');
+                            DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
+
+
+                            //string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
+                           // DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
+                            //Payment_due_date = Payment_due_date1.ToString("dd/mm/yyyy");
                             //DateTime paymentsdonedate1 = DateTime.ParseExact(payments.payments_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
                             //string paymentsdonedate = paymentsdonedate1.ToString("dd/mm/yyyy");
-                            string open_amount = invoicetotl.FirstOrDefault().open_amount;
-                            DateTime myPayment_due_date = DateTime.Parse(Payment_due_date);
-                            DateTime paymentsdonedate = DateTime.Parse(payments.payments_date);
+                            //string open_amount = invoicetotl.FirstOrDefault().open_amount;
+                            //DateTime myPayment_due_date = DateTime.Parse(Payment_due_date);
+                            //DateTime paymentsdonedate = DateTime.Parse(payments.payments_date);
                             if (open_amount != "" && open_amount != null && open_amount != "0")
                             {
                                 if ((int.Parse(open_amount)) >= (int.Parse(payments.Received_amount)))
@@ -107,7 +116,7 @@ namespace Inventory.Controllers
                             }
                             else
                                 break;
-                            if (myPayment_due_date < paymentsdonedate)
+                            if (date1 < date2)
                                 overdue = updatedopenamt.ToString();
                             else
                                 due = updatedopenamt.ToString();
@@ -116,7 +125,7 @@ namespace Inventory.Controllers
                     int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue);
                     if (counts > 0)
                         TempData["smsg"] = "Payment saved Successfully!!!";
-                    return RedirectToAction("Index", "Customer");
+                    return RedirectToAction("Index", "Payments",new {cid=payments.Customer_comapnyId,cname=payments.Customer_company_name });
                 }
             }
             TempData["msg"] = "Failed To Save";
@@ -193,5 +202,30 @@ namespace Inventory.Controllers
 
         //    return Json("unique");
         //}
+
+        //for email of invoice
+
+        public void Email(string EmailId)
+        {
+            // Designing Email Part
+            SendEmail abc = new SendEmail();
+            string EmailId1 = "sravani.siddeswara@xsilica.com";
+            string activationCode = Guid.NewGuid().ToString();
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId1;
+            //string message = body;
+            //StreamReader reader = new StreamReader(Server.MapPath("../Content/mailer.html"));
+            //string readFile = reader.ReadToEnd();
+            FileInfo File = new FileInfo(Server.MapPath("/Content/mailer.html"));
+            //string readFile = File.OpenText().ReadToEnd();
+            //readFile = readFile.Replace("[ActivationLink]", url);
+            //string body = "Hello " + First_Name + " " + Last_Name + ",";
+            //body += "<br /><br />Please click the following link to activate your account";
+            //body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
+            //body += "<br /><br />Thanks";
+            string message = EmailId;//readFile + body;
+            abc.EmailAvtivation(EmailId1, message, "Account Activation");
+        }
+
+
     }
 }
