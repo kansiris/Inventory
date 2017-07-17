@@ -238,7 +238,7 @@
                     var newamunt = divtotalright;
                     var cid = location.search.split('cid=')[1];
                     whqty = $(this).parents("div.added-products").find("input.whqty").val();
-                    //alert($(this).prev(".input-group").find("button.increase").html());
+                    //$(this).parents(".input-group").find(".cartqty").next("button").prop('readonly','true')
                     //updatecart(cartid, inputqty, newamunt);
                     $.ajax({
                         url: '/Products/UpdateCart',
@@ -252,12 +252,12 @@
                             }
                             else {
                                 if (parseInt(plus) > parseInt(whqty)) {
-                                    warnmsg("Quantity Exceeded!!!Availability Qty is " + v + "");
-                                    $(this).parents(".input-group").find("button.increase").prop('disabled', 'true');
+                                    warnmsg("Quantity Exceeded!!!Availability Qty is " + whqty + "");
+                                    //$(this).parents(".input-group").find("input.increase").prop('readonly', 'true');
                                 }
                                 else {
                                     successmsg("Successfully Updated Cart.");
-                                    $(this).parents(".input-group").find("button.increase").prop('disabled', 'false');
+                                    //$(this).parents(".input-group").find("input.increase").prop('readonly', 'false');
                                 }
                                 var url = 'Products/Addtocartpartial?cid=' + cid;
                                 $('#cartrecords').load(url);

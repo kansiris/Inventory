@@ -346,6 +346,10 @@ namespace Inventory.Controllers
                                product_description = row["product_description"].ToString(),
                                product_tags = row["product_tags"].ToString(),
                                product_images = row["product_images"].ToString(),
+                               CGST = row["CGST"].ToString(),
+                               SGST = row["SGST"].ToString(),
+                               IGST = row["IGST"].ToString(),
+                               HSNcode = row["HSNcode"].ToString(),
                            }).Take(1).ToList();
             }
             return product;
