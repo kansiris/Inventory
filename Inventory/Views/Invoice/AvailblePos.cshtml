@@ -9,18 +9,19 @@
     <td class="col-md-1">
         <label><input type="checkbox" value="@item.Prchaseorder_no" id="availpocheck" onclick="checkstatus(@item.invoice_status)"></label>
     </td>
-    <td class="col-md-2">@item.Prchaseorder_no</td>
+    <td class="col-md-2">@item.company_name</td>
+    <td class="col-md-1">@item.Prchaseorder_no</td>
     <td class="col-md-2">@item.created_date</td>
     <td class="col-md-2">@item.totalQty</td>
     <td class="col-md-2"><text class="localization"></text><span>@item.total_price</span></td>
     
     @if (int.Parse(@item.invoice_status) == 1)
     {
-        <td class="col-md-3">Generated</td>
+        <td class="col-md-2">Generated</td>
     }
     else
     {
-        <td class="col-md-3">Not Generated</td>
+        <td class="col-md-2">Not Generated</td>
     }
 </tr>
         }

@@ -380,6 +380,10 @@
 <script>
 @*<!-------------- Date Picker ----------->*@
     $(document).ready(function () {
+        if ($("#invoicedtotal").val() == 0) {
+
+        }
+        $('input[name="invoicedtotal"]');
         var date_input = $('input[name="date"]');
         var date_input1 = $('input[name="cheque_date"]');//our date input has the name "date"
         var date_input2 = $('input[name="creditORdebitcard_date"]');
@@ -545,6 +549,30 @@ function email(v){
 }
 
 </script>
+@if (ViewBag.msg != "" && ViewBag.msg != null)
+{
+    <script>
+            $("body").overhang({
+                type: "error",
+                message: '@ViewBag.msg',
+                duration: 3,
+                closeConfirm: false
+            });
+    </script>
+}
+
+    @*Success Message*@
+    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
+    {
+        <script>
+            $("body").overhang({
+                type: "success",
+                message: '@ViewBag.smsg',
+                duration: 3,
+                closeConfirm: false
+            });
+        </script>
+    }
 <!------------- E-Mail------------->
 
 
