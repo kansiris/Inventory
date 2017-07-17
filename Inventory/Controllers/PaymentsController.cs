@@ -98,7 +98,7 @@ namespace Inventory.Controllers
                             string[] strDate = Payment_due_date.Split('/');
                             DateTime date1 = Convert.ToDateTime(strDate[1] + "/" + strDate[0] + "/" + strDate[2]);
                             string[] enddate = payments.payments_date.Split('/');
-                            DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
+                            DateTime date2 = Convert.ToDateTime(enddate[1] + "/" + enddate[0] + "/" + enddate[2]);
 
 
                             if (open_amount != "" && open_amount != null && open_amount != "0")
