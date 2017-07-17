@@ -47,6 +47,14 @@ namespace Inventory.Controllers
                 ViewBag.customer_id = cid;
                 ViewBag.company_name = cname;
             }
+            if (TempData["msg"] != null)
+            {
+                ViewBag.msg = TempData["msg"];
+            }
+            if (TempData["smsg"] != null)
+            {
+                ViewBag.smsg = TempData["smsg"];
+            }
             return View();
         }
         [HttpPost]
@@ -81,20 +89,18 @@ namespace Inventory.Controllers
                             string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
                             string open_amount = invoicetotl.FirstOrDefault().open_amount;
 
+                            //string[] strDate = Payment_due_date.Split('/');
+                            //DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
+                            //string[] enddate = payments.payments_date.Split('/');
+                            //DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
+
+                            //*****for Live deploy
                             string[] strDate = Payment_due_date.Split('/');
                             DateTime date1 = Convert.ToDateTime(strDate[1] + "/" + strDate[0] + "/" + strDate[2]);
                             string[] enddate = payments.payments_date.Split('/');
-                            DateTime date2 = Convert.ToDateTime(enddate[1] + "/" + enddate[0] + "/" + enddate[2]);
+                            DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
 
 
-                            //string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
-                            // DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
-                            //Payment_due_date = Payment_due_date1.ToString("dd/mm/yyyy");
-                            //DateTime paymentsdonedate1 = DateTime.ParseExact(payments.payments_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
-                            //string paymentsdonedate = paymentsdonedate1.ToString("dd/mm/yyyy");
-                            //string open_amount = invoicetotl.FirstOrDefault().open_amount;
-                            //DateTime myPayment_due_date = DateTime.Parse(Payment_due_date);
-                            //DateTime paymentsdonedate = DateTime.Parse(payments.payments_date);
                             if (open_amount != "" && open_amount != null && open_amount != "0")
                             {
                                 if ((int.Parse(open_amount)) >= (int.Parse(payments.Received_amount)))
