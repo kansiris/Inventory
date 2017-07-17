@@ -213,19 +213,19 @@ namespace Inventory.Repository
         }
 
         //for customer tax details
-        public static int Updatecustax(int cus_company_Id, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files,string dbname)
+        public static int Updatecustax(int cus_company_Id,string Adhar_Number,string GSTIN_Number ,string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files,string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatecus_taxdetails", cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "updatecus_taxdetails", cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files);
             return count;
         }
         //insertcus_taxdetails
-        public static int insertcustaxdetails(int cus_company_Id, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files, string dbname)
+        public static int insertcustaxdetails(int cus_company_Id,string Adhar_Number,string GSTIN_Number, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files, string dbname)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertcus_taxdetails", cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files);
+            int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertcus_taxdetails", cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files);
             return count;
         }
     }

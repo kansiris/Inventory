@@ -264,6 +264,8 @@ namespace Inventory.Controllers
                         cus_Note = data["cus_Note"].ToString(),
                         cus_logo = data["cus_logo"].ToString(),
                         Customer_Id = data["Customer_Id"].ToString(),
+                        Adhar_Number = data["Adhar_Number"].ToString(),
+                        GSTIN_Number = data["GSTIN_Number"].ToString(),
                         tax_reg_no = data["tax_reg_no"].ToString(),
                         pan_no = data["pan_no"].ToString(),
                         tds_apply = int.Parse(set2.ToString()),
@@ -661,7 +663,7 @@ namespace Inventory.Controllers
 
         //tax file upload
         [HttpPost]
-        public ActionResult TaxExemptionfile(HttpPostedFileBase file, int cus_company_Id, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string clickeditem)
+        public ActionResult TaxExemptionfile(HttpPostedFileBase file, int cus_company_Id,string Adhar_Number,string GSTIN_Number, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string clickeditem)
         {
             string filename = "";
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -693,18 +695,18 @@ namespace Inventory.Controllers
 
             filename = filename.TrimStart(',');
 
-                    if (clickeditem == "updatetaxdetails")
-                    {
-                        int count = CustomerService.Updatecustax(cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
+                    //if (clickeditem == "updatetaxdetails")
+                    //{
+                        int count = CustomerService.Updatecustax(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
                         if (count > 0)
                             return Json("success");
-                    }
-                    else
-                    {
-                        int count = CustomerService.Updatecustax(cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
-                        if (count > 0)
-                            return Json("success1");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    int count = CustomerService.Updatecustax(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
+                    //    if (count > 0)
+                    //        return Json("success1");
+                    //}
             
             return Json("unsucess");
         }

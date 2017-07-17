@@ -28,6 +28,8 @@ namespace Inventory.Models
         public string Email_Id { get; set; }
 
         public string Adhar_Number { get; set; }
+        public string GSTIN_Number { get; set; }
+
 
         public string cus_Job_position { get; set; }
 
