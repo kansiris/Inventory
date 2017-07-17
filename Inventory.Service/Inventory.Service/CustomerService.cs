@@ -150,16 +150,16 @@ namespace Inventory.Service
         }
 
         //for tax details
-        public static int Updatecustax(int cus_company_Id, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files,string dbname)
+        public static int Updatecustax(int cus_company_Id,string Adhar_Number,string GSTIN_Number, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files,string dbname)
         {
             
-            return CustomerRepository.Updatecustax(cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files,dbname);
+            return CustomerRepository.Updatecustax(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files,dbname);
         }
        
-            public static int insertcustaxdetails(int cus_company_Id, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files, string dbname)
+            public static int insertcustaxdetails(int cus_company_Id,string Adhar_Number,string GSTIN_Number, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string tax_files, string dbname)
         {
 
-            return CustomerRepository.insertcustaxdetails(cus_company_Id, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files, dbname);
+            return CustomerRepository.insertcustaxdetails(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files, dbname);
         }
     }
 }
