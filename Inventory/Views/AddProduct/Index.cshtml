@@ -371,9 +371,9 @@
                                                 <div class="slider"></div>
                                             </label>
                                             <div class="row">
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="CGST" name="CGST" placeholder="cgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control"  id="SGST" name="SGST" placeholder="sgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" id="IGST" name="IGST" placeholder="igst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="CGST" name="CGST" placeholder="cgst" value="0" readonly></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control"  id="SGST" name="SGST" placeholder="sgst" value="0" readonly></div>
+                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" id="IGST" name="IGST" placeholder="igst" value="0" readonly></div>
                                             </div>
                                             }
                                     </div>
@@ -1025,9 +1025,9 @@
                                                 <div class="slider"></div>
                                             </label>
                                             <div class="row">
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="CGST" name="CGST" placeholder="cgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="SGST" name="SGST" placeholder="sgst" value="0" disabled></div>
-                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" id="IGST" name="IGST" placeholder="igst" value="0" disabled></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="CGST" name="CGST" placeholder="cgst" value="@particularproduct.CGST" readonly></div>
+                                                <div class="col-md-4 padding-left-0"><input type="text" class="form-control" id="SGST" name="SGST" placeholder="sgst" value="@particularproduct.SGST" readonly></div>
+                                                <div class="col-md-4 padding-left-0 padding-right-0"><input type="text" class="form-control" id="IGST" name="IGST" placeholder="igst" value="@particularproduct.IGST" readonly></div>
                                             </div>
                                             }
                                     </div>
@@ -1167,7 +1167,7 @@
                                     </div>
                                     <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6" id="select-product">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                                        <input type="text" class="form-control" id="HSNcode" name="HSNcode" placeholder="HSN Code">
+                                        <input type="text" class="form-control" id="HSNcode" name="HSNcode" value="@particularproduct.HSNcode" placeholder="HSN Code">
                                         <!--<div class="display-positions">
           <div class="positions1 position">
             <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Item Shape</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -1455,10 +1455,11 @@
 
     <script>
         $(document).ready(function () {
-            var date_input = $('#product_expirydate'); //our date input has the name "date"
+            var date_input = $('#product_expirydate').val(); alert(date_input); //our date input has the name "date"
+            var dateformat = $('#dateformat').val(); alert(dateformat.toLocaleLowerCase());
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
-                format: 'mm/dd/yyyy',
+                format: 'dd/MM/yyyy',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,
@@ -1718,9 +1719,15 @@
         // <!-- Toogle Function -->
         $(".tax #checkbox1").change(function () {
             if ($(this).is(":checked")) {
-                $(".tax input[placeholder='Tax']").prop('readonly', false);
+                $(".tax input[placeholder='Tax']").prop('readonly', false); // tax textbox enable
+                $(".tax input[placeholder='cgst']").prop('readonly', false);// cgst textbox enable
+                $(".tax input[placeholder='sgst']").prop('readonly', false);// sgst textbox enable
+                $(".tax input[placeholder='igst']").prop('readonly', false);// igst textbox enable
             } else {
-                $(".tax input[placeholder='Tax']").prop('readonly', true);
+                $(".tax input[placeholder='Tax']").prop('readonly', true); // tax textbox disable
+                $(".tax input[placeholder='cgst']").prop('readonly', true);// cgst textbox disable
+                $(".tax input[placeholder='sgst']").prop('readonly', true);// sgst textbox disable
+                $(".tax input[placeholder='igst']").prop('readonly', true);// igst textbox disable
             }
 
         });
