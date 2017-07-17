@@ -121,7 +121,7 @@
 
         //<!------------ Quantity changes / Prices Multiple -------------->
         $(document).ready(function (e) {
-            var tableprice, divprice, tabletotal, divtotal, divpriceright;
+            var tableprice, divprice, tabletotal, divtotal, divpriceright,whqty;
             $(document).on('click', '.productsection > .spinner > .input-group .btn:first-of-type', function () {
                 var minus, v;
                 v = parseInt($(this).next("input[type='text']").val());
@@ -131,6 +131,7 @@
                     //tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());;
                     divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
                     divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    whqty = $(this).parents("div.rate-add").find("div.warehouse").children("div").children("span").html();
                     //tabletotal = minus * tableprice;
                     divtotal = minus * divprice;
                     divtotalright = minus * divpriceright;
@@ -139,6 +140,13 @@
                     //$(this).parents(".rate-add").children(".product-price-total").children("span").remove();
                     $(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
                     $(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
+
+                    if (plus > parseInt(whqty)) {
+                        errormsg("Quantity Exceeded!!!Availability Qty is " + whqty + "");
+                        $('#availableqty').empty().html(v);
+                        $(this).prev("input[type='text']").val("1");
+                        $(this).prev("input[type='text']").select();
+                    }
                 }
                 return vals();
             });
@@ -152,6 +160,7 @@
                     //tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
                     divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
                     divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    whqty = $(this).parents("div.rate-add").find("div.warehouse").children("div").children("span").html();
                     // alert(divprice);
                     //tabletotal = plus * tableprice;
                     divtotal = plus * divprice;
@@ -161,6 +170,13 @@
                     //$(this).parents(".rate-add").children(".product-price-total").children("span").remove();
                     $(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
                     $(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
+                    
+                    if (plus > parseInt(whqty)) {
+                        errormsg("Quantity Exceeded!!!Availability Qty is " + whqty + "");
+                        $('#availableqty').empty().html(v);
+                        $(this).prev("input[type='text']").val("1");
+                        $(this).prev("input[type='text']").select();
+                    }
                 }
                 return vals();
             });
@@ -221,6 +237,8 @@
                     var inputqty = plus;
                     var newamunt = divtotalright;
                     var cid = location.search.split('cid=')[1];
+                    whqty = $(this).parents("div.added-products").find("input.whqty").val();
+                    //alert($(this).prev(".input-group").find("button.increase").html());
                     //updatecart(cartid, inputqty, newamunt);
                     $.ajax({
                         url: '/Products/UpdateCart',
@@ -233,15 +251,22 @@
                                 errormsg("Not Inserted");
                             }
                             else {
-                                successmsg("Successfully Updated Cart.");
+                                if (parseInt(plus) > parseInt(whqty)) {
+                                    warnmsg("Quantity Exceeded!!!Availability Qty is " + v + "");
+                                    $(this).parents(".input-group").find("button.increase").prop('disabled', 'true');
+                                }
+                                else {
+                                    successmsg("Successfully Updated Cart.");
+                                    $(this).parents(".input-group").find("button.increase").prop('disabled', 'false');
+                                }
                                 var url = 'Products/Addtocartpartial?cid=' + cid;
                                 $('#cartrecords').load(url);
-
                             }
                         },
                         error: function (data)
                         { errormsg("Failed!!!"); }
                     });
+                    
                 }
                 //return vals();
             });

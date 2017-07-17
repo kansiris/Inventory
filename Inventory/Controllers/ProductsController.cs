@@ -586,7 +586,7 @@ namespace Inventory.Controllers
             Product qty = (from DataRow row in dt.Rows select new Product() { ID = row["id"].ToString(), Quantity = row["Qty"].ToString(), Quantity_Total = row["Total"].ToString() }).FirstOrDefault();
             int updatedqty = int.Parse(qty.Quantity) - int.Parse(quantity);
             int updatedTotal = int.Parse(qty.Quantity_Total) - int.Parse(quantity);
-            if (updatedTotal > 0)
+            if (updatedTotal >= 0)
                 count = ProductService.updateMaxWarehouseQty(dbname, product_id, qty.ID, updatedqty, updatedTotal.ToString());
             else
                 count = 0;
