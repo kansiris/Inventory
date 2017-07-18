@@ -1,65 +1,116 @@
-﻿@if(Model != null)
-{ 
-    <input type="hidden" value="@Model.Currency" id="currency"/>
-    <input type="hidden" value="@Model.Date_Format" id="dateformat" />
-    <input type="hidden" value="@Model.Ucountry" id="usercountry" />
-<ul class="nav navbar-nav navbar-right">
-    <li class="">
-        @*<img src="/images/img.jpg" alt="">*@
-        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            @*<div  class="top-button" id="masterpic"></div>*@
+﻿@if (Model != null)
+{
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <a class="navbar-brand" href="~/UserHome?email=@Model.EmailId&site=@Model.User_Site&usertype=@Model.UserTypeId"> <img src="~/images/logo.jpg" alt="Logo" /> </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            @if (ViewBag.tyofuser == "Owner")
+            {
+                <li class="active"><a href="~/Vendor">Vendor <span class="sr-only">(current)</span></a></li>
+                @*<li><a href="#">User</a></li>*@
+                <li><a href="~/Customer">Customer</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Management <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Warehouse">Warehouse</a></li>
+                        <li><a href="~/AllProducts">Products</a></li>
+                        <li><a href="~/AddStock">Add Stock</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Return Goods</a></li>
+                        <li><a href="#">Exchange Goods</a></li>
+                        <li><a href="#">Manage Goods</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Account Summary</a></li>
+                    </ul>
+                </li>
+            }
+            @if (ViewBag.tyofuser == "Franchise")
+            {
+                @*<li class="active"><a href="~/Vendor">Vendor <span class="sr-only">(current)</span></a></li>*@
+                @*<li><a href="#">User</a></li>*@
+                <li><a href="~/Customer">Customer</a></li>
+                <li><a href="#">Account Summary</a></li>
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Management <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="~/Warehouse">Warehouse</a></li>
+                            <li><a href="~/AllProducts">Products</a></li>
+                            <li><a href="~/AddStock">Add Stock</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Return Goods</a></li>
+                            <li><a href="#">Exchange Goods</a></li>
+                            <li><a href="#">Manage Goods</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Account Summary</a></li>
+                        </ul>
+                    </li>*@
+            }
+        </ul>
+        <div>
+            <input type="hidden" value="@Model.Currency" id="currency" />
+            <input type="hidden" value="@Model.Date_Format" id="dateformat" />
+            <input type="hidden" value="@Model.Ucountry" id="usercountry" />
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    @*<img src="/images/img.jpg" alt="">*@
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        @*<div  class="top-button" id="masterpic"></div>*@
 
-            @if (Model.Profile_Picture != null )
-            {
-                <img src="data:image;base64,@Model.Profile_Picture" alt="" id="smallprofilepic">
-            }
-            else
-            {
-                <img alt="" id="smallprofilepic" style="display:none">
-                <div class="top-button" id="masterpic" style="width: 25px;height: 25px;float:left">
-                    <span id="userprofilepic" style="font-size:20px;top:-10%">@Model.First_Name.Substring(0, 1).ToUpper()</span>
-                </div>
-            }
-           
-                <span>@Model.First_Name @Model.Last_Name</span> <span class="fa fa-angle-down"></span>
-            
-        </a>
-        <ul class="dropdown-menu dropdown-usermenu pull-right">
-            <li><a href="~/UserProfile?id=@Model.ID"><span class="badge bg-red pull-right">@ViewBag.Progress</span> <span>Profile</span> </a></li>
-            @*<li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>*@
-            <li> <a href="javascript:;">Settings</a> </li>
-            <li><a href="javascript:;">Help</a></li>
-            <li><a href="~/Login/Logout"><i class="fa fa-sign-out pull-right"></i>Sign Out </a></li>
-        </ul>
-    </li>
-    <li role="presentation" class="dropdown">
-        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span class="badge bg-green">6</span> </a>
-        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-            <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-            <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-            <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-            <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-            <li>
-                <div class="text-center"> <a> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a> </div>
-            </li>
-        </ul>
-    </li>
-</ul>
-<div class="progress">
-    <a href="~/UserProfile?id=@Model.ID">
-        <div class="progress-bar" id="profileprogress" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Progress;background:@ViewBag.color">
-            <span>@ViewBag.Progress</span>
+                        @if (Model.Profile_Picture != null)
+                        {
+                            <img src="data:image;base64,@Model.Profile_Picture" alt="" id="smallprofilepic">
+                        }
+                        else
+                        {
+                            <img alt="" id="smallprofilepic" style="display:none">
+                            <div class="top-button" id="masterpic" style="width: 25px;height: 25px;float:left">
+                                <span id="userprofilepic" style="font-size:20px;top:-10%">@Model.First_Name.Substring(0, 1).ToUpper()</span>
+                            </div>
+                        }
+
+                        <span>@Model.First_Name @Model.Last_Name</span> <span class="fa fa-angle-down"></span>
+
+                    </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li><a href="~/UserProfile?id=@Model.ID"><span class="badge bg-red pull-right">@ViewBag.Progress</span> <span>Profile</span> </a></li>
+                        @*<li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>*@
+                        <li> <a href="javascript:;">Settings</a> </li>
+                        <li><a href="javascript:;">Help</a></li>
+                        <li><a href="~/Login/Logout"><i class="fa fa-sign-out pull-right"></i>Sign Out </a></li>
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span class="badge bg-green">6</span> </a>
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                        <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                        <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                        <li> <a> <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                        <li>
+                            <div class="text-center"> <a> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a> </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="progress">
+                <a href="~/UserProfile?id=@Model.ID">
+                    <div class="progress-bar" id="profileprogress" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:@ViewBag.Progress;background:@ViewBag.color">
+                        <span>@ViewBag.Progress</span>
+                    </div>
+                </a>
+            </div>
         </div>
-    </a>
-</div>
-<script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var currency = $('#currency').val().slice(-2).replace(')', '');
-            $('.localization').html(currency);
-            var dateformat = $('#dateformat').val();
-            //alert(dateformat);
+        </div>
+        <script src="~/Scripts/js/jquery-3.1.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var currency = $('#currency').val().slice(-2).replace(')', '');
+                $('.localization').html(currency);
+                var dateformat = $('#dateformat').val();
+                //alert(dateformat);
 
-        });
-    </script>
-}
+            });
+        </script>
+        }

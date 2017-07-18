@@ -23,11 +23,11 @@ namespace Inventory.Controllers
                 var profile = loginService.GetUserProfile(int.Parse(user.ID)); //Get's User Profile
                 int usertype = (int)profile[0].UserTypeId;
                 var type = LoginService.GetUserTypeId(null, usertype);
-                string controller = "";
-                if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
-                    controller = "UserHome";
-                else
-                    controller = type.ToString() + "Home";
+                string controller = "UserHome";
+                //if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
+                //    controller = "UserHome";
+                //else
+                //    controller = type.ToString() + "Home";
                 return RedirectToAction("Index", controller, new { email = profile[0].EmailId, site = profile[0].User_Site, usertype = usertype });
             }
             return View();

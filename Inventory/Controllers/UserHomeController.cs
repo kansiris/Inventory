@@ -27,9 +27,9 @@ namespace Inventory.Controllers
                 DateTime currentdate = DateTime.UtcNow; //getting current date
                 TimeSpan diff = futuredate - currentdate; // calculating difference between 2 dates
                 if (diff.Days < 0)
-                    ViewBag.accessexpiry = "Your Trial Period has ended";
+                    ViewBag.accessexpiry = "(Your Trial Period has ended)";
                 else
-                    ViewBag.accessexpiry = "Your Login Access is about to expire in " + diff.Days + " Days";
+                    ViewBag.accessexpiry = "(Your Login Access is about to expire in " + diff.Days + " Days)";
                 ViewBag.timeZoneInfos = TimeZoneInfo.GetSystemTimeZones().Select(m => m.DisplayName).ToList(); //Available Time Zones
                 if (userMaster[0].Timezone != null && userMaster[0].Date_Format != null)
                     ViewBag.Timezone = "1";
