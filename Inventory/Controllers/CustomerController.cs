@@ -124,21 +124,20 @@ namespace Inventory.Controllers
             return cultureList;
         }
 
-
-        // used methods        
-        public void Email(string Customer_contact_Fname, string Customer_contact_Lname, string Email_Id, string activationCode, string PassWord)
+        public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
-            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + Email_Id;
-            string body = "Hello " + Customer_contact_Fname + Customer_contact_Lname + ",";
-            body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
-            body += "<br /><br />your temprory password is  " + PassWord;
-            body += "<br /><br />Thanks";
-            string message = body;
-            abc.EmailAvtivation(Email_Id, message, "Account Activation");
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
+                        FileInfo File = new FileInfo(Server.MapPath("/Content/mailer1.html"));
+            string readFile = File.OpenText().ReadToEnd();
+            readFile = readFile.Replace("[ActivationLink]", url);
+            readFile = readFile.Replace("password", PassWord);
+            string message = readFile;
+            abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
+
+        
         public ActionResult ActivatesEmail(string ActivationCode, string Email_Id, string DBName)
         {
             //Checking Activation code
@@ -503,9 +502,63 @@ namespace Inventory.Controllers
             }
             return Json(null);
         }
+        //customer invite
+        public JsonResult inviteCustomerForPos(int cus_company_Id)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                string id = user.ID;
+                string DBname = null;
+                string fname = null;
+                string lname = null;
+                string cus_email = null;
+                string image = null;
+                string companyname = null;
+                string companylogo = null;
+                string Password = Guid.NewGuid().ToString().Split('-')[0]; //"ABC@123456";
+                string mObile = null;
+                string activationCode = Guid.NewGuid().ToString();
+                int usertype = (int)LoginService.GetUserTypeId("Franchise", 0);
+                string Date_Format = null, Timezone = null, Currency = null, UserSite = null;
+                int Subscription = 0;
+                DateTime? SubscriptionDate = null;
 
+                SqlDataReader exec = CustomerService.getusermaster(id, user.DbName);
+                SqlDataReader exec2 = CustomerService.getlastinsertedcompany(cus_company_Id, user.DbName);
+                if (exec.Read())
+                    DBname = exec["DB_Name"].ToString();
+                Subscription = int.Parse(exec["Subscriptionid"].ToString());
 
+                if (exec2.Read())
+                {
+                    companyname = exec2["cus_company_name"].ToString();
+                    cus_email = exec2["cus_email"].ToString();
+                    //companylogo = exec2["cus_logo"].ToString();
+                }
+                exec2.Close();
+                UserSite = companyname.Trim();
+                fname = companyname.Trim();
+                lname = companyname.Trim();
+                var data = LoginService.Authenticateuser("checkemail1", cus_email, null, UserSite, 0);
+                if (data.HasRows)
+                    return Json("Exists");
+                else
+                {
+                    int count = LoginService.CreateUser(cus_email, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
+                    if (count > 0)
+                    {
+                        Email(fname, null, cus_email, activationCode, Password); //Sending Email
+                        return Json("sucess");
+                    }
+                }
+                data.Close();
+                return Json("unique", JsonRequestBehavior.AllowGet);
+            }
+            return Json(null);
+        }
 
+        //contact person invite
         public JsonResult inviteCustomer(string Customer_Id, int cus_company_Id)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -519,7 +572,7 @@ namespace Inventory.Controllers
                 string image = null;
                 string companyname = null;
                 string companylogo = null;
-                string Password = "ABC@123456";
+                string Password = Guid.NewGuid().ToString().Split('-')[0];//"ABC@123456";
                 string mObile = null;
                 string activationCode = Guid.NewGuid().ToString();
                 int usertype = (int)LoginService.GetUserTypeId("Customer", 0);
@@ -663,7 +716,7 @@ namespace Inventory.Controllers
 
         //tax file upload
         [HttpPost]
-        public ActionResult TaxExemptionfile(HttpPostedFileBase file, int cus_company_Id,string Adhar_Number,string GSTIN_Number, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string clickeditem)
+        public ActionResult TaxExemptionfile(HttpPostedFileBase file, int cus_company_Id, string Adhar_Number, string GSTIN_Number, string tax_reg_no, string pan_no, int tds_apply, int tax_exemption, string clickeditem)
         {
             string filename = "";
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
@@ -674,7 +727,7 @@ namespace Inventory.Controllers
                     var streamfile = new StreamReader(file.InputStream);
                     var streamline = string.Empty;
                     List<string> taxfile = new List<string>();
-                    
+
                     while ((streamline = streamfile.ReadLine()) != null)
                     {
                         taxfile.Add(streamline);
@@ -691,23 +744,23 @@ namespace Inventory.Controllers
                         }
                     }
                 }
-                }
+            }
 
             filename = filename.TrimStart(',');
 
-                    //if (clickeditem == "updatetaxdetails")
-                    //{
-                        int count = CustomerService.Updatecustax(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
-                        if (count > 0)
-                            return Json("success");
-                    //}
-                    //else
-                    //{
-                    //    int count = CustomerService.Updatecustax(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
-                    //    if (count > 0)
-                    //        return Json("success1");
-                    //}
-            
+            if (clickeditem == "updatetaxdetails")
+            {
+                int count = CustomerService.Updatecustax(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
+                if (count > 0)
+                    return Json("success");
+            }
+            else
+            {
+                int count = CustomerService.Updatecustax(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, filename, user.DbName);
+                if (count > 0)
+                    return Json("success1");
+            }
+
             return Json("unsucess");
         }
     }

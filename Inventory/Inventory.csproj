@@ -334,6 +334,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\mailer.html" />
+    <Content Include="Content\mailer1.html" />
     <Content Include="Content\pic1.png" />
     <Content Include="Content\top.png" />
     <Content Include="favicon.ico" />
