@@ -111,7 +111,7 @@ namespace Inventory.Repository
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "getLastInsertedcompany", cus_company_Id);
+            return SqlHelper.ExecuteReader(ConnectionString, "getLastInsertedcuscompany", cus_company_Id); //getLastInsertedcompany
         }
 
         public static SqlDataReader getcuscontactdetail(int cus_company_Id, string dbname)

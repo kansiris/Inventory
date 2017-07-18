@@ -1,0 +1,331 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create PROCEDURE checkCustomer_Company(@cus_company_name nvarchar(100))
+AS
+BEGIN
+	select cus_company_name from Customer_Company where cus_company_name=@cus_company_name 
+END
+---------
+
+create PROCEDURE cus_CompanyProfilePic(@cus_company_Id int,@cus_logo varchar(max))
+AS
+BEGIN
+	update Customer_Company set cus_logo=@cus_logo where cus_company_Id=@cus_company_Id
+END
+
+-----------
+create PROCEDURE deletecuscompRecord(@cus_company_Id int)
+AS
+BEGIN
+	delete from Customer where cus_company_Id=@cus_company_Id
+	delete from Customer_address where cus_company_Id=@cus_company_Id
+	delete from cus_Job_position where cus_company_Id=@cus_company_Id
+	delete from Customer_Company where cus_company_Id=@cus_company_Id
+end
+
+---------
+create PROCEDURE deleteCustomer(@Customer_Id nchar(10))
+AS
+BEGIN
+	delete from Customer where Customer_Id=@Customer_Id
+	
+END
+
+-----------
+create PROCEDURE getAllDetailsBycus_company_Id(@cus_company_Id int)
+AS
+BEGIN
+declare @cusCustomer_Companycount int,@customercount int,@customeraddresscount int
+set @cusCustomer_Companycount = (select count(*) from Customer_Customer_Company where cus_company_Id=@cus_company_Id)
+set @customercount = (select count(*) from Customer where cus_company_Id=@cus_company_Id)
+set @customeraddresscount = (select count(*) from Customer_address where cus_company_Id=@cus_company_Id)
+
+if(@cusCustomer_Companycount > 0 and @customercount = 0 and @customeraddresscount > 0)
+
+select Customer_Company.cus_company_Id,Customer_Company.cus_company_name,Customer_Company.cus_email,Customer_Company.cus_Note,Customer_Company.cus_logo,'' as Customer_contact_Fname,'' as Customer_contact_Lname,'' as Email_Id,'' as cus_Job_position,0 as Mobile_No,'' as Adhar_Number,'' as country,'' as image,
+''as Customer_Id,Customer_address.bill_city,Customer_address.bill_country,Customer_address.bill_street,Customer_address.bill_state,Customer_address.bill_postalcode,Customer_address.ship_city,Customer_address.ship_country,Customer_address.ship_state,Customer_address.ship_street,Customer_address.ship_postalcode from Customer_Company,Customer_address where Customer_Company.cus_company_Id=@cus_company_Id and Customer_address.cus_company_Id=@cus_company_Id
+else if(@cusCustomer_Companycount > 0 and @customercount > 0 and @customeraddresscount = 0)
+
+select Customer_Company.cus_company_Id,Customer_Company.cus_company_name,Customer_Company.cus_email,Customer_Company.cus_Note,Customer_Company.cus_logo,Customer.Customer_contact_Fname,Customer.Customer_contact_Lname,Customer.Email_Id,Customer.cus_Job_position,Customer.Mobile_No,Customer.Adhar_Number,Customer.country,Customer.image,
+''as Customer_Id,'' as bill_city,'' as bill_country,'' as bill_street,'' as bill_state,'' as bill_postalcode,'' as ship_city,'' as ship_country,'' as ship_state,'' as ship_street,'' as ship_postalcode from Customer_Company,Customer,Customer_address where Customer_Company.cus_company_Id=@cus_company_Id and Customer.cus_company_Id=@cus_company_Id
+
+else if(@cusCustomer_Companycount > 0 and @customercount > 0 and @customeraddresscount > 0)
+
+SELECT Customer_Company.cus_company_Id,Customer_Company.cus_company_name,Customer_Company.cus_email,Customer_Company.cus_Note,Customer_Company.cus_logo,
+	 Customer.Customer_contact_Fname,Customer.Customer_contact_Fname,Customer.Email_Id,Customer.cus_Job_position,Customer.Mobile_No,Customer.Adhar_Number,Customer.country,Customer.image,Customer.Customer_Id,
+	  Customer_address.bill_city,Customer_address.bill_country,Customer_address.bill_street,Customer_address.bill_state,Customer_address.bill_postalcode,
+	  Customer_address.ship_city,Customer_address.ship_country,Customer_address.ship_state,Customer_address.ship_street,Customer_address.ship_postalcode FROM Customer_Company,Customer,Customer_address where
+	  Customer_Company.cus_company_Id=@cus_company_Id and Customer.cus_company_Id=@cus_company_Id and Customer_address.cus_company_Id=@cus_company_Id
+	   
+END
+
+---------
+
+create PROCEDURE getallcusjobposition
+AS
+BEGIN
+	select cus_Job_position from cus_Job_position
+END
+
+---------
+
+create PROCEDURE getcuscompany
+as
+begin
+select cus_company_Id,cus_company_name,cus_email,cus_logo from Customer_Company
+end
+
+--------
+
+create PROCEDURE getContactBycusCompany(@cus_company_Id int)
+AS
+BEGIN
+
+select Customer_Id,Customer_contact_Fname,Customer_contact_Lname,Email_Id,Mobile_No,Adhar_Number,image from Customer where cus_company_Id=@cus_company_Id
+
+END
+
+
+--------
+create PROCEDURE getcusjobposition(@cus_Job_position nvarchar(50))
+AS
+BEGIN
+
+select * from cus_Job_position where cus_Job_position=@cus_Job_position
+END
+
+-------
+create PROCEDURE getLastInsertedcuscompany(@cus_company_Id int)
+AS
+BEGIN
+	
+	select cus_company_name,cus_email,cus_logo from Customer_Company where cus_company_Id=@cus_company_Id
+	
+END
+
+---------
+
+create PROCEDURE getMaxcusCompanyid(@cus_company_name nvarchar(50))
+AS
+BEGIN
+	
+    select cus_company_Id from Customer_Company where cus_company_name=@cus_company_name
+	
+END
+
+--------
+create PROCEDURE getcustomercontact(@Customer_Id nchar(10))
+AS
+BEGIN
+	select * from Customer where Customer_Id=@Customer_Id
+END
+
+--------
+create PROCEDURE getCustomerId
+AS
+BEGIN
+	select Max(Customer_Id) as Customer_Id from Customer
+END
+
+--------
+create PROCEDURE insertCustomer_Company(@cus_company_name nvarchar(100),@cus_email nvarchar(200),@cus_logo nvarchar(Max))
+AS
+BEGIN
+	declare @cus_company_Id int 
+	declare @count int
+	set @count=(select count(cus_company_Id) from Customer_Company)
+	if(@count=0)
+	set @cus_company_Id=1000
+	else
+	set @cus_company_Id=(select max(cus_company_Id) from Customer_Company)+1	   
+	INSERT INTO Customer_Company(cus_company_Id,cus_company_name,cus_email,cus_logo) VALUES(@cus_company_Id,@cus_company_name,@cus_email,@cus_logo)
+		 
+	set @count= (select count(cusAddr_id) from Customer_address)
+	declare @cusAddr_id nchar(10)
+	if(@count=0)
+  set @cusAddr_id=1001
+else
+set @cusAddr_id=(select max(cusAddr_id) from Customer_address)+1
+INSERT INTO Customer_address
+           (cusAddr_id,bill_street,bill_city,
+            bill_state,bill_postalcode,bill_country,ship_street,ship_city,ship_state,ship_postalcode,ship_country,cus_company_Id)
+     VALUES
+           (@cusAddr_id,null,null,null,null,null,null,null,null,null,null,@cus_company_Id)
+	
+	
+END
+
+--------
+
+create PROCEDURE insertcusjobposition(@cus_Job_position nvarchar(50),@cus_company_Id int)
+AS
+BEGIN
+declare @cus_Job_PositionId int 
+	declare @count int
+	set @count=(select count(cus_Job_PositionId) from cus_Job_position)
+	if(@count=0)
+	set @cus_Job_PositionId=1
+	else
+	set @cus_Job_PositionId=(select max(cus_Job_PositionId) from cus_Job_position)+1	   
+INSERT INTO cus_Job_position(cus_Job_PositionId,cus_company_Id,cus_Job_position) VALUES(@cus_Job_PositionId,@cus_company_Id,@cus_Job_position)	
+END
+
+
+--------
+
+create PROCEDURE insertcustomer(@cus_company_Id int,@Customer_contact_Fname nvarchar(50),@Customer_contact_Lname nvarchar(50),@Mobile_No nvarchar(50),
+						@Email_Id nvarchar(50),@Adhar_Number nvarchar(50),@cus_Job_position nvarchar(50),@image varchar(Max)) 
+
+AS
+BEGIN
+	declare @Customer_Id nchar(10)
+	declare @count int
+	set @count=(select count(Customer_Id) from Customer)
+	if(@count=0)
+  set @Customer_Id=100
+	else 
+	 set @Customer_Id=(select max(Customer_Id) from Customer)+1
+	INSERT INTO Customer(Customer_Id,cus_company_Id,Customer_contact_Fname,Customer_contact_Lname,Mobile_No,Email_Id,Adhar_Number,cus_Job_position,image)
+     VALUES
+           (@Customer_Id,@cus_company_Id,@Customer_contact_Fname,@Customer_contact_Lname,@Mobile_No,@Email_Id,@Adhar_Number,@cus_Job_position,@image)
+end
+
+--------
+
+create PROCEDURE insertCustomer_address(@cus_company_Id int,@bill_street nvarchar(200),@bill_city nvarchar(50),
+@bill_state nvarchar(50),@bill_postalcode nvarchar(50),@bill_country nvarchar(50),
+@ship_street nvarchar(200),@ship_city nvarchar(50),@ship_state nvarchar(50),
+@ship_postalcode nvarchar(50),@ship_country nvarchar(50)) 
+	
+AS
+BEGIN
+declare @count int
+	set @count= (select count(cusAddr_id) from Customer_address)
+	declare @cusAddr_id nchar(10)
+	if(@count=0)
+  set @cusAddr_id=1000
+else
+set @cusAddr_id=(select max(cusAddr_id) from Customer_address)+1
+INSERT INTO Customer_address
+           (cusAddr_id,bill_street,bill_city,bill_state,bill_postalcode,bill_country,ship_street,ship_city,ship_state,ship_postalcode,ship_country,cus_company_Id)
+     VALUES
+           (@cusAddr_id,@bill_street,@bill_city,@bill_state,@bill_postalcode,@bill_country,@ship_street,@ship_city,@ship_state,@ship_postalcode,@ship_country,@cus_company_Id)
+end
+
+---------
+////presnet no need pf this sp
+create PROCEDURE updatecusCompany(@cus_company_Id int,@Bank_Acc_Number nvarchar(50),@Bank_Name nvarchar(50),@Bank_Branch nvarchar(50),@IFSC_No nvarchar(50))
+AS
+BEGIN
+	UPDATE Customer_Company  SET cus_company_Id = @cus_company_Id,
+					Bank_Acc_Number = @Bank_Acc_Number,
+					Bank_Name =@Bank_Name,
+					Bank_Branch = @Bank_Branch,
+					IFSC_No =@IFSC_No
+					 WHERE cus_company_Id =@cus_company_Id
+	 
+END
+
+----------
+create PROCEDURE updatecuscompany1(@cus_company_Id int,@cus_company_name nvarchar(50),@cus_email nvarchar(100),@cus_logo nvarchar(max))
+AS
+BEGIN
+	update Customer_Company SET  cus_company_name=@cus_company_name,cus_email=@cus_email,cus_logo=@cus_logo where cus_company_Id = @cus_company_Id 
+END
+
+--------
+create PROCEDURE updatecusNotes(@cus_company_Id int,@cus_Note nvarchar(max))
+AS
+BEGIN
+
+	UPDATE Customer_Company
+   SET cus_company_Id = @cus_company_Id,
+      cus_Note=@cus_Note
+ WHERE cus_company_Id =@cus_company_Id
+	
+END
+
+-------------
+
+create PROCEDURE updatecustomer(@Customer_Id nchar(10),@Customer_contact_Fname nvarchar(50),@Customer_contact_Lname nvarchar(50),@Mobile_No nvarchar(50),
+						@Email_Id nvarchar(50),@Adhar_Number nvarchar(50),@cus_Job_position nvarchar(50),@image varchar(max))
+	
+AS
+BEGIN
+	update Customer
+	SET Customer_contact_Fname = @Customer_contact_Fname
+      ,Customer_contact_Lname = @Customer_contact_Lname
+      ,Mobile_No = @Mobile_No
+      ,Email_Id =@Email_Id
+      ,Adhar_Number = @Adhar_Number
+	  ,cus_Job_position=@cus_Job_position
+	  ,image=@image
+ WHERE Customer_Id =@Customer_Id
+END
+
+
+--------
+
+create PROCEDURE updateCustomer_address(@cus_company_Id int,@bill_street nvarchar(200),@bill_city nvarchar(50),@bill_state nvarchar(50),@bill_postalcode nvarchar(50),@bill_country nvarchar(50),@ship_street nvarchar(200),@ship_city nvarchar(50),@ship_state nvarchar(50),@ship_postalcode nvarchar(50),@ship_country nvarchar(50)) 
+	
+AS
+BEGIN
+UPDATE Customer_address SET  bill_street = @bill_street,bill_city = @bill_city,bill_state = @bill_state,bill_postalcode = @bill_postalcode,bill_country = @bill_country,
+      ship_street =@ship_street,ship_city = @ship_city,ship_state=@ship_state,ship_postalcode=@ship_postalcode,ship_country=@ship_country WHERE cus_company_Id =@cus_company_Id
+end
+
+18/5/2017
+
+[deleteRecord] sp chnged
+
+[deletecuscompRecord] sp chnged
+
+tables related to those sps all chnged   (done for vendor and customer)
+
+<div class="col-xs-4 col-md-4 title">Your Order</div>
+                <div class="col-xs-2 col-md-2 cart-icn">
+                    <span>@ViewBag.cartqtycount</span>
+                    <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                </div>
+                <div class="col-xs-6 col-md-6 cart-total">
+                    Total: Rs <span>@ViewBag.totalamount</span>
+                </div>
+				
+				
+				col-xs-12 col-md-9
+
+
+
+
+
+
+
+
+
+

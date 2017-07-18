@@ -302,14 +302,19 @@ function editFunction(array) {
 
     $('#Adhar_Number').val(array.Adhar_Number);
     $('#GSTIN_Number').val(array.GSTIN_Number);
-
     $('#pan_no').val(array.pan_no);
+    $('#tds_apply').val(array.tds_apply);
+    $('#tax_exemption').val(array.tax_exemption);
     if (array.tds_apply == 1) {
         $("#tds").prop('checked', 'checked');
     }
     if (array.tax_exemption == 1){
         $("#taxexemption").prop('checked', 'checked');
         $("#fileupload2").css('display','block');
+    } else {
+        $("#fileupload2").css('display', 'none');
+        $('#result').css('display', 'none');
+        $('#forimg').css('display', 'none');
     }
     
     $('#bill_city').val(array.bill_city);
@@ -331,8 +336,6 @@ function editFunction(array) {
         $("#forimg").css('display', 'none');
         $("#result").css('display', 'block');
         result.innerHTML = $("#result").load('Taxfiles/' + array.tax_files);
-        alert(result.innerHTML);
-
         }
     }
 
@@ -344,6 +347,7 @@ function getEditDetails(id) {
     $('#mySubmit1').show();
     $('#cuscontactbutton').show();
     $('#notebutton').show();
+    $('#taxid').show();
     $("#cuscontactpic").attr("src", "/images/user.png");
     $("#customer-information-cancel").show();
     $("#customer-information1-cancel").show();
@@ -356,7 +360,7 @@ function getEditDetails(id) {
     $('#mySubmit1').val("updateaddress").text("Update Address");
     $('#bankid').val("updatebankdetails").text("Update Bank Details");
     $('#notebutton').val("updatenote").text("Update Notes");
-    $('#taxid').text("Update Tax Details");//val("updatetaxdetails").
+    $('#taxid').val("updatetaxdetails").text("Update Tax Details");//val("updatetaxdetails").
     $('#cuscontactbutton').val("savecontact").text("Save Contact");
     $("#bill_country").attr("disabled", false);
     $("#ship_country").attr("disabled", false);
@@ -782,6 +786,7 @@ function deleteCustomer(id, status) {
 function inviteCustomer(id) {
 
     cus_company_Id = $('#cus_company_Id').val()
+   
  
     var retVal = confirm("Do you want to send invitation...!");
     if (retVal == true) {
@@ -1018,6 +1023,26 @@ function existsmsg(msg) {
         closeConfirm: false
     });
 }
+//function confirm(msg) {
+//    $("body").overhang({
+//        type: "confirm",
+//        message: msg,
+//        closeConfirm: false
+//    });
+//}
+//function confirmmsg(msg){
+//    $("body").overhang({
+//        type: "confirm",
+//        primary: "#40D47E",
+//        accent: "#27AE60",
+//        yesColor: "#3498DB",
+//        message: "Do you want to continue?",
+//        callback: function (value) {
+//            var response = value ? "true" : "false";
+//           return  response;
+//        }
+//    });
+//}
 
 function warnmsg(msg) {
     $("body").overhang({
@@ -1069,82 +1094,114 @@ function viewposfordeliv(cid,cname) {
 //editcompanytaxdetails
 
 function editcompanytaxdetails(clickedvalue) {
-    //alert(clickedvalue);
-    cuscompany_Id =$('#cus_company_Id').val();
+    cuscompany_Id = $('#cus_company_Id').val();
     var data1 = new FormData();
     var files = $("#fileupload2").get(0).files;
     if (files.length > 0) {
         data1.append("file", files[0]);
     }
     Adhar_Number = $('#Adhar_Number').val();
-    alert(Adhar_Number);
     GSTIN_Number = $('#GSTIN_Number').val();
-    alert(GSTIN_Number);
-    alert(data1);
     tax_reg_no = $('#tax_regno').val();
     pan_no = $('#pan_no').val();
     tds_apply = $('#tds').val();
+    //alert(tds_apply);
     tax_exemption = $('#taxexemption').val();
-    //alert(tax_exemption)
-  
-            //if (clickedvalue == 'updatetaxdetails') {
-            //    $.ajax({
-            //        url: '/Customer/TaxExemptionfile',//?cus_company_Id=' + cuscompany_Id + '&Adhar_Number=' + Adhar_Number + '&GSTIN_Number=' + GSTIN_Number + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
-            //        type: 'POST',
-            //        data: data1,
-            //        processData: false,
-            //        contentType: false,
-            //        success: function (data) {
-            //            if (data == "success") {
-            //                successmsg("Tax Details Updated Successfully");
-            //            }
-            //            else {
-            //                errormsg("Not Updated");
-            //            }
-            //        },
-            //        error: function (data)
-            //        { errormsg("Failed!!!"); }
-            //    });
-            //}
-            //if (clickedvalue == 'savetaxdetails') {
-                $.ajax({
-                    url: '/Customer/TaxExemptionfile?cus_company_Id=' + cuscompany_Id + '&Adhar_Number=' + Adhar_Number + '&GSTIN_Number=' + GSTIN_Number + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
-                    type: 'POST',
-                    data: data1,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        if (data == "success") {
-                            successmsg("Tax Details Saved Successfully");
-                            
-                        }
-                        else {
-                            errormsg("Not Saved");
-                        }
-                    },
-                    error: function (data)
-                    { errormsg("Failed!!!"); }
-                });
-            //}
-}
-        $('#taxexemption').change(function () {
-            if ($("#taxexemption").is(":checked")) {
-                $('#taxexemption').val("1");
-                $('#fileupload2').css('display', 'block');
-            }
-            else {
-                $('#taxexemption').val("0");
-                $('#fileupload2').css('display', 'none');
-            }
+    
+    if (clickedvalue == 'updatetaxdetails') {
+        $.ajax({
+            url: '/Customer/TaxExemptionfile?cus_company_Id=' + cuscompany_Id + '&Adhar_Number=' + Adhar_Number + '&GSTIN_Number=' + GSTIN_Number + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
+            type: 'POST',
+            data: data1,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "success") {
+                    successmsg("Tax Details Updated Successfully");
+                }
+                else {
+                    errormsg("Not Updated");
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
         });
-        $('#tds').change(function () {
-            if ($("#tds").is(":checked")) {
-                $('#tds').val("1");
-            }
-            else {
-                $('#tds').val("0");
-            }
+    }
+    if (clickedvalue == 'savetaxdetails') {
+        $.ajax({
+            url: '/Customer/TaxExemptionfile?cus_company_Id=' + cuscompany_Id + '&Adhar_Number=' + Adhar_Number + '&GSTIN_Number=' + GSTIN_Number + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
+            type: 'POST',
+            data: data1,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "success1") {
+                    successmsg("Tax Details Saved Successfully");
+
+                }
+                else {
+                    errormsg("Not Saved");
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
         });
+        }
+    }
+    $('#taxexemption').change(function () {
+        if ($("#taxexemption").is(":checked")) {
+            $('#taxexemption').val("1");
+            $('#fileupload2').css('display', 'block');
+        }
+        else {
+            $('#taxexemption').val("0");
+            $('#fileupload2').css('display', 'none');
+        }
+    });
+    $('#tds').change(function () {
+        if ($("#tds").is(":checked")) {
+            $('#tds').val("1");
+        }
+        else {
+            $('#tds').val("0");
+        }
+    });
+
+    //invite customer for creating pos etc
+    function inviteCustomerForPos(id) {
+        //alert(id);
+        var retVal = confirm("Do you want to send invitation...!");
+        if (retVal == true) {
+            $.ajax({
+                url: '/Customer/inviteCustomerForPos',
+                type: 'POST',
+                data: JSON.stringify({ cus_company_Id: id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == "unique") {
+                        warnmsg("some problem occured");
+                    }
+                    else if (data == "Exists") {
+                        existsmsg("Email Id Already Exists!!! Try Another");
+                    }
+                    else {
+                        cus_company_Id = $('#cus_company_Id').val();
+                        //var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
+                        //$('#customerrecords').load(url);
+                        successmsg("Invitation sent Successfully.Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur");
+                    }
+                },
+                error: function (data)
+                { errormsg("Failed!!!"); }
+            });
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
 
 
        
