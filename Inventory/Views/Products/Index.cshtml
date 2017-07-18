@@ -238,7 +238,7 @@
                     var newamunt = divtotalright;
                     var cid = location.search.split('cid=')[1];
                     whqty = $(this).parents("div.added-products").find("input.whqty").val();
-                    $(this).css('opacity','0.5');
+                    
                     //updatecart(cartid, inputqty, newamunt);
                     $.ajax({
                         url: '/Products/UpdateCart',
@@ -253,6 +253,7 @@
                             else {
                                 if (parseInt(plus) > parseInt(whqty)) {
                                     warnmsg("Quantity Exceeded!!!Availability Qty is " + whqty + "");
+                                    $(this).css('opacity', '0.5');
                                     //$(this).parents(".input-group").find("input.increase").prop('readonly', 'true');
                                 }
                                 else {

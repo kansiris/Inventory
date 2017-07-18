@@ -1455,7 +1455,7 @@
 
     <script>
         $(document).ready(function () {
-            var date_input = $('#product_expirydate').val(); alert(date_input); //our date input has the name "date"
+            var date_input = $('#product_expirydate'); //our date input has the name "date"
             var dateformat = $('#dateformat').val(); alert(dateformat.toLocaleLowerCase());
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
