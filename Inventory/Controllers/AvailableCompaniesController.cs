@@ -30,7 +30,8 @@ namespace Inventory.Controllers
                               UserTypeId = (int)row["UserTypeId"],
                               company_logo = row["company_logo"].ToString(),
                               EmailId = row["EmailId"].ToString(),
-                              First_Name = row["First_Name"].ToString()
+                              First_Name = row["First_Name"].ToString(),
+                              usertype = row["UserDescription"].ToString()
                               //EmailId = row["EmailId"].ToString()
                           }).ToList();
             ViewBag.records = userMaster;

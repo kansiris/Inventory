@@ -46,6 +46,7 @@ namespace Inventory.Models
         public string Timezone { get; set; }
         public string Currency { get; set; }
         public string company_logo { get; set; }
+        public string usertype { get; set; }
         
     }
 }
