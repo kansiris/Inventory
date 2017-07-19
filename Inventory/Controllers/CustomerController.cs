@@ -537,6 +537,9 @@ namespace Inventory.Controllers
                 if (exec.Read())
                     DBname = exec["DB_Name"].ToString();
                 Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                Date_Format = exec["Date_Format"].ToString();
+                Timezone = exec["Timezone"].ToString();
+                Currency = exec["Currency"].ToString();
 
                 if (exec2.Read())
                 {
@@ -601,6 +604,9 @@ namespace Inventory.Controllers
                     eMail = exec1["Email_Id"].ToString();
                     mObile = exec1["Mobile_No"].ToString();
                     image = exec1["image"].ToString();
+                    Date_Format = exec1["Date_Format"].ToString();
+                    Timezone = exec1["Timezone"].ToString();
+                    Currency = exec1["Currency"].ToString();
                 }
                 exec1.Close();
                 if (exec2.Read())
