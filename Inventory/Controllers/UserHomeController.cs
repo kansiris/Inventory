@@ -34,7 +34,7 @@ namespace Inventory.Controllers
                 if (userMaster[0].Timezone != null && userMaster[0].Date_Format != null)
                     ViewBag.Timezone = "1";
             }
-            else if (ViewBag.typeofuser == "Franchise")
+            else if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
             {
                 ViewBag.accessexpiry = "";
             }

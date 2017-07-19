@@ -29,6 +29,7 @@ namespace Inventory.Controllers
             //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
             ViewBag.profile = profile.Take(1); //current user record
             ViewBag.jobpositions = AvailableJobPositions(id);
+            ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
             // profile.Clear();
             return View();
         }
@@ -136,7 +137,7 @@ namespace Inventory.Controllers
             DataView dv = dt.DefaultView;
             dt = dv.ToTable();
             ViewBag.records = StaffDetails(dt);
-            if (typeofuser == "Franchise")
+            if (typeofuser == "Franchise" || typeofuser == "Staff")
             {
                 int customerstaffcount = ViewBag.records.Count;
                 if (customerstaffcount == 0) { ViewBag.customerstaffcount = "Maximum 3 Staff Allowed"; }

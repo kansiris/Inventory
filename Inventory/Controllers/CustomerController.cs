@@ -69,7 +69,7 @@ namespace Inventory.Controllers
                 {
                     ViewBag.records = customer;
                 }
-                if (ViewBag.typeofuser == "Franchise")
+                if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
                 {
                     ViewBag.records = customer.Where(m=>m.cus_company_name == userdetails.First_Name).ToList();
                 }
@@ -584,7 +584,7 @@ namespace Inventory.Controllers
                 string Password = Guid.NewGuid().ToString().Split('-')[0];//"ABC@123456";
                 string mObile = null;
                 string activationCode = Guid.NewGuid().ToString();
-                int usertype = (int)LoginService.GetUserTypeId("Customer", 0);
+                int usertype = (int)LoginService.GetUserTypeId("Staff", 0);
                 string Date_Format = null, Timezone = null, Currency = null, UserSite = null;
                 int Subscription = 0;
                 DateTime? SubscriptionDate = null;

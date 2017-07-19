@@ -581,6 +581,8 @@
                                         </div>
                                     </div>
                                 </li>
+                                @if (ViewBag.typeofuser != "Staff")
+                                {
                                 <li data-content="localization">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-8">
@@ -659,6 +661,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                }
                             </ul>
                             <!-- cd-tabs-content -->
                         </div>
