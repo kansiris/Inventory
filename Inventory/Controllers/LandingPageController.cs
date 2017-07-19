@@ -25,11 +25,11 @@ namespace Inventory.Controllers
             {
                 SqlDataReader value = LoginService.Authenticateuser("getuserprofile", email, null, User_Site, long.Parse(usertype));
                 var type = LoginService.GetUserTypeId(null, long.Parse(usertype));
-                string controller = "";
-                if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
-                    controller = "UserHome";
-                else
-                    controller = type.ToString() + "Home";
+                string controller = "UserHome";
+                //if (type.ToString() == "Staff" || type.ToString() == "Owner") //checking type
+                //    controller = "UserHome";
+                //else
+                //    controller = type.ToString() + "Home";
                 if (value.HasRows == false) //Failed Login
                     return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
                 value.Close();

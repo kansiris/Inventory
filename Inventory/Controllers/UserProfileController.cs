@@ -29,6 +29,7 @@ namespace Inventory.Controllers
             //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
             ViewBag.profile = profile.Take(1); //current user record
             ViewBag.jobpositions = AvailableJobPositions(id);
+            ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
             // profile.Clear();
             return View();
         }
@@ -120,7 +121,7 @@ namespace Inventory.Controllers
             }
             if (command == "updatestaff")
             {
-                count = LoginService.UpdateStaff("staffdetails", int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position, ownerStaff.UserPic,null);
+                count = LoginService.UpdateStaff("staffdetails", int.Parse(ownerStaff.Staff_Id), ownerStaff.First_Name, ownerStaff.Last_Name, ownerStaff.Mobile_No, ownerStaff.Email, ownerStaff.Vendor_Access, ownerStaff.Customer_Access, ownerStaff.Job_position, ownerStaff.UserPic, null);
                 return Json(new { Result = "staffupdated", msg = "User Updated SuccessFully!!!" });
             }
             return Json("Failed");
@@ -128,6 +129,7 @@ namespace Inventory.Controllers
 
         public PartialViewResult GetStaffRecords(string id)
         {
+            string typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
             var records = LoginService.GetStaff(int.Parse(id), "");
             var dt = new DataTable();
             dt.Load(records);
@@ -135,6 +137,12 @@ namespace Inventory.Controllers
             DataView dv = dt.DefaultView;
             dt = dv.ToTable();
             ViewBag.records = StaffDetails(dt);
+            if (typeofuser == "Franchise" || typeofuser == "Staff")
+            {
+                int customerstaffcount = ViewBag.records.Count;
+                if (customerstaffcount == 0) { ViewBag.customerstaffcount = "Maximum 3 Staff Allowed"; }
+                else { ViewBag.customerstaffcount = "Can Add upto " + (3 - customerstaffcount) + " Staff More"; }
+            }
             //records.Close();
             return PartialView("StaffRecords", ViewBag.records);
         }
@@ -252,6 +260,6 @@ namespace Inventory.Controllers
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
-        
+
     }
 }

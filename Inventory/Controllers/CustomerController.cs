@@ -21,6 +21,7 @@ namespace Inventory.Controllers
     public class CustomerController : Controller
     {
         // GET: Customer
+        LoginService loginService = new LoginService();
         public ActionResult Index()
         {
             ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
@@ -36,8 +37,6 @@ namespace Inventory.Controllers
             {
                 ViewBag.smsg = TempData["smsg"];
             }
-
-
             return View();
         }
         //Partial view for loading all customer compines
@@ -47,6 +46,8 @@ namespace Inventory.Controllers
             {
 
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
+                ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
                 var records = CustomerService.getcuscomapnies(user.DbName);
                 var dt = new DataTable();
                 dt.Load(records);
@@ -64,7 +65,15 @@ namespace Inventory.Controllers
                                 due = row["due"].ToString(),
                                 overdue = row["overdue"].ToString()
                             }).OrderByDescending(m => m.cus_company_Id).ToList();
-                ViewBag.records = customer;
+                if (ViewBag.typeofuser == "Owner")
+                {
+                    ViewBag.records = customer;
+                }
+                if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
+                {
+                    ViewBag.records = customer.Where(m=>m.cus_company_name == userdetails.First_Name).ToList();
+                }
+                //ViewBag.records = customer;
                 return PartialView("CustomerCompany", ViewBag.records);
             }
 
@@ -129,7 +138,7 @@ namespace Inventory.Controllers
             // Designing Email Part
             SendEmail abc = new SendEmail();
             string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
-                        FileInfo File = new FileInfo(Server.MapPath("/Content/mailer1.html"));
+            FileInfo File = new FileInfo(Server.MapPath("/Content/mailer1.html"));
             string readFile = File.OpenText().ReadToEnd();
             readFile = readFile.Replace("[ActivationLink]", url);
             readFile = readFile.Replace("password", PassWord);
@@ -137,7 +146,7 @@ namespace Inventory.Controllers
             abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
 
-        
+
         public ActionResult ActivatesEmail(string ActivationCode, string Email_Id, string DBName)
         {
             //Checking Activation code

@@ -221,6 +221,7 @@ namespace Inventory.Controllers
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             LoginService loginService = new LoginService();
             var profilepic = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
+            ViewBag.tyofuser = LoginService.GetUserTypeId("", (int)profilepic.UserTypeId);
             var ownerstaff = LoginService.GetStaff(int.Parse(user.ID), "");
             ViewBag.currency = profilepic.Currency;
             ViewBag.dateformat = profilepic.Date_Format;

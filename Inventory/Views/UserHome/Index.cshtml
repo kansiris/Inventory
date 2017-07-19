@@ -36,7 +36,7 @@
                     <div class="top-button" id="pic" style="float:left">
                         @*<img src="/images/profilepic.png" alt="Profile Pic" />*@
                         @*<input type="file" value="" id="fileupload" accept="image/gif, image/jpeg, image/png">
-                        <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>*@
+                            <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>*@
 
                         <a href="~/UserProfile?id=@item.ID&&type=upload">
                             @if (item.Profile_Picture != "")
@@ -54,9 +54,13 @@
                         </a>
 
                     </div>
-                    <p>@item.First_Name @item.Last_Name </p>@Html.HiddenFor(Model => Model.ID, new { Value = item.ID })
+                    @if (ViewBag.typeofuser == "Owner")
+                    { <p>@item.First_Name @item.Last_Name </p> }
+                    @if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
+                    { <p>@item.First_Name </p> }
+                    @Html.HiddenFor(Model => Model.ID, new { Value = item.ID })
                     <br /><br />
-                    <p style="font-size:medium">  (@ViewBag.accessexpiry)</p>
+                    <p style="font-size:medium"> @ViewBag.accessexpiry </p>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     @*<a href="/UserProfile?email=@Model.EmailId&&usertype=@Model.UserTypeId&&site=@Model.User_Site">*@
@@ -69,9 +73,9 @@
     <!------------ Upload Image --------------->
             <!------------ Toggle Action ------>
             @*if (ViewBag.Timezone != "")
-            {
-                <div id="changetimezone">@ViewBag.Timezone<a href="#">Change</a></div>
-            }*@
+                {
+                    <div id="changetimezone">@ViewBag.Timezone<a href="#">Change</a></div>
+                }*@
         if (ViewBag.Timezone == "")
         {
             <div class="row toggle-area" id="Timezoneselection">
@@ -153,15 +157,17 @@
                                 </li>
                                 <li data-content="Reports">
                                     <p>Web Reporting allows access to stock information online via a web browser on any smartphone or computer. This web-based inventory reporting feature only requires access to a PC or smartphone with a web browser and access to the Internet.</p>
-                                    <p>Additional data fields other than the basic fields shown<br />
+                                    <p>
+                                        Additional data fields other than the basic fields shown<br />
 
-Login page with username/password for security purposes<br />
+                                        Login page with username/password for security purposes<br />
 
-Filtered inventory/asset information based on user login<br />
+                                        Filtered inventory/asset information based on user login<br />
 
-Filtered customer information based on customer credentials <br />
+                                        Filtered customer information based on customer credentials <br />
 
-Hosted web server for online access from anywhere</p>
+                                        Hosted web server for online access from anywhere
+                                    </p>
                                 </li>
                                 <li data-content="Settings">
                                     <p>Trash Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque a iure nostrum animi praesentium, numquam quidem, nemo, voluptatem, aspernatur incidunt. Fugiat aspernatur excepturi fugit aut, dicta reprehenderit temporibus, nobis harum consequuntur quo sed, illum.</p>
@@ -1035,22 +1041,22 @@ Hosted web server for online access from anywhere</p>
     <!------ Random Colors ------>
     <!------ Show/Hide Timezone ------>
     @*<script type="text/javascript">
-        $(document).ready(function (e) {
-            var v = $(".right_col > form > div:nth-of-type(2)").attr("id");
-            if (v == "changetimezone") {
-                $(".right_col >form >  .toggle-area").css("display", "none");
-            } else {
-                $(".right_col >form >  .toggle-area").css("display", "block");
-            }
-            $("#changetimezone a").click(function () {
-                $(".right_col > form > .toggle-area").css("display", "block");
+            $(document).ready(function (e) {
+                var v = $(".right_col > form > div:nth-of-type(2)").attr("id");
+                if (v == "changetimezone") {
+                    $(".right_col >form >  .toggle-area").css("display", "none");
+                } else {
+                    $(".right_col >form >  .toggle-area").css("display", "block");
+                }
+                $("#changetimezone a").click(function () {
+                    $(".right_col > form > .toggle-area").css("display", "block");
+                });
             });
-        });
-    </script>*@
+        </script>*@
     <!------ Show/Hide Timezone------>
 
     <script>
-        $('#fileupload1').on('click',function () {
+        $('#fileupload1').on('click', function () {
             window.location.href = '~/UserProfile?id=@Request.QueryString["id"]&&type=upload';
         });
     </script>
