@@ -448,7 +448,6 @@ namespace Inventory.Controllers
             return Json(null);
         }
 
-
         public JsonResult savecuscontactdetails(int cus_company_Id, string Customer_contact_Fname, string Customer_contact_Lname, string Mobile_No,
                           string Email_Id, string Adhar_Number, string cus_Job_position, string image)
         {
@@ -502,7 +501,7 @@ namespace Inventory.Controllers
             }
             return Json(null);
         }
-        //customer invite
+        //customer invite to  email
         public JsonResult inviteCustomerForPos(int cus_company_Id)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -575,7 +574,7 @@ namespace Inventory.Controllers
                 string Password = Guid.NewGuid().ToString().Split('-')[0];//"ABC@123456";
                 string mObile = null;
                 string activationCode = Guid.NewGuid().ToString();
-                int usertype = (int)LoginService.GetUserTypeId("Customer", 0);
+                int usertype = (int)LoginService.GetUserTypeId("Staff", 0);
                 string Date_Format = null, Timezone = null, Currency = null, UserSite = null;
                 int Subscription = 0;
                 DateTime? SubscriptionDate = null;

@@ -162,6 +162,15 @@
             <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
             <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+
+            @*<div class="messagepop pop">
+                <form method="post" id="new_message" action="/messages">
+                    <p><label for="email">Your email or name</label><input type="text" size="30" name="email" id="email" /></p>
+                    <p><label for="body">Message</label><textarea rows="6" name="body" id="body" cols="35"></textarea></p>
+                    <p><input type="submit" value="Send Message" name="commit" id="message_submit" /> or <a class="close" href="/">Cancel</a></p>
+                </form>
+            </div>
+            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>*@
             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
         </div>
     </div>
@@ -311,7 +320,15 @@
             <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
             <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+            <div class="messagepop pop">
+                <form method="post" id="new_message" action="/messages">
+                    <p><label for="email">Your email or name</label><input type="text" size="30" name="email" id="email" /></p>
+                    <p><label for="body">Message</label><textarea rows="6" name="body" id="body" cols="35"></textarea></p>
+                    <p><input type="submit" value="Send Message" name="commit" id="message_submit" /> or <a class="close" href="/">Cancel</a></p>
+                </form>
+            </div>
             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+            @*<button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>*@
         </div>
     </div>
 </div>
@@ -342,7 +359,6 @@
     
 </script>
 <script>
-   
     var currency = $('#currency').val().slice(-2).replace(')', '');
        $('.localization').html(currency);
        var currency = $('#currency').val().slice(-2).replace(')', '');
@@ -389,29 +405,33 @@
 
         
 </script>
+<script>
+  
+</script>
 <!------------- E-Mail------------->
 <script type="text/javascript">
-  // window.onload = function () {
-$("#add-vendor3").click(function(){
-       var Detdiv = document.getElementById("vendortable").outerHTML;
-return email(Detdiv);
-});
-$("#add-vendor4").click(function(){
-       var Detdiv = document.getElementById("vendortable1").outerHTML;
-return email(Detdiv);
-});
-   //}
+
+//$("#add-vendor3").click(function(){
+//       var Detdiv = document.getElementById("vendortable").outerHTML;
+//return email(Detdiv);
+//});
+//$("#add-vendor4").click(function(){
+//       var Detdiv = document.getElementById("vendortable1").outerHTML;
+//return email(Detdiv);
+//});
+  
 
 function email(v){
 //var Detdiv = $('#div_Detdiv').html();
        var Detdivobj = {};
-       Detdivobj.Detdiv = Detdiv;
+       Detdivobj.Detdiv = v;
+
        //Detdivobj.oid = document.getElementById("hdnoid").value;
        $.ajax({
            type: "POST",
            //url: window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/OrderConfirmation/EmailOrderConfirmation',
            //url: "/OrderConfirmation/EmailOrderConfirmation",
-url: "/controller/method",
+           url: "/controller/method",
            contentType: "application/json; charset=utf-8",
            dataType: "json",
            data: {},
@@ -430,4 +450,31 @@ url: "/controller/method",
 </script>
 <!------------- E-Mail------------->
 
-  
+  <script>
+      function deselect(e) {
+          $('.pop').slideFadeToggle(function () {
+              e.removeClass('selected');
+          });
+      }
+
+      $(function () {
+          $('#contact').on('click', function () {
+              if ($(this).hasClass('selected')) {
+                  deselect($(this));
+              } else {
+                  $(this).addClass('selected');
+                  $('.pop').slideFadeToggle();
+              }
+              return false;
+          });
+
+          $('.close').on('click', function () {
+              deselect($('#contact'));
+              return false;
+          });
+      });
+
+      $.fn.slideFadeToggle = function (easing, callback) {
+          return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+      };
+  </script>

@@ -138,89 +138,19 @@ namespace Inventory.Controllers
             return RedirectToAction("Index", "Customer");
         }
 
-        //public JsonResult InsertPayments(string Prchaseorder_no, Payments payments)
-        //{
-
-        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-        //    {
-
-        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-        //        var count = PaymentsService.InsertPayments(user.DbName, payments.payments_date, payments.cheque_date, payments.cheque_bankname, payments.cheque_num, payments.creditORdebitcard_date, payments.card_holder_name, payments.card_last4digits, payments.bank_taransfer_date, payments.bank_transfer_name, payments.bank_transaction_id
-        //   , payments. cash_date, payments.cash_card_holdername, payments.wallet_date, payments.wallet_number, payments.invoiced_amount, payments.Received_amount, payments.opening_balance, payments.current_balance, payments.bank_transfer_IFSCcode, payments.bank_transfer_branchname, payments.Customer_comapnyId, payments.Customer_company_name, payments.remarks);
-        //        if (count > 0)
-        //        {
-        //            string overdue = "0";
-        //            string due = "0"; int updatedopenamt = 0; int updatedreceivedamount = int.Parse(payments.Received_amount); int updatedinvoiceamount = int.Parse(payments.invoiced_amount);
-        //            Array ponumsArray = Prchaseorder_no.Split(',');
-        //            for (int i = 0; i < ponumsArray.Length; i++)
-        //            {
-        //                if (int.Parse(payments.Received_amount) > 0)
-        //                {
-        //                    var dt = new DataTable();
-        //                    var records = PaymentsService.ForPaymentinvoicetotal(user.DbName, Prchaseorder_no.Split(',')[i]);
-        //                    dt.Load(records);
-        //                    List<Invoice> invoicetotl = (from DataRow row in dt.Rows
-        //                                                 select new Invoice()
-        //                                                 {
-        //                                                     Payment_date = row["payment_date"].ToString(),
-        //                                                     sub_total = row["sub_total"].ToString(),
-        //                                                     open_amount = row["open_amount"].ToString()
-        //                                                 }).ToList();
-        //                    string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
-        //                    DateTime Payment_due_date1 = DateTime.ParseExact(Payment_due_date, "dd/mm/yyyy", CultureInfo.InvariantCulture);
-        //                    Payment_due_date = Payment_due_date1.ToString("dd/mm/yyyy");
-        //                    DateTime paymentsdonedate = DateTime.Parse(payments.payments_date);
-        //                    string open_amount = invoicetotl.FirstOrDefault().open_amount; //(invoicetotl.Select(m => m.open_amount)).First();
-        //                    DateTime myPayment_due_date = DateTime.Parse(Payment_due_date);
-        //                    //string updatedopenamt = "0";
-        //                    if (open_amount != "" && open_amount != null && open_amount != "0")  // && int.Parse(open_amount) >= int.Parse(Received_amount)
-        //                    {
-        //                        if ((int.Parse(open_amount)) >= (int.Parse(payments.Received_amount)))
-        //                        {
-        //                            updatedopenamt = (int.Parse(open_amount) - int.Parse(payments.Received_amount));
-        //                            PaymentsService.Updateinvoice(user.DbName, Prchaseorder_no.Split(',')[i], updatedopenamt.ToString());
-        //                            payments.Received_amount = "0";
-        //                        }
-        //                        else
-        //                        {
-        //                            updatedreceivedamount = (int.Parse(payments.Received_amount) - int.Parse(open_amount));
-        //                            if (updatedreceivedamount > 0)
-        //                            {
-        //                                payments.Received_amount = updatedreceivedamount.ToString();
-        //                                updatedopenamt = 0;
-        //                                PaymentsService.Updateinvoice(user.DbName, Prchaseorder_no.Split(',')[i], updatedopenamt.ToString());
-        //                            }
-        //                        }
-        //                    }
-        //                    else
-        //                        break;
-        //                    if (myPayment_due_date < paymentsdonedate)
-        //                        overdue = updatedopenamt.ToString();
-        //                    else
-        //                        due = updatedopenamt.ToString();
-        //                }
-        //            }
-        //            int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue);
-        //            if (counts > 0)
-        //                return Json("success");
-        //        }
-        //    }
-
-        //    return Json("unique");
-        //}
-
+       
         //for email of invoice
 
-        public void Email(string Invoicedata)
+        public void Email(string Invoicedata,string EmailID)
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
-            string EmailId = "sravani.siddeswara@xsilica.com";
+            //string EmailId = "sravani.siddeswara@xsilica.com";
             string activationCode = Guid.NewGuid().ToString();
-            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailID;
             FileInfo File = new FileInfo(Server.MapPath("/Content/mailer.html"));
             string message = Invoicedata;//readFile + body;
-            abc.EmailAvtivation(EmailId, message, "Invoice details");
+            abc.EmailAvtivation(EmailID, message, "Invoice details");
         }
 
 

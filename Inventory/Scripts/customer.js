@@ -996,8 +996,6 @@ function viewallpos(cid, cname) {
     location.href = '/Products/PosOfCustomer?cid=' + cid + '&cname=' + cname;
 }
 
-
-
 function errormsg(msg) {
     $("body").overhang({
         type: "error",
@@ -1036,10 +1034,9 @@ function existsmsg(msg) {
 //        primary: "#40D47E",
 //        accent: "#27AE60",
 //        yesColor: "#3498DB",
-//        message: "Do you want to continue?",
+//        message: msg,
 //        callback: function (value) {
 //            var response = value ? "true" : "false";
-//           return  response;
 //        }
 //    });
 //}
@@ -1169,8 +1166,8 @@ function editcompanytaxdetails(clickedvalue) {
 
     //invite customer for creating pos etc
     function inviteCustomerForPos(id) {
-        //alert(id);
         var retVal = confirm("Do you want to send invitation...!");
+        //var retVal = confirm("Do you want to send invitation...!");
         if (retVal == true) {
             $.ajax({
                 url: '/Customer/inviteCustomerForPos',
@@ -1187,8 +1184,6 @@ function editcompanytaxdetails(clickedvalue) {
                     }
                     else {
                         cus_company_Id = $('#cus_company_Id').val();
-                        //var url = 'Customer/CustomerContact?id=' + cus_company_Id + '';
-                        //$('#customerrecords').load(url);
                         successmsg("Invitation sent Successfully.Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur");
                     }
                 },
