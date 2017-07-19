@@ -24,18 +24,24 @@ namespace Inventory.Controllers
         LoginService loginService = new LoginService();
         public ActionResult Index()
         {
-            ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
-            var list = AvailableJobPositions();
-            if (list != null)
-                ViewBag.cusjobpositions = AvailableJobPositions().Select(m => m.cus_Job_position).Distinct();
-            ViewBag.jobpositions = "";
-            if (TempData["msg"] != null)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.msg = TempData["msg"];
-            }
-            if (TempData["smsg"] != null)
-            {
-                ViewBag.smsg = TempData["smsg"];
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
+                ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
+                ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
+                var list = AvailableJobPositions();
+                if (list != null)
+                    ViewBag.cusjobpositions = AvailableJobPositions().Select(m => m.cus_Job_position).Distinct();
+                ViewBag.jobpositions = "";
+                if (TempData["msg"] != null)
+                {
+                    ViewBag.msg = TempData["msg"];
+                }
+                if (TempData["smsg"] != null)
+                {
+                    ViewBag.smsg = TempData["smsg"];
+                }
             }
             return View();
         }
