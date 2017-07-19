@@ -537,6 +537,9 @@ namespace Inventory.Controllers
                 if (exec.Read())
                     DBname = exec["DB_Name"].ToString();
                 Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                Date_Format = exec["Date_Format"].ToString();
+                Timezone = exec["Timezone"].ToString();
+                Currency = exec["Currency"].ToString();
 
                 if (exec2.Read())
                 {
