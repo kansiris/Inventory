@@ -783,17 +783,17 @@ function deleteCustomer(id, status) {
 
 //Customer contact person invite
 
-function inviteCustomer(id) {
+function inviteCustomer(id,cid) {
 
-    cus_company_Id = $('#cus_company_Id').val()
-    //alert(cus_company_Id);
+    //cus_company_Id = parseInt(($('#cus_company_Id').val()));
+    //alert(typeof(cus_company_Id));
  
     var retVal = confirm("Do you want to send invitation...!");
     if (retVal == true) {
         $.ajax({
-            url: '/Customer/inviteCustomer',
+            url: '/Customer/inviteCustomer?Customer_Id='+id+'&&cus_company_Id='+cid,
             type: 'POST',
-            data: JSON.stringify({ Customer_Id: id, cus_company_Id: cus_company_Id }),
+            data: {},//JSON.stringify({ Customer_Id: id, cus_company_Id: cid }),
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
