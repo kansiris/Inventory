@@ -601,6 +601,9 @@ namespace Inventory.Controllers
                     eMail = exec1["Email_Id"].ToString();
                     mObile = exec1["Mobile_No"].ToString();
                     image = exec1["image"].ToString();
+                    Date_Format = exec1["Date_Format"].ToString();
+                    Timezone = exec1["Timezone"].ToString();
+                    Currency = exec1["Currency"].ToString();
                 }
                 exec1.Close();
                 if (exec2.Read())
