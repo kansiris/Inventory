@@ -80,7 +80,8 @@
                                     @*<li><a data-content="profile" href="#0">My Profile</a></li>*@
                                     <li><a data-content="notes" href="#0">Notes</a></li>
                                     <li><a data-content="social" href="#0">Social</a></li>
-                                    <li><a data-content="localization" href="#0">Localization</a></li>
+                                   @if (ViewBag.typeofuser != "Staff")
+                                   { <li><a data-content="localization" href="#0">Localization</a></li>}
                                 </ul>
                                 <!-- cd-tabs-navigation -->
                             </nav>
