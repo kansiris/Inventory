@@ -359,7 +359,7 @@
                                             <label for="email">Your email</label><input type="text" size="30" name="email" id="email" />
                                         </td>
                                         </tr><tr>
-                                        <td><input type="submit" value="Send Email" name="commit" id="message_submit" /> or 
+                                        <td><input type="button" value="Send Email" name="commit" id="message_submit" /> or 
                                             <a class="close" href="/">Cancel</a>
                                     </td>
                                     </tr>
@@ -535,7 +535,6 @@
 
     $("#message_submit").click(function () {
         var emailid = $("#email").val();
-        alert(emailid);
     var Detdiv = document.getElementById("invoicedetails").outerHTML;
 return email(Detdiv,emailid);
 });
@@ -552,14 +551,21 @@ function email(v,emailid){
            dataType: "json",
            data: {},
            data: JSON.stringify({ Invoicedata: v,EmailID:emailid }),
-           data: { content: $('#div_Detdiv').html() },
-           data: sendInfo,
            success: function (data) {
-               alert("Order details and feedback form sent to your email id");
+               if (data == "unique") {
+                   errormsg("EMial not sent");
+               }
+               else {
+                   successmsg("Payment details sent to your mail id");
+                   
+                   var Customer_comapnyId = $("#Customer_comapnyId").val();
+                   var Customer_company_name = $("#Customer_company_name").val();
+                   @*document.location = '@Url.Action("Index", "Payments", new {Customer_comapnyId,Customer_company_name })';*@
+                  
+               }
            },
-           error: function (data) {
-               alert("E-Mail Sending Failed!!!");
-           }
+           error: function (data)
+           { errormsg("Failed!!!"); }
        });
 }
 
