@@ -9,6 +9,7 @@
         <div class="added-products">
             <input type="hidden" class="cartid" value="@item.cart_id" />
             <input type="hidden" class="whqty" value="@item.Quantity_Total" />
+            <input type="hidden" class="cartitemqty" value="@item.Quantity" />
 
             <i class="fa fa-times remove" aria-hidden="true" onclick="removecart(@item.cart_id)"></i><div class="image">
                 @if (item.product_images != "" && item.product_images != null && item.product_images != "~/images/default_product.png" && item.product_images != "default_product.png")

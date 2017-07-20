@@ -19,7 +19,11 @@ namespace Inventory.Controllers
         // GET: Products
         public ActionResult Index(string cid, string cname)
         {
-            return View();
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         public ActionResult purchaseorder()

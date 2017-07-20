@@ -77,7 +77,7 @@ namespace Inventory.Controllers
                 }
                 if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
                 {
-                    ViewBag.records = customer.Where(m=>m.cus_company_name == userdetails.First_Name).ToList();
+                    ViewBag.records = customer.Where(m => m.cus_company_name == userdetails.First_Name).ToList();
                 }
                 //ViewBag.records = customer;
                 return PartialView("CustomerCompany", ViewBag.records);
@@ -601,21 +601,22 @@ namespace Inventory.Controllers
                 SqlDataReader exec = CustomerService.getusermaster(id, user.DbName);
                 SqlDataReader exec1 = CustomerService.getCustomerContact(Customer_Id, user.DbName);
                 SqlDataReader exec2 = CustomerService.getlastinsertedcompany(int.Parse(cus_company_Id), user.DbName);
-                if (exec.Read()) { 
+                if (exec.Read())
+                {
                     DBname = exec["DB_Name"].ToString();
-                Subscription = int.Parse(exec["Subscriptionid"].ToString());
-                Date_Format = exec["Date_Format"].ToString();
-                Timezone = exec["Timezone"].ToString();
-                Currency = exec["Currency"].ToString();
-            }
+                    Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                    Date_Format = exec["Date_Format"].ToString();
+                    Timezone = exec["Timezone"].ToString();
+                    Currency = exec["Currency"].ToString();
+                }
+                exec.Close();
                 if (exec1.Read())
                 {
                     fname = exec1["Customer_contact_Fname"].ToString();
                     lname = exec1["Customer_contact_Lname"].ToString();
                     eMail = exec1["Email_Id"].ToString();
                     mObile = exec1["Mobile_No"].ToString();
-                    image = exec1["image"].ToString();
-                    
+                    //image = exec1["image"].ToString();
                 }
                 exec1.Close();
                 if (exec2.Read())
@@ -662,7 +663,7 @@ namespace Inventory.Controllers
                     var dt = new DataTable();
                     dt.Load(records);
                     ViewBag.records = getcuscontactDetail(dt);
-                    ViewBag.id = id.ToString() ;
+                    ViewBag.id = id.ToString();
                     return PartialView("CustomerContact", ViewBag.records);
                 }
             }
