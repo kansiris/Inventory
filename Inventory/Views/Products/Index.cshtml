@@ -327,7 +327,9 @@
             var pqty = $(this).parents(".rate-add").prevAll(".image").children("input#pqty");
             var productid = $(this).next("li").html().replace('}', ' ');
             var whqty = $(this).parents(".rate-add").children("div:last-of-type").children("div").children("span");
-            var outofstock = $(this).find("div.label").css('display', '');
+            var outofstock = $(this).parents(".well").prev(".label").css('display', '');
+            var cartbtn = $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled', '');
+            //alert($(this).parents(".well").prev(".label").html());
             $(this).parents(".rate-add").prevAll("div.image").children("input").val(productid);
             //alert(whqty);
             $.ajax({
@@ -335,8 +337,8 @@
                     pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
                     whqty.empty().html(result.qty);
                     if (result.qty == '') { whqty.empty().html(0); }
-                    alert(outofstock);
-                    if (result.qty == 0 || result.qty == '0') { outofstock.css('display', 'block'); }
+                    //alert(outofstock);
+                    if (result.qty == 0 || result.qty == '0') { outofstock.css('display', 'block'); cartbtn.prop('disabled', true) }
                     if (result.images != '') {
                         image.attr("src", '/ProductImages/' + result.images).attr("alt", result.images);
                     }
@@ -402,11 +404,11 @@
             return vals();
         });
 
-        $(document).on('click', '.product-variation > ul > li', function () {
-            var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
-            $(this).parents(".rate-add").prev(".product-price-total").children("span").empty();
-            $(this).parents(".rate-add").prev(".product-price-total").children("span").append(productprice);
-        });
+        //$(document).on('click', '.product-variation > ul > li', function () {
+        //    var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
+        //    $(this).parents(".rate-add").prev(".product-price-total").children("span").empty();
+        //    $(this).parents(".rate-add").prev(".product-price-total").children("span").append(productprice);
+        //});
 
         $(document).on('click', '.add-to-cart-table > .btn', function () {
             var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];

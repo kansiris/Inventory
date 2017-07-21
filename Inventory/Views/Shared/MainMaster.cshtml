@@ -12,12 +12,14 @@
 
         if (user.ID != id && id != null)
         {
-            Response.Redirect("/Login");
+            //Response.Redirect("/Login");
+            <script> location.href = '/login/index';</script>
         }
     }
     else
     {
-        Response.Redirect("/Login");
+        //Response.Redirect("/Login");
+        <script> location.href = '/login/index';</script>
     }
 }
 

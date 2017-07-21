@@ -79,6 +79,16 @@
         {
         <div class="col-xs-12 col-sm-4 col-md-3 displayproduct">
             <i class="fa fa-times remove" aria-hidden="true"></i>
+            <div class="discount">  @if (item.discount.Split(',')[0] != "0")
+            { <span>@item.discount.Split(',')[0] % off</span>}
+            else
+            { <span style="border: 1px solid #ffffff"></span>}</div>
+            <div class="icon">
+                @if (item.product_type.Split(',')[0] == "Veg")
+                { <img src="images/vegicon.png" alt="Icon">}
+                @if (item.product_type.Split(',')[0] == "Non-Veg")
+                { <img src="images/nonvegicon.png" alt="Icon">}
+            </div>
             <div class="label">
                 <img src="images/label.png" alt="Out of stock">
             </div>

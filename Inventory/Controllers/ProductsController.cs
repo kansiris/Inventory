@@ -156,6 +156,8 @@ namespace Inventory.Controllers
                                     product_images = row["productimage"].ToString(),
                                     Quantity_Total = row["quantity"].ToString(),
                                     Qty_Stock = row["ids"].ToString(),
+                                    product_type = row["producttype"].ToString(),
+                                    discount = row["discount"].ToString(),
                                 }).ToList();
                 List<Product> sorteddata = new List<Product>();
                 for (int i = 0; i < products.Count; i++)

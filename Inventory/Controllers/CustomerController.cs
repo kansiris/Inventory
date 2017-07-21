@@ -43,6 +43,10 @@ namespace Inventory.Controllers
                     ViewBag.smsg = TempData["smsg"];
                 }
             }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
         //Partial view for loading all customer compines
@@ -50,7 +54,6 @@ namespace Inventory.Controllers
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
                 ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
@@ -77,7 +80,7 @@ namespace Inventory.Controllers
                 }
                 if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
                 {
-                    ViewBag.records = customer.Where(m => m.cus_company_name == userdetails.First_Name).ToList();
+                    ViewBag.records = customer.Where(m => m.cus_company_name == userdetails.CompanyName.Trim()).ToList();
                 }
                 //ViewBag.records = customer;
                 return PartialView("CustomerCompany", ViewBag.records);
