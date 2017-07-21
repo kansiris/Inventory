@@ -226,6 +226,8 @@ namespace Inventory.Controllers
                           select new Product()
                           {
                               product_images = row["product_images"].ToString(),
+                              discount = row["discount"].ToString(),
+                              product_type = row["product_type"].ToString(),
                           }).ToList();
                 if (images.Count != 0)
                     ViewBag.records = images[0].product_images.Split(',')[0];
@@ -249,7 +251,7 @@ namespace Inventory.Controllers
                 { quantity = qtyinhnd.FirstOrDefault().Quantity_Total; }//qtyinhnd.Select(m => m.Quantity_Total);
                 else { quantity = ""; }
                 #endregion
-                var result = new { images = ViewBag.records, qty = quantity };
+                var result = new { images = ViewBag.records, qty = quantity,discount=images[0].discount, product_type=images[0].product_type };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json("unique", JsonRequestBehavior.AllowGet);

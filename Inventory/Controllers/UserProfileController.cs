@@ -12,6 +12,8 @@ using System.IO;
 using System.Drawing;
 using System.Text;
 using Newtonsoft.Json;
+using Inventory.Content;
+using Inventory.Utility;
 
 namespace Inventory.Controllers
 {
@@ -261,5 +263,44 @@ namespace Inventory.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult staffinvite(string staffid)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var record = LoginService.GetStaff(int.Parse(staffid), "particular");
+                if (record.HasRows)
+                {
+                    var dt = new DataTable();
+                    dt.Load(record);
+                    var data = StaffDetails(dt).FirstOrDefault();
+                    var profile = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault(); //Get's User Profile
+                    string Password = Guid.NewGuid().ToString().Split('-')[0];//"ABC@123456";
+                    string activationCode = Guid.NewGuid().ToString();
+                    int usertype = (int)LoginService.GetUserTypeId("OwnerStaff", 0);
+
+                    int count = LoginService.CreateUser(data.Email, data.First_Name, data.Last_Name, profile.DB_Name, DateTime.UtcNow, Password, (int)profile.SubscriptionId, usertype, profile.User_Site, profile.CompanyName, data.Mobile_No.ToString(), null, 0, activationCode, data.UserPic, profile.Date_Format, profile.Timezone,profile.Currency, profile.company_logo);
+                    if (count > 0)
+                    {
+                        Email(data.First_Name, data.Last_Name, data.Email, activationCode, Password); //Sending Email
+                        return Json("success");
+                    }
+                }
+            }
+            return Json("Failed");
+        }
+
+        public void Email(string First_Name, string Last_Name, string EmailId, string activationCode, string PassWord)
+        {
+            // Designing Email Part
+            SendEmail abc = new SendEmail();
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
+            FileInfo File = new FileInfo(Server.MapPath("/Content/mailer1.html"));
+            string readFile = File.OpenText().ReadToEnd();
+            readFile = readFile.Replace("[ActivationLink]", url);
+            readFile = readFile.Replace("password", PassWord);
+            string message = readFile;
+            abc.EmailAvtivation(EmailId, message, "Account Activation");
+        }
     }
 }

@@ -546,3 +546,23 @@ function loadstaff() {
 
 //</script>
 //}
+
+
+function invitestaff(id) {
+    $.ajax({
+        url: '/UserProfile/staffinvite',
+        type: "POST",
+        datatype: "json",
+        data: { 'staffid': id },
+        success: function (data) {
+            if (data == "success")
+                successmsg("Successfully Invited Staff");
+            else
+                errormsg("Failed To Invite Staff");
+        },
+        error: function (er) {
+            //alert("error");
+            errormsg("System Encountered Internal Error!!! Try Again After Some Time");
+        }
+    });
+}
