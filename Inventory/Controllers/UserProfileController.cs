@@ -132,12 +132,12 @@ namespace Inventory.Controllers
         public PartialViewResult GetStaffRecords(string id)
         {
             int userid = 0;
-            string typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
-            if (typeofuser == "OwnerStaff")
+            ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
+            if (ViewBag.typeofuser == "OwnerStaff")
             {
                 userid = int.Parse(getownerid(id, LoginService.GetUserTypeId("Owner", 0).ToString())) ;//LoginService.getownerstaff(id, LoginService.GetUserTypeId("Owner", 0).ToString());
             }
-            if (typeofuser == "Owner")
+            if (ViewBag.typeofuser == "Owner")
             {
                 userid = int.Parse(id);
             }
@@ -148,7 +148,7 @@ namespace Inventory.Controllers
             DataView dv = dt.DefaultView;
             dt = dv.ToTable();
             ViewBag.records = StaffDetails(dt);
-            if (typeofuser == "Franchise" || typeofuser == "Staff")
+            if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
             {
                 int customerstaffcount = ViewBag.records.Count;
                 if (customerstaffcount == 0) { ViewBag.customerstaffcount = "Maximum 3 Staff Allowed"; }
