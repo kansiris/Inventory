@@ -338,6 +338,7 @@
                 url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
                     pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
                     whqty.empty().html(result.qty);
+                    outofstock.css('display', 'none'); cartbtn.prop('disabled', false)
                     if (result.discount == 0)
                         discount.empty();
                     else
