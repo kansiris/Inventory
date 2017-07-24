@@ -14,7 +14,8 @@
                     <th>Mobile No</th>
                     <th>E-Mail ID</th>
                     <th>Job position</th>
-                    <th>Actions</th>
+                   @if (ViewBag.typeofuser == "Owner")
+                   { <th>Actions</th>}
                 </tr>
             </thead>
                 <tbody>
@@ -33,7 +34,8 @@
                             <td>@item.Mobile_No</td>
                             <td>@item.Email</td>
                             <td>@item.Job_position</td>
-                            
+                            @if (ViewBag.typeofuser == "Owner")
+                            {
                             <td>
                                 <div class="btn-group">
                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
@@ -51,6 +53,7 @@
                                     </ul>
                                 </div>
                             </td>
+                            }
                         </tr>
                         }
                     }
