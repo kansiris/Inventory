@@ -71,7 +71,7 @@
                                 <div class="row invoice-table margin-top margin-bottom">
                                     <div class="col-md-12">
                                         @Html.HiddenFor(m=>m.poid)
-                                        <table class="table table-bordered" cellspacing="0">
+                                        <table class="table table-bordered" cellspacing="0" style="background:#fff;">
                                             <thead style="background:#8086c2;color:#fff;">
                                                 <tr>
                                                     <th class="col-md-1" style="border:1px solid #fff;border-right:none;padding:8px;">Select</th>
@@ -94,8 +94,8 @@
                                                             </tr>
                                                         }else
                                                         {
-                                                        <tr>
-                                                            <td class="col-md-1" style="border:1px solid #ddd;border-right:none;padding:8px">
+                                                        <tr style="color:#000;">
+                                                            <td class="col-md-1" style="border:1px solid #ddd;border-right:none;padding:8px;">
                                                                 <label><input type="checkbox" value="@item.open_amount,@item.Prchaseorder_no" onclick="addtotal()"></label>
                                                             </td>
                                                             <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
