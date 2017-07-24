@@ -558,6 +558,7 @@ namespace Inventory.Controllers
                     //companylogo = exec2["cus_logo"].ToString();
                 }
                 exec2.Close();
+                exec.Close();
                 UserSite = companyname.Trim();
                 fname = companyname.Trim();
                 lname = companyname.Trim();

@@ -21,7 +21,18 @@ function calculateamnt() {
     var invamt = $("#invoiced_amount").val();
     var previous = $("#opening_balance").val();
     var recevdamnt = $("#Received_amount").val();
+    if (recevdamnt == null || recevdamnt == "") {
+        warnmsg("Enter Some Amount.It can't be empaty..");
+    }
+
+    if (parseInt(recevdamnt) > parseInt(invamt)) {
+        warnmsg("Enter less than or Equal Of Invoiced Amount...");
+        $('#Received_amount').val("");
+    //    $("#current_balance").val((parseInt(previous) - $('#Received_amount').val()));
+    }
+    //else{
     $("#current_balance").val((parseInt(previous) - recevdamnt));
+    //}
 }
 
 

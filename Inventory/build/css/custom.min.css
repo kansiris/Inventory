@@ -7242,6 +7242,32 @@ ul.terms-content li{
     padding: 20px;
     border-radius: 5px;
 	}
+.email-popup-area{
+	background: rgba(0,0,0,0.5);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+	display: none;}
+.email-popup{
+	display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50%,-50%);
+    background: #fff;
+    padding: 20px;
+	border-radius: 5px;}
+.email-popup > .input-group{
+	width: 100%;}
+.email-popup > .input-group + .row{
+	text-align: center;}
+.email-popup > .input-group + .row > button{
+	margin-bottom: 0;}
 /*============ Generate Purchase Order / invoice ==================*/
 
 .padding-left-0{
