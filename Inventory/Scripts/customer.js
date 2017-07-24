@@ -304,6 +304,7 @@ function editFunction(array) {
     $('#GSTIN_Number').val(array.GSTIN_Number);
     $('#pan_no').val(array.pan_no);
     $('#tds_apply').val(array.tds_apply);
+    //alert(array.tds_apply);
     $('#tax_exemption').val(array.tax_exemption);
     if (array.tds_apply == 1) {
         $("#tds").prop('checked', 'checked');
@@ -1102,10 +1103,22 @@ function editcompanytaxdetails(clickedvalue) {
     tax_reg_no = $('#tax_regno').val();
     pan_no = $('#pan_no').val();
     tds_apply = $('#tds').val();
-    //alert(tds_apply);
     tax_exemption = $('#taxexemption').val();
-    
     if (clickedvalue == 'updatetaxdetails') {
+        if ($('#tds').val() == "on") {
+            $('#tds').val("1");
+        }
+        else {
+            $('#tds').val("0");
+        }
+        tds_apply = $('#tds').val();
+        if ($('#taxexemption').val() == "on") {
+            $('#taxexemption').val("1");
+        }
+        else {
+            $('#taxexemption').val("0");
+        }
+        tax_exemption = $('#taxexemption').val();
         $.ajax({
             url: '/Customer/TaxExemptionfile?cus_company_Id=' + cuscompany_Id + '&Adhar_Number=' + Adhar_Number + '&GSTIN_Number=' + GSTIN_Number + '&tax_reg_no=' + tax_reg_no + '&pan_no=' + pan_no + '&tds_apply=' + tds_apply + '&tax_exemption=' + tax_exemption + '&clickeditem=' + clickedvalue,
             type: 'POST',

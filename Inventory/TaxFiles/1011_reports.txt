@@ -1,0 +1,18 @@
+                                    REPORTS RELATED TO ANAKAPUR CHIKEN
+									
+									
+1) Restaurnts report(all 3 Restaurnt)
+2) Individual Restaurnt report(MadhapurStore,Himayatnagar Store,Bowenpally Store)
+3) Items report
+4) Top 10 dishes report
+5) Delivery boys report
+6) Orders reports(includes confirmed,shipped,delivered,canceled orders)
+7) Products report
+8) Payment report (refund if any)
+9) Total payments report
+10) Distance Travelled by Delivery Boys
+11) Sales report
+12) Monthly report of all 3 Restaurnt 
+13) Customer report
+14) Discounts report
+15) Total orders report

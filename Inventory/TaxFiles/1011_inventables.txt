@@ -1,0 +1,95 @@
+                                                                  Required Tables
+1 ) InventoryForBranches
+    BranchID(pk)
+	BranchName
+	BranchLocation
+	BranchHead
+ 1) stock in hand
+    productid(pk)
+    productname
+	typeid(fk)
+    typeofmeasuring
+	product short Description
+	product long Description
+	Stock quantity
+	perishable
+	Unit Cost
+	Total Cost
+2 ) stocks coming in and stocks going out
+	Date
+	Category
+	Item Description
+	Stock In
+	Stock Out
+	Unit Cost
+	Total Cost
+3 ) supplying products to branches
+    BranchID(fk)
+	BranchName
+	productid(fk)
+	productname
+	quantity
+	category
+	staffid
+	actualcost
+	purchagedcost
+	supplieddate
+4 ) Staff issuing stock or products
+	staffid
+	staffname
+	Mobileno
+	address
+5 ) consumer of the products
+	BranchID(fk)
+	BranchName
+	staffid(fk)
+	productid(fk)
+	productname
+	quantity
+	perishable
+	cost
+	date/time
+6 ) vendor
+    vendorid(pk)
+	vendorname
+	mobilenumber
+	address
+	vendortype
+	type
+7 ) TypeOfMeasuringProducts
+    typeid(pk)
+	type
+	description
+    
+8 ) reorder stock
+	id
+	staffid
+	staffname
+	category
+	prodcutid
+	productname
+	typeid(fk)
+	quantity
+	cost
+	vendorid
+	vendorname
+	reorderddate
+	estimateddelivdate
+	
+9 ) payment/innovoice
+    innovoicenumber
+	paymentmethod
+	amountPaidTovendor
+	amountPurchagedFromVendor
+	staffid
+	staffname
+	--productname
+	vendorid(fk)
+	vendorname
+	--unitcost
+	--totlacost
+	
+10 )
+	https://www.youtube.com/watch?v=tcmmCcMs8yU  https://www.youtube.com/watch?v=NX8-LhgFnUU
+	
+	https://www.youtube.com/watch?v=p0hz-aeSmTg

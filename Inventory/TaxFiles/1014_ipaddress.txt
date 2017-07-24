@@ -1,0 +1,52 @@
+ipaddress 192.168.0.127
+username example
+password 123456
+
+Sravani1990
+
+http://dearsystems.com/inventory-software/home/features/inventory-management/
+
+Server: XSIINDU
+user: userankapur
+pwd: user123
+
+
+https://www.odoo.com/
+username:prabodh.dasari@xsilica.com
+password:odoo@1234
+==========================
+db connection:
+Server: XSIINDU or 192.168.0.131
+user: user_inv
+pwd: user123
+
+https://github.com/kurarameshsai/Inventory.git
+
+shika.sai12345@gmail.com
+
+http://www.c-sharpcorner.com/UploadFile/4b0136/stored-procedures-in-entity-framework-6-in-mvc-5/
+
+dwer.hert@gmail.com 50
+swerd.sween123@gmail.com 50
+teeswar.her@gmail.com
+gulzi.golde@gmail.com
+
+view-source:http://betadev.maa-aahwanam.com/contactus 
+http://betadev.maa-aahwanam.com/Scripts/validate.js  //for example to check jquery etc
+http://inventory.ankapurchicken.com/vendor
+
+EXEC  insertVendor_address @company_Id,null,null,null,null,null,null,null,null,null,null
+
+
+
+SELECT        company.*, Vendor.*, Vendor_address.*
+FROM            company INNER JOIN
+                         Vendor ON company.company_Id = Vendor.company_id INNER JOIN
+                         Vendor_address ON Vendor.company_id = Vendor_address.company_Id where company.company_Id=1015
+						 
+						 
+						 https://docs.microsoft.com/en-us/aspnet/core/mvc/views/partial
+						 
+						 
+						 
+data:image;base64/P34_t3.jpg net::ERR_INVALID_URL
