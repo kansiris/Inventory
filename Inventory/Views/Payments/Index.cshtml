@@ -350,9 +350,12 @@
                     </div>
                     <div class="row margin-top">
                         <div class="col-xs-12 col-md-12 invoice-buttons">
-                            <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
                            
+                            @if (ViewBag.enablebuttons != "" && ViewBag.enablebuttons != null)
+                            {
+
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+
                             <div class="row email-popup-area" style="display:none;">
                                 <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
                                     <div class="input-group">
@@ -366,7 +369,11 @@
                             </div>
 
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                            }
+                            else { 
                             <button type="submit" class="btn btn-primary pull-right save" id="save-payments" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                            }
+                            <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                         </div>
                     </div>
                 </form>
@@ -559,9 +566,10 @@ function email(v,emailid){
                }
                else {
                    successmsg("Payment details sent to your mail id");
-                   
                    var Customer_comapnyId = $("#Customer_comapnyId").val();
                    var Customer_company_name = $("#Customer_company_name").val();
+                   //location.href = '/Payments?cid=' + Customer_comapnyId + '&&cname=' + Customer_company_name;
+                   location.reload();
                    @*document.location = '@Url.Action("Index", "Payments", new {Customer_comapnyId,Customer_company_name })';*@
                   
                }
