@@ -131,8 +131,17 @@ namespace Inventory.Controllers
 
         public PartialViewResult GetStaffRecords(string id)
         {
+            int userid = 0;
             string typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
-            var records = LoginService.GetStaff(int.Parse(id), "");
+            if (typeofuser == "OwnerStaff")
+            {
+                userid = int.Parse(getownerid(id, LoginService.GetUserTypeId("Owner", 0).ToString())) ;//LoginService.getownerstaff(id, LoginService.GetUserTypeId("Owner", 0).ToString());
+            }
+            if (typeofuser == "Owner")
+            {
+                userid = int.Parse(id);
+            }
+            var records = LoginService.GetStaff(userid, "");
             var dt = new DataTable();
             dt.Load(records);
             dt.DefaultView.Sort = "Staff_Id DESC";
@@ -301,6 +310,19 @@ namespace Inventory.Controllers
             readFile = readFile.Replace("password", PassWord);
             string message = readFile;
             abc.EmailAvtivation(EmailId, message, "Account Activation");
+        }
+
+        public string getownerid(string id,string usertype)
+        {
+            var userrecord = LoginService.getownerstaff(id, usertype);
+            DataTable dt = new DataTable();
+            dt.Load(userrecord);
+            List<UserMaster> usermaster = (from DataRow row in dt.Rows
+                                           select new UserMaster()
+                                           {
+                                               ID = row["ID"].ToString()
+                                           }).ToList();
+            return usermaster.FirstOrDefault().ID;
         }
     }
 }

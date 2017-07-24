@@ -74,7 +74,7 @@ namespace Inventory.Controllers
                                 due = row["due"].ToString(),
                                 overdue = row["overdue"].ToString()
                             }).OrderByDescending(m => m.cus_company_Id).ToList();
-                if (ViewBag.typeofuser == "Owner")
+                if (ViewBag.typeofuser == "Owner" || ViewBag.typeofuser == "OwnerStaff")
                 {
                     ViewBag.records = customer;
                 }
