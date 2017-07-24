@@ -570,7 +570,7 @@ namespace Inventory.Controllers
         }
 
         //contact person invite
-        public JsonResult inviteCustomer(string Customer_Id, int cus_company_Id)
+        public JsonResult inviteCustomer(string Customer_Id, string cus_company_Id)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
@@ -593,10 +593,13 @@ namespace Inventory.Controllers
 
                 SqlDataReader exec = CustomerService.getusermaster(id, user.DbName);
                 SqlDataReader exec1 = CustomerService.getCustomerContact(Customer_Id, user.DbName);
-                SqlDataReader exec2 = CustomerService.getlastinsertedcompany(cus_company_Id, user.DbName);
+                SqlDataReader exec2 = CustomerService.getlastinsertedcompany(int.Parse(cus_company_Id), user.DbName);
                 if (exec.Read())
                     DBname = exec["DB_Name"].ToString();
                 Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                Date_Format = exec["Date_Format"].ToString();
+                Timezone = exec["Timezone"].ToString();
+                Currency = exec["Currency"].ToString();
                 if (exec1.Read())
                 {
                     fname = exec1["Customer_contact_Fname"].ToString();
@@ -604,9 +607,9 @@ namespace Inventory.Controllers
                     eMail = exec1["Email_Id"].ToString();
                     mObile = exec1["Mobile_No"].ToString();
                     image = exec1["image"].ToString();
-                    Date_Format = exec1["Date_Format"].ToString();
-                    Timezone = exec1["Timezone"].ToString();
-                    Currency = exec1["Currency"].ToString();
+                    //Date_Format = exec1["Date_Format"].ToString();
+                    //Timezone = exec1["Timezone"].ToString();
+                    //Currency = exec1["Currency"].ToString();
                 }
                 exec1.Close();
                 if (exec2.Read())

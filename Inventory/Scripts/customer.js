@@ -785,7 +785,7 @@ function deleteCustomer(id, status) {
 
 function inviteCustomer(id) {
 
-    cus_company_Id = $('#cus_company_Id').val()
+    var cus_company_Id = $('#cus_company_Id').val()
     //alert(cus_company_Id);
  
     var retVal = confirm("Do you want to send invitation...!");
