@@ -121,7 +121,7 @@
 
         //<!------------ Quantity changes / Prices Multiple -------------->
         $(document).ready(function (e) {
-            var tableprice, divprice, tabletotal, divtotal, divpriceright,whqty;
+            var tableprice, divprice, tabletotal, divtotal, divpriceright, whqty;
             $(document).on('click', '.productsection > .spinner > .input-group .btn:first-of-type', function () {
                 var minus, v;
                 v = parseInt($(this).next("input[type='text']").val());
@@ -170,7 +170,7 @@
                     //$(this).parents(".rate-add").children(".product-price-total").children("span").remove();
                     $(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
                     $(this).parents(".spinner").nextAll(".product-price-total").children("span").empty().append(divtotalright);
-                    
+
                     if (plus > parseInt(whqty)) {
                         errormsg("Quantity Exceeded!!!Availability Qty is " + whqty + "");
                         $('#availableqty').empty().html(v);
@@ -224,7 +224,8 @@
                 //alert("plus");
                 var plus, v;
                 v = parseInt($(this).prev("input[type='text']").val());
-                if (v > 0) {
+                whqty = parseInt($(this).parents("div.added-products").find("input.whqty").val());
+                if (v > 0 && v < whqty) {
                     plus = v + 1;
                     $(this).prev("input[type='text']").val(plus);
                     divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
@@ -237,8 +238,8 @@
                     var inputqty = plus;
                     var newamunt = divtotalright;
                     var cid = location.search.split('cid=')[1];
-                    whqty = $(this).parents("div.added-products").find("input.whqty").val();
-                    
+                    //whqty = $(this).parents("div.added-products").find("input.whqty").val();
+
                     //updatecart(cartid, inputqty, newamunt);
                     $.ajax({
                         url: '/Products/UpdateCart',
@@ -267,7 +268,10 @@
                         error: function (data)
                         { errormsg("Failed!!!"); }
                     });
-                    
+
+                }
+                else {
+                    warnmsg("Quantity Exceeded!!!Availability Qty is " + whqty + "");
                 }
                 //return vals();
             });
@@ -323,16 +327,27 @@
             var pqty = $(this).parents(".rate-add").prevAll(".image").children("input#pqty");
             var productid = $(this).next("li").html().replace('}', ' ');
             var whqty = $(this).parents(".rate-add").children("div:last-of-type").children("div").children("span");
-            var outofstock = $(this).find("div.label").css('display', 'block');
+            var outofstock = $(this).parents(".well").prev(".label").css('display', '');
+            var cartbtn = $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled', '');
+            var discount = $(this).parents(".well").prevAll(".discount").children("span");
+            var producttype = $(this).parents(".well").prevAll(".icon").children("img").attr("src", '');
+            //alert($(this).parents(".well").prev(".label").html());
             $(this).parents(".rate-add").prevAll("div.image").children("input").val(productid);
             //alert(whqty);
             $.ajax({
                 url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
                     pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
                     whqty.empty().html(result.qty);
+                    if (result.discount == 0)
+                        discount.empty();
+                    else
+                        discount.empty().html(result.discount);
+                    if (result.product_type == 'Non-Veg')
+                        producttype.attr("src", '/images/nonvegicon.png').attr("alt", "nonvegicon.png");
+                    else
+                        producttype.attr("src", '/images/vegicon.png').attr("alt", "vegicon.png");
                     if (result.qty == '') { whqty.empty().html(0); }
-                    alert(outofstock);
-                    //if (result.qty == 0 || result.qty == '0') { outofstock.css('display', 'block'); }
+                    if (result.qty == 0 || result.qty == '0') { outofstock.css('display', 'block'); cartbtn.prop('disabled', true) }
                     if (result.images != '') {
                         image.attr("src", '/ProductImages/' + result.images).attr("alt", result.images);
                     }
@@ -342,7 +357,7 @@
                 }
             });
             if (pqty == '0') {
-                
+
             }
         });
         //<!------------ Product units / prices selection -------------->
@@ -359,6 +374,8 @@
             var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
             var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
             var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
+            var cartbtn = $(this);
+            cartbtn.prop('readonly', 'true');
             //alert(productid);
             $.ajax({
                 url: '/Products/Addtocart',
@@ -387,6 +404,7 @@
                         // alert("Successfully Added To Cart.");
                         var url = 'Products/Addtocartpartial?cid=' + cid;
                         $('#cartrecords').empty().load(url);
+                        cartbtn.prop('readonly', 'false');
                     }
                 },
                 error: function (data)
@@ -395,11 +413,11 @@
             return vals();
         });
 
-        $(document).on('click', '.product-variation > ul > li', function () {
-            var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
-            $(this).parents(".rate-add").prev(".product-price-total").children("span").empty();
-            $(this).parents(".rate-add").prev(".product-price-total").children("span").append(productprice);
-        });
+        //$(document).on('click', '.product-variation > ul > li', function () {
+        //    var productprice = $(this).parents(".product-variation").prev(".product-price").children("span").text();
+        //    $(this).parents(".rate-add").prev(".product-price-total").children("span").empty();
+        //    $(this).parents(".rate-add").prev(".product-price-total").children("span").append(productprice);
+        //});
 
         $(document).on('click', '.add-to-cart-table > .btn', function () {
             var v = $(this).parent("td.add-to-cart-table").prevAll("td.product-variation").children("select").children("option:selected").val().split(" ")[0];
@@ -465,6 +483,7 @@
         });
         //<!---------- Product Variation ------------>
 
+        //$(document).on('input', '.quantity', function () {
         $('.quantity').on('input', function (evt) {
             var inputvalue = this.value;
             var v = $(this).closest('div.well').find("div.image").find("input#pqty").val();
@@ -478,7 +497,17 @@
             if (key.charCode < 48 || key.charCode > 57) { warnmsg("Enter Number only"); return false; }
         });
 
-        $('.cartqty').keypress(function (key) {
+        $(document).on('input', '.cartqty', function () {
+        //$('.cartqty').on('input', function (evt) {
+            var inputvalue = this.value;
+            var v = parseInt($(this).parents("div.added-products").find("input.whqty").val());
+            if (parseInt(inputvalue) > parseInt(v)) {
+                errormsg("Quantity Exceeded!!!Availability Qty is " + v + "");
+                $('#availableqty').empty().html(v);
+                $(this).val($(this).parents("div.added-products").find("input.cartitemqty").val());
+                this.select();
+            }
+        }).keypress(function (key) {
             if (key.charCode < 48 || key.charCode > 57) { alert("Enter Number only"); return false; }
         });
 

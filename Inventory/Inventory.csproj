@@ -401,6 +401,7 @@
     <Content Include="images\marketing.jpg" />
     <Content Include="images\mastercard.png" />
     <Content Include="images\media.jpg" />
+    <Content Include="images\nonvegicon.png" />
     <Content Include="images\parachute.jpg" />
     <Content Include="images\paste.jpg" />
     <Content Include="images\paypal.png" />
@@ -422,6 +423,7 @@
     <Content Include="images\Teamwork.com-Logo-Default.png" />
     <Content Include="images\toothpaste.jpg" />
     <Content Include="images\user.png" />
+    <Content Include="images\vegicon.png" />
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
     <Content Include="Models\13july2017.sql" />

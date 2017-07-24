@@ -37,41 +37,41 @@ namespace Inventory.Controllers
             {
                 //try
                 //{
-                    SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId, null, null, 0);
-                    if (value.Read())
+                SqlDataReader value = LoginService.Authenticateuser(null, userMaster.EmailId.Trim(), null, null, 0);
+                if (value.Read())
+                {
+                    int active = int.Parse(value["IsActive"].ToString());
+                    value.Close();
+                    if (active > 0)
                     {
-                        int active = int.Parse(value["IsActive"].ToString());
-                        value.Close();
-                        if (active > 0)
-                        {
-                            ViewBag.smsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
-                            return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId });
-                        }
-                        ViewBag.umsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
-                        //return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                        ViewBag.smsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
+                        return RedirectToAction("Index", "AvailableCompanies", new { email = userMaster.EmailId.Trim() });
                     }
-                    else
-                    {
-                        ViewBag.msg = "Please Register";
-                        //return JavaScript("overhang()");
-                        //return Content("<script language='javascript' type='text/javascript'>" + JavaScript("overhang") +";location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
-                        //return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
-                        //ViewBag.invalid = "Confirm Your Email-ID then Login";   
-                    }
+                    ViewBag.umsg = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                }
+                else
+                {
+                    ViewBag.msg = "Please Register";
+                    //return JavaScript("overhang()");
+                    //return Content("<script language='javascript' type='text/javascript'>" + JavaScript("overhang") +";location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    //return Content("<script language='javascript' type='text/javascript'>alert('Please Register');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                    //ViewBag.invalid = "Confirm Your Email-ID then Login";   
+                }
                 //}
                 //catch (Exception)
                 //{
                 //    return RedirectToAction("Index", "ServerDown");
                 //}
-                
+
             }
             if (command == "Insert")
             {
-                SqlDataReader value1 = LoginService.Authenticateuser("email", userMaster.EmailId, null, null, 0);
+                SqlDataReader value1 = LoginService.Authenticateuser("email", userMaster.EmailId.Trim(), null, null, 0);
                 int companycount = value1.Cast<object>().Count();
-                if (companycount  <= 2)
+                if (companycount <= 2)
                 {
-                    var data = LoginService.Authenticateuser("checkemail", userMaster.EmailId, null, userMaster.User_Site, 0);
+                    var data = LoginService.Authenticateuser("checkemail", userMaster.EmailId.Trim(), null, userMaster.User_Site.Trim(), 0);
                     if (data.HasRows)
                     {
                         data.Close();
@@ -83,7 +83,7 @@ namespace Inventory.Controllers
                         int Subscription;
                         DateTime? SubscriptionDate = null;
                         string activationCode = Guid.NewGuid().ToString();//Auto Generated code
-                        string DBname = userMaster.User_Site + "_Inventory"; //Assigning Particular DB Name
+                        string DBname = userMaster.User_Site.Trim() + "_Inventory"; //Assigning Particular DB Name
                         if (plan != null)
                             Subscription = (int)LoginService.getsubscriptionid(plan);
                         else
@@ -93,17 +93,17 @@ namespace Inventory.Controllers
                         int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode, Profile_Picture, Date_Format, Timezone, Currency, companylogo);
                         if (count > 0)
                         {
-                            Email(userMaster.First_Name, userMaster.Last_Name, userMaster.EmailId, activationCode); //Sending Email
+                            Email(userMaster.First_Name.Trim(), userMaster.Last_Name.Trim(), userMaster.EmailId.Trim(), activationCode); //Sending Email
                             ViewBag.smsg = "Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.";
                             //return Content("<script language='javascript' type='text/javascript'>alert('Registration successful. Please click on Activation link which has been sent to your Email to enable your Login Access.');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                         }
                         else
-                        ViewBag.msg = "Registration Failed!!!!";
+                            ViewBag.msg = "Registration Failed!!!!";
                         //return Content("<script language='javascript' type='text/javascript'>alert('Registration Failed!!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                     }
                 }
                 else
-                ViewBag.umsg = "Free Companies Limit Reached!!!UpGrade Your Account To Add More";
+                    ViewBag.umsg = "Free Companies Limit Reached!!!UpGrade Your Account To Add More";
             }
             return View();
         }
@@ -163,7 +163,7 @@ namespace Inventory.Controllers
             //string readFile = reader.ReadToEnd();
             FileInfo File = new FileInfo(Server.MapPath("/Content/mailer.html"));
             string readFile = File.OpenText().ReadToEnd();
-            readFile = readFile.Replace("[ActivationLink]",url);
+            readFile = readFile.Replace("[ActivationLink]", url);
             //string body = "Hello " + First_Name + " " + Last_Name + ",";
             //body += "<br /><br />Please click the following link to activate your account";
             //body += "<br /><a href = '" + url + "'>Click here to activate your account.</a>";
@@ -178,19 +178,19 @@ namespace Inventory.Controllers
             if (ActivationCode != null && ActivationCode != "")
             {
                 int activateemail = 0;
-                SqlDataReader value = LoginService.getuserrecord(Email, ActivationCode); //retrieves particular user record
+                SqlDataReader value = LoginService.getuserrecord(Email.Trim(), ActivationCode.Trim()); //retrieves particular user record
                 int usertype = (int)LoginService.GetUserTypeId("owner", 0);//get owner user type id
                 if (value.Read())
                 {
                     if (value["activationcode"].ToString() == ActivationCode && (int)value["UserTypeId"] == usertype) // if usertype is owner
                     {
                         createdb(value["DB_Name"].ToString()); //creating DB
-                        activateemail = LoginService.ActivateEmail(Email, ActivationCode);
+                        activateemail = LoginService.ActivateEmail(Email.Trim(), ActivationCode.Trim());
                         value.Close();
                     }
                     else
                     {
-                        activateemail = LoginService.ActivateEmail(Email, ActivationCode);
+                        activateemail = LoginService.ActivateEmail(Email.Trim(), ActivationCode.Trim());
                     }
                     if (activateemail < 0)
                     {
@@ -200,8 +200,8 @@ namespace Inventory.Controllers
                     }
                     else
                         ViewBag.msg = "1"; //First Time Verification
-                        //return View();
-                    //return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
+                                           //return View();
+                                           //return Content("<script language='javascript' type='text/javascript'>alert('Email ID Confirmation Failed!!!');location.href='" + @Url.Action("Index", "Login") + "'</script>"); // Stays in Same View
                 }
                 else
                     ViewBag.msg = "-1"; //Already verified
@@ -218,53 +218,58 @@ namespace Inventory.Controllers
         [HttpGet]
         public PartialViewResult ProfileProgressPartial()
         {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            LoginService loginService = new LoginService();
-            var profilepic = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
-            ViewBag.tyofuser = LoginService.GetUserTypeId("", (int)profilepic.UserTypeId);
-            var ownerstaff = LoginService.GetStaff(int.Parse(user.ID), "");
-            ViewBag.currency = profilepic.Currency;
-            ViewBag.dateformat = profilepic.Date_Format;
-            //ViewBag.profilepic = profilepic[0].Profile_Picture;
-            int basic = 0, caddress = 0, uaddress = 0, users = 0, localization = 0;
-            //int Warehouse = 0, Vendor = 0, Products = 0;
-            string Progress = null, colour = null;
-            if (profilepic.First_Name != null && profilepic.Last_Name != null)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                basic = 1;
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                LoginService loginService = new LoginService();
+                var profilepic = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
+                ViewBag.tyofuser = LoginService.GetUserTypeId("", (int)profilepic.UserTypeId);
+                var ownerstaff = LoginService.GetStaff(int.Parse(user.ID), "");
+                ViewBag.currency = profilepic.Currency;
+                ViewBag.dateformat = profilepic.Date_Format;
+                //ViewBag.profilepic = profilepic[0].Profile_Picture;
+                int basic = 0, caddress = 0, uaddress = 0, users = 0, localization = 0;
+                //int Warehouse = 0, Vendor = 0, Products = 0;
+                string Progress = null, colour = null;
+                if (profilepic.First_Name != null && profilepic.Last_Name != null)
+                {
+                    basic = 1;
+                }
+                if (profilepic.CLine1 != null && profilepic.CLine2 != null && profilepic.Ccity != null && profilepic.Cstate != null && profilepic.Cpostalcode != null && profilepic.Ccountry != null)
+                {
+                    caddress = 1;
+                }
+                if (profilepic.ULine1 != null && profilepic.ULine2 != null && profilepic.Ucity != null && profilepic.Ustate != null && profilepic.Upostalcode != null && profilepic.Ucountry != null)
+                {
+                    uaddress = 1;
+                }
+                if (profilepic.Date_Format != null && profilepic.Timezone != null && profilepic.Currency != null)
+                {
+                    localization = 1;
+                }
+                if (ownerstaff.HasRows)
+                {
+                    users = 1;
+                }
+                int total = basic + caddress + uaddress + localization + users;
+                if (total == 1) { Progress = ProgressBar.Level1; colour = "Red"; }
+                if (total == 2) { Progress = ProgressBar.Level2; colour = "Blue"; }
+                if (total == 3) { Progress = ProgressBar.Level3; colour = "Orange"; }
+                if (total == 4) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+                if (total == 5) { Progress = ProgressBar.Level5; colour = "Green"; }
+                //if (basic > 0) { Progress = ProgressBar.Level1; colour = "Red"; }
+                //if (basic > 0 && caddress > 0 || basic > 0 && uaddress > 0 || basic > 0 && users > 0 || basic > 0 && localization > 0) { Progress = ProgressBar.Level2; colour = "Blue"; }
+                //if (basic > 0 && caddress > 0 && uaddress > 0 || basic > 0 && uaddress > 0 && localization > 0 || basic > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && users > 0) { Progress = ProgressBar.Level3; colour = "Orange"; }
+                ////if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || basic > 0 && uaddress > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+                //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || caddress > 0 && uaddress > 0 && localization > 0 && users > 0 || uaddress > 0 && localization > 0 && users > 0 && basic > 0 || localization > 0 && users > 0 && basic > 0 && caddress > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
+                //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level5; colour = "Green"; }
+                ViewBag.Progress = Progress;
+                ViewBag.color = colour;
+                ownerstaff.Close();
+                return PartialView("ProfileProgressPartial", profilepic);
             }
-            if (profilepic.CLine1 != null && profilepic.CLine2 != null && profilepic.Ccity != null && profilepic.Cstate != null && profilepic.Cpostalcode != null && profilepic.Ccountry != null)
-            {
-                caddress = 1;
-            }
-            if (profilepic.ULine1 != null && profilepic.ULine2 != null && profilepic.Ucity != null && profilepic.Ustate != null && profilepic.Upostalcode != null && profilepic.Ucountry != null)
-            {
-                uaddress = 1;
-            }
-            if (profilepic.Date_Format != null && profilepic.Timezone != null && profilepic.Currency != null)
-            {
-                localization = 1;
-            }
-            if (ownerstaff.HasRows)
-            {
-                users = 1;
-            }
-            int total = basic + caddress + uaddress + localization + users;
-            if (total == 1) { Progress = ProgressBar.Level1; colour = "Red"; }
-            if (total == 2) { Progress = ProgressBar.Level2; colour = "Blue"; }
-            if (total == 3) { Progress = ProgressBar.Level3; colour = "Orange"; }
-            if (total == 4) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
-            if (total == 5) { Progress = ProgressBar.Level5; colour = "Green"; }
-            //if (basic > 0) { Progress = ProgressBar.Level1; colour = "Red"; }
-            //if (basic > 0 && caddress > 0 || basic > 0 && uaddress > 0 || basic > 0 && users > 0 || basic > 0 && localization > 0) { Progress = ProgressBar.Level2; colour = "Blue"; }
-            //if (basic > 0 && caddress > 0 && uaddress > 0 || basic > 0 && uaddress > 0 && localization > 0 || basic > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && users > 0) { Progress = ProgressBar.Level3; colour = "Orange"; }
-            ////if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || basic > 0 && uaddress > 0 && localization > 0 && users > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
-            //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 || caddress > 0 && uaddress > 0 && localization > 0 && users > 0 || uaddress > 0 && localization > 0 && users > 0 && basic > 0 || localization > 0 && users > 0 && basic > 0 && caddress > 0 || basic > 0 && caddress > 0 && uaddress > 0 && users > 0) { Progress = ProgressBar.Level4; colour = "YellowGreen"; }
-            //if (basic > 0 && caddress > 0 && uaddress > 0 && localization > 0 && users > 0) { Progress = ProgressBar.Level5; colour = "Green"; }
-            ViewBag.Progress = Progress;
-            ViewBag.color = colour;
-            ownerstaff.Close();
-            return PartialView("ProfileProgressPartial", profilepic);
+            else
+                return PartialView("ProfileProgressPartial", null);
         }
     }
 }

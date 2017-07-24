@@ -24,18 +24,28 @@ namespace Inventory.Controllers
         LoginService loginService = new LoginService();
         public ActionResult Index()
         {
-            ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
-            var list = AvailableJobPositions();
-            if (list != null)
-                ViewBag.cusjobpositions = AvailableJobPositions().Select(m => m.cus_Job_position).Distinct();
-            ViewBag.jobpositions = "";
-            if (TempData["msg"] != null)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ViewBag.msg = TempData["msg"];
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
+                ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
+                ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
+                var list = AvailableJobPositions();
+                if (list != null)
+                    ViewBag.cusjobpositions = AvailableJobPositions().Select(m => m.cus_Job_position).Distinct();
+                ViewBag.jobpositions = "";
+                if (TempData["msg"] != null)
+                {
+                    ViewBag.msg = TempData["msg"];
+                }
+                if (TempData["smsg"] != null)
+                {
+                    ViewBag.smsg = TempData["smsg"];
+                }
             }
-            if (TempData["smsg"] != null)
+            else
             {
-                ViewBag.smsg = TempData["smsg"];
+                return RedirectToAction("Index", "Login");
             }
             return View();
         }
@@ -44,7 +54,6 @@ namespace Inventory.Controllers
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
                 ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
@@ -71,7 +80,7 @@ namespace Inventory.Controllers
                 }
                 if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
                 {
-                    ViewBag.records = customer.Where(m=>m.cus_company_name == userdetails.First_Name).ToList();
+                    ViewBag.records = customer.Where(m => m.cus_company_name == userdetails.CompanyName.Trim()).ToList();
                 }
                 //ViewBag.records = customer;
                 return PartialView("CustomerCompany", ViewBag.records);
@@ -535,12 +544,13 @@ namespace Inventory.Controllers
                 SqlDataReader exec = CustomerService.getusermaster(id, user.DbName);
                 SqlDataReader exec2 = CustomerService.getlastinsertedcompany(cus_company_Id, user.DbName);
                 if (exec.Read())
+                {
                     DBname = exec["DB_Name"].ToString();
-                Subscription = int.Parse(exec["Subscriptionid"].ToString());
-                Date_Format = exec["Date_Format"].ToString();
-                Timezone = exec["Timezone"].ToString();
-                Currency = exec["Currency"].ToString();
-
+                    Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                    Date_Format = exec["Date_Format"].ToString();
+                    Timezone = exec["Timezone"].ToString();
+                    Currency = exec["Currency"].ToString();
+                }
                 if (exec2.Read())
                 {
                     companyname = exec2["cus_company_name"].ToString();
@@ -595,11 +605,14 @@ namespace Inventory.Controllers
                 SqlDataReader exec1 = CustomerService.getCustomerContact(Customer_Id, user.DbName);
                 SqlDataReader exec2 = CustomerService.getlastinsertedcompany(int.Parse(cus_company_Id), user.DbName);
                 if (exec.Read())
+                {
                     DBname = exec["DB_Name"].ToString();
-                Subscription = int.Parse(exec["Subscriptionid"].ToString());
-                Date_Format = exec["Date_Format"].ToString();
-                Timezone = exec["Timezone"].ToString();
-                Currency = exec["Currency"].ToString();
+                    Subscription = int.Parse(exec["Subscriptionid"].ToString());
+                    Date_Format = exec["Date_Format"].ToString();
+                    Timezone = exec["Timezone"].ToString();
+                    Currency = exec["Currency"].ToString();
+                }
+                exec.Close();
                 if (exec1.Read())
                 {
                     fname = exec1["Customer_contact_Fname"].ToString();
@@ -656,7 +669,7 @@ namespace Inventory.Controllers
                     var dt = new DataTable();
                     dt.Load(records);
                     ViewBag.records = getcuscontactDetail(dt);
-                    ViewBag.id = id;
+                    ViewBag.id = id.ToString();
                     return PartialView("CustomerContact", ViewBag.records);
                 }
             }

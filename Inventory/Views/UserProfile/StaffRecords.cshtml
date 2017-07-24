@@ -39,7 +39,7 @@
                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                     <ul class="dropdown-menu">
                                         <li> <a onclick="AssignStaff(@item.Staff_Id.TrimEnd(),'particular')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a> </li>
-                                        <li> <a><i class="fa fa-envelope" aria-hidden="true"></i>Invite</a> </li>
+                                        <li> <a onclick="invitestaff(@item.Staff_Id.TrimEnd())"><i class="fa fa-envelope" onclick="invitestaff(@item.Staff_Id.TrimEnd())" aria-hidden="true"></i>Invite</a> </li>
                                         @if (item.Status_ID == 1)
                                         {
                                         <li> <a onclick="AssignStaff(@item.Staff_Id.TrimEnd(),'InActive')"><i class="fa fa-toggle-off" aria-hidden="true"></i>In Active</a> </li> //href="/UserProfile/changestatus?staff_id=@item.Staff_Id&&status=InActive"

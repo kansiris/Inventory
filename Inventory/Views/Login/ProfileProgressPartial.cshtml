@@ -6,7 +6,7 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            @if (ViewBag.tyofuser == "Owner")
+            @if (ViewBag.tyofuser == "Owner" || ViewBag.tyofuser == "OwnerStaff")
             {
                 <li class="active"><a href="~/Vendor">Vendor <span class="sr-only">(current)</span></a></li>
                 @*<li><a href="#">User</a></li>*@
@@ -113,4 +113,8 @@
 
             });
         </script>
-        }
+}
+else
+{
+   <script> location.href = '/login/index';</script>
+}
