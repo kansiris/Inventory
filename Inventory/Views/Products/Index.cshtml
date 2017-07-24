@@ -328,7 +328,7 @@
             var productid = $(this).next("li").html().replace('}', ' ');
             var whqty = $(this).parents(".rate-add").children("div:last-of-type").children("div").children("span");
             var outofstock = $(this).parents(".well").prev(".label").css('display', '');
-            var cartbtn = $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled', '');
+            var cartbtn = $(this).parents("div.rate-add").find(".productsection").children("div.add-to-cart").children("button");
             var discount = $(this).parents(".well").prevAll(".discount").children("span");
             var producttype = $(this).parents(".well").prevAll(".icon").children("img").attr("src", '');
             //alert($(this).parents(".well").prev(".label").html());
@@ -338,17 +338,17 @@
                 url: "products/allImagesonPid?product_id=" + productid + "", success: function (result) {
                     pqty.val(result.qty); whqty.empty().html(result.qty); //$('#availableqty').html(result.qty);
                     whqty.empty().html(result.qty);
-                    outofstock.css('display', 'none'); cartbtn.prop('disabled', false)
                     if (result.discount == 0)
                         discount.empty();
                     else
-                        discount.empty().html(result.discount);
+                        discount.empty().html(result.discount + ' % off');
                     if (result.product_type == 'Non-Veg')
                         producttype.attr("src", '/images/nonvegicon.png').attr("alt", "nonvegicon.png");
                     else
                         producttype.attr("src", '/images/vegicon.png').attr("alt", "vegicon.png");
                     if (result.qty == '') { whqty.empty().html(0); }
-                    if (result.qty == 0 || result.qty == '0') { outofstock.css('display', 'block'); cartbtn.prop('disabled', true) }
+                    if (result.qty == 0) { outofstock.css('display', 'block'); cartbtn.prop('disabled', true) }
+                    else { outofstock.css('display', 'none'); cartbtn.prop('disabled', false); }
                     if (result.images != '') {
                         image.attr("src", '/ProductImages/' + result.images).attr("alt", result.images);
                     }

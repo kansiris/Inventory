@@ -165,7 +165,7 @@ namespace Inventory.Service
         }
         #endregion
 
-        #region Available Job Positions
+        #region Get Job Positions
         public static SqlDataReader GetJobPostions(int id)
         {
             return LoginRepository.GetJobPostions(id);
@@ -176,6 +176,13 @@ namespace Inventory.Service
         public static int JobPositions(string type, int id, string position, string PositionID)
         {
             return LoginRepository.JobPositions(type, id, position,PositionID);
+        }
+        #endregion
+
+        #region Get Owner Staff
+        public static SqlDataReader getownerstaff(string id, string usertypeid)
+        {
+            return LoginRepository.getownerstaff(id, usertypeid);
         }
         #endregion
     }

@@ -203,7 +203,7 @@ namespace Inventory.Repository
         }
         #endregion
 
-        #region Available Job Positions
+        #region Get Job Positions
         public static SqlDataReader GetJobPostions(int id)
         {
             return SqlHelper.ExecuteReader(ConnectionString1, "GetJobPostions", id);
@@ -217,5 +217,11 @@ namespace Inventory.Repository
         }
         #endregion
 
+        #region Get Owner Staff
+        public static SqlDataReader getownerstaff(string id, string usertypeid)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "getownerstaff",  id, usertypeid);
+        }
+        #endregion
     }
 }
