@@ -503,9 +503,13 @@ function textval() {
 //    $(this).parent(".positions1").remove();
 //});
 
-$(".selected-position").click(function () {
+$(".selected-position").click(function (e) {
+    e.stopPropagation();
     $(this).next(".display-positions").css("display", "block");
     return textval();
+});
+$(document).click(function () {
+    $(".display-positions").hide();
 });
 
 $(".display-positions .position").click(function () {

@@ -5694,6 +5694,7 @@ ul.dropdown-menu li {
     z-index: 3;
     width: 92%;
     padding: 0 10px;
+	box-shadow: -1px 1px 1px 3px #e3e3e3;
 }
 
 /*================ Contact Person POP UP ================*/
