@@ -276,7 +276,7 @@ namespace Inventory.Controllers
 
 
                             count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status
-                                , product_id, product_name, cost_price, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
+                                , product_id, product_name, cost_price, description, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
                             count++;
                         }
                         if (count > 0)
@@ -391,19 +391,19 @@ namespace Inventory.Controllers
 
 
         //view invoice
-        public PartialViewResult ViewInvoiceDetails(string cid, string Prchaseorder_no)
+        public PartialViewResult ViewInvoiceDetails(string cid,string invoiceno)//, string Prchaseorder_no
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
 
-                if (Prchaseorder_no != null)
-                {
+                //if (Prchaseorder_no != null)
+                //{
 
                     var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                     var dt = new DataTable();
 
-                    var records = InvoiceService.Getinvoicedata(user.DbName, cid, Prchaseorder_no);
+                    var records = InvoiceService.Getinvoicedata(user.DbName, cid, invoiceno);//, Prchaseorder_no
                     dt.Load(records);
                     List<Invoice> productsinpos = (from DataRow row in dt.Rows
                                                    select new Invoice()
@@ -412,6 +412,14 @@ namespace Inventory.Controllers
                                                        company_name = row["company_name"].ToString(),
                                                        Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                        Invoice_no = row["Invoice_no"].ToString(),
+
+                                                       product_id = row["product_id"].ToString(),
+                                                       product_name = row["product_name"].ToString(),
+                                                       description = row["description"].ToString(),
+                                                       Quantity = row["po_quantity"].ToString(),
+                                                       cost_price = row["cost_price"].ToString(),
+                                                       total_price = row["total_price"].ToString(),
+                                                       
                                                        created_date = row["created_date"].ToString(),
                                                        Payment_date = row["payment_date"].ToString(),
                                                        payment_terms = row["payment_terms"].ToString(),
@@ -436,7 +444,7 @@ namespace Inventory.Controllers
 
 
                     return PartialView("ViewInvoiceDetails", ViewBag.records);
-                }
+                //}
             }
             return PartialView("ViewInvoiceDetails", null);
         }
@@ -456,7 +464,7 @@ namespace Inventory.Controllers
                                                        customer_id = cid,
                                                        Invoice_no = row["Invoice_no"].ToString(),
                                                        company_name = row["company_name"].ToString(),
-                                                       Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                                       //Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                        grand_total = row["grand_total"].ToString(),
                                                        Payment_date = row["payment_date"].ToString(),
                                                    }).ToList();

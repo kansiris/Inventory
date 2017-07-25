@@ -254,8 +254,8 @@ function checkstatus1(deliv) {
 }
 
 
-//view invoice
-function viewinvoicedetails(ponumber, cid) {
+//view invoice ponumber,
+function viewinvoicedetails( cid) {
 }
 
 function calculate(totalprice) {

@@ -54,9 +54,9 @@
                             <tr>
 
                                 <th class="col-md-2">Invoice No</th>
-                                <th class="col-md-2">Company Name</th>
-                                <th class="col-md-2">Purchase Order No</th>
-                                <th class="col-md-2">Payment Due Date</th>
+                                <th class="col-md-3">Company Name</th>
+                                @*<th class="col-md-2">Purchase Order No</th>*@
+                                <th class="col-md-3">Payment Due Date</th>
                                 <th class="col-md-2">Grand Total In <text class="localization"></text></th>
                                 <th class="col-md-2">Actions</th>
 
@@ -73,12 +73,12 @@
 
                                         <tr>
                                             <td class="col-md-2">@item.Invoice_no</td>
-                                            <td class="col-md-2">@item.company_name</td>
-                                            <td class="col-md-2">@item.Prchaseorder_no</td>
-                                            <td class="col-md-2">@item.Payment_date</td>
+                                            <td class="col-md-3">@item.company_name</td>
+                                           @*<td class="col-md-2">@item.Prchaseorder_no</td>*@
+                                            <td class="col-md-3">@item.Payment_date</td>
                                             <td class="col-md-2">@item.grand_total</td>@*<text class="localization"></text>*@
                                             <td class="col-md-2">
-                                                <input type="button" onclick="viewinvoicedetail(@item.Prchaseorder_no,@item.customer_id)" value="View Invoice"/>
+                                                <input type="button" onclick="viewinvoicedetail(@item.Invoice_no,@item.customer_id)" value="View Invoice"/>@*@item.Prchaseorder_no,*@
                                             </td>
                                         </tr>
                                     }
@@ -136,11 +136,11 @@
             //<!-------------- Date Picker  ----------->
 
         });
-        //view invoice
-        function viewinvoicedetail(ponumber, cid) {
-            //alert(ponumber);
+        //view invoice ponumber,
+        function viewinvoicedetail( invoiceno,cid) {
+            alert(invoiceno);
             //alert(cid);
-            location.href = '/Invoice/ViewInvoiceDetails?Prchaseorder_no=' + ponumber + '&cid=' + cid;
+            location.href = '/Invoice/ViewInvoiceDetails?cid=' + cid + '&invoiceno=' + invoiceno;//Prchaseorder_no=' + ponumber + 
         }
 
         $('#back-invoice').click(function () {
