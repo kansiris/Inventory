@@ -42,9 +42,9 @@ namespace Inventory.Service
         }
 
         //ForPaymentinvoicetotal
-             public static SqlDataReader ForPaymentinvoicetotal(string dbname, string Prchaseorder_no)
+             public static SqlDataReader ForPaymentinvoicetotal(string dbname, string Invoice_no)
         {
-            return PaymentsRepository.ForPaymentinvoicetotal(dbname, Prchaseorder_no);
+            return PaymentsRepository.ForPaymentinvoicetotal(dbname, Invoice_no);
         }
     }
 }

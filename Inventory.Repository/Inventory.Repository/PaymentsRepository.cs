@@ -58,11 +58,11 @@ namespace Inventory.Repository
         }
 
         //forpayments podetails
-        public static SqlDataReader ForPaymentinvoicetotal(string dbname, string Prchaseorder_no)
+        public static SqlDataReader ForPaymentinvoicetotal(string dbname, string Invoice_no)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "forpaymentponum", Prchaseorder_no);
+            return SqlHelper.ExecuteReader(ConnectionString, "forpaymentponum", Invoice_no);
         }
     }
 }
