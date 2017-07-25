@@ -735,6 +735,14 @@ function existsmsg(msg) {
         closeConfirm: false
     });
 }
+function warnmsg(msg) {
+    $("body").overhang({
+        type: "warn",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
+    });
+}
 </script>
 }
 

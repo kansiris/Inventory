@@ -20,7 +20,7 @@ namespace Inventory.Controllers
             List<UserMaster> userMaster = getuserdetails(email, usertype, Site);
             ViewBag.record = userMaster;
             ViewBag.typeofuser = LoginService.GetUserTypeId("", userMaster.FirstOrDefault().UserTypeId).ToString();
-            if (ViewBag.typeofuser == "Owner")
+            if (ViewBag.typeofuser == "Admin")
             {
                 string date = DateTime.Now.AddDays(16).ToShortDateString();
                 DateTime futuredate = userMaster[0].SubscriptionDate.Value.AddDays(16); // adding 15 days to subscription date
@@ -34,7 +34,7 @@ namespace Inventory.Controllers
                 if (userMaster[0].Timezone != null && userMaster[0].Date_Format != null)
                     ViewBag.Timezone = "1";
             }
-            else if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
+            else if (ViewBag.typeofuser == "Customer" || ViewBag.typeofuser == "Staff")
             {
                 ViewBag.accessexpiry = "";
             }

@@ -131,7 +131,7 @@ namespace Inventory.Controllers
                 //value.Close();
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user1234;"; //for server
-                FileInfo File = new FileInfo(Server.MapPath("../Models/14july2017.sql"));
+                FileInfo File = new FileInfo(Server.MapPath("../Models/25july2017.sql"));
                 string script = File.OpenText().ReadToEnd();
                 SqlConnection conn = new SqlConnection(sqlConnectionString);
                 Server server = new Server(new ServerConnection(conn));
@@ -179,7 +179,7 @@ namespace Inventory.Controllers
             {
                 int activateemail = 0;
                 SqlDataReader value = LoginService.getuserrecord(Email.Trim(), ActivationCode.Trim()); //retrieves particular user record
-                int usertype = (int)LoginService.GetUserTypeId("owner", 0);//get owner user type id
+                int usertype = (int)LoginService.GetUserTypeId("Admin", 0);//get owner user type id
                 if (value.Read())
                 {
                     if (value["activationcode"].ToString() == ActivationCode && (int)value["UserTypeId"] == usertype) // if usertype is owner

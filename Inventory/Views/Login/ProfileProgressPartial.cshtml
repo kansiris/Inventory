@@ -6,7 +6,7 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            @if (ViewBag.tyofuser == "Owner" || ViewBag.tyofuser == "OwnerStaff")
+            @if (ViewBag.tyofuser == "Admin" || ViewBag.tyofuser == "AdminStaff")
             {
                 <li class="active"><a href="~/Vendor">Vendor <span class="sr-only">(current)</span></a></li>
                 @*<li><a href="#">User</a></li>*@
@@ -26,7 +26,7 @@
                     </ul>
                 </li>
             }
-            @if (ViewBag.tyofuser == "Franchise" || ViewBag.tyofuser == "Staff")
+            @if (ViewBag.tyofuser == "Customer" || ViewBag.tyofuser == "Staff")
             {
                 @*<li class="active"><a href="~/Vendor">Vendor <span class="sr-only">(current)</span></a></li>*@
                 @*<li><a href="#">User</a></li>*@

@@ -71,7 +71,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> <i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                                            @if (ViewBag.typeofuser == "Owner" || ViewBag.typeofuser == "OwnerStaff")
+                                            @if (ViewBag.typeofuser == "Admin" || ViewBag.typeofuser == "AdminStaff")
                                             {
                                                 <ul class="dropdown-menu">
                                                     <li> <a onclick="viewCustomer(@item.cus_company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Customer</a> </li>
@@ -104,7 +104,7 @@
                                                     <li> <a><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>
                                                 </ul>
                                             }
-                                            @if (ViewBag.typeofuser == "Franchise" || ViewBag.typeofuser == "Staff")
+                                            @if (ViewBag.typeofuser == "Customer" || ViewBag.typeofuser == "Staff")
                                             {
                                                 <ul class="dropdown-menu">
                                                     @*<li> <a onclick="viewCustomer(@item.cus_company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Customer</a> </li>

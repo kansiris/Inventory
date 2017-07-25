@@ -185,5 +185,12 @@ namespace Inventory.Service
             return LoginRepository.getownerstaff(id, usertypeid);
         }
         #endregion
+
+        #region Invite check
+        public static SqlDataReader invitecheck(string email, string usersite, string usertype)
+        {
+            return LoginRepository.invitecheck(email, usersite, usertype);
+        }
+        #endregion
     }
 }

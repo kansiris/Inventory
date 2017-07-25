@@ -269,7 +269,7 @@ function AssignStaff(staffid, command) {
             if (data == 'Active') {
                 successmsg("Staff is Active");
                 var url = 'UserProfile/GetStaffRecords?id=' + location.search.split('id=')[1] + '';
-                $('#partialdiv').empty().load(url, function () { Pagination(),loadstaff(); });
+                $('#partialdiv').empty().load(url, function () { Pagination(), loadstaff(); });
             }
             if (data == 'InActive') {
                 errormsg("Staff is InActive");
@@ -548,17 +548,29 @@ function loadstaff() {
 //}
 
 
-function invitestaff(id) {
+function invitestaff(id, command) {
     $.ajax({
         url: '/UserProfile/staffinvite',
         type: "POST",
         datatype: "json",
-        data: { 'staffid': id },
+        data: { 'staffid': id, 'command': command },
         success: function (data) {
-            if (data == "success")
+            if (data == "success") {
                 successmsg("Successfully Invited Staff");
-            else
+            }
+            else if (data == 1) {
+                var retVal = confirm("Staff already invited want To Send Email Again?");
+                if (retVal == true)
+                    invitestaff(id, 'secondinvite');
+                else
+                    warnmsg("Staff Not Invited");
+            }
+            else if (data == 0) {
+                successmsg("Staff is currently Active");
+            }
+            else {
                 errormsg("Failed To Invite Staff");
+            }
         },
         error: function (er) {
             //alert("error");

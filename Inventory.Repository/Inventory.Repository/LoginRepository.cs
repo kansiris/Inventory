@@ -223,5 +223,12 @@ namespace Inventory.Repository
             return SqlHelper.ExecuteReader(ConnectionString1, "getownerstaff",  id, usertypeid);
         }
         #endregion
+
+        #region Invite check
+        public static SqlDataReader invitecheck(string email,string usersite, string usertype)
+        {
+            return SqlHelper.ExecuteReader(ConnectionString1, "invitecheck", email,usersite, usertype);
+        }
+        #endregion
     }
 }
