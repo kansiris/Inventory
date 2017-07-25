@@ -32,7 +32,7 @@ namespace Inventory.Controllers
                                                    {
                                                        customer_id = row["customer_id"].ToString(),
                                                        company_name = row["company_name"].ToString(),
-                                                       Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                                       //Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                        Invoice_no = row["Invoice_no"].ToString(),
                                                        total_price = row["total_price"].ToString(),
                                                        created_date = row["created_date"].ToString(),
