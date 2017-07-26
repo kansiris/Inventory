@@ -336,6 +336,7 @@
     <Content Include="Content\mailer.html" />
     <Content Include="Content\mailer1.html" />
     <Content Include="Content\mailer2.html" />
+    <Content Include="Content\payments.html" />
     <Content Include="Content\pic1.png" />
     <Content Include="Content\top.png" />
     <Content Include="favicon.ico" />
