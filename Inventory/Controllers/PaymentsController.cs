@@ -96,16 +96,16 @@ namespace Inventory.Controllers
                             string open_amount = invoicetotl.FirstOrDefault().open_amount;
 
                             //For Local
-                            //string[] strDate = Payment_due_date.Split('/');
-                            //DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
-                            //string[] enddate = payments.payments_date.Split('/');
-                            //DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
+                            string[] strDate = Payment_due_date.Split('/');
+                            DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
+                            string[] enddate = payments.payments_date.Split('/');
+                            DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
 
                             //*****for Live deploy
-                            string[] strDate = Payment_due_date.Split('/');
-                            DateTime date1 = Convert.ToDateTime(strDate[1] + "/" + strDate[0] + "/" + strDate[2]);
-                            string[] enddate = payments.payments_date.Split('/');
-                            DateTime date2 = Convert.ToDateTime(enddate[1] + "/" + enddate[0] + "/" + enddate[2]);
+                            //string[] strDate = Payment_due_date.Split('/');
+                            //DateTime date1 = Convert.ToDateTime(strDate[1] + "/" + strDate[0] + "/" + strDate[2]);
+                            //string[] enddate = payments.payments_date.Split('/');
+                            //DateTime date2 = Convert.ToDateTime(enddate[1] + "/" + enddate[0] + "/" + enddate[2]);
 
 
                             if (open_amount != "" && open_amount != null && open_amount != "0")
@@ -157,7 +157,7 @@ namespace Inventory.Controllers
             SendEmail abc = new SendEmail();
             string activationCode = Guid.NewGuid().ToString();
             string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailID;
-            FileInfo File = new FileInfo(Server.MapPath("/Content/mailer2.html"));//need to chnge mailer.html
+            FileInfo File = new FileInfo(Server.MapPath("/Content/payments.html"));//need to chnge mailer.html
             //string message = Invoicedata;//readFile + body;
             string readFile = File.OpenText().ReadToEnd();
             readFile = readFile.Replace("InvoiceData", Invoicedata);

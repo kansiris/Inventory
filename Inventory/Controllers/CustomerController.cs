@@ -572,7 +572,7 @@ namespace Inventory.Controllers
                     return Json("emailverified");
                 else
                 {
-                    var data = LoginService.Authenticateuser("checkemail1", cus_email, null, UserSite, 0);
+                    var data = LoginService.Authenticateuser("checkemail1", cus_email, null, UserSite, usertype);
                     if (data.HasRows)
                         return Json("Exists");
                     else
