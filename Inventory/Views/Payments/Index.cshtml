@@ -568,6 +568,7 @@ function email(v,emailid){
                    successmsg("Payment details sent to your mail id");
                    var Customer_comapnyId = $("#Customer_comapnyId").val();
                    var Customer_company_name = $("#Customer_company_name").val();
+                 
                    //location.href = '/Payments?cid=' + Customer_comapnyId + '&&cname=' + Customer_company_name;
                    location.reload();
                    @*document.location = '@Url.Action("Index", "Payments", new {Customer_comapnyId,Customer_company_name })';*@

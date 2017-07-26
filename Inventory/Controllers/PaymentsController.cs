@@ -157,7 +157,7 @@ namespace Inventory.Controllers
             SendEmail abc = new SendEmail();
             string activationCode = Guid.NewGuid().ToString();
             string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailID;
-            FileInfo File = new FileInfo(Server.MapPath("/Content/mailer2.html"));//need to chnge mailer.html
+            FileInfo File = new FileInfo(Server.MapPath("/Content/payments.html"));//need to chnge mailer.html
             //string message = Invoicedata;//readFile + body;
             string readFile = File.OpenText().ReadToEnd();
             readFile = readFile.Replace("InvoiceData", Invoicedata);
