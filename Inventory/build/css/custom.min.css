@@ -7372,6 +7372,8 @@ ul.terms-content li{
 		box-shadow: 0px 1px 3px 2px #e4e4e4;
 		width: 100%;}
 	#sidebar > ul#menu > li > ul.left-submenu > li{}
+	.margin-bottom-xs-sm{
+		margin-bottom: 20px;}
 	}
 	
 /*=================== Table Responsive =======================*/
@@ -7496,5 +7498,7 @@ ul.terms-content li{
 	form .cd-tabs-navigation li a,
 	form .cd-tabs-navigation a.selected{
 		width: 100%;}
+	input[placeholder="Total"] + span{
+		top: -20px;}
 	
 	}
