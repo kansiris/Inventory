@@ -24,7 +24,7 @@
             <div class="col-xs-12 col-md-7 to-address margin-bottom" id="companyname"> <span>To : @ViewBag.company_name</span> </div>
             <div class="col-xs-12 col-md-5 margin-bottom">
                 <div class="row">
-                    <div class="col-xs-12 col-md-4 po-number padding-right-0">Invoice Number</div>
+                    <div class="col-xs-12 col-md-4 po-number padding-right-0"><font color="red">*</font>Invoice Number</div>
                     <div class="col-xs-12 col-md-8 padding-left-0">
                         <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoicenumber(this.value)" />
                     </div>
@@ -38,7 +38,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="col-xs-6 col-md-2">Payment Due Date</td>
+                    <td class="col-xs-6 col-md-2"><font color="red">*</font>Payment Due Date</td>
                     <td class="col-xs-6 col-md-4">
                         <div class="input-group">
                             <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
@@ -219,7 +219,7 @@
             <tbody>
                 <tr>
 
-                    <td class="col-xs-6 col-md-2">Payment Due Date</td>
+                    <td class="col-xs-6 col-md-2"><font color="red">*</font>Payment Due Date</td>
                     <td class="col-xs-6 col-md-4">
                         <div class="input-group">
                             <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
@@ -376,6 +376,11 @@
             $('#fordollar').css("display", "none");
         }
         function checkpaydate() {
+            //alert($('#pay_date').val());
+            //if ($('#pay_date').val() == "") {
+            //    warnmsg("Date can't be Empty.");
+            //}
+            //else{
             var paydate = $('#pay_date').val();
             var today = new Date();
             var dd = today.getDate();
@@ -388,10 +393,11 @@
             a = new Date(yyyy, MMM, dd);
             b = new Date(paydate.split('/')[2], paydate.split('/')[1], paydate.split('/')[0]);
             if (b <= a) {
-                warnmsg("Select a Valid Date.");
+                warnmsg("Select a Date Greater than Today.");
                 $('#pay_date').val("");
             }
-        }
+            }
+       // }
 
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';
@@ -402,6 +408,32 @@
                 type: "warn",
                 message: msg,
                 duration: 3
+            });
+        }
+
+        function errormsg(msg) {
+            $("body").overhang({
+                type: "error",
+                message: msg,
+                closeConfirm: false
+            });
+        }
+
+        function successmsg(msg) {
+            $("body").overhang({
+                type: "success",
+                message: msg,
+                duration: 3,
+                closeConfirm: false
+            });
+        }
+
+        function existsmsg(msg) {
+            $("body").overhang({
+                type: "exists",
+                message: msg,
+                duration: 3,
+                closeConfirm: false
             });
         }
 
@@ -441,10 +473,10 @@ function email(v){
            //data: { content: $('#div_Detdiv').html() },
            // data: sendInfo,
            success: function (data) {
-               alert("Order details and feedback form sent to your email id");
+               successmsg("Order details and feedback form sent to your email id");
            },
            error: function (data) {
-               alert("E-Mail Sending Failed!!!");
+               errormsg("E-Mail Sending Failed!!!");
            }
        });
 }

@@ -151,6 +151,7 @@ namespace Inventory.Controllers
             string readFile = File.OpenText().ReadToEnd();
             readFile = readFile.Replace("[ActivationLink]", url);
             readFile = readFile.Replace("password", PassWord);
+            readFile = readFile.Replace("[Name]", First_Name);
             string message = readFile;
             abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
@@ -536,7 +537,7 @@ namespace Inventory.Controllers
                 string Password = Guid.NewGuid().ToString().Split('-')[0]; //"ABC@123456";
                 string mObile = null;
                 string activationCode = Guid.NewGuid().ToString();
-                int usertype = (int)LoginService.GetUserTypeId("Franchise", 0);
+                int usertype = (int)LoginService.GetUserTypeId("Customer", 0);
                 string Date_Format = null, Timezone = null, Currency = null, UserSite = null;
                 int Subscription = 0;
                 DateTime? SubscriptionDate = null;
@@ -562,20 +563,30 @@ namespace Inventory.Controllers
                 UserSite = companyname.Trim();
                 fname = companyname.Trim();
                 lname = companyname.Trim();
-                var data = LoginService.Authenticateuser("checkemail1", cus_email, null, UserSite, 0);
-                if (data.HasRows)
-                    return Json("Exists");
+
+                UserProfileController uc = new UserProfileController();
+                int data1 = uc.invitechecking(cus_email, UserSite, usertype.ToString());
+                if (data1 == 1)
+                    return Json("invitationsent");
+                if (data1 == 0)
+                    return Json("emailverified");
                 else
                 {
-                    int count = LoginService.CreateUser(cus_email, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
-                    if (count > 0)
+                    var data = LoginService.Authenticateuser("checkemail1", cus_email, null, UserSite, 0);
+                    if (data.HasRows)
+                        return Json("Exists");
+                    else
                     {
-                        Email(fname, null, cus_email, activationCode, Password); //Sending Email
-                        return Json("sucess");
+                        int count = LoginService.CreateUser(cus_email, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
+                        if (count > 0)
+                        {
+                            Email(fname, null, cus_email, activationCode, Password); //Sending Email
+                            return Json("sucess");
+                        }
                     }
+                    data.Close();
+                    return Json("unique", JsonRequestBehavior.AllowGet);
                 }
-                data.Close();
-                return Json("unique", JsonRequestBehavior.AllowGet);
             }
             return Json(null);
         }

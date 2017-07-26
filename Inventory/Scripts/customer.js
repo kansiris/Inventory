@@ -369,6 +369,10 @@ function getEditDetails(id) {
     $("#uploadtext").css("display", "block");
     $("#uploadcontact").css("display", "block");
 
+    $('#cus_company_name').attr("disabled", true);
+    $('#cus_email').attr("disabled", true);
+
+
     $('#btnedit').click(function () {
         $('#cuscompany').css('display', 'none');
     });
@@ -1194,6 +1198,13 @@ function editcompanytaxdetails(clickedvalue) {
                     }
                     else if (data == "Exists") {
                         existsmsg("Email Id Already Exists!!! Try Another");
+                    }
+                    else if (data == "invitationsent") {
+                        existsmsg("Customer already Invited.Need to verify Email");
+                    }
+
+                    else if (data == "emailverified") {
+                        existsmsg("Customer already verified Email");
                     }
                     else {
                         cus_company_Id = $('#cus_company_Id').val();

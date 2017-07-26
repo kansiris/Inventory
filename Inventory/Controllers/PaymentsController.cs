@@ -161,6 +161,8 @@ namespace Inventory.Controllers
             //string message = Invoicedata;//readFile + body;
             string readFile = File.OpenText().ReadToEnd();
             readFile = readFile.Replace("InvoiceData", Invoicedata);
+            //readFile = readFile.Replace("InvoiceData", Invoicedata);
+            //readFile = readFile.Replace("InvoiceData", Invoicedata);
             string message = readFile;
             abc.EmailAvtivation(EmailID, message, "Invoice details");
             return Json("success");
