@@ -457,6 +457,9 @@
             $(".checkout").css({ "right": "0", "transition": "1s ease", "-webkit-transition": "1s ease" });
             $(".right-side-bar").css({ "width": "100%", "background": "rgba(0,0,0,.6)" });
         });
+        if ($(window).width() <= 768) {
+            $(".cart-icn").css("display", "none");
+        }
         //<!----------- Quantity Add in Right Bar ---------------->
 
         //<!------------ Left Side Bar ------------------->
@@ -516,7 +519,7 @@
         $(".mobile-cart").click(function () {
             $(this).toggleClass(" rotate");
             if ($(this).hasClass("rotate")) {
-                $(".checkout").css({ "opacity": "1", "top": "20%", "right": "40px", "z-index": "2" });
+                $(".checkout").css({ "opacity": "1", "top": "20%", "right": "0px", "z-index": "2","min-width":"320px" });
                 $(this).children("i.fa-shopping-cart").css("display", "none");
                 $(this).children("i.fa-times").css("display", "block");
             } else {
