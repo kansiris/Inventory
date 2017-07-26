@@ -204,7 +204,7 @@ function checkinvoicenumber(passedvalue) {
                 if (data == "unique") {
                 }
                 else {
-                    existsmsg("Invoice Number Alredy Exists.Please Enter a Unique Number");
+                    existsmsg("Invoice Number Already Exists.Please Enter a Unique Number");
                     $("[id='invoicenum']").val("");
                 }
             },
@@ -229,7 +229,7 @@ function checkdelivnote(passedvalue) {
                 if (data == "unique") {
                 }
                 else {
-                    existsmsg("Deliverynote Number Alredy Exists.Please Enter a Unique Number");
+                    existsmsg("Deliverynote Number Already Exists.Please Enter a Unique Number");
                     $("[id='delivnotenum']").val("");
                 }
             },

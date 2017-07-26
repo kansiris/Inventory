@@ -161,5 +161,7 @@ namespace Inventory.Service
 
             return CustomerRepository.insertcustaxdetails(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files, dbname);
         }
+
+        
     }
 }

@@ -228,5 +228,5 @@ namespace Inventory.Repository
             int count = SqlHelper.ExecuteNonQuery(ConnectionString, "insertcus_taxdetails", cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files);
             return count;
         }
-    }
+        }
 }
