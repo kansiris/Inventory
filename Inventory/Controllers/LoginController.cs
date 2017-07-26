@@ -129,7 +129,7 @@ namespace Inventory.Controllers
                 //if (value.Read())
                 //    DBname = value["User_Site"].ToString() + "_Inventory";
                 //value.Close();
-                //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
+                //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.62;User ID=user_inv;Password=user1234;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user1234;"; //for server
                 FileInfo File = new FileInfo(Server.MapPath("../Models/25july2017.sql"));
                 string script = File.OpenText().ReadToEnd();
@@ -138,7 +138,7 @@ namespace Inventory.Controllers
                 var db = new Database(server, DBname);
                 db.Create();
                 //db.ExecuteNonQuery(script); //for local
-                //string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=192.168.0.131;User ID=user_inv;Password=user1234;"; //for local
+                //string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=192.168.0.62;User ID=user_inv;Password=user1234;"; //for local
                 //for server 
                 string sqlConnectionString1 = @"Integrated Security=False;Initial Catalog=" + DBname + ";Data Source=183.82.97.220;User ID=user_inv;Password=user1234;";
                 SqlConnection conn1 = new SqlConnection(sqlConnectionString1);
