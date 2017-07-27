@@ -83,7 +83,7 @@
             { <span>@item.discount.Split(',')[0] % off</span>}
             else
             { <span style="border: 1px solid #ffffff"></span>}</div>
-           @if (item.product_perishability.Split(',')[0] == "Perishable")
+           @if (item.product_consumable.Split(',')[0] == "Consumable")
            {
              <div class="icon">
                 @if (item.product_type.Split(',')[0] == "Veg")

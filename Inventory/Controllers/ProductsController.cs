@@ -98,7 +98,7 @@ namespace Inventory.Controllers
                                                          Quantity_Total = row["quantity"].ToString(),
                                                          product_type = row["producttype"].ToString(),
                                                          discount = row["discount"].ToString(),
-                                                         product_perishability = row["perishable"].ToString(),
+                                                         product_consumable = row["consumable"].ToString(),
                                                      }).ToList();
                 ViewBag.records = subcategoryproducts;
                 ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")", "");
@@ -161,7 +161,7 @@ namespace Inventory.Controllers
                                     Qty_Stock = row["ids"].ToString(),
                                     product_type = row["producttype"].ToString(),
                                     discount = row["discount"].ToString(),
-                                    product_perishability = row["perishable"].ToString(),
+                                    product_consumable = row["consumable"].ToString(),
                                 }).ToList();
                 List<Product> sorteddata = new List<Product>();
                 for (int i = 0; i < products.Count; i++)
