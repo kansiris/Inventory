@@ -110,7 +110,7 @@ namespace Inventory.Controllers
 
         public JsonResult checkemail(string emailid, string site, string type)
         {
-            int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
+            int usertype = (int)LoginService.GetUserTypeId("Admin", 0);
             var data = LoginService.Authenticateuser(type, emailid, null, site, usertype);
             if (data.HasRows)
             {
