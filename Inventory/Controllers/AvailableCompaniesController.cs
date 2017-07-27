@@ -9,11 +9,13 @@ using System.Data;
 using Inventory.Models;
 using Newtonsoft.Json;
 using Inventory.Utility;
+using Inventory.Content;
 
 namespace Inventory.Controllers
 {
     public class AvailableCompaniesController : Controller
     {
+        LoginService loginService = new LoginService();
         // GET: AvailableCompanies
         public ActionResult Index()
         {
@@ -46,39 +48,48 @@ namespace Inventory.Controllers
         [HttpPost]
         public ActionResult Index(string email, string usertype, string loginpassword, string userid)
         {
-            //parameter_override (1)Here i'm passing user id in place of user_site which will not effect other conditions
-            SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, userid, long.Parse(usertype)); 
-            UserMaster userMaster = new UserMaster();
-            if (value.HasRows)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                userMaster = convert(value, userid);
-                if (userMaster.IsActive != 0)
-                {
-                    value.Close();
-                    string userData = JsonConvert.SerializeObject(userMaster);
-                    ValidUser.SetAuthCookie(userData, userMaster.ID);
-                    return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
-                }
-                TempData["umsg"] = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
-                return RedirectToAction("Index", "AvailableCompanies", new { email = email });
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var profile = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault(); //Get's User Profile
+                return RedirectToAction("index", "userhome", new {email=profile.EmailId,usertype=profile.UserTypeId,Site=profile.User_Site });
             }
-            TempData["msg"] = "Invalid Login!!! Try Again";
-            return RedirectToAction("Index", "AvailableCompanies", new { email = email });
-            //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+            else
+            {
+                //parameter_override (1)Here i'm passing user id in place of user_site which will not effect other conditions
+                SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, userid, long.Parse(usertype));
+                UserMaster userMaster = new UserMaster();
+                if (value.HasRows)
+                {
+                    userMaster = convert(value, userid);
+                    if (userMaster.IsActive != 0)
+                    {
+                        value.Close();
+                        string userData = JsonConvert.SerializeObject(userMaster);
+                        ValidUser.SetAuthCookie(userData, userMaster.ID);
+                        return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
+                    }
+                    TempData["umsg"] = "Please Click on Activation Link Sent to Your Registered Email-ID and Proceed Furthur";
+                    return RedirectToAction("Index", "AvailableCompanies", new { email = email });
+                }
+                TempData["msg"] = "Invalid Login!!! Try Again";
+                return RedirectToAction("Index", "AvailableCompanies", new { email = email });
+                //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
 
-            //SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
-            //UserMaster userMaster = new UserMaster();
-            //if (value.HasRows)
-            //{
-            //    userMaster = convert(value);
-            //    if (userMaster != null)
-            //    {
-            //        string userData = JsonConvert.SerializeObject(userMaster);
-            //        ValidUser.SetAuthCookie(userData, userMaster.ID);
-            //    }
-            //    return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
-            //}
-            //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+                //SqlDataReader value = LoginService.Authenticateuser("redirectuser", email, loginpassword, null, long.Parse(usertype));
+                //UserMaster userMaster = new UserMaster();
+                //if (value.HasRows)
+                //{
+                //    userMaster = convert(value);
+                //    if (userMaster != null)
+                //    {
+                //        string userData = JsonConvert.SerializeObject(userMaster);
+                //        ValidUser.SetAuthCookie(userData, userMaster.ID);
+                //    }
+                //    return RedirectToAction("Index", "LandingPage", new { email, usertype, userMaster.User_Site });
+                //}
+                //return Content("<script language='javascript' type='text/javascript'>alert('Invalid Login!!! Try Again');location.href='" + @Url.Action("Index", "AvailableCompanies", new { email = email }) + "'</script>"); // Stays in Same View
+            }
         }
 
         public UserMaster convert(SqlDataReader sqlDataReader, string userid)

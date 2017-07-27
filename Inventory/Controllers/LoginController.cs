@@ -26,8 +26,15 @@ namespace Inventory.Controllers
 {
     public class LoginController : Controller
     {
+        LoginService loginService = new LoginService();
         public ActionResult Index()
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var profile = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault(); //Get's User Profile
+                return RedirectToAction("index", "userhome", new { email = profile.EmailId, usertype = profile.UserTypeId, Site = profile.User_Site });
+            }
             return View();
         }
         [HttpPost]
