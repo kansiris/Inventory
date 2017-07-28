@@ -229,74 +229,85 @@ namespace Inventory.Controllers
         {
 
             string status;
+
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+
                 if (Prchaseorder_nos != null && Invoice_no != null)
                 {
                     Array ponumsArray = Prchaseorder_nos.Split(',');
                     int count = 0;
-                    CheckInvoiceNum(Invoice_no);
-                    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                    for (int i = 0; i < ponumsArray.Length; i++)
+                    if (payment_date == "" || payment_date == null)
+                        return Json("paymentdate");
+                    else
                     {
-
-                        var dts = new DataTable();
-                        var recordss = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i]);
-                        dts.Load(recordss);
-
-                        List<Invoice> productsinpo = (from DataRow row in dts.Rows
-                                                      select new Invoice()
-                                                      {
-                                                          product_id = row["product_id"].ToString(),
-                                                          product_name = row["product_name"].ToString(),
-                                                          cost_price = row["cost_price"].ToString(),
-                                                          Quantity = row["Quantity"].ToString(),
-                                                          description = row["description"].ToString(),
-                                                          total_price = row["total_price"].ToString(),
-                                                      }).ToList();
-                        var ff = productsinpo.Count;
-                        status = 1.ToString();
-                        for (int j = 0; j < ff; j++)
+                        for (int i = 0; i < ponumsArray.Length; i++)
                         {
-                            string product_id = (productsinpo.Select(m => m.product_id).ToList())[j];
-                            string product_name = (productsinpo.Select(m => m.product_name).ToList())[j];
-                            string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[j];
-                            string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];
-                            string description = (productsinpo.Select(m => m.description).ToList())[j];
-                            string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];//after this will be chnaged.
-                            string total_price = Convert.ToInt32((float)Math.Round((int.Parse(po_quantity) * float.Parse(cost_price)),0)).ToString();
+                            var dts = new DataTable();
+                            var recordss = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i]);
+                            dts.Load(recordss);
 
-                            //dummy values for time sake
-                            string cgst_rate = 2.ToString();
-                            string cgst_amount = 200.ToString();
-                            string sgst_rate = 3.ToString();
-                            string sgst_amount = 300.ToString();
-                            string igst_rate = 4.ToString();
-                            string igst_amount = 400.ToString();
+                            List<Invoice> productsinpo = (from DataRow row in dts.Rows
+                                                          select new Invoice()
+                                                          {
+                                                              product_id = row["product_id"].ToString(),
+                                                              product_name = row["product_name"].ToString(),
+                                                              cost_price = row["cost_price"].ToString(),
+                                                              Quantity = row["Quantity"].ToString(),
+                                                              description = row["description"].ToString(),
+                                                              total_price = row["total_price"].ToString(),
+                                                          }).ToList();
+                            var ff = productsinpo.Count;
+                            status = 1.ToString();
+                            var county = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
+                            if (county.HasRows)
+                                return Json("exists");
+                            else
+                            {
+                                for (int j = 0; j < ff; j++)
+                                {
+                                    string product_id = (productsinpo.Select(m => m.product_id).ToList())[j];
+                                    string product_name = (productsinpo.Select(m => m.product_name).ToList())[j];
+                                    string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[j];
+                                    string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];
+                                    string description = (productsinpo.Select(m => m.description).ToList())[j];
+                                    string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];//after this will be chnaged.
+                                    string total_price = Convert.ToInt32((float)Math.Round((int.Parse(po_quantity) * float.Parse(cost_price)), 0)).ToString();
+
+                                    //dummy values for time sake
+                                    string cgst_rate = 2.ToString();
+                                    string cgst_amount = 200.ToString();
+                                    string sgst_rate = 3.ToString();
+                                    string sgst_amount = 300.ToString();
+                                    string igst_rate = 4.ToString();
+                                    string igst_amount = 400.ToString();
 
 
-                            count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status
-                                , product_id, product_name, cost_price, description, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
+                                    count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status
+                                        , product_id, product_name, cost_price, description, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
+                                    count++;
+                                }
+                            }
+                            if (count > 0)
+                            {
+                                InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
+                                var dt = new DataTable();
+                                var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
+                                dt.Load(records);
+                                List<Invoice> pos = (from DataRow row in dt.Rows
+                                                     select new Invoice()
+                                                     {
+                                                         total_pos = row["pos"].ToString(),
+                                                     }).ToList();
+                                string total_pos = (pos.Select(m => m.total_pos).ToList()).FirstOrDefault();
+                                InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
+                            }
                             count++;
                         }
                         if (count > 0)
-                        {
-                            InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
-                            var dt = new DataTable();
-                            var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
-                            dt.Load(records);
-                            List<Invoice> pos = (from DataRow row in dt.Rows
-                                                 select new Invoice()
-                                                 {
-                                                     total_pos = row["pos"].ToString(),
-                                                 }).ToList();
-                            string total_pos = (pos.Select(m => m.total_pos).ToList()).FirstOrDefault();
-                            InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
-                        }
-                        count++;
+                            return Json("success");
                     }
-                    if (count > 0)
-                        return Json("success");
                 }
             }
             return Json("unique");
@@ -304,17 +315,17 @@ namespace Inventory.Controllers
 
         //for checking invoice number
 
-        public JsonResult CheckInvoiceNum(string Invoice_no)
-        {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var count = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
-                if (count.HasRows)
-                    return Json("exists");
-            }
-            return Json("unique");
-        }
+        //public JsonResult CheckInvoiceNum(string Invoice_no)
+        //{
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //        var county = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
+        //        if (county.HasRows)
+        //            return Json("exists");
+        //    }
+        //    return Json("unique");
+        //}
 
         //for checking delivery note  number
 
@@ -338,11 +349,11 @@ namespace Inventory.Controllers
             string deliv_status;
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                if (Prchaseorder_nos != null && Delivernote_no != null)
+                if ((Prchaseorder_nos != null || Prchaseorder_nos != "") && (Delivernote_no != null || Delivernote_no != ""))
                 {
                     Array ponumsArray = Prchaseorder_nos.Split(',');
                     int count = 0;
-                    CheckDeliveryNoteNum(Delivernote_no);
+                    //CheckDeliveryNoteNum(Delivernote_no);
                     var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
                     for (int j = 0; j < ponumsArray.Length; j++)
@@ -361,6 +372,10 @@ namespace Inventory.Controllers
                                                           total_price = row["total_price"].ToString(),
                                                       }).ToList();
                         var ff = productsinpo.Count;
+                        var county = InvoiceService.checkdeliverynotenum(user.DbName, Delivernote_no);
+                        if (county.HasRows)
+                            return Json("exists");
+                        else { 
                         for (int i = 0; i < ff; i++)
                         {
                             string product_id = (productsinpo.Select(m => m.product_id).ToList())[i];
@@ -372,6 +387,7 @@ namespace Inventory.Controllers
                             string total_price = (int.Parse(deliver_quantity) * float.Parse(cost_price)).ToString();
                             count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date, comment, sub_total, Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
                             count++;
+                        }
                         }
                         deliv_status = 1.ToString();
                         if (count > 0)
@@ -391,7 +407,7 @@ namespace Inventory.Controllers
 
 
         //view invoice
-        public PartialViewResult ViewInvoiceDetails(string cid,string invoiceno)//, string Prchaseorder_no
+        public PartialViewResult ViewInvoiceDetails(string cid, string invoiceno)//, string Prchaseorder_no
         {
 
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
@@ -400,50 +416,50 @@ namespace Inventory.Controllers
                 //if (Prchaseorder_no != null)
                 //{
 
-                    var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                    var dt = new DataTable();
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
 
-                    var records = InvoiceService.Getinvoicedata(user.DbName, cid, invoiceno);//, Prchaseorder_no
-                    dt.Load(records);
-                    List<Invoice> productsinpos = (from DataRow row in dt.Rows
-                                                   select new Invoice()
-                                                   {
-                                                       customer_id = cid,
-                                                       company_name = row["company_name"].ToString(),
-                                                       Prchaseorder_no = row["Prchaseorder_no"].ToString(),
-                                                       Invoice_no = row["Invoice_no"].ToString(),
+                var records = InvoiceService.Getinvoicedata(user.DbName, cid, invoiceno);//, Prchaseorder_no
+                dt.Load(records);
+                List<Invoice> productsinpos = (from DataRow row in dt.Rows
+                                               select new Invoice()
+                                               {
+                                                   customer_id = cid,
+                                                   company_name = row["company_name"].ToString(),
+                                                   Prchaseorder_no = row["Prchaseorder_no"].ToString(),
+                                                   Invoice_no = row["Invoice_no"].ToString(),
 
-                                                       product_id = row["product_id"].ToString(),
-                                                       product_name = row["product_name"].ToString(),
-                                                       description = row["description"].ToString(),
-                                                       Quantity = row["po_quantity"].ToString(),
-                                                       cost_price = row["cost_price"].ToString(),
-                                                       total_price = row["total_price"].ToString(),
-                                                       
-                                                       created_date = row["created_date"].ToString(),
-                                                       Payment_date = row["payment_date"].ToString(),
-                                                       payment_terms = row["payment_terms"].ToString(),
-                                                       remarks = row["comment"].ToString(),
-                                                       vat = row["vat"].ToString(),
-                                                       discount = row["discount"].ToString(),
-                                                       sub_total = row["sub_total"].ToString(),
-                                                       grand_total = row["grand_total"].ToString(),
-                                                   }).ToList();
-                    ViewBag.records = productsinpos;
-                    ViewBag.customer_id = cid;
-                    ViewBag.Invoice_no = productsinpos.Select(m => m.Invoice_no).First();
-                    ViewBag.created_date = productsinpos.Select(m => m.created_date).First();
-                    ViewBag.Payment_date = productsinpos.Select(m => m.Payment_date).First();
-                    ViewBag.payment_terms = productsinpos.Select(m => m.payment_terms).First();
-                    ViewBag.remarks = productsinpos.Select(m => m.remarks).First();
-                    ViewBag.company_name = productsinpos.Select(m => m.company_name).First();
-                    ViewBag.vat = productsinpos.Select(m => m.vat).First();
-                    ViewBag.discount = productsinpos.Select(m => m.discount).First();
-                    ViewBag.sub_total = productsinpos.Select(m => m.sub_total).First();
-                    ViewBag.grand_total = productsinpos.Select(m => m.grand_total).First();
+                                                   product_id = row["product_id"].ToString(),
+                                                   product_name = row["product_name"].ToString(),
+                                                   description = row["description"].ToString(),
+                                                   Quantity = row["po_quantity"].ToString(),
+                                                   cost_price = row["cost_price"].ToString(),
+                                                   total_price = row["total_price"].ToString(),
+
+                                                   created_date = row["created_date"].ToString(),
+                                                   Payment_date = row["payment_date"].ToString(),
+                                                   payment_terms = row["payment_terms"].ToString(),
+                                                   remarks = row["comment"].ToString(),
+                                                   vat = row["vat"].ToString(),
+                                                   discount = row["discount"].ToString(),
+                                                   sub_total = row["sub_total"].ToString(),
+                                                   grand_total = row["grand_total"].ToString(),
+                                               }).ToList();
+                ViewBag.records = productsinpos;
+                ViewBag.customer_id = cid;
+                ViewBag.Invoice_no = productsinpos.Select(m => m.Invoice_no).First();
+                ViewBag.created_date = productsinpos.Select(m => m.created_date).First();
+                ViewBag.Payment_date = productsinpos.Select(m => m.Payment_date).First();
+                ViewBag.payment_terms = productsinpos.Select(m => m.payment_terms).First();
+                ViewBag.remarks = productsinpos.Select(m => m.remarks).First();
+                ViewBag.company_name = productsinpos.Select(m => m.company_name).First();
+                ViewBag.vat = productsinpos.Select(m => m.vat).First();
+                ViewBag.discount = productsinpos.Select(m => m.discount).First();
+                ViewBag.sub_total = productsinpos.Select(m => m.sub_total).First();
+                ViewBag.grand_total = productsinpos.Select(m => m.grand_total).First();
 
 
-                    return PartialView("ViewInvoiceDetails", ViewBag.records);
+                return PartialView("ViewInvoiceDetails", ViewBag.records);
                 //}
             }
             return PartialView("ViewInvoiceDetails", null);

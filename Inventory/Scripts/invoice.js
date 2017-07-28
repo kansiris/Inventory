@@ -131,7 +131,15 @@ function saveInvoice(cid) {
             if (data == "unique") {
                 errormsg("Invoice generated already.");
             }
-            else {
+            if (data == "paymentdate") {
+                warnmsg("Enter Payemnt date.It Can't be Empty.");
+            }
+            
+            if (data == "exists") {
+                existsmsg("Invoice Number Already Exists.Please Enter a Unique Number");
+                $("[id='invoicenum']").val("");
+            }
+            if (data == "success") {
                 successmsg("Invoice Created successfully");
                 $("[id='saveinvoice']").css("display","none");
                 $("[id='invoicenum']").val("");
@@ -175,7 +183,11 @@ function saveDeliverynote(cid) {
                 if (data == "unique") {
                     errormsg("Delivery Note not generated");
                 }
-                else {
+                if (data == "exists") {
+                     existsmsg("Deliverynote Number Already Exists.Please Enter a Unique Number");
+                        $("[id='delivnotenum']").val("");
+                }
+                if (data=="success") {
                     successmsg("Delivery Note Generated successfully");
                     $("[id='delivnotenum']").val("");
                     $("[id='comment']").val("");
@@ -193,50 +205,50 @@ function checkinvoicenumber(passedvalue) {
     if (passedvalue == "") {
         errormsg("please enter Invoice number");
     }
-    else {
-        $.ajax({
-            url: '/Invoice/CheckInvoiceNum',
-            type: 'POST',
-            data: JSON.stringify({ Invoice_no: passedvalue }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "unique") {
-                }
-                else {
-                    existsmsg("Invoice Number Already Exists.Please Enter a Unique Number");
-                    $("[id='invoicenum']").val("");
-                }
-            },
-            error: function (data)
-            { errormsg("Failed!!!"); }
-        });
-    }
+    //else {
+    //    //$.ajax({
+    //    //    url: '/Invoice/CheckInvoiceNum',
+    //    //    type: 'POST',
+    //    //    data: JSON.stringify({ Invoice_no: passedvalue }),
+    //    //    dataType: 'json',
+    //    //    contentType: 'application/json',
+    //    //    success: function (data) {
+    //    //        if (data == "unique") {
+    //    //        }
+    //    //        else {
+    //    //            existsmsg("Invoice Number Already Exists.Please Enter a Unique Number");
+    //    //            $("[id='invoicenum']").val("");
+    //    //        }
+    //    //    },
+    //        error: function (data)
+    //        { errormsg("Failed!!!"); }
+    //    });
+    //}
 }
 
 function checkdelivnote(passedvalue) {
     if (passedvalue == "") {
         errormsg("please enter delivery Note number");
     }
-    else {
-        $.ajax({
-            url: '/Invoice/CheckDeliveryNoteNum',
-            type: 'POST',
-            data: JSON.stringify({ Delivernote_no: passedvalue }),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data == "unique") {
-                }
-                else {
-                    existsmsg("Deliverynote Number Already Exists.Please Enter a Unique Number");
-                    $("[id='delivnotenum']").val("");
-                }
-            },
-            error: function (data)
-            { errormsg("Failed!!!"); }
-        });
-    }
+    //else {
+    //    $.ajax({
+    //        url: '/Invoice/CheckDeliveryNoteNum',
+    //        type: 'POST',
+    //        data: JSON.stringify({ Delivernote_no: passedvalue }),
+    //        dataType: 'json',
+    //        contentType: 'application/json',
+    //        success: function (data) {
+    //            if (data == "unique") {
+    //            }
+    //            else {
+    //                existsmsg("Deliverynote Number Already Exists.Please Enter a Unique Number");
+    //                $("[id='delivnotenum']").val("");
+    //            }
+    //        },
+    //        error: function (data)
+    //        { errormsg("Failed!!!"); }
+    //    });
+    //}
 }
 function checkstatus(invoice) {
     if (invoice == 0) 

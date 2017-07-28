@@ -426,7 +426,16 @@ namespace Inventory.Controllers
             var dt = new DataTable();
             var records = ProductService.Getcartdata(user.DbName, cid);
             dt.Load(records);
-
+            var county = ProductService.checkponum(user.DbName, Prchaseorder_no);
+            if (county.HasRows) {
+                        return Json("exists");
+            }
+            else
+                { 
+            if (shipping_date=="" || shipping_date==null) {
+                return Json("shipdate");
+            }
+            else {
             List<Product> cartaddedproduct = (from DataRow row in dt.Rows
                                               select new Product()
                                               {
@@ -485,21 +494,24 @@ namespace Inventory.Controllers
                     return Json("success");
                 }
             }
-            return Json("unique");
-        }
 
-        public JsonResult CheckPoNum(string Prchaseorder_no)
-        {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-
-                var count = ProductService.checkponum(user.DbName, Prchaseorder_no);
-                if (count.HasRows)
-                    return Json("exists");
+            }
             }
             return Json("unique");
         }
+
+        //public JsonResult CheckPoNum(string Prchaseorder_no)
+        //{
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+
+        //        var count = ProductService.checkponum(user.DbName, Prchaseorder_no);
+        //        if (count.HasRows)
+        //            return Json("exists");
+        //    }
+        //    return Json("unique");
+        //}
 
         //for displaying pos of customer
         public PartialViewResult PosOfCustomer(string cid,string cname)

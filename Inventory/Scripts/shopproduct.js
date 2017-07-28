@@ -170,7 +170,10 @@ function insertpo(totalamount) {
     var ponumber = $('#ponumber').val();
     var comment = $('#comment').val();
     var createddate = ($('#po_date').text()).split(';')[1];
-
+    if (ponumber == "" || ponumber == null) {
+        errormsg(" Please Enter PurchaseOrder Number");
+    }
+    else {
     $.ajax({
         url: '/Products/GenratePurchaseOrder',
         type: 'POST',
@@ -201,26 +204,10 @@ function insertpo(totalamount) {
             if (data == "out of stock") {
                 warnmsg("out of stock");
             }
-        },
-        error: function (data)
-        { errormsg("Failed!!!"); }
-    });
-}
-
-
-
-function checkponumber(passedvalue) {
-    $.ajax({
-        url: '/Products/CheckPoNum',
-        type: 'POST',
-        data: JSON.stringify({ Prchaseorder_no: passedvalue }),
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            if (data == "unique") {
-
+            if (data == "shipdate") {
+                warnmsg("Enter Ship Date.Can't be Empty");
             }
-            else {
+            if (data == "exists") {
                 existsmsg("Purchase Order Number Already Exists.Please Enter a Unique Number");
                 $("[id='ponumber']").val("");
             }
@@ -228,6 +215,35 @@ function checkponumber(passedvalue) {
         error: function (data)
         { errormsg("Failed!!!"); }
     });
+    }
+}
+
+
+
+function checkponumber(passedvalue) {
+    if (passedvalue == "" || passedvalue==null) {
+        errormsg(" Please Enter PurchaseOrder Number");
+    }
+//else{
+//    $.ajax({
+//        url: '/Products/CheckPoNum',
+//        type: 'POST',
+//        data: JSON.stringify({ Prchaseorder_no: passedvalue }),
+//        dataType: 'json',
+//        contentType: 'application/json',
+//        success: function (data) {
+//            if (data == "unique") {
+
+//            }
+//            else {
+//                existsmsg("Purchase Order Number Already Exists.Please Enter a Unique Number");
+//                $("[id='ponumber']").val("");
+//            }
+//        },
+//        error: function (data)
+//        { errormsg("Failed!!!"); }
+//    });
+//}
 }
 
 //for displaying all pos

@@ -74,6 +74,11 @@ namespace Inventory.Controllers
                                 due = row["due"].ToString(),
                                 overdue = row["overdue"].ToString()
                             }).OrderByDescending(m => m.cus_company_Id).ToList();
+                ViewBag.totalnewpos = customer.Select(m => int.Parse(m.new_POs)).Sum();
+                ViewBag.totalinvoicedpos = customer.Select(m => int.Parse(m.total_POs)).Sum();
+                ViewBag.totaldues = customer.Select(m => float.Parse(m.due)).Sum();
+                ViewBag.totaloverdues = customer.Select(m => float.Parse(m.overdue)).Sum();
+                // ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
                 if (ViewBag.typeofuser == "Admin" || ViewBag.typeofuser == "AdminStaff")
                 {
                     ViewBag.records = customer;
@@ -83,6 +88,7 @@ namespace Inventory.Controllers
                     ViewBag.records = customer.Where(m => m.cus_company_name == userdetails.CompanyName.Trim()).ToList();
                 }
                 //ViewBag.records = customer;
+                
                 return PartialView("CustomerCompany", ViewBag.records);
             }
 

@@ -1,5 +1,35 @@
 ﻿@if (ViewBag.records != null)
 {
+    <div class="row blocks">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="content">
+                <h2>New PO's</h2>
+                <p>@*<text class="localization"></text>*@@ViewBag.totalnewpos</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="content">
+                <h2>Invoiced PO's</h2>
+                <p>@*<text class="localization"></text>*@  @ViewBag.totalinvoicedpos</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="content">
+                <h2>Open Invoice</h2>
+                <p><text class="localization"></text>@ViewBag.totaldues</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="content">
+                <h2>Over Due</h2>
+                <p><text class="localization"></text>@ViewBag.totaloverdues</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <div class="row" id="cuscompanyrecords">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div>
@@ -90,7 +120,7 @@
                                                     <li> <a href="~/Products?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
                                                     <li> <a onclick="viewallpos(@item.cus_company_Id,'@item.cus_company_name')"><i class="fa fa-building-o" aria-hidden="true"></i>View PO's</a> </li>
                                                     <li> <a href="~/Invoice?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
-                                                    <li> <a onclick="viewposfordeliv(@item.cus_company_Id,'@item.cus_company_name')"><i class="fa fa-money" aria-hidden="true"></i>Create DeliveryNote</a> </li>
+                                                    <li> <a onclick="viewposfordeliv(@item.cus_company_Id,'@item.cus_company_name')"><i class="fa fa-money" aria-hidden="true"></i>Create Delivery Note</a> </li>
                                                     @if (item.total_POs == null || item.total_POs == "")
                                                     {
                                                         <li> <a onclick="viewallinvoices(@item.cus_company_Id)" style="display:none"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a> </li>
