@@ -218,9 +218,9 @@ namespace Inventory.Repository
         #endregion
 
         #region Get Owner Staff
-        public static SqlDataReader getownerstaff(string id, string usertypeid)
+        public static SqlDataReader getownerstaff(string type, string id, string usertype, string companyname)
         {
-            return SqlHelper.ExecuteReader(ConnectionString1, "getownerstaff",  id, usertypeid);
+            return SqlHelper.ExecuteReader(ConnectionString1, "getownerstaff", type, id, usertype, companyname);
         }
         #endregion
 

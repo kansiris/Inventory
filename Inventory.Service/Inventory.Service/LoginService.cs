@@ -180,9 +180,9 @@ namespace Inventory.Service
         #endregion
 
         #region Get Owner Staff
-        public static SqlDataReader getownerstaff(string id, string usertypeid)
+        public static SqlDataReader getownerstaff(string type, string id, string usertype, string companyname)
         {
-            return LoginRepository.getownerstaff(id, usertypeid);
+            return LoginRepository.getownerstaff(type, id, usertype, companyname);
         }
         #endregion
 

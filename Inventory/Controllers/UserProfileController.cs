@@ -135,12 +135,16 @@ namespace Inventory.Controllers
             ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
             if (ViewBag.typeofuser == "AdminStaff")
             {
-                userid = int.Parse(getownerid(id, LoginService.GetUserTypeId("Admin", 0).ToString()));//LoginService.getownerstaff(id, LoginService.GetUserTypeId("Owner", 0).ToString());
+                userid = int.Parse(getownerid("AdminStaff", id, LoginService.GetUserTypeId("Admin", 0).ToString(), ""));//LoginService.getownerstaff(id, LoginService.GetUserTypeId("Owner", 0).ToString());
             }
             if (ViewBag.typeofuser == "Admin")
             {
                 userid = int.Parse(id);
             }
+            //if (ViewBag.typeofuser == "Staff")
+            //{
+            //    userid = int.Parse(getownerid("Customer", id, LoginService.GetUserTypeId("Customer", 0).ToString(), loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().CompanyName));//LoginService.getownerstaff(id, LoginService.GetUserTypeId("Owner", 0).ToString());
+            //}
             var records = LoginService.GetStaff(userid, "");
             var dt = new DataTable();
             dt.Load(records);
@@ -328,9 +332,9 @@ namespace Inventory.Controllers
             abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
 
-        public string getownerid(string id, string usertype)
+        public string getownerid(string type,string id, string usertype,string companyname)
         {
-            var userrecord = LoginService.getownerstaff(id, usertype);
+            var userrecord = LoginService.getownerstaff(type,id, usertype,companyname.Trim());
             DataTable dt = new DataTable();
             dt.Load(userrecord);
             List<UserMaster> usermaster = (from DataRow row in dt.Rows

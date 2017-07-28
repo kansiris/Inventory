@@ -26,8 +26,15 @@ namespace Inventory.Controllers
 {
     public class LoginController : Controller
     {
+        LoginService loginService = new LoginService();
         public ActionResult Index()
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var profile = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault(); //Get's User Profile
+                return RedirectToAction("index", "userhome", new { email = profile.EmailId, usertype = profile.UserTypeId, Site = profile.User_Site });
+            }
             return View();
         }
         [HttpPost]
@@ -110,7 +117,7 @@ namespace Inventory.Controllers
 
         public JsonResult checkemail(string emailid, string site, string type)
         {
-            int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
+            int usertype = (int)LoginService.GetUserTypeId("Admin", 0);
             var data = LoginService.Authenticateuser(type, emailid, null, site, usertype);
             if (data.HasRows)
             {
@@ -131,7 +138,7 @@ namespace Inventory.Controllers
                 //value.Close();
                 //string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=192.168.0.62;User ID=user_inv;Password=user1234;"; //for local
                 string sqlConnectionString = @"Integrated Security=False;Initial Catalog=master;Data Source=183.82.97.220;User ID=user_inv;Password=user1234;"; //for server
-                FileInfo File = new FileInfo(Server.MapPath("../Models/25july2017.sql"));
+                FileInfo File = new FileInfo(Server.MapPath("../Models/27july2017.sql"));
                 string script = File.OpenText().ReadToEnd();
                 SqlConnection conn = new SqlConnection(sqlConnectionString);
                 Server server = new Server(new ServerConnection(conn));

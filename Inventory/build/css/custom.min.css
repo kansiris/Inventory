@@ -6344,7 +6344,9 @@ ul.tagit input[type=text] {
 	margin: 20px 10px 10px 0;
 	display: block;
 	background: #fff;
-    box-shadow: 0px 2px 2px 1px #d4d4d4;}
+    box-shadow: 0px -2px 2px 0px #d4d4d4;
+    HEIGHT: 28PX;
+}
 .displayproduct > .discount > span{
 	display: inline-block;
     border: 1px solid #51aa1b;
@@ -7372,6 +7374,8 @@ ul.terms-content li{
 		box-shadow: 0px 1px 3px 2px #e4e4e4;
 		width: 100%;}
 	#sidebar > ul#menu > li > ul.left-submenu > li{}
+	.margin-bottom-xs-sm{
+		margin-bottom: 20px;}
 	}
 	
 /*=================== Table Responsive =======================*/
@@ -7496,5 +7500,7 @@ ul.terms-content li{
 	form .cd-tabs-navigation li a,
 	form .cd-tabs-navigation a.selected{
 		width: 100%;}
+	input[placeholder="Total"] + span{
+		top: -20px;}
 	
 	}

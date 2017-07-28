@@ -83,12 +83,15 @@
             { <span>@item.discount.Split(',')[0] % off</span>}
             else
             { <span style="border: 1px solid #ffffff"></span>}</div>
-            <div class="icon">
+           @if (item.product_consumable.Split(',')[0] == "Consumable")
+           {
+             <div class="icon">
                 @if (item.product_type.Split(',')[0] == "Veg")
                 { <img src="images/vegicon.png" alt="Icon">}
                 @if (item.product_type.Split(',')[0] == "Non-Veg")
                 { <img src="images/nonvegicon.png" alt="Icon">}
             </div>
+           }
             <div class="label">
                 <img src="images/label.png" alt="Out of stock">
             </div>
@@ -111,7 +114,7 @@
                     <text class="localization"></text> <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                 </div>
                 <div class="rate-add">
-                    <div class="row margin-bottom-20">
+                    <div class="row margin-bottom-20" style="height:48px;">
                         <div class="col-xs-6 col-sm-6 col-md-6 product-price">
                             <b class="cross">X</b><text class="localization"></text> <span id="price">@item.distinctproducts.Split(',')[0].Split('?')[1].Split('@')[0]</span>
                         </div>
@@ -132,7 +135,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="row margin-bottom-20 productsection">
+                    <div class="row margin-bottom productsection">
                         <div class="col-xs-6 spinner">
                             <div class="input-group">
                                 <button class="btn btn-default" type="button"><i class="fa fa-minus-circle"></i></button>

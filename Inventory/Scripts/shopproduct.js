@@ -305,6 +305,7 @@ function viewinvoicedetails(ponumber, cid) {
 }
 
 function allproducts() {
-    var url = '/Products/allproducts';
-    $('#allproducts').empty().load(url);
+    //var url = '/Products/allproducts';
+    //$('#allproducts').empty().load(url);
+    location.reload();
 }
