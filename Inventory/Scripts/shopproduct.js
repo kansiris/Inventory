@@ -205,7 +205,7 @@ function insertpo(totalamount) {
                 warnmsg("out of stock");
             }
             if (data == "shipdate") {
-                warnmsg("Enter Ship Date.Can't be Empty");
+                warnmsg("Enter Shipping Date.It Can't be Empty");
             }
             if (data == "exists") {
                 existsmsg("Purchase Order Number Already Exists.Please Enter a Unique Number");

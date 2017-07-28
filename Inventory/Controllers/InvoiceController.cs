@@ -242,29 +242,29 @@ namespace Inventory.Controllers
                         return Json("paymentdate");
                     else
                     {
-                        for (int i = 0; i < ponumsArray.Length; i++)
+                        var county = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
+                        if (county.HasRows)
+                            return Json("exists");
+                        else
                         {
-                            var dts = new DataTable();
-                            var recordss = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i]);
-                            dts.Load(recordss);
-
-                            List<Invoice> productsinpo = (from DataRow row in dts.Rows
-                                                          select new Invoice()
-                                                          {
-                                                              product_id = row["product_id"].ToString(),
-                                                              product_name = row["product_name"].ToString(),
-                                                              cost_price = row["cost_price"].ToString(),
-                                                              Quantity = row["Quantity"].ToString(),
-                                                              description = row["description"].ToString(),
-                                                              total_price = row["total_price"].ToString(),
-                                                          }).ToList();
-                            var ff = productsinpo.Count;
-                            status = 1.ToString();
-                            var county = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
-                            if (county.HasRows)
-                                return Json("exists");
-                            else
+                            for (int i = 0; i < ponumsArray.Length; i++)
                             {
+                                var dts = new DataTable();
+                                var recordss = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i]);
+                                dts.Load(recordss);
+
+                                List<Invoice> productsinpo = (from DataRow row in dts.Rows
+                                                              select new Invoice()
+                                                              {
+                                                                  product_id = row["product_id"].ToString(),
+                                                                  product_name = row["product_name"].ToString(),
+                                                                  cost_price = row["cost_price"].ToString(),
+                                                                  Quantity = row["Quantity"].ToString(),
+                                                                  description = row["description"].ToString(),
+                                                                  total_price = row["total_price"].ToString(),
+                                                              }).ToList();
+                                var ff = productsinpo.Count;
+                                status = 1.ToString();
                                 for (int j = 0; j < ff; j++)
                                 {
                                     string product_id = (productsinpo.Select(m => m.product_id).ToList())[j];
@@ -288,25 +288,26 @@ namespace Inventory.Controllers
                                         , product_id, product_name, cost_price, description, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
                                     count++;
                                 }
+
+                                if (count > 0)
+                                {
+                                    InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
+                                    var dt = new DataTable();
+                                    var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
+                                    dt.Load(records);
+                                    List<Invoice> pos = (from DataRow row in dt.Rows
+                                                         select new Invoice()
+                                                         {
+                                                             total_pos = row["pos"].ToString(),
+                                                         }).ToList();
+                                    string total_pos = (pos.Select(m => m.total_pos).ToList()).FirstOrDefault();
+                                    InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
+                                }
+                                count++;
                             }
                             if (count > 0)
-                            {
-                                InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
-                                var dt = new DataTable();
-                                var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
-                                dt.Load(records);
-                                List<Invoice> pos = (from DataRow row in dt.Rows
-                                                     select new Invoice()
-                                                     {
-                                                         total_pos = row["pos"].ToString(),
-                                                     }).ToList();
-                                string total_pos = (pos.Select(m => m.total_pos).ToList()).FirstOrDefault();
-                                InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
-                            }
-                            count++;
+                                return Json("success");
                         }
-                        if (count > 0)
-                            return Json("success");
                     }
                 }
             }

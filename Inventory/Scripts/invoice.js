@@ -132,11 +132,11 @@ function saveInvoice(cid) {
                 errormsg("Invoice generated already.");
             }
             if (data == "paymentdate") {
-                warnmsg("Enter Payemnt date.It Can't be Empty.");
+                warnmsg("Enter Payment date.It Can't be Empty.");
             }
             
             if (data == "exists") {
-                existsmsg("Invoice Number Already Exists.Please Enter a Unique Number");
+                warnmsg("Invoice Number Already Exists.Please Enter a Unique Number");
                 $("[id='invoicenum']").val("");
             }
             if (data == "success") {
