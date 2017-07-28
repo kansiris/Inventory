@@ -73,6 +73,12 @@ namespace Inventory.Service
             return InvoiceRepository.UpdatePoinCustomer(dbname, customer_id, total_pos);
         }
 
+
+        public static int updateduesinCustomer_company(string dbname, string customer_id, string dues)
+        {
+
+            return InvoiceRepository.updateduesinCustomer_company(dbname, customer_id, dues);
+        }
         public static int UpdatenewPoinCustomer(string dbname, string customer_id, string new_pos)
         {
 
@@ -89,8 +95,15 @@ namespace Inventory.Service
             return InvoiceRepository.Getposforcustomer(dbname, cid, invoice_status);
         }
 
+        //to update due after invoice created
+
         
-             public static SqlDataReader Getinvoicedata(string dbname, string cid, string invoiceno)//, string Prchaseorder_no
+            public static SqlDataReader Getduesforcustomer(string dbname, string cid)
+        {
+            return InvoiceRepository.Getduesforcustomer(dbname, cid);
+        }
+
+        public static SqlDataReader Getinvoicedata(string dbname, string cid, string invoiceno)//, string Prchaseorder_no
         {
             return InvoiceRepository.Getinvoicedata(dbname, cid,invoiceno);
         }

@@ -93,8 +93,18 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteNonQuery(ConnectionString, "updatePOsinCustomer_company", customer_id, total_pos);
         }
+
+        //updatedues
         
-             public static int UpdatenewPoinCustomer(string dbname, string customer_id, string new_pos)
+            public static int updateduesinCustomer_company(string dbname, string customer_id,string dues)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updateduesinCustomer_company", customer_id, dues);
+        }
+
+
+        public static int UpdatenewPoinCustomer(string dbname, string customer_id, string new_pos)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
@@ -113,9 +123,17 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "togetallpos", cid, invoice_status);
         }
-
+        //to get due for customer to update
         
-               public static SqlDataReader Getinvoicedata(string dbname, string cid, string invoiceno)//, string Prchaseorder_no
+             public static SqlDataReader Getduesforcustomer(string dbname, string cid)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getduesforcustomer", cid);
+        }
+
+
+        public static SqlDataReader Getinvoicedata(string dbname, string cid, string invoiceno)//, string Prchaseorder_no
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);

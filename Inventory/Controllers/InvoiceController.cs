@@ -305,6 +305,17 @@ namespace Inventory.Controllers
                                 }
                                 count++;
                             }
+                            var dt1 = new DataTable();
+                            var recordses = InvoiceService.Getduesforcustomer(user.DbName, customer_id);
+                            dt1.Load(recordses);
+                            List<Invoice> dues = (from DataRow row in dt1.Rows
+                                                  select new Invoice()
+                                                  {
+                                                      total_dues = row["due"].ToString(),
+                                                  }).ToList();
+                            string total_dues1 = (dues.Select(m => m.total_dues).ToList()).FirstOrDefault();
+                            string total_dues = (int.Parse(grand_total) + int.Parse(total_dues1)).ToString();
+                            InvoiceService.updateduesinCustomer_company(user.DbName, customer_id,total_dues);
                             if (count > 0)
                                 return Json("success");
                         }
