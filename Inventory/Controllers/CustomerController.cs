@@ -152,6 +152,7 @@ namespace Inventory.Controllers
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
+            //EmailId = "sravani.siddeswara@xsilica.com";
             string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailId;
             FileInfo File = new FileInfo(Server.MapPath("/Content/mailer1.html"));
             string readFile = File.OpenText().ReadToEnd();
@@ -650,23 +651,32 @@ namespace Inventory.Controllers
                 }
                 exec2.Close();
                 UserSite = companyname.Trim();
-                var data = LoginService.Authenticateuser("checkemail1", eMail, null, UserSite, 0);
-                if (data.HasRows)
-                {
-                    return Json("Exists");
-                }
-
+                UserProfileController uc = new UserProfileController();
+                int data1 = uc.invitechecking(eMail, UserSite, usertype.ToString());
+                if (data1 == 1)
+                    return Json("invitationsent");
+                if (data1 == 0)
+                    return Json("emailverified");
                 else
                 {
-                    int count = LoginService.CreateUser(eMail, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
-                    if (count > 0)
+                    var data = LoginService.Authenticateuser("checkemail1", eMail, null, UserSite, usertype);
+                    if (data.HasRows)
                     {
-                        Email(fname, lname, eMail, activationCode, Password); //Sending Email
-                        return Json("sucess");
+                        return Json("Exists");
                     }
+
+                    else
+                    {
+                        int count = LoginService.CreateUser(eMail, fname, lname, DBname, DateTime.UtcNow, Password, Subscription, usertype, UserSite, companyname, mObile, SubscriptionDate, 0, activationCode, image, Date_Format, Timezone, Currency, companylogo);
+                        if (count > 0)
+                        {
+                            Email(fname, lname, eMail, activationCode, Password); //Sending Email
+                            return Json("sucess");
+                        }
+                    }
+                    data.Close();
+                    return Json("unique", JsonRequestBehavior.AllowGet);
                 }
-                data.Close();
-                return Json("unique", JsonRequestBehavior.AllowGet);
             }
             //data.Close();
             return Json(null);

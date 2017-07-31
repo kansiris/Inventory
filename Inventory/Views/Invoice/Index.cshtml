@@ -48,28 +48,9 @@
 <div class="right_col" role="main">
     <div class="container">
         <form>
-            <div class="row invoice-table margin-top margin-bottom">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="col-md-1">Select</th>
-                                <th class="col-md-2">Company Name</th>
-                                <th class="col-md-1">PO No</th>
-                                <th class="col-md-2">PO Date</th>
-                                <th class="col-md-2">Total Items</th>
-                                <th class="col-md-2">Amount</th>
-                                <th class="col-md-2">Invoice</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ Html.RenderAction("AvailblePos", "Invoice");}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row margin-bottom">
-                <div class="col-xs-12 col-sm-12 col-md-12 invoice-buttons">
+            @{ Html.RenderAction("AvailblePos", "Invoice");}
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <button type="button" class="btn btn-primary pull-right invite" id="back-invoice1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
                     <button type="button" class="btn btn-primary pull-right invite" id="GenarateInvoice" onclick="genarateInvoice()" style="display:none"> <i class="fa fa-download" aria-hidden="true"></i> Generate Invoice</button>
                    </div>

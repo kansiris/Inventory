@@ -140,12 +140,14 @@ namespace Inventory.Controllers
                         TempData["smsg"] = "Payment saved Successfully!!!";
                         TempData["enablebuttons"] = "emailbutton";
                         return RedirectToAction("Index", "Payments", new { cid = payments.Customer_comapnyId, cname = payments.Customer_company_name});
+                        
                     }
                 }
             }
             TempData["msg"] = "Failed To Save";
-            //return RedirectToAction("Index", "Payments", new { cid = payments.Customer_comapnyId, cname = payments.Customer_company_name});
+           
             return RedirectToAction("Index", "Customer");
+           
         }
 
        

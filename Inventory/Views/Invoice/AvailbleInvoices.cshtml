@@ -47,57 +47,58 @@
 <div class="right_col" role="main" style="padding-top:30px">
     <div class="container">
         <form>
-            <div class="row invoice-table margin-top margin-bottom">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
+            <div class="row">
+                <div class="col-xs-15 col-sm-15 col-md-15">
+                    <div>
+                        <table class="table  table-borderedtable-striped bulk_action" id="producttable">
+                            <thead class="thead-inverse">
+                                <tr>
+                                   
+                                    <th class="col-md-2">Invoice No</th>
+                                    <th class="col-md-3">Company Name</th>
+                                    <th class="col-md-2">Invoice Created Date</th>
+                                    <th class="col-md-2">Payment Due Date</th>
+                                    <th class="col-md-2">Grand Total In  <text class="localization"></text></th>
+                                    <th class="col-md-2">Actions</th>
 
-                                <th class="col-md-2">Invoice No</th>
-                                <th class="col-md-3">Company Name</th>
-                                @*<th class="col-md-2">Purchase Order No</th>*@
-                                <th class="col-md-3">Payment Due Date</th>
-                                <th class="col-md-2">Grand Total In <text class="localization"></text></th>
-                                <th class="col-md-2">Actions</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @if (ViewBag.records != null)
-                            {
-                                if (ViewBag.records.Count != 0)
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.records != null)
                                 {
-                                    foreach (var item in ViewBag.records)
+                                    if (ViewBag.records.Count != 0)
                                     {
+                                        foreach (var item in ViewBag.records)
+                                        {
 
+                                            <tr>
+                                                <td class="col-md-2">@item.Invoice_no</td>
+                                                <td class="col-md-3">@item.company_name</td>
+                                                <td class="col-md-2">@item.created_date</td>
+                                                <td class="col-md-2">@item.Payment_date</td>
+                                                <td class="col-md-2" align="center">@item.grand_total</td>
+                                                <td class="col-md-2" style="text-align:center"><input type="button" onclick="viewinvoicedetail('@item.Invoice_no',@item.customer_id)" value="View Invoice"/></td>
+                                            </tr>
+                                        }
+                                    }
+
+
+                                    else
+                                    {
                                         <tr>
-                                            <td class="col-md-2">@item.Invoice_no</td>
-                                            <td class="col-md-3">@item.company_name</td>
-                                           @*<td class="col-md-2">@item.Prchaseorder_no</td>*@
-                                            <td class="col-md-3">@item.Payment_date</td>
-                                            <td class="col-md-2">@item.grand_total</td>@*<text class="localization"></text>*@
-                                            <td class="col-md-2">
-                                                <input type="button" onclick="viewinvoicedetail('@item.Invoice_no',@item.customer_id)" value="View Invoice"/>@*@item.Prchaseorder_no,*@
-                                            </td>
+                                            <td colspan="5"><p>No Invoice's Available</p></td>
                                         </tr>
+
                                     }
                                 }
-
-
-                                else
-                                {
-                                    <tr>
-                                        <td colspan="5"><p>No Invoice's Available</p></td>
-                                    </tr>
-
-                                }
-                            }
-
-                        </tbody>
-                    </table>
+                               
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
             <center><button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button></center>
         </form>
     </div>

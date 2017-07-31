@@ -7125,7 +7125,7 @@ tr > td.product-name a:hover{
 .to-address{
 	font-size: 14px;
 	font-weight: 700;
-	background: #e4e4e4;
+	background: #c7ebfe; /*#e4e4e4*/
 	padding: 10px;
 	border-radius: 5px;
 	display: block;}
@@ -7177,9 +7177,9 @@ ul.terms-content li{
 	overflow-y: scroll;}
 .invoice-table .table > thead,
 .invoice .thead-inverse{
-	background: #8086c2;}
+	background: #0288d1;} /*8086c2*/
 .invoice-buttons > .btn-primary{
-	background: #8086c2 !important;}
+	background: #0288d1 !important;}
 .invoice-table .table > thead > tr > th{	
 	color: #fff;}
 .po-date .input-group{

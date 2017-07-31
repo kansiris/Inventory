@@ -149,7 +149,6 @@ function saveInvoice(cid) {
                 $("#completediv").css("display", "none");
                 location.reload();
             }
-            //location.href = '/Invoice?cid=' + customerid + '&cname=' + companyName;
         },
         error: function (data)
         { errormsg("Failed!!!"); }
@@ -191,7 +190,6 @@ function saveDeliverynote(cid) {
                     successmsg("Delivery Note Generated successfully");
                     $("[id='delivnotenum']").val("");
                     $("[id='comment']").val("");
-                    //var cname = (document.URL.split('&&')[1]).split('=')[1];
                     location.reload();
                 }
             },
@@ -205,59 +203,22 @@ function checkinvoicenumber(passedvalue) {
     if (passedvalue == "") {
         errormsg("please enter Invoice number");
     }
-    //else {
-    //    //$.ajax({
-    //    //    url: '/Invoice/CheckInvoiceNum',
-    //    //    type: 'POST',
-    //    //    data: JSON.stringify({ Invoice_no: passedvalue }),
-    //    //    dataType: 'json',
-    //    //    contentType: 'application/json',
-    //    //    success: function (data) {
-    //    //        if (data == "unique") {
-    //    //        }
-    //    //        else {
-    //    //            existsmsg("Invoice Number Already Exists.Please Enter a Unique Number");
-    //    //            $("[id='invoicenum']").val("");
-    //    //        }
-    //    //    },
-    //        error: function (data)
-    //        { errormsg("Failed!!!"); }
-    //    });
-    //}
 }
 
 function checkdelivnote(passedvalue) {
     if (passedvalue == "") {
         errormsg("please enter delivery Note number");
     }
-    //else {
-    //    $.ajax({
-    //        url: '/Invoice/CheckDeliveryNoteNum',
-    //        type: 'POST',
-    //        data: JSON.stringify({ Delivernote_no: passedvalue }),
-    //        dataType: 'json',
-    //        contentType: 'application/json',
-    //        success: function (data) {
-    //            if (data == "unique") {
-    //            }
-    //            else {
-    //                existsmsg("Deliverynote Number Already Exists.Please Enter a Unique Number");
-    //                $("[id='delivnotenum']").val("");
-    //            }
-    //        },
-    //        error: function (data)
-    //        { errormsg("Failed!!!"); }
-    //    });
-    //}
 }
-function checkstatus(invoice) {
-    if (invoice == 0) 
+function checkstatus() {
+   
+    if ($("#availpocheck").prop('checked')==true)
         $("#GenarateInvoice").css("display", "block");
     else
-        $("#GenarateDelivNote").css("display", "none");
+        $("#GenarateInvoice").css("display", "none");
 }
   
-
+//as above need to chnge
 function checkstatus1(deliv) {
     if (deliv == 0) 
         $("#GenarateDelivNote").css("display", "block");

@@ -46,8 +46,8 @@
                         <tr>
                             <th style="text-align: center;border-right: 1px solid #fff;">New</th>
                             <th style="text-align: center;border-right: 1px solid #fff;">Invoiced</th>
-                            <th style="text-align: center;border-right: 1px solid #fff;">Due</th>
-                            <th style="text-align: center;">Over Due</th>
+                            <th style="text-align: center;border-right: 1px solid #fff;">Due In  <text class="localization"></text></th>
+                            <th style="text-align: center;">Over Due In <text class="localization"></text></th>
                         </tr>
                     </thead>
 
@@ -137,24 +137,13 @@
                                             @if (ViewBag.typeofuser == "Customer" || ViewBag.typeofuser == "Staff")
                                             {
                                                 <ul class="dropdown-menu">
-                                                    @*<li> <a onclick="viewCustomer(@item.cus_company_Id)"><i class="fa fa-eye" aria-hidden="true"></i>View Customer</a> </li>
                                                     <li> <a onclick="getEditDetails(@item.cus_company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Customer</a> </li>
-                                                    <li> <a onclick="inviteCustomerForPos(@item.cus_company_Id)"><i class="fa fa-envelope" aria-hidden="true"></i>Invite</a> </li>*@
-                                                    <li> <a onclick="getEditDetails(@item.cus_company_Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Customer</a> </li>
-                                                    @*@if (item.status == "Active")
-                                                    {
-                                                        <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=InActive"><i class="fa fa-toggle-off" aria-hidden="true"></i>InActive</a> </li>}
-                                                    @if (item.status == "InActive")
-                                                    {
-                                                        <li> <a href="~/Customer/deletecusRecord?cus_company_Id=@item.cus_company_Id&&status=Active"><i class="fa fa-toggle-on" aria-hidden="true"></i>Active</a> </li>}*@
-
+                                                   
                                                     ======================
 
                                                     <li> <a href="~/Products?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Create PO</a> </li>
                                                     <li> <a onclick="viewallpos(@item.cus_company_Id,'@item.cus_company_name')"><i class="fa fa-building-o" aria-hidden="true"></i>View PO's</a> </li>
-                                                    @*<li> <a href="~/Invoice?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
-                                                    <li> <a onclick="viewposfordeliv(@item.cus_company_Id,'@item.cus_company_name')"><i class="fa fa-money" aria-hidden="true"></i>Create DeliveryNote</a> </li>*@
-                                                    @if (item.total_POs == null || item.total_POs == "")
+                                                   @if (item.total_POs == null || item.total_POs == "")
                                                     {
                                                         <li> <a onclick="viewallinvoices(@item.cus_company_Id)" style="display:none"><i class="fa fa-building-o" aria-hidden="true"></i>View Invoice</a> </li>
                                                         <li> <a href="~/Payments?cid=@item.cus_company_Id&&cname=@item.cus_company_name" style="display:none"><i class="fa fa-money" aria-hidden="true"></i>Receive Payment</a> </li>

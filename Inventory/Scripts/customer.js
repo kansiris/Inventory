@@ -445,7 +445,7 @@ function editcuscompany(clickedvalue) {
                         if (data == "sucess") {
                             $('#savebutton').hide();
                             var url = 'Customer/CustomerCompany';
-                            $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+                            $('#cuscompanyrecords').empty().load(url);//load(url, function () { Pagination(); });
                             successmsg("Company Updated Successfully");
                             $('#customertable1').css("display", "none");
                             $('#additonal').css('display', 'block');
@@ -471,7 +471,7 @@ function editcuscompany(clickedvalue) {
                             $('#cuscompany_pic').children().attr('disabled', 'disabled');
                             var url = 'Customer/CustomerCompany';
                             $('#cus_company_Id').val(data.ID);
-                            $('#cuscompanyrecords').load(url, function () { Pagination(); });
+                            $('#cuscompanyrecords').load(url);//, function () { Pagination(); }
                             successmsg("Company Saved Successfully");
                             $('customer-information1').css("display", "block");
                             $('#additonal').css('display', 'block');
@@ -807,6 +807,14 @@ function inviteCustomer(id,cid) {
                 }
                 else if (data == "Exists") {
                     existsmsg("Email Id Already Exists!!! Try Another");
+                }
+                
+                else if (data == "invitationsent") {
+                    existsmsg("Invitation sent.Need to Verifiey");
+                }
+                
+                else if (data == "emailverified") {
+                    successmsg("Already Invitation sent and Email verified.");
                 }
                 else {
                     cus_company_Id = $('#cus_company_Id').val();

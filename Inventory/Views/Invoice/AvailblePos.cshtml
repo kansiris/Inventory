@@ -1,36 +1,58 @@
-﻿@if (ViewBag.records != null)
-{
-    if (ViewBag.records.Count != 0)
-    {
-        foreach (var item in ViewBag.records)
-        {
+﻿
+<div class="row">
+    <div class="col-xs-15 col-sm-15 col-md-15">
+        <div>
+            <table class="table  table-borderedtable-striped bulk_action" id="producttable">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="col-md-1">Select</th>
+                        <th class="col-md-2">Company Name</th>
+                        <th class="col-md-1">PO No</th>
+                        <th class="col-md-2">PO Date</th>
+                        <th class="col-md-2">Total Items</th>
+                        <th class="col-md-2">Amount</th>
+                        <th class="col-md-2">Invoice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.records != null)
+                    {
+                        if (ViewBag.records.Count != 0)
+                        {
+                            foreach (var item in ViewBag.records)
+                            {
+                                <tr>
+                                    <td class="col-md-1">
+                                        <label><input type="checkbox" value="@item.Prchaseorder_no" id="availpocheck" onclick="checkstatus()"></label>
+                                    </td>
+                                    <td class="col-md-2">@item.company_name</td>
+                                    <td class="col-md-1">@item.Prchaseorder_no</td>
+                                    <td class="col-md-2">@item.created_date</td>
+                                    <td class="col-md-2">@item.totalQty</td>
+                                    <td class="col-md-2"><text class="localization"></text><span>@item.total_price</span></td>
 
-<tr>
-    <td class="col-md-1">
-        <label><input type="checkbox" value="@item.Prchaseorder_no" id="availpocheck" onclick="checkstatus(@item.invoice_status)"></label>
-    </td>
-    <td class="col-md-2">@item.company_name</td>
-    <td class="col-md-1">@item.Prchaseorder_no</td>
-    <td class="col-md-2">@item.created_date</td>
-    <td class="col-md-2">@item.totalQty</td>
-    <td class="col-md-2"><text class="localization"></text><span>@item.total_price</span></td>
-    
-    @if (int.Parse(@item.invoice_status) == 1)
-    {
-        <td class="col-md-2">Generated</td>
-    }
-    else
-    {
-        <td class="col-md-2">Not Generated</td>
-    }
-</tr>
-        }
-    }
+                                    @if (int.Parse(@item.invoice_status) == 1)
+                                    {
+                                        <td class="col-md-2">Generated</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="col-md-2">Not Generated</td>
+                                    }
+                                </tr>
+                            }
+                        }
 
-else {
-<tr>
-    <td colspan="7"><p>No PO's Available to create a Invoice</p></td>
-</tr>
+                        else
+                        {
+                            <tr>
+                                <td colspan="7"><p>No PO's Available to create a Invoice</p></td>
+                            </tr>
 
-    }
-}
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

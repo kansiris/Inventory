@@ -495,6 +495,7 @@ namespace Inventory.Controllers
                                                        //Prchaseorder_no = row["Prchaseorder_no"].ToString(),
                                                        grand_total = row["grand_total"].ToString(),
                                                        Payment_date = row["payment_date"].ToString(),
+                                                       created_date = row["created_date"].ToString(),
                                                    }).ToList();
                 ViewBag.records = availableinvoices;
 
