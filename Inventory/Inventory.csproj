@@ -431,6 +431,7 @@
     <Content Include="Models\14july2017.sql" />
     <Content Include="Models\25july2017.sql" />
     <Content Include="Models\27july2017.sql" />
+    <Content Include="Models\28july2017.sql" />
     <Content Include="Models\April04.sql" />
     <Content Include="Models\April19.sql" />
     <Content Include="Models\createdbscript.sql" />
