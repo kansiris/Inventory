@@ -168,6 +168,13 @@
                 </div>
             </div>
         </div>
+
+
+<div id="loadingDiv">
+    <p><img src="~/images/Loading_icon.gif" />Please Wait</p>
+</div>
+
+
         @*for dollar*@
         <div id="fordollar" style="display:none">
             <div class="row">
@@ -420,7 +427,14 @@
 
                 </script>
                 <script>
-
+                    var $loading = $('#loadingDiv').hide();
+                    $(document)
+                      .ajaxStart(function () {
+                          $loading.show();
+                      })
+                      .ajaxStop(function () {
+                          $loading.hide();
+                      });
                 </script>
                 <!------------- E-Mail------------->
                 <script type="text/javascript">

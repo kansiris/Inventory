@@ -395,6 +395,7 @@
     <Content Include="images\inbox.png" />
     <Content Include="images\label.png" />
     <Content Include="images\loader.gif" />
+    <Content Include="images\Loading_icon.gif" />
     <Content Include="images\logo.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo1.png" />
@@ -427,6 +428,7 @@
     <Content Include="images\vegicon.png" />
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
+    <Content Include="Models\01Aug2017.sql" />
     <Content Include="Models\13july2017.sql" />
     <Content Include="Models\14july2017.sql" />
     <Content Include="Models\25july2017.sql" />

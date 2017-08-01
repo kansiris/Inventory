@@ -90,6 +90,8 @@ function genarateDelivInvoice() {
 
 
 function saveInvoice(cid) {
+    $(".overlay").show();
+
     var vendorname = document.getElementById("vendor_name").textContent;
     
     var customerid = cid;
@@ -132,7 +134,7 @@ function saveInvoice(cid) {
                 errormsg("Invoice generated already.");
             }
             if (data == "paymentdate") {
-                warnmsg("Enter Payment date.It Can't be Empty.");
+                warnmsg("Enter Payment Due Date.It Can't be Empty.");
             }
             
             if (data == "exists") {
@@ -140,6 +142,7 @@ function saveInvoice(cid) {
                 $("[id='invoicenum']").val("");
             }
             if (data == "success") {
+                $(".overlay").hide();
                 successmsg("Invoice Created successfully");
                 $("[id='saveinvoice']").css("display","none");
                 $("[id='invoicenum']").val("");
@@ -211,8 +214,9 @@ function checkdelivnote(passedvalue) {
     }
 }
 function checkstatus() {
-   
-    if ($("#availpocheck").prop('checked')==true)
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+    if (checkedOne == true)
         $("#GenarateInvoice").css("display", "block");
     else
         $("#GenarateInvoice").css("display", "none");
@@ -220,7 +224,9 @@ function checkstatus() {
   
 //as above need to chnge
 function checkstatus1(deliv) {
-    if (deliv == 0) 
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+    if (checkedOne == true)
         $("#GenarateDelivNote").css("display", "block");
     else 
         $("#GenarateDelivNote").css("display", "none");
