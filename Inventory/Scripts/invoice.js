@@ -119,7 +119,8 @@ function saveInvoice(cid) {
     var Discount = $("[id='discount']").val(); 
     var Grandtotal1 = ((document.getElementById("grandtotal1").textContent).split('$')[1]);
     var Prchaseordernos = $("input:checkbox:checked").map(function () { return this.value;}).toArray();
-        if (invoiceNum == "") {
+    if (invoiceNum == "") {
+        $(".overlay").hide();
         errormsg("Please Enter Invoice Number");
     }
     else{
@@ -131,13 +132,17 @@ function saveInvoice(cid) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
+                $(".overlay").hide();
                 errormsg("Invoice generated already.");
             }
+
             if (data == "paymentdate") {
+                $(".overlay").hide();
                 warnmsg("Enter Payment Due Date.It Can't be Empty.");
             }
             
             if (data == "exists") {
+                $(".overlay").hide();
                 warnmsg("Invoice Number Already Exists.Please Enter a Unique Number");
                 $("[id='invoicenum']").val("");
             }
