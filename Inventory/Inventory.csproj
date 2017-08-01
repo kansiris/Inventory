@@ -427,6 +427,7 @@
     <Content Include="images\vegicon.png" />
     <Content Include="images\visa.png" />
     <Content Include="images\wink.svg" />
+    <Content Include="Models\01Aug2017.sql" />
     <Content Include="Models\13july2017.sql" />
     <Content Include="Models\14july2017.sql" />
     <Content Include="Models\25july2017.sql" />
