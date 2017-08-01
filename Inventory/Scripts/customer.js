@@ -810,11 +810,11 @@ function inviteCustomer(id,cid) {
                 }
                 
                 else if (data == "invitationsent") {
-                    existsmsg("Invitation sent.Need to Verifiey");
+                    existsmsg("Invitation sent.Need to Verify the Email.Click on Activation Link.");
                 }
                 
                 else if (data == "emailverified") {
-                    successmsg("Already Invitation sent and Email verified.");
+                    successmsg("Already Invitation sent and Email Verified.");
                 }
                 else {
                     cus_company_Id = $('#cus_company_Id').val();

@@ -161,6 +161,7 @@ function calculate(totalprice) {
 //for inserting purchseorder
 
 function insertpo(totalamount) {
+    $(".overlay").show();
     var cid = location.search.split('&')[0].split('cid=')[1];
     var cname = location.search.split('cname=')[1];
     var shipping_terms = $('#shipping_terms').val();
@@ -192,6 +193,7 @@ function insertpo(totalamount) {
             }
 
             if (data == "success") {
+                $(".overlay").hide();
                 successmsg("Successfully PurchaseOrder Generated.");
                 $("[id='ponumber']").val("");
                 $("[id='shipping_date']").val("");

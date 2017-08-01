@@ -395,6 +395,7 @@
     <Content Include="images\inbox.png" />
     <Content Include="images\label.png" />
     <Content Include="images\loader.gif" />
+    <Content Include="images\Loading_icon.gif" />
     <Content Include="images\logo.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo1.png" />
