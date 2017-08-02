@@ -173,7 +173,7 @@ function insertpo(totalamount) {
     var createddate = ($('#po_date').text()).split(';')[1];
     if (ponumber == "" || ponumber == null) {
         $(".overlay").hide();
-        errormsg(" Please Enter PurchaseOrder Number");
+        errormsg(" Please Enter Purchase Order Number");
     }
     else {
     $.ajax({
@@ -230,7 +230,7 @@ function insertpo(totalamount) {
 function checkponumber(passedvalue) {
     if (passedvalue == "" || passedvalue == null) {
         $(".overlay").hide();
-        errormsg(" Please Enter PurchaseOrder Number");
+        errormsg(" Please Enter Purchase Order Number");
     }
 //else{
 //    $.ajax({

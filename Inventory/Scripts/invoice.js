@@ -149,13 +149,13 @@ function saveInvoice(cid) {
             if (data == "success") {
                 $(".overlay").hide();
                 successmsg("Invoice Created successfully");
-                $("[id='saveinvoice']").css("display","none");
-                $("[id='invoicenum']").val("");
-               $("[id='date']").val("");
-                $("[id='paymentterms']").val("");
-                $("[id='comment']").val("");
-                $("#completediv").css("display", "none");
-                location.reload();
+               // $("[id='saveinvoice']").css("display","none");
+               // $("[id='invoicenum']").val("");
+               //$("[id='date']").val("");
+               // $("[id='paymentterms']").val("");
+               // $("[id='comment']").val("");
+               // $("#completediv").css("display", "none");
+               // location.reload();
             }
         },
         error: function (data)

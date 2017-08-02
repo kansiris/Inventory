@@ -11,7 +11,8 @@
     }
     $('#invoiced_amount').val(sum);
     $('#poid').val(poid);
-    $('#Customer_comapnyId').val(location.search.split('cid=')[1]);
+    //alert(document.URL.split('?')[1].split('cid=')[1].split('&')[0]);
+    $('#Customer_comapnyId').val(document.URL.split('?')[1].split('cid=')[1].split('&')[0]);
     //$('#Customer_comapnyId').val(document.URL.split('?')[1].split('&&')[0].split('=')[1]);
     $('#Customer_company_name').val(location.search.split('cname=')[1]);
     var paymentsddate = (document.getElementById("payment_date").textContent).split(';')[1].trimRight();
