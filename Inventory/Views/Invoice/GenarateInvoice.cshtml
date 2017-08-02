@@ -178,7 +178,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3" style="display:none;"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
 
 
 
@@ -210,7 +210,7 @@
                     <div class="row invoice-total-amount" id="grandtotal"><text class="localization"></text>@ViewBag.grand_total </div>
                 </div>
                 <div class="row padding-bottom">
-                    <div class="col-xs-12 col-md-5 to-address margin-bottom" id="companyname"> <span>To : @ViewBag.company_name</span> </div>
+                    <div class="col-xs-12 col-md-5 to-address margin-bottom" > To :<span id="companyname"> @ViewBag.company_name</span> </div>
                     <div class="col-xs-12 col-md-3 margin-bottom text-bold" style="line-height: 34px;"> <span>GSTIN :</span> ATX14678CB </div>
                     <div class="col-xs-12 col-md-4 margin-bottom">
                         <div class="row">
@@ -323,7 +323,7 @@
                     <div class="row margin-top">
                         <div class="col-xs-12 col-md-12 invoice-buttons">
                             <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice" onclick="saveInvoice(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="clearinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
                             <div class="row email-popup-area" style="display:none;">
@@ -338,7 +338,7 @@
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3" style="display:none;"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
 
                         </div>
                     </div>
@@ -461,16 +461,16 @@ $("#email-popup-cancle").click(function(){
         var emailid = $("#email").val();
         var Detdiv = document.getElementById("invoicedetails").outerHTML;
         var comapnyname = (document.getElementById("companyname").textContent);
-        alert(comapnyname);
+        //alert(comapnyname);
         var paydate = $("#pay_date").val();
-        alert(paydate);
+        //alert(paydate);
         var grandttl = (document.getElementById("grandtotal").textContent);
-        alert(grandttl);
+        //alert(grandttl);
         
         var pnums = $("#pnums").val();
-        alert(pnums+"  hiiii");
+        //alert(pnums+"  hiiii");
         var invoicenum = $("#invoicenum").val();
-        alert(invoicenum);
+        //alert(invoicenum);
         return email(Detdiv, emailid, grandttl, invoicenum, comapnyname, paydate, pnums);
 });
 

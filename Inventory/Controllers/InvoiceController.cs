@@ -524,7 +524,7 @@ namespace Inventory.Controllers
             readFile = readFile.Replace("[PayDate]", Paydate);
             readFile = readFile.Replace("[PNums]", Pnums);
             string message = readFile;
-            abc.EmailAvtivation(EmailID, message, "Invoice details");
+            abc.EmailAvtivation(EmailID, message, "Invoice Details");
             return Json("success");
         }
 

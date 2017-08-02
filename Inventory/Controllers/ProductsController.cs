@@ -10,6 +10,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlClient;
+using Inventory.Utility;
+using System.IO;
 
 namespace Inventory.Controllers
 {
@@ -369,6 +371,7 @@ namespace Inventory.Controllers
 
                 var ff = cartaddedproducts.Count;
                 ViewBag.records = cartaddedproducts;
+                ViewBag.Productcount = ff;
                 ViewBag.customer_id = cid;
                 ViewBag.company_name = cname;
                 ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
@@ -454,7 +457,7 @@ namespace Inventory.Controllers
                                               }).ToList();
             var ff = cartaddedproduct.Count;
             int count = 0;
-
+                    ViewBag.Productcount = ff;
             if (Prchaseorder_no != "")
             {
 
@@ -492,11 +495,11 @@ namespace Inventory.Controllers
                     ProductService.Emptycart(user.DbName, cid);
                     return Json("success");
                 }
-                if (count > 0)
-                {
-                    ProductService.Emptycart(user.DbName, cid);
-                    return Json("success");
-                }
+                //if (count > 0)
+                //{
+                //    ProductService.Emptycart(user.DbName, cid);
+                //    return Json("success");
+                //}
             }
 
             }
@@ -616,6 +619,28 @@ namespace Inventory.Controllers
             else
                 count = 0;
             return count;
+        }
+
+        //for email of purchase order
+
+        public JsonResult Email(string POdata, string EmailID, string Grandtotal,string Companyname, string Shipdate, string Pnums,string ProductCount)
+        {
+            // Designing Email Part
+            SendEmail abc = new SendEmail();
+            string activationCode = Guid.NewGuid().ToString();
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailID;
+            FileInfo File = new FileInfo(Server.MapPath("/Content/purchaseorder.html"));
+            string readFile = File.OpenText().ReadToEnd();
+            readFile = readFile.Replace("[POData]", POdata);
+            readFile = readFile.Replace("[Purchaseorder]", Pnums);
+            readFile = readFile.Replace("[GrandTotal]", Grandtotal);
+            readFile = readFile.Replace("[CompanyName]", Companyname);
+            readFile = readFile.Replace("[ShipDate]", Shipdate);
+            readFile = readFile.Replace("[PNums]", Pnums);
+            readFile = readFile.Replace("[Productcount]", ProductCount);
+            string message = readFile;
+            abc.EmailAvtivation(EmailID, message, "Purchase Order Details");
+            return Json("success");
         }
     }
 }
