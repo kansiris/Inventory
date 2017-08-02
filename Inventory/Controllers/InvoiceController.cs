@@ -10,6 +10,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlClient;
+using Inventory.Utility;
+using System.IO;
 
 namespace Inventory.Controllers
 {
@@ -112,6 +114,7 @@ namespace Inventory.Controllers
                         ViewBag.records = productsinpos;
                         ViewBag.customer_id = cid;
                         ViewBag.company_name = customer_name;
+                        ViewBag.ponumsArray = Prchaseorder_nos;
                         ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Distinct().Sum();
                         ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
                     }
@@ -503,5 +506,28 @@ namespace Inventory.Controllers
             }
             return PartialView("AvailbleInvoices", null);
         }
+
+        //for email of invoice
+
+        public JsonResult Email(string Invoicedata, string EmailID,string Grandtotal,string InvoiceNum,string Companyname,string Paydate,string Pnums)
+        {
+            // Designing Email Part
+            SendEmail abc = new SendEmail();
+            string activationCode = Guid.NewGuid().ToString();
+            string url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Login/ActivateEmail?ActivationCode=" + activationCode + "&&Email=" + EmailID;
+            FileInfo File = new FileInfo(Server.MapPath("/Content/invoice.html"));
+            string readFile = File.OpenText().ReadToEnd();
+            readFile = readFile.Replace("InvoiceData", Invoicedata);
+            readFile = readFile.Replace("[InvoiceNumber]", InvoiceNum);
+            readFile = readFile.Replace("[GrandTotal]", Grandtotal);
+            readFile = readFile.Replace("[CompanyName]", Companyname);
+            readFile = readFile.Replace("[PayDate]", Paydate);
+            readFile = readFile.Replace("[PNums]", Pnums);
+            string message = readFile;
+            abc.EmailAvtivation(EmailID, message, "Invoice details");
+            return Json("success");
+        }
+
+
     }
 }

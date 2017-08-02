@@ -21,7 +21,8 @@
     </div>
 
     <div class="row padding-bottom">
-            <div class="col-xs-12 col-md-7 to-address margin-bottom" id="companyname"> <span>To : @ViewBag.company_name</span> </div>
+        <input type="hidden" value="@ViewBag.ponumsArray" id="pnums" />
+        <div class="col-xs-12 col-md-7 to-address margin-bottom" > To : <span id="companyname"> @ViewBag.company_name</span> </div>
             <div class="col-xs-12 col-md-5 margin-bottom">
                 <div class="row">
                     <div class="col-xs-12 col-md-4 po-number padding-right-0"><font color="red">*</font>Invoice Number</div>
@@ -53,7 +54,7 @@
             </tbody>
         </table>
     </div>
-    <div class="row padding-top invoice">
+    <div class="row padding-top invoice" id="invoicedetails">
         <div class="col-xs-15 col-sm-15 col-md-15">
             <div class="total table-responsive">
                 <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
@@ -147,7 +148,7 @@
             </div>
             <div class="row margin-top">
                 <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
-                    <a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions</a>
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions
                     <ul class="terms-content margin-top">
                         <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
                         <li>2) Text has been the industry's standard dummy text ever since</li>
@@ -164,10 +165,28 @@
                     <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
                     <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                     <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+
+                    <div class="row email-popup-area" style="display:none;">
+                        <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
+                                <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+
+
+
+                    @*<button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>*@
                 </div>
             </div>
         </div>
+
         @*for dollar*@
         <div id="fordollar" style="display:none">
             <div class="row">
@@ -191,7 +210,7 @@
                     <div class="row invoice-total-amount" id="grandtotal"><text class="localization"></text>@ViewBag.grand_total </div>
                 </div>
                 <div class="row padding-bottom">
-                    <div class="col-xs-12 col-md-5 to-address margin-bottom"> <span>To : @ViewBag.company_name</span> </div>
+                    <div class="col-xs-12 col-md-5 to-address margin-bottom" id="companyname"> <span>To : @ViewBag.company_name</span> </div>
                     <div class="col-xs-12 col-md-3 margin-bottom text-bold" style="line-height: 34px;"> <span>GSTIN :</span> ATX14678CB </div>
                     <div class="col-xs-12 col-md-4 margin-bottom">
                         <div class="row">
@@ -226,7 +245,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row padding-top invoice">
+            <div class="row padding-top invoice" id="invoicedetails">
                                 <div class="col-xs-15 col-sm-15 col-md-15">
                                     <div class="total table-responsive">
                                         <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
@@ -252,7 +271,7 @@
                                                             <td class="col-md-3 product-name">@item.product_name</td>
                                                             <td class="col-md-1 quantity-changes">@item.Quantity</td>
                                                             <td class="col-md-1 quantity-changes">@item.description</td>
-                                                            <td class="col-md-1 product-variation"><span>@item.cost_price</span></td>
+                                                            <td class="col-md-1 product-name"><span>@item.cost_price</span></td>
                                                             <td class="col-md-1 product-price"><span>@item.total_price</span></td>
                                                         </tr>
                                                     }
@@ -290,7 +309,7 @@
                     </div>
                     <div class="row margin-top">
                         <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
-                            <a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions</a>
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions
                             <ul class="terms-content margin-top">
                                 <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
                                 <li>2) Text has been the industry's standard dummy text ever since</li>
@@ -307,13 +326,18 @@
                             <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
-                            <div class="messagepop pop">
-                                <form method="post" id="new_message" action="/messages">
-                                    <p><label for="email">Your email or name</label><input type="text" size="30" name="email" id="email" /></p>
-                                    <p><label for="body">Message</label><textarea rows="6" name="body" id="body" cols="35"></textarea></p>
-                                    <p><input type="submit" value="Send Message" name="commit" id="message_submit" /> or <a class="close" href="/">Cancel</a></p>
-                                </form>
+                            <div class="row email-popup-area" style="display:none;">
+                                <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
+                                        <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
+                                    </div>
+                                </div>
                             </div>
+
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
 
                         </div>
@@ -419,50 +443,64 @@
 
 
                 </script>
-                <script>
+                
 
-                </script>
-                <!------------- E-Mail------------->
-                <script type="text/javascript">
+//<!------------ E-Mail Popup ---------------->
+<script>
+$("#add-vendor3").click(function(){
+	$(".email-popup-area").css("display","block");
+	});
+$("#email-popup-cancle").click(function(){
+	$(".email-popup-area").css("display","none");
+	});
+</script>
+<!------------ E-Mail Popup ---------------->
+               @*Email*@
+<script>
+    $("#message_submit").click(function () {
+        var emailid = $("#email").val();
+        var Detdiv = document.getElementById("invoicedetails").outerHTML;
+        var comapnyname = (document.getElementById("companyname").textContent);
+        alert(comapnyname);
+        var paydate = $("#pay_date").val();
+        alert(paydate);
+        var grandttl = (document.getElementById("grandtotal").textContent);
+        alert(grandttl);
+        
+        var pnums = $("#pnums").val();
+        alert(pnums+"  hiiii");
+        var invoicenum = $("#invoicenum").val();
+        alert(invoicenum);
+        return email(Detdiv, emailid, grandttl, invoicenum, comapnyname, paydate, pnums);
+});
 
-                    //$("#add-vendor3").click(function(){
-                    //       var Detdiv = document.getElementById("vendortable").outerHTML;
-                    //return email(Detdiv);
-                    //});
-                    //$("#add-vendor4").click(function(){
-                    //       var Detdiv = document.getElementById("vendortable1").outerHTML;
-                    //return email(Detdiv);
-                    //});
 
+    function email(v, emailid, grandttl, invoicenum, comapnyname, paydate, pnums) {
+       var Detdivobj = {};
+       Detdivobj.Detdiv = v;
+       //alert(Detdivobj);
+       $.ajax({
+           type: "POST",
+           url: "/Invoice/Email",
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           data: {},
+           data: JSON.stringify({ Invoicedata: v, EmailID: emailid, Grandtotal: grandttl, InvoiceNum: invoicenum, Companyname: comapnyname, PAydate: paydate, Pnums: pnums }),
+           success: function (data) {
+               if (data == "unique") {
+                   errormsg("EMial not sent");
+               }
+               else {
+                   successmsg("Invoice details sent to your mail id");
+                   location.reload();
+               }
+           },
+           error: function (data)
+           { errormsg("Failed!!!"); }
+       });
+}
 
-                    function email(v) {
-                        //var Detdiv = $('#div_Detdiv').html();
-                        var Detdivobj = {};
-                        Detdivobj.Detdiv = v;
-
-                        //Detdivobj.oid = document.getElementById("hdnoid").value;
-                        $.ajax({
-                            type: "POST",
-                            //url: window.location.href.split("/")[0] + '//' + window.location.href.split("/")[2] + '/OrderConfirmation/EmailOrderConfirmation',
-                            //url: "/OrderConfirmation/EmailOrderConfirmation",
-                            url: "/controller/method",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            data: {},
-                            data: JSON.stringify(Detdivobj),
-                            //data: { content: $('#div_Detdiv').html() },
-                            // data: sendInfo,
-                            success: function (data) {
-                                successmsg("Order details and feedback form sent to your email id");
-                            },
-                            error: function (data) {
-                                errormsg("E-Mail Sending Failed!!!");
-                            }
-                        });
-                    }
-
-                </script>
-                <!------------- E-Mail------------->
+</script>
 
                 <script>
                     function deselect(e) {

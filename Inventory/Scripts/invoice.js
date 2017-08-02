@@ -90,6 +90,8 @@ function genarateDelivInvoice() {
 
 
 function saveInvoice(cid) {
+    $(".overlay").show();
+
     var vendorname = document.getElementById("vendor_name").textContent;
     
     var customerid = cid;
@@ -117,7 +119,8 @@ function saveInvoice(cid) {
     var Discount = $("[id='discount']").val(); 
     var Grandtotal1 = ((document.getElementById("grandtotal1").textContent).split('$')[1]);
     var Prchaseordernos = $("input:checkbox:checked").map(function () { return this.value;}).toArray();
-        if (invoiceNum == "") {
+    if (invoiceNum == "") {
+        $(".overlay").hide();
         errormsg("Please Enter Invoice Number");
     }
     else{
@@ -129,25 +132,30 @@ function saveInvoice(cid) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
+                $(".overlay").hide();
                 errormsg("Invoice generated already.");
             }
+
             if (data == "paymentdate") {
-                warnmsg("Enter Payment date.It Can't be Empty.");
+                $(".overlay").hide();
+                warnmsg("Enter Payment Due Date.It Can't be Empty.");
             }
             
             if (data == "exists") {
+                $(".overlay").hide();
                 warnmsg("Invoice Number Already Exists.Please Enter a Unique Number");
                 $("[id='invoicenum']").val("");
             }
             if (data == "success") {
+                $(".overlay").hide();
                 successmsg("Invoice Created successfully");
-                $("[id='saveinvoice']").css("display","none");
-                $("[id='invoicenum']").val("");
-               $("[id='date']").val("");
-                $("[id='paymentterms']").val("");
-                $("[id='comment']").val("");
-                $("#completediv").css("display", "none");
-                location.reload();
+               // $("[id='saveinvoice']").css("display","none");
+               // $("[id='invoicenum']").val("");
+               //$("[id='date']").val("");
+               // $("[id='paymentterms']").val("");
+               // $("[id='comment']").val("");
+               // $("#completediv").css("display", "none");
+               // location.reload();
             }
         },
         error: function (data)
@@ -211,8 +219,9 @@ function checkdelivnote(passedvalue) {
     }
 }
 function checkstatus() {
-   
-    if ($("#availpocheck").prop('checked')==true)
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+    if (checkedOne == true)
         $("#GenarateInvoice").css("display", "block");
     else
         $("#GenarateInvoice").css("display", "none");
@@ -220,7 +229,9 @@ function checkstatus() {
   
 //as above need to chnge
 function checkstatus1(deliv) {
-    if (deliv == 0) 
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+    if (checkedOne == true)
         $("#GenarateDelivNote").css("display", "block");
     else 
         $("#GenarateDelivNote").css("display", "none");

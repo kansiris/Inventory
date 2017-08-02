@@ -113,7 +113,7 @@ namespace Inventory.Controllers
                                 if ((int.Parse(open_amount)) >= (int.Parse(payments.Received_amount)))
                                 {
                                     updatedopenamt = (int.Parse(open_amount) - int.Parse(payments.Received_amount));
-                                    PaymentsService.Updateinvoice(user.DbName, payments.poid.Split(',')[i], updatedopenamt.ToString());
+                                    PaymentsService.Updateinvoice(user.DbName, payments.poid.Split(',')[i], updatedopenamt.ToString());  /*updatedopenamt.ToString()*/
                                     payments.Received_amount = "0";
                                 }
                                 else
@@ -130,9 +130,9 @@ namespace Inventory.Controllers
                             else
                                 break;
                             if (date1 < date2)
-                                overdue = updatedopenamt.ToString();
+                                overdue = payments.current_balance;//updatedopenamt.ToString();
                             else
-                                due = updatedopenamt.ToString();
+                                due = payments.current_balance;//updatedopenamt.ToString();
                         }
                     }
                     int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue);

@@ -161,6 +161,7 @@ function calculate(totalprice) {
 //for inserting purchseorder
 
 function insertpo(totalamount) {
+    $(".overlay").show();
     var cid = location.search.split('&')[0].split('cid=')[1];
     var cname = location.search.split('cname=')[1];
     var shipping_terms = $('#shipping_terms').val();
@@ -171,7 +172,8 @@ function insertpo(totalamount) {
     var comment = $('#comment').val();
     var createddate = ($('#po_date').text()).split(';')[1];
     if (ponumber == "" || ponumber == null) {
-        errormsg(" Please Enter PurchaseOrder Number");
+        $(".overlay").hide();
+        errormsg(" Please Enter Purchase Order Number");
     }
     else {
     $.ajax({
@@ -182,7 +184,8 @@ function insertpo(totalamount) {
         contentType: 'application/json',
         success: function (data) {
             if (data == "unique") {
-                errormsg(" Please Enter PurchaseOrder Number");
+                $(".overlay").hide();
+                errormsg(" Please Enter Purchase Order Number");
                 $("[id='ponumber']").val("");
                 $("[id='shipping_date']").val("");
                 $("[id='payment_terms']").val("");
@@ -192,7 +195,8 @@ function insertpo(totalamount) {
             }
 
             if (data == "success") {
-                successmsg("Successfully PurchaseOrder Generated.");
+                $(".overlay").hide();
+                successmsg("Successfully Purchase Order Generated.");
                 $("[id='ponumber']").val("");
                 $("[id='shipping_date']").val("");
                 $("[id='payment_terms']").val("");
@@ -202,12 +206,15 @@ function insertpo(totalamount) {
                 location.href = '/Products/PosOfCustomer?cid=' + cid + '&cname=' + cname;//window.location
             }
             if (data == "out of stock") {
+                $(".overlay").hide();
                 warnmsg("out of stock");
             }
             if (data == "shipdate") {
+                $(".overlay").hide();
                 warnmsg("Enter Shipping Date.It Can't be Empty");
             }
             if (data == "exists") {
+                $(".overlay").hide();
                 existsmsg("Purchase Order Number Already Exists.Please Enter a Unique Number");
                 $("[id='ponumber']").val("");
             }
@@ -221,8 +228,9 @@ function insertpo(totalamount) {
 
 
 function checkponumber(passedvalue) {
-    if (passedvalue == "" || passedvalue==null) {
-        errormsg(" Please Enter PurchaseOrder Number");
+    if (passedvalue == "" || passedvalue == null) {
+        $(".overlay").hide();
+        errormsg(" Please Enter Purchase Order Number");
     }
 //else{
 //    $.ajax({
