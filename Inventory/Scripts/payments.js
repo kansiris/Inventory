@@ -38,50 +38,6 @@ function calculateamnt() {
 }
 
 
-
-function errormsg(msg) {
-    $("body").overhang({
-        type: "error",
-        message: msg,
-        closeConfirm: false
-    });
-}
-
-function successmsg(msg) {
-    $("body").overhang({
-        type: "success",
-        message: msg,
-        closeConfirm: false
-    });
-}
-
-function existsmsg(msg) {
-    $("body").overhang({
-        type: "exists",
-        message: msg,
-        duration: 3,
-        closeConfirm: false
-    });
-}
-
-function warnmsg(msg) {
-    $("body").overhang({
-        type: "warn",
-        message: msg,
-        duration: 3
-    });
-}
-
-function confirmmsg(msg) {
-    $("body").overhang({
-        type: "confirm",
-        message: "msg"
-    });
-}
-
-
-
-
 function savepayments(cid, cname) {
     alert(cid);
     var sum = 0;
@@ -147,48 +103,92 @@ function savepayments(cid, cname) {
     var currntamt = $("#current_balance").val();
     var comment = $("#comment").val();
     var payments = {
-        payments_date:paymentsddate,
-        cheque_date:chequedate, 
-        cheque_bankname:bankname,
-        cheque_num:chequeno, 
-        creditORdebitcard_date:creditdate, 
-        card_holder_name:creditcardholdername, 
-        card_last4digits:creditcardlast4digits, 
-        bank_taransfer_date:banktransferdate,
-        bank_transfer_name:banknametrans,
-        bank_transaction_id:transactionid, 
-        cash_date:cashdate, 
-        cash_card_holdername:holdername, 
-        wallet_date:walletdate, 
-        wallet_number:mobilenumber,
-        invoiced_amount:invamt, 
-        Received_amount:recevdamnt, 
-        opening_balance:previous, 
-        current_balance:currntamt, 
-        bank_transfer_IFSCcode:ifsccode,
+        payments_date: paymentsddate,
+        cheque_date: chequedate,
+        cheque_bankname: bankname,
+        cheque_num: chequeno,
+        creditORdebitcard_date: creditdate,
+        card_holder_name: creditcardholdername,
+        card_last4digits: creditcardlast4digits,
+        bank_taransfer_date: banktransferdate,
+        bank_transfer_name: banknametrans,
+        bank_transaction_id: transactionid,
+        cash_date: cashdate,
+        cash_card_holdername: holdername,
+        wallet_date: walletdate,
+        wallet_number: mobilenumber,
+        invoiced_amount: invamt,
+        Received_amount: recevdamnt,
+        opening_balance: previous,
+        current_balance: currntamt,
+        bank_transfer_IFSCcode: ifsccode,
         bank_transfer_branchname: branchname,
-        Customer_company_name:cname,
-         Customer_comapnyId:cid,
-        remarks:comment
+        Customer_company_name: cname,
+        Customer_comapnyId: cid,
+        remarks: comment
     }
     //alert(payments.payments_date);
-$.ajax({
-    url: '/Payments/InsertPayments?Prchaseorder_no=' + ponum,
-    type: 'POST',
-    data: JSON.stringify({ payments: payments}),
-    dataType: 'json',
-    contentType: 'application/json',
-    success: function (data) {
-        if (data == "unique") {
-            errormsg("Payments already completed.");
-        }
-        else {
-            successmsg("Payments saved successfully");
-            //location.reload();
-        }
-    },
-    error: function (data)
-    { errormsg("Failed!!!"); }
-});
+    $.ajax({
+        url: '/Payments/InsertPayments?Prchaseorder_no=' + ponum,
+        type: 'POST',
+        data: JSON.stringify({ payments: payments }),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == "unique") {
+                errormsg("Payments already completed.");
+            }
+            else {
+                successmsg("Payments saved successfully");
+                //location.reload();
+            }
+        },
+        error: function (data)
+        { errormsg("Failed!!!"); }
+    });
 }
+
+
+function errormsg(msg) {
+    $("body").overhang({
+        type: "error",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function successmsg(msg) {
+    $("body").overhang({
+        type: "success",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function existsmsg(msg) {
+    $("body").overhang({
+        type: "exists",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
+    });
+}
+
+function warnmsg(msg) {
+    $("body").overhang({
+        type: "warn",
+        message: msg,
+        duration: 3
+    });
+}
+
+function confirmmsg(msg) {
+    $("body").overhang({
+        type: "confirm",
+        message: "msg"
+    });
+}
+
+
+
 
