@@ -394,7 +394,9 @@
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
                             }
                             else { 
-                            <button type="submit" class="btn btn-primary pull-right save" id="save-payments" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                            @*<button type="submit" class="btn btn-primary pull-right save" id="save-payments" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>*@
+                                <button type="button" class="btn btn-primary pull-right save" id="save-payments" onclick="savepayments(@ViewBag.customer_id,'@ViewBag.company_name')"><i class="fa fa-floppy-o" aria-hidden="true" ></i>Save</button>
+
                             }
                             <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                         </div>
