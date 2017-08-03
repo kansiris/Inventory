@@ -29,27 +29,10 @@
 
     <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 
-    <style>
-        .overlay {
-            background: no-repeat scroll center center #FFF;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999999;
-            background-color: rgba(0,0,0,0.8);
-            /* END EXTERNAL S */
-        }
-    </style>
+    
 }
 <!-- page content -->
-<div class="overlay" style="display:none">
-    <div style="left: 50%; top: 50%; position: fixed; transform: translate(-50%, -50%); text-align: center;">
-        <img src="~/images/loader.gif" style="height:10% ;width:10%" /><br>
-        <p style="color: white; font-style: italic; font-family:serif;">&nbsp; Just a second showelling our Servers...</p>
-    </div>
-</div>
+
 @foreach (var item in ViewBag.profile)
 {
 <div class="container-fluid padding-left-0 padding-right-0 padding-top-10 padding-bottom-10 top-strip fixed" style="top: 59px;">
@@ -114,8 +97,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-md-push-3 profilepic">
-
+                                        <div class="col-md-3 col-md-push-3 profilepic" align="center">
+                                            <div class="overlay">
+                                                <div>
+                                                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                                    <span class="sr-only">Loading...</span><br>
+                                                </div>
+                                            </div>
                                             @if (item.company_logo != null)
                                             {
                                                 <div id="pic1">
@@ -361,9 +349,15 @@
                                                 </div>
                                             </div>*@
 
-                                        <div class="col-md-3 col-md-push-3">
+                                        <div class="col-md-3 col-md-push-3" align="center">
+                                            <div class="overlay">
+                                                <div>
+                                                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                                    <span class="sr-only">Loading...</span><br>
+                                                </div>
+                                            </div>
                                             <input type="file" name="file" id="fileupload2" accept=".gif, .jpeg, .png" onchange="upload2()" style="display:none">
-                                            <img id="staffprofilepic" onclick="javascript: document.getElementById('fileupload2').click();" src="~/images/user.png" style="border-radius: 50%;width: 100px;height: 100px;" />
+                                            <img id="staffprofilepic" onclick="javascript: document.getElementById('fileupload2').click();" src="~/images/user.png" style="border-radius: 50%;width: 150px;height: 150px;" />
                                             <div onclick="javascript: document.getElementById('fileupload2').click();">Click to Upload Image</div>
                                         </div>
 
@@ -433,7 +427,12 @@
                                         </div>
 
                                         <div class="col-md-3 col-md-push-3" align="center">
-
+                                            <div class="overlay">
+                                                <div>
+                                                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                                    <span class="sr-only">Loading...</span><br>
+                                                </div>
+                                            </div>
                                             @if (item.Profile_Picture != null)
                                             {
                                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">

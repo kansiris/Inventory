@@ -23,17 +23,22 @@ namespace Inventory.Controllers
         LoginService loginService = new LoginService();
         public ActionResult Index(string id)
         {
-            var profile = loginService.GetUserProfile(int.Parse(id)); //Get's User Profile
-            ViewBag.timeZoneInfos = new SelectList(TimeZoneInfo.GetSystemTimeZones(), "DisplayName", "DisplayName", profile[0].Timezone); //Available Time Zones
-            ViewBag.usercountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ucountry); //CountryList(); 
-            ViewBag.companycountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ccountry);//CountryList();//new SelectList(CountryList(), "EnglishName", "EnglishName", profile[0].Ccountry); //CountryList(); 
-            //ViewBag.country = CountryList();
-            //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
-            ViewBag.profile = profile.Take(1); //current user record
-            ViewBag.jobpositions = AvailableJobPositions(id);
-            ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
-            // profile.Clear();
-            return View();
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var profile = loginService.GetUserProfile(int.Parse(id)); //Get's User Profile
+                ViewBag.timeZoneInfos = new SelectList(TimeZoneInfo.GetSystemTimeZones(), "DisplayName", "DisplayName", profile[0].Timezone); //Available Time Zones
+                ViewBag.usercountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ucountry); //CountryList(); 
+                ViewBag.companycountry = new SelectList(CountryList(), "Value", "Text", profile[0].Ccountry);
+                //CountryList();//new SelectList(CountryList(), "EnglishName", "EnglishName", profile[0].Ccountry); //CountryList(); 
+                //ViewBag.country = CountryList();
+                //SelectList sl = new SelectList(CountryList(), "Value", "Text", "8");
+                ViewBag.profile = profile.Take(1); //current user record
+                ViewBag.jobpositions = AvailableJobPositions(id);
+                ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)loginService.GetUserProfile(int.Parse(id)).FirstOrDefault().UserTypeId).ToString();
+                // profile.Clear();
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         private List<SelectListItem> CountryList()
@@ -332,9 +337,9 @@ namespace Inventory.Controllers
             abc.EmailAvtivation(EmailId, message, "Account Activation");
         }
 
-        public string getownerid(string type,string id, string usertype,string companyname)
+        public string getownerid(string type, string id, string usertype, string companyname)
         {
-            var userrecord = LoginService.getownerstaff(type,id, usertype,companyname.Trim());
+            var userrecord = LoginService.getownerstaff(type, id, usertype, companyname.Trim());
             DataTable dt = new DataTable();
             dt.Load(userrecord);
             List<UserMaster> usermaster = (from DataRow row in dt.Rows

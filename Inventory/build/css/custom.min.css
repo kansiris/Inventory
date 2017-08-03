@@ -3691,7 +3691,7 @@ ul.project_files li {
  * bootstrap-vertical-tabs - v1.2.1
  * https://dbtek.github.io/bootstrap-vertical-tabs
  * 2014-11-07
- * Copyright (c) 2014 İsmail Demirbilek
+ * Copyright (c) 2014 Ä°smail Demirbilek
  * License: MIT
  */
 .tabs-left, .tabs-right {
@@ -5836,10 +5836,9 @@ strong{
 	font-weight: 700;
 	text-align: center;
 	margin-bottom: 10px;}
-.thumbnail.media-gallery .password > input[type="password"],
-.thumbnail.media-gallery button.signin{
+.thumbnail.media-gallery .password > input[type=password], .thumbnail.media-gallery button.signin{
 	display: none;}
-.thumbnail.media-gallery .password > input[type="password"]{
+.thumbnail.media-gallery .password > input[type=password]{
 	margin-bottom: 10px;
 	}
 
@@ -5925,7 +5924,7 @@ strong{
 .calendar a{
 	color: #0483c6;
 	margin-top: 5px;}
-input[type="file"].form-control{
+input[type=file].form-control{
 	padding: 3px 2px;}
 .admin-product-image{	
 	transition: 1s ease;
@@ -6055,7 +6054,7 @@ ul.tabs-content > li > ul > li > i.fa-times{
 	position: absolute;
 	top: 5px;
 	right: 5px;}
-ul.tabs-content > li > ul > li > input[type="checkbox"]{
+ul.tabs-content > li > ul > li > input[type=checkbox]{
 	position: absolute;
 	top: 0;
 	left: 5px;}
@@ -6080,9 +6079,9 @@ button a:hover{
 .form-group.radio{
 	margin-top: 0;
 	margin-bottom: 0;}
-.form-group.radio label > input[type="radio"]{
+.form-group.radio label > input[type=radio]{
 	margin-top: 0;}
-input[placeholder="Total"] + span{
+input[placeholder=Total] + span{
 	font-size: 12px;
 	font-weight: 700;
 	color: #666;
@@ -6091,7 +6090,7 @@ input[placeholder="Total"] + span{
 	top: 1px;
 	line-height: 14px; 
 	}
-label[for="date"]{
+label[for=date]{
 	margin-top: 10px;
 	margin-bottom: 0;}
 .veg-non,
@@ -6165,7 +6164,7 @@ ul.upload-thumbs li img{
    margin: 5px;
    box-shadow: 1px 1px 5px 3px #e4e4e4;
 }
-.add-product-right input[type='text']{
+.add-product-right input[type=text]{
     padding: 0 2px;
     text-align:right;
 }
@@ -6345,8 +6344,7 @@ ul.tagit input[type=text] {
 	display: block;
 	background: #fff;
     /*box-shadow: 0px -2px 2px 0px #d4d4d4;*/
-    HEIGHT: 28PX;
-}
+    height: 28px;}
 .displayproduct > .discount > span{
 	display: inline-block;
     border: 1px solid #51aa1b;
@@ -6497,7 +6495,7 @@ a.product-name{
 }
 .spinner > .input-group{
 	position: unset;}
-.spinner > .input-group > input[type="text"]{
+.spinner > .input-group > input[type=text]{
 	position: absolute;
 	left: 20px;
 	padding: 6px 5px;
@@ -6737,7 +6735,7 @@ a.product-name{
 	width: auto;
 	display: inline-block;
 	left: 2px;}
-.added-products > .spinner > .input-group > input[type="text"]{
+.added-products > .spinner > .input-group > input[type=text]{
 	width: 30%;}
 .added-products > .spinner> .input-group > .btn:last-of-type{
 	width: auto;
@@ -7125,7 +7123,7 @@ tr > td.product-name a:hover{
 .to-address{
 	font-size: 14px;
 	font-weight: 700;
-	background: #c7ebfe; /*#e4e4e4*/
+	background: #e4e4e4;
 	padding: 10px;
 	border-radius: 5px;
 	display: block;}
@@ -7177,9 +7175,9 @@ ul.terms-content li{
 	overflow-y: scroll;}
 .invoice-table .table > thead,
 .invoice .thead-inverse{
-	background: #0288d1;} /*8086c2*/
+	background: #8086c2;}
 .invoice-buttons > .btn-primary{
-	background: #0288d1 !important;}
+	background: #8086c2 !important;}
 .invoice-table .table > thead > tr > th{	
 	color: #fff;}
 .po-date .input-group{
@@ -7319,6 +7317,34 @@ ul.terms-content li{
 	font-weight: bold;}
 .smart-wizard{
 	margin-top: 100px;}
+	
+
+/*========== Loader ===============*/
+
+.overlay { 
+background: no-repeat scroll center center #FFF; 
+/*position: fixed;*/ 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+/*width: 50px; 
+height: 50px;*/ 
+z-index: 9999999; 
+/*background-color: rgba(0,0,0,0.8);*/ 
+background: transparent; 
+transform: translate(-50%,-50%); 
+}
+.overlay > div{
+	text-align: center;
+	background: rgba(3,3,3,.8);
+	border-radius: 5px;}
+.overlay > div > i{
+	color: #fff;
+	font-size: 50px;}
+
+/*========== Loader ===============*/
+
+
 /*========== Media Quries ===============*/
 
 @media only screen and (min-width: 768px) and (max-width: 800px){
@@ -7500,8 +7526,7 @@ ul.terms-content li{
 	form .cd-tabs-navigation li a,
 	form .cd-tabs-navigation a.selected{
 		width: 100%;}
-	input[placeholder="Total"] + span{
+	input[placeholder=Total] + span{
 		top: -20px;}
 	
 	}
-
