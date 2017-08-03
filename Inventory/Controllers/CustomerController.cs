@@ -743,7 +743,7 @@ namespace Inventory.Controllers
             }
             return null;
         }
-        //to get vendor contact details based on vendor id
+        //to get customer contact details based on customer id
 
         public JsonResult getCustomerContact(string Customer_Id)
         {
@@ -821,5 +821,30 @@ namespace Inventory.Controllers
 
             return Json("unsucess");
         }
+
+
+        //to get customer contact persons emails based on customer company id
+
+        //public JsonResult getCustomerContactdetails(string cus_company_id)
+        //{
+        //    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+        //    {
+        //        var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+        //        var records = CustomerService.getcuscontactdetail(int.Parse(cus_company_id), user.DbName);
+        //        var dt = new DataTable();
+        //        dt.Load(records);
+        //        List<Customer> customercontactdetails = (from DataRow row in dt.Rows
+        //                                   select new Customer()
+        //                                   {
+        //                                       Customer_Id = row["Customer_Id"].ToString(),
+        //                                       Customer_contact_Fname = row["Customer_contact_Fname"].ToString(),
+        //                                       Customer_contact_Lname = row["Customer_contact_Lname"].ToString(),
+        //                                       Email_Id = row["Email_Id"].ToString(),
+        //                                       }).ToList();
+        //        return Json("unique", JsonRequestBehavior.AllowGet);
+        //    }
+        //    return Json(null);
+        //}
+
     }
 }

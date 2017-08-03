@@ -25,6 +25,7 @@
 
 <!--- Tabs in Graph Section ---->
 <link rel="stylesheet" type="text/css" href="~/Scripts/css/reset.css">
+<link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="~/Scripts/css/styles.css">
    <style>
     .overlay {
@@ -140,8 +141,8 @@
                                                             <td class="col-md-3 product-name">@item.product_name</td>
                                                             <td class="col-md-3 product-name"><span>@item.Measurement</span></td>
                                                             <td class="col-md-2 quantity-changes">@item.Quantity</td>
-                                                            <td class="col-md-2 product-price" style="text-align:left"><span>@item.cost_price</span></td>
-                                                            <td class="col-md-2 product-price" style="text-align:right"><span>@item.total_price</span></td>
+                                                            <td class="col-md-2 product-name" style="text-align:left"><span>@item.cost_price</span></td>
+                                                            <td class="col-md-2 product-name" style="text-align:right"><span>@item.total_price</span></td>
                                                         </tr>
                                                     }
                                                 }
@@ -182,9 +183,18 @@
                         <div class="col-xs-12 col-md-12">
                             <button type="button" class="btn btn-primary pull-right invite" id="add-vendor1"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                             <button type="button" class="btn btn-primary pull-right invite" onclick="insertpo(@ViewBag.totalamount)" id="savepo"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Save </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor2"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
                             <div class="row email-popup-area" style="display:none;">
                                 <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
+
+                                    @*<div class="input-group">
+                                        <select id="emailselect">
+                                            <option></option>
+                                        </select>
+                                    </div>*@
+
+
+
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
                                     </div>
@@ -274,6 +284,27 @@
     <!------------ E-Mail Popup ---------------->
 <script>
     $("[id='add-vendor3']").click(function () {
+        //var cid=location.search.split('&')[0].split('cid=')[1];
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Customer/getCustomerContactdetails",
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    data: {},
+        //    data: JSON.stringify({ cus_company_id: cid }),
+        //    success: function (data) {
+        //        if (data == "unique") {
+        //            $(".email-popup-area").css("display", "block");
+        //        }
+        //        else {
+        //            $(".email-popup-area").css("display", "block");
+        //        }
+        //    },
+        //    error: function (data)
+        //    { errormsg("Failed!!!"); }
+        //});
+
+
 	$(".email-popup-area").css("display","block");
 	});
 $("#email-popup-cancle").click(function(){

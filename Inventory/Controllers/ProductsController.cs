@@ -642,6 +642,8 @@ namespace Inventory.Controllers
             abc.EmailAvtivation(EmailID, message, "Purchase Order Details");
             return Json("success");
         }
+        
+
     }
 }
 
