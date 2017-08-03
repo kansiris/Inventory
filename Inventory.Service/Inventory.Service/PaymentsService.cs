@@ -46,5 +46,11 @@ namespace Inventory.Service
         {
             return PaymentsRepository.ForPaymentinvoicetotal(dbname, Invoice_no);
         }
+
+        //Getdueoverdue(string dbname, string cus_company_id)
+        public static SqlDataReader Getdueoverdue(string dbname, string cus_company_id)
+        {
+            return PaymentsRepository.Getdueoverdue(dbname, cus_company_id);
+        }
     }
 }
