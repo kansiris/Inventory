@@ -64,5 +64,13 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "forpaymentponum", Invoice_no);
         }
+
+        //to get dueoverdues
+        public static SqlDataReader Getdueoverdue(string dbname, string cus_company_id)
+        {
+            GetConnectionString getConnectionString = new GetConnectionString();
+            ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+            return SqlHelper.ExecuteReader(ConnectionString, "getdueoverdue", cus_company_id);
+        }
     }
 }

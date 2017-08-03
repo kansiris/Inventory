@@ -40,7 +40,7 @@ namespace Inventory.Controllers
                                                        invoice_status = row["invoice_status"].ToString(),
                                                        totalQty = row["totalQty"].ToString(),
                                                        open_amount = row["open_amount"].ToString()
-                                                   }).OrderByDescending(m => m.invoice_status).ToList();
+                                                   }).ToList();
                 ViewBag.records = availableinvoices;
                 ViewBag.invoice_status = availableinvoices.Select(m => m.invoice_status);
                 ViewBag.total_price = availableinvoices.Select(m => float.Parse(m.open_amount)).Sum();
@@ -55,11 +55,16 @@ namespace Inventory.Controllers
             {
                 ViewBag.smsg = TempData["smsg"];
             }
-            
-                if (TempData["enablebuttons"] != null)
+
+            if (TempData["enablebuttons"] != null)
             {
                 ViewBag.enablebuttons = TempData["enablebuttons"];
             }
+            if (TempData["invocess"] != null)
+            {
+                ViewBag.invocess = TempData["invocess"];
+            }
+
 
             return View();
         }
@@ -72,11 +77,30 @@ namespace Inventory.Controllers
 
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var count = PaymentsService.InsertPayments(user.DbName, payments.payments_date, payments.cheque_date, payments.cheque_bankname, payments.cheque_num, payments.creditORdebitcard_date, payments.card_holder_name, payments.card_last4digits, payments.bank_taransfer_date, payments.bank_transfer_name, payments.bank_transaction_id
-      , payments.cash_date, payments.cash_card_holdername, payments.wallet_date, payments.wallet_number, payments.invoiced_amount, payments.Received_amount, payments.opening_balance, payments.current_balance, payments.bank_transfer_IFSCcode, payments.bank_transfer_branchname, payments.Customer_comapnyId, payments.Customer_company_name, payments.remarks);
+        , payments.cash_date, payments.cash_card_holdername, payments.wallet_date, payments.wallet_number, payments.invoiced_amount, payments.Received_amount, payments.opening_balance, payments.current_balance, payments.bank_transfer_IFSCcode, payments.bank_transfer_branchname, payments.Customer_comapnyId, payments.Customer_company_name, payments.remarks);
+                List<Invoice> listglb = new List<Invoice>();
+                string overdue = "0";
+                string due = "0";
                 if (count > 0)
                 {
-                    string overdue = "0";
-                    string due = "0"; int updatedopenamt = 0; int updatedreceivedamount = int.Parse(payments.Received_amount); int updatedinvoiceamount = int.Parse(payments.invoiced_amount);
+
+                    //getdueoverdue
+                    var dts = new DataTable();
+                    var recordss = PaymentsService.Getdueoverdue(user.DbName, payments.Customer_comapnyId);
+                    dts.Load(recordss);
+                    List<Customer> duesoverdues = (from DataRow row in dts.Rows
+                                                   select new Customer()
+                                                   {
+                                                       due = row["due"].ToString(),
+                                                       overdue = row["overdue"].ToString()
+                                                   }).ToList();
+                    if (duesoverdues.Count > 0)
+                    {
+                        due = duesoverdues.FirstOrDefault().due;
+                        overdue = duesoverdues.FirstOrDefault().overdue;
+                    }
+
+                    int updatedopenamt = 0; int updatedreceivedamount = int.Parse(payments.Received_amount); int updatedinvoiceamount = int.Parse(payments.invoiced_amount);
                     Array ponumsArray = payments.poid.Split(',');
                     for (int i = 0; i < ponumsArray.Length; i++)
                     {
@@ -90,11 +114,14 @@ namespace Inventory.Controllers
                                                          {
                                                              Payment_date = row["payment_date"].ToString(),
                                                              sub_total = row["sub_total"].ToString(),
-                                                             open_amount = row["open_amount"].ToString()
-                                                         }).ToList();
+                                                             open_amount = row["open_amount"].ToString(),
+                                                             totalQty = row["po_quantity"].ToString()
+                                                         }).OrderByDescending(m => m.Payment_date).ToList();
                             string Payment_due_date = (invoicetotl.Select(m => m.Payment_date)).First();
                             string open_amount = invoicetotl.FirstOrDefault().open_amount;
-
+                            string sub_total = invoicetotl.FirstOrDefault().sub_total;
+                            string totalQty = (invoicetotl.Select(m => int.Parse(m.totalQty)).Sum()).ToString();
+                            
                             //For Local
                             //string[] strDate = Payment_due_date.Split('/');
                             //DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
@@ -103,9 +130,9 @@ namespace Inventory.Controllers
 
                             //*****for Live deploy
                             string[] strDate = Payment_due_date.Split('/');
-                            DateTime date1 = Convert.ToDateTime(strDate[1] + "/" + strDate[0] + "/" + strDate[2]);
+                            DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
                             string[] enddate = payments.payments_date.Split('/');
-                            DateTime date2 = Convert.ToDateTime(enddate[1] + "/" + enddate[0] + "/" + enddate[2]);
+                            DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
 
 
                             if (open_amount != "" && open_amount != null && open_amount != "0")
@@ -114,6 +141,7 @@ namespace Inventory.Controllers
                                 {
                                     updatedopenamt = (int.Parse(open_amount) - int.Parse(payments.Received_amount));
                                     PaymentsService.Updateinvoice(user.DbName, payments.poid.Split(',')[i], updatedopenamt.ToString());  /*updatedopenamt.ToString()*/
+                                    listglb.Add(new Invoice() {Prchaseorder_no= payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues= updatedopenamt.ToString() });
                                     payments.Received_amount = "0";
                                 }
                                 else
@@ -121,8 +149,10 @@ namespace Inventory.Controllers
                                     updatedreceivedamount = (int.Parse(payments.Received_amount) - int.Parse(open_amount));
                                     if (updatedreceivedamount > 0)
                                     {
+                                      
                                         payments.Received_amount = updatedreceivedamount.ToString();
                                         updatedopenamt = 0;
+                                        listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
                                         PaymentsService.Updateinvoice(user.DbName, payments.poid.Split(',')[i], updatedopenamt.ToString());
                                     }
                                 }
@@ -130,30 +160,39 @@ namespace Inventory.Controllers
                             else
                                 break;
                             if (date1 < date2)
-                                overdue = payments.current_balance;//updatedopenamt.ToString();
+                            {
+                                overdue = updatedopenamt.ToString(); //payments.current_balance;
+
+                            }
                             else
-                                due = payments.current_balance;//updatedopenamt.ToString();
+                            {
+                                due = updatedopenamt.ToString(); //payments.current_balance;
+
+                            }
                         }
                     }
                     int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue);
-                    if (counts > 0) {
+                    counts = 1;
+                    if (counts > 0)
+                    {
                         TempData["smsg"] = "Payment saved Successfully!!!";
                         TempData["enablebuttons"] = "emailbutton";
-                        return RedirectToAction("Index", "Payments", new { cid = payments.Customer_comapnyId, cname = payments.Customer_company_name});
-                        
+                        TempData["invocess"] = listglb;
+                        return RedirectToAction("Index", "Payments", new { cid = payments.Customer_comapnyId, cname = payments.Customer_company_name });
+
                     }
                 }
             }
             TempData["msg"] = "Failed To Save";
-           
+
             return RedirectToAction("Index", "Customer");
-           
+
         }
 
-       
+
         //for email of invoice
 
-        public JsonResult Email(string Invoicedata,string EmailID)
+        public JsonResult Email(string Invoicedata, string EmailID,string Invoicenums)
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
@@ -163,12 +202,13 @@ namespace Inventory.Controllers
             //string message = Invoicedata;//readFile + body;
             string readFile = File.OpenText().ReadToEnd();
             readFile = readFile.Replace("InvoiceData", Invoicedata);
-            //readFile = readFile.Replace("InvoiceData", Invoicedata);
+            readFile = readFile.Replace("[Invoice numbers]", Invoicenums);
             //readFile = readFile.Replace("InvoiceData", Invoicedata);
             string message = readFile;
-            abc.EmailAvtivation(EmailID, message, "Invoice details");
+            abc.EmailAvtivation(EmailID, message, "Payment Details");
             return Json("success");
         }
-         
+
+
     }
 }

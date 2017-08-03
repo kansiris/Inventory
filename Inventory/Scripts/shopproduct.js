@@ -197,13 +197,15 @@ function insertpo(totalamount) {
             if (data == "success") {
                 $(".overlay").hide();
                 successmsg("Successfully Purchase Order Generated.");
-                $("[id='ponumber']").val("");
-                $("[id='shipping_date']").val("");
-                $("[id='payment_terms']").val("");
-                $("[id='shipping_date']").val("");
-                $("[id='shipping_terms']").val("");
-                $("[id='payment_date']").val("");
-                location.href = '/Products/PosOfCustomer?cid=' + cid + '&cname=' + cname;//window.location
+                $("[id='savepo']").css("display", "none");
+                $("[id='add-vendor3']").css("display", "block");
+                //$("[id='ponumber']").val("");
+                //$("[id='shipping_date']").val("");
+                //$("[id='payment_terms']").val("");
+                //$("[id='shipping_date']").val("");
+                //$("[id='shipping_terms']").val("");
+                //$("[id='payment_date']").val("");
+                //location.href = '/Products/PosOfCustomer?cid=' + cid + '&cname=' + cname;//window.location
             }
             if (data == "out of stock") {
                 $(".overlay").hide();

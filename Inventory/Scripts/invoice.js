@@ -104,7 +104,8 @@ function saveInvoice(cid) {
     else {
         var grandtotl = ((document.getElementById("grandtotal").textContent).split('₹')[1]);
     }
-    var companyName = (document.getElementById("companyname").textContent).split(':')[1];
+    var companyName = (document.getElementById("companyname").textContent);
+    alert(companyName);
     var invoiceNum = $("[id='invoicenum']").val();
     var paymenterms = $("[id='paymentterms']").val();
     var Comment = $("[id='comment']").val();
@@ -149,7 +150,9 @@ function saveInvoice(cid) {
             if (data == "success") {
                 $(".overlay").hide();
                 successmsg("Invoice Created successfully");
-               // $("[id='saveinvoice']").css("display","none");
+                $("[id='saveinvoice']").css("display", "none");
+                $("[id='add-vendor3']").css("display", "block");
+                
                // $("[id='invoicenum']").val("");
                //$("[id='date']").val("");
                // $("[id='paymentterms']").val("");

@@ -338,6 +338,7 @@
     <Content Include="Content\mailer1.html" />
     <Content Include="Content\payments.html" />
     <Content Include="Content\pic1.png" />
+    <Content Include="Content\purchaseorder.html" />
     <Content Include="Content\top.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

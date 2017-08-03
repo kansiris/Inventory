@@ -6,41 +6,41 @@
     Layout = "~/Views/Shared/MainMaster.cshtml";
 }
 @section css{
-  <!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<!-- NProgress -->
-<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-<!-- iCheck -->
-<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-<!-- bootstrap-progressbar -->
-<link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-<!-- JQVMap -->
-<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-<!-- bootstrap-daterangepicker -->
-<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-<!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-@*Over Hang*@
-<link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
-<!--- Tabs in Graph Section ---->
-<link href="~/Scripts/css/reset.css" rel="stylesheet" />
-<link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
-<style>
-    .overlay {
-        background: no-repeat scroll center center #FFF;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 9999999;
-        background-color: rgba(0,0,0,0.8);
-        /* END EXTERNAL S */
-    }
-</style>
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    @*Over Hang*@
+    <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
+    <!--- Tabs in Graph Section ---->
+    <link href="~/Scripts/css/reset.css" rel="stylesheet" />
+    <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+    <style>
+        .overlay {
+            background: no-repeat scroll center center #FFF;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999999;
+            background-color: rgba(0,0,0,0.8);
+            /* END EXTERNAL S */
+        }
+    </style>
 }
 
 
@@ -66,10 +66,10 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
         <br />
         <br />
-       
+
         <div class="right_col" role="main">
             <div class="container">
                 <form method="post">
@@ -90,10 +90,14 @@
                             </div>
 
                             <div class="row po-date"></div>
+
+
+
+
                             <div class="row padding-top invoice" id="invoicedetails">
                                 <div class="row invoice-table margin-top margin-bottom">
                                     <div class="col-md-12">
-                                        @Html.HiddenFor(m=>m.poid)
+                                        @Html.HiddenFor(m => m.poid)
                                         <table class="table table-bordered" cellspacing="0" style="background:#fff;">
                                             <thead style="background:#8086c2;color:#fff;">
                                                 <tr>
@@ -105,7 +109,7 @@
                                                     <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Due Amount In <text class="localization"></text></th>
                                                 </tr>
                                             </thead>
-                                           
+
                                             @if (ViewBag.records != null)
                                             {
                                                 foreach (var item in ViewBag.records)
@@ -113,37 +117,86 @@
                                                     <tbody>
                                                         @if (item.open_amount == "0")
                                                         {
-                                                            <tr style="display:none">
-                                                            </tr>
-                                                        }else
+                                                            <tr style="display:none"></tr>
+                                                        }
+                                                        else
                                                         {
-                                                        <tr style="color:#000;">
-                                                            <td class="col-md-1" style="border:1px solid #ddd;border-right:none;padding:8px;">
-                                                                <label><input type="checkbox" value="@item.open_amount,@item.Invoice_no" onclick="addtotal()"></label>
-                                                            </td>
-                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
-                                                            <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
-                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
-                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_price</span></td>
-                                                            @if (item.open_amount == null || item.open_amount == "")
-                                                            {
-                                                                <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.total_price</span></td>
-                                                            }
-                                                            else
-                                                            {
-                                                            <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
-                                                            }
-                                                        </tr>
+                                                            <tr style="color:#000;">
+                                                                <td class="col-md-1" style="border:1px solid #ddd;border-right:none;padding:8px;">
+                                                                    <label><input type="checkbox" value="@item.open_amount,@item.Invoice_no" onclick="addtotal()"></label>
+                                                                </td>
+                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
+                                                                <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
+                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
+                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_price</span></td>
+                                                                @if (item.open_amount == null || item.open_amount == "")
+                                                                {
+                                                                    <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.total_price</span></td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
+                                                                }
+                                                            </tr>
                                                         }
                                                     </tbody>
                                                 }
 
                                             }
-                                            
+
                                         </table>
                                     </div>
                                 </div>
                             </div>
+
+
+
+
+                            <div class="row padding-top invoice" id="paidinvoicedetails" style="display:none">
+                                <div class="row invoice-table margin-top margin-bottom">
+                                    <div class="col-md-12">
+
+                                        <table class="table table-bordered" cellspacing="0" style="background:#fff;">
+                                            <thead style="background:#8086c2;color:#fff;">
+                                                <tr>
+
+                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Invoice No</th>
+                                                    <th class="col-md-3" style="border:1px solid #fff;border-right:none;padding:8px;">Payment Due Date</th>
+                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Items</th>
+                                                    <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Due Amount In <text class="localization"></text></th>
+                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Received Amount In <text class="localization"></text></th>
+                                                    <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Need To Pay<text class="localization"></text></th>
+                                                </tr>
+                                            </thead>
+
+                                            @if (ViewBag.invocess != null)
+                                            {
+                                                foreach (var item in ViewBag.invocess)
+                                                {
+                                                    
+                                                    <tbody>
+                                                       
+                                                        <tr style="color:#000;">
+                                                            <td><input type="hidden" value="@item.Prchaseorder_no" id="invoiceids" /></td>
+                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
+                                                            <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
+                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
+                                                            <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
+                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.sub_total</span></td>
+                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_dues</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
 
                             <div class="row payment-method margin-top">
                                 <h2 class="col-xs-12 col-sm-12 col-md-12">Payments</h2>
@@ -373,37 +426,40 @@
                     </div>
                     <div class="row margin-top">
                         <div class="col-xs-12 col-md-12 invoice-buttons">
-                           
+
                             @if (ViewBag.enablebuttons != "" && ViewBag.enablebuttons != null)
                             {
 
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+                                <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
 
-                            <div class="row email-popup-area" style="display:none;">
-                                <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
-                                    </div>
-                                    <div class="row">
-                                        <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
-                                        <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
+                                <div class="row email-popup-area" style="display:none;">
+                                    <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
+                                        </div>
+                                        <div class="row">
+                                            <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
+                                            <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+                                <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
                             }
-                            else { 
-                            <button type="submit" class="btn btn-primary pull-right save" id="save-payments" ><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary pull-right save" id="save-payments"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                @*<button type="button" class="btn btn-primary pull-right save" id="save-payments" onclick="savepayments(@ViewBag.customer_id,'@ViewBag.company_name')"><i class="fa fa-floppy-o" aria-hidden="true" ></i>Save</button>*@
+
                             }
                             <button type="button" class="btn btn-primary pull-right invite" id="back-payments"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
                         </div>
                     </div>
                 </form>
-                
+
             </div>
         </div>
-                                    
+
     </div>
 </div>
 <!-- /page content -->
@@ -420,10 +476,10 @@
 <!-------------- Date Picker lib ----------->
 <script src="/Scripts/js/bootstrap-datepicker.min.js"></script>
 <link href="/Scripts/css/bootstrap-datepicker3.css" rel="stylesheet" />
-<script src="/Scripts/payments.js"></script>
 <!-- Over Hang -->
 
 <script src="~/Scripts/js/overhang.min.js"></script>
+<script src="~/Scripts/payments.js"></script>
 
 <script>
 @*<!-------------- Date Picker ----------->*@
@@ -436,7 +492,7 @@
             cashdetails.readOnly = false;
             cashdetails.style.display = "block";
         }
-        
+
         if ($("#invoicedtotal").val() == 0) {
 
         }
@@ -570,67 +626,78 @@
     //<!-------------- balance block ----------->
 
 
-//<!------------- E-Mail------------->
+    //<!------------- E-Mail------------->
 
     $("#message_submit").click(function () {
+        $("#paidinvoicedetails").css("display", "block");
+        $("#invoicedetails").css("display", "none");
+        
         var emailid = $("#email").val();
-    var Detdiv = document.getElementById("invoicedetails").outerHTML;
-return email(Detdiv,emailid);
-});
+        var invoiceids = $("#invoiceids").val();
+        alert(invoiceids);
+        //var previous = $("#opening_balance").val();
+        //alert(previous);
+        //var recevdamnt = $("#Received_amount").val();
+        //alert(recevdamnt);
+        //var currblnce = $("#current_balance").val();
+        //alert(currblnce);
+        var Detdiv = document.getElementById("paidinvoicedetails").outerHTML;
+        return email(Detdiv, emailid, invoiceids);
+    });
 
 
-function email(v,emailid){
-       var Detdivobj = {};
-       Detdivobj.Detdiv = v;
-       //alert(Detdivobj);
-       $.ajax({
-           type: "POST",
-           url: "/Payments/Email",
-           contentType: "application/json; charset=utf-8",
-           dataType: "json",
-           data: {},
-           data: JSON.stringify({ Invoicedata: v,EmailID:emailid }),
-           success: function (data) {
-               if (data == "unique") {
-                   errormsg("EMial not sent");
-               }
-               else {
-                   successmsg("Payment details sent to your mail id");
-                   var Customer_comapnyId = $("#Customer_comapnyId").val();
-                   var Customer_company_name = $("#Customer_company_name").val();
-                 
-                   //location.href = '/Payments?cid=' + Customer_comapnyId + '&&cname=' + Customer_company_name;
-                   location.reload();
-                   @*document.location = '@Url.Action("Index", "Payments", new {Customer_comapnyId,Customer_company_name })';*@
-                  
-               }
-           },
-           error: function (data)
-           { errormsg("Failed!!!"); }
-       });
-}
+    function email(v, emailid) {
+        var Detdivobj = {};
+        Detdivobj.Detdiv = v;
+        //alert(Detdivobj);
+        $.ajax({
+            type: "POST",
+            url: "/Payments/Email",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: {},
+            data: JSON.stringify({ Invoicedata: v, EmailID: emailid, Invoicenums: invoiceids }),
+            success: function (data) {
+                if (data == "unique") {
+                    errormsg("EMial not sent");
+                }
+                else {
+                    successmsg("Payment details sent to your mail id");
+                    var Customer_comapnyId = $("#Customer_comapnyId").val();
+                    var Customer_company_name = $("#Customer_company_name").val();
+
+                    //location.href = '/Payments?cid=' + Customer_comapnyId + '&&cname=' + Customer_company_name;
+                    location.reload();
+                    @*document.location = '@Url.Action("Index", "Payments", new {Customer_comapnyId,Customer_company_name })';*@
+
+                }
+            },
+            error: function (data)
+            { errormsg("Failed!!!"); }
+        });
+    }
 
 </script>
 
 //<!------------ E-Mail Popup ---------------->
 <script>
-$("#add-vendor3").click(function(){
-	$(".email-popup-area").css("display","block");
-	});
-$("#email-popup-cancle").click(function(){
-	$(".email-popup-area").css("display","none");
-	});
+    $("#add-vendor3").click(function () {
+        $(".email-popup-area").css("display", "block");
+    });
+    $("#email-popup-cancle").click(function () {
+        $(".email-popup-area").css("display", "none");
+    });
 </script>
 <!------------ E-Mail Popup ---------------->
 @if (ViewBag.msg != "" && ViewBag.msg != null)
 {
     <script>
-            $("body").overhang({
-                type: "error",
-                message: '@ViewBag.msg',
-                duration: 3,
-                closeConfirm: false
-            });
+        $("body").overhang({
+            type: "error",
+            message: '@ViewBag.msg',
+            duration: 3,
+            closeConfirm: false
+        });
     </script>
 }
 
@@ -645,37 +712,35 @@ $("#email-popup-cancle").click(function(){
                 closeConfirm: false
             });
         </script>
-        
+
     }
-<!------------- E-Mail------------->
-<script>
-    
-    function deselect(e) {
-        $('.pop').slideFadeToggle(function () {
-            e.removeClass('selected');
+    <!------------- E-Mail------------->
+    <script>
+
+        function deselect(e) {
+            $('.pop').slideFadeToggle(function () {
+                e.removeClass('selected');
+            });
+        }
+
+        $(function () {
+            $('#add-vendor3').on('click', function () {
+                if ($(this).hasClass('selected')) {
+                    deselect($(this));
+                } else {
+                    $(this).addClass('selected');
+                    $('.pop').slideFadeToggle();
+                }
+                return false;
+            });
+
+            $('.close').on('click', function () {
+                deselect($('#add-vendor3'));
+                return false;
+            });
         });
-    }
 
-    $(function () {
-        $('#add-vendor3').on('click', function () {
-            if ($(this).hasClass('selected')) {
-                deselect($(this));
-            } else {
-                $(this).addClass('selected');
-                $('.pop').slideFadeToggle();
-            }
-            return false;
-        });
-
-        $('.close').on('click', function () {
-            deselect($('#add-vendor3'));
-            return false;
-        });
-    });
-
-    $.fn.slideFadeToggle = function (easing, callback) {
-        return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
-    };
-</script>
-
-
+        $.fn.slideFadeToggle = function (easing, callback) {
+            return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+        };
+    </script>
