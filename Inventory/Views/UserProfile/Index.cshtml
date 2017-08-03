@@ -699,7 +699,9 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/UserProfile.js"></script>
    
-    
+    <script>
+        $(document).ready(function () { $('.overlay').hide(); });
+    </script>
     <script>
         function validateEmail(emailField) {
             var reg = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
