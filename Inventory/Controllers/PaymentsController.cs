@@ -99,7 +99,8 @@ namespace Inventory.Controllers
                         due = duesoverdues.FirstOrDefault().due;
                         overdue = duesoverdues.FirstOrDefault().overdue;
                     }
-
+                    string overduestrt = overdue;
+                    string duestrt = due;
                     int updatedopenamt = 0; int updatedreceivedamount = int.Parse(payments.Received_amount); int updatedinvoiceamount = int.Parse(payments.invoiced_amount);
                     Array ponumsArray = payments.poid.Split(',');
                     for (int i = 0; i < ponumsArray.Length; i++)
@@ -161,8 +162,12 @@ namespace Inventory.Controllers
                                 break;
                             if (date1 < date2)
                             {
+                                if (int.Parse(overduestrt)> updatedreceivedamount) {
+                                    overdue = (int.Parse(overduestrt) - updatedreceivedamount).ToString();
+                                }
+
                                 overdue = updatedopenamt.ToString(); //payments.current_balance;
-                                due = (int.Parse(due) - updatedreceivedamount).ToString();
+                                
                             }
                             else
                             {
