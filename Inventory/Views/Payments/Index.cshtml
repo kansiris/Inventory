@@ -31,7 +31,7 @@
     <style>
         .overlay {
             background: no-repeat scroll center center #FFF;
-            position: fixed;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
@@ -43,7 +43,12 @@
     </style>
 }
 
-
+@*<div class="overlay" style="display: none;">
+    <div>
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span><br>
+    </div>
+</div>*@
 <div class="overlay" style="display:none">
     <div style="left: 50%; top: 50%; position: fixed; transform: translate(-50%, -50%); text-align: center;">
         <img src="~/images/loader.gif" style="height:10% ;width:10%" /><br>
@@ -634,7 +639,7 @@
         
         var emailid = $("#email").val();
         var invoiceids = $("#invoiceids").val();
-        alert(invoiceids);
+        //alert(invoiceids);
         //var previous = $("#opening_balance").val();
         //alert(previous);
         //var recevdamnt = $("#Received_amount").val();

@@ -332,7 +332,7 @@ function editFunction(array) {
         $("#result").css('display', 'none');
         //$('#fileupload2').attr('name', array.tax_files);
         $('input[type="file"]').attr('name',array.tax_files);
-        alert($('input[type="file"]').name);
+        //alert($('input[type="file"]').name);
         //alert($('#fileupload2').val());
 
         
