@@ -317,7 +317,6 @@ function editFunction(array) {
         $('#result').css('display', 'none');
         $('#forimg').css('display', 'none');
     }
-    
     $('#bill_city').val(array.bill_city);
     $('#bill_country').val(array.bill_country);
     $('#bill_state').val(array.bill_state);
@@ -331,11 +330,19 @@ function editFunction(array) {
     if(array.tax_files.split('.')[1]=='jpg'){
         $("#forimg").css('display', 'block');
         $("#result").css('display', 'none');
+        //$('#fileupload2').attr('name', array.tax_files);
+        $('input[type="file"]').attr('name',array.tax_files);
+        alert($('input[type="file"]').name);
+        //alert($('#fileupload2').val());
+
+        
+
         $('#forimg').attr('src', 'Taxfiles/' + array.tax_files);
     }
     else {
         $("#forimg").css('display', 'none');
         $("#result").css('display', 'block');
+        //$('#fileupload2').val(array.tax_files);
         result.innerHTML = $("#result").load('Taxfiles/' + array.tax_files);
         }
     }
@@ -1071,7 +1078,7 @@ function onFileSelected(event) {
         $('#fileupload2').val("")
     }
     var selectedFile = event.target.files[0];
-    //alert(ext);
+    //alert(selectedFile);
     var reader = new FileReader();
     if (ext == 'jpeg' || ext == 'png' || ext == 'jpg' || ext == 'gif') {
         $('#forimg').css('display', 'block');

@@ -162,7 +162,7 @@ namespace Inventory.Controllers
                             if (date1 < date2)
                             {
                                 overdue = updatedopenamt.ToString(); //payments.current_balance;
-
+                                due = (int.Parse(due) - updatedreceivedamount).ToString();
                             }
                             else
                             {
