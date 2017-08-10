@@ -1,0 +1,797 @@
+1 ) Customer Type(CustomerId and Customer type Description)
+2 ) Type of Order(TypeOfOrderID and Description)
+3 ) Payment(paymentId and payment Decsription and remarks)
+4 ) make temp table for products against each restaurant
+    this table shold have two additional fields
+    restaurant ID and DishAvailability
+	
+5 ) DishType(DishID and DishType)
+6 ) Restaurnt(add our three restaurant names and it should hve id, name, location, phone number)
+7 ) in products table, you should have a fields for each dish with addons(if available) and Complimentary(if any)
+8 ) Category table add remarks
+
+
+as a team send me the tables with fields in spreadsheet
+
+https://dev.mysql.com/doc/connector-net/en/connector-net-tutorials-stored-procedures.html
+
+http://www.w3resource.com/mysql/mysql-procedure.php
+
+
+7/11/2016
+
+alter in my spl
+
+alter table dbo.TblEmployeeDetails add foreign key(RestaurantId) references dbo.TblRestaurant(RestaurantId);
+
+alter table dbo.TblEmployeeDetails add EmployeeLName varchar(20);
+
+ALTER TABLE tblProductMaster ALTER COLUMN Price int;
+
+ALTER TABLE sample.employee
+ADD FOREIGN KEY (dno) 
+REFERENCES sample.department(dnumber)
+
+
+create table example2(id numeric(10) identity(1000,1) PRIMARY KEY,name varchar(20));
+
+Alter TABLE dbo.TblEmployeeDetails add EmployeeId int PRIMARY KEY IDENTITY(1001,1) NOT NULL;
+
+
+*****to update****
+
+USE [ankapur]
+GO
+
+UPDATE [dbo].[tblProductMaster]
+   SET [ProductID] = ''
+      ,[ProductName] = ''
+      ,[ShortDescription] = ''
+      ,[LongDescription] = ''
+      ,[Price] = ''
+      ,[Available] = ''
+      ,[CategoryId] = ''
+      ,[DishTypeID] = ''
+ WHERE 
+GO
+
+
+*****to insert ****
+USE [ankapur]
+GO
+
+INSERT INTO [dbo].[tblProductMaster]
+           ([ProductID]
+           ,[ProductName]
+           ,[ShortDescription]
+           ,[LongDescription]
+           ,[Price]
+           ,[Available]
+           ,[Remarks]
+           ,[Quanity]
+           ,[ImageURL]
+           ,[CategoryId]
+           ,[DishTypeID])
+     VALUES
+           ('BV009'
+           ,'coffee'
+           ,'coffee'
+           ,'coffee'
+           ,'30'
+           ,'1'
+           ,'NULL'
+           ,'1'
+           ,'NULL'
+           ,'9'
+           ,'1')
+GO
+
+***********example procedure ********
+CREATE PROCEDURE [dbo].[Getcustomerinfo] (@UN  VARCHAR(20), 
+                                          @FPN VARCHAR(20)) 
+AS `enter code here`
+  BEGIN 
+      SELECT customers.id, 
+             customers.full_name, 
+             customers.address, 
+             customers.city, 
+             customers.state, 
+             customers.zip_code, 
+             customers.phone_number, 
+             customers.email_address, 
+             policys_transactions.unit_number 
+      FROM   customers 
+             INNER JOIN policy_facility_customer 
+                     ON customers.id = policy_facility_customer.customer_id 
+             INNER JOIN policys_transactions 
+                     ON policy_facility_customer.cert_number = 
+                        policys_transactions.cert_number 
+      WHERE  ( policys_transactions.unit_number = @UN 
+               AND policys_transactions.facility_policy_number = @FPN ) 
+      ORDER  BY customers.ID DESC 
+  END 
+  
+  
+  **********sp performing outer join ********
+  SELECT * 
+FROM [dbo].[tblProductMaster]
+FULL OUTER JOIN [dbo].[TblCategory]
+ON [tblProductMaster].[CategoryID]=[TblCategory].[CategoryID] where([dbo].[tblProductMaster].[CategoryID]='9' AND [dbo].[tblProductMaster].[Available]='1');
+
+
+*******based on mobile number ************
+
+ SELECT CustomerFName,CustomerLName,CustomerType,Delivery_Addresss,MobileNumber
+FROM [dbo].[TblCustomer]
+FULL OUTER JOIN [dbo].[TblCustomerType]
+ON [dbo].[TblCustomer].[CustomerTypeId]=[dbo].[TblCustomerType].[CustomerTypeId] where([TblCustomer].MobileNumber='9787585458');
+
+&&&&&for first name &&&&
+
+[TblCustomer].CustomerFName='Raj'
+
+_________________________
+
+SELECT CustomerFName,CustomerLName,CustomerType,Delivery_Addresss,CustPhoneNumber
+FROM TblNewCustomer
+FULL OUTER JOIN [TblCustomerType]
+ON TblNewCustomer.[CustomerTypeId]=[TblCustomerType].[CustomerTypeId] where(TblNewCustomer.CustPhoneNumber='702545878');
+
+__________________
+
+SELECT        TblNewCustomer.CustPhoneNumber, TblNewCustomer.CustomerFName, TblNewCustomer.CustomerLName, TblNewCustomer.Billing_Address, 
+                        TblNewCustomer.Delivery_Addresss, TblNewCustomer.Land_Mark, TblNewCustomer.Mobile1, TblNewCustomer.Mobile2, TblCustomerType.CustomerType
+FROM            TblCustomerType INNER JOIN
+                        TblNewCustomer ON TblCustomerType.CustomerTypeId = TblNewCustomer.CustomerTypeId
+WHERE        (TblNewCustomer.CustPhoneNumber = N'8888888')
+
+
+*************like parameter************
+
+SELECT        TblNewCustomer.CustPhoneNumber, TblNewCustomer.CustomerFName, TblNewCustomer.CustomerLName, TblNewCustomer.Billing_Address, 
+                        TblNewCustomer.Delivery_Addresss, TblNewCustomer.Land_Mark, TblNewCustomer.Mobile1, TblNewCustomer.Mobile2, TblCustomerType.CustomerType
+FROM            TblCustomerType INNER JOIN
+                        TblNewCustomer ON TblCustomerType.CustomerTypeId = TblNewCustomer.CustomerTypeId
+WHERE        (TblNewCustomer.CustomerFName like '%'+@fname+'%')
+
+************customername sp****************
+
+
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		sravani
+-- Create date: 9/11/2016
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE searchCustomerByName(@fname varchar(20),@lname varchar(20)) 
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    SELECT        TblNewCustomer.CustPhoneNumber, TblNewCustomer.CustomerFName, TblNewCustomer.CustomerLName, TblNewCustomer.Billing_Address, 
+                        TblNewCustomer.Delivery_Addresss, TblNewCustomer.Land_Mark, TblNewCustomer.Mobile1, TblNewCustomer.Mobile2, TblCustomerType.CustomerType
+FROM            TblCustomerType INNER JOIN
+                        TblNewCustomer ON TblCustomerType.CustomerTypeId = TblNewCustomer.CustomerTypeId
+WHERE        (TblNewCustomer.CustomerFName like '%'+@fname+'%' OR TblNewCustomer.CustomerFName like '%'+@lname+'%')
+END
+GO
+
+
+^^^^^^^^^^^^^^^^^insertion sp^^^^^^^^^^^^^^^^
+
+
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		sravani
+-- Create date: 9/11/2016
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE insertNewCustomer(@customerphone nvarchar(20),@custfname varchar(20),@custlname varchar(20),
+                                  @billaddress nvarchar(max),@delivaddress nvarchar(max),@landmark nvarchar(250),
+								  @mobile1 nvarchar(20),@mobile2 nvarchar(20),@custtypeid int,@delivloclati float,
+								  @delivloclong float,@createddate datetime,@modifieddate date) 
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+INSERT INTO [TblNewCustomer]
+          ([CustPhoneNumber]
+          ,[CustomerFName]
+          ,[CustomerLName]
+          ,[Billing_Address]
+          ,[Delivery_Addresss]
+          ,[Land_Mark]
+          ,[Mobile1]
+          ,[Mobile2]
+          ,[CustomerTypeId]
+          ,[DeliveryLocationLatitude]
+          ,[DeliveryLocationLongitude]
+          ,[CreatedDate]
+          ,[ModifiedDate])
+    VALUES
+          (@customerphone
+          ,@custfname
+          ,@custlname
+          ,@billaddress
+          ,@delivaddress
+          ,@landmark
+          ,@mobile1
+          ,@mobile2
+          ,@custtypeid
+          ,@delivloclati
+          ,@delivloclong
+          ,@createddate
+          ,@modifieddate)
+END
+GO
+
+
+IF EXISTS(SELECT CustPhoneNumber FROM TblNewCustomer WHERE CustPhoneNumber = @customerphone)
+    BEGIN
+        SELECT 'Customer Exists'
+    END
+ELSE
+    BEGIN
+      INSERT INTO TblNewCustomer(CustPhoneNumber,CustomerFName,CustomerLName,Billing_Address,Delivery_Addresss,Land_Mark,Mobile1
+          ,Mobile2,CustomerTypeId,DeliveryLocationLatitude,DeliveryLocationLongitude,CreatedDate,ModifiedDate)
+    VALUES
+          (@customerphone,@custfname,@custlname,@billaddress,@delivaddress,@landmark,@mobile1,@mobile2,@custtypeid
+          ,@delivloclati,@delivloclong,@createddate,@modifieddate)
+    END
+   
+END
+
+
+****************updating customer table*************
+UPDATE [TblNewCustomer]
+   SET [CustPhoneNumber] = 
+      ,[CustomerFName] = 
+      ,[CustomerLName] = 
+      ,[Billing_Address] = 
+      ,[Delivery_Addresss] = 
+      ,[Land_Mark] = 
+      ,[Mobile1] = 
+      ,[Mobile2] = 
+      ,[CustomerTypeId] = 
+      ,[DeliveryLocationLatitude] = 
+      ,[DeliveryLocationLongitude] = 
+      ,[CreatedDate] = 
+      ,[ModifiedDate] = 
+ WHERE CustPhoneNumber='';
+ 
+ 
+ -- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		sravani
+-- Create date: 9/11/2016
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE updateCustomer(@customerphone nvarchar(20),@custfname varchar(20),@custlname varchar(20),
+                                  @billaddress nvarchar(max),@delivaddress nvarchar(max),@landmark nvarchar(250),
+								  @mobile1 nvarchar(20),@mobile2 nvarchar(20),@custtypeid int,@delivloclati float,
+								  @delivloclong float,@createddate datetime,@modifieddate date) 
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    UPDATE [TblNewCustomer]
+   SET [CustPhoneNumber] = @customerphone
+      ,[CustomerFName] = @custfname
+      ,[CustomerLName] = @custlname
+      ,[Billing_Address] = @billaddress
+      ,[Delivery_Addresss] = @delivaddress
+      ,[Land_Mark] = @landmark
+      ,[Mobile1] = @mobile1
+      ,[Mobile2] = @mobile2
+      ,[CustomerTypeId] = @custtypeid 
+      ,[DeliveryLocationLatitude] = @delivloclati
+      ,[DeliveryLocationLongitude] = @delivloclong 
+      ,[CreatedDate] = @createddate
+      ,[ModifiedDate] = @modifieddate
+ WHERE CustPhoneNumber=@customerphone;
+END
+GO
+
+********TRy*************
+
+USE [ankapur]
+GO
+
+UPDATE [dbo].[tblProductMaster]
+   SET 
+      [CategoryID] = 5
+      
+ WHERE [ProductID]='AC003'
+GO
+
+
+
+**************dyanamic table ceation nd dropng************
+
+
+USE [master]
+GO
+/****** Object:  StoredProcedure [dbo].[test1]    Script Date: 10/11/2016 4:10:24 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[test1](@rest as NVarchar(255))
+-- Add the parameters for the stored procedure here
+ 
+AS
+BEGIN
+-- SET NOCOUNT ON added to prevent extra result sets from
+-- interfering with SELECT statements.
+SET NOCOUNT ON;
+
+
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=@rest)
+BEGIN
+   DECLARE @sql AS NVARCHAR(MAX)
+   PRINT 'in droping'
+    SELECT @sql = 'DROP TABLE ' + @rest + ';'
+    EXEC(@Sql)
+ END
+ ELSE
+ BEGIN
+ DECLARE @sql1 AS NVARCHAR(MAX)
+ PRINT 'in creating'
+ SELECT @sql1= 'Select * into '+ @rest+ ' from tblProductMaster';
+ EXEC(@SqL1)
+END
+END
+
+^^^^^^^^^droped product table script^^^^^^^^
+
+USE [ankapur]
+GO
+
+/****** Object:  Table [dbo].[TblProducts]    Script Date: 11/11/2016 12:03:51 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TblProducts](
+	[ProductID] [int] IDENTITY(1,1) NOT NULL,
+	[ProductName] [varchar](30) NOT NULL,
+	[Price] [money] NOT NULL,
+	[CategoryId] [int] NULL,
+	[ProductDescription1] [varchar](100) NULL,
+	[ProductDescription2] [varchar](200) NULL,
+	[ProductImage] [image] NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[DishTypeId] [int] NOT NULL,
+	[AvailableDays] [nvarchar](50) NULL,
+ CONSTRAINT [PK_TblProducts] PRIMARY KEY CLUSTERED 
+(
+	[ProductID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TblProducts]  WITH CHECK ADD  CONSTRAINT [FK_TblProducts_TblCategory] FOREIGN KEY([CategoryId])
+REFERENCES [dbo].[TblCategory] ([CategoryID])
+GO
+
+ALTER TABLE [dbo].[TblProducts] CHECK CONSTRAINT [FK_TblProducts_TblCategory]
+GO
+
+ALTER TABLE [dbo].[TblProducts]  WITH CHECK ADD  CONSTRAINT [FK_TblProducts_TblDishType] FOREIGN KEY([DishTypeId])
+REFERENCES [dbo].[TblDishType] ([DishTypeId])
+GO
+
+ALTER TABLE [dbo].[TblProducts] CHECK CONSTRAINT [FK_TblProducts_TblDishType]
+GO
+
+$$$$$$$$$$$$modified getmenuby categorytype$$$$$$$$$$$$
+
+USE [ankapur]
+GO
+/****** Object:  StoredProcedure [dbo].[getMenuByCategory]    Script Date: 11/11/2016 12:29:44 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		sravani
+-- Create date: 8/11/2016
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[getMenuByCategory](@Categorytype nchar(10)) 
+	-- Add the parameters for the stored procedure here
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	SELECT ProductID,ProductName,ShortDescription,Price,CategoryType,Available 
+FROM [tblProductMaster]
+FULL OUTER JOIN [TblCategory]
+ON [tblProductMaster].[CategoryID]=[TblCategory].[CategoryID] where [TblCategory].[CategoryType]=@Categorytype
+    
+END
+
+&&&&&&&&&&&  orders  &&&&&&&&&&&&&&&&&&
+SELECT        TblOrderDetails.Quantity * tblProductMaster.Price AS subTotal, TblOrders.OrderId, TblOrders.OrderDate, TblOrders.CustPhoneNumber, TblOrders.OrderTime, 
+                         TblOrders.OrderDeliveredTime, TblOrderDetails.Quantity, TblOrderDetails.ProductID, TblPayment.PaymentDescription, TblTypeOfOrder.OrderDescription, 
+                         tblProductMaster.Price, tblProductMaster.ProductName, TblDishType.DishType
+FROM            TblOrders INNER JOIN
+                         TblOrderDetails ON TblOrders.OrderId = TblOrderDetails.OrderId INNER JOIN
+                         TblOrderStatus ON TblOrders.StatusId = TblOrderStatus.StatusId INNER JOIN
+                         TblPayment ON TblOrders.PaymentId = TblPayment.PaymentId INNER JOIN
+                         tblProductMaster ON TblOrderDetails.ProductID = tblProductMaster.ProductID INNER JOIN
+                         TblTypeOfOrder ON TblOrders.TypeOfOrderId = TblTypeOfOrder.TypeOfOrderId INNER JOIN
+                         TblDishType ON tblProductMaster.DishTypeID = TblDishType.DishTypeId
+
+						 
+						 
+						 
+						 http://stackoverflow.com/questions/35169922/mysql-stored-procedure-insert-multiple-rows-from-list
+						 http://stackoverflow.com/questions/24851801/mysql-procedure-to-insert-multiple-rows
+						 http://stackoverflow.com/questions/21647027/mysql-stored-procedure-insert-multiple-rows
+						 http://stackoverflow.com/questions/10075279/using-mysql-to-do-multiple-insert-on-linked-tables
+						 
+						 
+						 
+						 
+%%%%%%%%%%% inserting 2 tables hvng foreign key relation %%%%%%%%%%%%%%%
+USE [master]
+GO
+/****** Object:  StoredProcedure [dbo].[insertNewOrderByAgent]    Script Date: 11/11/2016 5:16:21 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		sravani
+-- Create date: 11/11/2016
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[insertNewOrderByAgent](@customerphone int,@typeoforderid int,@paymentid int,@employecode nchar(10),
+                                 @orderdelivtime time(7),@restcode char(10),@quantity int,@productid nchar(10)) 
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	BEGIN
+			DECLARE @statusid int
+			set @statusid=1
+			DECLARE @orderdate date
+			Set @orderdate = GetDate()
+
+			DECLARE @ordertime Time(7)
+			Set @ordertime = CURRENT_TIMESTAMP
+
+			INSERT INTO TblOrders(OrderDate,CustPhoneNumber,StatusId,TypeOfOrderId,PaymentId,EmpCode
+                          ,OrderTime,OrderDeliveredTime,RestCode)
+			VALUES(@orderdate,@customerphone,@statusid,@typeoforderid,@paymentid,@employecode,@ordertime,@orderdelivtime,@restcode)
+	END
+
+		BEGIN
+
+				DECLARE @orderid int
+				SET @orderid = (SELECT MAX(OrderID) FROM TblOrders);
+
+					INSERT INTO TblOrderDetails(OrderId,Quantity,ProductID)
+						VALUES(@orderid,@quantity,@productid)
+    
+		END
+END
+
+**********inserting multiple rows useing xml *************
+https://www.youtube.com/watch?v=AmBJxPznOiM
+
+'SELECT CategoryID,ProductName FROM tblProductMaster WHERE ProductID IN ('+@idsList+')'
+
+
+&&&&&& for selection based on multiple rows ^^^^
+
+USE [master]
+GO
+/****** Object:  StoredProcedure [dbo].[insertingByList]    Script Date: 14/11/2016 4:55:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[insertingByList](@idsList varchar(500)) 
+	-- Add the parameters for the stored procedure here
+	AS
+	BEGIN
+	
+	print @idsList;
+	SELECT CategoryID,ProductName FROM tblProductMaster WHERE ProductID IN (SELECT item FROM [dbo].[SplitString] (@idsList,','))
+
+
+END
+
+
+^^^^^^^^^^^based on order id ^^^^^^^^^^^^^^^
+
+SELECT         TblOrders.OrderId,TblNewCustomer.CustPhoneNumber,TblNewCustomer.CustomerFName, TblNewCustomer.CustomerLName, 
+               TblNewCustomer.Delivery_Addresss, TblOrderStatus.StatusDescription, 
+               tblProductMaster.ProductID, tblProductMaster.ProductName, tblProductMaster.Price, 
+			   tblProductMaster.Quanity
+FROM       TblOrderStatus INNER JOIN TblOrders 
+           ON TblOrderStatus.StatusId = TblOrders.StatusId INNER JOIN
+                       TblOrderDetails on TblOrderDetails.OrderId=TblOrders.OrderId full OUTER JOIN
+                         tblProductMaster on tblProductMaster.ProductID=TblOrderDetails.ProductID full OUTER JOIN
+						  TblNewCustomer on TblNewCustomer.CustPhoneNumber=TblOrders.CustPhoneNumber where TblOrderDetails.OrderId='14'
+						  				  
+						  
+SELECT Count(TblOrders.StatusId) AS Expr1, TblOrderStatus.StatusDescription FROM TblOrders INNER JOIN
+                        TblOrderStatus ON TblOrders.StatusId = TblOrderStatus.StatusId INNER JOIN
+                        TblNewCustomer ON TblOrders.CustPhoneNumber = TblNewCustomer.CustPhoneNumber GROUP BY 
+						TblOrders.StatusId, TblOrderStatus.StatusDescription, TblNewCustomer.CustPhoneNumber
+                        HAVING TblNewCustomer.CustPhoneNumber = @customerphone
+						
+						&&&&&&&&&&&&&&&&&&&&&&&&&&&&& sql union &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+						
+						USE [ankapur]
+GO
+/****** Object:  StoredProcedure [dbo].[notAvailItemsfrom3rests]    Script Date: 21/11/2016 1:05:48 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		sravani
+-- Create date: 21/11/2016
+-- Description:	<Description,,>
+-- =============================================
+alter PROCEDURE notAvailItemsfromRestuarants
+	
+AS
+declare @avialability varchar
+	set @avialability=0
+DECLARE @tlname VARCHAR(max)
+DECLARE @tab VARCHAR(max)
+DECLARE @j int
+declare @example varchar(max)
+set @j = 1
+begin
+while @j <= ( SELECT MAX(Rid)-1 FROM tblRestuarant )
+begin
+   SELECT @tlname = ( SELECT RestCode FROM tblRestuarant where Rid=@j )
+
+   set @tab=' SELECT ProductID, ProductName,price, Available, RestCode
+                 FROM ' +rtrim(@tlname)+' WHERE (Available ='+@avialability+') union' 	
+	
+	 set @example=concat(@example,@tab)
+	 print @example
+	set @j = @j+1
+END
+ SET @example = LEFT(@example,LEN(@example) - 5)
+ exec(@example)
+ print @example
+end
+						 
+
++++++++++++++++++++++++++++
+DECLARE @dtStart AS DATETIME ='20161129 08:00:00'
+        ,@dtEnd AS DATETIME = '20161129 11:00:00'
+        ,@iInterval AS INT = 180; 
+
+
+WITH aCTE AS(
+    SELECT @dtStart AS StartDateTime,DATEADD(MINUTE,@iInterval,@dtStart) AS EndDateTime
+    UNION ALL
+    SELECT 
+        DATEADD(MINUTE,@iInterval,StartDateTime),DATEADD(MINUTE,@iInterval,EndDateTime)
+    FROM aCTE
+    WHERE
+        DATEADD(MINUTE,@iInterval,EndDateTime) <= @dtEnd
+)
+
+SELECT 
+    -- 10:00:00 AM 
+    CONVERT(VARCHAR(10),StartDateTime,108) 
+    + ' ' + RIGHT(CONVERT(VARCHAR(30), StartDateTime, 9), 2) 
+    + ' - ' +
+    -- 10:30:00 AM
+    CONVERT(VARCHAR(10),EndDateTime,108) 
+    + ' ' + RIGHT(CONVERT(VARCHAR(30), EndDateTime, 9), 2) AS Result
+FROM aCTE
+
+
+
+***************
+prabodh.dasari@xsilica.com
+orders@1234
+
+
+
+
+---------------------9/12/2016 ---------------
+
+
+USE [ankapur]
+GO
+/****** Object:  StoredProcedure [dbo].[getTodayNotDeliverByRest]    Script Date: 9/12/2016 4:05:57 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		sravani
+-- Create date: 8/12/2016
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[getTodayNotDeliverByRest] (@restcode char(10))
+	-- Add the parameters for the stored procedure here
+	
+AS
+BEGIN
+
+CREATE TABLE #TempTable(
+ID int primary key not null identity(1,1),
+orderid char(10) not null,NoOfItems int,TotalAmount int,DeliveryBoycode nchar(10),customerphone nvarchar(50),
+Latitude float,Longitude float)
+
+INSERT INTO #TempTable (orderid,DeliveryBoycode,customerphone) 
+SELECT orderid,DeliveryBoyCode,CustPhoneNumber
+FROM TblOrders where (TblOrders.StatusId!='6' and TblOrders.StatusId!='11') 
+						 and TblOrders.RestCode=@restcode and (TblOrders.DeliveryBoyCode='' or TblOrders.DeliveryBoyCode like 'DB'+'%') 
+						 and TblOrders.OrderDate='12/08/2016'
+
+declare @column char(10)
+declare @numberoforders nchar(10)
+	
+set @column='orderid'
+DECLARE @x  INT
+SET @x = 1
+declare @num int
+set @num=(select count(orderid) from TblOrders where (TblOrders.StatusId!='6' and TblOrders.StatusId!='11') 
+						 and TblOrders.RestCode=@restcode and (TblOrders.DeliveryBoyCode='' or TblOrders.DeliveryBoyCode like 'DB'+'%') 
+						 and TblOrders.OrderDate='12/08/2016')
+while @x <= @num
+BEGIN
+declare @tempcode char(10)
+set @tempcode= (select orderid from #temptable where ID=@x)
+
+
+BEGIN
+ 
+declare @total int
+declare @items int
+declare @lati float
+declare @long float
+
+set @lati=(select DeliveryLocationLatitude from [dbo].[TblNewCustomer] where CustPhoneNumber=(select [CustPhoneNumber] from tblorders where orderid=@tempcode))
+
+set @long=(select [DeliveryLocationLongitude] from [dbo].[TblNewCustomer] where CustPhoneNumber=(select [CustPhoneNumber] from tblorders where orderid=@tempcode))
+
+set @total = (select sum(cast (TblOrderDetails.Quantity*tblProductMaster.Price as int)) as amount  from  TblOrderDetails INNER JOIN
+               tblProductMaster ON TblOrderDetails.ProductID = tblProductMaster.ProductID where TblOrderDetails.OrderId =@tempcode)
+set @items=(SELECT count(TblOrderDetails.ProductID)as items FROM  TblOrderDetails where TblOrderDetails.OrderId=@tempcode)
+
+update #temptable set NoOfItems=@items,TotalAmount=@total,Latitude=@lati,Longitude=@long where orderid=@tempcode
+
+
+SET  @x = @x + 1 
+END
+END
+select orderid,DeliveryBoycode,customerphone,Latitude,Longitude,NoOfItems,TotalAmount from #temptable
+end
+
+
+
+******************13/12/2016***************
+
+
+SELECT        TblOrders.OrderDate, TblOrders.OrderTime, TblOrders.CustPhoneNumber, TblOrders.OrderId, TblOrderTracking.OrderStatusId
+FROM            TblOrders inner JOIN
+                         TblOrderTracking on TblOrders.OrderId=TblOrderTracking.OrderId where (TblOrders.StatusId!='6' and TblOrders.StatusId!='11') 
+						 and TblOrders.RestCode=@restcode and TblOrderTracking.empcode=@deliverboy
+						 
+						 
+^^^^^^^^^^^^^^^^^^
+
+create table Channel(ChannelId int identity(1,1) PRIMARY KEY,ChannelName varchar(20),Remarks nvarchar(max));
+
+
+
+
+&&&&&&&&&&& 14/12/2016 &&&&&&&&&&&&
+
+
+AllOrdersSp 
+
+TodayOrdersByEmpCode CA124               
+
+spToGetNotCompltedOrdersByEmpcode CA124     
+
+spToGetCompltedOrdersByEmpcode CA124     
+
+
+
+himaytanagr db 183.82.59.250
+
+Userid:test
+pw:user123
+
+
+https://msdn.microsoft.com/en-us/library/ms188279.aspx
+
+
+https://docs.oracle.com/cd/E16582_01/doc.91/e15119/tables_used_by_inv_mngmnt.htm#EOAIM00476
+
+http://www.cs.toronto.edu/~sme/CSC340F/2002/samples/Asst3-5.pdf
+
+https://poscatch.com/upc-code-generator/
+
+https://www.google.co.in/search?q=invoice+format&biw=1366&bih=662&tbm=isch&tbo=u&source=univ&sa=X&ved=0ahUKEwjRiaWQksnRAhWHK48KHeTDAb0QsAQIHw#tbm=isch&q=service+invoice+format+in+word&imgrc=Iu9PyJev_k4FxM%3A
+
+http://www.ntu.edu.sg/home/ehchua/programming/sql/sampledatabases.html
