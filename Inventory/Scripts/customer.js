@@ -1,5 +1,6 @@
 ﻿//<!---------- Display Vendor Information and reset all forms --------------->
 $("#add-customer").click(function () {
+    
     $("#customer-information").css("display", "block");
     $("#additonal").css("display", "none");
     $("#contacttable").css("display", "none");
@@ -52,11 +53,12 @@ $("#customer-information-cancel").click(function () {
 
 function forCancel() {
     $("#additon").css("display", "block");
-    $("#customer-information1 input, .cd-tabs input, .cd-tabs textarea").val("");
+    $("#customer-information1 input, .cd-tabs input, .cd-tabs textarea, .cd-tabs checkboxes").val("");
     $(".cd-tabs").css("display", "none");
+    $("input:checkbox:checked").prop('checked',false);
     $("#cuscompanypic").attr("src", "/images/user.png");
     $("#cuscontactpic").attr("src", "/images/user.png");
-
+    
 }
 $("#customer-information1-cancel").click(function () {
     forCancel();
@@ -147,7 +149,6 @@ $(document).ready(function (e) {
         $(this).css("background", colors[rand]);
 
     });
-
    
     //  <!----- Table Pagination ---->
     Pagination();

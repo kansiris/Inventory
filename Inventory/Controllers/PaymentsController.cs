@@ -167,7 +167,7 @@ namespace Inventory.Controllers
                                     overdue = (int.Parse(overduestrt) - updatedreceivedamount).ToString();
                                 }
 
-                                overdue = updatedopenamt.ToString(); //payments.current_balance;
+                                overdue = updatedopenamt.ToString(); 
                                 
                             }
                             else
@@ -177,7 +177,7 @@ namespace Inventory.Controllers
                                  due = duestrt;
                                  }
                                 else { 
-                                due = updatedopenamt.ToString(); //payments.current_balance;
+                                due = updatedopenamt.ToString(); 
                                 }
                             }
                         }
