@@ -143,6 +143,7 @@ namespace Inventory.Controllers
                                     updatedopenamt = (int.Parse(open_amount) - int.Parse(payments.Received_amount));
                                     PaymentsService.Updateinvoice(user.DbName, payments.poid.Split(',')[i], updatedopenamt.ToString());  /*updatedopenamt.ToString()*/
                                     listglb.Add(new Invoice() {Prchaseorder_no= payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues= updatedopenamt.ToString() });
+                                    duestrt = (int.Parse(duestrt) - int.Parse(payments.Received_amount)).ToString();
                                     payments.Received_amount = "0";
                                 }
                                 else
@@ -150,7 +151,7 @@ namespace Inventory.Controllers
                                     updatedreceivedamount = (int.Parse(payments.Received_amount) - int.Parse(open_amount));
                                     if (updatedreceivedamount > 0)
                                     {
-                                      
+                                        duestrt = (int.Parse(duestrt) - int.Parse(payments.Received_amount)).ToString();
                                         payments.Received_amount = updatedreceivedamount.ToString();
                                         updatedopenamt = 0;
                                         listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
@@ -171,8 +172,13 @@ namespace Inventory.Controllers
                             }
                             else
                             {
+                                if (int.Parse(duestrt) > updatedopenamt)
+                                {
+                                 due = duestrt;
+                                 }
+                                else { 
                                 due = updatedopenamt.ToString(); //payments.current_balance;
-
+                                }
                             }
                         }
                     }

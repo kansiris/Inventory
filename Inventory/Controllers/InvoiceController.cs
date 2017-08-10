@@ -276,8 +276,8 @@ namespace Inventory.Controllers
                                     string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];
                                     string description = (productsinpo.Select(m => m.description).ToList())[j];
                                     string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];//after this will be chnaged.
-                                    string total_price = Convert.ToInt32((float)Math.Round((int.Parse(po_quantity) * float.Parse(cost_price)), 0)).ToString();
-
+                                    string total_price = (productsinpo.Select(m => m.total_price).ToList())[j];//Convert.ToInt32((float)Math.Round((int.Parse(po_quantity) * float.Parse(cost_price)), 0)).ToString();
+                                    
                                     //dummy values for time sake
                                     string cgst_rate = 2.ToString();
                                     string cgst_amount = 200.ToString();
