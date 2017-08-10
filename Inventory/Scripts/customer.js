@@ -311,12 +311,14 @@ function editFunction(array) {
     }
     if (array.tax_exemption == 1){
         $("#taxexemption").prop('checked', 'checked');
-        $("#fileupload2").css('display','block');
+        $("#fileupload2").css('display', 'block');
+        //$("#fileupload2").html("dfgdfh");
     } else {
         $("#fileupload2").css('display', 'none');
         $('#result').css('display', 'none');
         $('#forimg').css('display', 'none');
     }
+    //alert(array.tax_exemption);
     $('#bill_city').val(array.bill_city);
     $('#bill_country').val(array.bill_country);
     $('#bill_state').val(array.bill_state);
@@ -327,24 +329,26 @@ function editFunction(array) {
     $('#ship_state').val(array.ship_state);
     $('#ship_street').val(array.ship_street);
     $('#ship_postalcode').val(array.ship_postalcode);
-    if(array.tax_files.split('.')[1]=='jpg'){
-        $("#forimg").css('display', 'block');
-        $("#result").css('display', 'none');
-        //$('#fileupload2').attr('name', array.tax_files);
-        $('input[type="file"]').attr('name',array.tax_files);
-        //alert($('input[type="file"]').name);
-        //alert($('#fileupload2').val());
-
-        
-
-        $('#forimg').attr('src', 'Taxfiles/' + array.tax_files);
-    }
-    else {
-        $("#forimg").css('display', 'none');
-        $("#result").css('display', 'block');
-        //$('#fileupload2').val(array.tax_files);
-        result.innerHTML = $("#result").load('Taxfiles/' + array.tax_files);
-        }
+    //document.getElementById("fileupload2").files[0].value = array.tax_files;
+    //$("#fileupload2").
+    //$('#fileupload2').val(array.tax_files);
+    //document.getElementById('fileupload2').value = array.tax_files;
+    
+    //input[type='file'] {
+    //    color: transparent;   
+    //    direction: rtl;        
+    //}
+    //if(array.tax_files.split('.')[1]=='jpg'){
+    //    $("#forimg").css('display', 'block');
+    //    $("#result").css('display', 'none');
+    //    $('input[type="file"]').attr('name',array.tax_files);
+    //    $('#forimg').attr('src', 'Taxfiles/' + array.tax_files);
+    //}
+    //else {
+    //    $("#forimg").css('display', 'none');
+    //    $("#result").css('display', 'block');
+    //    result.innerHTML = $("#result").load('Taxfiles/' + array.tax_files);
+    //    }
     }
 
 
@@ -1122,20 +1126,16 @@ function editcompanytaxdetails(clickedvalue) {
     tax_reg_no = $('#tax_regno').val();
     pan_no = $('#pan_no').val();
     tds_apply = $('#tds').val();
+    //alert(tds_apply);
     tax_exemption = $('#taxexemption').val();
+    //alert(tax_exemption);
     if (clickedvalue == 'updatetaxdetails') {
         if ($('#tds').val() == "on") {
             $('#tds').val("1");
         }
-        else {
-            $('#tds').val("0");
-        }
         tds_apply = $('#tds').val();
         if ($('#taxexemption').val() == "on") {
             $('#taxexemption').val("1");
-        }
-        else {
-            $('#taxexemption').val("0");
         }
         tax_exemption = $('#taxexemption').val();
         $.ajax({

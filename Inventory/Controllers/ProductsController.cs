@@ -374,7 +374,7 @@ namespace Inventory.Controllers
                 ViewBag.Productcount = ff;
                 ViewBag.customer_id = cid;
                 ViewBag.company_name = cname;
-                ViewBag.totalamount = cartaddedproducts.Select(m => float.Parse(m.total_price)).Sum();
+                ViewBag.totalamount = cartaddedproducts.Select(m => int.Parse(m.total_price)).Sum();
                 return PartialView("GenaratePOs", ViewBag.records);
             }
             return PartialView("GenaratePOs", null);
