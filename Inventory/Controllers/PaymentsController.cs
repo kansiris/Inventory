@@ -186,7 +186,7 @@ namespace Inventory.Controllers
                     counts = 1;
                     if (counts > 0)
                     {
-                        TempData["smsg"] = "Payment saved Successfully!!!";
+                        TempData["smsg"] = "Payment saved Successfully!!! Do You Want to Send Email ? ";
                         TempData["enablebuttons"] = "emailbutton";
                         TempData["invocess"] = listglb;
                         return RedirectToAction("Index", "Payments", new { cid = payments.Customer_comapnyId, cname = payments.Customer_company_name });

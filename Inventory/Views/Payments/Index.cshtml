@@ -44,11 +44,11 @@
 }
 
 @*<div class="overlay" style="display: none;">
-    <div>
-        <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-        <span class="sr-only">Loading...</span><br>
-    </div>
-</div>*@
+        <div>
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span><br>
+        </div>
+    </div>*@
 <div class="overlay" style="display:none">
     <div style="left: 50%; top: 50%; position: fixed; transform: translate(-50%, -50%); text-align: center;">
         <img src="~/images/loader.gif" style="height:10% ;width:10%" /><br>
@@ -98,114 +98,248 @@
 
 
 
-
-                            <div class="row padding-top invoice" id="invoicedetails">
-                                <div class="row invoice-table margin-top margin-bottom">
-                                    <div class="col-md-12">
+                            <div class="row padding-top po-order" id="invoicedetails">
+                                <div class="row margin-top margin-bottom">
+                                    <div class="col-xs-12 col-md-12">
                                         @Html.HiddenFor(m => m.poid)
-                                        <table class="table table-bordered" cellspacing="0" style="background:#fff;">
-                                            <thead style="background:#8086c2;color:#fff;">
-                                                <tr>
-                                                    <th class="col-md-1" style="border:1px solid #fff;border-right:none;padding:8px;">Select</th>
-                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Invoice No</th>
-                                                    <th class="col-md-3" style="border:1px solid #fff;border-right:none;padding:8px;">Payment Due Date</th>
-                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Items</th>
-                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Amount In <text class="localization"></text></th>
-                                                    <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Due Amount In <text class="localization"></text></th>
-                                                </tr>
-                                            </thead>
-
-                                            @if (ViewBag.records != null)
-                                            {
-                                                foreach (var item in ViewBag.records)
+                                        <div class="total table-responsive">
+                                            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                                                <thead class="thead-inverse">
+                                                    <tr>
+                                                        <th class="col-md-1">Select</th>
+                                                        <th class="col-md-2">Invoice No</th>
+                                                        <th class="col-md-2">Payment Due Date</th>
+                                                        <th class="col-md-2">Total Items</th>
+                                                        <th class="col-md-3">Total Amount In <text class="localization"></text> </th>
+                                                        <th class="col-md-3" style="text-align:right">Due Amount In <text class="localization"></text> </th>
+                                                    </tr>
+                                                </thead>
+                                                @if (ViewBag.records != null)
                                                 {
-                                                    <tbody>
-                                                        @if (item.open_amount == "0")
-                                                        {
-                                                            <tr style="display:none"></tr>
-                                                        }
-                                                        else
-                                                        {
+                                                    foreach (var item in ViewBag.records)
+                                                    {
+                                                        <tbody>
+
+                                                            @if (item.open_amount == "0")
+                                                            {
+                                                                <tr style="display:none"></tr>
+                                                            }
+                                                            else
+                                                            {
+                                                                <tr>
+                                                                    <td class="col-md-1 id">
+                                                                        <label><input type="checkbox" value="@item.open_amount,@item.Invoice_no" onclick="addtotal()"></label>
+                                                                    </td>
+                                                                    <td class="col-md-2 product-name">@item.Invoice_no</td>
+                                                                    <td class="col-md-2 product-name"><span>@item.Payment_date</span></td>
+                                                                    <td class="col-md-2 quantity-changes">@item.totalQty</td>
+                                                                    <td class="col-md-3 product-name" style="text-align:left"><span>@item.total_price</span></td>
+
+                                                                    @if (item.open_amount == null || item.open_amount == "")
+                                                                    {
+                                                                        <td class="col-md-3 product-name" style="text-align:right"><span>@item.total_price</span></td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td class="col-md-3 product-name" style="text-align:right"><span>@item.open_amount</span></td>
+                                                                    }
+                                                                </tr>
+
+                                                            }
+                                                        </tbody>
+                                                    }
+                                                }
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row padding-top po-order" id="paidinvoicedetails" style="display:none">
+                                <div class="row margin-top margin-bottom">
+                                    <div class="col-xs-12 col-md-12">
+                                        @Html.HiddenFor(m => m.poid)
+                                        <div class="total table-responsive">
+                                            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                                                <thead class="thead-inverse">
+                                                    <tr>
+
+                                                        <th class="col-md-2">Invoice No</th>
+                                                        <th class="col-md-2">Payment Due Date</th>
+                                                        <th class="col-md-2">Total Items</th>
+                                                        <th class="col-md-2">Old DueAmount In<text class="localization"></text> </th>
+                                                        <th class="col-md-2">Received Amount In <text class="localization"></text> </th>
+                                                        <th class="col-md-3" style="text-align:right">Current DueAmount In <text class="localization"></text> </th>
+                                                    </tr>
+                                                </thead>
+                                                @if (ViewBag.invocess != null)
+                                                {
+                                                    foreach (var item in ViewBag.invocess)
+                                                    {
+
+                                                        <tbody>
+
+                                                            @if (item.open_amount == "0")
+                                                            {
+                                                                <tr style="display:none"></tr>
+                                                            }
+                                                            else
+                                                            {
+                                                                @*<tr><td><input type="hidden" value="@item.Prchaseorder_no" id="invoiceids" /></td></tr>*@
+                                                                <tr>
+                                                                    <td class="col-md-2 product-name">@item.Invoice_no</td>
+                                                                    <td class="col-md-2 product-name"><span>@item.Payment_date</span></td>
+                                                                    <td class="col-md-1 quantity-changes">@item.totalQty</td>
+                                                                    <td class="col-md-3 product-name" style="text-align:left"><span>@item.open_amount</span></td>
+                                                                    <td class="col-md-3 product-name" style="text-align:right"><span>@item.sub_total</span></td>
+                                                                    <td class="col-md-3 product-name" style="text-align:right"><span>@item.total_dues</span></td>
+                                                                </tr>
+
+                                                            }
+                                                        </tbody>
+                                                    }
+                                                }
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            @*<div class="row padding-top invoice" id="invoicedetails" >
+                                    <div class="row invoice-table margin-top margin-bottom">
+                                        <div class="col-md-12">
+                                            @Html.HiddenFor(m => m.poid)
+                                            <table class="table table-bordered" cellspacing="0" style="background:#fff;">
+                                                <thead style="background:#8086c2;color:#fff;">
+                                                    <tr>
+                                                        <th class="col-md-1" style="border:1px solid #fff;border-right:none;padding:8px;">Select</th>
+                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Invoice No</th>
+                                                        <th class="col-md-3" style="border:1px solid #fff;border-right:none;padding:8px;">Payment Due Date</th>
+                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Items</th>
+                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Amount In <text class="localization"></text></th>
+                                                        <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Due Amount In <text class="localization"></text></th>
+                                                    </tr>
+                                                </thead>
+
+                                                @if (ViewBag.records != null)
+                                                {
+                                                    foreach (var item in ViewBag.records)
+                                                    {
+                                                        <tbody>
+                                                            @if (item.open_amount == "0")
+                                                            {
+                                                                <tr style="display:none"></tr>
+                                                            }
+                                                            else
+                                                            {
+                                                                <tr style="color:#000;">
+                                                                    <td class="col-md-1" style="border:1px solid #ddd;border-right:none;padding:8px;">
+                                                                        <label><input type="checkbox" value="@item.open_amount,@item.Invoice_no" onclick="addtotal()"></label>
+                                                                    </td>
+                                                                    <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
+                                                                    <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
+                                                                    <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
+                                                                    <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_price</span></td>
+                                                                    @if (item.open_amount == null || item.open_amount == "")
+                                                                    {
+                                                                        <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.total_price</span></td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
+                                                                    }
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    }
+
+                                                }
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                            @*<div class="row padding-top invoice" id="paidinvoicedetails" style="display:none">
+                                    <div class="row invoice-table margin-top margin-bottom">
+                                        <div class="col-md-12">
+
+                                            <table class="table table-bordered" cellspacing="0" style="background:#fff;">
+                                                <thead style="background:#8086c2;color:#fff;">
+                                                    <tr>
+
+                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Invoice No</th>
+                                                        <th class="col-md-3" style="border:1px solid #fff;border-right:none;padding:8px;">Payment Due Date</th>
+                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Items</th>
+                                                        <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Old Due Amount In <text class="localization"></text></th>
+                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Received Amount In <text class="localization"></text></th>
+                                                        <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Current Due Amount<text class="localization"></text></th>
+                                                    </tr>
+                                                </thead>
+
+                                                @if (ViewBag.invocess != null)
+                                                {
+                                                    foreach (var item in ViewBag.invocess)
+                                                    {
+
+                                                        <tbody>
+
                                                             <tr style="color:#000;">
-                                                                <td class="col-md-1" style="border:1px solid #ddd;border-right:none;padding:8px;">
-                                                                    <label><input type="checkbox" value="@item.open_amount,@item.Invoice_no" onclick="addtotal()"></label>
-                                                                </td>
+                                                                <td><input type="hidden" value="@item.Prchaseorder_no" id="invoiceids" /></td>
                                                                 <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
                                                                 <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
                                                                 <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
-                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_price</span></td>
-                                                                @if (item.open_amount == null || item.open_amount == "")
-                                                                {
-                                                                    <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.total_price</span></td>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
-                                                                }
+                                                                <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
+                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.sub_total</span></td>
+                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_dues</span></td>
                                                             </tr>
-                                                        }
-                                                    </tbody>
+                                                        </tbody>
+                                                    }
+
                                                 }
 
-                                            }
-
-                                        </table>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="row padding-top invoice" id="paidinvoicedetails" style="display:none">
-                                <div class="row invoice-table margin-top margin-bottom">
-                                    <div class="col-md-12">
-
-                                        <table class="table table-bordered" cellspacing="0" style="background:#fff;">
-                                            <thead style="background:#8086c2;color:#fff;">
-                                                <tr>
-
-                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Invoice No</th>
-                                                    <th class="col-md-3" style="border:1px solid #fff;border-right:none;padding:8px;">Payment Due Date</th>
-                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Items</th>
-                                                    <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Due Amount In <text class="localization"></text></th>
-                                                    <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Received Amount In <text class="localization"></text></th>
-                                                    <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Need To Pay<text class="localization"></text></th>
-                                                </tr>
-                                            </thead>
-
-                                            @if (ViewBag.invocess != null)
-                                            {
-                                                foreach (var item in ViewBag.invocess)
-                                                {
-                                                    
-                                                    <tbody>
-                                                       
-                                                        <tr style="color:#000;">
-                                                            <td><input type="hidden" value="@item.Prchaseorder_no" id="invoiceids" /></td>
-                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
-                                                            <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
-                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
-                                                            <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
-                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.sub_total</span></td>
-                                                            <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_dues</span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                }
-
-                                            }
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
+                                </div>*@
 
                             <div class="row payment-method margin-top">
                                 <h2 class="col-xs-12 col-sm-12 col-md-12">Payments</h2>
                                 <div class="col-xs-12 col-sm-8 col-md-8">
+
+                                    <div class="payment-option">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optradio" id="radio-cash" onchange="enableText(this)" checked>
+                                                Cash
+                                            </label>
+                                        </div>
+                                        <div class="row margin-top" id="cash-details">
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group" style="margin-bottom:0;">
+                                                    <label>Date</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                                                    <input class="form-control" id="cash_date" name="cash_date" placeholder="DD/MM/YYYY" type="text" >
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label>Cashier Name</label>
+                                                    <input type="text" class="form-control" id="cash_card_holdername" name="cash_card_holdername">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="payment-option">
                                         <div class="radio">
                                             <label>
@@ -311,31 +445,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="payment-option">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optradio" id="radio-cash" onchange="enableText(this)" checked>
-                                                Cash
-                                            </label>
-                                        </div>
-                                        <div class="row margin-top" id="cash-details">
-                                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                                <div class="form-group" style="margin-bottom:0;">
-                                                    <label>Date</label>
-                                                </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                                    <input class="form-control" id="cash_date" name="cash_date" placeholder="DD/MM/YYYY" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-4 col-md-4">
-                                                <div class="form-group">
-                                                    <label>Cashier Name</label>
-                                                    <input type="text" class="form-control" id="cash_card_holdername" name="cash_card_holdername">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="payment-option">
                                         <div class="radio">
                                             <label>
@@ -430,11 +540,9 @@
                         </div>
                     </div>
                     <div class="row margin-top">
-                        <div class="col-xs-12 col-md-12 invoice-buttons">
-
+                        <div class="col-xs-12 col-md-12">
                             @if (ViewBag.enablebuttons != "" && ViewBag.enablebuttons != null)
                             {
-
                                 <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
 
                                 <div class="row email-popup-area" style="display:none;">
@@ -453,7 +561,8 @@
                             }
                             else
                             {
-                                <button type="submit" class="btn btn-primary pull-right save" id="save-payments"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+                                <button type="submit" class="btn btn-primary pull-right invite" id="save-payments"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
+
                                 @*<button type="button" class="btn btn-primary pull-right save" id="save-payments" onclick="savepayments(@ViewBag.customer_id,'@ViewBag.company_name')"><i class="fa fa-floppy-o" aria-hidden="true" ></i>Save</button>*@
 
                             }
@@ -636,7 +745,7 @@
     $("#message_submit").click(function () {
         $("#paidinvoicedetails").css("display", "block");
         $("#invoicedetails").css("display", "none");
-        
+
         var emailid = $("#email").val();
         var invoiceids = $("#invoiceids").val();
         //alert(invoiceids);
@@ -651,7 +760,7 @@
     });
 
 
-    function email(v, emailid) {
+    function email(v, emailid, invoiceids) {
         var Detdivobj = {};
         Detdivobj.Detdiv = v;
         //alert(Detdivobj);
@@ -706,46 +815,66 @@
     </script>
 }
 
-    @*Success Message*@
-    @if (ViewBag.smsg != "" && ViewBag.smsg != null)
-    {
-        <script>
-            $("body").overhang({
-                type: "success",
-                message: '@ViewBag.smsg',
-                duration: 3,
-                closeConfirm: false
-            });
-        </script>
-
-    }
-    <!------------- E-Mail------------->
+@if (ViewBag.smsg != "" && ViewBag.smsg != null)
+{
     <script>
-
-        function deselect(e) {
-            $('.pop').slideFadeToggle(function () {
-                e.removeClass('selected');
-            });
-        }
-
-        $(function () {
-            $('#add-vendor3').on('click', function () {
-                if ($(this).hasClass('selected')) {
-                    deselect($(this));
-                } else {
-                    $(this).addClass('selected');
-                    $('.pop').slideFadeToggle();
+        $("body").overhang({
+            type: "confirm",
+            primary: "#21abe9",
+            accent: "#ff7700",
+            yesColor: "#333",
+            noColor: "#FFFC00",
+            message: '@ViewBag.smsg',
+            callback: function (value) {
+                var response = value ? "yes" : "no";
+                if (response == "yes") {
+                    $("#add-vendor3").click();
                 }
-                return false;
-            });
-
-            $('.close').on('click', function () {
-                deselect($('#add-vendor3'));
-                return false;
-            });
+            }
         });
-
-        $.fn.slideFadeToggle = function (easing, callback) {
-            return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
-        };
     </script>
+}
+
+    @*Success Message*@
+                                    @*@if (ViewBag.smsg != "" && ViewBag.smsg != null)
+                                            {
+                                                <script>
+                                                    $("body").overhang({
+                                                        type: "success",
+                                                        message: '@ViewBag.smsg',
+                                                        duration: 3,
+                                                        closeConfirm: false
+                                                    });
+                                        </script>
+
+                                        }*@
+                                    <!------------- E-Mail------------->
+                                    <script>
+
+                                        function deselect(e) {
+                                            $('.pop').slideFadeToggle(function () {
+                                                e.removeClass('selected');
+                                            });
+                                        }
+
+                                        $(function () {
+                                            $('#add-vendor3').on('click', function () {
+                                                if ($(this).hasClass('selected')) {
+                                                    deselect($(this));
+                                                } else {
+                                                    $(this).addClass('selected');
+                                                    $('.pop').slideFadeToggle();
+                                                }
+                                                return false;
+                                            });
+
+                                            $('.close').on('click', function () {
+                                                deselect($('#add-vendor3'));
+                                                return false;
+                                            });
+                                        });
+
+                                        $.fn.slideFadeToggle = function (easing, callback) {
+                                            return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+                                        };
+                                    </script>
