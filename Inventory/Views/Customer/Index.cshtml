@@ -27,6 +27,7 @@
     <!--- Tabs in Graph Section ---->
     <link href="~/Scripts/css/reset.css" rel="stylesheet" />
     <link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
+
 @*Over Hang*@
 <link href="~/Scripts/css/overhang.min.css" rel="stylesheet" />
 }
@@ -315,9 +316,9 @@
                                             </div>
 
                                                 <div class="form-group col-md-6" id="fileid">
-                                                    <input type="file" name="fileupload2" id="fileupload2" onchange="onFileSelected(event)" style="display:none">
-                                                    <img src="" id="forimg" width="200" height="200" style="display:none" />
-                                                    <div id="result" style="display:none;height: 400px;width: 500px;overflow: auto;border:dashed"></div>
+                                                    <input type="file" name="file" id="fileupload2" onchange="onFileSelected(event)" style="display:none" value="passwords.txt"/>
+                                                    @*<img src="" id="forimg" width="200" height="200" style="display:none" />
+                                                    <div id="result" style="display:none;height: 400px;width: 500px;overflow: auto;border:dashed"></div>*@
                                                 </div>
 
                                             </div>
@@ -363,9 +364,11 @@
             </div>
 
         </form>
-        <center><button type="button" id="backtocustomer" class="btn btn-primary" id="forclose" value="Close View" style="display:none" onclick="location.reload();"/></center>
-        @*<center> <div><input type="button" id="forclose" value="Close View" style="display:none" onclick="location.reload();" /></div></center>*@
-    </div>
+        <center>
+            @*<button type="button" class="btn btn-primary" id="forclose" style="display:none" onclick="location.reload();"> <i class="fa fa-close" aria-hidden="true"></i> Close View </button>*@</center>
+        <center><button type="button" id="forclose" class="btn btn-primary" style="display:none" onclick="location.reload();"><i class="fa fa-close" aria-hidden="true"></i>Close View</button></center>
+    @*<center> <div><input type="button" id="forclose" value="Close View" style="display:none" onclick="location.reload();" /></div></center>id="backtocustomer"*@
+</div>
 </div>
 <!-- /page content -->
 

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "PosOfCustomer";
+    ViewBag.Title = "POs Of Customer";
     Layout = "~/Views/Shared/MainMaster.cshtml";
 }
 <!-- Bootstrap -->
@@ -23,7 +23,7 @@
 
 <!--- Tabs in Graph Section ---->
 <link rel="stylesheet" type="text/css" href="~/Scripts/css/reset.css">
-@*<link rel="stylesheet" type="text/css" href="~/Scripts/css/styles.css">*@
+<link href="~/Scripts/css/dashboardstyles.css" rel="stylesheet" />
 <div class="container-fluid padding-left-0 padding-right-0 padding-top-10 padding-bottom-10 top-strip fixed">
     <div class="row">
         <div class="form-title col-xs-12 col-md-8">POs of Customer</div>
@@ -101,12 +101,12 @@
                                     </tr>
                                 }
                             }
-                        }
+                        
                         else
                         {
-                                <tr>
-                                    <td colspan="6"><p>No Records Available</p></td>
+                                <tr> <td colspan="5"><p>No PO's Available to Display</p></td>
                                 </tr>
+                            }
                         }
                         </tbody>
                     </table>

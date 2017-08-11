@@ -105,7 +105,7 @@ function saveInvoice(cid) {
         var grandtotl = ((document.getElementById("grandtotal").textContent).split('₹')[1]);
     }
     var companyName = (document.getElementById("companyname").textContent);
-    alert(companyName);
+    //alert(companyName);
     var invoiceNum = $("[id='invoicenum']").val();
     var paymenterms = $("[id='paymentterms']").val();
     var Comment = $("[id='comment']").val();

@@ -99,7 +99,8 @@ namespace Inventory.Controllers
                         due = duesoverdues.FirstOrDefault().due;
                         overdue = duesoverdues.FirstOrDefault().overdue;
                     }
-
+                    string overduestrt = overdue;
+                    string duestrt = due;
                     int updatedopenamt = 0; int updatedreceivedamount = int.Parse(payments.Received_amount); int updatedinvoiceamount = int.Parse(payments.invoiced_amount);
                     Array ponumsArray = payments.poid.Split(',');
                     for (int i = 0; i < ponumsArray.Length; i++)
@@ -142,6 +143,7 @@ namespace Inventory.Controllers
                                     updatedopenamt = (int.Parse(open_amount) - int.Parse(payments.Received_amount));
                                     PaymentsService.Updateinvoice(user.DbName, payments.poid.Split(',')[i], updatedopenamt.ToString());  /*updatedopenamt.ToString()*/
                                     listglb.Add(new Invoice() {Prchaseorder_no= payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues= updatedopenamt.ToString() });
+                                    duestrt = (int.Parse(duestrt) - int.Parse(payments.Received_amount)).ToString();
                                     payments.Received_amount = "0";
                                 }
                                 else
@@ -149,7 +151,7 @@ namespace Inventory.Controllers
                                     updatedreceivedamount = (int.Parse(payments.Received_amount) - int.Parse(open_amount));
                                     if (updatedreceivedamount > 0)
                                     {
-                                      
+                                        duestrt = (int.Parse(duestrt) - int.Parse(payments.Received_amount)).ToString();
                                         payments.Received_amount = updatedreceivedamount.ToString();
                                         updatedopenamt = 0;
                                         listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
@@ -161,13 +163,22 @@ namespace Inventory.Controllers
                                 break;
                             if (date1 < date2)
                             {
-                                overdue = updatedopenamt.ToString(); //payments.current_balance;
+                                if (int.Parse(overduestrt)> updatedreceivedamount) {
+                                    overdue = (int.Parse(overduestrt) - updatedreceivedamount).ToString();
+                                }
 
+                                overdue = updatedopenamt.ToString(); 
+                                
                             }
                             else
                             {
-                                due = updatedopenamt.ToString(); //payments.current_balance;
-
+                                if (int.Parse(duestrt) > updatedopenamt)
+                                {
+                                 due = duestrt;
+                                 }
+                                else { 
+                                due = updatedopenamt.ToString(); 
+                                }
                             }
                         }
                     }

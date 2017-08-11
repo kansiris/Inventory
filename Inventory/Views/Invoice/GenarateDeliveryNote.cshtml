@@ -21,7 +21,48 @@
         </div>
     </div>
 </div>
-<div class="row padding-top invoice">
+<div class="row padding-top po-order" id="podetails">
+    <div class="col-xs-12 col-md-12">
+        <div class="total table-responsive">
+            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                <thead class="thead-inverse">
+                    <tr>
+                        @*<th class="col-md-1">Product Id</th>*@
+                        <th class="col-md-3">Product Name</th>
+                        <th class="col-md-2">Description</th>
+                        <th class="col-md-2">PO Quantity</th>
+                        <th class="col-md-2">Deliver Quantity</th>
+                        <th class="col-md-2">Price In <text class="localization"></text> </th>
+                        <th class="col-md-2">Total In <text class="localization"></text> </th>
+                        <th class="col-md-2">Button</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.records != null)
+                    {
+                        foreach (var item in ViewBag.records)
+                        {
+                            <tr>
+                                @*<td class="col-md-1 id">@item.product_id </td>*@
+                                <td class="col-md-3 product-name">@item.product_name</td>
+                                <td class="col-md-2 product-name"><span>@item.description</span></td>
+                                <td class="col-md-2 quantity-changes">@item.Quantity</td>
+                                <td class="col-md-2 delivery-qty">@item.Quantity</td>
+                                <td class="col-md-2 product-name" style="text-align:left"><span>@item.cost_price</span></td>
+                                <td class="col-md-2 product-name" style="text-align:right"><span>@item.total_price</span></td>
+                                <td class="col-md-2 product-name"><button class="btn-default">+</button></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div class="row padding-top invoice">
     <div class="col-xs-12 col-md-12">
         <div class="total table-responsive">
             <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
@@ -58,7 +99,7 @@
 
         </div>
     </div>
-</div>
+</div>*@
 <div class="row">
     <div class="col-xs-12 col-md-6 remarks margin-top">
         <label>Remarks</label>
