@@ -74,7 +74,7 @@ namespace Inventory.Controllers
                               Timezone = row["Timezone"].ToString(),
                               Date_Format = row["Date_Format"].ToString(),
                               Profile_Picture = row["Profile_Picture"].ToString()
-                          }).ToList();
+                          }).Take(1).ToList();
             return userMaster;
         }
     }
