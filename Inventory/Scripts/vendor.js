@@ -150,6 +150,10 @@ $(document).ready(function (e) {
     $("#additon").click(function () {
         $("#vendor-information1").css("display", "block");
         $(".cd-tabs").css("display", "block");
+        $(".cd-tabs-navigation li a[data-content='contactperson'], ul.cd-tabs-content li[data-content='contactperson']").removeClass("selected");
+        $(".cd-tabs-navigation li a[data-content='details'], ul.cd-tabs-content li[data-content='details']").removeClass("selected");
+        $(".cd-tabs-navigation li a[data-content='notes'], ul.cd-tabs-content li[data-content='notes']").removeClass("selected");
+        $(".cd-tabs-navigation li a[data-content='address'], ul.cd-tabs-content li[data-content='address']").addClass("selected");
         //$("#contacttable").css("display", "block");
     });
 });
