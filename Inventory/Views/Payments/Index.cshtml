@@ -102,6 +102,10 @@
                                 <div class="row margin-top margin-bottom">
                                     <div class="col-xs-12 col-md-12">
                                         @Html.HiddenFor(m => m.poid)
+                                        <input type="hidden" value="@ViewBag.receivedamunt" id="recvdamt" />
+                                        <input type="hidden" value="@ViewBag.openamount" id="openamt" />
+                                        <input type="hidden" value="@ViewBag.currentdue" id="currentdue" />
+                                        <input type="hidden" value="@ViewBag.invocesids" id="invocesids" />
                                         <div class="total table-responsive">
                                             <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                                                 <thead class="thead-inverse">
@@ -156,7 +160,7 @@
                             </div>
 
 
-                            <div class="row padding-top po-order" id="paidinvoicedetails" style="display:none">
+                            <div class="row padding-top po-order" id="paidinvoicedetails" style="display:block">
                                 <div class="row margin-top margin-bottom">
                                     <div class="col-xs-12 col-md-12">
                                         @Html.HiddenFor(m => m.poid)
@@ -192,7 +196,7 @@
                                                                     <td class="col-md-2 product-name"><span>@item.Payment_date</span></td>
                                                                     <td class="col-md-1 quantity-changes">@item.totalQty</td>
                                                                     <td class="col-md-3 product-name" style="text-align:left"><span>@item.open_amount</span></td>
-                                                                    <td class="col-md-3 product-name" style="text-align:right"><span>@item.sub_total</span></td>
+                                                                    <td class="col-md-3 product-name" style="text-align:center"><span>@item.sub_total</span></td>
                                                                     <td class="col-md-3 product-name" style="text-align:right"><span>@item.total_dues</span></td>
                                                                 </tr>
 
@@ -205,110 +209,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-                            @*<div class="row padding-top invoice" id="invoicedetails" >
-                                    <div class="row invoice-table margin-top margin-bottom">
-                                        <div class="col-md-12">
-                                            @Html.HiddenFor(m => m.poid)
-                                            <table class="table table-bordered" cellspacing="0" style="background:#fff;">
-                                                <thead style="background:#8086c2;color:#fff;">
-                                                    <tr>
-                                                        <th class="col-md-1" style="border:1px solid #fff;border-right:none;padding:8px;">Select</th>
-                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Invoice No</th>
-                                                        <th class="col-md-3" style="border:1px solid #fff;border-right:none;padding:8px;">Payment Due Date</th>
-                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Items</th>
-                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Amount In <text class="localization"></text></th>
-                                                        <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Due Amount In <text class="localization"></text></th>
-                                                    </tr>
-                                                </thead>
-
-                                                @if (ViewBag.records != null)
-                                                {
-                                                    foreach (var item in ViewBag.records)
-                                                    {
-                                                        <tbody>
-                                                            @if (item.open_amount == "0")
-                                                            {
-                                                                <tr style="display:none"></tr>
-                                                            }
-                                                            else
-                                                            {
-                                                                <tr style="color:#000;">
-                                                                    <td class="col-md-1" style="border:1px solid #ddd;border-right:none;padding:8px;">
-                                                                        <label><input type="checkbox" value="@item.open_amount,@item.Invoice_no" onclick="addtotal()"></label>
-                                                                    </td>
-                                                                    <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
-                                                                    <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
-                                                                    <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
-                                                                    <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_price</span></td>
-                                                                    @if (item.open_amount == null || item.open_amount == "")
-                                                                    {
-                                                                        <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.total_price</span></td>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
-                                                                    }
-                                                                </tr>
-                                                            }
-                                                        </tbody>
-                                                    }
-
-                                                }
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>*@
-
-                            @*<div class="row padding-top invoice" id="paidinvoicedetails" style="display:none">
-                                    <div class="row invoice-table margin-top margin-bottom">
-                                        <div class="col-md-12">
-
-                                            <table class="table table-bordered" cellspacing="0" style="background:#fff;">
-                                                <thead style="background:#8086c2;color:#fff;">
-                                                    <tr>
-
-                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Invoice No</th>
-                                                        <th class="col-md-3" style="border:1px solid #fff;border-right:none;padding:8px;">Payment Due Date</th>
-                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Total Items</th>
-                                                        <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Old Due Amount In <text class="localization"></text></th>
-                                                        <th class="col-md-2" style="border:1px solid #fff;border-right:none;padding:8px;">Received Amount In <text class="localization"></text></th>
-                                                        <th class="col-md-3" style="border:1px solid #fff;padding:8px;">Current Due Amount<text class="localization"></text></th>
-                                                    </tr>
-                                                </thead>
-
-                                                @if (ViewBag.invocess != null)
-                                                {
-                                                    foreach (var item in ViewBag.invocess)
-                                                    {
-
-                                                        <tbody>
-
-                                                            <tr style="color:#000;">
-                                                                <td><input type="hidden" value="@item.Prchaseorder_no" id="invoiceids" /></td>
-                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Invoice_no</td>
-                                                                <td class="col-md-3" style="border:1px solid #ddd;border-right:none;padding:8px">@item.Payment_date</td>
-                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px">@item.totalQty</td>
-                                                                <td class="col-md-3" style="border:1px solid #ddd;padding:8px"><span>@item.open_amount</span></td>
-                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.sub_total</span></td>
-                                                                <td class="col-md-2" style="border:1px solid #ddd;border-right:none;padding:8px;"><span>@item.total_dues</span></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    }
-
-                                                }
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>*@
 
                             <div class="row payment-method margin-top">
                                 <h2 class="col-xs-12 col-sm-12 col-md-12">Payments</h2>
@@ -746,22 +646,26 @@
     $("#message_submit").click(function () {
         $("#paidinvoicedetails").css("display", "block");
         $("#invoicedetails").css("display", "none");
-
+        
         var emailid = $("#email").val();
-        var invoiceids = $("#invoiceids").val();
-        //alert(invoiceids);
+        var invoiceids = $("#invocesids").val();
+        alert(invoiceids);
+        var recvdamt = $("#recvdamt").val();
+        var openamt = $("#openamt").val();
+        var currentdue = $("#currentdue").val();
+        
         //var previous = $("#opening_balance").val();
-        //alert(previous);
+        alert(openamt);
         //var recevdamnt = $("#Received_amount").val();
-        //alert(recevdamnt);
+        alert(recvdamt);
         //var currblnce = $("#current_balance").val();
         //alert(currblnce);
         var Detdiv = document.getElementById("paidinvoicedetails").outerHTML;
-        return email(Detdiv, emailid, invoiceids);
+        return email(Detdiv, emailid, invoiceids, recvdamt, openamt, currentdue);
     });
 
 
-    function email(v, emailid, invoiceids) {
+    function email(v, emailid, invoiceids, recvdamt, openamt, currentdue) {
         var Detdivobj = {};
         Detdivobj.Detdiv = v;
         //alert(Detdivobj);
@@ -771,7 +675,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: {},
-            data: JSON.stringify({ Invoicedata: v, EmailID: emailid, Invoicenums: invoiceids }),
+            data: JSON.stringify({ Invoicedata: v, EmailID: emailid, Invoicenums: invoiceids, Recievamt: recvdamt, Openamt: openamt, Currentdue:currentdue }),
             success: function (data) {
                 if (data == "unique") {
                     errormsg("EMial not sent");

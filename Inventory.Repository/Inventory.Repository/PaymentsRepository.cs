@@ -33,11 +33,11 @@ namespace Inventory.Repository
            , cash_date, cash_card_holdername, wallet_date, wallet_number, invoiced_amount, Received_amount, opening_balance, current_balance, bank_transfer_IFSCcode, bank_transfer_branchname, Customer_comapnyId, Customer_company_name, remarks);
         }
         //Updatecustomerdue
-             public static int Updatecustomerdue(string dbname, string customer_id, string due, string overdue)
+             public static int Updatecustomerdue(string dbname, string customer_id, string due, string overdue, string Payment_due_date)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatecustomerdues", customer_id, due, overdue);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updatecustomerdues", customer_id, due, overdue,Payment_due_date);
         }
 
         //updateopenamunt_invoice
