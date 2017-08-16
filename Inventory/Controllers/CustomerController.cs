@@ -72,12 +72,14 @@ namespace Inventory.Controllers
                                 new_POs = row["new_POs"].ToString(),
                                 total_POs = row["total_POs"].ToString(),
                                 due = row["due"].ToString(),
-                                overdue = row["overdue"].ToString()
+                                overdue = row["overdue"].ToString(),
+                                //payment_due_date = row["payment_due_date"].ToString()
                             }).OrderByDescending(m => m.cus_company_Id).ToList();
                 ViewBag.totalnewpos = customer.Select(m => int.Parse(m.new_POs)).Sum();
                 ViewBag.totalinvoicedpos = customer.Select(m => int.Parse(m.total_POs)).Sum();
                 ViewBag.totaldues = customer.Select(m => float.Parse(m.due)).Sum();
                 ViewBag.totaloverdues = customer.Select(m => float.Parse(m.overdue)).Sum();
+               // ViewBag.paymnetduedate = customer.Select(m => m.payment_due_date).FirstOrDefault();
                 // ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
                 if (ViewBag.typeofuser == "Admin" || ViewBag.typeofuser == "AdminStaff")
                 {

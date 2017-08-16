@@ -21,22 +21,29 @@ namespace Inventory.Controllers
         // GET: Vendor
         public ActionResult Index()
         {
-            ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
-            var list = AvailableJobPositions();
-            if(list != null)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                ViewBag.country = new SelectList(CountryList().OrderBy(x => x.Value), "Value", "Text");
+                var list = AvailableJobPositions();
+                if (list != null)
                     ViewBag.jobpositions = AvailableJobPositions().Select(m => m.Job_position).Distinct();
+                else
+                    ViewBag.jobpositions = "";
+                if (TempData["msg"] != null)
+                {
+                    ViewBag.msg = TempData["msg"];
+                }
+                if (TempData["smsg"] != null)
+                {
+                    ViewBag.smsg = TempData["smsg"];
+                }
+            }
             else
-            ViewBag.jobpositions = "";
-            if (TempData["msg"] != null)
             {
-                ViewBag.msg = TempData["msg"];
+                return RedirectToAction("Index", "Login");
             }
-            if (TempData["smsg"] != null)
-            {
-                ViewBag.smsg = TempData["smsg"];
+                return View();
             }
-            return View();
-        }
         //companypic upload
         [HttpPost]
         public ActionResult UpdateCompanyPic(HttpPostedFileBase helpSectionImages, string company_Id)
