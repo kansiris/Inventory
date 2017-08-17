@@ -216,15 +216,23 @@ function saveDeliverynote(cid) {
 }
 
 function checkinvoicenumber(passedvalue) {
+    if ($('#invoicenum').val().indexOf(' ') >= 0) {
+        errormsg("Spaces not allowed Between Invoice number");
+        $("[id='invoicenum']").val("");
+    }
     if (passedvalue == "") {
-        errormsg("please enter Invoice number");
+        errormsg("please Enter Invoice number");
     }
    
 }
 
 function checkdelivnote(passedvalue) {
+    if ($('#delivnotenum').val().indexOf(' ') >= 0) {
+        errormsg("Spaces not allowed Between Delivery Note number");
+        $("[id='delivnotenum']").val("");
+    }
     if (passedvalue == "") {
-        errormsg("please enter delivery Note number");
+        errormsg("please Enter Delivery Note number");
     }
 }
 function checkstatus() {

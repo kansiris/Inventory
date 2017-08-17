@@ -235,6 +235,11 @@ function insertpo(totalamount) {
 
 
 function checkponumber(passedvalue) {
+    $(".overlay").hide();
+    if ($('#ponumber').val().indexOf(' ') >= 0) {
+        errormsg("Spaces not allowed Between Purchase Order number");
+        $("[id='ponumber']").val("");
+    }
     if (passedvalue == "" || passedvalue == null) {
         $(".overlay").hide();
         errormsg(" Please Enter Purchase Order Number");
