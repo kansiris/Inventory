@@ -167,6 +167,8 @@ $(document).ready(function (e) {
         $(".cd-tabs-navigation li a[data-content='details'], ul.cd-tabs-content li[data-content='details']").removeClass("selected");
         $(".cd-tabs-navigation li a[data-content='notes'], ul.cd-tabs-content li[data-content='notes']").removeClass("selected");
         $(".cd-tabs-navigation li a[data-content='address'], ul.cd-tabs-content li[data-content='address']").addClass("selected");
+        $(".contactperson input").val("");
+        
     });
 });
 //$('#customertable tbody tr').css({ "display": "table", "width": "100%" });
@@ -359,6 +361,8 @@ function editFunction(array) {
 
 //Get Particular customer Record
 function getEditDetails(id) {
+    $("#tds").prop('checked', false);
+    $("#taxexemption").prop('checked', false);
     $('#mySubmit').val("update").text("Update Company");
     $('#mySubmit').show();
     $('#mySubmit1').show();
