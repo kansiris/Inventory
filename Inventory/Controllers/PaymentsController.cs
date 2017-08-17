@@ -213,7 +213,7 @@ namespace Inventory.Controllers
 
                         }
                     }
-                    int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue, Payment_due_date);
+                    int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue);
                     counts = 1;
                     if (counts > 0)
                     {
