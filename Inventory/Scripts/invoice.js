@@ -136,6 +136,11 @@ function saveInvoice(cid) {
                 $(".overlay").hide();
                 errormsg("Invoice generated already.");
             }
+            
+            if (data == "sapceinnum") {
+                $(".overlay").hide();
+                errormsg("Spaces not allowed Between Invoice number");
+            }
 
             if (data == "paymentdate") {
                 $(".overlay").hide();
@@ -214,6 +219,7 @@ function checkinvoicenumber(passedvalue) {
     if (passedvalue == "") {
         errormsg("please enter Invoice number");
     }
+   
 }
 
 function checkdelivnote(passedvalue) {

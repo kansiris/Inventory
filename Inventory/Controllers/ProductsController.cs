@@ -429,6 +429,11 @@ namespace Inventory.Controllers
         //for genarate purchase order
         public JsonResult GenratePurchaseOrder(string cid, string cname, string created_date, string Prchaseorder_no, string shipping_date, string shipping_terms, string remarks, string sub_total, string grand_total)// float vat, float discount,
         {
+            if (Prchaseorder_no.Contains(' '))
+            {
+                return Json("ponumspace");
+            }
+            else {
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             var dt = new DataTable();
             var records = ProductService.Getcartdata(user.DbName, cid);
@@ -505,6 +510,7 @@ namespace Inventory.Controllers
             }
             }
             return Json("unique");
+        }
         }
 
         //public JsonResult CheckPoNum(string Prchaseorder_no)

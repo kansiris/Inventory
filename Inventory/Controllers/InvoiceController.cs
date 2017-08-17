@@ -239,88 +239,96 @@ namespace Inventory.Controllers
 
                 if (Prchaseorder_nos != null && Invoice_no != null)
                 {
-                    Array ponumsArray = Prchaseorder_nos.Split(',');
-                    int count = 0;
-                    if (payment_date == "" || payment_date == null)
-                        return Json("paymentdate");
+                    if (Invoice_no.Contains(' '))
+                    {
+                        return Json("sapceinnum");
+                    }
                     else
                     {
-                        var county = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
-                        if (county.HasRows)
-                            return Json("exists");
+                        Array ponumsArray = Prchaseorder_nos.Split(',');
+                        int count = 0;
+                        if (payment_date == "" || payment_date == null)
+                            return Json("paymentdate");
                         else
                         {
-                            for (int i = 0; i < ponumsArray.Length; i++)
+                            var county = InvoiceService.checkinvoicenum(user.DbName, Invoice_no);
+                            if (county.HasRows)
+                                return Json("exists");
+                            else
                             {
-                                var dts = new DataTable();
-                                var recordss = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i]);
-                                dts.Load(recordss);
-
-                                List<Invoice> productsinpo = (from DataRow row in dts.Rows
-                                                              select new Invoice()
-                                                              {
-                                                                  product_id = row["product_id"].ToString(),
-                                                                  product_name = row["product_name"].ToString(),
-                                                                  cost_price = row["cost_price"].ToString(),
-                                                                  Quantity = row["Quantity"].ToString(),
-                                                                  description = row["description"].ToString(),
-                                                                  total_price = row["total_price"].ToString(),
-                                                              }).ToList();
-                                var ff = productsinpo.Count;
-                                status = 1.ToString();
-                                for (int j = 0; j < ff; j++)
+                                for (int i = 0; i < ponumsArray.Length; i++)
                                 {
-                                    string product_id = (productsinpo.Select(m => m.product_id).ToList())[j];
-                                    string product_name = (productsinpo.Select(m => m.product_name).ToList())[j];
-                                    string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[j];
-                                    string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];
-                                    string description = (productsinpo.Select(m => m.description).ToList())[j];
-                                    string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];//after this will be chnaged.
-                                    string total_price = (productsinpo.Select(m => m.total_price).ToList())[j];//Convert.ToInt32((float)Math.Round((int.Parse(po_quantity) * float.Parse(cost_price)), 0)).ToString();
-                                    
-                                    //dummy values for time sake
-                                    string cgst_rate = 2.ToString();
-                                    string cgst_amount = 200.ToString();
-                                    string sgst_rate = 3.ToString();
-                                    string sgst_amount = 300.ToString();
-                                    string igst_rate = 4.ToString();
-                                    string igst_amount = 400.ToString();
+                                    var dts = new DataTable();
+                                    var recordss = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i]);
+                                    dts.Load(recordss);
+
+                                    List<Invoice> productsinpo = (from DataRow row in dts.Rows
+                                                                  select new Invoice()
+                                                                  {
+                                                                      product_id = row["product_id"].ToString(),
+                                                                      product_name = row["product_name"].ToString(),
+                                                                      cost_price = row["cost_price"].ToString(),
+                                                                      Quantity = row["Quantity"].ToString(),
+                                                                      description = row["description"].ToString(),
+                                                                      total_price = row["total_price"].ToString(),
+                                                                  }).ToList();
+                                    var ff = productsinpo.Count;
+                                    status = 1.ToString();
+                                    for (int j = 0; j < ff; j++)
+                                    {
+                                        string product_id = (productsinpo.Select(m => m.product_id).ToList())[j];
+                                        string product_name = (productsinpo.Select(m => m.product_name).ToList())[j];
+                                        string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[j];
+                                        string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];
+                                        string description = (productsinpo.Select(m => m.description).ToList())[j];
+                                        string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[j];//after this will be chnaged.
+                                        string total_price = (productsinpo.Select(m => m.total_price).ToList())[j];//Convert.ToInt32((float)Math.Round((int.Parse(po_quantity) * float.Parse(cost_price)), 0)).ToString();
+
+                                        //dummy values for time sake
+                                        string cgst_rate = 2.ToString();
+                                        string cgst_amount = 200.ToString();
+                                        string sgst_rate = 3.ToString();
+                                        string sgst_amount = 300.ToString();
+                                        string igst_rate = 4.ToString();
+                                        string igst_amount = 400.ToString();
 
 
-                                    count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status
-                                        , product_id, product_name, cost_price, description, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
+                                        count = InvoiceService.InsertInvoice(user.DbName, Invoice_no, vendor_name, customer_id, company_name, created_date, payment_date, grand_total, payment_terms, comment, sub_total, vat, discount, Prchaseorder_nos.Split(',')[i], status
+                                            , product_id, product_name, cost_price, description, po_quantity, total_price, cgst_rate, cgst_amount, sgst_rate, sgst_amount, igst_rate, igst_amount);
+                                        count++;
+                                    }
+
+                                    if (count > 0)
+                                    {
+                                        InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
+                                        var dt = new DataTable();
+                                        var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
+                                        dt.Load(records);
+                                        List<Invoice> pos = (from DataRow row in dt.Rows
+                                                             select new Invoice()
+                                                             {
+                                                                 total_pos = row["pos"].ToString(),
+                                                             }).ToList();
+                                        string total_pos = (pos.Select(m => m.total_pos).ToList()).FirstOrDefault();
+                                        InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
+                                    }
                                     count++;
                                 }
-
+                                var dt1 = new DataTable();
+                                var recordses = InvoiceService.Getduesforcustomer(user.DbName, customer_id);
+                                dt1.Load(recordses);
+                                List<Invoice> dues = (from DataRow row in dt1.Rows
+                                                      select new Invoice()
+                                                      {
+                                                          total_dues = row["due"].ToString(),
+                                                      }).ToList();
+                                string total_dues1 = (dues.Select(m => m.total_dues).ToList()).FirstOrDefault();
+                                string total_dues = (int.Parse(grand_total) + int.Parse(total_dues1)).ToString();
+                                InvoiceService.updateduesinCustomer_company(user.DbName, customer_id, total_dues);
                                 if (count > 0)
-                                {
-                                    InvoiceService.UpdatePoforInvoice(user.DbName, customer_id, Prchaseorder_nos.Split(',')[i], status);
-                                    var dt = new DataTable();
-                                    var records = InvoiceService.Getposforcustomer(user.DbName, customer_id, status);
-                                    dt.Load(records);
-                                    List<Invoice> pos = (from DataRow row in dt.Rows
-                                                         select new Invoice()
-                                                         {
-                                                             total_pos = row["pos"].ToString(),
-                                                         }).ToList();
-                                    string total_pos = (pos.Select(m => m.total_pos).ToList()).FirstOrDefault();
-                                    InvoiceService.UpdatePoinCustomer(user.DbName, customer_id, total_pos);
-                                }
-                                count++;
+                                    return Json("success");
                             }
-                            var dt1 = new DataTable();
-                            var recordses = InvoiceService.Getduesforcustomer(user.DbName, customer_id);
-                            dt1.Load(recordses);
-                            List<Invoice> dues = (from DataRow row in dt1.Rows
-                                                  select new Invoice()
-                                                  {
-                                                      total_dues = row["due"].ToString(),
-                                                  }).ToList();
-                            string total_dues1 = (dues.Select(m => m.total_dues).ToList()).FirstOrDefault();
-                            string total_dues = (int.Parse(grand_total) + int.Parse(total_dues1)).ToString();
-                            InvoiceService.updateduesinCustomer_company(user.DbName, customer_id,total_dues);
-                            if (count > 0)
-                                return Json("success");
+
                         }
                     }
                 }

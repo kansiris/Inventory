@@ -193,7 +193,12 @@ function insertpo(totalamount) {
                 $("[id='shipping_terms']").val("");
                 $("[id='payment_date']").val("");
             }
-
+            
+            if (data == "ponumspace") {
+                $(".overlay").hide();
+                errormsg("Spaces not Allowed in Purchase Order Number");
+                $("[id='ponumber']").val("");
+            }
             if (data == "success") {
                 $(".overlay").hide();
                 successmsg("Successfully Purchase Order Generated.");
