@@ -57,45 +57,82 @@ namespace Inventory.Controllers
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
                 ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
-                var records = CustomerService.getcuscomapnies(user.DbName);
-                var dt = new DataTable();
-                dt.Load(records);
-                List<Customer> customer = new List<Customer>();
-                customer = (from DataRow row in dt.Rows
-                            select new Customer()
-                            {
-                                cus_company_Id = int.Parse(row["cus_company_Id"].ToString()),
-                                cus_company_name = row["cus_company_name"].ToString(),
-                                cus_email = row["cus_email"].ToString(),
-                                cus_logo = row["cus_logo"].ToString(),
-                                status = row["status"].ToString(),
-                                new_POs = row["new_POs"].ToString(),
-                                total_POs = row["total_POs"].ToString(),
-                                due = row["due"].ToString(),
-                                overdue = row["overdue"].ToString(),
-                                //payment_due_date = row["payment_due_date"].ToString()
-                            }).OrderByDescending(m => m.cus_company_Id).ToList();
-                ViewBag.totalnewpos = customer.Select(m => int.Parse(m.new_POs)).Sum();
-                ViewBag.totalinvoicedpos = customer.Select(m => int.Parse(m.total_POs)).Sum();
-                ViewBag.totaldues = customer.Select(m => float.Parse(m.due)).Sum();
-                ViewBag.totaloverdues = customer.Select(m => float.Parse(m.overdue)).Sum();
-               // ViewBag.paymnetduedate = customer.Select(m => m.payment_due_date).FirstOrDefault();
+                List<Customer> customer = getcuscompanydet(user.DbName);
+                string currentdate = (System.DateTime.Now).ToString();
+                string[] enddate = currentdate.Split('/');
+                DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
+                ViewBag.curentdate = date2;
+                for (int i = 0; i < customer.Count; i++)
+                {
+                    string Payment_due_date = customer[i].payment_due_date;
+                    if (Payment_due_date != null)
+                    {
+                        string[] strDate = Payment_due_date.Split('/');
+                        DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
+                        ViewBag.paymentduedate = date1;
+                        string Customer_comapnyId = (customer[i].cus_company_Id).ToString();
+                        string due = customer[i].due;
+                        string overdue = customer[i].overdue;
+                        if (date1 < date2)
+                        {
+                            overdue = (int.Parse(overdue) + int.Parse(due)).ToString();
+                            due = 0.ToString();
+                        }
+                        else
+                        {
+                            due = (int.Parse(overdue) + int.Parse(due)).ToString();
+                            overdue = 0.ToString();
+                        }
+                        PaymentsService.Updatecustomerdue(user.DbName, Customer_comapnyId, due, overdue, Payment_due_date);
+                    }
+                }
+
+                // ViewBag.paymnetduedate = customer.Select(m => m.payment_due_date).FirstOrDefault();
                 // ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Distinct().Sum();
+                List<Customer> customer1 = getcuscompanydet(user.DbName);
+                ViewBag.totalnewpos = customer1.Select(m => int.Parse(m.new_POs)).Sum();
+                ViewBag.totalinvoicedpos = customer1.Select(m => int.Parse(m.total_POs)).Sum();
+                ViewBag.totaldues = customer1.Select(m => float.Parse(m.due)).Sum();
+                ViewBag.totaloverdues = customer1.Select(m => float.Parse(m.overdue)).Sum();
+                ViewBag.records = customer1;
                 if (ViewBag.typeofuser == "Admin" || ViewBag.typeofuser == "AdminStaff")
                 {
-                    ViewBag.records = customer;
+                    ViewBag.records = customer1;
                 }
                 if (ViewBag.typeofuser == "Customer" || ViewBag.typeofuser == "Staff")
                 {
-                    ViewBag.records = customer.Where(m => m.cus_company_name == userdetails.CompanyName.Trim()).ToList();
+                    ViewBag.records = customer1.Where(m => m.cus_company_name == userdetails.CompanyName.Trim()).ToList();
                 }
-                //ViewBag.records = customer;
-                
+
                 return PartialView("CustomerCompany", ViewBag.records);
             }
 
             return PartialView("CustomerCompany", null);
         }
+
+        public List<Customer> getcuscompanydet(string DbName)
+        {
+            var records = CustomerService.getcuscomapnies(DbName);
+            var dt = new DataTable();
+            dt.Load(records);
+            List<Customer> customer = (from DataRow row in dt.Rows
+                                       select new Customer()
+                                       {
+                                           cus_company_Id = int.Parse(row["cus_company_Id"].ToString()),
+                                           cus_company_name = row["cus_company_name"].ToString(),
+                                           cus_email = row["cus_email"].ToString(),
+                                           cus_logo = row["cus_logo"].ToString(),
+                                           status = row["status"].ToString(),
+                                           new_POs = row["new_POs"].ToString(),
+                                           total_POs = row["total_POs"].ToString(),
+                                           due = row["due"].ToString(),
+                                           overdue = row["overdue"].ToString(),
+                                           payment_due_date = row["payment_due_date"].ToString()
+                                       }).OrderByDescending(m => m.cus_company_Id).ToList();
+            return customer;
+        }
+
+
         [HttpPost]
         public ActionResult UpdatecusCompanyPic(HttpPostedFileBase helpSectionImages, string cus_company_Id)
         {

@@ -324,7 +324,7 @@ namespace Inventory.Controllers
                                                       }).ToList();
                                 string total_dues1 = (dues.Select(m => m.total_dues).ToList()).FirstOrDefault();
                                 string total_dues = (int.Parse(grand_total) + int.Parse(total_dues1)).ToString();
-                                InvoiceService.updateduesinCustomer_company(user.DbName, customer_id, total_dues);
+                                InvoiceService.updateduesinCustomer_company(user.DbName, customer_id, total_dues, payment_date);
                                 if (count > 0)
                                     return Json("success");
                             }
