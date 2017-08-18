@@ -155,6 +155,10 @@ function saveInvoice(cid) {
             if (data == "success") {
                 $(".overlay").hide();
                 successmsg("Invoice Created successfully");
+                
+                $("[id='producttable']").css("display", "none");
+                $("[id='GenarateInvoice']").css("display", "none");
+                $("[id='back-invoice1']").css("display", "none");
                 $("[id='saveinvoice']").css("display", "none");
                 $("[id='add-vendor3']").css("display", "block");
                 

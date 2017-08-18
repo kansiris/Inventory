@@ -314,13 +314,14 @@ $("#email-popup-cancle").click(function(){
 <!------------ E-Mail Popup ---------------->
 <script>
     $("#message_submit").click(function () {
+        $(".overlay").show();
         var emailid = $("#email").val();
         var Detdiv = document.getElementById("podetails").outerHTML;
         var comapnyname = $("#companyname").val();
         //alert(comapnyname);
         var productcount = $("#productcount").val();
         //alert(productcount);
-        
+
         var shipdate = $("#shipping_date").val();
         //alert(shipdate);
         var grandttl = (document.getElementById("totalamnt").textContent);
@@ -344,15 +345,19 @@ $("#email-popup-cancle").click(function(){
            data: JSON.stringify({ POdata: v, EmailID: emailid, Grandtotal: grandttl, Companyname: comapnyname, Shipdate: shipdate, Pnums: ponumber, ProductCount: productcount }),
            success: function (data) {
                if (data == "unique") {
+                   $(".overlay").hide();
                    errormsg("EMial not sent");
                }
                else {
+                   $(".overlay").hide();
                    successmsg("Purchase order details sent to your mail id");
-                   location.reload();
+                   document.location = '@Url.Action("Index", "Customer")';
                }
            },
            error: function (data)
-           { errormsg("Failed!!!"); }
+           {
+               $(".overlay").hide(); errormsg("Failed!!!");
+           }
        });
 }
 </script>

@@ -458,6 +458,7 @@ $("#email-popup-cancle").click(function(){
                @*Email*@
 <script>
     $("#message_submit").click(function () {
+        $(".overlay").show();
         var emailid = $("#email").val();
         var Detdiv = document.getElementById("invoicedetails").outerHTML;
         var comapnyname = (document.getElementById("companyname").textContent);
@@ -488,15 +489,19 @@ $("#email-popup-cancle").click(function(){
            data: JSON.stringify({ Invoicedata: v, EmailID: emailid, Grandtotal: grandttl, InvoiceNum: invoicenum, Companyname: comapnyname, PAydate: paydate, Pnums: pnums }),
            success: function (data) {
                if (data == "unique") {
+                   $(".overlay").hide();
                    errormsg("EMial not sent");
                }
                else {
+                   $(".overlay").hide();
                    successmsg("Invoice details sent to your mail id");
                    location.reload();
                }
            },
            error: function (data)
-           { errormsg("Failed!!!"); }
+           {
+               $(".overlay").hide(); errormsg("Failed!!!");
+           }
        });
 }
 
