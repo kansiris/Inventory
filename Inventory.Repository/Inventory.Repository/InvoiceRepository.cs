@@ -96,11 +96,11 @@ namespace Inventory.Repository
 
         //updatedues
         
-            public static int updateduesinCustomer_company(string dbname, string customer_id,string dues)
+            public static int updateduesinCustomer_company(string dbname, string customer_id,string dues,string payment_date)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteNonQuery(ConnectionString, "updateduesinCustomer_company", customer_id, dues);
+            return SqlHelper.ExecuteNonQuery(ConnectionString, "updateduesinCustomer_company", customer_id, dues, payment_date);
         }
 
 

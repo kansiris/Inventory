@@ -124,7 +124,7 @@ namespace Inventory.Controllers
                     Array ponumsArray = payments.poid.Split(',');
                     for (int i = 0; i < ponumsArray.Length; i++)
                     {
-                        if (int.Parse(payments.Received_amount) > 0)
+                        if (int.Parse(payments.Received_amount) >= 0)
                         {
                             var dt = new DataTable();
                             var records = PaymentsService.ForPaymentinvoicetotal(user.DbName, payments.poid.Split(',')[i]);
@@ -172,7 +172,7 @@ namespace Inventory.Controllers
                                     if (updatedreceivedamount > 0)
                                     {
                                         duestrt = (int.Parse(duestrt) - int.Parse(payments.Received_amount)).ToString();
-                                        overduestrt = (int.Parse(overduestrt) - int.Parse(payments.Received_amount)).ToString();
+                                        overduestrt = (int.Parse(overduestrt) - int.Parse(open_amount)).ToString(); //payments.Received_amount
                                         payments.Received_amount = updatedreceivedamount.ToString();
                                         updatedopenamt = 0;
                                         //listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
@@ -209,12 +209,12 @@ namespace Inventory.Controllers
                                 //listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = receivedamountforinvoice, totalQty = totalQty, total_dues = due });
 
                             }
-                            listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = receivedamountforinvoice, totalQty = totalQty, total_dues = currentdue });
+                            listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = receivedamountforinvoice, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
                             receivedamountforinvoice = updatedreceivedamount.ToString();
                         }
                     }
-                    int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue);
-                    counts = 1;
+                    int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue, Payment_due_date);
+                    //counts = 1;
                     if (counts > 0)
                     {
                         TempData["smsg"] = "Payment saved Successfully!!! Do You Want to Send Email ? ";

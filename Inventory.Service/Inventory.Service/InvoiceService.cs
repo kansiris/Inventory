@@ -74,10 +74,10 @@ namespace Inventory.Service
         }
 
 
-        public static int updateduesinCustomer_company(string dbname, string customer_id, string dues)
+        public static int updateduesinCustomer_company(string dbname, string customer_id, string dues,string payment_date)
         {
 
-            return InvoiceRepository.updateduesinCustomer_company(dbname, customer_id, dues);
+            return InvoiceRepository.updateduesinCustomer_company(dbname, customer_id, dues, payment_date);
         }
         public static int UpdatenewPoinCustomer(string dbname, string customer_id, string new_pos)
         {
