@@ -58,7 +58,7 @@ namespace Inventory.Controllers
                 var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
                 ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
                 List<Customer> customer = getcuscompanydet(user.DbName);
-                string currentdate = (System.DateTime.Now).ToString();
+                string currentdate = (System.DateTime.Now).ToString("dd/MM/yyyy");
                 string[] enddate = currentdate.Split('/');
                 DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
                 ViewBag.curentdate = date2;
