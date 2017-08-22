@@ -106,7 +106,7 @@ namespace Inventory.Controllers
 
                 return PartialView("CustomerCompany", ViewBag.records);
             }
-
+           
             return PartialView("CustomerCompany", null);
         }
 
