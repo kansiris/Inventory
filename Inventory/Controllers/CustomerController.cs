@@ -58,17 +58,20 @@ namespace Inventory.Controllers
                 var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
                 ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
                 List<Customer> customer = getcuscompanydet(user.DbName);
-                string currentdate = (System.DateTime.Now).ToString();
-                string[] enddate = currentdate.Split('/');
-                DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
+                //string currentdate = (System.DateTime.Now).ToString("dd/MM/yyyy");
+                //string[] enddate = currentdate.Split('/');
+                //DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
+                DateTime date2 = Convert.ToDateTime(DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year);
                 ViewBag.curentdate = date2;
                 for (int i = 0; i < customer.Count; i++)
                 {
                     string Payment_due_date = customer[i].payment_due_date;
-                    if (Payment_due_date != null)
+                    if (Payment_due_date != null && Payment_due_date != "")
                     {
-                        string[] strDate = Payment_due_date.Split('/');
-                        DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
+                        //string[] strDate = Payment_due_date.Split('/');
+                        DateTime strDate = Convert.ToDateTime(Payment_due_date);
+                        //DateTime date1 = Convert.ToDateTime(strDate[0] + "/" + strDate[1] + "/" + strDate[2]);
+                        DateTime date1 = Convert.ToDateTime(strDate.Day + "/" + strDate.Month + "/" + strDate.Year); 
                         ViewBag.paymentduedate = date1;
                         string Customer_comapnyId = (customer[i].cus_company_Id).ToString();
                         string due = customer[i].due;
