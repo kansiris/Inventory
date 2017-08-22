@@ -282,7 +282,7 @@ namespace Inventory.Controllers
                 //var quantity = qtyinhnd.Select(m => m.Quantity_Total);
                 //if (int.Parse(Quantity) < int.Parse(quantity.ToString()))
                 //{
-                var counts = ProductService.checkcartdata(user.DbName, product_name, Measurement, cid);
+                var counts = ProductService.checkcartdata(user.DbName, product_id);
                 if (counts.HasRows)
                 {
                     return Json("exists");

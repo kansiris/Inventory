@@ -95,7 +95,7 @@ namespace Inventory.Controllers
                             Subscription = (int)LoginService.getsubscriptionid(plan);
                         else
                             Subscription = (int)LoginService.getsubscriptionid("Free Member");
-                        int usertype = (int)LoginService.GetUserTypeId("Owner", 0);
+                        int usertype = (int)LoginService.GetUserTypeId("Admin", 0);
                         string Profile_Picture = null, Date_Format = null, Timezone = null, Currency = null, companylogo = null;
                         int count = LoginService.CreateUser(userMaster.EmailId, userMaster.First_Name, userMaster.Last_Name, DBname, DateTime.UtcNow, userMaster.Password, Subscription, usertype, userMaster.User_Site, userMaster.CompanyName, userMaster.Phone, SubscriptionDate, 0, activationCode, Profile_Picture, Date_Format, Timezone, Currency, companylogo);
                         if (count > 0)
