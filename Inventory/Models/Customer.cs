@@ -9,7 +9,8 @@ namespace Inventory.Models
     {
         public int cus_company_Id { get; set; }
         
-            public string payment_due_date { get; set; }
+        public string grand_total { get; set; }
+        public string payment_due_date { get; set; }
         public string cus_company_name { get; set; }
 
         public string status { get; set; }

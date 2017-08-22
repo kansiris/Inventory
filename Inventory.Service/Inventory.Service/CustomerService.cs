@@ -161,7 +161,13 @@ namespace Inventory.Service
 
             return CustomerRepository.insertcustaxdetails(cus_company_Id, Adhar_Number, GSTIN_Number, tax_reg_no, pan_no, tds_apply, tax_exemption, tax_files, dbname);
         }
-
+        //to get payment due date by cus_company id
         
+             public static SqlDataReader getPaymentduedatebyCompany_Id(string cus_company_Id, string dbname)
+        {
+            return CustomerRepository.getPaymentduedatebyCompany_Id(cus_company_Id, dbname);
+        }
+
+
     }
 }
