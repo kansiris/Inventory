@@ -356,11 +356,11 @@ namespace Inventory.Repository
         //    return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement, cid);
 
         //}
-        public static SqlDataReader checkcartdata(string dbname, string product_id)
+        public static SqlDataReader checkcartdata(string dbname, string product_id, string cid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_id);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_id,cid);
 
         }
         public static SqlDataReader checkponum(string dbname, string Prchaseorder_no)
