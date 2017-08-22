@@ -17,7 +17,7 @@
         <div class="col-xs-12 col-md-4 po-number">Delivery Note Number</div>
         <div class="col-xs-12 col-md-8">
            
-            <input type="text" class="form-control" placeholder="Enter Delivery Note Number" id="delivnotenum" onblur="checkdelivnote(this.value)" />
+            <input type="text" class="form-control" placeholder="Enter Delivery Note Number" id="delivnotenum" maxlength="10"/>
         </div>
     </div>
 </div>
@@ -60,46 +60,6 @@
     </div>
 </div>
 
-
-
-@*<div class="row padding-top invoice">
-    <div class="col-xs-12 col-md-12">
-        <div class="total table-responsive">
-            <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th class="col-xs-3 col-sm-3 col-md-3">Product Name</th>
-                        <th class="col-xs-3 col-sm-3 col-md-2">Description</th>
-                        <th class="col-xs-1 col-sm-1 col-md-2">PO Qty</th>
-                        <th class="col-xs-1 col-sm-1 col-md-1">Deliver Qty</th>
-                        <th class="col-xs-2 col-sm-2 col-md-2">Price</th>
-                        <th class="col-xs-1 col-sm-1 col-md-1">Total</th>
-                        <th class="col-xs-1 col-sm-1 col-md-1">Button</th>
-                    </tr>
-                </thead>
-                @if (ViewBag.records != null)
-                {
-                    foreach (var item in ViewBag.records)
-                    {
-                        <tbody>
-                            <tr>
-                                <td class="col-xs-3 col-sm-3 col-md-3 product-name">@item.product_name</td>
-                                <td class="col-xs-3 col-sm-3 col-md-2 product-name"><span>@item.description</span></td>
-                                <td class="col-xs-1 col-sm-1 col-md-2 quantity-price">@item.Quantity</td>
-                                <td class="col-xs-1 col-sm-1 col-md-1 delivery-qty">@item.Quantity</td>
-                                <td class="col-xs-2 col-sm-2 col-md-2 product-price"><text class="localization"></text> <span>@item.cost_price</span></td>
-                                <td class="col-xs-1 col-sm-1 col-md-1 product-price"><text class="localization"></text> <span>@item.total_price</span></td>
-                                <td class="col-xs-1 col-sm-1 col-md-1"><button class="btn-default">+</button></td>
-                            </tr>
-
-                        </tbody>
-                    }
-                }
-            </table>
-
-        </div>
-    </div>
-</div>*@
 <div class="row">
     <div class="col-xs-12 col-md-6 remarks margin-top">
         <label>Remarks</label>
@@ -150,4 +110,17 @@
         document.location = '@Url.Action("Index", "Customer")';
     });
 
+
+    $("#delivnotenum").ready(function () {
+        var mask = new RegExp('^[A-Za-z0-9/_]*$')
+        $("input").regexMask(mask);
+    });
+
+    $(function () {
+        $("#delivnotenum").keyup(function (evt) {
+            if (evt.keyCode == 32) {
+                errormsg("Spaces not allowed Between Invoice number");
+            }
+        });
+    });
 </script>

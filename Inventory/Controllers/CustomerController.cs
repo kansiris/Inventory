@@ -113,12 +113,14 @@ namespace Inventory.Controllers
                             {
                                 string dues= (paymentdate.Select(m => m.grand_total).ToList())[j];
                                 duess = dues;
-                                                         dues = 0.ToString();
+                                dues = 0.ToString();
                                 //due = (int.Parse(overdue) + int.Parse(due)).ToString();
                                 //overdue = (int.Parse(overdue) - int.Parse(due)).ToString();
                             }
                             overdue=(int.Parse(overduess) + int.Parse(overdue)).ToString();
+                            overduess=0.ToString();
                             due = (int.Parse(duess) + int.Parse(due)).ToString();
+                            duess = 0.ToString();
                             PaymentsService.Updatecustomerdue(user.DbName, Customer_comapnyId, due, overdue, paydate);
                         }
                     }

@@ -500,7 +500,7 @@ function editcuscompany(clickedvalue) {
                             $('#customerrecords').empty().load(url);
                         }
                         else if (data = "exists") {
-                            existsmsg("Company Name alredy exists..Please enter another Name");
+                            existsmsg("Company Name already exists.Please enter another Name");
                         }
                         else {
                             errormsg("not saved");
@@ -987,7 +987,7 @@ function addingcusjobpositions() {
                 $('#newposition').val("");
             }
             else if (data = "exists") {
-                errormsg("That Job Position alredy exists..Please select or enter new Position");
+                errormsg("That Job Position already exists..Please select or enter new Position");
                 $('#newposition').val("");
             }
             else {

@@ -379,48 +379,47 @@ namespace Inventory.Controllers
                     //CheckDeliveryNoteNum(Delivernote_no);
                     var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
 
-                    for (int j = 0; j < ponumsArray.Length; j++)
+                    var county = InvoiceService.checkdeliverynotenum(user.DbName, Delivernote_no);
+                    if (county.HasRows)
+                        return Json("exists");
+                    else
                     {
-                        var dt = new DataTable();
-                        var records = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[j]);
-                        dt.Load(records);
-                        List<Invoice> productsinpo = (from DataRow row in dt.Rows
-                                                      select new Invoice()
-                                                      {
-                                                          product_id = row["product_id"].ToString(),
-                                                          product_name = row["product_name"].ToString(),
-                                                          cost_price = row["cost_price"].ToString(),
-                                                          Quantity = row["Quantity"].ToString(),
-                                                          description = row["description"].ToString(),
-                                                          total_price = row["total_price"].ToString(),
-                                                      }).ToList();
-                        var ff = productsinpo.Count;
-                        var county = InvoiceService.checkdeliverynotenum(user.DbName, Delivernote_no);
-                        if (county.HasRows)
-                            return Json("exists");
-                        else { 
-                        for (int i = 0; i < ff; i++)
+                        for (int j = 0; j < ponumsArray.Length; j++)
                         {
-                            string product_id = (productsinpo.Select(m => m.product_id).ToList())[i];
-                            string product_name = (productsinpo.Select(m => m.product_name).ToList())[i];
-                            string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[i];
-                            string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];
-                            string description = (productsinpo.Select(m => m.description).ToList())[i];
-                            string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];//after this will be chnaged.
-                            string total_price = (int.Parse(deliver_quantity) * float.Parse(cost_price)).ToString();
-                            count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date, comment, sub_total, Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
-                            count++;
+                            var dt = new DataTable();
+                            var records = InvoiceService.Getproductdetails(user.DbName, customer_id, Prchaseorder_nos.Split(',')[j]);
+                            dt.Load(records);
+                            List<Invoice> productsinpo = (from DataRow row in dt.Rows
+                                                          select new Invoice()
+                                                          {
+                                                              product_id = row["product_id"].ToString(),
+                                                              product_name = row["product_name"].ToString(),
+                                                              cost_price = row["cost_price"].ToString(),
+                                                              Quantity = row["Quantity"].ToString(),
+                                                              description = row["description"].ToString(),
+                                                              total_price = row["total_price"].ToString(),
+                                                          }).ToList();
+                            var ff = productsinpo.Count;
+
+                            for (int i = 0; i < ff; i++)
+                            {
+                                string product_id = (productsinpo.Select(m => m.product_id).ToList())[i];
+                                string product_name = (productsinpo.Select(m => m.product_name).ToList())[i];
+                                string cost_price = (productsinpo.Select(m => m.cost_price).ToList())[i];
+                                string po_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];
+                                string description = (productsinpo.Select(m => m.description).ToList())[i];
+                                string deliver_quantity = (productsinpo.Select(m => m.Quantity).ToList())[i];//after this will be chnaged.
+                                string total_price = (int.Parse(deliver_quantity) * float.Parse(cost_price)).ToString();
+                                count = InvoiceService.InsertDeliverynote(user.DbName, Delivernote_no, vendor_name, customer_id, created_date, comment, sub_total, Prchaseorder_nos.Split(',')[j], product_id, product_name, description, po_quantity, deliver_quantity, cost_price, total_price);
+                                count++;
+                            }
+                            deliv_status = 1.ToString();
+                            if (count > 0)
+                                InvoiceService.UpdatePoforDeliveryNote(user.DbName, customer_id, Prchaseorder_nos.Split(',')[j], deliv_status);
                         }
-                        }
-                        deliv_status = 1.ToString();
                         if (count > 0)
-                        {
-                            InvoiceService.UpdatePoforDeliveryNote(user.DbName, customer_id, Prchaseorder_nos.Split(',')[j], deliv_status);
-                        }
-                        count++;
+                            return Json("success");
                     }
-                    if (count > 0)
-                        return Json("success");
                 }
             }
             return Json("unique");
@@ -517,7 +516,7 @@ namespace Inventory.Controllers
 
         //for email of invoice
 
-        public JsonResult Email(string Invoicedata, string EmailID,string Grandtotal,string InvoiceNum,string Companyname,string Paydate,string Pnums)
+        public JsonResult Email(string Invoicedata, string EmailID, string Grandtotal, string InvoiceNum, string Companyname, string Paydate, string Pnums)
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();

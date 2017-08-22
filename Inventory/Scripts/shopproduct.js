@@ -234,37 +234,17 @@ function insertpo(totalamount) {
 
 
 
-function checkponumber(passedvalue) {
-    $(".overlay").hide();
-    if ($('#ponumber').val().indexOf(' ') >= 0) {
-        errormsg("Spaces not allowed Between Purchase Order number");
-        $("[id='ponumber']").val("");
-    }
-    if (passedvalue == "" || passedvalue == null) {
-        $(".overlay").hide();
-        errormsg(" Please Enter Purchase Order Number");
-    }
-//else{
-//    $.ajax({
-//        url: '/Products/CheckPoNum',
-//        type: 'POST',
-//        data: JSON.stringify({ Prchaseorder_no: passedvalue }),
-//        dataType: 'json',
-//        contentType: 'application/json',
-//        success: function (data) {
-//            if (data == "unique") {
 
-//            }
-//            else {
-//                existsmsg("Purchase Order Number Already Exists.Please Enter a Unique Number");
-//                $("[id='ponumber']").val("");
-//            }
-//        },
-//        error: function (data)
-//        { errormsg("Failed!!!"); }
-//    });
-//}
-}
+$.fn.regexMask = function (mask) {
+    $(this).keypress(function (event) {
+        if (!event.charCode) return true;
+        var part1 = this.value.substring(0, this.selectionStart);
+        var part2 = this.value.substring(this.selectionEnd, this.value.length);
+        if (!mask.test(part1 + String.fromCharCode(event.charCode) + part2))
+            return false;
+    });
+};
+
 
 //for displaying all pos
 function viewpodetails(ponumber, cid) {

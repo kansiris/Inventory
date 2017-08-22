@@ -89,7 +89,7 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-md-5 po-number"><font color="red">*</font>Purchase Order Number</div>
                                         <div class="col-xs-12 col-md-7">
-                                            <input type="text" id="ponumber" class="form-control" placeholder="Enter PO Number" onblur="checkponumber(this.value)" />
+                                            <input type="text" id="ponumber" class="form-control" placeholder="Enter PO Number" maxlength="10"/>
                                         </div>
                                     </div>
                                 </div>
@@ -284,27 +284,6 @@
     <!------------ E-Mail Popup ---------------->
 <script>
     $("[id='add-vendor3']").click(function () {
-        //var cid=location.search.split('&')[0].split('cid=')[1];
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/Customer/getCustomerContactdetails",
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    data: {},
-        //    data: JSON.stringify({ cus_company_id: cid }),
-        //    success: function (data) {
-        //        if (data == "unique") {
-        //            $(".email-popup-area").css("display", "block");
-        //        }
-        //        else {
-        //            $(".email-popup-area").css("display", "block");
-        //        }
-        //    },
-        //    error: function (data)
-        //    { errormsg("Failed!!!"); }
-        //});
-
-
 	$(".email-popup-area").css("display","block");
 	});
 $("#email-popup-cancle").click(function(){
@@ -359,8 +338,25 @@ $("#email-popup-cancle").click(function(){
                $(".overlay").hide(); errormsg("Failed!!!");
            }
        });
-}
+    }
+
 </script>
+
+    <script>
+
+        $("#ponumber").ready(function () {
+            var mask = new RegExp('^[A-Za-z0-9/_]*$')
+            $("input").regexMask(mask);
+        });
+
+        $(function () {
+            $("#ponumber").keyup(function (evt) {
+                if (evt.keyCode == 32) {
+                    errormsg("Spaces not allowed Between Invoice number");
+                }
+            });
+        });
+    </script>
 }
 
 

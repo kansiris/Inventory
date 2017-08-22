@@ -9,8 +9,9 @@
     </div>
 
     <div class="row margin-bottom">
-        <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name"> <img src="images/logo.jpg" alt="Logo" /> 
-        <span class="vendorname">Xsilica Software Solutions</span> <br />
+        <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name">
+            <img src="images/logo.jpg" alt="Logo" />
+            <span class="vendorname">Xsilica Software Solutions</span> <br />
             <span class="text-bold">GSTIN : <b>ATX14678CB</b></span>
         </div>
         @{ Html.RenderAction("GetCustomerdata", "Invoice");}
@@ -22,17 +23,17 @@
 
     <div class="row padding-bottom">
         <input type="hidden" value="@ViewBag.ponumsArray" id="pnums" />
-        <div class="col-xs-12 col-md-7 to-address margin-bottom" > To : <span id="companyname"> @ViewBag.company_name</span> </div>
-            <div class="col-xs-12 col-md-5 margin-bottom">
-                <div class="row">
-                    <div class="col-xs-12 col-md-4 po-number padding-right-0"><font color="red">*</font>Invoice Number</div>
-                    <div class="col-xs-12 col-md-8 padding-left-0">
-                        <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoicenumber(this.value)" />
-                    </div>
+        <div class="col-xs-12 col-md-7 to-address margin-bottom"> To : <span id="companyname"> @ViewBag.company_name</span> </div>
+        <div class="col-xs-12 col-md-5 margin-bottom">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 po-number padding-right-0"><font color="red">*</font>Invoice Number</div>
+                <div class="col-xs-12 col-md-8 padding-left-0">
+                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" maxlength="10"/>
                 </div>
             </div>
         </div>
-   
+    </div>
+
     <div class="row po-date">
         <table class="table table-bordered col-xs-12 col-md-12">
             <thead>
@@ -59,403 +60,403 @@
             <div class="total table-responsive">
                 <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
                     <thead class="thead-inverse">
-                                        <tr>
-                                            <th rowspan="2" style="padding:25px 5px;">PO No</th>
-                                            <th rowspan="2" style="padding:25px 5px;">Product Id</th>
-                                            <th rowspan="2" style="padding:25px 5px;">Product Name</th>
-                                            <th rowspan="2" style="padding:25px 5px;">Description</th>
-                                            <th rowspan="2" style="padding:25px 5px;">Quantity</th>
-                                            <th rowspan="2" style="padding:25px 5px;">Price In <text class="localization"></text></th>
-                                            <th colspan="2" style="text-align:center;border:1px solid #fff;">CGST</th>
-                                            <th colspan="2" style="text-align:center;border:1px solid #fff;">SGST</th>
-                                            <th colspan="2" style="text-align:center;border:1px solid #fff;">IGST</th>
-                                            <th rowspan="2" style="padding:25px 5px;">Total In <text class="localization"></text></th>
-                                        </tr>
-                                        <tr>
-                                            <th style="border-left:1px solid #fff;border-right:1px solid #fff;">Rate</th>
-                                            <th style="border-right:1px solid #fff;">Amount</th>
-                                            <th style="border-right:1px solid #fff;">Rate</th>
-                                            <th style="border-right:1px solid #fff;">Amount</th>
-                                            <th style="border-right:1px solid #fff;">Rate</th>
-                                            <th style="border-right:1px solid #fff;">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (ViewBag.records != null)
-                                        {
-                                            foreach (var item in ViewBag.records)
-                                            {
-                                                <tr>
-                                                    <td class="col-md-2">@item.Prchaseorder_no</td>
-                                                    <td class="col-md-2 image">@item.product_id </td>
-                                                    <td class="col-md-3 product-name">@item.product_name</td>
-                                                    <td class="col-md-3 product-name">@item.description</td>
-                                                    <td class="col-md-1 quantity-changes">@item.Quantity</td>
-                                                    <td class="col-md-1 product-chnges"><span>@item.cost_price</span></td>
-                                                    <td class="col-md-1 quantity-changes">2</td>
-                                                    <td class="col-md-1 quantity-changes">435</td>
-                                                    <td class="col-md-1 quantity-changes">4</td>
-                                                    <td class="col-md-1 quantity-changes">654</td>
-                                                    <td class="col-md-1 quantity-changes">3</td>
-                                                    <td class="col-md-1 quantity-changes">789</td>
-                                                    <td class="col-md-1 product-price"><span>@item.total_price</span></td>
-                                                </tr>
-                                            }
-                                        }
+                        <tr>
+                            <th rowspan="2" style="padding:25px 5px;">PO No</th>
+                            <th rowspan="2" style="padding:25px 5px;">Product Id</th>
+                            <th rowspan="2" style="padding:25px 5px;">Product Name</th>
+                            <th rowspan="2" style="padding:25px 5px;">Description</th>
+                            <th rowspan="2" style="padding:25px 5px;">Quantity</th>
+                            <th rowspan="2" style="padding:25px 5px;">Price In <text class="localization"></text></th>
+                            <th colspan="2" style="text-align:center;border:1px solid #fff;">CGST</th>
+                            <th colspan="2" style="text-align:center;border:1px solid #fff;">SGST</th>
+                            <th colspan="2" style="text-align:center;border:1px solid #fff;">IGST</th>
+                            <th rowspan="2" style="padding:25px 5px;">Total In <text class="localization"></text></th>
+                        </tr>
+                        <tr>
+                            <th style="border-left:1px solid #fff;border-right:1px solid #fff;">Rate</th>
+                            <th style="border-right:1px solid #fff;">Amount</th>
+                            <th style="border-right:1px solid #fff;">Rate</th>
+                            <th style="border-right:1px solid #fff;">Amount</th>
+                            <th style="border-right:1px solid #fff;">Rate</th>
+                            <th style="border-right:1px solid #fff;">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.records != null)
+                        {
+                            foreach (var item in ViewBag.records)
+                            {
+                                <tr>
+                                    <td class="col-md-2">@item.Prchaseorder_no</td>
+                                    <td class="col-md-2 image">@item.product_id </td>
+                                    <td class="col-md-3 product-name">@item.product_name</td>
+                                    <td class="col-md-3 product-name">@item.description</td>
+                                    <td class="col-md-1 quantity-changes">@item.Quantity</td>
+                                    <td class="col-md-1 product-chnges"><span>@item.cost_price</span></td>
+                                    <td class="col-md-1 quantity-changes">2</td>
+                                    <td class="col-md-1 quantity-changes">435</td>
+                                    <td class="col-md-1 quantity-changes">4</td>
+                                    <td class="col-md-1 quantity-changes">654</td>
+                                    <td class="col-md-1 quantity-changes">3</td>
+                                    <td class="col-md-1 quantity-changes">789</td>
+                                    <td class="col-md-1 product-price"><span>@item.total_price</span></td>
+                                </tr>
+                            }
+                        }
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-6 remarks margin-top">
+            <label>Remarks</label>
+            <textarea class="form-control" rows="3" id="comment" placeholder=""></textarea>
+        </div>
+        <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Total Amount Before Tax<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+            </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Add : CGST<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>454</div>
+            </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Add : SGST<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>543</div>
+            </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Add : IGST<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>342</div>
+            </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Tax Amount : GST<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>4213</div>
+            </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Total Amount After Tax<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>42435</div>
+            </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5"> GST Payable on Reverse Charge<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>6546</div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row margin-top">
+        <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions
+            <ul class="terms-content margin-top">
+                <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+                <li>2) Text has been the industry's standard dummy text ever since</li>
+                <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
+                <li>4) Here we have industry's standard dummy text ever since</li>
+                <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
+                <li>6) Enter content has been the industry's standard dummy text ever since</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row margin-top">
+        <div class="col-xs-12 col-md-12 invoice-buttons">
+            <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice" onclick="saveInvoice(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
+            <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
+            <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
+            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+
+            <div class="row email-popup-area" style="display:none;">
+                <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
+                        <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3" style="display:none;"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
+
+
+
+            @*<button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>*@
+        </div>
+    </div>
+</div>
+
+@*for dollar*@
+<div id="fordollar" style="display:none">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
             <div class="row">
-                <div class="col-xs-12 col-md-6 remarks margin-top">
-                    <label>Remarks</label>
-                    <textarea class="form-control" rows="3" id="comment" placeholder=""></textarea>
-                </div>
-                <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
-                    <div class="row sub-total margin-bottom">
-                        <div class="col-xs-6 col-md-5">Total Amount Before Tax<span class="pull-right">:</span></div>
-                        <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
-                    </div>
-                    <div class="row sub-total margin-bottom">
-                        <div class="col-xs-6 col-md-5">Add : CGST<span class="pull-right">:</span></div>
-                        <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>454</div>
-                    </div>
-                    <div class="row sub-total margin-bottom">
-                        <div class="col-xs-6 col-md-5">Add : SGST<span class="pull-right">:</span></div>
-                        <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>543</div>
-                    </div>
-                    <div class="row sub-total margin-bottom">
-                        <div class="col-xs-6 col-md-5">Add : IGST<span class="pull-right">:</span></div>
-                        <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>342</div>
-                    </div>
-                    <div class="row sub-total margin-bottom">
-                        <div class="col-xs-6 col-md-5">Tax Amount : GST<span class="pull-right">:</span></div>
-                        <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>4213</div>
-                    </div>
-                    <div class="row sub-total margin-bottom">
-                        <div class="col-xs-6 col-md-5">Total Amount After Tax<span class="pull-right">:</span></div>
-                        <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>42435</div>
-                    </div>
-                    <div class="row sub-total margin-bottom">
-                        <div class="col-xs-6 col-md-5"> GST Payable on Reverse Charge<span class="pull-right">:</span></div>
-                        <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>6546</div>
-                    </div>
-
-
-                </div>
+                <div class="form-title col-xs-12 col-md-12">Invoice</div>
             </div>
-            <div class="row margin-top">
-                <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions
-                    <ul class="terms-content margin-top">
-                        <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
-                        <li>2) Text has been the industry's standard dummy text ever since</li>
-                        <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
-                        <li>4) Here we have industry's standard dummy text ever since</li>
-                        <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
-                        <li>6) Enter content has been the industry's standard dummy text ever since</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row margin-top">
-                <div class="col-xs-12 col-md-12 invoice-buttons">
-                    <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice" onclick="saveInvoice(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
-                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+        </div>
+    </div>
 
-                    <div class="row email-popup-area" style="display:none;">
-                        <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
-                            </div>
-                            <div class="row">
-                                <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
-                                <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
-                            </div>
-                        </div>
+    <div class="row margin-bottom">
+        <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name">
+            <img src="images/logo.jpg" alt="Logo" />
+            <span class="vendorname">Xsilica Software Solutions</span>
+            <br />
+            <span class="text-bold">GSTIN : <b>ATX14678CB</b></span>
+        </div>
+        @{ Html.RenderAction("GetCustomerdata", "Invoice");}
+        <div class="col-xs-12 col-md-3 margin-bottom">
+            <div class="row padding-bottom date" id="createddate"></div>
+            <div class="row invoice-total-amount" id="grandtotal"><text class="localization"></text>@ViewBag.grand_total </div>
+        </div>
+        <div class="row padding-bottom">
+            <div class="col-xs-12 col-md-5 to-address margin-bottom"> To :<span id="companyname"> @ViewBag.company_name</span> </div>
+            <div class="col-xs-12 col-md-3 margin-bottom text-bold" style="line-height: 34px;"> <span>GSTIN :</span> ATX14678CB </div>
+            <div class="col-xs-12 col-md-4 margin-bottom">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 po-number padding-right-0">Invoice Number</div>
+                    <div class="col-xs-12 col-md-8">
+                        <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" maxlength="10">
                     </div>
-
-                    <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3" style="display:none;"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
-
-
-
-                    @*<button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>*@
                 </div>
             </div>
         </div>
 
-        @*for dollar*@
-        <div id="fordollar" style="display:none">
-            <div class="row">
-                <div class="col-xs-12 col-md-12">
-                    <div class="row">
-                        <div class="form-title col-xs-12 col-md-12">Invoice</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row margin-bottom">
-                <div class="col-xs-12 col-md-3 logo margin-bottom" id="vendor_name">
-                    <img src="images/logo.jpg" alt="Logo" />
-                    <span class="vendorname">Xsilica Software Solutions</span>
-                    <br />
-                    <span class="text-bold">GSTIN : <b>ATX14678CB</b></span>
-                </div>
-                @{ Html.RenderAction("GetCustomerdata", "Invoice");}
-                <div class="col-xs-12 col-md-3 margin-bottom">
-                    <div class="row padding-bottom date" id="createddate"></div>
-                    <div class="row invoice-total-amount" id="grandtotal"><text class="localization"></text>@ViewBag.grand_total </div>
-                </div>
-                <div class="row padding-bottom">
-                    <div class="col-xs-12 col-md-5 to-address margin-bottom" > To :<span id="companyname"> @ViewBag.company_name</span> </div>
-                    <div class="col-xs-12 col-md-3 margin-bottom text-bold" style="line-height: 34px;"> <span>GSTIN :</span> ATX14678CB </div>
-                    <div class="col-xs-12 col-md-4 margin-bottom">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-4 po-number padding-right-0">Invoice Number</div>
-                            <div class="col-xs-12 col-md-8">
-                                <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" onblur="checkinvoicenumber(this.value)">
-                            </div>
+    </div>
+    <div class="row po-date">
+        <table class="table table-bordered col-xs-12 col-md-12">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-xs-6 col-md-2"><font color="red">*</font>Payment Due Date</td>
+                    <td class="col-xs-6 col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
+                            <input class="form-control" id="pay_date" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()" />
                         </div>
-                    </div>
-                </div>
+                    </td>
 
-            </div>
-            <div class="row po-date">
-                <table class="table table-bordered col-xs-12 col-md-12">
-                    <thead>
+                    <td class="col-xs-6 col-md-2">Payment Terms</td>
+                    <td class="col-xs-6 col-md-4">
+                        <input type="text" class="form-control" id="paymentterms">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row padding-top invoice" id="invoicedetails">
+        <div class="col-xs-15 col-sm-15 col-md-15">
+            <div class="total table-responsive">
+                <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th class="col-md-2">PO No</th>
+                            <th class="col-md-2">Product Id</th>
+                            <th class="col-md-3">Product Name</th>
+                            <th class="col-md-2">Description</th>
+                            <th class="col-md-1">Quantity</th>
+                            <th class="col-md-1">Price In <text class="localization"></text></th>
+                            <th class="col-md-1">Total In <text class="localization"></text></th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="col-xs-6 col-md-2"><font color="red">*</font>Payment Due Date</td>
-                            <td class="col-xs-6 col-md-4">
-                                <div class="input-group">
-                                    <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
-                                    <input class="form-control" id="pay_date" name="date" placeholder="DD/MM/YYYY" type="text" onchange="checkpaydate()" />
-                                </div>
-                            </td>
+                        @if (ViewBag.records != null)
+                        {
+                            foreach (var item in ViewBag.records)
+                            {
+                                <tr>
+                                    <td class="col-md-2">@item.Prchaseorder_no</td>
+                                    <td class="col-md-2 image">@item.product_id </td>
+                                    <td class="col-md-3 product-name">@item.product_name</td>
+                                    <td class="col-md-1 quantity-changes">@item.Quantity</td>
+                                    <td class="col-md-1 quantity-changes">@item.description</td>
+                                    <td class="col-md-1 product-name"><span>@item.cost_price</span></td>
+                                    <td class="col-md-1 product-price"><span>@item.total_price</span></td>
+                                </tr>
+                            }
+                        }
 
-                            <td class="col-xs-6 col-md-2">Payment Terms</td>
-                            <td class="col-xs-6 col-md-4">
-                                <input type="text" class="form-control" id="paymentterms">
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="row padding-top invoice" id="invoicedetails">
-                                <div class="col-xs-15 col-sm-15 col-md-15">
-                                    <div class="total table-responsive">
-                                        <table class="table  table-borderedtable-striped bulk_action" id="vendortable">
-                                            <thead class="thead-inverse">
-                                                <tr>
-                                                    <th class="col-md-2">PO No</th>
-                                                    <th class="col-md-2">Product Id</th>
-                                                    <th class="col-md-3">Product Name</th>
-                                                    <th class="col-md-2">Description</th>
-                                                    <th class="col-md-1">Quantity</th>
-                                                    <th class="col-md-1">Price In <text class="localization"></text></th>
-                                                    <th class="col-md-1">Total In <text class="localization"></text></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if (ViewBag.records != null)
-                                                {
-                                                    foreach (var item in ViewBag.records)
-                                                    {
-                                                        <tr>
-                                                            <td class="col-md-2">@item.Prchaseorder_no</td>
-                                                            <td class="col-md-2 image">@item.product_id </td>
-                                                            <td class="col-md-3 product-name">@item.product_name</td>
-                                                            <td class="col-md-1 quantity-changes">@item.Quantity</td>
-                                                            <td class="col-md-1 quantity-changes">@item.description</td>
-                                                            <td class="col-md-1 product-name"><span>@item.cost_price</span></td>
-                                                            <td class="col-md-1 product-price"><span>@item.total_price</span></td>
-                                                        </tr>
-                                                    }
-                                                }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-6 remarks margin-top">
+            <label>Remarks</label>
+            <textarea class="form-control" rows="3" id="comment" placeholder=""></textarea>
+        </div>
+        <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
+            </div>
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7"><input id="vat" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
+            </div>
+            <div class="row sub-total margin-bottom">
+                <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7"><input id="discount" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
+            </div>
+            <div class="row sub-total">
+                <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
+                <div class="col-xs-6 col-md-7" id="grandtotal1"><text class="localization"></text>@ViewBag.grand_total</div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top">
+        <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions
+            <ul class="terms-content margin-top">
+                <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+                <li>2) Text has been the industry's standard dummy text ever since</li>
+                <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
+                <li>4) Here we have industry's standard dummy text ever since</li>
+                <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
+                <li>6) Enter content has been the industry's standard dummy text ever since</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row margin-top">
+        <div class="col-xs-12 col-md-12 invoice-buttons">
+            <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice" onclick="saveInvoice(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
+            <button type="button" class="btn btn-primary pull-right invite" id="clearinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
+            <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
+            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
+            <div class="row email-popup-area" style="display:none;">
+                <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6 remarks margin-top">
-                            <label>Remarks</label>
-                            <textarea class="form-control" rows="3" id="comment" placeholder=""></textarea>
-                        </div>
-                        <div class="col-xs-12 col-md-3 pull-right calculate margin-top">
-                            <div class="row sub-total margin-bottom">
-                                <div class="col-xs-6 col-md-5">Sub Total<span class="pull-right">:</span></div>
-                                <div class="col-xs-6 col-md-7" id="subtotal"><text class="localization"></text>@ViewBag.sub_total</div>
-                            </div>
-
-                            <div class="row sub-total margin-bottom">
-                                <div class="col-xs-6 col-md-5">Vat<span class="pull-right">:</span></div>
-                                <div class="col-xs-6 col-md-7"><input id="vat" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
-                            </div>
-                            <div class="row sub-total margin-bottom">
-                                <div class="col-xs-6 col-md-5">Discount<span class="pull-right">:</span></div>
-                                <div class="col-xs-6 col-md-7"><input id="discount" value="0" max='100' style="width:100px" onchange="calculate(@ViewBag.sub_total)">%</div>
-                            </div>
-                            <div class="row sub-total">
-                                <div class="col-xs-6 col-md-5">Grand Total<span class="pull-right">:</span></div>
-                                <div class="col-xs-6 col-md-7" id="grandtotal1"><text class="localization"></text>@ViewBag.grand_total</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row margin-top">
-                        <div class="col-xs-12 col-md-6 margin-top margin-bottom invoice-conditions">
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i>Terms and Conditions
-                            <ul class="terms-content margin-top">
-                                <li>1) Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
-                                <li>2) Text has been the industry's standard dummy text ever since</li>
-                                <li>3) Enter here is simply dummy text of the printing and typesetting industry</li>
-                                <li>4) Here we have industry's standard dummy text ever since</li>
-                                <li>5) Dummy content is simply dummy text of the printing and typesetting industry</li>
-                                <li>6) Enter content has been the industry's standard dummy text ever since</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row margin-top">
-                        <div class="col-xs-12 col-md-12 invoice-buttons">
-                            <button type="button" class="btn btn-primary pull-right invite" id="saveinvoice" onclick="saveInvoice(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="clearinvoice"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
-                            <div class="row email-popup-area" style="display:none;">
-                                <div class="col-xs-12 col-sm-6 col-md-5 email-popup">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="E-mail" name="email" id="email">
-                                    </div>
-                                    <div class="row">
-                                        <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
-                                        <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3" style="display:none;"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
-
-                        </div>
+                        <button type="button" class="btn btn-primary invite" name="commit" id="message_submit"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Send </button>
+                        <button type="button" class="btn btn-primary invite" id="email-popup-cancle"> <i class="fa fa-times" aria-hidden="true"></i> Cancel </button>
                     </div>
                 </div>
+            </div>
 
-                <script>
-                    $(document).ready(function () {
-                        var currency = $('#currency').val().slice(-2).replace(')', '');
-                        $('.localization').html(currency);
-                        var dateformat = $('#dateformat').val().toLowerCase();
-                        n = new Date();
-                        //alert(dateformat);
-                        y = n.getFullYear();
-                        m = n.getMonth() + 1;
-                        d = n.getDate();
-                        var crdate = d + "/" + m + "/" + y;
-                        document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
+            <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3" style="display:none;"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
 
-                        var createddate = ($('#po_date').text()).split(';')[1];
-                        var date_input = $('input[name="date"]'); //our date input has the name "date"
-                        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                        date_input.datepicker({
-                            format: dateformat,
-                            container: container,
-                            todayHighlight: true,
-                            autoclose: true,
-                        })
-                    });
+        </div>
+    </div>
+</div>
 
-                </script>
-                <script>
-                    var currency = $('#currency').val().slice(-2).replace(')', '');
-                    $('.localization').html(currency);
-                    var currency = $('#currency').val().slice(-2).replace(')', '');
-                    //alert(currency);
-                    if (currency == "$") {
-                        $('#invoicegenration').css("display", "block");
-                        $('#fordollar').css("display", "block");
-                        $('#forrupee').css("display", "none");
-                    }
-                    else {
-                        $('#invoicegenration').css("display", "block");
-                        $('#forrupee').css("display", "block");
-                        $('#fordollar').css("display", "none");
-                    }
-                    function checkpaydate() {
-                        var paydate = $('#pay_date').val();
-                        var today = new Date();
-                        var dd = today.getDate();
-                        var MMM = today.getMonth() + 1;
-                        if (MMM < 10) {
-                            MMM = '0' + MMM
-                        }
-                        var yyyy = today.getFullYear();
-                        today1 = dd + '/' + MMM + '/' + yyyy;
-                        a = new Date(yyyy, MMM, dd);
-                        b = new Date(paydate.split('/')[2], paydate.split('/')[1], paydate.split('/')[0]);
-                        if (b <= a) {
-                            warnmsg("Select a Date Greater than Today.");
-                            $('#pay_date').val("");
-                        }
-                    }
-                  
+<script>
+    $(document).ready(function () {
+        var currency = $('#currency').val().slice(-2).replace(')', '');
+        $('.localization').html(currency);
+        var dateformat = $('#dateformat').val().toLowerCase();
+        n = new Date();
+        //alert(dateformat);
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        var crdate = d + "/" + m + "/" + y;
+        document.getElementById("createddate").innerHTML = "Date :" + d + "/" + m + "/" + y;
 
-                    $('#back-invoice').click(function () {
-                        document.location = '@Url.Action("Index", "Customer")';
-                    });
+        var createddate = ($('#po_date').text()).split(';')[1];
+        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: dateformat,
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    });
 
-                    function warnmsg(msg) {
-                        $("body").overhang({
-                            type: "warn",
-                            message: msg,
-                            duration: 3
-                        });
-                    }
-
-                    function errormsg(msg) {
-                        $("body").overhang({
-                            type: "error",
-                            message: msg,
-                            closeConfirm: false
-                        });
-                    }
-
-                    function successmsg(msg) {
-                        $("body").overhang({
-                            type: "success",
-                            message: msg,
-                            duration: 3,
-                            closeConfirm: false
-                        });
-                    }
-
-                    function existsmsg(msg) {
-                        $("body").overhang({
-                            type: "exists",
-                            message: msg,
-                            duration: 3,
-                            closeConfirm: false
-                        });
-                    }
+</script>
+<script>
+    var currency = $('#currency').val().slice(-2).replace(')', '');
+    $('.localization').html(currency);
+    var currency = $('#currency').val().slice(-2).replace(')', '');
+    //alert(currency);
+    if (currency == "$") {
+        $('#invoicegenration').css("display", "block");
+        $('#fordollar').css("display", "block");
+        $('#forrupee').css("display", "none");
+    }
+    else {
+        $('#invoicegenration').css("display", "block");
+        $('#forrupee').css("display", "block");
+        $('#fordollar').css("display", "none");
+    }
+    function checkpaydate() {
+        var paydate = $('#pay_date').val();
+        var today = new Date();
+        var dd = today.getDate();
+        var MMM = today.getMonth() + 1;
+        if (MMM < 10) {
+            MMM = '0' + MMM
+        }
+        var yyyy = today.getFullYear();
+        today1 = dd + '/' + MMM + '/' + yyyy;
+        a = new Date(yyyy, MMM, dd);
+        b = new Date(paydate.split('/')[2], paydate.split('/')[1], paydate.split('/')[0]);
+        if (b <= a) {
+            warnmsg("Select a Date Greater than Today.");
+            $('#pay_date').val("");
+        }
+    }
 
 
-                </script>
-                
+    $('#back-invoice').click(function () {
+        document.location = '@Url.Action("Index", "Customer")';
+    });
+
+    function warnmsg(msg) {
+        $("body").overhang({
+            type: "warn",
+            message: msg,
+            duration: 3
+        });
+    }
+
+    function errormsg(msg) {
+        $("body").overhang({
+            type: "error",
+            message: msg,
+            closeConfirm: false
+        });
+    }
+
+    function successmsg(msg) {
+        $("body").overhang({
+            type: "success",
+            message: msg,
+            duration: 3,
+            closeConfirm: false
+        });
+    }
+
+    function existsmsg(msg) {
+        $("body").overhang({
+            type: "exists",
+            message: msg,
+            duration: 3,
+            closeConfirm: false
+        });
+    }
+
+
+</script>
+
 
 //<!------------ E-Mail Popup ---------------->
 <script>
-$("#add-vendor3").click(function(){
-	$(".email-popup-area").css("display","block");
-	});
-$("#email-popup-cancle").click(function(){
-	$(".email-popup-area").css("display","none");
-	});
+    $("#add-vendor3").click(function () {
+        $(".email-popup-area").css("display", "block");
+    });
+    $("#email-popup-cancle").click(function () {
+        $(".email-popup-area").css("display", "none");
+    });
 </script>
 <!------------ E-Mail Popup ---------------->
-               @*Email*@
+@*Email*@
 <script>
     $("#message_submit").click(function () {
         $(".overlay").show();
@@ -467,70 +468,82 @@ $("#email-popup-cancle").click(function(){
         //alert(paydate);
         var grandttl = (document.getElementById("grandtotal").textContent);
         //alert(grandttl);
-        
+
         var pnums = $("#pnums").val();
         //alert(pnums+"  hiiii");
         var invoicenum = $("#invoicenum").val();
         //alert(invoicenum);
         return email(Detdiv, emailid, grandttl, invoicenum, comapnyname, paydate, pnums);
-});
+    });
 
 
     function email(v, emailid, grandttl, invoicenum, comapnyname, paydate, pnums) {
-       var Detdivobj = {};
-       Detdivobj.Detdiv = v;
-       //alert(Detdivobj);
-       $.ajax({
-           type: "POST",
-           url: "/Invoice/Email",
-           contentType: "application/json; charset=utf-8",
-           dataType: "json",
-           data: {},
-           data: JSON.stringify({ Invoicedata: v, EmailID: emailid, Grandtotal: grandttl, InvoiceNum: invoicenum, Companyname: comapnyname, PAydate: paydate, Pnums: pnums }),
-           success: function (data) {
-               if (data == "unique") {
-                   $(".overlay").hide();
-                   errormsg("EMial not sent");
-               }
-               else {
-                   $(".overlay").hide();
-                   successmsg("Invoice details sent to your mail id");
-                   location.reload();
-               }
-           },
-           error: function (data)
-           {
-               $(".overlay").hide(); errormsg("Failed!!!");
-           }
-       });
-}
+        var Detdivobj = {};
+        Detdivobj.Detdiv = v;
+        //alert(Detdivobj);
+        $.ajax({
+            type: "POST",
+            url: "/Invoice/Email",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: {},
+            data: JSON.stringify({ Invoicedata: v, EmailID: emailid, Grandtotal: grandttl, InvoiceNum: invoicenum, Companyname: comapnyname, PAydate: paydate, Pnums: pnums }),
+            success: function (data) {
+                if (data == "unique") {
+                    $(".overlay").hide();
+                    errormsg("EMial not sent");
+                }
+                else {
+                    $(".overlay").hide();
+                    successmsg("Invoice details sent to your mail id");
+                    location.reload();
+                }
+            },
+            error: function (data) {
+                $(".overlay").hide(); errormsg("Failed!!!");
+            }
+        });
+    }
 
 </script>
-                <script>
-                    function deselect(e) {
-                        $('.pop').slideFadeToggle(function () {
-                            e.removeClass('selected');
-                        });
-                    }
+<script>
+    function deselect(e) {
+        $('.pop').slideFadeToggle(function () {
+            e.removeClass('selected');
+        });
+    }
 
-                    $(function () {
-                        $('#contact').on('click', function () {
-                            if ($(this).hasClass('selected')) {
-                                deselect($(this));
-                            } else {
-                                $(this).addClass('selected');
-                                $('.pop').slideFadeToggle();
-                            }
-                            return false;
-                        });
+    $(function () {
+        $('#contact').on('click', function () {
+            if ($(this).hasClass('selected')) {
+                deselect($(this));
+            } else {
+                $(this).addClass('selected');
+                $('.pop').slideFadeToggle();
+            }
+            return false;
+        });
 
-                        $('.close').on('click', function () {
-                            deselect($('#contact'));
-                            return false;
-                        });
-                    });
+        $('.close').on('click', function () {
+            deselect($('#contact'));
+            return false;
+        });
+    });
 
-                    $.fn.slideFadeToggle = function (easing, callback) {
-                        return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
-                    };
-                </script>
+    $.fn.slideFadeToggle = function (easing, callback) {
+        return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
+    };
+
+    $("#invoicenum").ready(function () {
+        var mask = new RegExp('^[A-Za-z0-9/_]*$')
+        $("input").regexMask(mask);
+    });
+   
+    $(function () {
+        $("#invoicenum").keyup(function (evt) {
+            if (evt.keyCode == 32) {
+                errormsg("Spaces not allowed Between Invoice number");
+            }
+        });
+    });
+</script>
