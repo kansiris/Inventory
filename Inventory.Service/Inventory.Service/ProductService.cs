@@ -265,9 +265,14 @@ namespace Inventory.Service
             return ProductRepository.GetqtyInHand(dbname, product_id);
         }
 
-        public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
+        //public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement,string cid)
+        //{
+        //    return ProductRepository.checkcartdata(dbname, product_name, Measurement,cid);
+        //}
+
+        public static SqlDataReader checkcartdata(string dbname, string product_id, string cid)
         {
-            return ProductRepository.checkcartdata(dbname, product_name, Measurement,cid);
+            return ProductRepository.checkcartdata(dbname, product_id,cid);
         }
 
         public static SqlDataReader checkponum(string dbname, string Prchaseorder_no)

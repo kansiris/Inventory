@@ -348,11 +348,19 @@ namespace Inventory.Repository
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
             return SqlHelper.ExecuteReader(ConnectionString, "PoProductdetails", Prchaseorder_no);
         }
-        public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement, string cid)
+
+        //public static SqlDataReader checkcartdata(string dbname, string product_name, string Measurement, string cid)
+        //{
+        //    GetConnectionString getConnectionString = new GetConnectionString();
+        //    ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
+        //    return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement, cid);
+
+        //}
+        public static SqlDataReader checkcartdata(string dbname, string product_id, string cid)
         {
             GetConnectionString getConnectionString = new GetConnectionString();
             ConnectionString = getConnectionString.CustomizeConnectionString(dbname);
-            return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_name, Measurement, cid);
+            return SqlHelper.ExecuteReader(ConnectionString, "checkcartdata", product_id,cid);
 
         }
         public static SqlDataReader checkponum(string dbname, string Prchaseorder_no)
