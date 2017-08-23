@@ -173,7 +173,7 @@
                                                         <th class="col-md-2">Payment Due Date</th>
                                                         <th class="col-md-2">Total Items</th>
                                                         <th class="col-md-2">Old Due Amount In<text class="localization"></text> </th>
-                                                        <th class="col-md-2">Received Amount In <text class="localization"></text> </th>
+                                                        @*<th class="col-md-2">Received Amount In <text class="localization"></text> </th>*@
                                                         <th class="col-md-3" style="text-align:right">Current Due Amount In <text class="localization"></text> </th>
                                                     </tr>
                                                 </thead>
@@ -196,8 +196,8 @@
                                                                     <td class="col-md-2 product-name"><span>@item.Payment_date</span></td>
                                                                     <td class="col-md-1 quantity-changes">@item.totalQty</td>
                                                                     <td class="col-md-3 product-name" style="text-align:left"><span>@item.open_amount</span></td>
-                                                                    <td class="col-md-3 product-name" style="text-align:center"><span>@item.sub_total</span></td>
-                                                                    <td class="col-md-3 product-name" style="text-align:right"><span>@item.total_dues</span></td>
+                                                                    @*<td class="col-md-3 product-name" style="text-align:center"><span>@item.sub_total</span></td>*@
+                                                                    <td class="col-md-3 product-name" style="text-align:center"><span>@item.total_dues</span></td>
                                                                 </tr>
 
                                                             }

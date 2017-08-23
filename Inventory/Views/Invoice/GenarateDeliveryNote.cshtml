@@ -90,7 +90,7 @@
     <div class="col-xs-12 col-md-12 invoice-buttons">
         <button type="button" class="btn btn-primary pull-right invite" id="savedeliverynote" onclick="saveDeliverynote(@ViewBag.customer_id)"> <i class="fa fa-save" aria-hidden="true"></i> Save </button>
         <button type="button" class="btn btn-primary pull-right invite" id="cleardeliv"> <i class="fa fa-close" aria-hidden="true"></i> Clear </button>
-        <button type="button" class="btn btn-primary pull-right invite" id="back-invoice"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
+        <button type="button" class="btn btn-primary pull-right invite" id="back-deliv"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </button>
         <button type="button" class="btn btn-primary pull-right invite" id="add-vendor"> <i class="fa fa-download" aria-hidden="true"></i> PDF </button>
         <button type="button" class="btn btn-primary pull-right invite" id="add-vendor3"> <i class="fa fa-paper-plane" aria-hidden="true"></i> E-Mail </button>
     </div>
@@ -106,7 +106,7 @@
     document.getElementById("createddatedeliv").innerHTML = "Date :" + d + "/" + m + "/" + y;
 
 
-    $('#back-invoice').click(function () {
+    $('#back-deliv').click(function () {
         document.location = '@Url.Action("Index", "Customer")';
     });
 
@@ -119,7 +119,7 @@
     $(function () {
         $("#delivnotenum").keyup(function (evt) {
             if (evt.keyCode == 32) {
-                errormsg("Spaces not allowed Between Invoice number");
+                errormsg("Spaces not allowed Between Delivery Note number");
             }
         });
     });

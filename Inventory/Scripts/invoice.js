@@ -212,6 +212,8 @@ function saveDeliverynote(cid) {
         });
     }
 }
+
+
 $.fn.regexMask = function (mask) {
     $(this).keypress(function (event) {
         if (!event.charCode) return true;

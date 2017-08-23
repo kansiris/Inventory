@@ -210,7 +210,7 @@ namespace Inventory.Controllers
 
                             }
                             listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = receivedamountforinvoice, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
-                            receivedamountforinvoice = updatedreceivedamount.ToString();
+                            //receivedamountforinvoice = updatedreceivedamount.ToString();
                         }
                     }
                     int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue, Payment_due_date);

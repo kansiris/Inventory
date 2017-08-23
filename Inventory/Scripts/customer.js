@@ -292,7 +292,13 @@ $("#tax_regno").keypress(function (e) {
     }
 });
 //<!------ Contact Person Pop Up Job Position ------->
-
+function checklength() {
+    var mobi = $("#Mobile_No").val();
+        if (mobi.length < 10) {
+           warnmsg("Please Enter Valid 10 digit Mobile Number");
+           $("#Mobile_No").val().focus();
+        }
+}
 //Assigning values to inputs
 function editFunction(array) {
     $('#cus_company_Id').val(array.cus_company_Id);
@@ -1251,6 +1257,9 @@ function editcompanytaxdetails(clickedvalue) {
             return false;
         }
     }
+
+//for checking mobilenumberlength
+    checklength
 
 
        
