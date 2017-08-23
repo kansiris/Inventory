@@ -433,6 +433,7 @@
     <Content Include="Models\01Aug2017.sql" />
     <Content Include="Models\13july2017.sql" />
     <Content Include="Models\14july2017.sql" />
+    <Content Include="Models\22aug2017.sql" />
     <Content Include="Models\25july2017.sql" />
     <Content Include="Models\27july2017.sql" />
     <Content Include="Models\28july2017.sql" />
