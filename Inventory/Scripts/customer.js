@@ -295,7 +295,7 @@ $("#tax_regno").keypress(function (e) {
 function checklength() {
     var mobi = $("#Mobile_No").val();
         if (mobi.length < 10) {
-           warnmsg("Please Enter Valid 10 digit Mobile Number");
+           warnmsg("Please Enter Valid Mobile Number");
            $("#Mobile_No").val().focus();
         }
 }
@@ -683,6 +683,7 @@ function updatecusContact(clickedvalue) {
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data) {
+                    
                     if (data.Result == "sucess") {
                         $('#savebutton').hide();
                         cus_company_Id = $('#cus_company_Id').val();
@@ -700,6 +701,9 @@ function updatecusContact(clickedvalue) {
                         $("[id='Adhar_Number']").val("");
                         $("[id='cus_Job_position']").val("");
                         $("#cuscontactpic").attr("src", "/images/user.png");
+                    }
+                    else if (data == "mobileno10") {
+                        warnmsg("Please Enter Valid Mobile Number");
                     }
                     else {
                         errormsg("not saved");
@@ -1258,8 +1262,7 @@ function editcompanytaxdetails(clickedvalue) {
         }
     }
 
-//for checking mobilenumberlength
-    checklength
+
 
 
        

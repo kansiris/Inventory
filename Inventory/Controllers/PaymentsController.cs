@@ -186,12 +186,12 @@ namespace Inventory.Controllers
                             {
                                 if (int.Parse(overduestrt)> updatedopenamt) {
                                     overdue = overduestrt;//(int.Parse(overduestrt) - updatedreceivedamount).ToString();
-                                    currentdue = overdue;
+                                    //currentdue = overdue;
                                 }
                                 else
                                 {
                                 overdue = updatedopenamt.ToString();
-                                    currentdue = overdue;
+                                   // currentdue = overdue;
                                 }
                                 //listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = receivedamountforinvoice, totalQty = totalQty, total_dues = overdue });
                             }
@@ -200,17 +200,18 @@ namespace Inventory.Controllers
                                 if (int.Parse(duestrt) > updatedopenamt)
                                 {
                                  due = duestrt;
-                                    currentdue = due;
+                                    //currentdue = due;
                                 }
                                 else { 
                                 due = updatedopenamt.ToString();
-                                    currentdue = due;
+                                    //currentdue = due;
                                 }
                                 //listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = receivedamountforinvoice, totalQty = totalQty, total_dues = due });
 
                             }
                             listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = receivedamountforinvoice, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
                             //receivedamountforinvoice = updatedreceivedamount.ToString();
+                            currentdue = (int.Parse(due) + int.Parse(overdue)).ToString();
                         }
                     }
                     int counts = PaymentsService.Updatecustomerdue(user.DbName, payments.Customer_comapnyId, due, overdue, Payment_due_date);
