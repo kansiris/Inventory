@@ -58,9 +58,6 @@ namespace Inventory.Controllers
                 var userdetails = loginService.GetUserProfile(int.Parse(user.ID)).FirstOrDefault();
                 ViewBag.typeofuser = LoginService.GetUserTypeId("", (int)userdetails.UserTypeId).ToString();
                 List<Customer> customer = getcuscompanydet(user.DbName);
-                //string currentdate = (System.DateTime.Now).ToString("dd/MM/yyyy");
-                //string[] enddate = currentdate.Split('/');
-                //DateTime date2 = Convert.ToDateTime(enddate[0] + "/" + enddate[1] + "/" + enddate[2]);
                 DateTime date2 = Convert.ToDateTime(DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year);
                 ViewBag.curentdate = date2;
                 for (int i = 0; i < customer.Count; i++)
@@ -69,17 +66,12 @@ namespace Inventory.Controllers
                     if (Payment_due_date != null && Payment_due_date != "")
                     {
                        
-                        //DateTime strDate = Convert.ToDateTime(Payment_due_date);
-                        //DateTime date1 = Convert.ToDateTime(strDate.Day + "/" + strDate.Month + "/" + strDate.Year); 
-                        //ViewBag.paymentduedate = date1;
+                        
                         string Customer_comapnyId = (customer[i].cus_company_Id).ToString();
-                        //string due = customer[i].due;
-                        //string overdue = customer[i].overdue;
                         string due = 0.ToString();
                         string overdue = 0.ToString();
 
                         //getting payement date from generateinvoice for particular customer
-
 
                         var records = CustomerService.getPaymentduedatebyCompany_Id(user.DbName, Customer_comapnyId);
                         var dt = new DataTable();
@@ -106,16 +98,14 @@ namespace Inventory.Controllers
                                 string overdues= (paymentdate.Select(m => m.grand_total).ToList())[j];
                                 overduess = overdues;
                                 overdues = 0.ToString();
-                                //overdue = (int.Parse(overdue) + int.Parse(due)).ToString();
-                                //due = (int.Parse(due)- int.Parse(overdue)).ToString();
+                                
                             }
                             else
                             {
                                 string dues= (paymentdate.Select(m => m.grand_total).ToList())[j];
                                 duess = dues;
                                 dues = 0.ToString();
-                                //due = (int.Parse(overdue) + int.Parse(due)).ToString();
-                                //overdue = (int.Parse(overdue) - int.Parse(due)).ToString();
+                                
                             }
                             overdue=(int.Parse(overduess) + int.Parse(overdue)).ToString();
                             overduess=0.ToString();

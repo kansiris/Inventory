@@ -342,26 +342,6 @@ function editFunction(array) {
     $('#ship_state').val(array.ship_state);
     $('#ship_street').val(array.ship_street);
     $('#ship_postalcode').val(array.ship_postalcode);
-    //document.getElementById("fileupload2").files[0].value = array.tax_files;
-    //$("#fileupload2").
-    //$('#fileupload2').val(array.tax_files);
-    //document.getElementById('fileupload2').value = array.tax_files;
-    
-    //input[type='file'] {
-    //    color: transparent;   
-    //    direction: rtl;        
-    //}
-    //if(array.tax_files.split('.')[1]=='jpg'){
-    //    $("#forimg").css('display', 'block');
-    //    $("#result").css('display', 'none');
-    //    $('input[type="file"]').attr('name',array.tax_files);
-    //    $('#forimg').attr('src', 'Taxfiles/' + array.tax_files);
-    //}
-    //else {
-    //    $("#forimg").css('display', 'none');
-    //    $("#result").css('display', 'block');
-    //    result.innerHTML = $("#result").load('Taxfiles/' + array.tax_files);
-    //    }
     }
 
 
