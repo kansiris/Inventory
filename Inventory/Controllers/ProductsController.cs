@@ -187,7 +187,9 @@ namespace Inventory.Controllers
                 }
                 //ViewBag.records = sorteddata;
                 ViewBag.records = products;
-                ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")", "");
+                var currency = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency;
+                if(currency != "" && currency != null)
+                ViewBag.loc=currency.Split('(')[1].Replace(")", "");
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
