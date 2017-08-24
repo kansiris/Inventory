@@ -28,8 +28,6 @@
             </div>
         </div>
 
-
-
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div>
                 <table class="table  table-borderedtable-striped bulk_action" id="customertable">
@@ -101,6 +99,7 @@
                                                         <li> <a href="~/Payments?cid=@item.cus_company_Id&&cname=@item.cus_company_name"><i class="fa fa-money" aria-hidden="true"></i>Receive Payment</a> </li>
                                                     }
                                                     <li> <a><i class="fa fa-truck" aria-hidden="true"></i>View Delivery Note</a> </li>
+                                                    <li> <a><i class="fa fa-truck" aria-hidden="true"></i>Account Summary</a> </li>
                                                 </ul>
                                             }
                                             @if (ViewBag.typeofuser == "Customer" || ViewBag.typeofuser == "Staff")
@@ -186,7 +185,6 @@
                 var v = $('#status').val();
                 //alert(v);
                 if (v == "Active") {
-                   
                     $('#createpo').css("pointer-events", "none");
                     $('#receivepayments').css("pointer-events", "none");
                 }
