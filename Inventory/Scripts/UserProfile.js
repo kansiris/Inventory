@@ -470,11 +470,11 @@ $("#grid-view").click(function (e) {
 $("#list-view").click(function (e) {
 
     //location.reload();
-    $(".overlay").show();
+    $("#overlay2").show();
     var id = location.search.split('id=')[1];//new URL(window.location.href).searchParams.get('id');
     var url = 'UserProfile/GetStaffRecords?id=' + id + '';
-    $('#partialdiv').empty().load(url, function () { Pagination(); });
-    $(".overlay").hide();
+    $('#partialdiv').empty().load(url, function () { Pagination(); $("#overlay2").hide(); });
+   
     $("#contacttable").css("display", "block");
     $("#vendortable1").css("display", "none");
 });
@@ -580,5 +580,37 @@ function invitestaff(id, command) {
             //alert("error");
             errormsg("System Encountered Internal Error!!! Try Again After Some Time");
         }
+    });
+}
+
+function errormsg(msg) {
+    $("body").overhang({
+        type: "error",
+        message: msg,
+        closeConfirm: false
+    });
+}
+
+function successmsg(msg) {
+    $("body").overhang({
+        type: "success",
+        message: msg,
+        closeConfirm: false
+    });
+}
+function existsmsg(msg) {
+    $("body").overhang({
+        type: "exists",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
+    });
+}
+function warnmsg(msg) {
+    $("body").overhang({
+        type: "warn",
+        message: msg,
+        duration: 3,
+        closeConfirm: false
     });
 }
