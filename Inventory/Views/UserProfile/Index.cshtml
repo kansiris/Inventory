@@ -438,7 +438,7 @@
                                                     <span class="sr-only">Loading...</span><br>
                                                 </div>
                                             </div>
-                                            @if (item.Profile_Picture != null)
+                                            @if (item.Profile_Picture != null && item.Profile_Picture != "/images/user.png")
                                             {
                                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" onchange="upload1()" style="display:none">
                                                 <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 150px;height: 150px;" />

@@ -1595,9 +1595,9 @@
         function textval() {
             $(".display-positions .positions1").click(function () {
                 var c = $(this).text();
+                alert(c);
                 $(this).parents(".display-positions").prev("input.selected-position").val(c);
-                $(this).parents(".display-positions").css("display", "none");
-                //assign category id value here
+                $(this).parents(".display-positions").css("display", "none");               
             });
         }
 

@@ -39,7 +39,7 @@
                             <span onclick="javascript: document.getElementById('fileupload').click();" id="userprofilepic">@item.First_Name.Substring(0, 1)</span>*@
 
                         <a href="~/UserProfile?id=@item.ID&&type=upload">
-                            @if (item.Profile_Picture != "")
+                            @if (item.Profile_Picture != "" && item.Profile_Picture != "/images/user.png")
                             {
                                 <input type="file" name="file" id="fileupload1" accept=".gif, .jpeg, .png" style="display:none" disabled="disabled">
                                 <img id="profilepic" onclick="javascript: document.getElementById('fileupload1').click();" src="data:image;base64,@item.Profile_Picture" style="border-radius: 50%;width: 100px;height: 100px;" />
