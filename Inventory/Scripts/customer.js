@@ -738,6 +738,9 @@ function updatecusContact(clickedvalue) {
                         $("[id='cus_Job_position']").val("");
                         $("#cuscontactpic").attr("src", "/images/user.png");
                     }
+                    else if (data == "mobileno10") {
+                        warnmsg("Please Enter Valid Mobile Number");
+                    }
                     else {
                         errormsg("not updated");
                     }

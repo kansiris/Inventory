@@ -520,7 +520,7 @@
 
     $("#invoicenum").ready(function () {
         var mask = new RegExp('^[A-Za-z0-9/_]*$')
-        $("input").regexMask(mask);
+        $("#invoicenum").regexMask(mask);
     });
    
     $(function () {

@@ -171,15 +171,15 @@
 
                                                         <th class="col-md-2">Invoice No</th>
                                                         <th class="col-md-2">Payment Due Date</th>
-                                                        <th class="col-md-2">Total Items</th>
-                                                        <th class="col-md-2">Old Due Amount In<text class="localization"></text> </th>
+                                                        @*<th class="col-md-2">Total Items</th>*@
+                                                        <th class="col-md-2">Amount In<text class="localization"></text> </th>
                                                         @*<th class="col-md-2">Received Amount In <text class="localization"></text> </th>*@
                                                         <th class="col-md-3" style="text-align:right">Current Due Amount In <text class="localization"></text> </th>
                                                     </tr>
                                                 </thead>
-                                                @if (ViewBag.invocess != null)
+                                                @if (ViewBag.records != null)
                                                 {
-                                                    foreach (var item in ViewBag.invocess)
+                                                    foreach (var item in ViewBag.records)
                                                     {
 
                                                         <tbody>
@@ -194,15 +194,22 @@
                                                                 <tr>
                                                                     <td class="col-md-2 product-name">@item.Invoice_no</td>
                                                                     <td class="col-md-2 product-name"><span>@item.Payment_date</span></td>
-                                                                    <td class="col-md-1 quantity-changes">@item.totalQty</td>
-                                                                    <td class="col-md-3 product-name" style="text-align:left"><span>@item.open_amount</span></td>
+                                                                    @*<td class="col-md-1 quantity-changes">@item.totalQty</td>*@
+                                                                    <td class="col-md-3 product-name" style="text-align:left"><span>@item.total_price</span></td>
                                                                     @*<td class="col-md-3 product-name" style="text-align:center"><span>@item.sub_total</span></td>*@
-                                                                    <td class="col-md-3 product-name" style="text-align:center"><span>@item.total_dues</span></td>
+                                                                    <td class="col-md-3 product-name" style="text-align:center"><span>@item.open_amount</span></td>
                                                                 </tr>
-
+                                                                
                                                             }
+                                                            
                                                         </tbody>
                                                     }
+                                                   
+                                                        <tr>
+                                                           
+                                                            <td style="text-align:right"> Total due :<span>@ViewBag.currentdue</span></td>
+                                                        </tr>
+                                                    
                                                 }
                                             </table>
                                         </div>

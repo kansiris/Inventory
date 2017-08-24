@@ -443,20 +443,27 @@ namespace Inventory.Controllers
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-                var data = CustomerService.CustomerUpdateContact(Customer_Id, Customer_contact_Fname, Customer_contact_Lname, Mobile_No, Email_Id, Adhar_Number, cus_Job_position, image, user.DbName);
-                if (data > 0)
+                if (Mobile_No.Length < 10)
                 {
-                    ViewBag.Customer_Id = Customer_Id;
-                    ViewBag.Customer_contact_Fname = Customer_contact_Fname;
-                    ViewBag.Customer_contact_Lname = Customer_contact_Lname;
-                    ViewBag.Mobile_No = Mobile_No;
-                    ViewBag.Email_Id = Email_Id;
-                    ViewBag.Adhar_Number = Adhar_Number;
-                    ViewBag.cus_Job_position = cus_Job_position;
-                    ViewBag.iamge = image;
-                    return Json("sucess");
+                    return Json("mobileno10");
                 }
-                return Json("unique", JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var data = CustomerService.CustomerUpdateContact(Customer_Id, Customer_contact_Fname, Customer_contact_Lname, Mobile_No, Email_Id, Adhar_Number, cus_Job_position, image, user.DbName);
+                    if (data > 0)
+                    {
+                        ViewBag.Customer_Id = Customer_Id;
+                        ViewBag.Customer_contact_Fname = Customer_contact_Fname;
+                        ViewBag.Customer_contact_Lname = Customer_contact_Lname;
+                        ViewBag.Mobile_No = Mobile_No;
+                        ViewBag.Email_Id = Email_Id;
+                        ViewBag.Adhar_Number = Adhar_Number;
+                        ViewBag.cus_Job_position = cus_Job_position;
+                        ViewBag.iamge = image;
+                        return Json("sucess");
+                    }
+                    return Json("unique", JsonRequestBehavior.AllowGet);
+                }
             }
             return Json(null);
         }

@@ -346,7 +346,7 @@ $("#email-popup-cancle").click(function(){
 
         $("#ponumber").ready(function () {
             var mask = new RegExp('^[A-Za-z0-9/_]*$')
-            $("input").regexMask(mask);
+            $("#ponumber").regexMask(mask);
         });
 
         $(function () {
