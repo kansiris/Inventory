@@ -556,6 +556,10 @@ namespace Inventory.Controllers
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
+                if (Mobile_No.Length<10)
+                {
+                    return Json("mobileno10");
+                }else { 
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
                 List<Vendor> contact = new List<Vendor>();
                 var data = CustomerService.CustomerInsertRow(cus_company_Id, Customer_contact_Fname, Customer_contact_Lname, Mobile_No, Email_Id, Adhar_Number, cus_Job_position, image, user.DbName);
@@ -568,7 +572,9 @@ namespace Inventory.Controllers
                 }
                 return Json("unique", JsonRequestBehavior.AllowGet);
             }
+            }
             return Json(null);
+       
         }
 
         public ActionResult deletecusRecord(int cus_company_Id, string status)
