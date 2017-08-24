@@ -103,7 +103,12 @@ namespace Inventory.Controllers
                                                          product_consumable = row["consumable"].ToString(),
                                                      }).ToList();
                 ViewBag.records = subcategoryproducts;
-                ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")", "");
+                //ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")", "");
+                var currency = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency;
+                if (currency != "" && currency != null)
+                    ViewBag.loc = currency.Split('(')[1].Replace(")", "");
+                else
+                    ViewBag.loc = "$";
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
@@ -187,7 +192,11 @@ namespace Inventory.Controllers
                 }
                 //ViewBag.records = sorteddata;
                 ViewBag.records = products;
-                ViewBag.loc = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency.Split('(')[1].Replace(")", "");
+                var currency = loginService.GetUserProfile((int.Parse(user.ID))).FirstOrDefault().Currency;
+                if (currency != "" && currency != null)
+                    ViewBag.loc = currency.Split('(')[1].Replace(")", "");
+                else
+                    ViewBag.loc = "$";
                 return PartialView("allproducts", ViewBag.records);
             }
             return PartialView("allproducts", null);
