@@ -120,7 +120,7 @@ namespace Inventory.Controllers
                     }
                     string overduestrt = overdue;
                     string duestrt = due;
-                    int updatedopenamt = 0; int updatedreceivedamount = int.Parse(payments.Received_amount); int updatedinvoiceamount = int.Parse(payments.invoiced_amount);
+                    float updatedopenamt = 0; float updatedreceivedamount = float.Parse(payments.Received_amount); int updatedinvoiceamount = int.Parse(payments.invoiced_amount);
                     Array ponumsArray = payments.poid.Split(',');
                     for (int i = 0; i < ponumsArray.Length; i++)
                     {
@@ -157,22 +157,22 @@ namespace Inventory.Controllers
                             
                             if (open_amount != "" && open_amount != null && open_amount != "0")
                             {
-                                if ((int.Parse(open_amount)) >= (int.Parse(payments.Received_amount)))
+                                if ((float.Parse(open_amount)) >= (float.Parse(payments.Received_amount)))
                                 {
-                                    updatedopenamt = (int.Parse(open_amount) - int.Parse(payments.Received_amount));
+                                    updatedopenamt = (float.Parse(open_amount) - float.Parse(payments.Received_amount));
                                     PaymentsService.Updateinvoice(user.DbName, payments.poid.Split(',')[i], updatedopenamt.ToString());  /*updatedopenamt.ToString()*/
                                     //listglb.Add(new Invoice() {Prchaseorder_no= payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues= updatedopenamt.ToString() });
-                                    duestrt = (int.Parse(duestrt) - int.Parse(payments.Received_amount)).ToString();
-                                    overduestrt = (int.Parse(overduestrt) - int.Parse(payments.Received_amount)).ToString();
+                                    duestrt = (float.Parse(duestrt) - float.Parse(payments.Received_amount)).ToString();
+                                    overduestrt = (float.Parse(overduestrt) - float.Parse(payments.Received_amount)).ToString();
                                     payments.Received_amount = "0";
                                 }
                                 else
                                 {
-                                    updatedreceivedamount = (int.Parse(payments.Received_amount) - int.Parse(open_amount));
+                                    updatedreceivedamount = (float.Parse(payments.Received_amount) - float.Parse(open_amount));
                                     if (updatedreceivedamount > 0)
                                     {
-                                        duestrt = (int.Parse(duestrt) - int.Parse(payments.Received_amount)).ToString();
-                                        overduestrt = (int.Parse(overduestrt) - int.Parse(open_amount)).ToString(); //payments.Received_amount
+                                        duestrt = (float.Parse(duestrt) - float.Parse(payments.Received_amount)).ToString();
+                                        overduestrt = (float.Parse(overduestrt) - float.Parse(open_amount)).ToString(); //payments.Received_amount
                                         payments.Received_amount = updatedreceivedamount.ToString();
                                         updatedopenamt = 0;
                                         //listglb.Add(new Invoice() { Prchaseorder_no = payments.poid, Invoice_no = payments.poid.Split(',')[i], Payment_date = Payment_due_date, open_amount = open_amount, sub_total = payments.Received_amount, totalQty = totalQty, total_dues = updatedopenamt.ToString() });
@@ -184,7 +184,7 @@ namespace Inventory.Controllers
                                 break;
                             if (date1 < date2)
                             {
-                                if (int.Parse(overduestrt)> updatedopenamt) {
+                                if (float.Parse(overduestrt)> updatedopenamt) {
                                     overdue = overduestrt;//(int.Parse(overduestrt) - updatedreceivedamount).ToString();
                                     //currentdue = overdue;
                                 }
@@ -197,7 +197,7 @@ namespace Inventory.Controllers
                             }
                             else
                             {
-                                if (int.Parse(duestrt) > updatedopenamt)
+                                if (float.Parse(duestrt) > updatedopenamt)
                                 {
                                  due = duestrt;
                                     //currentdue = due;
