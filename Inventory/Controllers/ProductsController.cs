@@ -1,4 +1,4 @@
-﻿using Inventory.Content;
+﻿ using Inventory.Content;
 using Inventory.Models;
 using Inventory.Service;
 using System;
