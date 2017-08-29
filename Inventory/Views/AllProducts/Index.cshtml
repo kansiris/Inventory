@@ -130,7 +130,7 @@
                                                         @if (item.status == "Active")
                                                         {
                                                             <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=InActive"><i class="fa fa-toggle-off" aria-hidden="true"></i>In Active</a> </li>}
-                                                        @if (item.status == "InActive")
+                                                        @if (item.status == "InActive" || item.status == "Inactive")
                                                         {
                                                             <li> <a href="~/AllProducts/productstatus?id=@item.product_id&&status=Active"><i class="fa fa-toggle-on" aria-hidden="true"></i>Active</a> </li>}
 
