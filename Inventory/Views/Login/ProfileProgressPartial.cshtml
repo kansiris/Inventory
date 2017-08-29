@@ -67,7 +67,7 @@
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         @*<div  class="top-button" id="masterpic"></div>*@
 
-                        @if (Model.Profile_Picture != null)
+                        @if (Model.Profile_Picture != null && Model.Profile_Picture != "" && Model.Profile_Picture != "/images/user.png")
                         {
                             <img src="data:image;base64,@Model.Profile_Picture" alt="" id="smallprofilepic">
                         }
