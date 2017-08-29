@@ -107,9 +107,9 @@ namespace Inventory.Controllers
                                 dues = 0.ToString();
                                 
                             }
-                            overdue=(int.Parse(overduess) + int.Parse(overdue)).ToString();
+                            overdue=(float.Parse(overduess) + float.Parse(overdue)).ToString();
                             overduess=0.ToString();
-                            due = (int.Parse(duess) + int.Parse(due)).ToString();
+                            due = (float.Parse(duess) + float.Parse(due)).ToString();
                             duess = 0.ToString();
                             PaymentsService.Updatecustomerdue(user.DbName, Customer_comapnyId, due, overdue, paydate);
                         }
@@ -118,8 +118,8 @@ namespace Inventory.Controllers
 
                 
                 List<Customer> customer1 = getcuscompanydet(user.DbName);
-                ViewBag.totalnewpos = customer1.Select(m => int.Parse(m.new_POs)).Sum();
-                ViewBag.totalinvoicedpos = customer1.Select(m => int.Parse(m.total_POs)).Sum();
+                ViewBag.totalnewpos = customer1.Select(m => float.Parse(m.new_POs)).Sum();
+                ViewBag.totalinvoicedpos = customer1.Select(m => float.Parse(m.total_POs)).Sum();
                 ViewBag.totaldues = customer1.Select(m => float.Parse(m.due)).Sum();
                 ViewBag.totaloverdues = customer1.Select(m => float.Parse(m.overdue)).Sum();
                 ViewBag.records = customer1;
