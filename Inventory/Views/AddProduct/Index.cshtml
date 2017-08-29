@@ -404,7 +404,7 @@
                                     <div class="form-group col-xs-12 col-md-3">
                                         <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                         @*<input type="text" class="form-control selected-position" placeholder="Weight">*@
-                                        @Html.TextBoxFor(Model => Model.weight, new { @class = "form-control selected-position", placeholder = "Weight" })
+                                        @Html.TextBoxFor(Model => Model.weight, new { @class = "form-control selected-position", placeholder = "Weight", required = "required" })
                                         <div class="display-positions">
                                             <div class="positions1 position">
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -1053,7 +1053,7 @@
                                         <div class="form-group col-xs-12 col-md-3">
                                             <i class="fa fa-sort-desc" aria-hidden="true"></i>
                                             @*<input type="text" class="form-control selected-position" placeholder="Weight">*@
-                                            @Html.TextBoxFor(Model => Model.weight, new { @class = "form-control selected-position", placeholder = "Weight", Value = particularproduct.weight })
+                                            @Html.TextBoxFor(Model => Model.weight, new { @class = "form-control selected-position", placeholder = "Weight", Value = particularproduct.weight, required = "required" })
                                             <div class="display-positions">
                                                 <div class="positions1 position">
                                                     <i class="fa fa-plus-circle" aria-hidden="true"></i><span>Weight</span><i class="fa fa-times" aria-hidden="true"></i>
@@ -1595,9 +1595,9 @@
         function textval() {
             $(".display-positions .positions1").click(function () {
                 var c = $(this).text();
+                alert(c);
                 $(this).parents(".display-positions").prev("input.selected-position").val(c);
-                $(this).parents(".display-positions").css("display", "none");
-                //assign category id value here
+                $(this).parents(".display-positions").css("display", "none");               
             });
         }
 
@@ -1639,13 +1639,13 @@
         //<!------ Total Price ------->
         var costprice = 0, sellprice = 0, tax = 0, taxtotal = 0, discount = 0, discounttotal = 0, shipping = 0;
 
-        $("input[placeholder='Cost Price']").blur(function () {
+        $("input[placeholder='Cost Price']").on('input',function () {
             costprice = parseInt($("input[placeholder='Cost Price']").val());
             if (costprice <= 0) {
                 $("input[placeholder='Cost Price']").css("border", "1px solid red");
             } else { $("input[placeholder='Cost Price']").css("border", "1px solid #ccc"); }
         });
-        $("input[placeholder='Selling Price']").blur(function () {
+        $("input[placeholder='Selling Price']").on('input',function () {
             sellprice = parseInt($("input[placeholder='Selling Price']").val());
             costprice = parseInt($("input[placeholder='Cost Price']").val());
             if (costprice <= 0) {
@@ -1660,7 +1660,7 @@
                 $("input[placeholder='Total']").val(sellprice);
             }
         });
-        $("input[placeholder='Tax']").blur(function () {
+        $("input[placeholder='Tax']").on('input', function () {
             sellprice = parseInt($("input[placeholder='Selling Price']").val());
             tax = parseInt($("input[placeholder='Tax']").val());
             $(this).val(tax);
@@ -1670,14 +1670,14 @@
             $("input[placeholder='Total']").val(v);
 
         });
-        $("input[placeholder='Discount']").blur(function () {
+        $("input[placeholder='Discount']").on('input', function () {
             discount = parseInt($("input[placeholder='Discount']").val());
             $(this).val(discount);
             discounttotal = (sellprice / 100) * discount;
             var v = sellprice + taxtotal - discounttotal;
             $("input[placeholder='Total']").val(v);
         });
-        $("input[placeholder='Shipping']").blur(function () {
+        $("input[placeholder='Shipping']").on('input', function () {
             shipping = parseInt($("input[placeholder='Shipping']").val());
             $(this).val(shipping);
             var v = sellprice + taxtotal + shipping - discounttotal;
@@ -1686,7 +1686,7 @@
         //<!------ Total Price ------->
 
         //<!------ Total Quantity in Hand ------->
-        $("input[placeholder='Quantity in Hand']").blur(function (e) {
+        $("input[placeholder='Quantity in Hand']").on('input', function (e) {
             var len = $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").length;
             var i = 0, total = 0;
             $(".table-striped tbody > tr input[placeholder='Quantity in Hand']").each(function () {
