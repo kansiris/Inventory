@@ -129,8 +129,8 @@
                     minus = v - 1;
                     $(this).next("input[type='text']").val(minus);
                     //tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());;
-                    divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
-                    divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    divprice = parseFloat($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+                    divpriceright = parseFloat($(this).parents(".spinner").next(".product-price").children("span").text());
                     whqty = $(this).parents("div.rate-add").find("div.warehouse").children("div").children("span").html();
                     //tabletotal = minus * tableprice;
                     divtotal = minus * divprice;
@@ -158,8 +158,8 @@
                     plus = v + 1;
                     $(this).prev("input[type='text']").val(plus);
                     //tableprice = parseInt($(this).parents(".quantity-changes").nextAll(".product-price").children("span").text());
-                    divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
-                    divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    divprice = parseFloat($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+                    divpriceright = parseFloat($(this).parents(".spinner").next(".product-price").children("span").text());
                     whqty = $(this).parents("div.rate-add").find("div.warehouse").children("div").children("span").html();
                     // alert(divprice);
                     //tabletotal = plus * tableprice;
@@ -187,8 +187,8 @@
                 if (v > 1) {
                     minus = v - 1;
                     $(this).next("input[type='text']").val(minus);
-                    divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
-                    divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    divprice = parseFloat($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+                    divpriceright = parseFloat($(this).parents(".spinner").next(".product-price").children("span").text());
                     divtotal = minus * divprice;
                     divtotalright = minus * divpriceright;
                     $(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
@@ -228,8 +228,8 @@
                 if (v > 0 && v < whqty) {
                     plus = v + 1;
                     $(this).prev("input[type='text']").val(plus);
-                    divprice = parseInt($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
-                    divpriceright = parseInt($(this).parents(".spinner").next(".product-price").children("span").text());
+                    divprice = parseFloat($(this).parents(".spinner").parent("div").prev("div").children(".product-price").children("span").text());
+                    divpriceright = parseFloat($(this).parents(".spinner").next(".product-price").children("span").text());
                     divtotal = plus * divprice;
                     divtotalright = plus * divpriceright;
                     $(this).parents(".rate-add").prev(".product-price-total").children("span").empty().append(divtotal);
@@ -371,7 +371,7 @@
             var qty = $(this).parents(".rate-add").children("div:first-of-type").next("div").find(".spinner").children("div").find(".quantity").val();
             var productname = $(this).parents(".rate-add").prevAll("div.img-title").children("a").text();
             var costprice = $(this).parents(".rate-add").children("div:first-of-type").children(".product-price").children("span").html();
-            var total = parseInt(costprice) * parseInt(qty);
+            var total = parseFloat(costprice) * parseFloat(qty);//parseInt(costprice) * parseInt(qty);
             var cid = location.search.split('?')[1].split('&&')[0].split('cid=')[1];
             var productid = $(this).parents(".rate-add").prevAll("div.image").children("input").val();
             var img = ($(this).parents(".rate-add").prevAll("div.image").children("img").attr('src')).split('/')[2];
