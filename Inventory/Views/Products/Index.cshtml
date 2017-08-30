@@ -487,8 +487,10 @@
         });
         //<!---------- Product Variation ------------>
 
-        //$(document).on('input', '.quantity', function () {
-        $('.quantity').on('input', function (evt) {
+        
+
+        $(document).on('input', '.quantity', function () {
+        //$('.quantity').on('input', function (evt) {
             var inputvalue = this.value;
             var v = $(this).closest('div.well').find("div.image").find("input#pqty").val();
             if (parseInt(inputvalue) > parseInt(v)) {
@@ -497,8 +499,10 @@
                 $(this).val("1");
                 this.select();
             }
-        }).keypress(function (key) {
-            if (key.charCode < 48 || key.charCode > 57) { warnmsg("Enter Number only"); return false; }
+        }).ready(function (key) {
+            //if (key.charCode < 48 || key.charCode > 57) { warnmsg("Enter Number only"); return false; }
+            var mask = new RegExp('^[0-9]*$')
+            $("input").regexMask(mask)
         });
 
         $(document).on('input', '.cartqty', function () {
@@ -511,8 +515,10 @@
                 $(this).val($(this).parents("div.added-products").find("input.cartitemqty").val());
                 this.select();
             }
-        }).keypress(function (key) {
-            if (key.charCode < 48 || key.charCode > 57) { alert("Enter Number only"); return false; }
+        }).ready(function (key) {
+            //if (key.charCode < 48 || key.charCode > 57) { alert("Enter Number only"); return false; }
+            var mask = new RegExp('^[0-9]*$')
+            $("input").regexMask(mask)
         });
 
         //<!---------- mobile cart ------------>

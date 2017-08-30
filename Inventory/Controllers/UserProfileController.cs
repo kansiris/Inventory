@@ -270,7 +270,7 @@ namespace Inventory.Controllers
             {
                 count = LoginService.JobPositions("add", int.Parse(id1), position, null);
                 var records = AvailableJobPositions(id1);
-                return Json(new { msg = "Position Added Successfullly!!!Click Close Button and Select Position", records = records });
+                return Json(new { msg = "Position Added Successfully!!!Click Close Button and Select Position", records = records });
             }
             if (PositionID != "")
             {
