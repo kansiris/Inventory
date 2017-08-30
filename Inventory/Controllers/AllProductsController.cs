@@ -49,8 +49,9 @@ namespace Inventory.Controllers
                 {
                     ViewBag.smsg = TempData["smsg"];
                 }
+                return View();
             }
-            return View();
+            return RedirectToAction("Index", "Login");
         }
 
         public ActionResult productstatus(string id, string status)
