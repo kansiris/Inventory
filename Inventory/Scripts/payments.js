@@ -7,7 +7,7 @@
     var sum = 0;
     var lent = totalamnt.length;
     for (var i = 0; i < lent; i++) {
-        sum = sum + parseInt(totalamnt[i]);
+        sum = sum + parseFloat(totalamnt[i]);
     }
     $('#invoiced_amount').val(sum);
     $('#poid').val(poid);
@@ -27,13 +27,13 @@ function calculateamnt() {
         warnmsg("Enter Some Amount.It can't be empaty..");
     }
 
-    if (parseInt(recevdamnt) > parseInt(invamt)) {
+    if (parseFloat(recevdamnt) > parseFloat(invamt)) {
         warnmsg("Enter less than or Equal Of Invoiced Amount...");
         $('#Received_amount').val("");
     //    $("#current_balance").val((parseInt(previous) - $('#Received_amount').val()));
     }
     //else{
-    $("#current_balance").val((parseInt(previous) - recevdamnt));
+    $("#current_balance").val((parseFloat(previous) - recevdamnt));
     //}
 }
 
