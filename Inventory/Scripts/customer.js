@@ -728,6 +728,9 @@ function updatecusContact(clickedvalue) {
                         $("[id='cus_Job_position']").val("");
                         $("#cuscontactpic").attr("src", "/images/user.png");
                     }
+                    else if (data == "fnamelname") {
+                        warnmsg('ContactName Can not be empty');
+                    }
                     else if (data == "mobileno10") {
                         warnmsg("Please Enter Valid Mobile Number");
                     }
