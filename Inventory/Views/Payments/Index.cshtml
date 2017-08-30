@@ -643,7 +643,7 @@
     //<!-------------- Add custom Conditions ----------->
 
     //<!-------------- balance block ----------->
-    var invoicetotalamount = parseInt($(".invoice-total-amount > span").text());
+    var invoicetotalamount = parseFloat($(".invoice-total-amount > span").text());
     $("input[type='text'].pre-balance").val(invoicetotalamount);
     //<!-------------- balance block ----------->
 
