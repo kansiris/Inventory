@@ -611,7 +611,7 @@
                                                 <div class="input-group">
                                                     <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
                                                     @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />*@
-                                                    @Html.TextBoxFor(Model => Model.product_expirydate, new { @class = "form-control", placeholder = "MM/DD/YYYY" })
+                                                    @Html.TextBoxFor(Model => Model.product_expirydate, new { @class = "form-control", placeholder = "DD/MM/YYYY" })
                                                 </div>
                                             </div>
                                         </div>
@@ -1260,7 +1260,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div>
                                                         @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />*@
-                                                        @Html.TextBoxFor(Model => Model.product_expirydate, new { @class = "form-control", placeholder = "MM/DD/YYYY", Value = particularproduct.product_expirydate })
+                                                        @Html.TextBoxFor(Model => Model.product_expirydate, new { @class = "form-control", placeholder = "DD/MM/YYYY", Value = particularproduct.product_expirydate })
                                                     </div>
                                                 </div>
                                             </div>
