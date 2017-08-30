@@ -649,6 +649,12 @@ function updatecusContact(clickedvalue) {
     EmailId = $('#Email_Id').val();
     var email = document.getElementById('Email_Id');
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (Customercontact_Fname == "" || Customercontact_Lname=="") {
+        warnmsg('ContactName Can not be empty');
+        Customercontact_Fname.focus;
+    }
+
+
     if (!filter.test(email.value)) {
         warnmsg('Please provide a valid email address');
         email.focus;
@@ -681,6 +687,10 @@ function updatecusContact(clickedvalue) {
                         $("[id='Adhar_Number']").val("");
                         $("[id='cus_Job_position']").val("");
                         $("#cuscontactpic").attr("src", "/images/user.png");
+                    }
+                    
+                    else if (data == "fnamelname") {
+                        warnmsg('ContactName Can not be empty');
                     }
                     else if (data == "mobileno10") {
                         warnmsg("Please Enter Valid Mobile Number");
@@ -717,6 +727,9 @@ function updatecusContact(clickedvalue) {
                         $("[id='Adhar_Number']").val("");
                         $("[id='cus_Job_position']").val("");
                         $("#cuscontactpic").attr("src", "/images/user.png");
+                    }
+                    else if (data == "fnamelname") {
+                        warnmsg('ContactName Can not be empty');
                     }
                     else if (data == "mobileno10") {
                         warnmsg("Please Enter Valid Mobile Number");
@@ -1242,6 +1255,25 @@ function editcompanytaxdetails(clickedvalue) {
 
         else {
             return false;
+        }
+    }
+
+
+
+    function checkfname() {
+        
+        var cusfname = $('#Customer_contact_Fname').val();
+        if (cusfname=="") {
+            warnmsg('ContactName Can not be empty');
+            cusfname.focus;
+        }
+    }
+    function checklname() {
+
+        var cuslname = $('#Customer_contact_Lname').val();
+        if (cuslname == "") {
+            warnmsg('ContactName Can not be empty');
+            cuslname.focus;
         }
     }
 

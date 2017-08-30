@@ -433,6 +433,11 @@ namespace Inventory.Controllers
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                if (Customer_contact_Fname == "" || Customer_contact_Lname == "")
+                {
+                    return Json("fnamelname");
+                }
+
                 if (Mobile_No.Length < 10)
                 {
                     return Json("mobileno10");
@@ -553,6 +558,10 @@ namespace Inventory.Controllers
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
+                if (Customer_contact_Fname=="" || Customer_contact_Lname=="")
+                {
+                    return Json("fnamelname");
+                }
                 if (Mobile_No.Length<10)
                 {
                     return Json("mobileno10");
