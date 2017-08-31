@@ -329,7 +329,7 @@
                                         </div>
                                         <div class="row add-position">
                                             <div class="row">
-                                                <input type="text" class="form-control" placeholder="Enter Sub Category" id="addnewsubcategory"><input type="hidden" id="selectedcategoryid" />
+                                                <input type="text" class="form-control" placeholder="Enter Sub Category" id="addnewsubcategory"><input type="hidden" id="selectedcategoryid" value="@ViewBag.categoryid"/>
                                                 <button type="button" class="btn btn-primary btn-sm add-button" onclick="updateproductitems(this.value)" value="addsubcategory"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add </button>
                                                 <button type="button" class="btn btn-primary btn-sm close-button"> close </button>
                                             </div>
@@ -1595,7 +1595,7 @@
         function textval() {
             $(".display-positions .positions1").click(function () {
                 var c = $(this).text();
-                alert(c);
+                //alert(c);
                 $(this).parents(".display-positions").prev("input.selected-position").val(c);
                 $(this).parents(".display-positions").css("display", "none");               
             });

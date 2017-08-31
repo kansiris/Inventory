@@ -35,7 +35,7 @@
             if (response.command == 'addsize') { successmsg(product.size + " Size Added SuccessFully"); $('#addnewsize').val(''); $('#size').val(product.size); loadproducts(response); } //Size
             if (response.command == 'addcolor') { successmsg(product.color + " Color Added SuccessFully"); $('#addnewcolor').val(''); $('#color').val(product.color); loadproducts(response); } //Color
             if (response.command == 'additemshape') { successmsg(product.item_shape + " Added SuccessFully"); $('#addnewitemshape').val(''); $('#item_shape').val(product.item_shape); loadproducts(response); } //Item Shape
-            if (response.command == 'addcategory') { successmsg(product.category + " Category Added SuccessFully"); $('#addnewcategory').val(''); $('#category').val(product.category); loadproducts(response); } //Category
+            if (response.command == 'addcategory') { successmsg(product.category + " Category Added SuccessFully"); $('#addnewcategory').val(''); $('#category').val(product.category); loadproducts(response); $('#selectedcategoryid').val(response.categoryid); } //Category
             if (response.command == 'addsubcategory') { successmsg(product.sub_category + " Sub-Category Added SuccessFully"); $('#addnewsubcategory').val(''); $('#sub_category').val(product.sub_category); loadproducts(response); } //Sub-Category
             if (response.command == 'addbrand') { successmsg(product.brand + " Added SuccessFully"); $('#addnewbrand').val(''); $('#brand').val(product.brand); loadproducts(response); } //Brand
             //if (response.command == 'addmodel') { alert(product.model + " Added SuccessFully"); } //Model
@@ -57,7 +57,7 @@ function getsub(type, id) {
             if (response == 'empty') {
                 $('#sub_category').val('');
                 $('#subcategories').empty();
-                errormsg("No Sub-Caregories Available");
+                errormsg("No Sub-Categories Available");
             }
             else {
                 if (type == 'category') {

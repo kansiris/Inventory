@@ -81,8 +81,8 @@ namespace Inventory.Controllers
                             var file1 = Request.Files[i];
                             if (file1 != null && file1.ContentLength > 0)
                             {
-                                imagename = imagename + "," + product_id + "_" + user.UserSite+"_" + file1.FileName;
-                                file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + user.UserSite +"_"+ file1.FileName));
+                                imagename = imagename + "," + product_id + "_" + user.UserSite + "_" + file1.FileName;
+                                file1.SaveAs(Server.MapPath("~/ProductImages/" + product_id + "_" + user.UserSite + "_" + file1.FileName));
                                 file1.SaveAs(Server.MapPath("~/images/" + product_id + "_" + user.UserSite + "_" + file1.FileName));
                             }
                         }
@@ -94,7 +94,7 @@ namespace Inventory.Controllers
                         var images = product.product_images.Split(',');
                         for (int i = 0; i < images.Count(); i++)
                         {
-                            if (!images[i].StartsWith("data:image")  && images[i].Length < 100) //!= "data:image/png;base64" && images[i] != "data:image/jpeg;base64"
+                            if (!images[i].StartsWith("data:image") && images[i].Length < 100) //!= "data:image/png;base64" && images[i] != "data:image/jpeg;base64"
                             {
                                 string fileName = product_id + "_" + user.UserSite + "_" + images[i];
                                 string pathString = System.IO.Path.Combine(Server.MapPath("~/ProductImages/"), fileName);
@@ -108,7 +108,7 @@ namespace Inventory.Controllers
                     int count = ProductService.ProductFunctionalities(command, user.DbName, id, product_id, product.product_name, product.batch_number, product.brand, product.model, product.category, product.sub_category,
                         product.cost_price, product.selling_price, product.tax, product.discount, product.shipping_price, product.total_price, product.Measurement, product.weight,
                         product.size, product.color, product.item_shape, product.product_consumable, product.product_type, product.product_perishability, product.product_expirydate,
-                        product.product_description, product.product_tags, imagename,product.SGST,product.CGST,product.IGST,product.HSNcode);
+                        product.product_description, product.product_tags, imagename, product.SGST, product.CGST, product.IGST, product.HSNcode);
                     if (count > 0)
                     {
                         for (int i = 0; i < product.Quantity_Qty.Count; i++)
@@ -254,6 +254,7 @@ namespace Inventory.Controllers
 
         public JsonResult UpdateProductsItems(string command, string id, Product product)
         {
+            string categoryid = "";
             var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
             int count = ProductService.ProductItems(user.DbName, command, product.weight, product.size, product.color, product.item_shape, product.category_id, product.category, product.sub_category, product.brand, product.model, id);
             if (count > 0)
@@ -265,7 +266,10 @@ namespace Inventory.Controllers
                 else
                     replace = "add";
                 var records = convert(user.DbName, command.Replace(replace, ""), product.category_id).Distinct();
-                var result = new { command = command, records = records };
+                if (command.Replace(replace, "") == "category"){
+                    categoryid = records.Where(m => m.category == product.category).Select(m => m.category_id).FirstOrDefault();
+                }
+                var result = new { command = command, records = records, categoryid = categoryid };
                 return Json(result);
             }
             else
