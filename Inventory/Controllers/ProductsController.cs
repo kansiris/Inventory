@@ -1,4 +1,4 @@
-﻿ using Inventory.Content;
+﻿using Inventory.Content;
 using Inventory.Models;
 using Inventory.Service;
 using System;
@@ -266,7 +266,7 @@ namespace Inventory.Controllers
                 { quantity = qtyinhnd.FirstOrDefault().Quantity_Total; }//qtyinhnd.Select(m => m.Quantity_Total);
                 else { quantity = ""; }
                 #endregion
-                var result = new { images = ViewBag.records, qty = quantity,discount=images[0].discount, product_type=images[0].product_type };
+                var result = new { images = ViewBag.records, qty = quantity, discount = images[0].discount, product_type = images[0].product_type };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json("unique", JsonRequestBehavior.AllowGet);
@@ -291,7 +291,7 @@ namespace Inventory.Controllers
                 //var quantity = qtyinhnd.Select(m => m.Quantity_Total);
                 //if (int.Parse(Quantity) < int.Parse(quantity.ToString()))
                 //{
-                var counts = ProductService.checkcartdata(user.DbName, product_id,cid);
+                var counts = ProductService.checkcartdata(user.DbName, product_id, cid);
                 if (counts.HasRows)
                 {
                     return Json("exists");
@@ -442,84 +442,88 @@ namespace Inventory.Controllers
             {
                 return Json("ponumspace");
             }
-            else {
-            var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
-            var dt = new DataTable();
-            var records = ProductService.Getcartdata(user.DbName, cid);
-            dt.Load(records);
-            var county = ProductService.checkponum(user.DbName, Prchaseorder_no);
-            if (county.HasRows) {
-                        return Json("exists");
-            }
             else
-                { 
-            if (shipping_date=="" || shipping_date==null) {
-                return Json("shipdate");
-            }
-            else {
-            List<Product> cartaddedproduct = (from DataRow row in dt.Rows
-                                              select new Product()
-                                              {
-                                                  customer_id = row["customer_id"].ToString(),
-                                                  product_id = row["product_id"].ToString(),
-                                                  product_name = row["product_name"].ToString(),
-                                                  cost_price = row["cost_price"].ToString(),
-                                                  Quantity = row["Quantity"].ToString(),
-                                                  //product_images = row["product_images"].ToString(),
-                                                  Measurement = row["Measurement"].ToString(),
-                                                  total_price = row["total_price"].ToString(),
-                                              }).ToList();
-            var ff = cartaddedproduct.Count;
-            int count = 0;
-                    ViewBag.Productcount = ff;
-            if (Prchaseorder_no != "")
             {
-
-                for (int i = 0; i < ff; i++)
+                var user = (CustomPrinciple)System.Web.HttpContext.Current.User;
+                var dt = new DataTable();
+                var records = ProductService.Getcartdata(user.DbName, cid);
+                dt.Load(records);
+                var county = ProductService.checkponum(user.DbName, Prchaseorder_no);
+                if (county.HasRows)
                 {
-                    string product_id = (cartaddedproduct.Select(m => m.product_id).ToList())[i];
-                    string product_name = (cartaddedproduct.Select(m => m.product_name).ToList())[i];
-                    string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
-                    string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
-                    string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
-                    string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i];
-                    int removeditems = UpdateStock(user.DbName, product_id, quantity);
-                    if (removeditems > 0)
+                    return Json("exists");
+                }
+                else
+                {
+                    if (shipping_date == "" || shipping_date == null)
                     {
-                        count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname.Replace("%20", " "), created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, grand_total);
-                        string status = 0.ToString();
-                        var dt1 = new DataTable();
-                        var records1 = InvoiceService.Getposforcustomer(user.DbName, cid, status);
-                        dt1.Load(records1);
-                        List<Invoice> pos = (from DataRow row in dt1.Rows
-                                             select new Invoice()
-                                             {
-                                                 new_pos = row["pos"].ToString(),
-                                             }).ToList();
-                        string new_pos = pos.Select(m => m.new_pos).ToList().First();
-                        InvoiceService.UpdatenewPoinCustomer(user.DbName, cid, new_pos);
+                        return Json("shipdate");
                     }
                     else
                     {
-                        return Json("out of stock");
+                        List<Product> cartaddedproduct = (from DataRow row in dt.Rows
+                                                          select new Product()
+                                                          {
+                                                              customer_id = row["customer_id"].ToString(),
+                                                              product_id = row["product_id"].ToString(),
+                                                              product_name = row["product_name"].ToString(),
+                                                              cost_price = row["cost_price"].ToString(),
+                                                              Quantity = row["Quantity"].ToString(),
+                                                              //product_images = row["product_images"].ToString(),
+                                                              Measurement = row["Measurement"].ToString(),
+                                                              total_price = row["total_price"].ToString(),
+                                                          }).ToList();
+                        var ff = cartaddedproduct.Count;
+                        int count = 0;
+                        ViewBag.Productcount = ff;
+                        if (Prchaseorder_no != "")
+                        {
+
+                            for (int i = 0; i < ff; i++)
+                            {
+                                string product_id = (cartaddedproduct.Select(m => m.product_id).ToList())[i];
+                                string product_name = (cartaddedproduct.Select(m => m.product_name).ToList())[i];
+                                string price = (cartaddedproduct.Select(m => m.cost_price).ToList())[i];
+                                string quantity = (cartaddedproduct.Select(m => m.Quantity).ToList())[i];
+                                string description = (cartaddedproduct.Select(m => m.Measurement).ToList())[i];
+                                string total_price = (cartaddedproduct.Select(m => m.total_price).ToList())[i];
+                                int removeditems = UpdateStock(user.DbName, product_id, quantity);
+                                if (removeditems > 0)
+                                {
+                                    count = ProductService.GenaratePurchaseOrder(user.DbName, cid, product_id, cname.Replace("%20", " "), created_date, Prchaseorder_no, shipping_date, shipping_terms, product_name, description, quantity, price, total_price, remarks, sub_total, grand_total);
+                                    string status = 0.ToString();
+                                    var dt1 = new DataTable();
+                                    var records1 = InvoiceService.Getposforcustomer(user.DbName, cid, status);
+                                    dt1.Load(records1);
+                                    List<Invoice> pos = (from DataRow row in dt1.Rows
+                                                         select new Invoice()
+                                                         {
+                                                             new_pos = row["pos"].ToString(),
+                                                         }).ToList();
+                                    string new_pos = pos.Select(m => m.new_pos).ToList().First();
+                                    InvoiceService.UpdatenewPoinCustomer(user.DbName, cid, new_pos);
+                                }
+                                else
+                                {
+                                    return Json("out of stock");
+                                }
+                            }
+                            if (count > 0)
+                            {
+                                ProductService.Emptycart(user.DbName, cid);
+                                return Json("success");
+                            }
+                            //if (count > 0)
+                            //{
+                            //    ProductService.Emptycart(user.DbName, cid);
+                            //    return Json("success");
+                            //}
+                        }
+
                     }
                 }
-                if (count > 0)
-                {
-                    ProductService.Emptycart(user.DbName, cid);
-                    return Json("success");
-                }
-                //if (count > 0)
-                //{
-                //    ProductService.Emptycart(user.DbName, cid);
-                //    return Json("success");
-                //}
+                return Json("unique");
             }
-
-            }
-            }
-            return Json("unique");
-        }
         }
 
         //public JsonResult CheckPoNum(string Prchaseorder_no)
@@ -536,7 +540,7 @@ namespace Inventory.Controllers
         //}
 
         //for displaying pos of customer
-        public PartialViewResult PosOfCustomer(string cid,string cname)
+        public PartialViewResult PosOfCustomer(string cid, string cname)
         {
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
@@ -622,15 +626,25 @@ namespace Inventory.Controllers
 
         public int UpdateStock(string dbname, string product_id, string quantity)
         {
-            int count = 0;
+            int count = 0; int updatedqty = 0;
             var records = ProductService.GetMaxWarehouseQty(dbname, product_id);
             DataTable dt = new DataTable();
             dt.Load(records);
             Product qty = (from DataRow row in dt.Rows select new Product() { ID = row["id"].ToString(), Quantity = row["Qty"].ToString(), Quantity_Total = row["Total"].ToString() }).FirstOrDefault();
-            int updatedqty = int.Parse(qty.Quantity) - int.Parse(quantity);
+            if (int.Parse(qty.Quantity) > int.Parse(quantity))
+                updatedqty = int.Parse(qty.Quantity) - int.Parse(quantity.Replace("-", ""));
+            else
+                updatedqty = int.Parse(quantity.Replace("-", "")) - int.Parse(qty.Quantity);
             int updatedTotal = int.Parse(qty.Quantity_Total) - int.Parse(quantity);
-            if (updatedTotal >= 0)
+            if (updatedqty == 0)
+                count = ProductService.updateMaxWarehouseQty(dbname, product_id, qty.ID, 0, updatedTotal.ToString());
+            else if (updatedTotal >= 0 && updatedqty > 0)
+            {
                 count = ProductService.updateMaxWarehouseQty(dbname, product_id, qty.ID, updatedqty, updatedTotal.ToString());
+                UpdateStock(dbname, product_id, updatedqty.ToString());
+            }
+            //else if (updatedqty > 0)
+            //    UpdateStock(dbname, product_id, updatedqty.ToString());
             else
                 count = 0;
             return count;
@@ -638,7 +652,7 @@ namespace Inventory.Controllers
 
         //for email of purchase order
 
-        public JsonResult Email(string POdata, string EmailID, string Grandtotal,string Companyname, string Shipdate, string Pnums,string ProductCount)
+        public JsonResult Email(string POdata, string EmailID, string Grandtotal, string Companyname, string Shipdate, string Pnums, string ProductCount)
         {
             // Designing Email Part
             SendEmail abc = new SendEmail();
@@ -657,7 +671,7 @@ namespace Inventory.Controllers
             abc.EmailAvtivation(EmailID, message, "Purchase Order Details");
             return Json("success");
         }
-        
+
 
     }
 }

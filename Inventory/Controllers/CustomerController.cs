@@ -103,6 +103,7 @@ namespace Inventory.Controllers
                             else
                             {
                                 string dues= (paymentdate.Select(m => m.grand_total).ToList())[j];
+                                if(dues != "")
                                 duess = dues;
                                 dues = 0.ToString();
                                 
