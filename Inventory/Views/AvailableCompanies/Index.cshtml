@@ -188,7 +188,7 @@
                                             @foreach (var item in ViewBag.records)
                                             { <div class="col-xs-12 col-sm-6 col-md-3">
                                                 <div class="thumbnail media-gallery">
-                                                    @if (item.company_logo != null && item.company_logo != "")
+                                                    @if (item.company_logo != null && item.company_logo != "" && item.company_logo == "/images/user.png")
                                                     {<img src="data:image;base64,@item.company_logo" alt="Img" /> }
                                                     else
                                                     {<img src="/images/user.png" alt="Img" /> }

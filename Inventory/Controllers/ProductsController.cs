@@ -633,6 +633,8 @@ namespace Inventory.Controllers
             Product qty = (from DataRow row in dt.Rows select new Product() { ID = row["id"].ToString(), Quantity = row["Qty"].ToString(), Quantity_Total = row["Total"].ToString() }).FirstOrDefault();
             if (int.Parse(qty.Quantity) > int.Parse(quantity))
                 updatedqty = int.Parse(qty.Quantity) - int.Parse(quantity.Replace("-", ""));
+            else if (int.Parse(qty.Quantity) == int.Parse(quantity))
+            { count = 1; return count; }
             else
                 updatedqty = int.Parse(quantity.Replace("-", "")) - int.Parse(qty.Quantity);
             int updatedTotal = int.Parse(qty.Quantity_Total) - int.Parse(quantity);
