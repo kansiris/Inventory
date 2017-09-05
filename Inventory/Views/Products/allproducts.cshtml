@@ -179,4 +179,19 @@
         $('.cart-total').html(@ViewBag.totalamount);
         //alert(dateformat);
     });
+
+   // $(document).ready(function (e) {
+        $('.displayproduct').each(function () {
+            var whqty = $(this).find(".rate-add").children("div.warehouse").children("div").children("span").html();
+            var pqty = $(this).find(".rate-add").prevAll(".image").children("input#pqty");
+            pqty.val(whqty);
+            if (whqty == 0 || whqty == '') {
+                //alert("out of stock");
+                pqty.val(0);
+                $(this).find("div.label").css('display', 'block');
+                $(this).find(".rate-add").children("div.warehouse").children("div").children("span").html(0);
+                $(this).find("div.well").children("div.rate-add").children("div.row").children("div.add-to-cart").children("button").prop('disabled', true);
+            }
+        });
+   // });
 </script>
