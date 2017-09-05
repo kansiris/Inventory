@@ -699,6 +699,7 @@
 
 <script src="~/Scripts/js/jquery-ui.min.js"></script>
 <script src="~/Scripts/js/overhang.min.js"></script>
+
     <!-- Custom Theme Scripts -->
     @*<script src="~/build/js/custom.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>*@
@@ -706,6 +707,37 @@
    @Scripts.Render("~/bundles/profile")
     <script>
         $(document).ready(function () { $('.overlay').hide(); });
+        function errormsg(msg) {
+            $("body").overhang({
+                type: "error",
+                message: msg,
+                closeConfirm: false
+            });
+        }
+
+        function successmsg(msg) {
+            $("body").overhang({
+                type: "success",
+                message: msg,
+                closeConfirm: false
+            });
+        }
+        function existsmsg(msg) {
+            $("body").overhang({
+                type: "exists",
+                message: msg,
+                duration: 3,
+                closeConfirm: false
+            });
+        }
+        function warnmsg(msg) {
+            $("body").overhang({
+                type: "warn",
+                message: msg,
+                duration: 3,
+                closeConfirm: false
+            });
+        }
     </script>
     <script>
         function validateEmail(emailField) {

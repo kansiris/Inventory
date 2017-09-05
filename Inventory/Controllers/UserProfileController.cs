@@ -23,7 +23,7 @@ namespace Inventory.Controllers
         LoginService loginService = new LoginService();
         public ActionResult Index(string id)
         {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && id != null)
             {
                 var profile = loginService.GetUserProfile(int.Parse(id)); //Get's User Profile
                 ViewBag.timeZoneInfos = new SelectList(TimeZoneInfo.GetSystemTimeZones(), "DisplayName", "DisplayName", profile[0].Timezone); //Available Time Zones
