@@ -626,29 +626,27 @@ namespace Inventory.Controllers
 
         public int UpdateStock(string dbname, string product_id, string quantity)
         {
-            int count = 0; int updatedqty = 0;
+            int count = 0; int updatedqty = 0; int updatedTotal = 0;
             var records = ProductService.GetMaxWarehouseQty(dbname, product_id);
             DataTable dt = new DataTable();
             dt.Load(records);
             Product qty = (from DataRow row in dt.Rows select new Product() { ID = row["id"].ToString(), Quantity = row["Qty"].ToString(), Quantity_Total = row["Total"].ToString() }).FirstOrDefault();
             if (int.Parse(qty.Quantity) > int.Parse(quantity))
                 updatedqty = int.Parse(qty.Quantity) - int.Parse(quantity.Replace("-", ""));
-            else if (int.Parse(qty.Quantity) == int.Parse(quantity))
-            { count = 1; return count; }
             else
                 updatedqty = int.Parse(quantity.Replace("-", "")) - int.Parse(qty.Quantity);
-            int updatedTotal = int.Parse(qty.Quantity_Total) - int.Parse(quantity);
-            if (updatedqty == 0)
-                count = ProductService.updateMaxWarehouseQty(dbname, product_id, qty.ID, 0, updatedTotal.ToString());
-            else if (updatedTotal >= 0 && updatedqty > 0)
+            
+            if (int.Parse(quantity) > int.Parse(qty.Quantity))
             {
-                count = ProductService.updateMaxWarehouseQty(dbname, product_id, qty.ID, updatedqty, updatedTotal.ToString());
+                updatedTotal = int.Parse(qty.Quantity_Total) - int.Parse(qty.Quantity);
+                count = ProductService.updateMaxWarehouseQty(dbname, product_id, qty.ID, 0, updatedTotal.ToString());
                 UpdateStock(dbname, product_id, updatedqty.ToString());
             }
-            //else if (updatedqty > 0)
-            //    UpdateStock(dbname, product_id, updatedqty.ToString());
             else
-                count = 0;
+            {
+                updatedTotal = int.Parse(qty.Quantity_Total) - int.Parse(quantity);
+                count = ProductService.updateMaxWarehouseQty(dbname, product_id, qty.ID, updatedqty, updatedTotal.ToString());
+            }
             return count;
         }
 
