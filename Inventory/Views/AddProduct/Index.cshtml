@@ -120,106 +120,23 @@
                 </div>
                 <div class="row">
                     <div class="library">
-                        <div class="row image-library padding-left-0 padding-right-0">
-                            <ul class="col-md-12 tabs">
-                                <li class="tab-1"><a>Upload Images</a></li>
-                                <li class="tab-2"><a>Library</a></li>
-                                <i class="fa fa-times pull-right" aria-hidden="true"></i>
-                            </ul>
-                            <ul class="col-md-12 tabs-content">
-                                @*<li class="tab-1" id="tab-1">
-                                        <button type="button" id="btnupload" onclick="javascript: document.getElementById('fileUpload').click();" class="btn">Upload Here</button>
-
-                                        <input type='file' multiple="multiple" accept="image/*" id='fileUpload' name="file" />
-                                        <div id="dvPreview" align="center" style="padding:30px">
-                                    </li>*@
-                                <li class="tab-1" id="tab-1">
-                                    <button type="button" class="btn" onclick="javascript: document.getElementById('fileUpload1').click();">Upload Here</button>
-                                    <input type="file" multiple="multiple" accept="image/*" id='fileUpload1' name="file" style="display:none">
-                                    @*<div class="row" id="dvPreview">
-                                                        <div class="col-xs-12 col-md-12">
-                                            <ul class="upload-thumbs">
-                                                <li><img src="images/1.jpg" alt="1" /></li>
-                                                <li><img src="images/2.jpg" alt="2" /></li>
-                                                <li><img src="images/3.jpg" alt="3" /></li>
-                                                <li><img src="images/4.jpg" alt="4" /></li>
-                                                <li><img src="images/5.jpg" alt="5" /></li>
-                                                <li><img src="images/6.jpg" alt="6" /></li>
-                                                <li><img src="images/1.jpg" alt="1" /></li>
-                                                <li><img src="images/2.jpg" alt="2" /></li>
-                                                <li><img src="images/3.jpg" alt="3" /></li>
-                                                <li><img src="images/4.jpg" alt="4" /></li>
-                                                <li><img src="images/5.jpg" alt="5" /></li>
-                                                <li><img src="images/6.jpg" alt="6" /></li>
-                                            </ul>
-                                        </div>
-                                                                        </div>*@
-                                </li>
-                                <li class="tab-2" id="tab-2">
-                                    @Html.HiddenFor(m => m.product_images)
-                                    <ul>
-                                        @foreach (var library in ViewBag.libraryimages)
-                                        {
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/@library" alt="Image one" />
-                                            </li>
-                                        }
-
-                                        @*<li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/2.jpg" alt="Image Two" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/3.jpg" alt="Image Three" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/4.jpg" alt="Image Four" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/5.jpg" alt="Image Five" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/6.jpg" alt="Image Six" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/1.jpg" alt="Image one" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/2.jpg" alt="Image Two" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/3.jpg" alt="Image Three" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/4.jpg" alt="Image Four" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/5.jpg" alt="Image Five" />
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" name="checkbox" class="libselection">
-                                                <img src="images/6.jpg" alt="Image Six" />
-                                            </li>*@
-                                    </ul>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
-                                            <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add</button>
+                        <div class="library-inside">
+                            <div class="row image-library padding-left-0 padding-right-0">
+                                <div class="block">
+                                    <div class="row margin-bottom">
+                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 text-center upload-file padding-top-10 padding-bottom-10">
+                                            <h4 class="grey">Select Below</h4>
+                                            <input type="file" class="opacity-0" name="vamsi" id="fileUpload1" multiple>
+                                            <button class="btn btn-default red-bg white">Add Photos Here</button>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-
+                                </div>@Html.HiddenFor(m => m.product_images)
+                                <div class="row margin-top" id="dvPreview"></div>
+                            </div>
+                            <div class="col-md-12 image-library-btns">
+                                <button type="button" class="btn pull-right cancel"><i class="fa fa-times" aria-hidden="true"></i>Close</button>
+                                <button type="button" class="btn btn-primary pull-right" id="add-image"><i class="fa fa-plus-circle" aria-hidden="true"></i>Submit Photos</button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-9">
@@ -1756,7 +1673,7 @@
 
         });
 
-        $(".veg-non #checkbox1").change(function () {
+        $(".veg-non #checkbox1,.veg-non #veg-non").change(function () {
             if ($(this).is(":checked")) {
                 $('#product_type').val("Non-Veg");
             } else {
@@ -1765,7 +1682,7 @@
             //alert($('#product_type').val());
         });
 
-        $(".perishable-non #checkbox1").change(function () {
+        $(".perishable-non #checkbox1,.perishable-non #perishable").change(function () {
             if ($(this).is(":checked")) {
                 $('#product_perishability').val("Non-Perishable");
             } else {
@@ -1866,14 +1783,23 @@
             var mask = new RegExp('^[A-Za-z0-9/. ]*$')
             $("input").regexMask(mask)
         });
+
+        /*=============== Image Block remove =============*/
+        $(document).on('click', "p.red", function () {
+            //$("p.red").click(function(){
+            var x = $(this).parents(".blocks").css({ "transform": "translateX(1000px)", "opacity": "0" });
+            setTimeout(function () { x.remove(); }, 200);
+        });
+        /*=============== Image Block remove =============*/
     </script>
+
     @*<!--------- Mesurement validations ------------->*@
     <script>
         $("#fileUpload1").change(function () {
             if (typeof (FileReader) != "undefined") {
-                //var dvPreview = $("#dvPreview");
+                var dvPreview = $("#dvPreview");
                 //dvPreview.html("");
-                var dvPreview = $('ul.tabs-content > li > ul');
+                //var dvPreview = $('ul.tabs-content > li > ul');
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
                 $($(this)[0].files).each(function () {
                     var file = $(this);
@@ -1885,9 +1811,10 @@
                             img.attr("src", e.target.result);
                             img.addClass();
                             //dvPreview.append(img);
-                            dvPreview.prepend("<li><input type='checkbox' name='checkbox' class='libselection'><img style='height:90px;width:90px' src=" + e.target.result + "></img></li>");
-                            $('#tab-2').css({ "opacity": "1", "z-index": "1" });
-                            $('#tab-1').css({ "opacity": "0", "z-index": "-1" });
+                            //dvPreview.prepend("<li><input type='checkbox' name='checkbox' class='libselection'><img style='height:90px;width:90px' src=" + e.target.result + "></img></li>");
+                            dvPreview.prepend("<div class='col-xs-6 col-sm-4 col-md-3 col-lg-3 blocks'><div class='block thumbnail'><input type='checkbox' name='checkbox'><div class='row thumb-img'><img style='height:120px;width:120px' src=" + e.target.result + "></img></div><div class='row margin-top'><div class='form-group-1 col-xs-12 col-sm-12 col-md-12'><input type='text' class='form-control' placeholder='Descrption:'></div></div><div class='row'><div class='col-xs-12'><div class='radio'><label><input type='radio' name='optradio'>Logo</label></div><div class='radio'><label><input type='radio' name='optradio'>Photo</label></div></div></div><div class='hr-line border-default-bottom'></div><div class='row'><div class='col-xs-12 col-md-12'><p class='red'><small><i class='fa fa-times padding-right-5 grey' aria-hidden='true'></i>Remove Photo</small></p></div></div></div></div>");
+                            //$('#tab-2').css({ "opacity": "1", "z-index": "1" });
+                            //$('#tab-1').css({ "opacity": "0", "z-index": "-1" });
                         }
                         reader.readAsDataURL(file[0]);
                     } else {
