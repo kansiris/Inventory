@@ -109,8 +109,11 @@ $("#list-view").click(function (e) {
 });
 
 $("#refresh").click(function (e) {
-    var url = 'Customer/CustomerCompany';
-    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+    //var url = 'Customer/CustomerCompany';
+    //$('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+    //url = 'Login/ProfileProgressPartial';
+    //$('#partialpage').load(url);
+    location.reload();
 });
 
 //<!------------ List / Grid Views and reload page -------------->
