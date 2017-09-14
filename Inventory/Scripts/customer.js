@@ -676,7 +676,7 @@ function updatecusContact(clickedvalue) {
                         Customer_Id = $('#Customer_Id').val(data.ID);
                         var url = 'Customer/CustomerCompany';
                         $('#cus_company_Id').val(data.ID);
-                        $('#cuscompanyrecords').load(url, function () { Pagination(); });
+                        $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
                         var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                         $('#cuscontacttable').empty().load(url1);
                         successmsg("Contact Details saved Successfully");
@@ -715,7 +715,7 @@ function updatecusContact(clickedvalue) {
                         $('#savebutton').hide();
                         cus_company_Id = $('#cus_company_Id').val();
                         var url = 'Customer/CustomerCompany';
-                        $('#cuscompanyrecords').load(url, function () { Pagination(); });
+                        $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
                         var url1 = 'Customer/CustomerContact?id=' + cus_company_Id + '';
                         $('#cuscontacttable').empty().load(url1);
                         url1 = 'Login/ProfileProgressPartial';
