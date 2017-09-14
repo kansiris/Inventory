@@ -115,8 +115,8 @@ namespace Inventory.Controllers
                         ViewBag.customer_id = cid;
                         ViewBag.company_name = customer_name;
                         ViewBag.ponumsArray = Prchaseorder_nos;
-                        ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Sum();
-                        ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Sum();
+                        ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.total_price)).Sum();
+                        ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.total_price)).Sum();
                     }
 
                     return PartialView("GenarateInvoice", ViewBag.records);
@@ -170,8 +170,8 @@ namespace Inventory.Controllers
                         ViewBag.records = productsinpos;
                         ViewBag.customer_id = cid;
                         ViewBag.discount = productsinpos.Select(m => m.discount).First();
-                        ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.sub_total)).Sum(); //.Distinct()
-                        ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.grand_total)).Sum(); //.Distinct()
+                        ViewBag.sub_total = productsinpos.Select(m => float.Parse(m.total_price)).Sum(); //.Distinct()
+                        ViewBag.grand_total = productsinpos.Select(m => float.Parse(m.total_price)).Sum(); //.Distinct()
                     }
                     return PartialView("GenarateDeliveryNote", ViewBag.records);
                 }
