@@ -1207,7 +1207,14 @@
                                 </div>
                                 <div class="col-md-5">
                                     <div class="row">
-                                        <div class="col-md-12 admin-product-image"> <img src="images/default_product.png" alt="Product" /> </div>
+                                        <div class="col-md-12 admin-product-image"> 
+                                        @if (particularproduct.product_images != "")
+                                        {<img src="~/ProductImages/@particularproduct.product_images.Split(',')[0]" alt="Product" /> }
+                                        else
+                                        {
+                                            <img src="images/default_product.png" alt="Product" />
+                                        }
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
