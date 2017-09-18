@@ -68,7 +68,7 @@ namespace Inventory.Controllers
                        
                         
                         string Customer_comapnyId = (customer[i].cus_company_Id).ToString();
-                        string due = 0.ToString();
+                        string due = 0.ToString(); string paydate = "";
                         string overdue = 0.ToString();
 
                         //getting payement date from generateinvoice for particular customer
@@ -88,7 +88,7 @@ namespace Inventory.Controllers
                         for (int j=0;j< paymentdate.Count(); j++)
                         {
 
-                            string paydate = (paymentdate.Select(m => m.payment_due_date).ToList())[j];
+                            paydate = (paymentdate.Select(m => m.payment_due_date).ToList())[j];
                             DateTime strDate = Convert.ToDateTime(paydate);
                             DateTime date1 = Convert.ToDateTime(strDate.Day + "/" + strDate.Month + "/" + strDate.Year);
 
@@ -112,8 +112,9 @@ namespace Inventory.Controllers
                             overduess=0.ToString();
                             due = (float.Parse(duess) + float.Parse(due)).ToString();
                             duess = 0.ToString();
-                            PaymentsService.Updatecustomerdue(user.DbName, Customer_comapnyId, due, overdue, paydate);
+                            
                         }
+                        PaymentsService.Updatecustomerdue(user.DbName, Customer_comapnyId, due, overdue, paydate);
                     }
                 }
 

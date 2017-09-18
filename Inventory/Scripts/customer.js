@@ -465,6 +465,9 @@ function editcuscompany(clickedvalue) {
                             $('#customertable1').css("display", "none");
                             $('#additonal').css('display', 'block');
                         }
+                        else if (data == "") {
+                            location.href = 'Login/Logout';
+                        }
                         else {
                             errormsg("not updated");
                         }
