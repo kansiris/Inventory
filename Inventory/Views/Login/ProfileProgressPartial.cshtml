@@ -116,7 +116,7 @@
     <script>
         $(document).ready(function () {
             var currency = $('#currency').val().slice(-2).replace(')', ''); 
-            $('.localization').html(currency);
+            $('.localization').empty().html(currency);
             var dateformat = $('#dateformat').val();
             //alert(dateformat);
 

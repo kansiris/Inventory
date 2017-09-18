@@ -103,9 +103,15 @@ $("#grid-view").click(function (e) {
 $("#list-view").click(function (e) {
     $("#customertable").css("display", "block");
     $("#customertable1").css("display", "none");
+    
     var url = 'Customer/CustomerCompany';
     $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-    //location.reload();
+    var url1 = 'Login/ProfileProgressPartial';
+    $('#partialpage').load(url1);
+    //var currency = $('#currency').val().slice(-2).replace(')', '');
+    //alert(currency);
+    //$('.localization').html(currency);
+    location.reload();
 });
 
 $("#refresh").click(function (e) {
