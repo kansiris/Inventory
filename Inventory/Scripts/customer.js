@@ -462,7 +462,7 @@ function editcuscompany(clickedvalue) {
                             var url = 'Customer/CustomerCompany';
                             $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });//load(url, function () { Pagination(); });
                             url = 'Login/ProfileProgressPartial';
-                            $('#partialpage').empty().load(url);
+                            $('#partialpage').load(url);
                             successmsg("Company Updated Successfully");
                             $('#customertable1').css("display", "none");
                             $('#additonal').css('display', 'block');
