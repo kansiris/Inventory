@@ -60,7 +60,7 @@ function forCancel() {
     $("#cuscontactpic").attr("src", "/images/user.png");
     
 }
-$("#customer-information1-cancel").click(function () {
+$("#customer-ieditnformation1-cancel").click(function () {
     forCancel();
 });
 $("#customer-information2-cancel").click(function () {
@@ -111,15 +111,15 @@ $("#list-view").click(function (e) {
     //var currency = $('#currency').val().slice(-2).replace(')', '');
     //alert(currency);
     //$('.localization').html(currency);
-    location.reload();
+    //location.reload();
 });
 
 $("#refresh").click(function (e) {
-    //var url = 'Customer/CustomerCompany';
-    //$('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-    //url = 'Login/ProfileProgressPartial';
-    //$('#partialpage').load(url);
-    location.reload();
+    var url = 'Customer/CustomerCompany';
+    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+    url = 'Login/ProfileProgressPartial';
+    $('#partialpage').load(url);
+    //location.reload();
 });
 
 //<!------------ List / Grid Views and reload page -------------->
