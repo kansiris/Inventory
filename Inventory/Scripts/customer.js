@@ -104,22 +104,22 @@ $("#list-view").click(function (e) {
     $("#customertable").css("display", "block");
     $("#customertable1").css("display", "none");
     
-    var url = 'Customer/CustomerCompany';
-    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-    var url1 = 'Login/ProfileProgressPartial';
-    $('#partialpage').load(url1);
+    //var url = 'Customer/CustomerCompany';
+    //$('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+    //url = 'Login/ProfileProgressPartial';
+    //$('#partialpage').load(url);
     //var currency = $('#currency').val().slice(-2).replace(')', '');
     //alert(currency);
     //$('.localization').html(currency);
-    //location.reload();
+    location.reload();
 });
 
 $("#refresh").click(function (e) {
-    var url = 'Customer/CustomerCompany';
-    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-    url = 'Login/ProfileProgressPartial';
-    $('#partialpage').load(url);
-    //location.reload();
+    //var url = 'Customer/CustomerCompany';
+    //$('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+    //url = 'Login/ProfileProgressPartial';
+    //$('#partialpage').load(url);
+    location.reload();
 });
 
 //<!------------ List / Grid Views and reload page -------------->
