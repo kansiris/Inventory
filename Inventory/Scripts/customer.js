@@ -104,10 +104,10 @@ $("#list-view").click(function (e) {
     $("#customertable").css("display", "block");
     $("#customertable1").css("display", "none");
     
-    //var url = 'Customer/CustomerCompany';
-    //$('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
-    //url = 'Login/ProfileProgressPartial';
-    //$('#partialpage').load(url);
+    var url = 'Customer/CustomerCompany';
+    $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });
+    var url1 = 'Login/ProfileProgressPartial';
+    $('#partialpage').load(url1);
     //var currency = $('#currency').val().slice(-2).replace(')', '');
     //alert(currency);
     //$('.localization').html(currency);
@@ -460,7 +460,9 @@ function editcuscompany(clickedvalue) {
                         if (data == "sucess") {
                             $('#savebutton').hide();
                             var url = 'Customer/CustomerCompany';
-                            $('#cuscompanyrecords').empty().load(url);//load(url, function () { Pagination(); });
+                            $('#cuscompanyrecords').empty().load(url, function () { Pagination(); });//load(url, function () { Pagination(); });
+                            url = 'Login/ProfileProgressPartial';
+                            $('#partialpage').empty().load(url);
                             successmsg("Company Updated Successfully");
                             $('#customertable1').css("display", "none");
                             $('#additonal').css('display', 'block');
