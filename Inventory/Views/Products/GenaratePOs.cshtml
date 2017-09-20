@@ -251,7 +251,8 @@
     </script>
     <script type="text/javascript">
         $('#add-vendor1').click(function () {
-            document.location = '@Url.Action("Index", "Customer")';
+            location.href = '/Products?cid=' +@Request.QueryString["cid"] +'&&cname=@Request.QueryString["cname"]';
+            //document.location = '@Url.Action("Index", "Customer")';
         });
 
         $('#numberbox').keyup(function () {

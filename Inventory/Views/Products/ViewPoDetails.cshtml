@@ -152,7 +152,9 @@
         </script>
         <script type="text/javascript">
             $('#backtocustomer').click(function () {
-                document.location = '@Url.Action("Index", "Customer")';
+                @*var cname = $('.vendorname').html();
+                var cid = @Request.QueryString["cid"];*@
+                location.href='/Products/PosOfCustomer?cid='+@Request.QueryString["cid"]+'&cname='+$('.vendorname').html()+'';
             });
 
             $('#numberbox').keyup(function () {
