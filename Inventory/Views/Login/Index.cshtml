@@ -273,10 +273,12 @@
                         else {
                             document.getElementById('msg').innerHTML = "Site Address Already taken!!! Try Another";
                             $('#User_Site').focus();
+                            $('#btnsubmit').prop('disabled', 'disbaled');
                         }
                     }
                     else {
                         document.getElementById('msg').innerHTML = "";
+                        $('#btnsubmit').prop('disabled', false);
                     }
                 },
                 error: function (data)
