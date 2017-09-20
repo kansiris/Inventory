@@ -60,7 +60,7 @@ function forCancel() {
     $("#cuscontactpic").attr("src", "/images/user.png");
     
 }
-$("#customer-ieditnformation1-cancel").click(function () {
+$("#customer-information1-cancel").click(function () {
     forCancel();
 });
 $("#customer-information2-cancel").click(function () {

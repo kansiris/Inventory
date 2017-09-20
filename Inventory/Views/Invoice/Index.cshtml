@@ -120,15 +120,16 @@
                 autoclose: true,
             })
             //<!-------------- Date Picker  ----------->
-            
+
         });
 
-       
+
 
         //	<!-------------- Auto Value assign to Quantity text boxes  ----------->
 
         $('#back-invoice1').click(function () {
-            document.location = '@Url.Action("Index", "Customer")';
+            //document.location = '@Url.Action("Index", "Customer")';
+            location.href='/Products/PosOfCustomer?cid='+@Request.QueryString["cid"]+'&cname='+$('.vendorname').html()+'';
         });
         $('#back-invoice').click(function () {
             document.location = '@Url.Action("Index", "Customer")';

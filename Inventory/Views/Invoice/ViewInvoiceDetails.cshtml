@@ -186,8 +186,9 @@
     
    <script>
       
-            $('#backtocustomer').click(function () {
-                document.location = '@Url.Action("Index", "Customer")';
+       $('#backtocustomer').click(function () {
+           location.href = '/Invoice/AvailbleInvoices?cid='+@Request.QueryString["cid"]+'';
+                //document.location = '@Url.Action("Index", "Customer")';
             });
        $("#sai").find("input, select, textarea").attr("disabled", true);
 </script>
