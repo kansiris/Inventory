@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4 po-number padding-right-0"><font color="red">*</font>Invoice Number</div>
                 <div class="col-xs-12 col-md-8 padding-left-0">
-                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" maxlength="10"/>
+                    <input type="text" class="form-control" placeholder="Enter Invoice" id="invoicenum" maxlength="10" />
                 </div>
             </div>
         </div>
@@ -389,7 +389,11 @@
 
 
     $('#back-invoice').click(function () {
-        document.location = '@Url.Action("Index", "Customer")';
+        var type = '@Request.QueryString["command"]';
+        if (type == "Customer")
+            location.href = '@Url.Action("Index", "Customer")';
+        if (type == "PO")
+            location.href = '/Products/PosOfCustomer?cid=' + location.search.split('cid=')[1].split('&&')[0] + '&&cname=' + location.search.split('cname=')[1].split('&&')[0] + '';
     });
 
     function warnmsg(msg) {
@@ -522,7 +526,7 @@
         var mask = new RegExp('^[A-Za-z0-9/_]*$')
         $("#invoicenum").regexMask(mask);
     });
-   
+
     $(function () {
         $("#invoicenum").keyup(function (evt) {
             if (evt.keyCode == 32) {
