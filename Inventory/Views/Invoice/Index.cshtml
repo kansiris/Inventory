@@ -135,7 +135,11 @@
                 location.href='/Products/PosOfCustomer?cid='+@Request.QueryString["cid"]+'&cname='+'@Request.QueryString["cname"]'+'';
         });
         $('#back-invoice').click(function () {
-            document.location = '@Url.Action("Index", "Customer")';
+            var type = '@Request.QueryString["command"]';
+            if (type=="Customer")
+                location.href='@Url.Action("Index", "Customer")';
+            if (type=="PO")
+                location.href='/Products/PosOfCustomer?cid='+@Request.QueryString["cid"]+'&cname='+'@Request.QueryString["cname"]'+'';
         });
     </script>
 
