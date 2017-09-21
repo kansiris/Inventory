@@ -18,7 +18,7 @@ namespace Inventory.Controllers
     public class InvoiceController : Controller
     {
         // GET: Invoice
-        public ActionResult Index(string cid, string cname)
+        public ActionResult Index(string cid, string cname,string command)
         {
             return View();
         }

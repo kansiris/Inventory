@@ -88,11 +88,11 @@
 
                                                     @if (int.Parse(@item.invoice_status) == 1)
                                                     {
-                                                        <li> <a href="~/Invoice?cid=@item.customer_id&&cname=@item.company_name" style="display:none"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
+                                                        <li> <a href="~/Invoice?cid=@item.customer_id&&cname=@item.company_name&&command=PO" style="display:none"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
                                                     }
                                                     else
                                                     {
-                                                        <li> <a href="~/Invoice?cid=@item.customer_id&&cname=@item.company_name"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
+                                                        <li> <a href="~/Invoice?cid=@item.customer_id&&cname=@item.company_name&&command=PO"><i class="fa fa-money" aria-hidden="true"></i>Create Invoice</a> </li>
                                                     }
                                                 </ul>
                                             </div>
