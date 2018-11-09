@@ -250,6 +250,7 @@ namespace Inventory.Controllers
             //string message = Invoicedata;//readFile + body;
             string readFile = File.OpenText().ReadToEnd();
             readFile = readFile.Replace("InvoiceData", Invoicedata);
+
             readFile = readFile.Replace("[Invoice numbers]", Invoicenums);
             readFile = readFile.Replace("[Amount recieved]", Recievamt);
             readFile = readFile.Replace("[opening balance]", Openamt);

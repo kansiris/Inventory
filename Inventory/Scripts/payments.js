@@ -9,7 +9,7 @@
     for (var i = 0; i < lent; i++) {
         sum = sum + parseFloat(totalamnt[i]);
     }
-    $('#invoiced_amount').val(sum);
+   
     $('#poid').val(poid);
     //alert(document.URL.split('?')[1].split('cid=')[1].split('&')[0]);
     $('#Customer_comapnyId').val(document.URL.split('?')[1].split('cid=')[1].split('&')[0]);
