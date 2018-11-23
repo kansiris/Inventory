@@ -121,7 +121,7 @@ namespace Inventory.Controllers
                     string overduestrt = overdue;
                     string duestrt = due;
                     float updatedopenamt = 0; float updatedreceivedamount = float.Parse(payments.Received_amount); float updatedinvoiceamount = float.Parse(payments.invoiced_amount);
-                    Array ponumsArray = payments.poid.Split(',');
+                  Array ponumsArray = payments.poid.Split(',');
                     for (int i = 0; i < ponumsArray.Length; i++)
                     {
                         if (float.Parse(payments.Received_amount) >= 0)
